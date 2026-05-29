@@ -345,7 +345,7 @@ body {
 
 .slide-content h3 { font-size: 24px; color: #333; margin-bottom: 15px; }
 .slide-content p { font-size: 15px; color: #666; line-height: 1.6; }
-.slider-dots { text-align: center; padding: 20px 0; background-color: #fff; }
+.slider-dots { text-align: center; padding: 20px 0; background-color: #fff; } /* Dot Navigasi Slider */ 
 
 .dot { 
     cursor: pointer; 
