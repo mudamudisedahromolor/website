@@ -882,34 +882,51 @@ function formatRupiah(angka) {
 }
 
 
-// ========================================================
-// LOGIKA OTOMATIS POP-UP INSTAL APLIKASI (PWA) DI INDEX
-// ========================================================
+// ==========================================================================
+// LOGIKA PWA MMS 05 - PAKSA POP-UP INSTAL MUNCUL TERUS TIAP BUKA WEB
+// ==========================================================================
 let pemicuInstal;
+const ID_KOTAK_POPUP = 'pwa-install-popup';
+const ID_TOMBOL_INSTAL = 'btn-instal-pwa';
 
+// 1. Tangkap pemicu instalasi resmi dari browser asli
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Mencegah browser memunculkan pop-up bawaan yang gampang hilang
+    // Mencegah browser menampilkan infobar bawaan chrome yang gampang ilang
     e.preventDefault();
-    // Simpan event perintah agar bisa kita panggil lewat tombol kustom
+    
+    // Simpan pemicunya ke variabel global kita
     pemicuInstal = e;
     
-    // Munculkan kotak pop-up buatan kita di index.html secara instan
-    const popup = document.getElementById('pwa-install-popup');
+    // PAKSA: Kotak pop-up buatanmu langsung ditampilkan ke layar tanpa syarat!
+    const popup = document.getElementById(ID_KOTAK_POPUP);
     if (popup) {
         popup.style.display = 'block';
     }
 });
 
-// Jalankan fungsi instalasi saat tombol "Instal Sekarang" diklik
-const tombolInstal = document.getElementById('btn-instal-pwa');
+// 2. Jalur Pintas Cadangan: Jika browser lambat melempar pemicu asli di HP warga,
+// kita paksa kotak pop-up tetap tampil secara visual sebagai pengingat sejak awal
+document.addEventListener("DOMContentLoaded", () => {
+    const popup = document.getElementById(ID_KOTAK_POPUP);
+    if (popup) {
+        popup.style.display = 'block';
+    }
+});
+
+// 3. Jalankan fungsi instalasi saat tombol "Instal Sekarang" diklik warga
+const tombolInstal = document.getElementById(ID_TOMBOL_INSTAL);
 if (tombolInstal) {
     tombolInstal.addEventListener('click', async () => {
-        if (!pemicuInstal) return;
+        if (!pemicuInstal) {
+            // Jika browser HP belum siap melempar pemicu instalasi otomatis
+            alert("Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'Tambahkan ke Layar Utama' / 'Instal Aplikasi' ya, Bro!");
+            return;
+        }
         
         // Munculkan dialog instalasi resmi dari sistem HP/Browser
         pemicuInstal.prompt();
         
-        // Tunggu pilihan dari user (setuju instal atau batalkan)
+        // Tunggu pilihan dari warga (setuju instal atau batalkan)
         const { outcome } = await pemicuInstal.userChoice;
         console.log(`Pilihan user: ${outcome}`);
         
@@ -919,13 +936,21 @@ if (tombolInstal) {
     });
 }
 
+// 4. Fungsi menutup pop-up (HANYA menyembunyikan sementara saat itu saja)
 function tutupPopupInstal() {
-    const popup = document.getElementById('pwa-install-popup');
+    const popup = document.getElementById(ID_KOTAK_POPUP);
     if (popup) {
         popup.style.display = 'none';
     }
+    // JANGAN tulis perintah penolak/cookie apa pun di sini, biar pas di-refresh tetep nongol!
 }
 
+// 5. Sistem Deteksi Mutlak: Jika aplikasi SUDAH BERHASIL DIINSTAL dan dijadikan launcher di HP,
+// otomatis fungsi ini mengunci pop-up agar mati permanen demi kenyamanan warga
+window.addEventListener('appinstalled', () => {
+    console.log('Aplikasi MMS 05 Sukses Terinstal di HP Warga!');
+    tutupPopupInstal();
+});
 
 
 
