@@ -1030,7 +1030,7 @@ body {
 
 
 /* ==========================================================================
-   GAYA UNTUK MODAL POP-UP ANTI-JUDOL (EDITED FOR ON-TOP POSITION)
+   GAYA UNTUK MODAL POP-UP ANTI-JUDOL (PERBAIKAN TOTAL & AMAN)
    ========================================================================== */
 
 /* 1. Overlay Latar Belakang (Layar Buram) */
@@ -1046,8 +1046,8 @@ body {
   justify-content: center;
   align-items: center;
   
-  /* DIUBAH: Dinaikkan menjadi tingkat tertinggi agar menutupi widget chat */
-  z-index: 99999999 !important; 
+  /* DIUBAH: Dinaikkan menjadi 9999999 untuk menenggelamkan tombol chat merah (999999) */
+  z-index: 9999999 !important; 
   
   opacity: 0;
   visibility: hidden;
@@ -1060,7 +1060,7 @@ body {
   visibility: visible;
 }
 
-/* 3. Kotak Modal Utama */
+/* 3. Kotak Modal Utama - KEMBALI KE ASLI BIAR TIDAK MELAR */
 .modal-content {
   background-color: #ffffff;
   width: 90%;
@@ -1070,10 +1070,16 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  
-  /* TAMBAHAN: Memastikan konten di dalam overlay mewarisi prioritas utama */
-  position: relative;
-  z-index: 100000000 !important;
+  /* position dan z-index di sini dihapus agar layout PWA + Gambar di dalamnya kembali normal */
+}
+
+/* 4. Bagian Gambar Pop-up - DIKUNCI AGAR TIDAK MELAR BESAR */
+.modal-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain; /* Jaminan gambar tetap proporsional dan tidak pecah */
 }
 
 /* 5. Bagian Header (Hanya untuk Tombol X) */
@@ -1089,9 +1095,7 @@ body {
   font-size: 28px;
   color: #aaa;
   cursor: pointer;
-  
-  /* DIUBAH: Menyesuaikan agar tombol X tetap bisa diklik di lapisan terdepan */
-  z-index: 100000001 !important;
+  z-index: 10001;
 }
 
 .modal-close-x:hover {
@@ -1125,7 +1129,7 @@ body {
   margin: 0 0 15px;
 }
 
-/* 8. Tombol Tutup Besar (Meniru Gaya Referensi) */
+/* 8. Tombol Tutup Besar */
 .modal-close-btn {
   background-color: #ffffff;
   border: 1px solid #dcdcdc;
