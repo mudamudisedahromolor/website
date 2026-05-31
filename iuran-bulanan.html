@@ -95,7 +95,7 @@
                 <input type="text" id="cari-nama-kas" class="filter-box" style="width: 200px;" placeholder="Cari nama anggota..." onkeyup="filterNamaTabelKas()">
             </div>
 
-            <div class="table-responsive">
+                 <div class="table-responsive">
                 <table class="finance-table">
                     <thead>
                         <tr>
@@ -124,9 +124,47 @@
                         </tr>
                     </tbody>
                 </table>
+            </div> </div> </div> <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column info-col">
+                <div class="footer-brand">
+                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
+                    <h4>Muda Mudi Sedahromo Lor</h4>
+                </div>
+                <p class="footer-text">
+                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.07, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
+                </p>
+                <p class="footer-text">
+                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor05@gmail.com</a>
+                </p>
+            </div>
+
+            <div class="footer-column links-col">
+                <h5>Sitemap</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
+                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
+                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
+                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column social-col">
+                <h5>Media Sosial</h5>
+                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script src="script.js?v=1"></script>
 
@@ -140,14 +178,12 @@
             
             tbody.innerHTML = `<tr><td colspan="15" style="text-align: center; padding: 30px; color: #666;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data rekap kas tahun ${tahunDipilih}...</td></tr>`;
             
-            // Endpoint Visualisasi Query Google Data Sheet (Output CSV langsung bypass pembatasan CORS)
             const URL_CSV_DIRECT = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_KAS}/gviz/tq?tqx=out:csv&sheet=${tahunDipilih}&cache=${new Date().getTime()}`;
             
             try {
                 const response = await fetch(URL_CSV_DIRECT);
                 const teksMentah = await response.text();
                 
-                // Parser pemisah baris CSV pintar (Aman dari gangguan teks di dalam tanda kutip ganda)
                 const barisData = [];
                 let barisAktif = [];
                 let diDalamKutip = false;
@@ -179,14 +215,11 @@
 
                 databaseKasLokal = [];
                 
-                // Mulai melacak isi data (Baris index 0 diabaikan karena teks header kolom)
                 for (let i = 1; i < barisData.length; i++) {
                     const kolom = barisData[i];
                     if (kolom.length < 2) continue;
                     
                     let namaWarga = kolom[1] ? kolom[1].trim() : "";
-                    
-                    // Blokir baris kosong atau baris "TOTAL" buatan script internal agar tidak tampil rangkap
                     if (!namaWarga || namaWarga.toUpperCase() === "TOTAL" || namaWarga.toUpperCase() === "JUMLAH") continue;
 
                     databaseKasLokal.push({
@@ -211,7 +244,7 @@
                 renderTabelKasMMS(databaseKasLokal);
             } catch (error) {
                 console.error("Gagal sinkronisasi data tabel kas via direct endpoint:", error);
-                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal terhubung ke database. Pastikan perizinan link spreadsheet disetel ke 'Siapa saja yang memiliki link'.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal terhubung ke database.</td></tr>`;
             }
         }
 
@@ -229,9 +262,6 @@
             let htmlHTML = dataArray.map((row) => {
                 let kolomBulanHtml = urutanBulan.map(bulan => {
                     let nilaiSelKas = row[bulan];
-                    
-                    // KOREKSI AMAN KONSISTEN: Karena data asli adalah angka 5000 dengan format masking "✔", 
-                    // direct endpoint CSV akan membacanya sebagai teks string asli "5000" atau "5.000" atau "✔" tergantung setoran.
                     if (nilaiSelKas === "5000" || nilaiSelKas === "5.000" || nilaiSelKas === "✔" || nilaiSelKas.includes("✔")) {
                         return `<td style="text-align: center;"><span class="centang-mms"><i class="fa-solid fa-check"></i></span></td>`;
                     } else {
