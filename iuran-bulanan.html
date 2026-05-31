@@ -123,7 +123,7 @@
                 <a href="#">LAPORAN</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="laporan-keuangan.html"> - KEUANGAN</a></li>
-                    <li class="submenu-item"><a href="laporan-kas-bulanan.html"> - KAS BULANAN</a></li>
+                    <li class="submenu-item"><a href="iuran-bulanan.html"> - KAS BULANAN</a></li>
                     <li class="submenu-item"><a href="#"> - PERTANGGUNG JAWABAN</a></li>
                 </ul>
             </li>
@@ -196,7 +196,6 @@
 
     <footer class="site-footer">
         <div class="footer-container">
-            
             <div class="footer-column info-col">
                 <div class="footer-brand">
                     <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
@@ -209,7 +208,6 @@
                     <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor05@gmail.com</a>
                 </p>
             </div>
-
             <div class="footer-column links-col">
                 <h5>Sitemap</h5>
                 <ul class="footer-links">
@@ -220,7 +218,6 @@
                     <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
                 </ul>
             </div>
-
             <div class="footer-column social-col">
                 <h5>Media Sosial</h5>
                 <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
@@ -231,9 +228,7 @@
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
         </div>
-
         <div class="footer-bottom">
             <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
         </div>
@@ -242,10 +237,11 @@
     <script src="script.js?v=1"></script>
 
     <script>
+        // URL Web App Versi 3 resmi milikmu
         const URL_WEB_APP_MMS = "https://script.google.com/macros/s/AKfycbwakZtsAqnjpd3XyzR_eRAlu9mbcWZfVtUB0r8x5wKWGNDHsl1KULjhW7s_D4uqyAe9/exec";
         let databaseKasLokal = [];
 
-        // Tahap 1: Inisialisasi daftar tahun dinamis dari tab spreadsheet
+        // Ambil daftar tahun dinamis dari tab sheet
         async function inisialisasiTahunDropdown() {
             const selectTahun = document.getElementById("pilih-tahun-kas");
             const tbody = document.getElementById("data-tabel-kas-mms");
@@ -267,17 +263,16 @@
                     
                     ambilDataKasMMS();
                 } else {
-                    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">⚠️ Gagal memuat daftar tahun dari spreadsheet.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">⚠️ Gagal memuat daftar tahun aktif dari spreadsheet.</td></tr>`;
                 }
             } catch (error) {
                 console.error("Gagal inisialisasi tahun:", error);
-                // Fallback aman jika server Google lambat merespon awal
                 selectTahun.innerHTML = '<option value="2025" selected>2025</option><option value="2024">2024</option>';
                 ambilDataKasMMS();
             }
         }
 
-        // Tahap 2: Tarik rincian baris iuran sesuai tahun dropdown yang dipilih
+        // Ambil rincian data iuran kas berdasarkan tahun yang dipilih
         async function ambilDataKasMMS() {
             const tbody = document.getElementById("data-tabel-kas-mms");
             const tahunDipilih = document.getElementById("pilih-tahun-kas").value;
@@ -298,11 +293,11 @@
                 renderTabelKasMMS(databaseKasLokal);
             } catch (error) {
                 console.error("Gagal memuat data kas JSON:", error);
-                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal terhubung ke database. Pastikan Versi Deployment di Apps Script sudah di-update ke 'Versi Baru'.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal terhubung ke database. Hubungkan ke Web App dengan benar.</td></tr>`;
             }
         }
 
-        // Tahap 3: Render data JSON menjadi komponen baris tabel visual web
+        // Cetak data ke dalam baris tabel (Nama properti disesuaikan KAPITAL persis seperti isi Kode.gs)
         function renderTabelKasMMS(dataArray) {
             const tbody = document.getElementById("data-tabel-kas-mms");
             if (!tbody) return;
@@ -312,12 +307,14 @@
                 return;
             }
 
+            // Nama bulan wajib KAPITAL di depannya agar sama dengan output Apps Script
             const urutanBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             
             let htmlHTML = dataArray.map((row, index) => {
                 let kolomBulanHtml = urutanBulan.map(bulan => {
                     let nilaiSelKas = row[bulan];
-                    // Mengamankan pembacaan karakter centang string, boolean true, maupun string checklist
+                    
+                    // Deteksi penanda centang secara akurat
                     if (nilaiSelKas === "✔" || nilaiSelKas === true || nilaiSelKas === "true" || (nilaiSelKas && nilaiSelKas.toString().includes("✔"))) {
                         return `<td style="text-align: center;"><span class="centang-mms"><i class="fa-solid fa-check"></i></span></td>`;
                     } else {
@@ -325,14 +322,16 @@
                     }
                 }).join('');
 
-                let namaWarga = row["Nama"] || "-";
+                // Mengambil properti "Nama" dan "Total Keseluruhan" dengan huruf Kapital persis dari sheet
+                let namaTampil = row["Nama"] || "-";
+                let totalTampil = row["Total Keseluruhan"] || "Rp 0";
 
                 return `
                     <tr>
                         <td style="text-align: center;">${row["No"] || (index + 1)}</td>
-                        <td class="sticky-nama"><i class="fa-solid fa-user" style="color:#E53935; margin-right:6px; font-size:11px;"></i> ${namaWarga}</td>
+                        <td class="sticky-nama"><i class="fa-solid fa-user" style="color:#E53935; margin-right:6px; font-size:11px;"></i> ${namaTampil}</td>
                         ${kolomBulanHtml}
-                        <td style="text-align: right; font-weight: bold; color: #333; background-color: #fcfcfc;">${row["Total Keseluruhan"] || "Rp 0"}</td>
+                        <td style="text-align: right; font-weight: bold; color: #333; background-color: #fcfcfc;">${totalTampil}</td>
                     </tr>
                 `;
             }).join('');
@@ -340,7 +339,7 @@
             tbody.innerHTML = htmlHTML;
         }
 
-        // Tahap 4: Fungsi pencarian filter nama anggota secara real-time
+        // Fungsi pencarian nama real-time
         function filterNamaTabelKas() {
             const keyword = document.getElementById("cari-nama-kas").value.toLowerCase();
             const dataSaring = databaseKasLokal.filter(item => {
