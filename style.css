@@ -720,3 +720,43 @@ body {
 .close-modal-mms:hover { 
     color: #E53935; 
 }
+
+
+/* ====================================================
+   TAMBAHAN UNTUK TOMBOL GOOGLE FORM |Input Cash Flow|
+   =================================================== */
+
+.google-form-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    margin-top: 10px;
+}
+
+.btn-google-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 32px;
+    background-color: #673ab7; /* Warna ungu khas Google Form */
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(103, 58, 183, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-google-form:hover {
+    background-color: #512da8;
+    box-shadow: 0 6px 15px rgba(81, 45, 168, 0.4);
+    transform: translateY(-2px);
+    color: white; /* Memastikan teks tetap putih saat di-hover */
+}
+
+.btn-google-form:active {
+    transform: translateY(0);
+}
