@@ -796,7 +796,7 @@ body {
 #mms-chat-launcher:hover, 
 #mms-chat-launcher:focus { 
     background-color: #ffeb3b !important; /* Berubah jadi Kuning Menyala */
-    color: #ffffff !important; /* Ikon gelembung otomatis jadi Hitam biar kontras di atas warna kuning */
+    color: #000000 !important; /* Ikon gelembung otomatis jadi Hitam biar kontras di atas warna kuning */
     border-color: #ffffff !important; /* Border luar tetap putih melingkar rapi */
     transform: scale(1.08); /* Efek membesar dikit pas di-hover */
     border-radius: 50% !important; /* Garansi tetap bulat, anti kotak-kotak club! */
