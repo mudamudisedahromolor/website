@@ -927,3 +927,92 @@ function tutupPopupInstal() {
 }
 
 
+
+
+
+// ==========================================================================
+// ENGINE JAVASCRIPT LIVE CHAT REAL-TIME (ANGKRINGAN CHAT MMS)
+// ==========================================================================
+const URL_ENGINE_CHAT_MMS = "URL_WEB_APP_CHATMMS_TERPISAH_KAMU"; 
+let loopPenyegarObrolan = null;
+
+function toggleKotakChatMMS() {
+    const kotakChat = document.getElementById("mms-chat-box");
+    if (!kotakChat) return;
+    
+    if (kotakChat.style.display === "none") {
+        kotakChat.style.display = "flex";
+        ambilRiwayatChatMMS();
+        // Polling data otomatis berjalan tiap 3 detik demi seru-seruan real-time
+        loopPenyegarObrolan = setInterval(ambilRiwayatChatMMS, 3000); 
+    } else {
+        kotakChat.style.display = "none";
+        clearInterval(loopPenyegarObrolan);
+    }
+}
+
+async function ambilRiwayatChatMMS() {
+    const wadahTubuhChat = document.getElementById("chat-box-body");
+    if (!wadahTubuhChat) return;
+    
+    try {
+        const respon = await fetch(`${URL_ENGINE_CHAT_MMS}?aksi=ambil_chat`);
+        const arrayChat = await respon.json();
+        
+        if (arrayChat.length === 0) {
+            wadahTubuhChat.innerHTML = `<div style="text-align:center; color:#7f8c8d; font-size:12px; margin-top:60px; font-weight:500;">Belum ada obrolan hari ini.<br>Ayo sapa warga duluan, Bro! 👋</div>`;
+            return;
+        }
+        
+        const posisiScrollSudahDiBawah = wadahTubuhChat.scrollHeight - wadahTubuhChat.clientHeight <= wadahTubuhChat.scrollTop + 70;
+        
+        const susunanHtml = arrayChat.map(item => `
+            <div class="chat-bubble">
+                <span class="chat-sender-name">${item.nama}</span>
+                <span class="chat-text">${item.pesan}</span>
+                <span class="chat-timestamp">${item.waktu}</span>
+            </div>
+        `).join('');
+        
+        wadahTubuhChat.innerHTML = susunanHtml;
+        if (posisiScrollSudahDiBawah) wadahTubuhChat.scrollTop = wadahTubuhChat.scrollHeight;
+    } catch (err) {
+        console.error("Gagal sinkronisasi obrolan:", err);
+    }
+}
+
+async function kirimPesanChatMMS() {
+    const inputNama = document.getElementById("chat-input-nama");
+    const inputPesan = document.getElementById("chat-input-pesan");
+    
+    if (!inputNama || !inputPesan) return;
+    
+    const stringNama = inputNama.value.trim();
+    const stringPesan = inputPesan.value.trim();
+    
+    if (!stringNama) { alert("Ketikan nama panggilanmu dulu, Bro!"); inputNama.focus(); return; }
+    if (!stringPesan) return;
+    
+    inputPesan.value = "Mengirim...";
+    inputPesan.disabled = true;
+    
+    try {
+        await fetch(`${URL_ENGINE_CHAT_MMS}?aksi=kirimChat&nama=${encodeURIComponent(stringNama)}&pesan=${encodeURIComponent(stringPesan)}`, {
+            method: "POST"
+        });
+        inputPesan.value = "";
+        inputPesan.disabled = false;
+        ambilRiwayatChatMMS();
+        inputPesan.focus();
+    } catch (error) {
+        alert("Koneksi gagal, silakan kirim ulang!");
+        inputPesan.value = stringPesan;
+        inputPesan.disabled = false;
+    }
+}
+
+function deteksiEnterChatMMS(event) {
+    if (event.key === "Enter") kirimPesanChatMMS();
+}
+
+
