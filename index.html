@@ -169,21 +169,21 @@
     
 
 
-   <div id="mms-chat-launcher" onclick="toggleKotakChatMMS()">
+<div id="mms-chat-launcher" onclick="toggleKotakChatMMS()">
     <i class="fa-regular fa-comments"></i>
 </div>
 
 <div id="mms-chat-box" style="display: none;">
     <div class="chat-box-header">
         <div class="chat-header-title">
-            <img src="images/mms.png" alt="Logo MMS" style="width:22px; height:22px; margin-right:8px; border-radius:50%;">
+            <img src="images/mms.png" alt="Logo MMS">
             <span>Angkringan Chat RT 05</span>
         </div>
         <button onclick="toggleKotakChatMMS()" class="chat-close-btn">&times;</button>
     </div>
     
     <div id="chat-box-body">
-        <div style="text-align:center; color:#999; font-size:12px; margin-top:50px;">
+        <div class="chat-loading-status">
             <i class="fa-solid fa-spinner fa-spin"></i> Memuat obrolan warga...
         </div>
     </div>
@@ -197,59 +197,216 @@
     </div>
 </div>
 
-    
 <style>
+    /* Launcher Bulat Putih Ikon Hitam Sesuai Mockup Kamu */
     #mms-chat-launcher {
-        position: fixed; bottom: 25px; right: 25px;
-        /* GANTI: Membuat container bulat putih agar ikon hitam di dalam contohmu kontras */
-        width: 60px; height: 60px; background-color: #ffffff;
-        border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        /* GANTI: Warna ikon di dalam contohmu adalah hitam, bukan putih */
-        color: #000000; font-size: 28px; cursor: pointer; z-index: 99999;
-        /* Tambahkan border merah tipis sebagai identitas organisasi agar terlihat elegan */
+        position: fixed; 
+        bottom: 25px; 
+        right: 25px;
+        width: 60px; 
+        height: 60px; 
+        background-color: #ffffff;
+        border-radius: 50%; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        color: #000000; 
+        font-size: 26px; 
+        cursor: pointer; 
         border: 2px solid #E53935;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s, background-color 0.2s;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.25); 
+        transition: transform 0.2s, background-color 0.2s;
+        z-index: 999999 !important; /* Mengunci posisi paling atas, anti-tindih */
     }
-    #mms-chat-launcher:hover { transform: scale(1.08); background-color: #f1f1f1; }
+    #mms-chat-launcher:hover { transform: scale(1.08); background-color: #f7f7f7; }
     
-    /* Sisanya styling jendela chat (chat-box) dan isinya tetap sama seperti kode kemarin */
+    /* Jendela Chat Box */
     #mms-chat-box {
-        position: fixed; bottom: 95px; right: 25px;
-        width: 310px; height: 400px; background-color: #ffffff;
-        border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.18);
-        display: flex; flex-direction: column; z-index: 99999; overflow: hidden;
-        border: 1px solid #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        position: fixed; 
+        bottom: 95px; 
+        right: 25px;
+        width: 330px; 
+        height: 450px; 
+        background-color: #ffffff;
+        border-radius: 14px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        display: flex; 
+        flex-direction: column; 
+        overflow: hidden;
+        border: 1px solid #e2e8f0; 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        z-index: 999999 !important;
+        transition: all 0.3s ease;
     }
+    
+    /* Header Chat */
     .chat-box-header {
-        background-color: #E53935; color: white; padding: 12px;
-        display: flex; justify-content: space-between; align-items: center; font-weight: 600;
+        background-color: #E53935; 
+        color: white; 
+        padding: 14px;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
     }
-    .chat-header-title { display: flex; align-items: center; font-size: 13.5px; letter-spacing: 0.3px; }
-    .chat-close-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; line-height: 1; }
+    .chat-header-title { display: flex; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; }
+    .chat-header-title img { width: 24px; height: 24px; margin-right: 10px; border-radius: 50%; background: #fff; padding: 1px; }
+    .chat-close-btn { background: none; border: none; color: white; font-size: 26px; cursor: pointer; line-height: 1; }
     
-    #chat-box-body { flex: 1; padding: 12px; overflow-y: auto; background-color: #f7f9fa; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+    /* Ruang Isi Pesan (Gaya Aplikasi Chat Modern) */
+    #chat-box-body { 
+        flex: 1; 
+        padding: 14px; 
+        overflow-y: auto; 
+        background-color: #eae6df; /* Warna abu-abu background khas WA */
+        display: flex; 
+        flex-direction: column; 
+        gap: 8px; 
+        scroll-behavior: smooth; 
+    }
     
-    .chat-bubble { background: #ffffff; padding: 8px 12px; border-radius: 8px; border: 1px solid #e8e8e8; max-width: 85%; align-self: flex-start; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-    .chat-meta { font-size: 10px; color: #888; margin-bottom: 3px; font-weight: 600; display: flex; justify-content: space-between; gap: 15px; }
-    .chat-text { font-size: 12.5px; color: #2c3e50; word-break: break-word; line-height: 1.4; }
+    .chat-loading-status { text-align: center; color: #7f8c8d; font-size: 13px; margin-top: 60px; font-weight: 500; }
     
-    .chat-box-footer { padding: 10px; background: #ffffff; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 6px; }
-    #chat-input-nama { width: 100%; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 11.5px; outline: none; box-sizing: border-box; background: #fafafa; }
+    /* Desain Bubble Chat Seperti WhatsApp */
+    .chat-bubble { 
+        background: #ffffff; 
+        padding: 6px 10px 4px 10px; 
+        border-radius: 8px; 
+        max-width: 85%; 
+        align-self: flex-start; 
+        box-shadow: 0 1px 2px rgba(0,0,0,0.12); 
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 80px;
+    }
+    .chat-sender-name { 
+        font-size: 11px; 
+        color: #E53935; 
+        font-weight: 700; 
+        margin-bottom: 2px;
+    }
+    .chat-text { 
+        font-size: 13px; 
+        color: #1a202c; 
+        word-break: break-word; 
+        line-height: 1.4;
+        margin-bottom: 8px; /* Ruang untuk timestamp di bawah */
+    }
+    .chat-timestamp { 
+        font-size: 9px; 
+        color: #8c9196; 
+        align-self: flex-end;
+        position: absolute;
+        bottom: 3px;
+        right: 7px;
+    }
+    
+    /* Bagian Input & Tombol */
+    .chat-box-footer { padding: 12px; background: #ffffff; border-top: 1px solid #edf2f7; display: flex; flex-direction: column; gap: 8px; }
+    #chat-input-nama { width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; outline: none; box-sizing: border-box; background: #f8fafc; transition: border-color 0.2s; }
     #chat-input-nama:focus { border-color: #E53935; background: #fff; }
-    .chat-input-group { display: flex; gap: 6px; }
-    #chat-input-pesan { flex: 1; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 12.5px; outline: none; }
+    .chat-input-group { display: flex; gap: 8px; }
+    #chat-input-pesan { flex: 1; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box; }
     #chat-input-pesan:focus { border-color: #E53935; }
-    .chat-box-footer button { background: #E53935; color: white; border: none; padding: 0 14px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+    .chat-box-footer button { background: #E53935; color: white; border: none; padding: 0 16px; border-radius: 6px; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
     .chat-box-footer button:hover { background: #d32f2f; }
+    
+    /* MEDIA QUERY: Mengoptimalkan Tampilan di HP Biar Mantap */
+    @media (max-width: 480px) {
+        #mms-chat-box {
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 80vh; /* Memakan 80% tinggi layar HP saat dibuka */
+            border-radius: 14px 14px 0 0;
+            border-bottom: none;
+        }
+        #mms-chat-launcher {
+            bottom: 20px;
+            right: 20px;
+        }
+    }
 </style>
 
-    <script>
-        // MASUKKAN LINK URL WEB APP BARU YANG TERPISAH DI SINI
-        const URL_ENGINE_CHAT_MMS = "https://script.google.com/macros/s/AKfycbwVCoU1UZByMqIcQP3_wxI-fNk_q4PWh4zg3eOykC0KKbvRJhr-F7zK_Z2CKEMm0IgZZw/exec"; 
-        
-        // ... seluruh fungsi JavaScript chat melayang (toggle, ambilRiwayat, kirimPesan) ...
-    </script>
+<script>
+    // MASUKKAN URL SPREADSHEET CHAT TERPISAH KAMU DI SINI
+    const URL_ENGINE_CHAT_MMS = "https://script.google.com/macros/s/AKfycbwVCoU1UZByMqIcQP3_wxI-fNk_q4PWh4zg3eOykC0KKbvRJhr-F7zK_Z2CKEMm0IgZZw/exec"; 
+    let loopPenyegarObrolan = null;
 
+    function toggleKotakChatMMS() {
+        const kotakChat = document.getElementById("mms-chat-box");
+        if (kotakChat.style.display === "none") {
+            kotakChat.style.display = "flex";
+            ambilRiwayatChatMMS();
+            loopPenyegarObrolan = setInterval(ambilRiwayatChatMMS, 3000); 
+        } else {
+            kotakChat.style.display = "none";
+            clearInterval(loopPenyegarObrolan);
+        }
+    }
+
+    async function ambilRiwayatChatMMS() {
+        const wadahTubuhChat = document.getElementById("chat-box-body");
+        if (!wadahTubuhChat) return;
+        
+        try {
+            const respon = await fetch(`${URL_ENGINE_CHAT_MMS}?aksi=ambil_chat`);
+            const arrayChat = await respon.json();
+            
+            if (arrayChat.length === 0) {
+                wadahTubuhChat.innerHTML = `<div style="text-align:center; color:#7f8c8d; font-size:12px; margin-top:60px; font-weight:500;">Belum ada obrolan hari ini.<br>Ayo sapa warga duluan, Bro! 👋</div>`;
+                return;
+            }
+            
+            const posisiScrollSudahDiBawah = wadahTubuhChat.scrollHeight - wadahTubuhChat.clientHeight <= wadahTubuhChat.scrollTop + 70;
+            
+            const susunanHtml = arrayChat.map(item => `
+                <div class="chat-bubble">
+                    <span class="chat-sender-name">${item.nama}</span>
+                    <span class="chat-text">${item.pesan}</span>
+                    <span class="chat-timestamp">${item.waktu}</span>
+                </div>
+            `).join('');
+            
+            wadahTubuhChat.innerHTML = susunanHtml;
+            if (posisiScrollSudahDiBawah) wadahTubuhChat.scrollTop = wadahTubuhChat.scrollHeight;
+        } catch (err) {
+            console.error("Gagal sinkronisasi obrolan:", err);
+        }
+    }
+
+    async function kirimPesanChatMMS() {
+        const inputNama = document.getElementById("chat-input-nama");
+        const inputPesan = document.getElementById("chat-input-pesan");
+        
+        const stringNama = inputNama.value.trim();
+        const stringPesan = inputPesan.value.trim();
+        
+        if (!stringNama) { alert("Ketikan nama panggilanmu dulu, Bro!"); inputNama.focus(); return; }
+        if (!stringPesan) return;
+        
+        inputPesan.value = "Mengirim...";
+        inputPesan.disabled = true;
+        
+        try {
+            await fetch(`${URL_ENGINE_CHAT_MMS}?aksi=kirimChat&nama=${encodeURIComponent(stringNama)}&pesan=${encodeURIComponent(stringPesan)}`, {
+                method: "POST"
+            });
+            inputPesan.value = "";
+            inputPesan.disabled = false;
+            ambilRiwayatChatMMS();
+            inputPesan.focus();
+        } catch (error) {
+            alert("Koneksi gagal, silakan kirim ulang!");
+            inputPesan.value = stringPesan;
+            inputPesan.disabled = false;
+        }
+    }
+
+    function deteksiEnterChatMMS(event) {
+        if (event.key === "Enter") kirimPesanChatMMS();
+    }
+</script>
     
     <script src="script.js?v=1"></script>
 
