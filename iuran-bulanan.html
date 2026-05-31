@@ -146,11 +146,14 @@
 
     <script src="script.js?v=1"></script>
 
+    <script src="script.js?v=1"></script>
+
     <script>
+        // Masukkan URL Aplikasi Web Anda tanpa ada spasinya atau karakter aneh terpotong
         const URL_WEB_APP_MMS = "https://script.google.com/macros/s/AKfycbwakZtsAqnjpd3XyzR_eRAlu9mbcWZfVtUB0r8x5wKWGNDHsl1KULjhW7s_D4uqyAe9/exec";
         let databaseKasLokal = [];
 
-        // Ambil daftar tahun dinamis
+        // 1. Ambil daftar tahun dinamis dari nama tab spreadsheet
         async function otomatisasiDaftarTahun() {
             const selectTahun = document.getElementById("pilih-tahun-kas");
             const tbody = document.getElementById("data-tabel-kas-mms");
@@ -159,7 +162,7 @@
                 const daftarTahun = await response.json();
                 
                 if (daftarTahun && daftarTahun.length > 0) {
-                    selectTahun.innerHTML = ""; 
+                    selectTahun.innerHTML = ""; // Hapus teks memuat...
                     
                     daftarTahun.forEach((thn, idx) => {
                         let opsi = document.createElement("option");
@@ -173,11 +176,11 @@
                 }
             } catch (error) {
                 console.error("Gagal otomatisasi tahun:", error);
-                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal memuat tahun database.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal memuat tahun database. Pastikan Apps Script di-Deploy sebagai 'Versi Baru'.</td></tr>`;
             }
         }
 
-        // Ambil data iuran kas berdasarkan tahun
+        // 2. Ambil data baris iuran sesuai tahun di dropdown
         async function ambilDataKasMMS() {
             const tbody = document.getElementById("data-tabel-kas-mms");
             const tahunDipilih = document.getElementById("pilih-tahun-kas").value;
@@ -202,6 +205,7 @@
             }
         }
 
+        // 3. Cetak data ke tabel HTML
         function renderTabelKasMMS(dataArray) {
             const tbody = document.getElementById("data-tabel-kas-mms");
             if (!tbody) return;
@@ -217,7 +221,7 @@
                 let kolomBulanHtml = urutanBulan.map(bulan => {
                     let nilaiSelKas = row[bulan] ? row[bulan].toString().trim() : "";
                     
-                    // KOREKSI UTAMA: Karena isi sel asli adalah "✔", deteksi langsung teks stringnya
+                    // COCOK KARENA GETDISPLAYVALUES: Deteksi karakter centang string asli "✔"
                     if (nilaiSelKas === "✔") {
                         return `<td style="text-align: center;"><span class="centang-mms"><i class="fa-solid fa-check"></i></span></td>`;
                     } else {
@@ -241,6 +245,7 @@
             tbody.innerHTML = htmlHTML;
         }
 
+        // 4. Fitur pencarian nama anggota
         function filterNamaTabelKas() {
             const keyword = document.getElementById("cari-nama-kas").value.toLowerCase();
             const dataSaring = databaseKasLokal.filter(item => {
