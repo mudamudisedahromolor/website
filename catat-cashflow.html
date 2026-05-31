@@ -74,11 +74,11 @@
             <hr class="box-divider">
             <p style="text-align: center; margin-bottom: 20px;">Gunakan Form Dibawah Ini Untuk Mencatat Pemasukkan (Selain dari Iuran KAS Bulanan) dan Pengeluaran</p>
 
-            <div class="google-form-btn-container">
-                <button onclick="bukaForm()" class="btn-google-form" style="border: none; cursor: pointer;">
-                    <i class="fa-wpforms fa-brands"></i> Buka Formulir Kas & Upload File
-                </button>
-            </div>
+<div class="google-form-btn-container">
+    <a href="https://forms.gle/6Up6FTrkawSFxzjb8" target="_self" class="btn-google-form">
+        <i class="fa-wpforms fa-brands"></i> Buka Formulir Kas & Upload File
+    </a>
+</div>
         </div> 
     </div> 
 
@@ -125,38 +125,6 @@
         </div>
     </footer>
 
-    <div id="webview-form-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f0ebf8; z-index: 99999;">
-        
-        <div style="width: 100%; height: 55px; background: #673ab7; display: flex; align-items: center; padding: 0 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-            <button onclick="tutupForm()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                <i class="fa-solid fa-arrow-left"></i> Kembali
-            </button>
-        </div>
-
-        <div style="width: 100%; height: calc(100% - 55px);">
-            <iframe id="google-form-iframe" src="" style="width: 100%; height: 100%; border: none;">Memuat...</iframe>
-        </div>
-    </div>
-
-    <script>
-        function bukaForm() {
-            // Memasukkan link Google Form secara dinamis saat diklik
-            document.getElementById('google-form-iframe').src = "https://docs.google.com/forms/d/e/1FAIpQLSdrFLFrDSY6otHySS-7pBo6SHHNHifLsBC_mdeO6b-UAHXMVw/viewform?embedded=true";
-            // Memunculkan kontainer overlay
-            document.getElementById('webview-form-overlay').style.display = 'block';
-            // Mengunci scroll background
-            document.body.style.overflow = 'hidden';
-        }
-
-        function tutupForm() {
-            // Sembunyikan kontainer overlay
-            document.getElementById('webview-form-overlay').style.display = 'none';
-            // Mengosongkan src iframe agar reset
-            document.getElementById('google-form-iframe').src = "";
-            // Mengaktifkan kembali scroll background
-            document.body.style.overflow = 'auto';
-        }
-    </script>
 
     <script src="script.js?v=2"></script>
  
