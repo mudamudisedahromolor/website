@@ -27,20 +27,18 @@
                     </div>
                 </a>
             </div>
-<div class="header-right-stuff">
-            <div class="header-socials">
-                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <div class="header-right-stuff">
+                <div class="header-socials">
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
             </div>
-        </div>
-                <button class="menu-toggle" id="mobile-menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div> 
+            <button class="menu-toggle" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div> 
-
 
         <nav class="main-navbar">
             <ul class="nav-list">
@@ -52,7 +50,7 @@
                         <li class="submenu-item"><a href="visi-misi.html">INPUT KAS BULANAN</a></li>
                     </ul>
                 </li>
-               <li class="nav-item">
+                <li class="nav-item">
                     <a href="#">SEKRETARIS</a>
                     <ul class="submenu">
                         <li class="submenu-item"><a href="rapat-hasilrapat.html">INPUT NOTULEN</a></li>
@@ -70,69 +68,62 @@
         </nav>
     </header>
 
+    <div class="finance-page-wrapper">
+        <div class="content-box" style="max-width: 1000px; width: 100%;">
+            <h2 class="box-title">INPUT DATA CASHFLOW <br> (PEMASUKAN/PENGELUARAN)</h2>
+            <hr class="box-divider">
+            <p style="text-align: center; margin-bottom: 20px;">Gunakan Form Dibawah Ini Untuk Mencatat Pemasukkan (Selain dari Iuran KAS Bulanan) dan Pengeluaran</p>
 
-
-<div class="finance-page-wrapper">
-    <div class="content-box" style="max-width: 1000px; width: 100%;">
-        <h2 class="box-title">INPUT DATA CASHFLOW <br> (PEMASUKAN/PENGELUARAN)</h2>
-        <hr class="box-divider">
-        <p style="text-align: center; margin-bottom: 20px;">Gunakan Form Dibawah Ini Untuk Mencatat Pemasukkan (Selain dari Iuran KAS Bulanan) dan Pengeluaran</p>
-
-        <div class="google-form-btn-container">
-            <a href="https://forms.gle/Zb16xyJnBVP9yaUT6" target="_blank" class="btn-google-form">
-                <i class="fa-wpforms fa-brands"></i> Buka Formulir Kas & Upload File
-            </a>
-        </div>
-
+            <div class="google-form-btn-container">
+                <button onclick="bukaForm()" class="btn-google-form" style="border: none; cursor: pointer;">
+                    <i class="fa-wpforms fa-brands"></i> Buka Formulir Kas & Upload File
+                </button>
+            </div>
         </div> 
-</div> 
+    </div> 
 
-  
-  
-  <footer class="site-footer">
-    <div class="footer-container">
-        
-        <div class="footer-column info-col">
-            <div class="footer-brand">
-                <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
-                <h4>Muda Mudi Sedahromo Lor</h4>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column info-col">
+                <div class="footer-brand">
+                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
+                    <h4>Muda Mudi Sedahromo Lor</h4>
+                </div>
+                <p class="footer-text">
+                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.07, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
+                </p>
+                <p class="footer-text">
+                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor05@gmail.com">mudamudisedahromolor05@gmail.com</a>
+                </p>
             </div>
-            <p class="footer-text">
-                <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.07, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
-            </p>
-            <p class="footer-text">
-                <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor05@gmail.com">mudamudisedahromolor05@gmail.com</a>
-            </p>
-        </div>
 
-        <div class="footer-column links-col">
-            <h5>Sitemap</h5>
-            <ul class="footer-links">
-                <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
-                <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
-                <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
-                <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
-                <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
-            </ul>
-        </div>
+            <div class="footer-column links-col">
+                <h5>Sitemap</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
+                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
+                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
+                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
+                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
+                </ul>
+            </div>
 
-        <div class="footer-column social-col">
-            <h5>Media Sosial</h5>
-            <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
-            <div class="footer-social-icons">
-                <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            <div class="footer-column social-col">
+                <h5>Media Sosial</h5>
+                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
             </div>
         </div>
 
-    </div>
-
-    <div class="footer-bottom">
-        <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
-    </div>
-</footer>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <div id="webview-form-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f0ebf8; z-index: 99999;">
         
@@ -146,8 +137,28 @@
             <iframe id="google-form-iframe" src="" style="width: 100%; height: 100%; border: none;">Memuat...</iframe>
         </div>
     </div>
-    
-<script src="script.js?v=2"></script>
+
+    <script>
+        function bukaForm() {
+            // Memasukkan link Google Form secara dinamis saat diklik
+            document.getElementById('google-form-iframe').src = "https://docs.google.com/forms/d/e/1FAIpQLSdrFLFrDSY6otHySS-7pBo6SHHNHifLsBC_mdeO6b-UAHXMVw/viewform?embedded=true";
+            // Memunculkan kontainer overlay
+            document.getElementById('webview-form-overlay').style.display = 'block';
+            // Mengunci scroll background
+            document.body.style.overflow = 'hidden';
+        }
+
+        function tutupForm() {
+            // Sembunyikan kontainer overlay
+            document.getElementById('webview-form-overlay').style.display = 'none';
+            // Mengosongkan src iframe agar reset
+            document.getElementById('google-form-iframe').src = "";
+            // Mengaktifkan kembali scroll background
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+
+    <script src="script.js?v=2"></script>
  
 </body>
 </html>
