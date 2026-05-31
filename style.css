@@ -760,3 +760,119 @@ body {
 .btn-google-form:active {
     transform: translateY(0);
 }
+
+
+
+
+
+/* ==========================================================================
+   WIDGET LIVE CHAT MELAYANG INDEPENDEN (ANGKRINGAN CHAT MMS 05)
+   ========================================================================== */
+
+/* Launcher Bulat Minimalis Putih-Hitam */
+#mms-chat-launcher {
+    position: fixed; 
+    bottom: 25px; 
+    right: 25px;
+    width: 60px; 
+    height: 60px; 
+    background-color: #ffffff;
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    color: #000000; 
+    font-size: 26px; 
+    cursor: pointer; 
+    border: 2px solid #E53935;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25); 
+    transition: transform 0.2s, background-color 0.2s;
+    z-index: 999999 !important; /* Mengunci paling atas agar anti-tindih */
+}
+#mms-chat-launcher:hover { transform: scale(1.08); background-color: #f7f7f7; }
+
+/* Jendela Chat Box */
+#mms-chat-box {
+    position: fixed; 
+    bottom: 95px; 
+    right: 25px;
+    width: 330px; 
+    height: 460px; 
+    background-color: #ffffff;
+    border-radius: 16px; 
+    box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden;
+    border: 1px solid #e2e8f0; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    z-index: 999999 !important;
+}
+
+/* Header Chat Merah Khas MMS */
+.chat-box-header {
+    background-color: #E53935; 
+    color: white; 
+    padding: 14px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(229, 57, 53, 0.3);
+}
+.chat-header-title { display: flex; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; }
+.chat-header-title img { width: 24px; height: 24px; margin-right: 10px; border-radius: 50%; background: #fff; padding: 1px; }
+.chat-close-btn { background: none; border: none; color: white; font-size: 26px; cursor: pointer; line-height: 1; }
+
+/* Latar Belakang Krem Hangat dengan Pola Siluet Kertas */
+#chat-box-body { 
+    flex: 1; 
+    padding: 14px; 
+    overflow-y: auto; 
+    background-color: #f4efe9;
+    background-image: url("https://www.transparenttextures.com/patterns/lined-paper.png");
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    scroll-behavior: smooth; 
+}
+
+.chat-loading-status { text-align: center; color: #7f8c8d; font-size: 13px; margin-top: 60px; font-weight: 500; }
+
+/* Bubble Chat Desain Soft Glassmorphism */
+.chat-bubble { 
+    background: rgba(255, 255, 255, 0.95); 
+    padding: 8px 12px 6px 12px; 
+    border-radius: 4px 12px 12px 12px; 
+    max-width: 85%; 
+    align-self: flex-start; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 6px -1px rgba(0,0,0,0.05); 
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    min-width: 90px;
+    border-left: 3px solid #E53935;
+}
+
+.chat-sender-name { font-size: 11px; color: #E53935; font-weight: 700; margin-bottom: 3px; letter-spacing: 0.2px; }
+.chat-text { font-size: 13px; color: #2d3748; word-break: break-word; line-height: 1.45; margin-bottom: 8px; }
+.chat-timestamp { font-size: 9px; color: #a0aec0; align-self: flex-end; position: absolute; bottom: 4px; right: 8px; font-weight: 500; }
+
+/* Area Input & Tombol Kirim */
+.chat-box-footer { padding: 12px; background: #ffffff; border-top: 1px solid #edf2f7; display: flex; flex-direction: column; gap: 8px; }
+#chat-input-nama { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; outline: none; box-sizing: border-box; background: #f8fafc; transition: all 0.2s; }
+#chat-input-nama:focus { border-color: #E53935; background: #fff; box-shadow: 0 0 0 2px rgba(229,57,53,0.1); }
+.chat-input-group { display: flex; gap: 8px; }
+#chat-input-pesan { flex: 1; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none; box-sizing: border-box; transition: all 0.2s; }
+#chat-input-pesan:focus { border-color: #E53935; box-shadow: 0 0 0 2px rgba(229,57,53,0.1); }
+
+.chat-box-footer button { 
+    background: #E53935; color: white; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; 
+    box-shadow: 0 2px 4px rgba(229, 57, 53, 0.2);
+}
+.chat-box-footer button:hover { background: #d32f2f; transform: translateY(-1px); }
+
+/* Optimasi Responsif Layar HP */
+@media (max-width: 480px) {
+    #mms-chat-box { bottom: 0; right: 0; width: 100%; height: 80vh; border-radius: 16px 16px 0 0; border-bottom: none; }
+    #mms-chat-launcher { bottom: 20px; right: 20px; }
+}
