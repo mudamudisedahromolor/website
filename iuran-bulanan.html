@@ -8,14 +8,12 @@
     <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
 
     <style>
-        /* Tanda centang hijau bulat minimalis modern */
         .centang-mms {
             color: #ffffff;
             font-weight: bold;
@@ -26,14 +24,10 @@
             display: inline-block;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        /* Strip kelabu tipis jika belum iuran */
         .strip-mms {
             color: #bbb;
             font-size: 14px;
         }
-
-        /* Memastikan tabel kas bisa di-scroll ke samping di HP tanpa merusak layout */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -41,8 +35,6 @@
             border-radius: 8px;
             border: 1px solid #eee;
         }
-
-        /* Styling khusus mengunci kolom nama agar tetap diam saat digeser ke kanan di HP */
         .finance-table td.sticky-nama {
             position: sticky;
             left: 0;
@@ -52,7 +44,6 @@
             text-align: left;
             font-weight: 600;
         }
-
         .finance-table thead th.sticky-header-nama {
             position: sticky;
             left: 0;
@@ -60,22 +51,14 @@
             border-right: 2px solid #ffffff !important;
             background-color: #E53935;
         }
-
-        /* Mengembalikan warna background saat di-hover agar sticky column tidak belang */
-        .finance-table tr:hover td.sticky-nama {
-            background-color: #f1f1f1;
-        }
-        .finance-table tr:nth-child(even) td.sticky-nama {
-            background-color: #fafafa;
-        }
-        .finance-table tr:nth-child(even):hover td.sticky-nama {
-            background-color: #f1f1f1;
-        }
+        .finance-table tr:hover td.sticky-nama { background-color: #f1f1f1; }
+        .finance-table tr:nth-child(even) td.sticky-nama { background-color: #fafafa; }
+        .finance-table tr:nth-child(even):hover td.sticky-nama { background-color: #f1f1f1; }
     </style>
 </head>
 <body> 
     
- <header class="site-header">
+<header class="site-header">
     <div class="top-header">
         <div class="header-logo-area">
             <a href="index.html" class="logo-wrapper">
@@ -86,21 +69,8 @@
                 </div>
             </a>
         </div>
-        
-        <div class="header-right-stuff">
-            <div class="header-socials">
-                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
-
-        <button class="menu-toggle" id="mobile-menu-btn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <button class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
     </div> 
-
     <nav class="main-navbar">
         <ul class="nav-list">
             <li class="nav-item"><a href="index.html">BERANDA</a></li>
@@ -123,27 +93,11 @@
                 <a href="#">LAPORAN</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="laporan-keuangan.html"> - KEUANGAN</a></li>
-                    <li class="submenu-item"><a href="iuran-bulanan.html"> - KAS BULANAN</a></li>
+                    <li class="submenu-item"><a href="laporan-kas-bulanan.html"> - KAS BULANAN</a></li>
                     <li class="submenu-item"><a href="#"> - PERTANGGUNG JAWABAN</a></li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="#">INFORMASI</a>
-                <ul class="submenu">
-                    <li class="submenu-item"><a href="laporan-keuangan.html"> - BERITA</a></li>
-                    <li class="submenu-item"><a href="#"> - KESEHATAN</a></li>
-                </ul>
-            </li>
         </ul>
-
-        <div class="navbar-mobile-only">
-            <div class="header-socials">
-                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
     </nav>
 </header>
 
@@ -157,7 +111,6 @@
                 <select id="pilih-tahun-kas" class="filter-box" onchange="ambilDataKasMMS()">
                     <option value="">Memuat Tahun...</option>
                 </select>
-                
                 <input type="text" id="cari-nama-kas" class="filter-box" style="width: 200px;" placeholder="Cari nama anggota..." onkeyup="filterNamaTabelKas()">
             </div>
 
@@ -167,18 +120,9 @@
                         <tr>
                             <th style="text-align: center; width: 50px;">No</th>
                             <th class="sticky-header-nama">Nama Anggota</th>
-                            <th style="text-align: center;">Januari</th>
-                            <th style="text-align: center;">Februari</th>
-                            <th style="text-align: center;">Maret</th>
-                            <th style="text-align: center;">April</th>
-                            <th style="text-align: center;">Mei</th>
-                            <th style="text-align: center;">Juni</th>
-                            <th style="text-align: center;">Juli</th>
-                            <th style="text-align: center;">Agustus</th>
-                            <th style="text-align: center;">September</th>
-                            <th style="text-align: center;">Oktober</th>
-                            <th style="text-align: center;">November</th>
-                            <th style="text-align: center;">Desember</th>
+                            <th>Januari</th><th>Februari</th><th>Maret</th><th>April</th>
+                            <th>Mei</th><th>Juni</th><th>Juli</th><th>Agustus</th>
+                            <th>September</th><th>Oktober</th><th>November</th><th>Desember</th>
                             <th style="text-align: right;">Total Keseluruhan</th>
                         </tr>
                     </thead>
@@ -195,40 +139,6 @@
     </div>
 
     <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-column info-col">
-                <div class="footer-brand">
-                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
-                    <h4>Muda Mudi Sedahromo Lor</h4>
-                </div>
-                <p class="footer-text">
-                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.07, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
-                </p>
-                <p class="footer-text">
-                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor05@gmail.com</a>
-                </p>
-            </div>
-            <div class="footer-column links-col">
-                <h5>Sitemap</h5>
-                <ul class="footer-links">
-                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
-                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
-                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
-                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
-                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
-                </ul>
-            </div>
-            <div class="footer-column social-col">
-                <h5>Media Sosial</h5>
-                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
-                <div class="footer-social-icons">
-                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
         <div class="footer-bottom">
             <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
         </div>
@@ -237,15 +147,13 @@
     <script src="script.js?v=1"></script>
 
     <script>
-        // URL Web App Versi 3 resmi milikmu
         const URL_WEB_APP_MMS = "https://script.google.com/macros/s/AKfycbwakZtsAqnjpd3XyzR_eRAlu9mbcWZfVtUB0r8x5wKWGNDHsl1KULjhW7s_D4uqyAe9/exec";
         let databaseKasLokal = [];
 
-        // Ambil daftar tahun dinamis dari tab sheet
-        async function inisialisasiTahunDropdown() {
+        // Ambil daftar tahun dinamis
+        async function otomatisasiDaftarTahun() {
             const selectTahun = document.getElementById("pilih-tahun-kas");
             const tbody = document.getElementById("data-tabel-kas-mms");
-            
             try {
                 const response = await fetch(`${URL_WEB_APP_MMS}?aksi=ambil_daftar_tahun`);
                 const daftarTahun = await response.json();
@@ -261,18 +169,15 @@
                         selectTahun.appendChild(opsi);
                     });
                     
-                    ambilDataKasMMS();
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">⚠️ Gagal memuat daftar tahun aktif dari spreadsheet.</td></tr>`;
+                    ambilDataKasMMS(); 
                 }
             } catch (error) {
-                console.error("Gagal inisialisasi tahun:", error);
-                selectTahun.innerHTML = '<option value="2025" selected>2025</option><option value="2024">2024</option>';
-                ambilDataKasMMS();
+                console.error("Gagal otomatisasi tahun:", error);
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal memuat tahun database.</td></tr>`;
             }
         }
 
-        // Ambil rincian data iuran kas berdasarkan tahun yang dipilih
+        // Ambil data iuran kas berdasarkan tahun
         async function ambilDataKasMMS() {
             const tbody = document.getElementById("data-tabel-kas-mms");
             const tahunDipilih = document.getElementById("pilih-tahun-kas").value;
@@ -286,18 +191,17 @@
                 databaseKasLokal = await response.json();
                 
                 if (databaseKasLokal.error) {
-                    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:orange; padding:20px; font-weight:bold;">⚠️ ${databaseKasLokal.error}</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:orange; padding:20px;">⚠️ ${databaseKasLokal.error}</td></tr>`;
                     return;
                 }
                 
                 renderTabelKasMMS(databaseKasLokal);
             } catch (error) {
-                console.error("Gagal memuat data kas JSON:", error);
-                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal terhubung ke database. Hubungkan ke Web App dengan benar.</td></tr>`;
+                console.error("Gagal sinkronisasi data:", error);
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal memuat data tabel kas.</td></tr>`;
             }
         }
 
-        // Cetak data ke dalam baris tabel (Nama properti disesuaikan KAPITAL persis seperti isi Kode.gs)
         function renderTabelKasMMS(dataArray) {
             const tbody = document.getElementById("data-tabel-kas-mms");
             if (!tbody) return;
@@ -307,31 +211,29 @@
                 return;
             }
 
-            // Nama bulan wajib KAPITAL di depannya agar sama dengan output Apps Script
             const urutanBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             
             let htmlHTML = dataArray.map((row, index) => {
                 let kolomBulanHtml = urutanBulan.map(bulan => {
-                    let nilaiSelKas = row[bulan];
+                    let nilaiSelKas = row[bulan] ? row[bulan].toString().trim() : "";
                     
-                    // Deteksi penanda centang secara akurat
-                    if (nilaiSelKas === "✔" || nilaiSelKas === true || nilaiSelKas === "true" || (nilaiSelKas && nilaiSelKas.toString().includes("✔"))) {
+                    // KOREKSI UTAMA: Karena isi sel asli adalah "✔", deteksi langsung teks stringnya
+                    if (nilaiSelKas === "✔") {
                         return `<td style="text-align: center;"><span class="centang-mms"><i class="fa-solid fa-check"></i></span></td>`;
                     } else {
                         return `<td style="text-align: center;"><span class="strip-mms">-</span></td>`;
                     }
                 }).join('');
 
-                // Mengambil properti "Nama" dan "Total Keseluruhan" dengan huruf Kapital persis dari sheet
-                let namaTampil = row["Nama"] || "-";
-                let totalTampil = row["Total Keseluruhan"] || "Rp 0";
+                let namaWarga = row["Nama"] || "-";
+                let totalKas = row["Total Keseluruhan"] || "Rp 0";
 
                 return `
                     <tr>
                         <td style="text-align: center;">${row["No"] || (index + 1)}</td>
-                        <td class="sticky-nama"><i class="fa-solid fa-user" style="color:#E53935; margin-right:6px; font-size:11px;"></i> ${namaTampil}</td>
+                        <td class="sticky-nama"><i class="fa-solid fa-user" style="color:#E53935; margin-right:6px; font-size:11px;"></i> ${namaWarga}</td>
                         ${kolomBulanHtml}
-                        <td style="text-align: right; font-weight: bold; color: #333; background-color: #fcfcfc;">${totalTampil}</td>
+                        <td style="text-align: right; font-weight: bold; color: #333;">${totalKas}</td>
                     </tr>
                 `;
             }).join('');
@@ -339,7 +241,6 @@
             tbody.innerHTML = htmlHTML;
         }
 
-        // Fungsi pencarian nama real-time
         function filterNamaTabelKas() {
             const keyword = document.getElementById("cari-nama-kas").value.toLowerCase();
             const dataSaring = databaseKasLokal.filter(item => {
@@ -350,7 +251,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            inisialisasiTahunDropdown();
+            otomatisasiDaftarTahun();
         });
     </script>
 </body>
