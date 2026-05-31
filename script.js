@@ -1041,3 +1041,15 @@ function deteksiEnterChatMMS(event) {
 }
 
 
+// FUNGSI UNTUK MENUTUP POP UP IKLAN AWAL
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// FUNGSI UNTUK MENAMPILKAN POP UP IKLAN SECARA OTOMATIS SAAT DIMUAT
+document.addEventListener("DOMContentLoaded", function(event) {
+  // Anda bisa menambahkan keterlambatan waktu jika perlu
+  setTimeout(function() {
+    document.getElementById('modalOverlay').classList.add('active');
+  }, 1000); // Muncul setelah 1 detik
+});
