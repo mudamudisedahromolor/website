@@ -882,23 +882,3 @@ function formatRupiah(angka) {
 }
 
 
-// ========================================================
-// LOGIKA OVERLAY WEBVIEW GOOGLE FORM |input-cashflow.html|
-// ========================================================
-function bukaForm() {
-    // Set link google form secara dinamis
-    document.getElementById('google-form-iframe').src = "https://forms.gle/8awstgMhcRBhtzSS9";
-    // Munculkan layar penuh overlay
-    document.getElementById('webview-form-overlay').style.display = 'block';
-    // Sembunyikan scrollbar halaman utama agar tidak double scroll
-    document.body.style.overflow = 'hidden';
-}
-
-function tutupForm() {
-    // Sembunyikan kembali overlay
-    document.getElementById('webview-form-overlay').style.display = 'none';
-    // Kosongkan src iframe agar formulir reset dan berhenti loading di latar belakang
-    document.getElementById('google-form-iframe').src = "";
-    // Kembalikan scrollbar halaman utama
-    document.body.style.overflow = 'auto';
-}
