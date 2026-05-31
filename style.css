@@ -911,3 +911,97 @@ body {
         right: 20px !important;
     }
 }
+
+
+
+
+/* ==========================================================================
+   GAYA BANNER PWA ASLI MMS - MELAYANG ELEGAN DI BAWAH NAVBAR (ANTI-TABRAK)
+   ========================================================================== */
+#pwa-install-popup {
+    display: none; 
+    position: fixed; 
+    
+    /* 🛠️ PERUBAHAN: Dipindah ke atas di bawah navbar agar tidak menabrak chat box */
+    top: 85px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    
+    /* 📐 KOREKSI RESPONSIF: Lebar otomatis rapi di HP & Laptop */
+    width: 92%; 
+    max-width: 400px; 
+    
+    /* ✨ MEMPERTAHANKAN GAYA VISUAL ASLI MILIKMU */
+    background-color: #ffffff; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25); 
+    border-radius: 12px; 
+    padding: 16px; 
+    z-index: 999999 !important; /* Mengunci lapisan paling atas */
+    font-family: sans-serif; 
+    border-left: 5px solid #E53935; /* Aksen merah vertikal andalanmu */
+    box-sizing: border-box;
+}
+
+/* Pengaturan Layout Dalam Box */
+#pwa-install-popup > div:first-child {
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    margin-bottom: 12px;
+}
+
+#pwa-install-popup img {
+    width: 45px; 
+    height: 45px; 
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+#pwa-install-popup h4 {
+    margin: 0; 
+    color: #333; 
+    font-size: 15px;
+}
+
+#pwa-install-popup p {
+    margin: 2px 0 0 0; 
+    color: #666; 
+    font-size: 12px;
+}
+
+/* Bagian Kelompok Tombol */
+#pwa-install-popup > div:last-child {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px;
+}
+
+/* Tombol Nanti Saja */
+#pwa-install-popup button:not(#btn-instal-pwa) {
+    background: none; 
+    border: none; 
+    color: #888; 
+    font-weight: bold; 
+    cursor: pointer; 
+    padding: 8px 12px; 
+    font-size: 13px;
+    outline: none;
+}
+
+/* Tombol Instal Sekarang */
+#btn-instal-pwa {
+    background-color: #E53935; 
+    border: none; 
+    color: white; 
+    font-weight: bold; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 13px; 
+    box-shadow: 0 2px 5px rgba(229,57,53,0.3);
+    transition: background-color 0.2s;
+}
+
+#btn-instal-pwa:hover {
+    background-color: #d32f2f;
+}
