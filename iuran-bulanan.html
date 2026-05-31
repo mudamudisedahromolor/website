@@ -89,13 +89,18 @@
 
             <div class="filter-container">
                 <select id="pilih-tahun-kas" class="filter-box" onchange="ambilDataKasMMS()">
-                    <option value="2025" selected>2025</option>
+                    <option value="2030">2030</option>
+                    <option value="2029">2029</option>
+                    <option value="2028">2028</option>
+                    <option value="2027">2027</option>
+                    <option value="2026">2026</option> 
+                    <option value="2025">2025</option>
                     <option value="2024">2024</option>
                 </select>
                 <input type="text" id="cari-nama-kas" class="filter-box" style="width: 200px;" placeholder="Cari nama anggota..." onkeyup="filterNamaTabelKas()">
             </div>
 
-                 <div class="table-responsive">
+            <div class="table-responsive">
                 <table class="finance-table">
                     <thead>
                         <tr>
@@ -124,7 +129,11 @@
                         </tr>
                     </tbody>
                 </table>
-            </div> </div> </div> <footer class="site-footer">
+            </div> 
+        </div> 
+    </div> 
+    
+    <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-column info-col">
                 <div class="footer-brand">
@@ -290,7 +299,15 @@
             renderTabelKasMMS(dataSaring);
         }
 
+        // OTOMATISASI SELEKSI TAHUN SAAT HALAMAN DIBUKA
         document.addEventListener("DOMContentLoaded", () => {
+            const selectTahun = document.getElementById("pilih-tahun-kas");
+            const tahunSekarang = new Date().getFullYear().toString();
+            
+            // Set value dropdown ke tahun aktif sekarang secara real-time
+            selectTahun.value = tahunSekarang;
+            
+            // Jalankan penarikan data
             ambilDataKasMMS();
         });
     </script>
