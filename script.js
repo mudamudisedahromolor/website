@@ -882,3 +882,48 @@ function formatRupiah(angka) {
 }
 
 
+// ========================================================
+// LOGIKA OTOMATIS POP-UP INSTAL APLIKASI (PWA) DI INDEX
+// ========================================================
+let pemicuInstal;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Mencegah browser memunculkan pop-up bawaan yang gampang hilang
+    e.preventDefault();
+    // Simpan event perintah agar bisa kita panggil lewat tombol kustom
+    pemicuInstal = e;
+    
+    // Munculkan kotak pop-up buatan kita di index.html secara instan
+    const popup = document.getElementById('pwa-install-popup');
+    if (popup) {
+        popup.style.display = 'block';
+    }
+});
+
+// Jalankan fungsi instalasi saat tombol "Instal Sekarang" diklik
+const tombolInstal = document.getElementById('btn-instal-pwa');
+if (tombolInstal) {
+    tombolInstal.addEventListener('click', async () => {
+        if (!pemicuInstal) return;
+        
+        // Munculkan dialog instalasi resmi dari sistem HP/Browser
+        pemicuInstal.prompt();
+        
+        // Tunggu pilihan dari user (setuju instal atau batalkan)
+        const { outcome } = await pemicuInstal.userChoice;
+        console.log(`Pilihan user: ${outcome}`);
+        
+        // Bersihkan pemicu dan sembunyikan kembali pop-up kita
+        pemicuInstal = null;
+        tutupPopupInstal();
+    });
+}
+
+function tutupPopupInstal() {
+    const popup = document.getElementById('pwa-install-popup');
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
+
+
