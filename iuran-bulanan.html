@@ -69,8 +69,19 @@
                 </div>
             </a>
         </div>
+        
+        <div class="header-right-stuff">
+            <div class="header-socials">
+                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+
         <button class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
     </div> 
+
     <nav class="main-navbar">
         <ul class="nav-list">
             <li class="nav-item"><a href="index.html">BERANDA</a></li>
@@ -93,7 +104,7 @@
                 <a href="#">LAPORAN</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="laporan-keuangan.html"> - KEUANGAN</a></li>
-                    <li class="submenu-item"><a href="laporan-kas-bulanan.html"> - KAS BULANAN</a></li>
+                    <li class="submenu-item"><a href="iuran-bulanan.html"> - KAS BULANAN</a></li>
                     <li class="submenu-item"><a href="#"> - PERTANGGUNG JAWABAN</a></li>
                 </ul>
             </li>
@@ -120,9 +131,18 @@
                         <tr>
                             <th style="text-align: center; width: 50px;">No</th>
                             <th class="sticky-header-nama">Nama Anggota</th>
-                            <th>Januari</th><th>Februari</th><th>Maret</th><th>April</th>
-                            <th>Mei</th><th>Juni</th><th>Juli</th><th>Agustus</th>
-                            <th>September</th><th>Oktober</th><th>November</th><th>Desember</th>
+                            <th style="text-align: center;">Januari</th>
+                            <th style="text-align: center;">Februari</th>
+                            <th style="text-align: center;">Maret</th>
+                            <th style="text-align: center;">April</th>
+                            <th style="text-align: center;">Mei</th>
+                            <th style="text-align: center;">Juni</th>
+                            <th style="text-align: center;">Juli</th>
+                            <th style="text-align: center;">Agustus</th>
+                            <th style="text-align: center;">September</th>
+                            <th style="text-align: center;">Oktober</th>
+                            <th style="text-align: center;">November</th>
+                            <th style="text-align: center;">Desember</th>
                             <th style="text-align: right;">Total Keseluruhan</th>
                         </tr>
                     </thead>
@@ -146,14 +166,11 @@
 
     <script src="script.js?v=1"></script>
 
-    <script src="script.js?v=1"></script>
-
     <script>
-        // Masukkan URL Aplikasi Web Anda tanpa ada spasinya atau karakter aneh terpotong
         const URL_WEB_APP_MMS = "https://script.google.com/macros/s/AKfycbwakZtsAqnjpd3XyzR_eRAlu9mbcWZfVtUB0r8x5wKWGNDHsl1KULjhW7s_D4uqyAe9/exec";
         let databaseKasLokal = [];
 
-        // 1. Ambil daftar tahun dinamis dari nama tab spreadsheet
+        // Inisialisasi daftar tahun otomatis dari nama tab spreadsheet
         async function otomatisasiDaftarTahun() {
             const selectTahun = document.getElementById("pilih-tahun-kas");
             const tbody = document.getElementById("data-tabel-kas-mms");
@@ -162,7 +179,7 @@
                 const daftarTahun = await response.json();
                 
                 if (daftarTahun && daftarTahun.length > 0) {
-                    selectTahun.innerHTML = ""; // Hapus teks memuat...
+                    selectTahun.innerHTML = ""; 
                     
                     daftarTahun.forEach((thn, idx) => {
                         let opsi = document.createElement("option");
@@ -176,11 +193,11 @@
                 }
             } catch (error) {
                 console.error("Gagal otomatisasi tahun:", error);
-                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal memuat tahun database. Pastikan Apps Script di-Deploy sebagai 'Versi Baru'.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">❌ Gagal memuat tahun database. Hubungi admin untuk memeriksa status Web App.</td></tr>`;
             }
         }
 
-        // 2. Ambil data baris iuran sesuai tahun di dropdown
+        // Ambil isi baris data iuran sesuai tahun dropdown
         async function ambilDataKasMMS() {
             const tbody = document.getElementById("data-tabel-kas-mms");
             const tahunDipilih = document.getElementById("pilih-tahun-kas").value;
@@ -205,7 +222,6 @@
             }
         }
 
-        // 3. Cetak data ke tabel HTML
         function renderTabelKasMMS(dataArray) {
             const tbody = document.getElementById("data-tabel-kas-mms");
             if (!tbody) return;
@@ -221,7 +237,7 @@
                 let kolomBulanHtml = urutanBulan.map(bulan => {
                     let nilaiSelKas = row[bulan] ? row[bulan].toString().trim() : "";
                     
-                    // COCOK KARENA GETDISPLAYVALUES: Deteksi karakter centang string asli "✔"
+                    // Deteksi string "✔" hasil render .getDisplayValues()
                     if (nilaiSelKas === "✔") {
                         return `<td style="text-align: center;"><span class="centang-mms"><i class="fa-solid fa-check"></i></span></td>`;
                     } else {
@@ -245,7 +261,6 @@
             tbody.innerHTML = htmlHTML;
         }
 
-        // 4. Fitur pencarian nama anggota
         function filterNamaTabelKas() {
             const keyword = document.getElementById("cari-nama-kas").value.toLowerCase();
             const dataSaring = databaseKasLokal.filter(item => {
