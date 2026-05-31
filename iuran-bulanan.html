@@ -244,9 +244,10 @@
 
     <script src="script.js?v=1"></script>
 
-    <script>
-        // Copy dan Tempel URL Web App dari Apps Script Anda di bawah ini:
-        const URL_WEB_APP_MMS = "https://script.google.com/macros/s/AKfycbwakZtsAqnjpD3XyzR_eRAIu9mbcWZfVtUB0r8x5wKWGNdHsl1KULjhW7s_D4uqyAe9/exec";
+     <script>
+        // 1. CARI ID SPREADSHEET KAMU PADA URL BROWSER (ANTARA /d/ DAN /edit) LALU PASTE DI BAWAH INI:
+               // 1. ID Spreadsheet kamu sudah sangat benar, Bro!
+        const SPREADSHEET_ID_KAS = "1rwMQpAk5--br3J1QjRzDAJ7_LUntKUo11yKYnnEFesQ"; 
         
         let databaseKasLokal = [];
 
@@ -254,21 +255,79 @@
             const tbody = document.getElementById("data-tabel-kas-mms");
             const tahunDipilih = document.getElementById("pilih-tahun-kas").value;
             
-            tbody.innerHTML = `<tr><td colspan="15" style="text-align: center; padding: 30px; color: #666;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data rekap kas tahun ${tahunDipilih}...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="15" style="text-align: center; padding: 30px; color: #666;"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Database Tab ${tahunDipilih}...</td></tr>`;
+            
+            // Menggunakan format gviz CSV endpoint agar bebas kendala CORS keamanan browser
+            const URL_CSV_MMS = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_KAS}/gviz/tq?tqx=out:csv&sheet=${tahunDipilih}&cache=${new Date().getTime()}`;
             
             try {
-                const response = await fetch(`${URL_WEB_APP_MMS}?tahun=${tahunDipilih}`);
-                databaseKasLokal = await response.json();
+                const response = await fetch(URL_CSV_MMS);
+                const teksMentah = await response.text();
                 
-                if (databaseKasLokal.error) {
-                    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">⚠️ ${databaseKasLokal.error}</td></tr>`;
-                    return;
+                // Parser pemisah koma CSV cerdas aman dari gangguan teks dalam kutip
+                const barisData = [];
+                let barisAktif = [];
+                let diDalamKutip = false;
+                let penampungTeks = "";
+
+                for (let i = 0; i < teksMentah.length; i++) {
+                    let char = teksMentah[i];
+                    let nextChar = teksMentah[i + 1];
+
+                    if (char === '"') {
+                        diDalamKutip = !diDalamKutip;
+                    } else if (char === ',' && !diDalamKutip) {
+                        barisAktif.push(penampungTeks.trim());
+                        penampungTeks = "";
+                    } else if ((char === '\n' || char === '\r') && !diDalamKutip) {
+                        if (char === '\r' && nextChar === '\n') i++;
+                        barisAktif.push(penampungTeks.trim());
+                        if (barisAktif.length > 0) barisData.push(barisAktif);
+                        barisAktif = [];
+                        penampungTeks = "";
+                    } else {
+                        penampungTeks += char;
+                    }
+                }
+                if (penampungTeks || barisAktif.length > 0) {
+                    barisAktif.push(penampungTeks.trim());
+                    barisData.push(barisAktif);
+                }
+
+                databaseKasLokal = [];
+                
+                // Mulai membaca dari baris indeks 1 (Baris 0 diabaikan karena teks judul header "No, Nama...")
+                for (let i = 1; i < barisData.length; i++) {
+                    const kolom = barisData[i];
+                    if (kolom.length < 2) continue;
+                    
+                    let namaWarga = kolom[1] ? kolom[1].trim() : "-";
+                    // Pengaman jika ada baris akumulasi total di bagian bawah spreadsheet
+                    if (!namaWarga || namaWarga.toUpperCase() === "TOTAL" || namaWarga.toUpperCase() === "JUMLAH") continue;
+
+                    databaseKasLokal.push({
+                        no: kolom[0] ? kolom[0].trim() : i,
+                        nama: namaWarga,
+                        januari: kolom[2] ? kolom[2].trim() : "",
+                        februari: kolom[3] ? kolom[3].trim() : "",
+                        maret: kolom[4] ? kolom[4].trim() : "",
+                        april: kolom[5] ? kolom[5].trim() : "",
+                        mei: kolom[6] ? kolom[6].trim() : "",
+                        juni: kolom[7] ? kolom[7].trim() : "",
+                        juli: kolom[8] ? kolom[8].trim() : "",
+                        agustus: kolom[9] ? kolom[9].trim() : "",
+                        september: kolom[10] ? kolom[10].trim() : "",
+                        oktober: kolom[11] ? kolom[11].trim() : "",
+                        november: kolom[12] ? kolom[12].trim() : "",
+                        desember: kolom[13] ? kolom[13].trim() : "",
+                        total: kolom[14] ? kolom[14].trim() : "Rp 0"
+                    });
                 }
                 
                 renderTabelKasMMS(databaseKasLokal);
             } catch (error) {
-                console.error("Gagal memuat API kas:", error);
-                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">Gagal terhubung ke database. Pastikan Web App disetel ke 'Anyone'.</td></tr>`;
+                console.error("Gagal memuat rekap data kas:", error);
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; color:red; padding:20px;">Gagal terhubung ke database. Pastikan pengaturan izin share file sudah benar.</td></tr>`;
             }
         }
 
@@ -277,32 +336,29 @@
             if (!tbody) return;
             
             if (dataArray.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:20px; color:#666;">Data kosong atau tidak ditemukan.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:20px; color:#666;">Data kosong atau tidak ditemukan pada tahun ini.</td></tr>`;
                 return;
             }
 
-            const urutanBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const urutanBulan = ["januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember"];
             
-            let htmlHTML = dataArray.map((row, index) => {
-                // Menentukan indikator tanda centang ✔ atau strip -
+            let htmlHTML = dataArray.map((row) => {
                 let kolomBulanHtml = urutanBulan.map(bulan => {
-                    let nilaiSel = row[bulan];
-                    if (nilaiSel === "✔") {
+                    let nilaiSelKas = row[bulan];
+                    // Deteksi karakter centang dari Apps Script kamu secara komprehensif
+                    if (nilaiSelKas === "✔" || nilaiSelKas === "true" || nilaiSelKas.includes("✔")) {
                         return `<td style="text-align: center;"><span class="centang-mms"><i class="fa-solid fa-check"></i></span></td>`;
                     } else {
                         return `<td style="text-align: center;"><span class="strip-mms">-</span></td>`;
                     }
                 }).join('');
 
-                // Mengambil nilai nominal total rupiah dari kolom 'Total Keseluruhan'
-                let nominalTotal = row["Total Keseluruhan"] || "Rp 0";
-
                 return `
                     <tr>
-                        <td style="text-align: center;">${row["No"] || (index + 1)}</td>
-                        <td class="sticky-nama"><i class="fa-solid fa-user" style="color:#E53935; margin-right:6px; font-size:11px;"></i> ${row["Nama"] || "-"}</td>
+                        <td style="text-align: center;">${row.no}</td>
+                        <td class="sticky-nama"><i class="fa-solid fa-user" style="color:#E53935; margin-right:6px; font-size:11px;"></i> ${row.nama}</td>
                         ${kolomBulanHtml}
-                        <td style="text-align: right; font-weight: bold; color: #333; background-color: #fcfcfc;">${nominalTotal}</td>
+                        <td style="text-align: right; font-weight: bold; color: #333; background-color: #fcfcfc;">${row.total}</td>
                     </tr>
                 `;
             }).join('');
@@ -313,16 +369,11 @@
         function filterNamaTabelKas() {
             const keyword = document.getElementById("cari-nama-kas").value.toLowerCase();
             const dataSaring = databaseKasLokal.filter(item => {
-                let namaObj = item["Nama"] || "";
-                return namaObj.toLowerCase().includes(keyword);
+                return item.nama.toLowerCase().includes(keyword);
             });
             renderTabelKasMMS(dataSaring);
         }
 
-        // Jalankan otomatis saat halaman selesai di-load browser
         document.addEventListener("DOMContentLoaded", () => {
             ambilDataKasMMS();
         });
-    </script>
-</body>
-</html>
