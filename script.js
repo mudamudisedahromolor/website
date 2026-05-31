@@ -960,7 +960,7 @@ async function ambilRiwayatChatMMS() {
         const arrayChat = await respon.json();
         
         if (arrayChat.length === 0) {
-            wadahTubuhChat.innerHTML = `<div style="text-align:center; color:#7f8c8d; font-size:12px; margin-top:60px; font-weight:500;">Belum ada obrolan hari ini.<br>Ayo sapa warga duluan, Bro! 👋</div>`;
+            wadahTubuhChat.innerHTML = `<div style="text-align:center; color:#7f8c8d; font-size:12px; margin-top:60px; font-weight:500;">Belum ada obrolan hari ini.<br>Ayo Kita Hujat Pemerintah Teman-Teman 👋</div>`;
             return;
         }
         
