@@ -166,20 +166,82 @@
         <button id="btn-instal-pwa" style="background-color: #E53935; border: none; color: white; font-weight: bold; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; box-shadow: 0 2px 5px rgba(229,57,53,0.3);">Instal Sekarang</button>
     </div>
 </div>
+    
 
 
-    <div id="mms-chat-launcher" onclick="toggleKotakChatMMS()">
-        <i class="fa-solid fa-comments"></i>
-    </div>
+   <div id="mms-chat-launcher" onclick="toggleKotakChatMMS()">
+    <i class="fa-regular fa-comments"></i>
+</div>
 
-    <div id="mms-chat-box" style="display: none;">
+<div id="mms-chat-box" style="display: none;">
+    <div class="chat-box-header">
+        <div class="chat-header-title">
+            <img src="images/mms.png" alt="Logo MMS" style="width:22px; height:22px; margin-right:8px; border-radius:50%;">
+            <span>Angkringan Chat RT 05</span>
         </div>
+        <button onclick="toggleKotakChatMMS()" class="chat-close-btn">&times;</button>
+    </div>
+    
+    <div id="chat-box-body">
+        <div style="text-align:center; color:#999; font-size:12px; margin-top:50px;">
+            <i class="fa-solid fa-spinner fa-spin"></i> Memuat obrolan warga...
+        </div>
+    </div>
+    
+    <div class="chat-box-footer">
+        <input type="text" id="chat-input-nama" placeholder="Nama samaran/asli..." maxlength="12">
+        <div class="chat-input-group">
+            <input type="text" id="chat-input-pesan" placeholder="Ketikan sesuatu yang seru..." onkeypress="deteksiEnterChatMMS(event)">
+            <button onclick="kirimPesanChatMMS()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
 
-    <style>
-        /* ... seluruh styling CSS chat melayang ... */
-    </style>
-
-    <script src="script.js?v=1"></script>
+    
+<style>
+    #mms-chat-launcher {
+        position: fixed; bottom: 25px; right: 25px;
+        /* GANTI: Membuat container bulat putih agar ikon hitam di dalam contohmu kontras */
+        width: 60px; height: 60px; background-color: #ffffff;
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        /* GANTI: Warna ikon di dalam contohmu adalah hitam, bukan putih */
+        color: #000000; font-size: 28px; cursor: pointer; z-index: 99999;
+        /* Tambahkan border merah tipis sebagai identitas organisasi agar terlihat elegan */
+        border: 2px solid #E53935;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s, background-color 0.2s;
+    }
+    #mms-chat-launcher:hover { transform: scale(1.08); background-color: #f1f1f1; }
+    
+    /* Sisanya styling jendela chat (chat-box) dan isinya tetap sama seperti kode kemarin */
+    #mms-chat-box {
+        position: fixed; bottom: 95px; right: 25px;
+        width: 310px; height: 400px; background-color: #ffffff;
+        border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+        display: flex; flex-direction: column; z-index: 99999; overflow: hidden;
+        border: 1px solid #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .chat-box-header {
+        background-color: #E53935; color: white; padding: 12px;
+        display: flex; justify-content: space-between; align-items: center; font-weight: 600;
+    }
+    .chat-header-title { display: flex; align-items: center; font-size: 13.5px; letter-spacing: 0.3px; }
+    .chat-close-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; line-height: 1; }
+    
+    #chat-box-body { flex: 1; padding: 12px; overflow-y: auto; background-color: #f7f9fa; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+    
+    .chat-bubble { background: #ffffff; padding: 8px 12px; border-radius: 8px; border: 1px solid #e8e8e8; max-width: 85%; align-self: flex-start; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+    .chat-meta { font-size: 10px; color: #888; margin-bottom: 3px; font-weight: 600; display: flex; justify-content: space-between; gap: 15px; }
+    .chat-text { font-size: 12.5px; color: #2c3e50; word-break: break-word; line-height: 1.4; }
+    
+    .chat-box-footer { padding: 10px; background: #ffffff; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 6px; }
+    #chat-input-nama { width: 100%; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 11.5px; outline: none; box-sizing: border-box; background: #fafafa; }
+    #chat-input-nama:focus { border-color: #E53935; background: #fff; }
+    .chat-input-group { display: flex; gap: 6px; }
+    #chat-input-pesan { flex: 1; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 12.5px; outline: none; }
+    #chat-input-pesan:focus { border-color: #E53935; }
+    .chat-box-footer button { background: #E53935; color: white; border: none; padding: 0 14px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+    .chat-box-footer button:hover { background: #d32f2f; }
+</style>
 
     <script>
         // MASUKKAN LINK URL WEB APP BARU YANG TERPISAH DI SINI
@@ -187,6 +249,11 @@
         
         // ... seluruh fungsi JavaScript chat melayang (toggle, ambilRiwayat, kirimPesan) ...
     </script>
+
+    
+    <script src="script.js?v=1"></script>
+
+
 </body>
 </html>
 
