@@ -933,7 +933,7 @@ function tutupPopupInstal() {
 // ==========================================================================
 // ENGINE JAVASCRIPT LIVE CHAT REAL-TIME (ANGKRINGAN CHAT MMS)
 // ==========================================================================
-const URL_ENGINE_CHAT_MMS = "URL_WEB_APP_CHATMMS_TERPISAH_KAMU"; 
+const URL_ENGINE_CHAT_MMS = "https://script.google.com/macros/s/AKfycbwVCoU1UZByMqIcQP3_wxI-fNk_q4PWh4zg3eOykC0KKbvRJhr-F7zK_Z2CKEMm0IgZZw/exec"; 
 let loopPenyegarObrolan = null;
 
 function toggleKotakChatMMS() {
