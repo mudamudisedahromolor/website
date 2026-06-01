@@ -931,12 +931,12 @@ body.login-page-body .box-subtitle {
     right: 25px;
     width: 60px; 
     height: 60px; 
-    background-color: #E53935; 
+    background-color: #E53935 !important; /* 🌟 Lingkaran tetap berwarna MERAH */
     border-radius: 50% !important; 
     display: flex; 
     align-items: center; 
     justify-content: center;
-    color: #ffffff; 
+    color: #ffffff !important; /* 🌟 Ikon bubble di tengah berwarna PUTIH */
     font-size: 26px; 
     cursor: pointer; 
     border: 2px solid #ffffff; 
@@ -947,12 +947,14 @@ body.login-page-body .box-subtitle {
     -webkit-tap-highlight-color: transparent; 
 }
 
+/* 🌟 KETIKAL DIKETUK / SENTUH (HOVER & ACTIVE) */
 #mms-chat-launcher:hover, 
+#mms-chat-launcher:active,
 #mms-chat-launcher:focus { 
-    background-color: #ffeb3b !important; 
-    color: #000000 !important; 
+    background-color: #ffeb3b !important; /* 🌟 Lingkaran berubah jadi KUNING */
+    color: #000000 !important; /* 🌟 Ikon bubble di tengah berubah jadi HITAM */
     border-color: #ffffff !important; 
-    transform: scale(1.08); 
+    transform: scale(1.05); 
     border-radius: 50% !important; 
     outline: none !important;
 }
