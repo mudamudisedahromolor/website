@@ -431,8 +431,7 @@ body {
         background-color: #E53935 !important; 
         flex-direction: row !important; 
         padding: 12px 20px !important; 
-        position: relative !important;
-       justify-content: space-between !important; /* Memastikan logo di kiri, tombol di kanan */
+        position: relative !important; 
     }
     
     .header-logo-area { margin-bottom: 0 !important; }
@@ -443,21 +442,13 @@ body {
     .brand-subtitle { font-size: 10px !important; color: rgba(255, 255, 255, 0.8) !important; }
     
     .top-header .header-right-stuff { 
-        display: flex !important; 
-        align-items: center !important;
-        gap: 0 !important;
+        display: none !important; 
     }
     
     .menu-toggle { 
         display: block !important; 
         position: static !important; 
         color: #ffffff !important;
-        background: none !important;
-        border: none !important;
-        font-size: 24px !important; /* Ukuran icon bars */
-        cursor: pointer !important;
-        padding: 5px 10px !important;
-        line-height: 1 !important;
     }
   
     .main-navbar { display: none; padding: 5px 0; width: 100%; flex-direction: column; align-items: stretch; background-color: #C62828; }
@@ -495,7 +486,7 @@ body {
 
     .btn-cetak-mutasi { display: flex; width: 100%; margin-top: 5px; height: 40px; }
     
-    /* 📱 DIHAPUS: Gaya lama #pwa-install-popup posisi fixed di bagian bawah HP telah dihapus dari sini */
+    /* ðŸ“± DIHAPUS: Gaya lama #pwa-install-popup posisi fixed di bagian bawah HP telah dihapus dari sini */
 }
 
 /* ==========================================================================
@@ -851,7 +842,7 @@ body {
     width: 100%;
 }
 
-/* ❌ ATURAN KHUSUS GATEWAY LOGIN (DIISOLASI DENGAN EXPLICIT BODY CLASS) */
+/* âŒ ATURAN KHUSUS GATEWAY LOGIN (DIISOLASI DENGAN EXPLICIT BODY CLASS) */
 body.login-page-body .main-navbar,
 body.login-page-body .header-right-stuff,
 body.login-page-body .header-secure-badge {
@@ -940,12 +931,12 @@ body.login-page-body .box-subtitle {
     right: 25px;
     width: 60px; 
     height: 60px; 
-    background-color: #E53935 !important; /* 🌟 Lingkaran tetap berwarna MERAH */
+    background-color: #E53935 !important; /* ðŸŒŸ Lingkaran tetap berwarna MERAH */
     border-radius: 50% !important; 
     display: flex; 
     align-items: center; 
     justify-content: center;
-    color: #ffffff !important; /* 🌟 Ikon bubble di tengah berwarna PUTIH */
+    color: #ffffff !important; /* ðŸŒŸ Ikon bubble di tengah berwarna PUTIH */
     font-size: 26px; 
     cursor: pointer; 
     border: 2px solid #ffffff; 
@@ -956,12 +947,12 @@ body.login-page-body .box-subtitle {
     -webkit-tap-highlight-color: transparent; 
 }
 
-/* 🌟 KETIKAL DIKETUK / SENTUH (HOVER & ACTIVE) */
+/* ðŸŒŸ KETIKAL DIKETUK / SENTUH (HOVER & ACTIVE) */
 #mms-chat-launcher:hover, 
 #mms-chat-launcher:active,
 #mms-chat-launcher:focus { 
-    background-color: #ffeb3b !important; /* 🌟 Lingkaran berubah jadi KUNING */
-    color: #000000 !important; /* 🌟 Ikon bubble di tengah berubah jadi HITAM */
+    background-color: #ffeb3b !important; /* ðŸŒŸ Lingkaran berubah jadi KUNING */
+    color: #000000 !important; /* ðŸŒŸ Ikon bubble di tengah berubah jadi HITAM */
     border-color: #ffffff !important; 
     transform: scale(1.05); 
     border-radius: 50% !important; 
@@ -983,7 +974,7 @@ body.login-page-body .box-subtitle {
     border: 1px solid #e2e8f0; 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     z-index: 999999 !important;
-    touch-action: manipulation; /* 🌟 Mencegah double-tap zoom di area luar chat */
+    touch-action: manipulation; /* ðŸŒŸ Mencegah double-tap zoom di area luar chat */
 }
 
 .chat-box-header {
@@ -1033,7 +1024,7 @@ body.login-page-body .box-subtitle {
 
 .chat-box-footer { padding: 12px; background: #ffffff; border-top: 1px solid #edf2f7; display: flex; flex-direction: column; gap: 8px; }
 
-/* 🌟 OBAH INPUT NAMA: font-size 16px mengunci auto-zoom HP agar mati total */
+/* ðŸŒŸ OBAH INPUT NAMA: font-size 16px mengunci auto-zoom HP agar mati total */
 #chat-input-nama { 
     width: 100%; 
     padding: 8px 10px; 
@@ -1049,7 +1040,7 @@ body.login-page-body .box-subtitle {
 
 .chat-input-group { display: flex; gap: 8px; }
 
-/* 🌟 OBAH INPUT PESAN: font-size 16px mematikan paksaan zoom-in layar browser */
+/* ðŸŒŸ OBAH INPUT PESAN: font-size 16px mematikan paksaan zoom-in layar browser */
 #chat-input-pesan { 
     flex: 1; 
     padding: 9px 12px; 
@@ -1069,7 +1060,7 @@ body.login-page-body .box-subtitle {
 .chat-box-footer button:hover { background: #d32f2f; transform: translateY(-1px); }
 
 @media (max-width: 480px) {
-    /* 🌟 PERBAIKAN TATA LETAK MOBILE: Posisi dipatok dari bawah (bottom) agar saat keyboard naik, 
+    /* ðŸŒŸ PERBAIKAN TATA LETAK MOBILE: Posisi dipatok dari bawah (bottom) agar saat keyboard naik, 
        kotak chat terdorong proporsional, bukan membesar atau mental ke tengah layar */
     #mms-chat-box {
         right: 5% !important; 
@@ -1100,10 +1091,10 @@ body.login-page-body .box-subtitle {
    ========================================================================== */
 #pwa-install-popup {
     display: none; /* Dikontrol via JavaScript */
-    position: absolute; /* 🌟 Mengikat posisi secara absolut tepat di bawah kontainer header */
+    position: absolute; /* ðŸŒŸ Mengikat posisi secara absolut tepat di bawah kontainer header */
     
-    /* 📱 Aturan posisi kotak kecil di HP (Mobile) */
-    top: calc(100% + 15px); /* 🌟 Akurat menghitung tinggi total navbar, lalu diberi jarak 15px */
+    /* ðŸ“± Aturan posisi kotak kecil di HP (Mobile) */
+    top: calc(100% + 15px); /* ðŸŒŸ Akurat menghitung tinggi total navbar, lalu diberi jarak 15px */
     left: 50%;
     transform: translateX(-50%); /* Memastikan posisi kotak pas di tengah-tengah layar */
     
@@ -1121,7 +1112,7 @@ body.login-page-body .box-subtitle {
     transition: top 0.2s ease-in-out; /* Efek transisi halus saat gorden menu dibuka */
 }
 
-/* 💻 SETTINGAN KHUSUS LAPTOP / DESKTOP (Layar Besar) */
+/* ðŸ’» SETTINGAN KHUSUS LAPTOP / DESKTOP (Layar Besar) */
 @media (min-width: 769px) {
     #pwa-install-popup {
         position: fixed !important; /* Di desktop dikembalikan ke melayang di pojok kanan atas */
@@ -1215,8 +1206,8 @@ body.login-page-body .box-subtitle {
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100vw; /* 🌟 Mengunci mutlak seukuran lebar kaca HP */
-  height: 100vh; /* 🌟 Mengunci mutlak seukuran tinggi kaca HP */
+  width: 100vw; /* ðŸŒŸ Mengunci mutlak seukuran lebar kaca HP */
+  height: 100vh; /* ðŸŒŸ Mengunci mutlak seukuran tinggi kaca HP */
   background-color: rgba(0, 0, 0, 0.7); 
   backdrop-filter: blur(8px); 
   display: flex;
@@ -1227,7 +1218,7 @@ body.login-page-body .box-subtitle {
   visibility: hidden;
   transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
   
-  /* 🌟 KUNCI UTAMA: Melarang browser menjalankan gesture cubitan zoom di area overlay */
+  /* ðŸŒŸ KUNCI UTAMA: Melarang browser menjalankan gesture cubitan zoom di area overlay */
   touch-action: none; 
 }
 
@@ -1239,14 +1230,14 @@ body.login-page-body .box-subtitle {
 .modal-content {
   background-color: #ffffff;
   width: 90%;
-  max-width: 440px; /* 🌟 Dioptimalkan agar proporsional dan pas di layar handphone */
+  max-width: 440px; /* ðŸŒŸ Dioptimalkan agar proporsional dan pas di layar handphone */
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   
-  /* 🌟 KUNCI KEDUA: Mencegah kotak konten ikut membesar secara tidak sengaja */
+  /* ðŸŒŸ KUNCI KEDUA: Mencegah kotak konten ikut membesar secara tidak sengaja */
   touch-action: manipulation; 
 }
 
@@ -1254,7 +1245,7 @@ body.login-page-body .box-subtitle {
   width: 100%;
   max-width: 100%;
   height: auto;
-  max-height: 60vh; /* 🌟 BATASI TINGGI GAMBAR: Agar tombol "Tutup" di bawahnya tidak terlempar keluar dari layar HP */
+  max-height: 60vh; /* ðŸŒŸ BATASI TINGGI GAMBAR: Agar tombol "Tutup" di bawahnya tidak terlempar keluar dari layar HP */
   display: block;
   object-fit: contain; 
 }
@@ -1330,6 +1321,6 @@ body.login-page-body .box-subtitle {
 
 @media (max-width: 480px) {
   .modal-content {
-    width: 88%; /* 🌟 Sedikit disesuaikan agar pas melayang di tengah layar HP spek kecil */
+    width: 88%; /* ðŸŒŸ Sedikit disesuaikan agar pas melayang di tengah layar HP spek kecil */
   }
 }
