@@ -1053,3 +1053,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById('modalOverlay').classList.add('active');
   }, 1000); // Muncul setelah 1 detik
 });
+
+
+
+/* ==========================================================================
+   11. DETECTOR DEVICE (ANDROID/IPHONE)
+   ===========================================*/
+function isIos() {
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test(userAgent);
+}
+
+function isInStandaloneMode() {
+  return ('standalone' in window.navigator) && (window.navigator.standalone);
+}
+
+// Jalankan logika setelah halaman selesai dimuat
+window.addEventListener('DOMContentLoaded', () => {
+  if (isIos() && !isInStandaloneMode()) {
+    const iosPrompt = document.getElementById('ios-prompt');
+    if (iosPrompt) {
+      iosPrompt.style.display = 'block';
+    }
+  }
+});
