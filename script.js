@@ -912,7 +912,7 @@ const tombolInstal = document.getElementById(ID_TOMBOL_INSTAL);
 if (tombolInstal) {
     tombolInstal.addEventListener('click', async () => {
         if (!pemicuInstal) {
-            alert("Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'Tambahkan ke Layar Utama' / 'Instal Aplikasi' ya, Bro!");
+            alert("Android : Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'Tambahkan ke Layar Utama' / 'Instal Aplikasi' ya, gengs! <br> Iphone : Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'bagikan' terakhir tambahkan ke layar utama ya, Gengs! );
             return;
         }
         
