@@ -152,13 +152,6 @@
     </footer>
 
 
-    
-  <div id="ios-prompt" class="ios-banner">
-    <p>
-      Instal aplikasi ini di iPhone kamu: klik tombol <strong>Share</strong> <span>⎋</span> lalu pilih <strong>Add to Home Screen</strong>.
-    </p>
-    <button onclick="document.getElementById('ios-prompt').style.display='none'">Tutup</button>
-  </div>
 
 
     
@@ -175,6 +168,7 @@
             </div>
             <button onclick="toggleKotakChatMMS()" class="chat-close-btn">&times;</button>
         </div>
+
         
         <div id="chat-box-body">
             <div class="chat-loading-status">
@@ -213,6 +207,33 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+    
+  <div id="ios-prompt" class="ios-banner">
+    <p>
+      Instal aplikasi ini di iPhone kamu: klik tombol <strong>Share</strong> <span>⎋</span> lalu pilih <strong>Add to Home Screen</strong>.
+    </p>
+    <button onclick="document.getElementById('ios-prompt').style.display='none'">Tutup</button>
+  </div>
+
+
+       <div id="pwa-install-popup">
+        <div class="pwa-mms-container">
+            <img src="images/mms.png" alt="Logo MMS" class="pwa-mms-logo">
+            <div class="pwa-mms-text-block">
+                <h4 class="pwa-mms-title">Aplikasi BPH MMS 05</h4>
+                <p class="pwa-mms-subtitle">Tambahkan ke layar utama HP agar akses lebih cepat</p>
+            </div>
+        </div>
+        <div class="pwa-mms-buttons">
+            <button onclick="tutupPopupInstal()" class="pwa-mms-btn-later">Nanti Saja</button>
+            <button id="btn-instal-pwa" class="pwa-mms-btn-install">Instal Sekarang</button>
+        </div>
+    </div>
     
     <script src="script.js?v=1"></script>
 
