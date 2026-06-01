@@ -7,10 +7,12 @@
     
     <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
+    <!-- Diperbaiki: Ditambahkan Apple Touch Icon agar logo MMS muncul saat di-save di iPhone -->
+    <link rel="apple-touch-icon" href="images/mms.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/mms.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/mms.png">
     
-    <link rel="stylesheet" href="style.css?v=104">
+    <link rel="stylesheet" href="style.css?v=105">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
 </head>
@@ -28,16 +30,14 @@
                 </a>
             </div>
             <div class="header-right-stuff">
-                <form class="search-box" action="#" method="GET">
-                    <input type="text" placeholder="Cari informasi..." name="search">
-                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
+                <!-- 🛠️ DIHAPUS: Form search-box bawaan desktop yang merusak layout navbar mobile -->
                 <div class="header-socials">
                     <a href="#" title="Instagram"><i class="fa-solid fa-camera"></i></a>
                     <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
                     <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
+                <!-- Tombol Hamburger diletakkan di dalam struktur header-right-stuff yang benar -->
                 <button class="menu-toggle" id="mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -90,12 +90,13 @@
     </nav>
     </header>
 
-    <div class="finance-page-wrapper">
+    <!-- 🛠️ DIUBAH: Mengganti class pembungkus utama menjadi gallery-page-wrapper agar kotak putih otomatis naik ke atas -->
+    <div class="gallery-page-wrapper">
         <div class="content-box-gallery">
             <h2 class="box-title">DOKUMENTASI KEGIATAN</h2>
             <hr class="box-divider">
             <p class="gallery-desc">
-                Foto dokumentasi kegiatan Muda Mudi Sedahromo Lor 05 dan Warga RT.05
+                Foto documentation kegiatan Muda Mudi Sedahromo Lor 05 dan Warga RT.05
             </p>
 
             <div class="filter-container" style="justify-content: space-between; align-items: center; margin-bottom: 25px;">
