@@ -882,74 +882,79 @@ function formatRupiah(angka) {
 }
 
 
+
 // ==========================================================================
-// LOGIKA PWA MMS 05 - PAKSA POP-UP INSTAL MUNCUL TERUS TIAP BUKA WEB
+// LOGIKA PWA MMS 05 - KEMBALI KE SETELAN OTOMATIS (MUNCUL JIKA BELUM INSTAL)
 // ==========================================================================
-let pemicuInstal;
+let pemicuInstal = null;
 const ID_KOTAK_POPUP = 'pwa-install-popup';
 const ID_TOMBOL_INSTAL = 'btn-instal-pwa';
 
-// 1. Tangkap pemicu instalasi resmi dari browser asli
+// 1. Kotak hanya muncul jika browser memberikan sinyal resmi 'beforeinstallprompt'
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Mencegah browser menampilkan infobar bawaan chrome yang gampang ilang
+    // Cegah kemunculan banner bawaan browser yang mengganggu
     e.preventDefault();
     
-    // Simpan pemicunya ke variabel global kita
+    // Simpan pemicunya ke variabel global
     pemicuInstal = e;
     
-    // PAKSA: Kotak pop-up buatanmu langsung ditampilkan ke layar tanpa syarat!
-    const popup = document.getElementById(ID_KOTAK_POPUP);
-    if (popup) {
-        popup.style.display = 'block';
+    // Cek apakah warga pernah menekan "Nanti Saja" pada sesi ini
+    if (sessionStorage.getItem('pwa_ditunda') !== 'true') {
+        const popup = document.getElementById(ID_KOTAK_POPUP);
+        if (popup) {
+            popup.style.display = 'block';
+        }
     }
 });
 
-// 2. Jalur Pintas Cadangan: Jika browser lambat melempar pemicu asli di HP warga,
-// kita paksa kotak pop-up tetap tampil secara visual sebagai pengingat sejak awal
-document.addEventListener("DOMContentLoaded", () => {
-    const popup = document.getElementById(ID_KOTAK_POPUP);
-    if (popup) {
-        popup.style.display = 'block';
-    }
-});
-
-// 3. Jalankan fungsi instalasi saat tombol "Instal Sekarang" diklik warga
+// 2. Jalankan fungsi instalasi saat tombol "Instal Sekarang" diklik warga
 const tombolInstal = document.getElementById(ID_TOMBOL_INSTAL);
 if (tombolInstal) {
     tombolInstal.addEventListener('click', async () => {
         if (!pemicuInstal) {
-            // Jika browser HP belum siap melempar pemicu instalasi otomatis
             alert("Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'Tambahkan ke Layar Utama' / 'Instal Aplikasi' ya, Bro!");
             return;
         }
         
-        // Munculkan dialog instalasi resmi dari sistem HP/Browser
+        // Munculkan dialog instalasi resmi dari sistem HP
         pemicuInstal.prompt();
         
-        // Tunggu pilihan dari warga (setuju instal atau batalkan)
+        // Tunggu pilihan dari user
         const { outcome } = await pemicuInstal.userChoice;
         console.log(`Pilihan user: ${outcome}`);
         
-        // Bersihkan pemicu dan sembunyikan kembali pop-up kita
+        if (outcome === 'accepted') {
+            console.log('User menerima instalasi');
+            tutupPopupInstalMurni();
+        }
+        
+        // Bersihkan pemicu setelah digunakan
         pemicuInstal = null;
-        tutupPopupInstal();
     });
 }
 
-// 4. Fungsi menutup pop-up (HANYA menyembunyikan sementara saat itu saja)
-function tutupPopupInstal() {
+// 3. Fungsi menutup pop-up (Sembunyikan dan ingat pilihan user agar tidak muncul lagi di sesi ini)
+window.tutupPopupInstal = function() {
     const popup = document.getElementById(ID_KOTAK_POPUP);
     if (popup) {
         popup.style.display = 'none';
     }
-    // JANGAN tulis perintah penolak/cookie apa pun di sini, biar pas di-refresh tetep nongol!
+    // Menyimpan status penundaan di sesi ini agar tidak pop-up terus setiap pindah halaman
+    sessionStorage.setItem('pwa_ditunda', 'true');
 }
 
-// 5. Sistem Deteksi Mutlak: Jika aplikasi SUDAH BERHASIL DIINSTAL dan dijadikan launcher di HP,
-// otomatis fungsi ini mengunci pop-up agar mati permanen demi kenyamanan warga
+// Fungsi internal untuk menutup tanpa menyimpan status tunda
+function tutupPopupInstalMurni() {
+    const popup = document.getElementById(ID_KOTAK_POPUP);
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
+
+// 4. Sistem Deteksi Mutlak: Jika sukses terinstal, kunci pop-up secara permanen
 window.addEventListener('appinstalled', () => {
     console.log('Aplikasi MMS 05 Sukses Terinstal di HP Warga!');
-    tutupPopupInstal();
+    tutupPopupInstalMurni();
 });
 
 
