@@ -1052,21 +1052,29 @@ body.login-page-body .box-subtitle {
 
 
 /* ==========================================================================
-   13. BANNER PWA ASLI MMS - VERSI DI BAWAH NAVBAR (DINAMIS & IKUT TURUN)
+   13. BANNER PWA ASLI MMS - VERSI POP-UP KECIL DINAMIS (MELAYANG DAN IKUT TURUN)
    ========================================================================== */
 #pwa-install-popup {
-    display: none; 
-    position: relative; /* 🌟 Mengalir normal di mobile agar otomatis terdorong ke bawah oleh menu */
+    display: none; /* Dikontrol via JavaScript */
+    position: fixed; /* 🌟 Tetap fixed melayang agar bentuknya konsisten jadi kotak pop-up */
+    
+    /* 📱 Aturan posisi di HP (Mobile) */
+    top: calc(100% + 15px); /* 🌟 POSISI KUNCI: Berada tepat di bawah total tinggi header + jarak 15px */
+    left: 50%;
+    transform: translateX(-50%); /* Memastikan kotak selalu presisi di tengah layar */
+    
+    width: 92%; /* Lebar kotak pop-up kustom (tidak full screen) */
+    max-width: 380px; /* Batas lebar maksimal agar tetap proporsional */
+    
     font-family: sans-serif; 
     background-color: #ffffff; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+    border-radius: 12px; /* Membuat sudut kotak melengkung halus */
     padding: 16px; 
-    z-index: 999; 
-    margin-top: 10px; /* 🌟 TAMBAHKAN INI: Memberi jarak celah bersih */
-    border-bottom: 4px solid #E53935; /* Garis horizontal pembatas bawah kustom */
+    z-index: 999999; 
+    border-left: 5px solid #E53935; /* Mengembalikan aksen garis merah vertikal di kiri */
     box-sizing: border-box;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
+    transition: top 0.3s ease-in-out; /* Animasi halus saat navbar memanjang/turun */
 }
 
 /* 💻 SETTINGAN KHUSUS LAPTOP / DESKTOP (Layar Besar) */
@@ -1079,9 +1087,6 @@ body.login-page-body .box-subtitle {
         left: auto !important; 
         transform: none !important; 
         width: 360px !important; 
-        border-left: 5px solid #E53935;
-        border-bottom: none;
-        border-radius: 12px;
         box-shadow: 0 4px 24px rgba(0,0,0,0.25); 
     }
 }
@@ -1109,7 +1114,7 @@ body.login-page-body .box-subtitle {
 .pwa-mms-title {
     margin: 0 !important; 
     color: #333 !important; 
-    font-size: 15px !important;
+    font-size: 14px !important;
     font-weight: bold;
     line-height: 1.2;
 }
@@ -1117,7 +1122,7 @@ body.login-page-body .box-subtitle {
 .pwa-mms-subtitle {
     margin: 2px 0 0 0 !important; 
     color: #666 !important; 
-    font-size: 12px !important;
+    font-size: 11px !important;
     line-height: 1.3;
 }
 
