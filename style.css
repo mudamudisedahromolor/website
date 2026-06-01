@@ -1163,14 +1163,16 @@ body.login-page-body .box-subtitle {
 
 
 /* ==========================================================================
-   GAYA UNTUK MODAL POP-UP ANTI-JUDOL (PERBAIKAN TOTAL & AMAN)
+   GAYA UNTUK MODAL POP-UP ANTI-JUDOL (KUNCI TOTAL DARI ZOOM HP)
    ========================================================================== */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
+  width: 100vw; /* 🌟 Mengunci mutlak seukuran lebar kaca HP */
+  height: 100vh; /* 🌟 Mengunci mutlak seukuran tinggi kaca HP */
   background-color: rgba(0, 0, 0, 0.7); 
   backdrop-filter: blur(8px); 
   display: flex;
@@ -1180,6 +1182,9 @@ body.login-page-body .box-subtitle {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+  
+  /* 🌟 KUNCI UTAMA: Melarang browser menjalankan gesture cubitan zoom di area overlay */
+  touch-action: none; 
 }
 
 .modal-overlay.active {
@@ -1190,18 +1195,22 @@ body.login-page-body .box-subtitle {
 .modal-content {
   background-color: #ffffff;
   width: 90%;
-  max-width: 500px; 
+  max-width: 440px; /* 🌟 Dioptimalkan agar proporsional dan pas di layar handphone */
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  
+  /* 🌟 KUNCI KEDUA: Mencegah kotak konten ikut membesar secara tidak sengaja */
+  touch-action: manipulation; 
 }
 
 .modal-image {
   width: 100%;
   max-width: 100%;
   height: auto;
+  max-height: 60vh; /* 🌟 BATASI TINGGI GAMBAR: Agar tombol "Tutup" di bawahnya tidak terlempar keluar dari layar HP */
   display: block;
   object-fit: contain; 
 }
@@ -1277,6 +1286,6 @@ body.login-page-body .box-subtitle {
 
 @media (max-width: 480px) {
   .modal-content {
-    width: 85%;
+    width: 88%; /* 🌟 Sedikit disesuaikan agar pas melayang di tengah layar HP spek kecil */
   }
 }
