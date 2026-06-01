@@ -960,27 +960,68 @@ window.addEventListener('appinstalled', () => {
 
 
 
-// ==========================================================================
-// ENGINE JAVASCRIPT LIVE CHAT REAL-TIME (ANGKRINGAN CHAT MMS)
-// ==========================================================================
+/* ==========================================================================
+   10. MODAL POP-UP ANNOUNCEMENT (ANTI-JUDI ONLINE)
+   --------------------------------------------------------------------------
+   Instruksi: Mengatur fungsi buka-tutup otomatis modal pengumuman warga.
+   ========================================================================== */
+
+/**
+ * Fungsi Global untuk menutup pop-up iklan/pengumuman
+ */
+window.closeModal = function() {
+    const modal = document.getElementById('modalOverlay');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+};
+
+/**
+ * Trigger otomatis untuk menampilkan pop-up pengumuman saat halaman dimuat
+ */
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById('modalOverlay');
+    
+    // Hanya jalankan timer jika elemen modal terdeteksi ada di halaman HTML tersebut
+    if (modal) {
+        setTimeout(function() {
+            modal.classList.add('active');
+        }, 1000); // Muncul mulus setelah 1 detik halaman selesai dimuat
+    }
+});
+
+
+/* ==========================================================================
+   11. ENGINE LIVE CHAT REAL-TIME (ANGKRINGAN CHAT MMS 05)
+   --------------------------------------------------------------------------
+   Instruksi: Sinkronisasi pesan masuk dan keluar via Google Apps Script.
+   ========================================================================== */
+
 const URL_ENGINE_CHAT_MMS = "https://script.google.com/macros/s/AKfycbwVCoU1UZByMqIcQP3_wxI-fNk_q4PWh4zg3eOykC0KKbvRJhr-F7zK_Z2CKEMm0IgZZw/exec"; 
 let loopPenyegarObrolan = null;
 
-function toggleKotakChatMMS() {
+/**
+ * Fungsi buka-tutup widget jendela obrolan warga
+ */
+window.toggleKotakChatMMS = function() {
     const kotakChat = document.getElementById("mms-chat-box");
     if (!kotakChat) return;
     
-    if (kotakChat.style.display === "none") {
+    if (kotakChat.style.display === "none" || kotakChat.style.display === "") {
         kotakChat.style.display = "flex";
         ambilRiwayatChatMMS();
+        
         // Polling data otomatis berjalan tiap 3 detik demi seru-seruan real-time
         loopPenyegarObrolan = setInterval(ambilRiwayatChatMMS, 3000); 
     } else {
         kotakChat.style.display = "none";
         clearInterval(loopPenyegarObrolan);
     }
-}
+};
 
+/**
+ * Mengambil riwayat data obrolan terbaru dari database Google Sheets
+ */
 async function ambilRiwayatChatMMS() {
     const wadahTubuhChat = document.getElementById("chat-box-body");
     if (!wadahTubuhChat) return;
@@ -990,10 +1031,14 @@ async function ambilRiwayatChatMMS() {
         const arrayChat = await respon.json();
         
         if (arrayChat.length === 0) {
-            wadahTubuhChat.innerHTML = `<div style="text-align:center; color:#7f8c8d; font-size:12px; margin-top:60px; font-weight:500;">Belum ada obrolan hari ini.<br>Ayo Kita Hujat Pemerintah Teman-Teman 👋</div>`;
+            wadahTubuhChat.innerHTML = `
+                <div style="text-align:center; color:#7f8c8d; font-size:12px; margin-top:60px; font-weight:500;">
+                    Belum ada obrolan hari ini.<br>Ayo Kita Hujat Pemerintah Teman-Teman 👋
+                </div>`;
             return;
         }
         
+        // Cek posisi scroll, jika user di bawah, otomatis kunci scroll di bawah saat ada chat baru
         const posisiScrollSudahDiBawah = wadahTubuhChat.scrollHeight - wadahTubuhChat.clientHeight <= wadahTubuhChat.scrollTop + 70;
         
         const susunanHtml = arrayChat.map(item => `
@@ -1005,13 +1050,18 @@ async function ambilRiwayatChatMMS() {
         `).join('');
         
         wadahTubuhChat.innerHTML = susunanHtml;
-        if (posisiScrollSudahDiBawah) wadahTubuhChat.scrollTop = wadahTubuhChat.scrollHeight;
+        if (posisiScrollSudahDiBawah) {
+            wadahTubuhChat.scrollTop = wadahTubuhChat.scrollHeight;
+        }
     } catch (err) {
-        console.error("Gagal sinkronisasi obrolan:", err);
+        console.error("Gagal sinkronisasi data obrolan:", err);
     }
 }
 
-async function kirimPesanChatMMS() {
+/**
+ * Mengirimkan pesan baru warga ke database backend Google Sheets
+ */
+window.kirimPesanChatMMS = async function() {
     const inputNama = document.getElementById("chat-input-nama");
     const inputPesan = document.getElementById("chat-input-pesan");
     
@@ -1020,9 +1070,14 @@ async function kirimPesanChatMMS() {
     const stringNama = inputNama.value.trim();
     const stringPesan = inputPesan.value.trim();
     
-    if (!stringNama) { alert("Ketikan nama panggilanmu dulu, Bro!"); inputNama.focus(); return; }
+    if (!stringNama) { 
+        alert("Ketikan nama panggilanmu dulu, Bro!"); 
+        inputNama.focus(); 
+        return; 
+    }
     if (!stringPesan) return;
     
+    // Beri efek loading sementara saat transmisi data
     inputPesan.value = "Mengirim...";
     inputPesan.disabled = true;
     
@@ -1039,46 +1094,13 @@ async function kirimPesanChatMMS() {
         inputPesan.value = stringPesan;
         inputPesan.disabled = false;
     }
-}
+};
 
-function deteksiEnterChatMMS(event) {
-    if (event.key === "Enter") kirimPesanChatMMS();
-}
-
-
-// FUNGSI UNTUK MENUTUP POP UP IKLAN AWAL
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-}
-
-// FUNGSI UNTUK MENAMPILKAN POP UP IKLAN SECARA OTOMATIS SAAT DIMUAT
-document.addEventListener("DOMContentLoaded", function(event) {
-  // Anda bisa menambahkan keterlambatan waktu jika perlu
-  setTimeout(function() {
-    document.getElementById('modalOverlay').classList.add('active');
-  }, 1000); // Muncul setelah 1 detik
-});
-
-
-
-/* ==========================================================================
-   11. DETECTOR DEVICE (ANDROID/IPHONE)
-   ===========================================*/
-function isIos() {
-  const userAgent = window.navigator.userAgent.toLowerCase();
-  return /iphone|ipad|ipod/.test(userAgent);
-}
-
-function isInStandaloneMode() {
-  return ('standalone' in window.navigator) && (window.navigator.standalone);
-}
-
-// Jalankan logika setelah halaman selesai dimuat
-window.addEventListener('DOMContentLoaded', () => {
-  if (isIos() && !isInStandaloneMode()) {
-    const iosPrompt = document.getElementById('ios-prompt');
-    if (iosPrompt) {
-      iosPrompt.style.display = 'block';
+/**
+ * Mendeteksi ketukan tombol Enter keyboard pada input chat untuk kirim cepat
+ */
+window.deteksiEnterChatMMS = function(event) {
+    if (event.key === "Enter") {
+        window.kirimPesanChatMMS();
     }
-  }
-});
+};
