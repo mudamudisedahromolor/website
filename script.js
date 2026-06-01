@@ -884,66 +884,60 @@ function formatRupiah(angka) {
 
 
 // ==========================================================================
-// LOGIKA PWA MMS 05 - KEMBALI KE SETELAN OTOMATIS (MUNCUL JIKA BELUM INSTAL)
+// LOGIKA PWA MMS 05 - AMAN & ANTI-CRASH (TIDAK MERUSAK KODE LAIN)
 // ==========================================================================
 let pemicuInstal = null;
 const ID_KOTAK_POPUP = 'pwa-install-popup';
 const ID_TOMBOL_INSTAL = 'btn-instal-pwa';
 
-// 1. Kotak hanya muncul jika browser memberikan sinyal resmi 'beforeinstallprompt'
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Cegah kemunculan banner bawaan browser yang mengganggu
     e.preventDefault();
-    
-    // Simpan pemicunya ke variabel global
     pemicuInstal = e;
     
-    // Cek apakah warga pernah menekan "Nanti Saja" pada sesi ini
-    if (sessionStorage.getItem('pwa_ditunda') !== 'true') {
-        const popup = document.getElementById(ID_KOTAK_POPUP);
-        if (popup) {
-            popup.style.display = 'block';
+    // Dibungkus try-catch agar jika sessionStorage diblokir, pop-up tetap bisa muncul/tutup tanpa crash
+    try {
+        if (sessionStorage.getItem('pwa_ditunda') !== 'true') {
+            const popup = document.getElementById(ID_KOTAK_POPUP);
+            if (popup) popup.style.display = 'block';
         }
+    } catch (err) {
+        // Jika sessionStorage error, langsung tampilkan saja tanpa mematikan sisa skrip
+        const popup = document.getElementById(ID_KOTAK_POPUP);
+        if (popup) popup.style.display = 'block';
     }
 });
 
-// 2. Jalankan fungsi instalasi saat tombol "Instal Sekarang" diklik warga
 const tombolInstal = document.getElementById(ID_TOMBOL_INSTAL);
 if (tombolInstal) {
     tombolInstal.addEventListener('click', async () => {
         if (!pemicuInstal) {
-            alert("Android : Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'Tambahkan ke Layar Utama' / 'Instal Aplikasi' ya, gengs! <br> Iphone : Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'bagikan' terakhir tambahkan ke layar utama ya, Gengs! );
+            alert("Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'Tambahkan ke Layar Utama' / 'Instal Aplikasi' ya, Bro!");
             return;
         }
-        
-        // Munculkan dialog instalasi resmi dari sistem HP
         pemicuInstal.prompt();
-        
-        // Tunggu pilihan dari user
         const { outcome } = await pemicuInstal.userChoice;
-        console.log(`Pilihan user: ${outcome}`);
-        
         if (outcome === 'accepted') {
-            console.log('User menerima instalasi');
             tutupPopupInstalMurni();
         }
-        
-        // Bersihkan pemicu setelah digunakan
         pemicuInstal = null;
     });
 }
 
-// 3. Fungsi menutup pop-up (Sembunyikan dan ingat pilihan user agar tidak muncul lagi di sesi ini)
+// 🌟 PERBAIKAN UTAMA: Fungsi penutup pop-up PWA diamankan penuh dengan try-catch
 window.tutupPopupInstal = function() {
     const popup = document.getElementById(ID_KOTAK_POPUP);
     if (popup) {
         popup.style.display = 'none';
     }
-    // Menyimpan status penundaan di sesi ini agar tidak pop-up terus setiap pindah halaman
-    sessionStorage.setItem('pwa_ditunda', 'true');
-}
+    
+    // Amankan penyimpanan status agar tidak memicu crash ke fungsi modal iklan di bawahnya
+    try {
+        sessionStorage.setItem('pwa_ditunda', 'true');
+    } catch (e) {
+        console.log("Session storage tidak diizinkan oleh perangkat, status penundaan diabaikan.");
+    }
+};
 
-// Fungsi internal untuk menutup tanpa menyimpan status tunda
 function tutupPopupInstalMurni() {
     const popup = document.getElementById(ID_KOTAK_POPUP);
     if (popup) {
@@ -951,12 +945,9 @@ function tutupPopupInstalMurni() {
     }
 }
 
-// 4. Sistem Deteksi Mutlak: Jika sukses terinstal, kunci pop-up secara permanen
 window.addEventListener('appinstalled', () => {
-    console.log('Aplikasi MMS 05 Sukses Terinstal di HP Warga!');
     tutupPopupInstalMurni();
 });
-
 
 
 
