@@ -1095,3 +1095,64 @@ window.deteksiEnterChatMMS = function(event) {
         window.kirimPesanChatMMS();
     }
 };
+
+
+
+
+/* ==========================================================================
+   MODUL KHUSUS: LOGIKA INTERAKTIF PAPAN ARSIP & PEMBACA PDF LOMBA
+   ========================================================================== */
+window.bukaPdfViewer = function(urlFile) {
+    const areaViewer = document.getElementById('pdf-viewer-section');
+    const iframePdf = document.getElementById('pdf-iframe');
+    const tombolUnduh = document.getElementById('btn-unduh-pdf');
+    
+    if(!areaViewer || !iframePdf || !tombolUnduh) return;
+
+    let urlFinal = urlFile;
+    // Otomatis bungkus ke Google GView Viewer jika berkas berasal dari link Google Drive
+    if (urlFile.includes("drive.google.com")) {
+        urlFinal = `https://docs.google.com/gview?url=${encodeURIComponent(urlFile)}&embedded=true`;
+    }
+    
+    iframePdf.src = urlFinal;
+    tombolUnduh.href = urlFile;
+    
+    areaViewer.style.display = 'block';
+    areaViewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+window.tutupPdfViewer = function() {
+    const areaViewer = document.getElementById('pdf-viewer-section');
+    const iframePdf = document.getElementById('pdf-iframe');
+    
+    if(areaViewer && iframePdf) {
+        areaViewer.style.display = 'none';
+        iframePdf.src = ''; // Bersihkan src agar meringankan beban RAM browser/HP warga
+    }
+};
+
+window.terapkanFilterLomba = function() {
+    const pencarian = document.getElementById('input-cari-lomba');
+    const filterTahun = document.getElementById('filter-lomba-tahun');
+    const barisTabel = document.querySelectorAll('#data-tabel-lomba tr');
+    
+    if(!pencarian || !barisTabel) return;
+
+    const kataKunci = pencarian.value.toLowerCase();
+    const tahunTerpilih = filterTahun ? filterTahun.value : "Semua";
+    
+    barisTabel.forEach(baris => {
+        const teksBaris = baris.textContent.toLowerCase();
+        const kolomTahun = baris.cells[0] ? baris.cells[0].textContent.trim() : "";
+        
+        const cocokKataKunci = teksBaris.includes(kataKunci);
+        const cocokTahun = (tahunTerpilih === "Semua" || kolomTahun === tahunTerpilih);
+        
+        if(cocokKataKunci && cocokTahun) {
+            baris.style.display = '';
+        } else {
+            baris.style.display = 'none';
+        }
+    });
+};
