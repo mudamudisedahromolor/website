@@ -713,63 +713,64 @@ window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSura
 
 
 /* ==========================================================================
-   16. MODUL KHUSUS: ARSIP DATA LPJ REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
+   16. MODUL LPJ (VERSI STABIL & ANTI-LOADING)
    ========================================================================== */
-const SPREADSHEET_ID_LPJ = '1rYD76yBGXEj99jxRVh-ZmlKrOGIO4-Zqf4aIw1PPHuA'; const SHEET_NAME_LPJ = 'Form Responses 4'; 
-let semuaDataLpj = [], dataLpjTersaring = []; const BARIS_LPJ_PER_HALAMAN = 5; let halamanLpjSaatIni = 1; 
+let dataLpj = []; // Data utama
+let halLpj = 1;   // Halaman saat ini
+const BARIS_LPJ = 5;
 
-function ambilDataLpjGoogleSheets() {
-    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LPJ}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LPJ)}`;
-    fetch(url).then(res => res.text()).then(data => {
-        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
-        semuaDataLpj = []; const setTahun = new Set();
-        for (let i = 1; i < barisData.length; i++) {
-            const baris = barisData[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
-                let thn = tgl.split('/')[2] || 'Umum';
-                semuaDataLpj.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
-                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
-            }
-        }
-        semuaDataLpj.reverse(); dataLpjTersaring = [...semuaDataLpj];
-        const sel = document.getElementById('filter-lpj-tahun');
-        if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
-        halamanLpjSaatIni = 1; tampilkanDataLpjKeTabel();
-    }).catch(err => console.error(err));
+async function ambilDataLpj() {
+    try {
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/pub?gid=292952199&single=true&output=tsv");
+        const tsv = await res.text();
+        // Parse dan simpan ke variabel global dataLpj
+        dataLpj = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderLpj();
+    } catch(e) { console.error("Error LPJ:", e); }
 }
 
-function tampilkanDataLpjKeTabel() {
-    const tbody = document.getElementById('data-tabel-lpj'); if (!tbody) return;
-    if (dataLpjTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
-    
-    const start = (halamanLpjSaatIni - 1) * BARIS_LPJ_PER_HALAMAN;
-    const pageData = dataLpjTersaring.slice(start, start + BARIS_LPJ_PER_HALAMAN);
+function renderLpj() {
+    const tbody = document.getElementById('data-tabel-lpj');
+    if (!tbody) return;
+
+    const totalHal = Math.ceil(dataLpj.length / BARIS_LPJ);
+    const start = (halLpj - 1) * BARIS_LPJ;
+    const pageData = dataLpj.slice(start, start + BARIS_LPJ);
 
     let html = pageData.map(i => {
-        let warnaBadge = i.kategori.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
-        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaLpjViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
-        return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+        let warna = i.kat.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
+        let btn = i.url ? `<button class="btn-cetak-mutasi" onclick="window.bukaLpjViewer('${i.url}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat</button>` : `<i>-</i>`;
+        return `<tr><td>${i.tgl}</td><td><strong>${i.nama}</strong></td><td><span style="background:${warna}; color:white; padding:4px 10px; border-radius:12px; font-size:11px;">${i.kat}</span></td><td style="text-align:center;">${btn}</td></tr>`;
     }).join('');
 
-    const totalHal = Math.ceil(dataLpjTersaring.length / BARIS_LPJ_PER_HALAMAN);
-    if (totalHal > 1) {
-        let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#D32F2F; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
-        if (halamanLpjSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navLpjManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
-        else if (halamanLpjSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navLpjManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
-        else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navLpjManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navLpjManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
-        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
-    }
-    tbody.innerHTML = html;
+    // --- PAGINATION LOGIC ---
+    let nav = `
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px;">
+        <button onclick="navLpj(-1)" ${halLpj === 1 ? 'disabled style="opacity:0.3"' : 'style="cursor:pointer"'}>
+            <i class="fa-solid fa-chevron-left"></i> Sebelumnya
+        </button>
+        <span>Hal ${halLpj} / ${totalHal}</span>
+        <button onclick="navLpj(1)" ${halLpj === totalHal ? 'disabled style="opacity:0.3"' : 'style="cursor:pointer"'}>
+            Terbaru <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>`;
+
+    tbody.innerHTML = html + `<tr><td colspan="4">${nav}</td></tr>`;
 }
-window.navLpjManual = (dir) => { halamanLpjSaatIni += dir; tampilkanDataLpjKeTabel(); };
 
-function bukaProposalViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = urlEmbed; const panel = document.getElementById('proposal-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } }
-function tutupProposalViewer() { const panel = document.getElementById('proposal-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = ''; }
-function bukaSuratViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = urlEmbed; const panel = document.getElementById('surat-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } }
-function tutupSuratViewer() { const panel = document.getElementById('surat-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = ''; }
+window.navLpj = (dir) => { 
+    halLpj += dir; 
+    renderLpj(); 
+};
 
-
+// Pastikan fungsi bukaLpjViewer didefinisikan
+window.bukaLpjViewer = function(urlAsli) {
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
+    const iframe = document.getElementById('lpj-iframe'); // Pastikan ID ini ada di HTML Anda
+    if (iframe) iframe.src = urlEmbed;
+    const panel = document.getElementById('lpj-viewer-section'); 
+    if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); }
+};
 /* ==========================================================================
    MASTER SCRIPT (STABIL & ANTI BENTROK)
    ========================================================================== */
