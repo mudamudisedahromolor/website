@@ -715,7 +715,7 @@ window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSura
 /* ==========================================================================
    16. MODUL KHUSUS: ARSIP DATA LPJ REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
    ========================================================================== */
-const SPREADSHEET_ID_LPJ = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; const SHEET_NAME_LPJ = 'Form Responses 4'; 
+const SPREADSHEET_ID_LPJ = '1rYD76yBGXEj99jxRVh-ZmlKrOGIO4-Zqf4aIw1PPHuA'; const SHEET_NAME_LPJ = 'Form Responses 4'; 
 let semuaDataLpj = [], dataLpjTersaring = []; const BARIS_LPJ_PER_HALAMAN = 5; let halamanLpjSaatIni = 1; 
 
 function ambilDataLpjGoogleSheets() {
@@ -815,7 +815,7 @@ let dataLpj = [], pageLpj = 1;
 async function ambilDataLpj() {
     try {
         // MASUKKAN URL TSV LPJ DI SINI
-        const res = await fetch("URL_TSV_LPJ_KAMU_DI_SINI");
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/pub?gid=292952199&single=true&output=tsv");
         const tsv = await res.text();
         dataLpj = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
         renderLpj();
