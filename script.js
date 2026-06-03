@@ -553,7 +553,7 @@ function konversiUrlDriveUntukEmbed(urlLama) {
 }
 
 /* ==========================================================================
-   13. MODUL KHUSUS: ARSIP DATA LOMBA REAL-TIME
+   13. MODUL KHUSUS: ARSIP DATA LOMBA REAL-TIME (VERSI MODUL 16)
    ========================================================================== */
 const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; const SHEET_NAME_LOMBA = 'Form Responses 1'; 
 let semuaDataLomba = [], dataLombaTersaring = []; const BARIS_LOMBA_PER_HALAMAN = 5; let halamanLombaSaatIni = 1; 
@@ -563,10 +563,11 @@ function ambilDataGoogleSheets() {
     fetch(url).then(res => res.text()).then(data => {
         const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
         semuaDataLomba = []; const setTahun = new Set();
-        for (let i = 1; i < barisData.length; i++) {
+        for (let i = 0; i < barisData.length; i++) {
             const baris = barisData[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+            if (baris && baris.c && baris.c[1] && baris.c[2]) {
+                const tgl = String(baris.c[1].f || baris.c[1].v).trim();
+                if (tgl.toLowerCase() === 'tanggal' || tgl === '-') continue;
                 let thn = tgl.split('/')[2] || 'Umum';
                 semuaDataLomba.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
                 if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
@@ -617,8 +618,7 @@ function tampilkanDataLombaKeTabel() {
 }
 
 function itungHalamanLomba(totalHal) {
-    // Disamakan menggunakan ID 'info-halaman-tabel' sesuai file HTML Anda
-    const infoHal = document.getElementById('info-halaman-tabel');
+    const infoHal = document.getElementById('info-halaman-tabel'); // Target ID HTML Arsip Lomba
     if (infoHal) { infoHal.textContent = `Halaman ${totalHal === 0 ? 0 : halamanLombaSaatIni} dari ${totalHal}`; }
 }
 window.navLombaManual = (dir) => { halamanLombaSaatIni += dir; tampilkanDataLombaKeTabel(); };
@@ -631,8 +631,10 @@ window.bukaLombaViewer = (url) => {
     }
 };
 window.tutupPdfViewer = () => { const viewerSection = document.getElementById('pdf-viewer-section'); const iframe = document.getElementById('pdf-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
+
+
 /* ==========================================================================
-   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME
+   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (VERSI MODUL 16)
    ========================================================================== */
 const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; const SHEET_NAME_PROPOSAL = 'Form Responses 1'; 
 let semuaDataProposal = [], dataProposalTersaring = []; const BARIS_PROPOSAL_PER_HALAMAN = 5; let halamanProposalSaatIni = 1; 
@@ -642,10 +644,11 @@ function ambilDataProposalGoogleSheets() {
     fetch(url).then(res => res.text()).then(data => {
         const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
         semuaDataProposal = []; const setTahun = new Set();
-        for (let i = 1; i < barisData.length; i++) {
+        for (let i = 0; i < barisData.length; i++) {
             const baris = barisData[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+            if (baris && baris.c && baris.c[1] && baris.c[2]) {
+                const tgl = String(baris.c[1].f || baris.c[1].v).trim();
+                if (tgl.toLowerCase() === 'tanggal' || tgl === '-') continue;
                 let thn = tgl.split('/')[2] ? tgl.split('/')[2].substring(0,4) : 'Umum';
                 semuaDataProposal.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
                 if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
@@ -710,15 +713,9 @@ window.bukaProposalViewer = (url) => {
 };
 window.tutupProposalViewer = () => { const viewerSection = document.getElementById('proposal-viewer-section'); const iframe = document.getElementById('proposal-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
 
-// Pemicu otomatis pemuatan data saat file script dimuat
-document.addEventListener("DOMContentLoaded", () => {
-    if(document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets();
-    if(document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets();
-});
-
 
 /* ==========================================================================
-   15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME
+   15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (VERSI MODUL 16)
    ========================================================================== */
 const SPREADSHEET_ID_SURAT = '1ILm2T8ed5oJ85cU2YzTiDHnHlGgtMjVoKYmhSxFF2PQ'; const SHEET_NAME_SURAT = 'Form Responses 1'; 
 let semuaDataSurat = [], dataSuratTersaring = []; const BARIS_SURAT_PER_HALAMAN = 5; let halamanSuratSaatIni = 1; 
@@ -728,10 +725,11 @@ function ambilDataSuratGoogleSheets() {
     fetch(url).then(res => res.text()).then(data => {
         const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
         semuaDataSurat = []; const setTahun = new Set();
-        for (let i = 1; i < barisData.length; i++) {
+        for (let i = 0; i < barisData.length; i++) {
             const baris = barisData[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+            if (baris && baris.c && baris.c[1] && baris.c[2]) {
+                const tgl = String(baris.c[1].f || baris.c[1].v).trim();
+                if (tgl.toLowerCase() === 'tanggal' || tgl === '-') continue;
                 let thn = tgl.split('/')[2] || 'Umum';
                 semuaDataSurat.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
                 if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
@@ -796,6 +794,15 @@ window.bukaSuratViewer = (url) => {
 };
 window.tutupSuratViewer = () => { const viewerSection = document.getElementById('surat-viewer-section'); const iframe = document.getElementById('surat-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
 
+
+/* ==========================================================================
+   INISIALISASI AUTOMATIS SAAT HALAMAN DI-LOAD
+   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    if(document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets();
+    if(document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets();
+    if(document.getElementById('data-tabel-surat')) ambilDataSuratGoogleSheets();
+});
 
 /* ==========================================================================
    16. MODUL KHUSUS: ARSIP DATA LPJ REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
