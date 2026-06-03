@@ -1275,6 +1275,9 @@ window.tutupPdfViewer = function() {
 /* ==========================================================================
    14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
    ========================================================================== */
+/* ==========================================================================
+   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
+   ========================================================================== */
 const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; 
 const SHEET_NAME_PROPOSAL = 'Form Responses 1'; 
 
@@ -1296,26 +1299,30 @@ function ambilDataProposalGoogleSheets() {
             semuaDataProposal = [];
             const setTahun = new Set();
 
-            for (let i = 1; i < barisData.length; i++) {
+            // i dimulai dari 0 agar baris data pertama Google Sheet tidak terlewat
+            for (let i = 0; i < barisData.length; i++) {
                 const baris = barisData[i];
                 
-                if (baris && baris.c && baris.c[2]) {
-                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                // Memastikan baris data ada dan kolom tanggal (Indeks 1 / Kolom B) tidak kosong
+                if (baris && baris.c && baris.c[1]) {
+                    // Kolom B (Indeks 1) = tanggal
+                    const teksTanggal = String(baris.c[1].f || baris.c[1].v || '-');
                     
                     let angkaTahun = 'Umum';
                     if (teksTanggal && teksTanggal !== '-') {
                         const pecahan = teksTanggal.split('/');
-                        if (pecapan.length >= 3) {
-                            angkaTahun = pecahan[2].trim(); 
+                        // Perbaikan typo dari 'pecapan' menjadi 'pecahan'
+                        if (pecahan.length >= 3) {
+                            angkaTahun = pecahan[2].trim().substring(0, 4); 
                         }
                     }
 
                     const dataItem = {
                         tanggal: teksTanggal,
                         tahun: angkaTahun, 
-                        nama: baris.c[2] ? String(baris.c[2].v) : '-',
-                        kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', 
-                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
+                        nama: baris.c[2] ? String(baris.c[2].v) : '-',       // Kolom C (Indeks 2) = keterangan
+                        kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', // Kolom D (Indeks 3) = kategori
+                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''     // Kolom E (Indeks 4) = upload file proposal
                     };
                     
                     semuaDataProposal.push(dataItem);
@@ -1462,7 +1469,6 @@ window.tutupProposalViewer = function() {
     if (panelViewer) panelViewer.style.display = 'none';
     if (iframe) iframe.src = '';
 }
-
 
 /* ==========================================================================
    15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (BEBAS BENTROK)
