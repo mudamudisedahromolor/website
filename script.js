@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets(); 
     if (document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets(); 
     if (document.getElementById('data-tabel-surat')) ambilDataSuratGoogleSheets(); 
-    if (document.getElementById('data-tabel-lpj')) ambilDataLpjGoogleSheets(); 
+    if (document.getElementById('data-tabel-lpj')) ambilDataLpj(); 
 });
 
 /* ==========================================================================
