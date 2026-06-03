@@ -1,4 +1,1361 @@
 /* ==========================================================================
+   0. RESET DASAR & TYPOGRAPHY
+   ========================================================================== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background-color: #f4f4f4; 
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* ==========================================================================
+   1. GLOBAL HEADER & NAVBAR (DESKTOP DEFAULT)
+   ========================================================================== */
+.site-header { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    z-index: 1000; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+}
+
+.top-header { 
+    background-color: #fff; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 40px; 
+}
+
+.header-logo-area { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+.logo-wrapper {
+    text-decoration: none; 
+    color: inherit; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+.mini-logo { 
+    width: 45px; 
+    height: auto; 
+}
+
+.header-text { 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.brand-title { 
+    color: #333; 
+    font-weight: bold; 
+    font-size: 18px; 
+    letter-spacing: 0.5px; 
+}
+
+.brand-subtitle { 
+    color: #666; 
+    font-size: 13px; 
+}
+
+.header-right-stuff { 
+    display: flex; 
+    align-items: center; 
+    gap: 25px; 
+}
+
+.header-socials { 
+    display: flex; 
+    gap: 15px; 
+}
+
+.header-socials a { 
+    color: #555; 
+    font-size: 18px; 
+    text-decoration: none; 
+    transition: 0.2s; 
+}
+
+.header-socials a:hover { 
+    transform: scale(1.15); 
+    color: #E53935; 
+}
+
+.menu-toggle { 
+    display: none; 
+    background: none; 
+    border: none; 
+    font-size: 26px; 
+    cursor: pointer;
+    color: #333;
+}
+
+/* Baris Merah Navbar Layer 1 */
+.main-navbar { 
+    background-color: #E53935; 
+    padding: 0 40px; 
+}
+
+.nav-list { 
+    display: flex; 
+    list-style: none; 
+}
+
+.nav-item { 
+    position: relative; 
+}
+
+.nav-item a { 
+    display: block; 
+    padding: 14px 20px; 
+    color: #fff; 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 14px; 
+}
+
+.nav-item a:hover { 
+    background-color: #C62828; 
+}
+
+.navbar-mobile-only {
+    display: none;
+}
+
+/* Layer 2: Dropdown Menu */
+.submenu { 
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    background-color: #E53935; 
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+    min-width: 200px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15); 
+}
+
+.submenu-item {
+    position: relative;
+}
+
+.submenu-item a { 
+    font-size: 13px; 
+    font-weight: normal; 
+}
+
+.submenu-item > a:hover { 
+    color: yellow !important; 
+    background-color: #C62828; 
+}
+
+.nav-item:hover > .submenu { 
+    display: block; 
+}
+
+.sub-submenu-dalam {
+    display: none; 
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+    background-color: #bd2724; 
+}
+
+/* ==========================================================================
+   2. HERO SECTION & CONTENT MAIN DESIGN
+   ========================================================================== */
+.hero-container {
+    position: relative; 
+    width: 100%; 
+    min-height: 100vh;
+    background-image: url('images/mms-foto-bersama2025.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding-top: 100px;
+}
+
+.hero-overlay { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 1; 
+}
+
+.hero-content { 
+    position: relative; 
+    z-index: 2; 
+    text-align: center; 
+    color: #fff; 
+    padding: 20px; 
+    max-width: 800px; 
+}
+
+.hero-title-box { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 15px; 
+    margin-bottom: 5px; 
+}
+
+.hero-title-box h1 { 
+    font-size: 38px; 
+    font-weight: 800; 
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7); 
+}
+
+.hero-content h2 { 
+    font-size: 26px; 
+    font-weight: 600; 
+    color: #FFD700; 
+    margin-bottom: 20px; 
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7); 
+}
+
+.hero-description { 
+    font-size: 16px; 
+    line-height: 1.8; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8); 
+}
+
+.content-box {
+    position: relative; 
+    z-index: 2; 
+    background-color: #ffffff;
+    width: 90%; 
+    max-width: 800px; 
+    padding: 40px 50px; 
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+    text-align: left;
+    color: #333333; 
+    margin: 0 auto;
+}
+
+.box-title {
+    color: #E53935 !important; 
+    font-size: 28px !important; 
+    margin-bottom: 15px !important;
+    text-align: center; 
+    text-shadow: none !important;
+}
+
+.box-divider {
+    border: 0; 
+    height: 3px; 
+    background-color: #E53935; 
+    width: 60px;
+    margin: 0 auto 30px auto; 
+    border-radius: 2px;
+}
+
+.content-box h3 { color: #333; font-size: 20px; margin-top: 25px; margin-bottom: 10px; font-weight: 700; }
+.content-box p, .content-box ul { font-size: 15px; line-height: 1.8; color: #555; margin-bottom: 15px; }
+.content-box ul { padding-left: 20px; }
+.content-box li { margin-bottom: 8px; }
+
+/* ==========================================================================
+   3. INDEX AUTOMATIC CAROUSEL SLIDER
+   ========================================================================== */
+.slider-wrapper {
+    position: relative; 
+    max-width: 900px; 
+    margin: -80px auto 50px; 
+    background-color: #fff;
+    border-radius: 12px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+    z-index: 10; 
+    overflow: hidden;
+}
+
+.slide { 
+    display: none; 
+    animation: fadeEffect 1s; 
+}
+
+.slide.aktif { 
+    display: flex; 
+}
+
+@keyframes fadeEffect { 
+    from { opacity: 0.4; } 
+    to { opacity: 1; } 
+}
+
+.slide-img { 
+    width: 50%; 
+    min-height: 300px; 
+    object-fit: cover; 
+}
+
+.slide-content { 
+    width: 50%; 
+    padding: 40px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+.slide-content h3 { font-size: 24px; color: #333; margin-bottom: 15px; }
+.slide-content p { font-size: 15px; color: #666; line-height: 1.6; }
+.slider-dots { text-align: center; padding: 20px 0; background-color: #fff; }
+
+.dot { 
+    cursor: pointer; 
+    height: 12px; 
+    width: 12px; 
+    margin: 0 5px; 
+    background-color: #ccc; 
+    border-radius: 50%; 
+    display: inline-block; 
+    transition: 0.3s; 
+}
+.dot.aktif, .dot:hover { background-color: #E53935; }
+
+/* ==========================================================================
+   4. HALAMAN TRANSPARANSI KAS KEUANGAN & TRANSAKSI
+   ========================================================================== */
+.finance-page-wrapper { padding-top: 150px; margin-top: -50px; padding-bottom: 60px; display: flex; justify-content: center; }
+.summary-cards { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+.card-box { flex: 1; min-width: 200px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.card-box h4 { font-size: 14px; color: #666; margin-bottom: 10px; font-weight: normal; }
+.card-box .amount { font-size: 22px; font-weight: 800; }
+.card-box.masuk .amount { color: #2e7d32; }
+.card-box.keluar .amount { color: #E53935; }
+.card-box.saldo .amount { color: #1565c0; }
+
+.filter-container { display: flex; gap: 15px; justify-content: flex-end; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+.filter-box { padding: 10px 15px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none; height: 40px; }
+.filter-box:focus { border-color: #E53935; }
+
+.btn-cetak-mutasi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E53935;
+    color: #ffffff !important;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none !important;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease-in-out;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.btn-cetak-mutasi:hover {
+    background-color: #c62828;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+}
+
+.btn-cetak-mutasi i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.table-responsive { width: 100%; overflow-x: auto; }
+.finance-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+.finance-table th { background-color: #E53935; color: white; padding: 12px 15px; white-space: nowrap; }
+.finance-table td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+.finance-table tr:nth-child(even) { background-color: #fafafa; }
+.finance-table tr:hover { background-color: #f1f1f1; }
+
+/* ==========================================================================
+   5. HALAMAN STRUKTUR PENGURUS INTI & SWIPER CAROUSEL
+   ========================================================================== */
+.structure-page-wrapper { padding-top: 150px; padding-bottom: 60px; display: flex; justify-content: center; }
+.content-box-structure { position: relative; z-index: 2; background-color: #ffffff; width: 95%; max-width: 1000px; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 0 auto; }
+.swipe-instruction { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
+.swiper { width: 100%; padding: 20px 0 50px 0; }
+.swiper-slide { transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0.5; transform: scale(0.85); }
+.swiper-slide-active { opacity: 1; transform: scale(1.05); z-index: 10; }
+.team-card { background: #fff; padding: 30px 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; display: flex; flex-direction: column; align-items: center; border: 1px solid #eee; min-height: 280px; }
+.team-card img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid #ddd; }
+.team-card.ketua-card img { border-color: #E53935; width: 130px; height: 130px; }
+.team-card h4 { color: #333; font-size: 16px; margin-bottom: 5px; font-weight: bold; }
+.team-card p { color: #E53935; font-weight: 600; font-size: 13px; text-transform: uppercase; margin-bottom: 5px; }
+.nim-text { font-size: 11px !important; color: #888 !important; text-transform: none !important; font-weight: normal !important; margin-bottom: 15px !important; }
+.team-socials { display: flex; justify-content: center; gap: 15px; margin-top: auto; }
+.team-socials a { color: #555; font-size: 18px; transition: 0.3s; }
+.team-socials a:hover { color: #E53935; transform: scale(1.2); }
+
+/* ==========================================================================
+   6. HALAMAN DOKUMENTASI (GOOGLE DRIVE EMBED & AUTOMATED TABLE)
+   ========================================================================== */
+.gallery-page-wrapper { padding-top: 150px; padding-bottom: 60px; display: flex; justify-content: center; }
+.content-box-gallery { position: relative; z-index: 2; background-color: #ffffff; width: 95%; max-width: 1100px; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 0 auto; }
+.gallery-desc { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+.drive-embed-container { position: relative; width: 100%; height: 600px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; background: #fafafa; }
+.drive-iframe { width: 100%; height: 100%; border: none; }
+#data-tabel-dokumentasi img { max-width: 180px; max-height: 120px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); border: 1px solid #ddd; transition: transform 0.2s ease-in-out; }
+#data-tabel-dokumentasi img:hover { transform: scale(1.04); }
+
+/* ==========================================================================
+   7. MEDIA QUERIES KHUSUS DESKTOP / LAPTOP (PC)
+   ========================================================================= */
+@media screen and (min-width: 769px) {
+    .submenu-item:hover > .sub-submenu-dalam { display: block; }
+    .sub-submenu-dalam { position: absolute; top: 0; left: 100%; min-width: 200px; box-shadow: 2px 4px 6px rgba(0,0,0,0.15); }
+    .sub-submenu-dalam li a { padding-left: 20px !important; }
+}
+
+/* ==========================================================================
+   8. MEDIA QUERIES SATU PINTU KHUSUS MOBILE (HP)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    .top-header { 
+        background-color: #E53935 !important; 
+        flex-direction: row !important; 
+        padding: 12px 20px !important; 
+        position: relative !important; 
+    }
+    
+    .header-logo-area { margin-bottom: 0 !important; }
+    .mini-logo { width: 34px !important; }
+    
+    .logo-wrapper { color: #ffffff !important; }
+    .brand-title { font-size: 14px !important; }
+    .brand-subtitle { font-size: 10px !important; color: rgba(255, 255, 255, 0.8) !important; }
+    
+    .top-header .header-right-stuff { 
+        display: none !important; 
+    }
+    
+    .menu-toggle { 
+        display: block !important; 
+        position: static !important; 
+        color: #ffffff !important;
+    }
+  
+    .main-navbar { display: none; padding: 5px 0; width: 100%; flex-direction: column; align-items: stretch; background-color: #C62828; }
+    .main-navbar.aktif { display: flex; }
+    .nav-list { flex-direction: column; }
+    .nav-item a { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 12px 20px; font-size: 13px; }
+    
+    .submenu { position: static; box-shadow: none; padding-left: 15px; background-color: #B71C1C; }
+
+    .navbar-mobile-only { 
+        display: flex !important; 
+        flex-direction: column; 
+        padding: 15px 20px; 
+        background-color: #B71C1C; 
+        border-top: 1px solid rgba(255,255,255,0.1); 
+    }
+    .navbar-mobile-only .header-socials { justify-content: center; width: 100%; gap: 24px; }
+    .navbar-mobile-only .header-socials a { color: #ffffff !important; font-size: 18px; }
+
+    /* FIX PADDING GATEWAY: Menambahkan .login-page-wrapper agar elemen form login turun & tidak tertimbun */
+    .finance-page-wrapper, .structure-page-wrapper, .gallery-page-wrapper, .hero-container, .login-page-wrapper { 
+        padding-top: 150px !important; 
+    }
+
+    .content-box, .content-box-structure, .content-box-gallery { padding: 20px; width: 95%; }
+    .box-title { font-size: 22px !important; }
+    .summary-cards { gap: 10px; }
+    .card-box { padding: 15px; }
+    .card-box .amount { font-size: 18px; }
+
+    .slider-wrapper { margin: -20px 10px 30px; }
+    .slide.aktif { flex-direction: column; } 
+    .slide-img { width: 100%; height: 185px; }
+    .slide-content { width: 100%; padding: 20px; }
+
+    .btn-cetak-mutasi { display: flex; width: 100%; margin-top: 5px; height: 40px; }
+    
+    /* ðŸ“± DIHAPUS: Gaya lama #pwa-install-popup posisi fixed di bagian bawah HP telah dihapus dari sini */
+}
+
+/* ==========================================================================
+   9. INDEPENDENT SITE FOOTER DESIGN
+   ========================================================================== */
+.site-footer {
+    background-color: #B71C1C; 
+    color: #ffffff;
+    padding: 50px 0 0 0;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 60px; 
+}
+
+.footer-container {
+    max-width: 1100px;
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; 
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.footer-column h5 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #FFD700; 
+}
+
+.footer-column h5::after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 2px;
+    background-color: #ffffff;
+    margin-top: 8px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.footer-logo {
+    width: 40px;
+    height: auto;
+}
+
+.footer-brand h4 {
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.footer-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 12px;
+}
+
+.footer-text i {
+    margin-right: 8px;
+    color: #FFD700;
+}
+
+.footer-text a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-text a:hover {
+    color: #FFD700;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-links a i {
+    font-size: 10px;
+    margin-right: 8px;
+    transition: transform 0.2s;
+}
+
+.footer-links a:hover {
+    color: #FFD700;
+    padding-left: 5px; 
+}
+
+.footer-social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.footer-social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+    background-color: #ffffff;
+    color: #B71C1C;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    background-color: rgba(0, 0, 0, 0.2); 
+    padding: 15px 0;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr; 
+        gap: 30px;
+        padding-bottom: 30px;
+    }
+    
+    .footer-column {
+        text-align: center;
+    }
+    
+    .footer-brand {
+        justify-content: center;
+    }
+    
+    .footer-column h5::after {
+        margin: 8px auto 0 auto; 
+    }
+    
+    .footer-social-icons {
+        justify-content: center;
+    }
+    
+    .footer-links a:hover {
+        padding-left: 0; 
+    }
+}
+
+/* ==========================================================================
+   10. MODAL POPUP FOTO PROFILE / DOKUMENTASI OVERLAY
+   ========================================================================== */
+.modal-foto-mms {
+    display: none; 
+    position: fixed; 
+    z-index: 9999; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.85); 
+    backdrop-filter: blur(5px); 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-foto-mms img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: zoomInModal 0.3s ease;
+}
+
+@keyframes zoomInModal {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-modal-mms {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-modal-mms:hover { 
+    color: #E53935; 
+}
+
+/* ==========================================================================
+   11. TAMBAHAN UNTUK TOMBOL GOOGLE FORM | INPUT CASH FLOW |
+   ========================================================================== */
+.google-form-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    margin-top: 10px;
+}
+
+.btn-google-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 32px;
+    background-color: #673ab7; 
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(103, 58, 183, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-google-form:hover {
+    background-color: #512da8;
+    box-shadow: 0 6px 15px rgba(81, 45, 168, 0.4);
+    transform: translateY(-2px);
+    color: white; 
+}
+
+.btn-google-form:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   12. PORTAL LOGIN GATEWAY ADMIN KUSTOM & FIX LAYOUT HEADER (LOGO CENTERING)
+   ========================================================================== */
+.login-page-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: calc(100vh - 140px);
+}
+
+.login-content-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px !important;  
+    padding: 40px 35px !important; 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    border-top: 6px solid #E53935 !important; 
+    margin: auto;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 16px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 14px 14px 14px 45px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+}
+
+.login-input:focus {
+    border-color: #E53935;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: #E53935;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #c62828;
+    box-shadow: 0 6px 15px rgba(198, 40, 40, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.portal-footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid #eee;
+    background-color: #ffffff;
+    width: 100%;
+}
+
+/* ❌ ATURAN KHUSUS GATEWAY LOGIN (DIISOLASI DENGAN EXPLICIT BODY CLASS) */
+body.login-page-body .main-navbar,
+body.login-page-body .header-right-stuff,
+body.login-page-body .header-secure-badge {
+    display: none !important;
+}
+
+body.login-page-body .site-header {
+    position: fixed !important;
+    height: auto !important;
+    min-height: unset !important;
+    background-color: #ffffff !important;
+    border-bottom: 4px solid #E53935 !important; 
+}
+
+body.login-page-body .top-header {
+    background-color: #ffffff !important;
+    justify-content: center !important; 
+    padding: 20px 20px !important; 
+    box-shadow: none !important; 
+}
+
+body.login-page-body .header-logo-area {
+    justify-content: center !important;
+    width: 100%;
+}
+
+body.login-page-body .logo-wrapper {
+    flex-direction: column !important; 
+    text-align: center !important;
+    gap: 6px !important;
+}
+
+body.login-page-body .mini-logo {
+    width: 55px !important; 
+    height: auto !important;
+    margin-top: 5px !important;    
+    margin-bottom: 0px !important;
+}
+
+body.login-page-body .brand-title {
+    font-size: 18px !important;
+}
+
+body.login-page-body .brand-subtitle {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #666 !important; 
+    font-size: 12px !important;
+    margin-bottom: 5px !important; 
+}
+
+body.login-page-body .box-subtitle {
+    margin-bottom: 35px !important; 
+}
+
+/* DESIGN TEKS ERROR SALAH PASSWORD */
+.error-text {
+    display: none; 
+    color: #D32F2F; 
+    background-color: #FFEBEE; 
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: -10px; 
+    margin-bottom: 20px; 
+    text-align: center;
+    border: 1px solid #FFCDD2;
+    animation: shakeEffect 0.3s ease-in-out; 
+}
+
+@keyframes shakeEffect {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+
+/* ==========================================================================
+   WIDGET LIVE CHAT MELAYANG INDEPENDEN (ANGKRINGAN CHAT MMS 05)
+   ========================================================================== */
+#mms-chat-launcher {
+    position: fixed; 
+    bottom: 25px; 
+    right: 25px;
+    width: 60px; 
+    height: 60px; 
+    background-color: #E53935 !important; 
+    border-radius: 50% !important; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    color: #ffffff !important; 
+    font-size: 26px; 
+    cursor: pointer; 
+    border: 2px solid #ffffff; 
+    box-shadow: 0 4px 18px rgba(0,0,0,0.3); 
+    transition: all 0.2s ease-in-out; 
+    z-index: 999999 !important; 
+    outline: none !important; 
+    -webkit-tap-highlight-color: transparent; 
+}
+
+#mms-chat-launcher:hover, 
+#mms-chat-launcher:active,
+#mms-chat-launcher:focus { 
+    background-color: #ffeb3b !important; 
+    color: #000000 !important; 
+    border-color: #ffffff !important; 
+    transform: scale(1.05); 
+    border-radius: 50% !important; 
+    outline: none !important;
+}
+
+#mms-chat-box {
+    position: fixed; 
+    bottom: 95px; 
+    right: 25px;
+    width: 330px; 
+    height: 460px; 
+    background-color: #ffffff;
+    border-radius: 16px; 
+    box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden;
+    border: 1px solid #e2e8f0; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    z-index: 999999 !important;
+    touch-action: manipulation; 
+}
+
+.chat-box-header {
+    background-color: #E53935; 
+    color: white; 
+    padding: 14px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: 0 2px 8 rgba(229, 57, 53, 0.3);
+}
+.chat-header-title { display: flex; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; }
+.chat-header-title img { width: 24px; height: 24px; margin-right: 10px; border-radius: 50%; background: #fff; padding: 1px; }
+.chat-close-btn { background: none; border: none; color: white; font-size: 26px; cursor: pointer; line-height: 1; }
+
+#chat-box-body { 
+    flex: 1; 
+    padding: 14px; 
+    overflow-y: auto; 
+    background-color: #f4efe9;
+    background-image: url("https://www.transparenttextures.com/patterns/lined-paper.png");
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    scroll-behavior: smooth; 
+}
+
+.chat-loading-status { text-align: center; color: #7f8c8d; font-size: 13px; margin-top: 60px; font-weight: 500; }
+
+.chat-bubble { 
+    background: rgba(255, 255, 255, 0.95); 
+    padding: 8px 12px 6px 12px; 
+    border-radius: 4px 12px 12px 12px; 
+    max-width: 85%; 
+    align-self: flex-start; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 6px -1px rgba(0,0,0,0.05); 
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    min-width: 90px;
+    border-left: 3px solid #E53935;
+}
+
+.chat-sender-name { font-size: 11px; color: #E53935; font-weight: 700; margin-bottom: 3px; letter-spacing: 0.2px; }
+.chat-text { font-size: 13px; color: #2d3748; word-break: break-word; line-height: 1.45; margin-bottom: 8px; }
+.chat-timestamp { font-size: 9px; color: #a0aec0; align-self: flex-end; position: absolute; bottom: 4px; right: 8px; font-weight: 500; }
+
+.chat-box-footer { padding: 12px; background: #ffffff; border-top: 1px solid #edf2f7; display: flex; flex-direction: column; gap: 8px; }
+
+#chat-input-nama { 
+    width: 100%; 
+    padding: 8px 10px; 
+    border: 1px solid #cbd5e1; 
+    border-radius: 8px; 
+    font-size: 16px; 
+    outline: none; 
+    box-sizing: border-box; 
+    background: #f8fafc; 
+    transition: all 0.2s; 
+}
+#chat-input-nama:focus { border-color: #E53935; background: #fff; box-shadow: 0 0 0 2px rgba(229,57,53,0.1); }
+
+.chat-input-group { display: flex; gap: 8px; }
+
+#chat-input-pesan { 
+    flex: 1; 
+    padding: 9px 12px; 
+    border: 1px solid #cbd5e1; 
+    border-radius: 8px; 
+    font-size: 16px; 
+    outline: none; 
+    box-sizing: border-box; 
+    transition: all 0.2s; 
+}
+#chat-input-pesan:focus { border-color: #E53935; box-shadow: 0 0 0 2px rgba(229,57,53,0.1); }
+
+.chat-box-footer button { 
+    background: #E53935; color: white; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; 
+    box-shadow: 0 2px 4px rgba(229, 57, 53, 0.2);
+}
+.chat-box-footer button:hover { background: #d32f2f; transform: translateY(-1px); }
+
+@media (max-width: 480px) {
+    #mms-chat-box {
+        right: 5% !important; 
+        left: 5% !important;
+        bottom: 85px !important; 
+        transform: none !important; 
+        width: 90% !important;
+        height: 65vh !important; 
+        max-height: 480px !important;
+        border-radius: 16px !important; 
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    #mms-chat-launcher {
+        bottom: 15px !important;
+        right: 5% !important;
+    }
+    
+    #chat-input-nama, #chat-input-pesan {
+        font-size: 16px;
+    }
+}
+
+
+/* ==========================================================================
+   13. BANNER PWA ASLI MMS - VERSI POP-UP KECIL (STABIL & IKUT TURUN)
+   ========================================================================== */
+#pwa-install-popup {
+    display: none; 
+    position: absolute; 
+    top: calc(100% + 15px); 
+    left: 50%;
+    transform: translateX(-50%); 
+    
+    width: 92%; 
+    max-width: 380px; 
+    
+    font-family: sans-serif; 
+    background-color: #ffffff; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+    border-radius: 12px; 
+    padding: 16px; 
+    z-index: 999999 !important; 
+    border-left: 5px solid #E53935; 
+    box-sizing: border-box;
+    transition: top 0.2s ease-in-out; 
+}
+
+@media (min-width: 769px) {
+    #pwa-install-popup {
+        position: fixed !important; 
+        top: 90px !important; 
+        bottom: auto !important;
+        right: 25px !important; 
+        left: auto !important; 
+        transform: none !important; 
+        width: 360px !important; 
+        box-shadow: 0 4px 24px rgba(0,0,0,0.25); 
+    }
+}
+
+.pwa-mms-container {
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    margin-bottom: 12px;
+}
+
+.pwa-mms-logo {
+    width: 45px; 
+    height: 45px; 
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.pwa-mms-text-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.pwa-mms-title {
+    margin: 0 !important; 
+    color: #333 !important; 
+    font-size: 14px !important;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.pwa-mms-subtitle {
+    margin: 2px 0 0 0 !important; 
+    color: #666 !important; 
+    font-size: 11px !important;
+    line-height: 1.3;
+}
+
+.pwa-mms-buttons {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px;
+}
+
+.pwa-mms-btn-later {
+    background: none !important; 
+    border: none !important; 
+    color: #888 !important; 
+    font-weight: bold !important; 
+    cursor: pointer; 
+    padding: 8px 12px; 
+    font-size: 13px;
+    outline: none;
+}
+
+.pwa-mms-btn-install {
+    background-color: #E53935 !important; 
+    border: none !important; 
+    color: white !important; 
+    font-weight: bold !important; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 13px; 
+    box-shadow: 0 2px 5px rgba(229,57,53,0.3);
+    transition: background-color 0.2s;
+}
+
+.pwa-mms-btn-install:hover {
+    background-color: #d32f2f !important;
+}
+
+
+/* ==========================================================================
+   GAYA UNTUK MODAL POP-UP ANTI-JUDOL (KUNCI TOTAL DARI ZOOM HP)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw; 
+  height: 100vh; 
+  background-color: rgba(0, 0, 0, 0.7); 
+  backdrop-filter: blur(8px); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999999 !important; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+  touch-action: none; 
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 440px; 
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  touch-action: manipulation; 
+}
+
+.modal-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 60vh; 
+  display: block;
+  object-fit: contain; 
+}
+
+.modal-header {
+  position: relative;
+  height: 30px;
+}
+
+.modal-close-x {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  font-size: 28px;
+  color: #aaa;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+.modal-close-x:hover {
+  color: #333;
+}
+
+.modal-cta-container {
+  padding: 15px 20px 10px;
+  text-align: center;
+}
+
+.modal-cta-text {
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #E53935; 
+  margin: 0;
+}
+
+.modal-footer {
+  padding: 10px 20px 20px;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+}
+
+.modal-info-text {
+  font-size: 11px;
+  color: #888;
+  margin: 0 0 15px;
+}
+
+.modal-close-btn {
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #4a4a4a;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+  margin: 0 auto;
+}
+
+.modal-close-btn span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  background-color: #f7f7f7;
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 88%; 
+  }
+}
+
+
+/* ==========================================================================
+   KUSTOM TAMBAHAN: HALAMAN ARSIP & PEMBACA PDF HASIL LOMBA
+   ========================================================================== */
+.lomba-viewer-hide {
+    display: none; 
+    border-top: 2px dashed #eee; 
+    padding-top: 25px;
+    animation: fadeInLomba 0.4s ease-in-out;
+}
+
+.pdf-viewer-control-bar {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 15px;
+}
+
+.pdf-viewer-title-text {
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #333; 
+    margin: 0;
+}
+
+@keyframes fadeInLomba {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media screen and (max-width: 768px) {
+    .pdf-viewer-control-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .pdf-viewer-control-bar div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
+/* ==========================================================================
    13. MODUL ARSIP DATA LOMBA REAL-TIME (SISTEM PAGINATION MERAH TABEL FIX)
    ========================================================================== */
 const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
