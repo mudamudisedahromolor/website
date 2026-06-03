@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById('data-tabel-anggota')) loadAnggotaDariDrive(); 
     if (document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets(); // Deteksi Halaman Arsip Lomba
     if (document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets(); // Deteksi Halaman Arsip Proposal
+    if (document.getElementById('data-tabel-surat')) ambilDataSuratGoogleSheets(); // Tambahkan Baris Ini
+});
 });
 
 /* ==========================================================================
@@ -1506,6 +1508,226 @@ window.bukaProposalViewer = function(urlAsli) {
 window.tutupProposalViewer = function() {
     const panelViewer = document.getElementById('proposal-viewer-section');
     const iframe = document.getElementById('proposal-iframe');
+    
+    if (panelViewer) {
+        panelViewer.style.display = 'none';
+        panelViewer.classList.add('lomba-viewer-hide');
+    }
+    if (iframe) iframe.src = '';
+}
+
+
+
+/* ==========================================================================
+   15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (BEBAS BENTROK)
+   ========================================================================== */
+const SPREADSHEET_ID_SURAT = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; // Masukkan ID Excel Surat (Bisa disamakan/dibedakan)
+const SHEET_NAME_SURAT = 'Form Responses 3'; // Ganti nama Tab/Sheet khusus Form Surat kamu
+
+let semuaDataSurat = [];
+let dataSuratTersaring = []; 
+
+const BARIS_SURAT_PER_HALAMAN = 5;
+let halamanSuratSaatIni = 1; 
+
+function ambilDataSuratGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_SURAT}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_SURAT)}`;
+    
+    fetch(url)
+        .then(res => res.text())
+        .then(data => {
+            const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2));
+            const barisData = jsonPembersih.table.rows;
+            
+            semuaDataSurat = [];
+            const setTahun = new Set();
+
+            for (let i = 1; i < barisData.length; i++) {
+                const baris = barisData[i];
+                
+                if (baris.c && baris.c[2]) {
+                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    
+                    let angkaTahun = 'Umum';
+                    if (teksTanggal && teksTanggal !== '-') {
+                        const pecahan = teksTanggal.split('/');
+                        if (pecahan.length >= 3) {
+                            angkaTahun = pecahan[2].trim(); 
+                        }
+                    }
+
+                    const dataItem = {
+                        tanggal: teksTanggal,
+                        tahun: angkaTahun, 
+                        nama: baris.c[2] ? String(baris.c[2].v) : '-',
+                        kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', 
+                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
+                    };
+                    
+                    semuaDataSurat.push(dataItem);
+                    if (angkaTahun && angkaTahun !== 'Umum' && !isNaN(angkaTahun)) {
+                        setTahun.add(angkaTahun);
+                    }
+                }
+            }
+
+            semuaDataSurat.reverse();
+            dataSuratTersaring = [...semuaDataSurat];
+
+            const selectTahun = document.getElementById('filter-surat-tahun');
+            if (selectTahun) {
+                selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
+                Array.from(setTahun).sort().reverse().forEach(th => {
+                    const opt = document.createElement('option');
+                    opt.value = th;
+                    opt.textContent = th;
+                    selectTahun.appendChild(opt);
+                });
+            }
+
+            halamanSuratSaatIni = 1;
+            tampilkanDataSuratKeTabel();
+        })
+        .catch(err => {
+            console.error("Gagal memuat arsip data surat:", err);
+            const tbody = document.getElementById('data-tabel-surat');
+            if (tbody) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #d32f2f;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Gagal sinkronisasi data arsip surat. Periksa setelan berkas Sheets.
+                        </td>
+                    </tr>
+                `;
+            }
+        });
+}
+
+function tampilkanDataSuratKeTabel() {
+    const tbody = document.getElementById('data-tabel-surat');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+
+    if (dataSuratTersaring.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #777;">Tidak ada log data surat yang ditemukan.</td></tr>`;
+        perbaruiTombolNavigasiSurat(0);
+        return;
+    }
+
+    const indeksAwal = (halamanSuratSaatIni - 1) * BARIS_SURAT_PER_HALAMAN;
+    const indeksAkhir = indeksAwal + BARIS_SURAT_PER_HALAMAN;
+    const dataHalamanAktif = dataSuratTersaring.slice(indeksAwal, indeksAkhir);
+
+    dataHalamanAktif.forEach(item => {
+        const tr = document.createElement('tr');
+        
+        let warnaBadge = '#0288D1'; // Biru untuk Umum/Lainnya
+        if(item.kategori.toLowerCase().includes('masuk') || item.kategori.toLowerCase().includes('in')) {
+            warnaBadge = '#388E3C'; // Hijau untuk Surat Masuk
+        } else if(item.kategori.toLowerCase().includes('keluar') || item.kategori.toLowerCase().includes('out')) {
+            warnaBadge = '#D32F2F'; // Merah untuk Surat Keluar
+        }
+
+        let tombolAksi = item.urlDrive ? `
+            <button class="btn-cetak-mutasi" onclick="bukaSuratViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
+                <i class="fa-solid fa-eye"></i> Lihat PDF
+            </button>
+        ` : `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
+
+        tr.innerHTML = `
+            <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
+            <td style="font-weight: bold; color: #333;">${item.nama}</td>
+            <td><span style="background-color: ${warnaBadge}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold;">${item.kategori}</span></td>
+            <td style="text-align: center;">${tombolAksi}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    perbaruiTombolNavigasiSurat(dataSuratTersaring.length);
+}
+
+function perbaruiTombolNavigasiSurat(totalData) {
+    const totalHalaman = Math.ceil(totalData / BARIS_SURAT_PER_HALAMAN) || 1;
+    const infoHalaman = document.getElementById('info-halaman-surat');
+    if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanSuratSaatIni} dari ${totalHalaman}`;
+
+    const btnTerbaru = document.getElementById('btn-surat-terbaru');
+    if (btnTerbaru) {
+        if (halamanSuratSaatIni > 1) {
+            btnTerbaru.style.display = 'inline-flex';
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.style.display = 'none';
+        }
+    }
+
+    const btnSebelumnya = document.getElementById('btn-surat-sebelumnya');
+    if (btnSebelumnya) {
+        if (halamanSuratSaatIni < totalHalaman) {
+            btnSebelumnya.style.display = 'inline-flex';
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.style.display = 'none';
+        }
+    }
+}
+
+window.halamanSebelumnyaSurat = function() {
+    const totalHalaman = Math.ceil(dataSuratTersaring.length / BARIS_SURAT_PER_HALAMAN);
+    if (halamanSuratSaatIni < totalHalaman) {
+        halamanSuratSaatIni++;
+        tampilkanDataSuratKeTabel();
+    }
+}
+
+window.halamanTerbaruSurat = function() {
+    if (halamanSuratSaatIni > 1) {
+        halamanSuratSaatIni--;
+        tampilkanDataSuratKeTabel();
+    }
+}
+
+window.terapkanFilterSurat = function() {
+    const selectTahun = document.getElementById('filter-surat-tahun');
+    const inputCari = document.getElementById('input-cari-surat');
+    
+    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
+    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+
+    dataSuratTersaring = semuaDataSurat.filter(item => {
+        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
+        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
+                              item.kategori.toLowerCase().includes(kataKunciCari) ||
+                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
+                              item.tahun.includes(kataKunciCari);
+        return cocokTahun && cocokKataKunci;
+    });
+
+    halamanSuratSaatIni = 1;
+    tampilkanDataSuratKeTabel();
+}
+
+window.bukaSuratViewer = function(urlAsli) {
+    if (typeof konversiUrlDriveUntukEmbed !== 'function') return;
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
+    const iframe = document.getElementById('surat-iframe');
+    const btnUnduh = document.getElementById('btn-unduh-surat');
+    const panelViewer = document.getElementById('surat-viewer-section');
+    
+    if (iframe) iframe.src = urlEmbed;
+    if (btnUnduh) btnUnduh.href = urlAsli;
+    
+    if (panelViewer) {
+        panelViewer.style.display = 'block';
+        panelViewer.classList.remove('lomba-viewer-hide'); 
+        panelViewer.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+window.tutupSuratViewer = function() {
+    const panelViewer = document.getElementById('surat-viewer-section');
+    const iframe = document.getElementById('surat-iframe');
     
     if (panelViewer) {
         panelViewer.style.display = 'none';
