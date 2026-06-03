@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById('data-tabel-dokumentasi')) loadDokumentasiDariDrive();
     if (document.getElementById('data-tabel-anggota')) loadAnggotaDariDrive(); 
     if (document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets(); // Deteksi Halaman Arsip Lomba
+    if (document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets(); // Deteksi Halaman Arsip Proposal
 });
 
 /* ==========================================================================
@@ -1062,18 +1063,8 @@ window.deteksiEnterChatMMS = function(event) {
 
 
 /* ==========================================================================
-   12. MODUL KHUSUS: ARSIP DATA LOMBA REAL-TIME (BEBAS TABRAKAN)
+   12. FUNGSI GLOBAL PEMBANTU: ENCODER EMBED GOOGLE DRIVE
    ========================================================================== */
-const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
-const SHEET_NAME_LOMBA = 'Form Responses 1'; 
-
-let semuaDataLomba = [];
-let dataLombaTersaring = []; 
-
-const BARIS_LOMBA_PER_HALAMAN = 5;
-let halamanLombaSaatIni = 1; 
-
-// Tambahkan kembali fungsi utilitas pengubah tautan Drive yang sempat hilang
 function konversiUrlDriveUntukEmbed(urlLama) {
     if (urlLama && urlLama.includes('drive.google.com')) {
         let idFile = '';
@@ -1086,6 +1077,19 @@ function konversiUrlDriveUntukEmbed(urlLama) {
     }
     return urlLama; 
 }
+
+
+/* ==========================================================================
+   13. MODUL ARSIP DATA LOMBA REAL-TIME (BEBAS TABRAKAN)
+   ========================================================================== */
+const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
+const SHEET_NAME_LOMBA = 'Form Responses 1'; 
+
+let semuaDataLomba = [];
+let dataLombaTersaring = []; 
+
+const BARIS_LOMBA_PER_HALAMAN = 5;
+let halamanLombaSaatIni = 1; 
 
 function ambilDataGoogleSheets() {
     const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LOMBA}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LOMBA)}`;
@@ -1230,7 +1234,6 @@ function perbaruiTombolNavigasiLomba(totalData) {
     }
 }
 
-// BINDING GLOBAL WINDOW AGAR TOMBOL HTML DAPAT MENGETUK DENGAN PROPER
 window.halamanSebelumnya = function() {
     const totalHalaman = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
     if (halamanLombaSaatIni < totalHalaman) {
@@ -1285,6 +1288,224 @@ window.bukaPdfViewer = function(urlAsli) {
 window.tutupPdfViewer = function() {
     const panelViewer = document.getElementById('pdf-viewer-section');
     const iframe = document.getElementById('pdf-iframe');
+    
+    if (panelViewer) {
+        panelViewer.style.display = 'none';
+        panelViewer.classList.add('lomba-viewer-hide');
+    }
+    if (iframe) iframe.src = '';
+}
+
+
+/* ==========================================================================
+   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
+   ========================================================================== */
+const SPREADSHEET_ID_PROPOSAL = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; 
+const SHEET_NAME_PROPOSAL = 'Form Responses 2'; // Ganti nama Tab sesuai form proposal kamu
+
+let semuaDataProposal = [];
+let dataProposalTersaring = []; 
+
+const BARIS_PROPOSAL_PER_HALAMAN = 5;
+let halamanProposalSaatIni = 1; 
+
+function ambilDataProposalGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_PROPOSAL}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_PROPOSAL)}`;
+    
+    fetch(url)
+        .then(res => res.text())
+        .then(data => {
+            const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2));
+            const barisData = jsonPembersih.table.rows;
+            
+            semuaDataProposal = [];
+            const setTahun = new Set();
+
+            for (let i = 1; i < barisData.length; i++) {
+                const baris = barisData[i];
+                
+                if (baris.c && baris.c[2]) {
+                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    
+                    let angkaTahun = 'Umum';
+                    if (teksTanggal && teksTanggal !== '-') {
+                        const pecahan = teksTanggal.split('/');
+                        if (pecahan.length >= 3) {
+                            angkaTahun = pecahan[2].trim(); 
+                        }
+                    }
+
+                    const dataItem = {
+                        tanggal: teksTanggal,
+                        tahun: angkaTahun, 
+                        nama: baris.c[2] ? String(baris.c[2].v) : '-',
+                        kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', 
+                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
+                    };
+                    
+                    semuaDataProposal.push(dataItem);
+                    if (angkaTahun && angkaTahun !== 'Umum' && !isNaN(angkaTahun)) {
+                        setTahun.add(angkaTahun);
+                    }
+                }
+            }
+
+            semuaDataProposal.reverse();
+            dataProposalTersaring = [...semuaDataProposal];
+
+            const selectTahun = document.getElementById('filter-proposal-tahun');
+            if (selectTahun) {
+                selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
+                Array.from(setTahun).sort().reverse().forEach(th => {
+                    const opt = document.createElement('option');
+                    opt.value = th;
+                    opt.textContent = th;
+                    selectTahun.appendChild(opt);
+                });
+            }
+
+            halamanProposalSaatIni = 1;
+            tampilkanDataProposalKeTabel();
+        })
+        .catch(err => {
+            console.error("Gagal memuat arsip data proposal:", err);
+            const tbody = document.getElementById('data-tabel-proposal');
+            if (tbody) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #d32f2f;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat data proposal. Periksa jaringan atau pengaturan berkas Sheets.
+                        </td>
+                    </tr>
+                `;
+            }
+        });
+}
+
+function tampilkanDataProposalKeTabel() {
+    const tbody = document.getElementById('data-tabel-proposal');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+
+    if (dataProposalTersaring.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #777;">Tidak ada berkas arsip proposal yang cocok.</td></tr>`;
+        perbaruiTombolNavigasiProposal(0);
+        return;
+    }
+
+    const indeksAwal = (halamanProposalSaatIni - 1) * BARIS_PROPOSAL_PER_HALAMAN;
+    const indeksAkhir = indeksAwal + BARIS_PROPOSAL_PER_HALAMAN;
+    const dataHalamanAktif = dataProposalTersaring.slice(indeksAwal, indeksAkhir);
+
+    dataHalamanAktif.forEach(item => {
+        const tr = document.createElement('tr');
+        
+        let warnaBadge = '#0288D1'; 
+        if(item.kategori.toLowerCase().includes('bantuan') || item.kategori.toLowerCase().includes('dana')) {
+            warnaBadge = '#388E3C'; 
+        } else if(item.kategori.toLowerCase().includes('kegiatan') || item.kategori.toLowerCase().includes('acara')) {
+            warnaBadge = '#F57C00'; 
+        }
+
+        let tombolAksi = item.urlDrive ? `
+            <button class="btn-cetak-mutasi" onclick="bukaProposalViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
+                <i class="fa-solid fa-eye"></i> Lihat PDF
+            </button>
+        ` : `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
+
+        tr.innerHTML = `
+            <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
+            <td style="font-weight: bold; color: #333;">${item.nama}</td>
+            <td><span style="background-color: ${warnaBadge}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold;">${item.kategori}</span></td>
+            <td style="text-align: center;">${tombolAksi}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    perbaruiTombolNavigasiProposal(dataProposalTersaring.length);
+}
+
+function perbaruiTombolNavigasiProposal(totalData) {
+    const totalHalaman = Math.ceil(totalData / BARIS_PROPOSAL_PER_HALAMAN) || 1;
+    const infoHalaman = document.getElementById('info-halaman-proposal');
+    if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanProposalSaatIni} dari ${totalHalaman}`;
+
+    const btnTerbaru = document.getElementById('btn-prop-terbaru');
+    if (btnTerbaru) {
+        if (halamanProposalSaatIni > 1) {
+            btnTerbaru.style.display = 'inline-flex';
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.style.display = 'none';
+        }
+    }
+
+    const btnSebelumnya = document.getElementById('btn-prop-sebelumnya');
+    if (btnSebelumnya) {
+        if (halamanProposalSaatIni < totalHalaman) {
+            btnSebelumnya.style.display = 'inline-flex';
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.style.display = 'none';
+        }
+    }
+}
+
+window.halamanSebelumnyaProposal = function() {
+    const totalHalaman = Math.ceil(dataProposalTersaring.length / BARIS_PROPOSAL_PER_HALAMAN);
+    if (halamanProposalSaatIni < totalHalaman) {
+        halamanProposalSaatIni++;
+        tampilkanDataProposalKeTabel();
+    }
+}
+
+window.halamanTerbaruProposal = function() {
+    if (halamanProposalSaatIni > 1) {
+        halamanProposalSaatIni--;
+        tampilkanDataProposalKeTabel();
+    }
+}
+
+window.terapkanFilterProposal = function() {
+    const selectTahun = document.getElementById('filter-proposal-tahun');
+    const inputCari = document.getElementById('input-cari-proposal');
+    
+    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
+    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+
+    dataProposalTersaring = semuaDataProposal.filter(item => {
+        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
+        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
+                              item.kategori.toLowerCase().includes(kataKunciCari) ||
+                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
+                              item.tahun.includes(kataKunciCari);
+        return cocokTahun && cocokKataKunci;
+    });
+
+    halamanProposalSaatIni = 1;
+    tampilkanDataProposalKeTabel();
+}
+
+window.bukaProposalViewer = function(urlAsli) {
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
+    const iframe = document.getElementById('proposal-iframe');
+    const btnUnduh = document.getElementById('btn-unduh-proposal');
+    const panelViewer = document.getElementById('proposal-viewer-section');
+    
+    if (iframe) iframe.src = urlEmbed;
+    if (btnUnduh) btnUnduh.href = urlAsli;
+    
+    if (panelViewer) {
+        panelViewer.style.display = 'block';
+        panelViewer.classList.remove('lomba-viewer-hide'); 
+        panelViewer.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+window.tutupProposalViewer = function() {
+    const panelViewer = document.getElementById('proposal-viewer-section');
+    const iframe = document.getElementById('proposal-iframe');
     
     if (panelViewer) {
         panelViewer.style.display = 'none';
