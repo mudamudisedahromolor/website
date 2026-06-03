@@ -268,7 +268,8 @@ function renderTabel() {
         if (halamanKeuanganSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="nav(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
         else if (halamanKeuanganSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="nav(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
         else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="nav(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="nav(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
-        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tomNav}</td></tr>`;
+        // 🌟 FIX JITU: Diubah menjadi 'tombolNav' agar tidak crash menghubungkan lagi
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
     }
     tbody.innerHTML = html;
 }
@@ -612,6 +613,15 @@ window.terapkanFilterLomba = function() {
     halamanLombaSaatIni = 1; tampilkanDataLombaKeTabel();
 };
 
+window.bukaPdfViewer = function(urlAsli) {
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('pdf-iframe'); if (iframe) iframe.src = urlEmbed;
+    const panelViewer = document.getElementById('pdf-viewer-section'); if (panelViewer) { panelViewer.style.display = 'block'; panelViewer.scrollIntoView({ behavior: 'smooth' }); }
+}
+window.tutupPdfViewer = function() {
+    const panelViewer = document.getElementById('pdf-viewer-section'); const iframe = document.getElementById('pdf-iframe');
+    if (panelViewer) panelViewer.style.display = 'none'; if (iframe) iframe.src = '';
+}
+
 /* ==========================================================================
    14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (SISTEM PAGINATION KAS KEUANGAN)
    ========================================================================== */
@@ -646,7 +656,7 @@ function tampilkanDataProposalKeTabel() {
 
     let html = pageData.map(item => {
         let warnaBadge = item.kategori.toLowerCase().includes('bantuan') ? '#388E3C' : '#F57C00';
-        let btn = item.urlDrive ? `<button class="btn-cetak-mutasi" onclick="bukaProposalViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        let btn = item.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaProposalViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
         return `<tr><td>${item.tanggal}</td><td style="font-weight:bold;">${item.nama}</td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${item.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
     }).join('');
 
@@ -670,6 +680,15 @@ window.terapkanFilterProposal = function() {
     dataProposalTersaring = semuaDataProposal.filter(i => (year === 'Semua' || i.tahun === year) && (i.nama.toLowerCase().includes(key) || i.kategori.toLowerCase().includes(key)));
     halamanProposalSaatIni = 1; tampilkanDataProposalKeTabel();
 };
+
+window.bukaProposalViewer = function(urlAsli) { 
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = urlEmbed; 
+    const panel = document.getElementById('proposal-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } 
+}
+window.tutupProposalViewer = function() { 
+    const panel = document.getElementById('proposal-viewer-section'); if (panel) panel.style.display = 'none'; 
+    const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = ''; 
+}
 
 /* ==========================================================================
    15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (SISTEM PAGINATION KAS KEUANGAN)
@@ -705,7 +724,7 @@ function tampilkanDataSuratKeTabel() {
 
     let html = pageData.map(item => {
         let warnaBadge = (item.kategori.toLowerCase().includes('masuk') || item.kategori.toLowerCase().includes('in')) ? '#388E3C' : '#D32F2F';
-        let btn = item.urlDrive ? `<button class="btn-cetak-mutasi" onclick="bukaSuratViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        let btn = item.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaSuratViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
         return `<tr><td>${item.tanggal}</td><td style="font-weight:bold;">${item.nama}</td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${item.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
     }).join('');
 
@@ -730,7 +749,11 @@ window.terapkanFilterSurat = function() {
     halamanSuratSaatIni = 1; tampilkanDataSuratKeTabel();
 };
 
-function bukaProposalViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = urlEmbed; const panel = document.getElementById('proposal-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } }
-function tutupProposalViewer() { const panel = document.getElementById('proposal-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = ''; }
-function bukaSuratViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = urlEmbed; const panel = document.getElementById('surat-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } }
-function tutupSuratViewer() { const panel = document.getElementById('surat-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = ''; }
+window.bukaSuratViewer = function(urlAsli) { 
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = urlEmbed; 
+    const panel = document.getElementById('surat-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } 
+}
+window.tutupSuratViewer = function() { 
+    const panel = document.getElementById('surat-viewer-section'); if (panel) panel.style.display = 'none'; 
+    const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = ''; 
+}
