@@ -1108,7 +1108,8 @@ function ambilDataGoogleSheets() {
                 const baris = barisData[i];
                 
                 if (baris && baris.c && baris.c[2]) {
-                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggalRaw = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggal = teksTanggalRaw.trim();
                     
                     let angkaTahun = 'Umum';
                     if (teksTanggal && teksTanggal !== '-') {
@@ -1209,10 +1210,28 @@ function perbaruiTombolNavigasiLomba(totalData) {
     if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanLombaSaatIni} dari ${totalHalaman}`;
 
     const btnTerbaru = document.getElementById('btn-halaman-terbaru');
-    if (btnTerbaru) btnTerbaru.style.display = (halamanLombaSaatIni > 1) ? 'inline-flex' : 'none';
+    if (btnTerbaru) {
+        btnTerbaru.style.display = 'inline-flex';
+        if (halamanLombaSaatIni > 1) {
+            btnTerbaru.disabled = false;
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.disabled = true;
+            btnTerbaru.style.backgroundColor = '#555';
+        }
+    }
 
     const btnSebelumnya = document.getElementById('btn-halaman-sebelumnya');
-    if (btnSebelumnya) btnSebelumnya.style.display = (halamanLombaSaatIni < totalHalaman) ? 'inline-flex' : 'none';
+    if (btnSebelumnya) {
+        btnSebelumnya.style.display = 'inline-flex';
+        if (halamanLombaSaatIni < totalHalaman) {
+            btnSebelumnya.disabled = false;
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.disabled = true;
+            btnSebelumnya.style.backgroundColor = '#555';
+        }
+    }
 }
 
 window.halamanSebelumnya = function() {
@@ -1234,15 +1253,15 @@ window.terapkanFilterLomba = function() {
     const selectTahun = document.getElementById('filter-lomba-tahun');
     const inputCari = document.getElementById('input-cari-lomba');
     
-    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
-    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+    const yearSelect = selectTahun ? selectTahun.value : 'Semua';
+    const searchKeyword = inputCari ? inputCari.value.toLowerCase() : '';
 
     dataLombaTersaring = semuaDataLomba.filter(item => {
-        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
-        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
-                              item.kategori.toLowerCase().includes(kataKunciCari) ||
-                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
-                              item.tahun.includes(kataKunciCari);
+        const cocokTahun = (yearSelect === 'Semua' || item.tahun === yearSelect);
+        const cocokKataKunci = item.nama.toLowerCase().includes(searchKeyword) || 
+                              item.kategori.toLowerCase().includes(searchKeyword) ||
+                              item.tanggal.toLowerCase().includes(searchKeyword) ||
+                              item.tahun.includes(searchKeyword);
         return cocokTahun && cocokKataKunci;
     });
 
@@ -1275,9 +1294,6 @@ window.tutupPdfViewer = function() {
 /* ==========================================================================
    14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
    ========================================================================== */
-/* ==========================================================================
-   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
-   ========================================================================== */
 const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; 
 const SHEET_NAME_PROPOSAL = 'Form Responses 1'; 
 
@@ -1299,19 +1315,16 @@ function ambilDataProposalGoogleSheets() {
             semuaDataProposal = [];
             const setTahun = new Set();
 
-            // i dimulai dari 0 agar baris data pertama Google Sheet tidak terlewat
-            for (let i = 0; i < barisData.length; i++) {
+            for (let i = 1; i < barisData.length; i++) {
                 const baris = barisData[i];
                 
-                // Memastikan baris data ada dan kolom tanggal (Indeks 1 / Kolom B) tidak kosong
-                if (baris && baris.c && baris.c[1]) {
-                    // Kolom B (Indeks 1) = tanggal
-                    const teksTanggal = String(baris.c[1].f || baris.c[1].v || '-');
+                if (baris && baris.c && baris.c[2]) {
+                    const teksTanggalRaw = baris.c[1] ? String(baris.c[1].f || baris.c[1].v || '-') : '-';
+                    const teksTanggal = teksTanggalRaw.trim();
                     
                     let angkaTahun = 'Umum';
                     if (teksTanggal && teksTanggal !== '-') {
                         const pecahan = teksTanggal.split('/');
-                        // Perbaikan typo dari 'pecapan' menjadi 'pecahan'
                         if (pecahan.length >= 3) {
                             angkaTahun = pecahan[2].trim().substring(0, 4); 
                         }
@@ -1320,9 +1333,9 @@ function ambilDataProposalGoogleSheets() {
                     const dataItem = {
                         tanggal: teksTanggal,
                         tahun: angkaTahun, 
-                        nama: baris.c[2] ? String(baris.c[2].v) : '-',       // Kolom C (Indeks 2) = keterangan
-                        kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', // Kolom D (Indeks 3) = kategori
-                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''     // Kolom E (Indeks 4) = upload file proposal
+                        nama: baris.c[2] ? String(baris.c[2].v) : '-',       
+                        kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', 
+                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''     
                     };
                     
                     semuaDataProposal.push(dataItem);
@@ -1408,10 +1421,28 @@ function perbaruiTombolNavigasiProposal(totalData) {
     if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanProposalSaatIni} dari ${totalHalaman}`;
 
     const btnTerbaru = document.getElementById('btn-prop-terbaru');
-    if (btnTerbaru) btnTerbaru.style.display = (halamanProposalSaatIni > 1) ? 'inline-flex' : 'none';
+    if (btnTerbaru) {
+        btnTerbaru.style.display = 'inline-flex';
+        if (halamanProposalSaatIni > 1) {
+            btnTerbaru.disabled = false;
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.disabled = true;
+            btnTerbaru.style.backgroundColor = '#555';
+        }
+    }
 
     const btnSebelumnya = document.getElementById('btn-prop-sebelumnya');
-    if (btnSebelumnya) btnSebelumnya.style.display = (halamanProposalSaatIni < totalHalaman) ? 'inline-flex' : 'none';
+    if (btnSebelumnya) {
+        btnSebelumnya.style.display = 'inline-flex';
+        if (halamanProposalSaatIni < totalHalaman) {
+            btnSebelumnya.disabled = false;
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.disabled = true;
+            btnSebelumnya.style.backgroundColor = '#555';
+        }
+    }
 }
 
 window.halamanSebelumnyaProposal = function() {
@@ -1433,15 +1464,15 @@ window.terapkanFilterProposal = function() {
     const selectTahun = document.getElementById('filter-proposal-tahun');
     const inputCari = document.getElementById('input-cari-proposal');
     
-    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
-    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+    const yearSelect = selectTahun ? selectTahun.value : 'Semua';
+    const searchKeyword = inputCari ? inputCari.value.toLowerCase() : '';
 
     dataProposalTersaring = semuaDataProposal.filter(item => {
-        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
-        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
-                              item.kategori.toLowerCase().includes(kataKunciCari) ||
-                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
-                              item.tahun.includes(kataKunciCari);
+        const cocokTahun = (yearSelect === 'Semua' || item.tahun === yearSelect);
+        const cocokKataKunci = item.nama.toLowerCase().includes(searchKeyword) || 
+                              item.kategori.toLowerCase().includes(searchKeyword) ||
+                              item.tanggal.toLowerCase().includes(searchKeyword) ||
+                              item.tahun.includes(searchKeyword);
         return cocokTahun && cocokKataKunci;
     });
 
@@ -1469,6 +1500,7 @@ window.tutupProposalViewer = function() {
     if (panelViewer) panelViewer.style.display = 'none';
     if (iframe) iframe.src = '';
 }
+
 
 /* ==========================================================================
    15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (BEBAS BENTROK)
@@ -1498,7 +1530,8 @@ function ambilDataSuratGoogleSheets() {
                 const baris = barisData[i];
                 
                 if (baris && baris.c && baris.c[2]) {
-                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggalRaw = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggal = teksTanggalRaw.trim();
                     
                     let angkaTahun = 'Umum';
                     if (teksTanggal && teksTanggal !== '-') {
@@ -1599,10 +1632,28 @@ function perbaruiTombolNavigasiSurat(totalData) {
     if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanSuratSaatIni} dari ${totalHalaman}`;
 
     const btnTerbaru = document.getElementById('btn-surat-terbaru');
-    if (btnTerbaru) btnTerbaru.style.display = (halamanSuratSaatIni > 1) ? 'inline-flex' : 'none';
+    if (btnTerbaru) {
+        btnTerbaru.style.display = 'inline-flex';
+        if (halamanSuratSaatIni > 1) {
+            btnTerbaru.disabled = false;
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.disabled = true;
+            btnTerbaru.style.backgroundColor = '#555';
+        }
+    }
 
     const btnSebelumnya = document.getElementById('btn-surat-sebelumnya');
-    if (btnSebelumnya) btnSebelumnya.style.display = (halamanSuratSaatIni < totalHalaman) ? 'inline-flex' : 'none';
+    if (btnSebelumnya) {
+        btnSebelumnya.style.display = 'inline-flex';
+        if (halamanSuratSaatIni < totalHalaman) {
+            btnSebelumnya.disabled = false;
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.disabled = true;
+            btnSebelumnya.style.backgroundColor = '#555';
+        }
+    }
 }
 
 window.halamanSebelumnyaSurat = function() {
@@ -1624,15 +1675,15 @@ window.terapkanFilterSurat = function() {
     const selectTahun = document.getElementById('filter-surat-tahun');
     const inputCari = document.getElementById('input-cari-surat');
     
-    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
-    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+    const yearSelect = selectTahun ? selectTahun.value : 'Semua';
+    const searchKeyword = inputCari ? inputCari.value.toLowerCase() : '';
 
     dataSuratTersaring = semuaDataSurat.filter(item => {
-        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
-        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
-                              item.kategori.toLowerCase().includes(kataKunciCari) ||
-                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
-                              item.tahun.includes(kataKunciCari);
+        const cocokTahun = (yearSelect === 'Semua' || item.tahun === yearSelect);
+        const cocokKataKunci = item.nama.toLowerCase().includes(searchKeyword) || 
+                              item.kategori.toLowerCase().includes(searchKeyword) ||
+                              item.tanggal.toLowerCase().includes(searchKeyword) ||
+                              item.tahun.includes(searchKeyword);
         return cocokTahun && cocokKataKunci;
     });
 
