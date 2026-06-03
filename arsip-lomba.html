@@ -128,13 +128,13 @@
                 </table>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 15px; margin-bottom: 30px; font-size: 13px; color: #555;">
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 15px; margin-bottom: 30px; font-size: 13px; color: #555; min-height: 32px;">
                 <span id="info-halaman-tabel" style="font-weight: bold;">Halaman 1 dari 1</span>
                 <div style="display: flex; gap: 5px;">
-                    <button id="btn-halaman-terbaru" class="btn-cetak-mutasi" onclick="halamanTerbaru()" style="height: 32px; padding: 0 12px; font-size: 12px; background-color: #555;" disabled>
+                    <button id="btn-halaman-terbaru" class="btn-cetak-mutasi" onclick="halamanTerbaru()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
                         <i class="fa-solid fa-chevron-left"></i> Terbaru
                     </button>
-                    <button id="btn-halaman-sebelumnya" class="btn-cetak-mutasi" onclick="halamanSebelumnya()" style="height: 32px; padding: 0 12px; font-size: 12px; background-color: #0288D1;">
+                    <button id="btn-halaman-sebelumnya" class="btn-cetak-mutasi" onclick="halamanSebelumnya()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
                         Sebelumnya <i class="fa-solid fa-chevron-right"></i>
                     </button>
                 </div>
@@ -231,35 +231,25 @@
                     semuaDataLomba = [];
                     const setTahun = new Set();
 
-                    // PEMETAAN KOLOM AKURAT SESUAI SCREENSHOT SPREADSHEET BARU:
-                    // baris.c[0] = Timestamp (Diabaikan)
-                    // baris.c[1] = Tanggal Pelaksanaan (Kolom Pertanyaan)
-                    // baris.c[2] = Nama File
-                    // baris.c[3] = Kategori
-                    // baris.c[4] = Link File (PDF)
-                    
-                    // i = 1 untuk melewati baris judul header paling atas agar teks "Timestamp" dkk tidak ikut tampil
                     for (let i = 1; i < barisData.length; i++) {
                         const baris = barisData[i];
                         
-                        // Validasi toleran: Cukup pastikan struktur baris ada dan Nama File (baris.c[2]) terisi
                         if (baris.c && baris.c[2]) {
                             const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
                             
-                            // Logika ekstraksi 4 digit angka tahun otomatis dari teks kolom Tanggal (format DD/MM/YYYY)
                             let angkaTahun = 'Umum';
                             if (teksTanggal && teksTanggal !== '-') {
                                 const pecahan = teksTanggal.split('/');
                                 if (pecahan.length >= 3) {
-                                    angkaTahun = pecahan[2].trim(); // Mengambil elemen tahun paling belakang
+                                    angkaTahun = pecahan[2].trim(); 
                                 }
                             }
 
                             const dataItem = {
                                 tanggal: teksTanggal,
-                                tahun: angkaTahun, // Dipakai khusus untuk filter dropdown di web
+                                tahun: angkaTahun, 
                                 nama: baris.c[2] ? String(baris.c[2].v) : '-',
-                                kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', // Jika kosong, otomatis diisi badge 'Umum'
+                                kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', 
                                 urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
                             };
                             
@@ -270,11 +260,9 @@
                         }
                     }
 
-                    // Susun berurutan terbalik (data masukan paling bawah/terbaru diposisikan ke atas tabel web)
                     semuaDataLomba.reverse();
                     dataTersaring = [...semuaDataLomba];
 
-                    // Isi pilihan tahun di dalam dropdown secara otomatis berdasarkan isi data tanggal
                     const selectTahun = document.getElementById('filter-lomba-tahun');
                     selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
                     Array.from(setTahun).sort().reverse().forEach(th => {
@@ -309,7 +297,6 @@
                 return;
             }
 
-            // Membatasi penampilan data khusus kelipatan maksimal 5 baris saja
             const indeksAwal = (halamanSaatIni - 1) * BARIS_PER_HALAMAN;
             const indeksAkhir = indeksAwal + BARIS_PER_HALAMAN;
             const dataHalamanAktif = dataTersaring.slice(indeksAwal, indeksAkhir);
@@ -342,26 +329,25 @@
             perbaruiTombolNavigasi(dataTersaring.length);
         }
 
+        // PERUBAHAN UTAMA: Fungsi perbaruan navigasi menggunakan manipulasi display (none / inline-flex)
         function perbaruiTombolNavigasi(totalData) {
             const totalHalaman = Math.ceil(totalData / BARIS_PER_HALAMAN) || 1;
             document.getElementById('info-halaman-tabel').textContent = `Halaman ${halamanSaatIni} dari ${totalHalaman}`;
 
             const btnTerbaru = document.getElementById('btn-halaman-terbaru');
             if (halamanSaatIni > 1) {
-                btnTerbaru.disabled = false;
+                btnTerbaru.style.display = 'inline-flex';
                 btnTerbaru.style.backgroundColor = '#0288D1';
             } else {
-                btnTerbaru.disabled = true;
-                btnTerbaru.style.backgroundColor = '#555';
+                btnTerbaru.style.display = 'none';
             }
 
             const btnSebelumnya = document.getElementById('btn-halaman-sebelumnya');
             if (halamanSaatIni < totalHalaman) {
-                btnSebelumnya.disabled = false;
+                btnSebelumnya.style.display = 'inline-flex';
                 btnSebelumnya.style.backgroundColor = '#0288D1';
             } else {
-                btnSebelumnya.disabled = true;
-                btnSebelumnya.style.backgroundColor = '#555';
+                btnSebelumnya.style.display = 'none';
             }
         }
 
