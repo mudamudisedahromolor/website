@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="table-responsive" style="margin-bottom: 30px;">
+            <div class="table-responsive" style="margin-bottom: 15px;">
                 <table class="finance-table">
                     <thead>
                         <tr>
@@ -126,6 +126,18 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 15px; margin-bottom: 30px; font-size: 13px; color: #555;">
+                <span id="info-halaman-tabel" style="font-weight: bold;">Halaman 1 dari 1</span>
+                <div style="display: flex; gap: 5px;">
+                    <button id="btn-halaman-terbaru" class="btn-cetak-mutasi" onclick="halamanTerbaru()" style="height: 32px; padding: 0 12px; font-size: 12px; background-color: #555;" disabled>
+                        <i class="fa-solid fa-chevron-left"></i> Terbaru
+                    </button>
+                    <button id="btn-halaman-sebelumnya" class="btn-cetak-mutasi" onclick="halamanSebelumnya()" style="height: 32px; padding: 0 12px; font-size: 12px; background-color: #0288D1;">
+                        Sebelumnya <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
 
             <div id="pdf-viewer-section" class="lomba-viewer-hide" style="display: none; width: 100%; margin-top: 35px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
@@ -198,6 +210,11 @@
         const SHEET_NAME = 'Form Responses 1'; 
         
         let semuaDataLomba = [];
+        let dataTersaring = []; // Data yang lolos filter pencarian / dropdown tahun
+        
+        // Pengaturan Sistem Pagination (Max 5 baris)
+        const BARIS_PER_HALAMAN = 5;
+        let halamanSaatIni = 1;
 
         document.addEventListener("DOMContentLoaded", function() {
             ambilDataGoogleSheets();
@@ -229,7 +246,11 @@
                         }
                     });
 
+                    // Urutkan dari tanggal paling baru (paling atas) ke lama
                     semuaDataLomba.reverse();
+                    
+                    // Set data tersaring default sama dengan semua data di awal
+                    dataTersaring = [...semuaDataLomba];
 
                     const selectTahun = document.getElementById('filter-lomba-tahun');
                     selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
@@ -240,7 +261,8 @@
                         selectTahun.appendChild(opt);
                     });
 
-                    tampilkanDataKeTabel(semuaDataLomba);
+                    halamanSaatIni = 1;
+                    tampilkanDataKeTabel();
                 })
                 .catch(err => {
                     console.error("Gagal memuat arsip data lomba:", err);
@@ -254,22 +276,22 @@
                 });
         }
 
-        function tampilkanDataKeTabel(dataArray) {
+        function tampilkanDataKeTabel() {
             const tbody = document.getElementById('data-tabel-lomba');
             tbody.innerHTML = '';
 
-            if (dataArray.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 20px; color: #777;">
-                            Tidak ada berkas arsip lomba yang cocok.
-                        </td>
-                    </tr>
-                `;
+            if (dataTersaring.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #777;">Tidak ada berkas arsip lomba yang cocok.</td></tr>`;
+                perbaruiTombolNavigasi(0);
                 return;
             }
 
-            dataArray.forEach(item => {
+            // Hitung batasan data khusus halaman aktif saja (Max 5)
+            const indeksAwal = (halamanSaatIni - 1) * BARIS_PER_HALAMAN;
+            const indeksAkhir = indeksAwal + BARIS_PER_HALAMAN;
+            const dataHalamanAktif = dataTersaring.slice(indeksAwal, indeksAkhir);
+
+            dataHalamanAktif.forEach(item => {
                 const tr = document.createElement('tr');
                 
                 let warnaBadge = '#0288D1'; 
@@ -279,18 +301,12 @@
                     warnaBadge = '#F57C00'; 
                 }
 
-                let tombolAksi = '';
-                if(item.urlDrive) {
-                    tombolAksi = `
-                        <button class="btn-cetak-mutasi" onclick="bukaPdfViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
-                            <i class="fa-solid fa-eye"></i> Lihat PDF
-                        </button>
-                    `;
-                } else {
-                    tombolAksi = `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
-                }
+                let tombolAksi = item.urlDrive ? `
+                    <button class="btn-cetak-mutasi" onclick="bukaPdfViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
+                        <i class="fa-solid fa-eye"></i> Lihat PDF
+                    </button>
+                ` : `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
 
-                // Baris di bawah ini dimodifikasi: elemen td kolom tahun telah dibuang
                 tr.innerHTML = `
                     <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
                     <td style="font-weight: bold; color: #333;">${item.nama}</td>
@@ -299,13 +315,59 @@
                 `;
                 tbody.appendChild(tr);
             });
+
+            perbaruiTombolNavigasi(dataTersaring.length);
+        }
+
+        function perbaruiTombolNavigasi(totalData) {
+            const totalHalaman = Math.ceil(totalData / BARIS_PER_HALAMAN) || 1;
+            
+            // Perbarui label petunjuk teks halaman
+            document.getElementById('info-halaman-tabel').textContent = `Halaman ${halamanSaatIni} dari ${totalHalaman}`;
+
+            // Tombol "Terbaru" (Kembali ke data atas/baru) aktif jika posisi halaman > 1
+            const btnTerbaru = document.getElementById('btn-halaman-terbaru');
+            if (halamanSaatIni > 1) {
+                btnTerbaru.disabled = false;
+                btnTerbaru.style.backgroundColor = '#0288D1'; // Warna aktif biru
+            } else {
+                btnTerbaru.disabled = true;
+                btnTerbaru.style.backgroundColor = '#555'; // Warna redup terkunci
+            }
+
+            // Tombol "Sebelumnya" (Melihat data lama ke bawah) aktif jika masih ada sisa data di bawahnya
+            const btnSebelumnya = document.getElementById('btn-halaman-sebelumnya');
+            if (halamanSaatIni < totalHalaman) {
+                btnSebelumnya.disabled = false;
+                btnSebelumnya.style.backgroundColor = '#0288D1';
+            } else {
+                btnSebelumnya.disabled = true;
+                btnSebelumnya.style.backgroundColor = '#555';
+            }
+        }
+
+        // Aksi klik navigasi melihat berkas lama (Ke Halaman Berikutnya)
+        function halamanSebelumnya() {
+            const totalHalaman = Math.ceil(dataTersaring.length / BARIS_PER_HALAMAN);
+            if (halamanSaatIni < totalHalaman) {
+                halamanSaatIni++;
+                tampilkanDataKeTabel();
+            }
+        }
+
+        // Aksi klik navigasi kembali ke berkas baru (Ke Halaman Sebelumnya)
+        function halamanTerbaru() {
+            if (halamanSaatIni > 1) {
+                halamanSaatIni--;
+                tampilkanDataKeTabel();
+            }
         }
 
         function terapkanFilterLomba() {
             const tahunDipilih = document.getElementById('filter-lomba-tahun').value;
             const kataKunciCari = document.getElementById('input-cari-lomba').value.toLowerCase();
 
-            const dataTersaring = semuaDataLomba.filter(item => {
+            dataTersaring = semuaDataLomba.filter(item => {
                 const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
                 const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
                                       item.kategori.toLowerCase().includes(kataKunciCari) ||
@@ -314,7 +376,9 @@
                 return cocokTahun && cocokKataKunci;
             });
 
-            tampilkanDataKeTabel(dataTersaring);
+            // Setel ulang halaman ke angka 1 setiap kali user menyaring data baru
+            halamanSaatIni = 1;
+            tampilkanDataKeTabel();
         }
 
         function konversiUrlDriveUntukEmbed(urlLama) {
@@ -325,24 +389,19 @@
                 } else if (urlLama.includes('id=')) {
                     idFile = urlLama.split('id=')[1].split('&')[0];
                 }
-                
-                if (idFile) {
-                    return `https://drive.google.com/file/d/${idFile}/preview`;
-                }
+                if (idFile) return `https://drive.google.com/file/d/${idFile}/preview`;
             }
             return urlLama; 
         }
 
         function bukaPdfViewer(urlAsli) {
             const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
-            
             document.getElementById('pdf-iframe').src = urlEmbed;
             document.getElementById('btn-unduh-pdf').href = urlAsli;
             
             const panelViewer = document.getElementById('pdf-viewer-section');
             panelViewer.style.display = 'block';
             panelViewer.classList.remove('lomba-viewer-hide'); 
-            
             panelViewer.scrollIntoView({ behavior: 'smooth' });
         }
 
