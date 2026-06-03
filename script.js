@@ -16,11 +16,12 @@ document.addEventListener("DOMContentLoaded", function() {
     initCarouselOrganisasi();
     initHeroSlider(); // Inisialisasi slider untuk halaman beranda (index.html)
     
-    // Memuat database eksternal berdasarkan halaman yang sedang dibuka
+    // Memuat database eksternal berdasarkan halaman yang sedang dibuka (Isolasi Ketat)
     if (document.getElementById('data-tabel-keuangan')) loadKeuanganDariDrive();
     if (document.getElementById('data-tabel-rapat')) loadRapatDariDrive();
     if (document.getElementById('data-tabel-dokumentasi')) loadDokumentasiDariDrive();
-    if (document.getElementById('data-tabel-anggota')) loadAnggotaDariDrive(); // Deteksi otomatis Halaman Anggota
+    if (document.getElementById('data-tabel-anggota')) loadAnggotaDariDrive(); 
+    if (document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets(); // Deteksi Halaman Arsip Lomba
 });
 
 /* ==========================================================================
@@ -164,8 +165,8 @@ window.currentSlide = function(n) {
 const linkTsvKeuangan = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTqiCluDyXYQijRAElBYLeYPzrT7ENOPtbaxnoHfyZXFFMMxnO1pnZuOAKJaaVgSvFs6eKacEAd4w5I/pub?gid=1216205715&single=true&output=tsv";
 let dataKeuanganGlobal = [];
 let dataTersaringGlobal = [];
-let halamanSaatIni = 1;
-const barisPerHalaman = 7;
+let halamanKeuanganSaatIni = 1; // DIUBAH AGAR TIDAK BENTROK
+const barisKeuanganPerHalaman = 7;
 
 function parseTanggalKeObjek(strTanggal) {
     if (!strTanggal) return new Date(0);
@@ -294,7 +295,7 @@ window.terapkanFilter = function() {
     
     document.getElementById('saldo-akhir').innerText = formatRupiah(m - k);
 
-    halamanSaatIni = 1; 
+    halamanKeuanganSaatIni = 1; 
     renderTabel();
 }
 
@@ -307,8 +308,8 @@ function renderTabel() {
         return;
     }
 
-    const start = (halamanSaatIni - 1) * barisPerHalaman;
-    const pageData = dataTersaringGlobal.slice(start, start + barisPerHalaman);
+    const start = (halamanKeuanganSaatIni - 1) * barisKeuanganPerHalaman;
+    const pageData = dataTersaringGlobal.slice(start, start + barisKeuanganPerHalaman);
     
     let html = pageData.map(i => `
         <tr>
@@ -324,14 +325,14 @@ function renderTabel() {
         </tr>
     `).join('');
 
-    const totalHal = Math.ceil(dataTersaringGlobal.length / barisPerHalaman);
+    const totalHal = Math.ceil(dataTersaringGlobal.length / barisKeuanganPerHalaman);
     if (totalHal > 1) {
         let tombolNav = "";
         const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
         
-        if (halamanSaatIni === 1) {
+        if (halamanKeuanganSaatIni === 1) {
             tombolNav = `<div style="text-align:right;"><button onclick="nav(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
-        } else if (halamanSaatIni === totalHal) {
+        } else if (halamanKeuanganSaatIni === totalHal) {
             tombolNav = `<div style="text-align:left;"><button onclick="nav(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
         } else {
             tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="nav(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="nav(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
@@ -342,7 +343,7 @@ function renderTabel() {
 }
 
 window.nav = (dir) => { 
-    halamanSaatIni += dir; 
+    halamanKeuanganSaatIni += dir; 
     renderTabel(); 
 };
 
@@ -413,7 +414,7 @@ async function loadRapatDariDrive() {
             if(thn.length > 4) thn = thn.substring(0,4); 
             
             let indexBulan = parseInt(tglSplit[1], 10) - 1;
-            let bln = namaBulanIndo[indexBulan] || "Semua";
+            let bln = namaBulanIndo[indexBulan] || "Semual";
 
             if(thn && thn !== "") daftarTahunRapat.add(thn);
             if(bln && bln !== "Semua") daftarBulanRapat.add(bln);
@@ -882,7 +883,6 @@ function formatRupiah(angka) {
 }
 
 
-
 // ==========================================================================
 // LOGIKA PWA MMS 05 - AMAN & ANTI-CRASH (TIDAK MERUSAK KODE LAIN)
 // ==========================================================================
@@ -894,14 +894,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     pemicuInstal = e;
     
-    // Dibungkus try-catch agar jika sessionStorage diblokir, pop-up tetap bisa muncul/tutup tanpa crash
     try {
         if (sessionStorage.getItem('pwa_ditunda') !== 'true') {
             const popup = document.getElementById(ID_KOTAK_POPUP);
             if (popup) popup.style.display = 'block';
         }
     } catch (err) {
-        // Jika sessionStorage error, langsung tampilkan saja tanpa mematikan sisa skrip
         const popup = document.getElementById(ID_KOTAK_POPUP);
         if (popup) popup.style.display = 'block';
     }
@@ -923,14 +921,11 @@ if (tombolInstal) {
     });
 }
 
-// 🌟 PERBAIKAN UTAMA: Fungsi penutup pop-up PWA diamankan penuh dengan try-catch
 window.tutupPopupInstal = function() {
     const popup = document.getElementById(ID_KOTAK_POPUP);
     if (popup) {
         popup.style.display = 'none';
     }
-    
-    // Amankan penyimpanan status agar tidak memicu crash ke fungsi modal iklan di bawahnya
     try {
         sessionStorage.setItem('pwa_ditunda', 'true');
     } catch (e) {
@@ -950,16 +945,9 @@ window.addEventListener('appinstalled', () => {
 });
 
 
-
 /* ==========================================================================
    10. MODAL POP-UP ANNOUNCEMENT (ANTI-JUDI ONLINE)
-   --------------------------------------------------------------------------
-   Instruksi: Mengatur fungsi buka-tutup otomatis modal pengumuman warga.
    ========================================================================== */
-
-/**
- * Fungsi Global untuk menutup pop-up iklan/pengumuman
- */
 window.closeModal = function() {
     const modal = document.getElementById('modalOverlay');
     if (modal) {
@@ -967,33 +955,22 @@ window.closeModal = function() {
     }
 };
 
-/**
- * Trigger otomatis untuk menampilkan pop-up pengumuman saat halaman dimuat
- */
 document.addEventListener("DOMContentLoaded", function() {
     const modal = document.getElementById('modalOverlay');
-    
-    // Hanya jalankan timer jika elemen modal terdeteksi ada di halaman HTML tersebut
     if (modal) {
         setTimeout(function() {
             modal.classList.add('active');
-        }, 1000); // Muncul mulus setelah 1 detik halaman selesai dimuat
+        }, 1000); 
     }
 });
 
 
 /* ==========================================================================
    11. ENGINE LIVE CHAT REAL-TIME (ANGKRINGAN CHAT MMS 05)
-   --------------------------------------------------------------------------
-   Instruksi: Sinkronisasi pesan masuk dan keluar via Google Apps Script.
    ========================================================================== */
-
 const URL_ENGINE_CHAT_MMS = "https://script.google.com/macros/s/AKfycbwVCoU1UZByMqIcQP3_wxI-fNk_q4PWh4zg3eOykC0KKbvRJhr-F7zK_Z2CKEMm0IgZZw/exec"; 
 let loopPenyegarObrolan = null;
 
-/**
- * Fungsi buka-tutup widget jendela obrolan warga
- */
 window.toggleKotakChatMMS = function() {
     const kotakChat = document.getElementById("mms-chat-box");
     if (!kotakChat) return;
@@ -1001,8 +978,6 @@ window.toggleKotakChatMMS = function() {
     if (kotakChat.style.display === "none" || kotakChat.style.display === "") {
         kotakChat.style.display = "flex";
         ambilRiwayatChatMMS();
-        
-        // Polling data otomatis berjalan tiap 3 detik demi seru-seruan real-time
         loopPenyegarObrolan = setInterval(ambilRiwayatChatMMS, 3000); 
     } else {
         kotakChat.style.display = "none";
@@ -1010,9 +985,6 @@ window.toggleKotakChatMMS = function() {
     }
 };
 
-/**
- * Mengambil riwayat data obrolan terbaru dari database Google Sheets
- */
 async function ambilRiwayatChatMMS() {
     const wadahTubuhChat = document.getElementById("chat-box-body");
     if (!wadahTubuhChat) return;
@@ -1029,7 +1001,6 @@ async function ambilRiwayatChatMMS() {
             return;
         }
         
-        // Cek posisi scroll, jika user di bawah, otomatis kunci scroll di bawah saat ada chat baru
         const posisiScrollSudahDiBawah = wadahTubuhChat.scrollHeight - wadahTubuhChat.clientHeight <= wadahTubuhChat.scrollTop + 70;
         
         const susunanHtml = arrayChat.map(item => `
@@ -1049,9 +1020,6 @@ async function ambilRiwayatChatMMS() {
     }
 }
 
-/**
- * Mengirimkan pesan baru warga ke database backend Google Sheets
- */
 window.kirimPesanChatMMS = async function() {
     const inputNama = document.getElementById("chat-input-nama");
     const inputPesan = document.getElementById("chat-input-pesan");
@@ -1068,7 +1036,6 @@ window.kirimPesanChatMMS = async function() {
     }
     if (!stringPesan) return;
     
-    // Beri efek loading sementara saat transmisi data
     inputPesan.value = "Mengirim...";
     inputPesan.disabled = true;
     
@@ -1087,9 +1054,6 @@ window.kirimPesanChatMMS = async function() {
     }
 };
 
-/**
- * Mendeteksi ketukan tombol Enter keyboard pada input chat untuk kirim cepat
- */
 window.deteksiEnterChatMMS = function(event) {
     if (event.key === "Enter") {
         window.kirimPesanChatMMS();
@@ -1097,4 +1061,221 @@ window.deteksiEnterChatMMS = function(event) {
 };
 
 
+/* ==========================================================================
+   12. MODUL KHUSUS: ARSIP DATA LOMBA REAL-TIME (BEBAS TABRAKAN)
+   ========================================================================== */
+const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
+const SHEET_NAME_LOMBA = 'Form Responses 1'; 
 
+let semuaDataLomba = [];
+let dataLombaTersaring = []; 
+
+const BARIS_LOMBA_PER_HALAMAN = 5;
+let halamanLombaSaatIni = 1; // DIUBAH AGAR UNIK & TIDAK BENTROK KAS
+
+function ambilDataGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LOMBA}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LOMBA)}`;
+    
+    fetch(url)
+        .then(res => res.text())
+        .then(data => {
+            const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2));
+            const barisData = jsonPembersih.table.rows;
+            
+            semuaDataLomba = [];
+            const setTahun = new Set();
+
+            for (let i = 1; i < barisData.length; i++) {
+                const baris = barisData[i];
+                
+                if (baris.c && baris.c[2]) {
+                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    
+                    let angkaTahun = 'Umum';
+                    if (teksTanggal && teksTanggal !== '-') {
+                        const pecahan = teksTanggal.split('/');
+                        if (pecahan.length >= 3) {
+                            angkaTahun = pecahan[2].trim(); 
+                        }
+                    }
+
+                    const dataItem = {
+                        tanggal: teksTanggal,
+                        tahun: angkaTahun, 
+                        nama: baris.c[2] ? String(baris.c[2].v) : '-',
+                        kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', 
+                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
+                    };
+                    
+                    semuaDataLomba.push(dataItem);
+                    if (angkaTahun && angkaTahun !== 'Umum' && !isNaN(angkaTahun)) {
+                        setTahun.add(angkaTahun);
+                    }
+                }
+            }
+
+            semuaDataLomba.reverse();
+            dataLombaTersaring = [...semuaDataLomba];
+
+            const selectTahun = document.getElementById('filter-lomba-tahun');
+            if (selectTahun) {
+                selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
+                Array.from(setTahun).sort().reverse().forEach(th => {
+                    const opt = document.createElement('option');
+                    opt.value = th;
+                    opt.textContent = th;
+                    selectTahun.appendChild(opt);
+                });
+            }
+
+            halamanLombaSaatIni = 1;
+            tampilkanDataLombaKeTabel();
+        })
+        .catch(err => {
+            console.error("Gagal memuat arsip data lomba:", err);
+            const tbody = document.getElementById('data-tabel-lomba');
+            if (tbody) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #d32f2f;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat data. Periksa pengaturan share berkas Excel/Sheets Anda.
+                        </td>
+                    </tr>
+                `;
+            }
+        });
+}
+
+function tampilkanDataLombaKeTabel() {
+    const tbody = document.getElementById('data-tabel-lomba');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+
+    if (dataLombaTersaring.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #777;">Tidak ada berkas arsip lomba yang cocok.</td></tr>`;
+        perbaruiTombolNavigasiLomba(0);
+        return;
+    }
+
+    const indeksAwal = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN;
+    const indeksAkhir = indeksAwal + BARIS_LOMBA_PER_HALAMAN;
+    const dataHalamanAktif = dataLombaTersaring.slice(indeksAwal, indeksAkhir);
+
+    dataHalamanAktif.forEach(item => {
+        const tr = document.createElement('tr');
+        
+        let warnaBadge = '#0288D1'; 
+        if(item.kategori.toLowerCase().includes('anak')) {
+            warnaBadge = '#388E3C'; 
+        } else if(item.kategori.toLowerCase().includes('remaja') || item.kategori.toLowerCase().includes('muda')) {
+            warnaBadge = '#F57C00'; 
+        }
+
+        let tombolAksi = item.urlDrive ? `
+            <button class="btn-cetak-mutasi" onclick="bukaPdfViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
+                <i class="fa-solid fa-eye"></i> Lihat PDF
+            </button>
+        ` : `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
+
+        tr.innerHTML = `
+            <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
+            <td style="font-weight: bold; color: #333;">${item.nama}</td>
+            <td><span style="background-color: ${warnaBadge}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold;">${item.kategori}</span></td>
+            <td style="text-align: center;">${tombolAksi}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    perbaruiTombolNavigasiLomba(dataLombaTersaring.length);
+}
+
+function perbaruiTombolNavigasiLomba(totalData) {
+    const totalHalaman = Math.ceil(totalData / BARIS_LOMBA_PER_HALAMAN) || 1;
+    const infoHalaman = document.getElementById('info-halaman-tabel');
+    if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanLombaSaatIni} dari ${totalHalaman}`;
+
+    const btnTerbaru = document.getElementById('btn-halaman-terbaru');
+    if (btnTerbaru) {
+        if (halamanLombaSaatIni > 1) {
+            btnTerbaru.style.display = 'inline-flex';
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.style.display = 'none';
+        }
+    }
+
+    const btnSebelumnya = document.getElementById('btn-halaman-sebelumnya');
+    if (btnSebelumnya) {
+        if (halamanLombaSaatIni < totalHalaman) {
+            btnSebelumnya.style.display = 'inline-flex';
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.style.display = 'none';
+        }
+    }
+}
+
+// EKSTERNAL ACCESSIBLE BINDING AGAR ONCLICK HTML BERHASIL DIKETUK
+window.halamanSebelumnya = function() {
+    const totalHalaman = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
+    if (halamanLombaSaatIni < totalHalaman) {
+        halamanLombaSaatIni++;
+        tampilkanDataLombaKeTabel();
+    }
+}
+
+window.halamanTerbaru = function() {
+    if (halamanLombaSaatIni > 1) {
+        halamanLombaSaatIni--;
+        tampilkanDataLombaKeTabel();
+    }
+}
+
+window.terapkanFilterLomba = function() {
+    const selectTahun = document.getElementById('filter-lomba-tahun');
+    const inputCari = document.getElementById('input-cari-lomba');
+    
+    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
+    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+
+    dataLombaTersaring = semuaDataLomba.filter(item => {
+        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
+        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
+                              item.kategori.toLowerCase().includes(kataKunciCari) ||
+                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
+                              item.tahun.includes(kataKunciCari);
+        return cocokTahun && cocokKataKunci;
+    });
+
+    halamanLombaSaatIni = 1;
+    tampilkanDataLombaKeTabel();
+}
+
+window.bukaPdfViewer = function(urlAsli) {
+    if (typeof konversiUrlDriveUntukEmbed !== 'function') return;
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
+    const iframe = document.getElementById('pdf-iframe');
+    const btnUnduh = document.getElementById('btn-unduh-pdf');
+    const panelViewer = document.getElementById('pdf-viewer-section');
+    
+    if (iframe) iframe.src = urlEmbed;
+    if (btnUnduh) btnUnduh.href = urlAsli;
+    
+    if (panelViewer) {
+        panelViewer.style.display = 'block';
+        panelViewer.classList.remove('lomba-viewer-hide'); 
+        panelViewer.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+window.tutupPdfViewer = function() {
+    const panelViewer = document.getElementById('pdf-viewer-section');
+    const iframe = document.getElementById('pdf-iframe');
+    
+    if (panelViewer) {
+        panelViewer.style.display = 'none';
+        panelViewer.classList.add('lomba-viewer-hide');
+    }
+    if (iframe) iframe.src = '';
+}
