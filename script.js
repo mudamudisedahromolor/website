@@ -553,10 +553,9 @@ function konversiUrlDriveUntukEmbed(urlLama) {
 }
 
 /* ==========================================================================
-   13. MODUL ARSIP DATA LOMBA REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
+   13. MODUL KHUSUS: ARSIP DATA LOMBA REAL-TIME
    ========================================================================== */
-const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
-const SHEET_NAME_LOMBA = 'Form Responses 1'; 
+const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; const SHEET_NAME_LOMBA = 'Form Responses 1'; 
 let semuaDataLomba = [], dataLombaTersaring = []; const BARIS_LOMBA_PER_HALAMAN = 5; let halamanLombaSaatIni = 1; 
 
 function ambilDataGoogleSheets() {
@@ -576,24 +575,37 @@ function ambilDataGoogleSheets() {
         semuaDataLomba.reverse(); dataLombaTersaring = [...semuaDataLomba];
         const sel = document.getElementById('filter-lomba-tahun');
         if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
-        halamanLombaSaatIni = 1; tampilkanDataLombaKeTabel();
+        halamanLombaSaatIni = 1; terapkanFilterLomba();
     }).catch(err => console.error(err));
+}
+
+function terapkanFilterLomba() {
+    const filterTahun = document.getElementById('filter-lomba-tahun') ? document.getElementById('filter-lomba-tahun').value : 'Semua';
+    const cariKata = document.getElementById('input-cari-lomba') ? document.getElementById('input-cari-lomba').value.toLowerCase() : '';
+    dataLombaTersaring = semuaDataLomba.filter(i => {
+        const cocokTahun = (filterTahun === 'Semua' || i.tahun === filterTahun);
+        const cocokKata = (i.nama.toLowerCase().includes(cariKata) || i.kategori.toLowerCase().includes(cariKata));
+        return cocokTahun && cocokKata;
+    });
+    halamanLombaSaatIni = 1; tampilkanDataLombaKeTabel();
 }
 
 function tampilkanDataLombaKeTabel() {
     const tbody = document.getElementById('data-tabel-lomba'); if (!tbody) return;
-    if (dataLombaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
+    if (dataLombaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data lomba tidak ditemukan.</td></tr>`; itungHalamanLomba(0); return; }
     
     const start = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN;
     const pageData = dataLombaTersaring.slice(start, start + BARIS_LOMBA_PER_HALAMAN);
-    
+
     let html = pageData.map(i => {
         let warnaBadge = i.kategori.toLowerCase().includes('anak') ? '#388E3C' : (i.kategori.toLowerCase().includes('remaja') ? '#F57C00' : '#0288D1');
-        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="bukaPdfViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaLombaViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
         return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
     }).join('');
 
     const totalHal = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
+    itungHalamanLomba(totalHal);
+
     if (totalHal > 1) {
         let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
         if (halamanLombaSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navLombaManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
@@ -603,11 +615,25 @@ function tampilkanDataLombaKeTabel() {
     }
     tbody.innerHTML = html;
 }
+
+function itungHalamanLomba(totalHal) {
+    const infoHal = document.getElementById('info-halaman-lomba');
+    if (infoHal) { infoHal.textContent = `Halaman ${totalHal === 0 ? 0 : halamanLombaSaatIni} dari ${totalHal}`; }
+}
 window.navLombaManual = (dir) => { halamanLombaSaatIni += dir; tampilkanDataLombaKeTabel(); };
+
+window.bukaLombaViewer = (url) => {
+    const viewerSection = document.getElementById('lomba-viewer-section'); const iframe = document.getElementById('lomba-iframe'); const btnUnduh = document.getElementById('btn-unduh-lomba');
+    if(viewerSection && iframe) {
+        let embedUrl = url; if(url.includes('file/d/')) { embedUrl = url.replace('/view?usp=sharing', '/preview').replace('/view', '/preview').replace('/view?usp=drive_link', '/preview'); }
+        iframe.src = embedUrl; if(btnUnduh) btnUnduh.href = url; viewerSection.style.display = 'block'; viewerSection.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+window.tutupLombaViewer = () => { const viewerSection = document.getElementById('lomba-viewer-section'); const iframe = document.getElementById('lomba-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
 
 
 /* ==========================================================================
-   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
+   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME
    ========================================================================== */
 const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; const SHEET_NAME_PROPOSAL = 'Form Responses 1'; 
 let semuaDataProposal = [], dataProposalTersaring = []; const BARIS_PROPOSAL_PER_HALAMAN = 5; let halamanProposalSaatIni = 1; 
@@ -629,17 +655,28 @@ function ambilDataProposalGoogleSheets() {
         semuaDataProposal.reverse(); dataProposalTersaring = [...semuaDataProposal];
         const sel = document.getElementById('filter-proposal-tahun');
         if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
-        halamanProposalSaatIni = 1; tampilkanDataProposalKeTabel();
+        halamanProposalSaatIni = 1; terapkanFilterProposal();
     }).catch(err => console.error(err));
+}
+
+function terapkanFilterProposal() {
+    const filterTahun = document.getElementById('filter-proposal-tahun') ? document.getElementById('filter-proposal-tahun').value : 'Semua';
+    const cariKata = document.getElementById('input-cari-proposal') ? document.getElementById('input-cari-proposal').value.toLowerCase() : '';
+    dataProposalTersaring = semuaDataProposal.filter(i => {
+        const cocokTahun = (filterTahun === 'Semua' || i.tahun === filterTahun);
+        const cocokKata = (i.nama.toLowerCase().includes(cariKata) || i.kategori.toLowerCase().includes(cariKata));
+        return cocokTahun && cocokKata;
+    });
+    halamanProposalSaatIni = 1; tampilkanDataProposalKeTabel();
 }
 
 function tampilkanDataProposalKeTabel() {
     const tbody = document.getElementById('data-tabel-proposal'); if (!tbody) return;
-    if (dataProposalTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
+    if (dataProposalTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data proposal tidak ditemukan.</td></tr>`; itungHalamanProposal(0); return; }
     
     const start = (halamanProposalSaatIni - 1) * BARIS_PROPOSAL_PER_HALAMAN;
     const pageData = dataProposalTersaring.slice(start, start + BARIS_PROPOSAL_PER_HALAMAN);
-    
+
     let html = pageData.map(i => {
         let warnaBadge = i.kategori.toLowerCase().includes('bantuan') ? '#388E3C' : '#F57C00';
         let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaProposalViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
@@ -647,6 +684,8 @@ function tampilkanDataProposalKeTabel() {
     }).join('');
 
     const totalHal = Math.ceil(dataProposalTersaring.length / BARIS_PROPOSAL_PER_HALAMAN);
+    itungHalamanProposal(totalHal);
+
     if (totalHal > 1) {
         let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
         if (halamanProposalSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navProposalManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
@@ -656,7 +695,27 @@ function tampilkanDataProposalKeTabel() {
     }
     tbody.innerHTML = html;
 }
+
+function itungHalamanProposal(totalHal) {
+    const infoHal = document.getElementById('info-halaman-proposal');
+    if (infoHal) { infoHal.textContent = `Halaman ${totalHal === 0 ? 0 : halamanProposalSaatIni} dari ${totalHal}`; }
+}
 window.navProposalManual = (dir) => { halamanProposalSaatIni += dir; tampilkanDataProposalKeTabel(); };
+
+window.bukaProposalViewer = (url) => {
+    const viewerSection = document.getElementById('proposal-viewer-section'); const iframe = document.getElementById('proposal-iframe'); const btnUnduh = document.getElementById('btn-unduh-proposal');
+    if(viewerSection && iframe) {
+        let embedUrl = url; if(url.includes('file/d/')) { embedUrl = url.replace('/view?usp=sharing', '/preview').replace('/view', '/preview').replace('/view?usp=drive_link', '/preview'); }
+        iframe.src = embedUrl; if(btnUnduh) btnUnduh.href = url; viewerSection.style.display = 'block'; viewerSection.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+window.tutupProposalViewer = () => { const viewerSection = document.getElementById('proposal-viewer-section'); const iframe = document.getElementById('proposal-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
+
+// Pemicu otomatis pemuatan data saat file script dimuat
+document.addEventListener("DOMContentLoaded", () => {
+    if(document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets();
+    if(document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets();
+});
 
 
 /* ==========================================================================
