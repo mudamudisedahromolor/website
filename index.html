@@ -54,8 +54,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#">KEGIATAN</a>
-                    <ul class="submenu">
+                    <a href="#" id="btn-bulanan">KEGIATAN</a> <ul class="submenu" id="menu-rapat">
                         <li class="submenu-item"><a href="rapat-hasilrapat.html"> - RAPAT BULANAN</a></li>
                         <li class="submenu-item"><a href="dokumentasi-kegiatan.html"> - DOKUMENTASI</a></li>
                     </ul>
@@ -68,13 +67,11 @@
                         <li class="submenu-item"><a href="lpj.html"> - PERTANGGUNG JAWABAN</a></li>
                     </ul>
                 </li>
-                                 <li class="nav-item">
-                    <a href="#">DATA ARSIP</a>
-                    <ul class="submenu">
+                <li class="nav-item">
+                    <a href="#" id="btn-tahunan">DATA ARSIP</a> <ul class="submenu" id="menu-17an">
                         <li class="submenu-item"><a href="arsip-proposal.html"> - PROPOSAL</a></li>
-                        <li class="submenu-item"><a href="arsip-lomba.html"> - LOMBA/a></li>
-                    </ul>
-                 </li> 
+                        <li class="submenu-item"><a href="arsip-lomba.html"> - LOMBA</a></li> </ul>
+                </li> 
                 <li class="nav-item">
                     <a href="#">INFORMASI</a>
                     <ul class="submenu">
@@ -94,7 +91,7 @@
             </div>
         </nav>
 
-        <div id="pwa-install-popup">
+        <div id="pwa-install-popup" style="display: none;">
             <div class="pwa-mms-container">
                 <img src="images/mms.png" alt="Logo MMS" class="pwa-mms-logo">
                 <div class="pwa-mms-text-block">
@@ -127,7 +124,7 @@
         <div class="slider-dots" id="dots-container"></div>
     </div>
 
-        <footer class="site-footer">
+    <footer class="site-footer">
         <div class="footer-container">
             
             <div class="footer-column info-col">
@@ -172,11 +169,6 @@
         </div>
     </footer>
 
-
-
-
-    
-
     <div id="mms-chat-launcher" onclick="toggleKotakChatMMS()">
         <i class="fa-regular fa-comments"></i>
     </div>
@@ -190,7 +182,6 @@
             <button onclick="toggleKotakChatMMS()" class="chat-close-btn">&times;</button>
         </div>
 
-        
         <div id="chat-box-body">
             <div class="chat-loading-status">
                 <i class="fa-solid fa-spinner fa-spin"></i> Memuat obrolan warga konoha...
@@ -206,52 +197,25 @@
         </div>
     </div>
 
-
-
-
     <div class="modal-overlay active" id="modalOverlay">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="modal-close-x" onclick="closeModal()">×</span>
-    </div>
-    <div class="modal-body">
-      <img src="images/poster_stop_judol.jpg" alt="Stop Judi Online (JUDOL) Poster" class="modal-image">
-      <div class="modal-cta-container">
-        <p class="modal-cta-text">STOP JUDOL SEBELUM TERLAMBAT!</p>
-      </div>
-    </div>
-    <div class="modal-footer">
-
-      <button class="modal-close-btn" onclick="closeModal()">
-        <span>×</span> Tutup
-      </button>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-       <div id="pwa-install-popup">
-        <div class="pwa-mms-container">
-            <img src="images/mms.png" alt="Logo MMS" class="pwa-mms-logo">
-            <div class="pwa-mms-text-block">
-                <h4 class="pwa-mms-title">Aplikasi MMS 05</h4>
-                <p class="pwa-mms-subtitle">Tambahkan ke layar utama HP agar akses lebih cepat</p>
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-close-x" onclick="closeModal()">×</span>
+            </div>
+            <div class="modal-body">
+                <img src="images/poster_stop_judol.jpg" alt="Stop Judi Online (JUDOL) Poster" class="modal-image">
+                <div class="modal-cta-container">
+                    <p class="modal-cta-text">STOP JUDOL SEBELUM TERLAMBAT!</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close-btn" onclick="closeModal()">
+                    <span>×</span> Tutup
+                </button>
             </div>
         </div>
-        <div class="pwa-mms-buttons">
-            <button onclick="tutupPopupInstal()" class="pwa-mms-btn-later">Nanti Saja</button>
-            <button id="btn-instal-pwa" class="pwa-mms-btn-install">Instal Sekarang</button>
-        </div>
     </div>
-    
+
     <script src="script.js?v=30"></script>
-
-
 </body>
 </html>
-
