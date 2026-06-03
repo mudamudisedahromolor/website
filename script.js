@@ -713,52 +713,60 @@ window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSura
 
 
 /* ==========================================================================
-   MASTER SCRIPT: LOGIKA PAGINATION LPJ YANG BENAR
+   16. MODUL LPJ (VERSI FINAL - PAGINATION OTOMATIS)
    ========================================================================== */
-
 let dataLpj = []; 
 let halLpj = 1; 
 const BARIS_PER_HAL = 5;
 
-// 1. Modul LPJ yang disempurnakan
+// Mengambil data TSV dari Google Sheet
 async function ambilDataLpj() {
     try {
-        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/pub?gid=292952199&single=true&output=tsv");
+        const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/pub?gid=292952199&single=true&output=tsv";
+        const res = await fetch(url);
         const tsv = await res.text();
-        // Mengurutkan dari terbaru (data di bawah ditaruh di atas)
+        
+        // Memastikan data diurutkan dari yang terbaru (reverse)
         dataLpj = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
         renderLpj();
-    } catch(e) { console.error("Error LPJ:", e); }
+    } catch(e) { 
+        console.error("Error LPJ:", e); 
+        const tbody = document.getElementById('data-tabel-lpj');
+        if (tbody) tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Gagal memuat data.</td></tr>`;
+    }
 }
 
 function renderLpj() {
     const tbody = document.getElementById('data-tabel-lpj');
     if (!tbody) return;
 
-    const totalData = dataLpj.length;
-    const totalHal = Math.ceil(totalData / BARIS_PER_HAL);
+    const totalHal = Math.ceil(dataLpj.length / BARIS_PER_HAL);
     const start = (halLpj - 1) * BARIS_PER_HAL;
     const pageData = dataLpj.slice(start, start + BARIS_PER_HAL);
 
-    // Render baris data
+    // 1. Render Baris Data
     let html = pageData.map(i => {
         let warna = i.kat.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
         let btn = i.url ? `<button class="btn-cetak-mutasi" onclick="window.open('${i.url}', '_blank')" style="height:34px; padding:0 12px; font-size:12px;">Lihat PDF</button>` : `-`;
-        return `<tr><td>${i.tgl}</td><td><strong>${i.nama}</strong></td><td><span style="background:${warna}; color:white; padding:4px 10px; border-radius:12px; font-size:11px;">${i.kat}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+        return `<tr>
+            <td>${i.tgl}</td>
+            <td><strong>${i.nama}</strong></td>
+            <td><span style="background:${warna}; color:white; padding:4px 10px; border-radius:12px; font-size:11px;">${i.kat}</span></td>
+            <td style="text-align:center;">${btn}</td>
+        </tr>`;
     }).join('');
 
-    // --- LOGIKA PAGINATION ---
-    // Di halaman 1, tombol "Selanjutnya" muncul (karena data > 5), 
-    // tombol "Sebelumnya" hilang (hanya muncul jika > halaman 1)
+    // 2. Logika Navigasi Dinamis
+    // Tombol hanya muncul jika halaman memungkinkan
     let nav = `
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px;">
-        <button onclick="navLpj(-1)" ${halLpj === 1 ? 'style="display:none;"' : 'style="cursor:pointer"'}>
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border-top:1px solid #eee;">
+        <button onclick="navLpj(-1)" style="cursor:pointer; ${halLpj === 1 ? 'display:none;' : ''}">
             <i class="fa-solid fa-chevron-left"></i> Sebelumnya
         </button>
         
-        <span>Hal ${halLpj} / ${totalHal}</span>
+        <span style="font-size: 12px; color: #666;">Halaman ${halLpj} dari ${totalHal}</span>
         
-        <button onclick="navLpj(1)" ${halLpj >= totalHal ? 'style="display:none;"' : 'style="cursor:pointer"'}>
+        <button onclick="navLpj(1)" style="cursor:pointer; ${halLpj >= totalHal ? 'display:none;' : ''}">
             Selanjutnya <i class="fa-solid fa-chevron-right"></i>
         </button>
     </div>`;
@@ -766,11 +774,11 @@ function renderLpj() {
     tbody.innerHTML = html + `<tr><td colspan="4">${nav}</td></tr>`;
 }
 
+// Fungsi Pemicu Navigasi
 window.navLpj = (dir) => { 
     halLpj += dir; 
     renderLpj(); 
 };
-
 
 /* ==========================================================================
    MASTER SCRIPT: STABIL, NON-BLOCKING, & ANTI-LOADING
