@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets(); 
     if (document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets(); 
     if (document.getElementById('data-tabel-surat')) ambilDataSuratGoogleSheets(); 
+    if (document.getElementById('data-tabel-lpj')) ambilDataSuratGoogleSheets(); 
 });
 
 /* ==========================================================================
@@ -756,4 +757,75 @@ window.bukaSuratViewer = function(urlAsli) {
 window.tutupSuratViewer = function() { 
     const panel = document.getElementById('surat-viewer-section'); if (panel) panel.style.display = 'none'; 
     const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = ''; 
+}
+
+
+/* ==========================================================================
+   16. MODUL KHUSUS: ARSIP DATA LPJ REAL-TIME (SISTEM PAGINATION KAS KEUANGAN)
+   ========================================================================== */
+const SPREADSHEET_ID_LPJ = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; // Ganti ID jika file Sheets-nya terpisah
+const SHEET_NAME_LPJ = 'Form Responses 4'; // Ganti nama Tab sesuai respon kuesioner LPJ kamu
+
+let semuaDataLpj = [], dataLpjTersaring = []; const BARIS_LPJ_PER_HALAMAN = 5; let halamanLpjSaatIni = 1; 
+
+function ambilDataLpjGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LPJ}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LPJ)}`;
+    fetch(url).then(res => res.text()).then(data => {
+        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
+        semuaDataLpj = []; const setTahun = new Set();
+        for (let i = 1; i < barisData.length; i++) {
+            const baris = barisData[i];
+            if (baris && baris.c && baris.c[2]) {
+                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+                let thn = tgl.split('/')[2] || 'Umum';
+                semuaDataLpj.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
+            }
+        }
+        semuaDataLpj.reverse(); dataLpjTersaring = [...semuaDataLpj];
+        const sel = document.getElementById('filter-lpj-tahun');
+        if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
+        halamanLpjSaatIni = 1; tampilkanDataLpjKeTabel();
+    }).catch(err => console.error(err));
+}
+
+function tampilkanDataLpjKeTabel() {
+    const tbody = document.getElementById('data-tabel-lpj'); if (!tbody) return;
+    if (dataLpjTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada log berkas LPJ yang ditemukan.</td></tr>`; return; }
+    const start = (halamanLpjSaatIni - 1) * BARIS_LPJ_PER_HALAMAN, pageData = dataLpjTersaring.slice(start, start + BARIS_LPJ_PER_HALAMAN);
+
+    let html = pageData.map(item => {
+        let warnaBadge = item.kategori.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
+        let btn = item.urlDrive ? `<button class="btn-nav-aktif" onclick="window.bukaLpjViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        return `<tr><td>${item.tanggal}</td><td style="font-weight:bold;">${item.nama}</td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${item.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+    }).join('');
+
+    const totalHalaman = Math.ceil(dataLpjTersaring.length / BARIS_LPJ_PER_HALAMAN);
+    if (totalHalaman > 1) {
+        let navHTML = ""; const styleBtn = "padding:8px 16px; background:#D32F2F; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+        if (halamanLpjSaatIni === 1) navHTML = `<div style="text-align:right;"><button class="btn-nav-aktif" onclick="window.navLpjManual(1)">Halaman Selanjutnya ></button></div>`;
+        else if (halamanLpjSaatIni === totalHalaman) navHTML = `<div style="text-align:left;"><button class="btn-nav-aktif" onclick="window.navLpjManual(-1)">< Halaman Sebelumnya</button></div>`;
+        else navHTML = `<div style="display:flex; justify-content:space-between;"><button class="btn-nav-aktif" onclick="window.navLpjManual(-1)">< Halaman Sebelumnya</button><button class="btn-nav-aktif" onclick="window.navLpjManual(1)">Halaman Selanjutnya ></button></div>`;
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${navHTML}</td></tr>`;
+    }
+    tbody.innerHTML = html;
+    const info = document.getElementById('info-halaman-lpj'); if (info) info.textContent = `Halaman ${halamanLpjSaatIni} dari ${totalHalaman}`;
+}
+window.navLpjManual = function(dir) { halamanLpjSaatIni += dir; tampilkanDataLpjKeTabel(); };
+window.halamanSebelumnyaLpj = function() { window.navLpjManual(1); };
+window.halamanTerbaruLpj = function() { window.navLpjManual(-1); };
+
+window.terapkanFilterLpj = function() {
+    const year = document.getElementById('filter-lpj-tahun')?.value || 'Semua', key = document.getElementById('input-cari-lpj')?.value.toLowerCase() || '';
+    dataLpjTersaring = semuaDataLpj.filter(i => (year === 'Semua' || i.tahun === year) && (i.nama.toLowerCase().includes(key) || i.kategori.toLowerCase().includes(key)));
+    halamanLpjSaatIni = 1; tampilkanDataLpjKeTabel();
+};
+
+window.bukaLpjViewer = function(urlAsli) { 
+    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('lpj-iframe'); if (iframe) iframe.src = urlEmbed; 
+    const panel = document.getElementById('lpj-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } 
+}
+window.tutupLpjViewer = function() { 
+    const panel = document.getElementById('lpj-viewer-section'); if (panel) panel.style.display = 'none'; 
+    const iframe = document.getElementById('lpj-iframe'); if (iframe) iframe.src = ''; 
 }
