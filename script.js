@@ -713,17 +713,19 @@ window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSura
 
 
 /* ==========================================================================
-   16. MODUL LPJ (VERSI STABIL & ANTI-LOADING)
+   MASTER SCRIPT: LOGIKA PAGINATION LPJ YANG BENAR
    ========================================================================== */
-let dataLpj = []; // Data utama
-let halLpj = 1;   // Halaman saat ini
-const BARIS_LPJ = 5;
 
+let dataLpj = []; 
+let halLpj = 1; 
+const BARIS_PER_HAL = 5;
+
+// 1. Modul LPJ yang disempurnakan
 async function ambilDataLpj() {
     try {
         const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/pub?gid=292952199&single=true&output=tsv");
         const tsv = await res.text();
-        // Parse dan simpan ke variabel global dataLpj
+        // Mengurutkan dari terbaru (data di bawah ditaruh di atas)
         dataLpj = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
         renderLpj();
     } catch(e) { console.error("Error LPJ:", e); }
@@ -733,25 +735,31 @@ function renderLpj() {
     const tbody = document.getElementById('data-tabel-lpj');
     if (!tbody) return;
 
-    const totalHal = Math.ceil(dataLpj.length / BARIS_LPJ);
-    const start = (halLpj - 1) * BARIS_LPJ;
-    const pageData = dataLpj.slice(start, start + BARIS_LPJ);
+    const totalData = dataLpj.length;
+    const totalHal = Math.ceil(totalData / BARIS_PER_HAL);
+    const start = (halLpj - 1) * BARIS_PER_HAL;
+    const pageData = dataLpj.slice(start, start + BARIS_PER_HAL);
 
+    // Render baris data
     let html = pageData.map(i => {
         let warna = i.kat.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
-        let btn = i.url ? `<button class="btn-cetak-mutasi" onclick="window.bukaLpjViewer('${i.url}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat</button>` : `<i>-</i>`;
+        let btn = i.url ? `<button class="btn-cetak-mutasi" onclick="window.open('${i.url}', '_blank')" style="height:34px; padding:0 12px; font-size:12px;">Lihat PDF</button>` : `-`;
         return `<tr><td>${i.tgl}</td><td><strong>${i.nama}</strong></td><td><span style="background:${warna}; color:white; padding:4px 10px; border-radius:12px; font-size:11px;">${i.kat}</span></td><td style="text-align:center;">${btn}</td></tr>`;
     }).join('');
 
-    // --- PAGINATION LOGIC ---
+    // --- LOGIKA PAGINATION ---
+    // Di halaman 1, tombol "Selanjutnya" muncul (karena data > 5), 
+    // tombol "Sebelumnya" hilang (hanya muncul jika > halaman 1)
     let nav = `
     <div style="display:flex; justify-content:space-between; align-items:center; padding:10px;">
-        <button onclick="navLpj(-1)" ${halLpj === 1 ? 'disabled style="opacity:0.3"' : 'style="cursor:pointer"'}>
+        <button onclick="navLpj(-1)" ${halLpj === 1 ? 'style="display:none;"' : 'style="cursor:pointer"'}>
             <i class="fa-solid fa-chevron-left"></i> Sebelumnya
         </button>
+        
         <span>Hal ${halLpj} / ${totalHal}</span>
-        <button onclick="navLpj(1)" ${halLpj === totalHal ? 'disabled style="opacity:0.3"' : 'style="cursor:pointer"'}>
-            Terbaru <i class="fa-solid fa-chevron-right"></i>
+        
+        <button onclick="navLpj(1)" ${halLpj >= totalHal ? 'style="display:none;"' : 'style="cursor:pointer"'}>
+            Selanjutnya <i class="fa-solid fa-chevron-right"></i>
         </button>
     </div>`;
 
@@ -761,15 +769,6 @@ function renderLpj() {
 window.navLpj = (dir) => { 
     halLpj += dir; 
     renderLpj(); 
-};
-
-// Pastikan fungsi bukaLpjViewer didefinisikan
-window.bukaLpjViewer = function(urlAsli) {
-    const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
-    const iframe = document.getElementById('lpj-iframe'); // Pastikan ID ini ada di HTML Anda
-    if (iframe) iframe.src = urlEmbed;
-    const panel = document.getElementById('lpj-viewer-section'); 
-    if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); }
 };
 
 
