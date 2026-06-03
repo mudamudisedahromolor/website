@@ -165,7 +165,7 @@ window.currentSlide = function(n) {
 const linkTsvKeuangan = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTqiCluDyXYQijRAElBYLeYPzrT7ENOPtbaxnoHfyZXFFMMxnO1pnZuOAKJaaVgSvFs6eKacEAd4w5I/pub?gid=1216205715&single=true&output=tsv";
 let dataKeuanganGlobal = [];
 let dataTersaringGlobal = [];
-let halamanKeuanganSaatIni = 1; // DIUBAH AGAR TIDAK BENTROK
+let halamanKeuanganSaatIni = 1; 
 const barisKeuanganPerHalaman = 7;
 
 function parseTanggalKeObjek(strTanggal) {
@@ -1071,7 +1071,21 @@ let semuaDataLomba = [];
 let dataLombaTersaring = []; 
 
 const BARIS_LOMBA_PER_HALAMAN = 5;
-let halamanLombaSaatIni = 1; // DIUBAH AGAR UNIK & TIDAK BENTROK KAS
+let halamanLombaSaatIni = 1; 
+
+// Tambahkan kembali fungsi utilitas pengubah tautan Drive yang sempat hilang
+function konversiUrlDriveUntukEmbed(urlLama) {
+    if (urlLama && urlLama.includes('drive.google.com')) {
+        let idFile = '';
+        if (urlLama.includes('/d/')) {
+            idFile = urlLama.split('/d/')[1].split('/')[0];
+        } else if (urlLama.includes('id=')) {
+            idFile = urlLama.split('id=')[1].split('&')[0];
+        }
+        if (idFile) return `https://drive.google.com/file/d/${idFile}/preview`;
+    }
+    return urlLama; 
+}
 
 function ambilDataGoogleSheets() {
     const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LOMBA}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LOMBA)}`;
@@ -1216,7 +1230,7 @@ function perbaruiTombolNavigasiLomba(totalData) {
     }
 }
 
-// EKSTERNAL ACCESSIBLE BINDING AGAR ONCLICK HTML BERHASIL DIKETUK
+// BINDING GLOBAL WINDOW AGAR TOMBOL HTML DAPAT MENGETUK DENGAN PROPER
 window.halamanSebelumnya = function() {
     const totalHalaman = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
     if (halamanLombaSaatIni < totalHalaman) {
@@ -1253,7 +1267,6 @@ window.terapkanFilterLomba = function() {
 }
 
 window.bukaPdfViewer = function(urlAsli) {
-    if (typeof konversiUrlDriveUntukEmbed !== 'function') return;
     const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
     const iframe = document.getElementById('pdf-iframe');
     const btnUnduh = document.getElementById('btn-unduh-pdf');
