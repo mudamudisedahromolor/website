@@ -553,84 +553,221 @@ function konversiUrlDriveUntukEmbed(urlLama) {
 }
 
 /* ==========================================================================
-   MODUL 13, 14, 15, 16 (PAGINATION STABIL - TOMBOL DISABLED)
+   13. MODUL ARSIP DATA LOMBA REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
    ========================================================================== */
+const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
+const SHEET_NAME_LOMBA = 'Form Responses 1'; 
+let semuaDataLomba = [], dataLombaTersaring = []; const BARIS_LOMBA_PER_HALAMAN = 5; let halamanLombaSaatIni = 1; 
 
-// 13. MODUL LOMBA
-let dataLomba = [], pageLomba = 1;
-async function ambilDataLomba() {
-    try {
-        const res = await fetch("URL_TSV_LOMBA_DISINI");
-        const tsv = await res.text();
-        dataLomba = tsv.split(/\r?\n/).slice(1).filter(r => r.length > 5).map(r => { const c = r.split('\t'); return { tgl: c[1], nama: c[2], kat: c[3], url: c[4] }; }).reverse();
-        renderLomba();
-    } catch(e) { console.error("Error Lomba:", e); }
+function ambilDataGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LOMBA}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LOMBA)}`;
+    fetch(url).then(res => res.text()).then(data => {
+        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
+        semuaDataLomba = []; const setTahun = new Set();
+        for (let i = 1; i < barisData.length; i++) {
+            const baris = barisData[i];
+            if (baris && baris.c && baris.c[2]) {
+                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+                let thn = tgl.split('/')[2] || 'Umum';
+                semuaDataLomba.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
+            }
+        }
+        semuaDataLomba.reverse(); dataLombaTersaring = [...semuaDataLomba];
+        const sel = document.getElementById('filter-lomba-tahun');
+        if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
+        halamanLombaSaatIni = 1; tampilkanDataLombaKeTabel();
+    }).catch(err => console.error(err));
 }
-function renderLomba() {
+
+function tampilkanDataLombaKeTabel() {
     const tbody = document.getElementById('data-tabel-lomba'); if (!tbody) return;
-    const start = (pageLomba - 1) * 5, totalHal = Math.ceil(dataLomba.length / 5);
-    const data = dataLomba.slice(start, start + 5);
-    tbody.innerHTML = data.map(i => `<tr><td>${i.tgl}</td><td><strong>${i.nama}</strong></td><td>${i.kat}</td><td style="text-align:center;"><button class="btn-cetak-mutasi" onclick="window.open('${konversiUrlDrive(i.url)}')">Lihat PDF</button></td></tr>`).join('') +
-    (totalHal > 1 ? `<tr><td colspan="4" style="background:#f9f9f9;"><div style="display:flex; justify-content:space-between; padding:10px;"><button class="btn-cetak-mutasi" onclick="navLomba(-1)" ${pageLomba === 1 ? 'disabled style="opacity:0.3"' : ''}>Sebelumnya</button><span>Hal ${pageLomba}/${totalHal}</span><button class="btn-cetak-mutasi" onclick="navLomba(1)" ${pageLomba === totalHal ? 'disabled style="opacity:0.3"' : ''}>Selanjutnya</button></div></td></tr>` : "");
-}
-window.navLomba = (d) => { pageLomba += d; renderLomba(); };
+    if (dataLombaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
+    
+    const start = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN;
+    const pageData = dataLombaTersaring.slice(start, start + BARIS_LOMBA_PER_HALAMAN);
+    
+    let html = pageData.map(i => {
+        let warnaBadge = i.kategori.toLowerCase().includes('anak') ? '#388E3C' : (i.kategori.toLowerCase().includes('remaja') ? '#F57C00' : '#0288D1');
+        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="bukaPdfViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+    }).join('');
 
-// 14. MODUL PROPOSAL
-let dataProp = [], pageProp = 1;
-async function ambilDataProposal() {
-    try {
-        const res = await fetch("URL_TSV_PROPOSAL_DISINI");
-        const tsv = await res.text();
-        dataProp = tsv.split(/\r?\n/).slice(1).filter(r => r.length > 5).map(r => { const c = r.split('\t'); return { tgl: c[1], nama: c[2], kat: c[3], url: c[4] }; }).reverse();
-        renderProposal();
-    } catch(e) { console.error("Error Prop:", e); }
+    const totalHal = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
+    if (totalHal > 1) {
+        let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+        if (halamanLombaSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navLombaManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        else if (halamanLombaSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navLombaManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+        else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navLombaManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navLombaManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+    }
+    tbody.innerHTML = html;
 }
-function renderProposal() {
+window.navLombaManual = (dir) => { halamanLombaSaatIni += dir; tampilkanDataLombaKeTabel(); };
+
+
+/* ==========================================================================
+   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
+   ========================================================================== */
+const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; const SHEET_NAME_PROPOSAL = 'Form Responses 1'; 
+let semuaDataProposal = [], dataProposalTersaring = []; const BARIS_PROPOSAL_PER_HALAMAN = 5; let halamanProposalSaatIni = 1; 
+
+function ambilDataProposalGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_PROPOSAL}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_PROPOSAL)}`;
+    fetch(url).then(res => res.text()).then(data => {
+        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
+        semuaDataProposal = []; const setTahun = new Set();
+        for (let i = 1; i < barisData.length; i++) {
+            const baris = barisData[i];
+            if (baris && baris.c && baris.c[2]) {
+                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+                let thn = tgl.split('/')[2] ? tgl.split('/')[2].substring(0,4) : 'Umum';
+                semuaDataProposal.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
+            }
+        }
+        semuaDataProposal.reverse(); dataProposalTersaring = [...semuaDataProposal];
+        const sel = document.getElementById('filter-proposal-tahun');
+        if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
+        halamanProposalSaatIni = 1; tampilkanDataProposalKeTabel();
+    }).catch(err => console.error(err));
+}
+
+function tampilkanDataProposalKeTabel() {
     const tbody = document.getElementById('data-tabel-proposal'); if (!tbody) return;
-    const start = (pageProp - 1) * 5, totalHal = Math.ceil(dataProp.length / 5);
-    const data = dataProp.slice(start, start + 5);
-    tbody.innerHTML = data.map(i => `<tr><td>${i.tgl}</td><td><strong>${i.nama}</strong></td><td>${i.kat}</td><td style="text-align:center;"><button class="btn-cetak-mutasi" onclick="window.open('${konversiUrlDrive(i.url)}')">Lihat PDF</button></td></tr>`).join('') +
-    (totalHal > 1 ? `<tr><td colspan="4" style="background:#f9f9f9;"><div style="display:flex; justify-content:space-between; padding:10px;"><button class="btn-cetak-mutasi" onclick="navProp(-1)" ${pageProp === 1 ? 'disabled style="opacity:0.3"' : ''}>Sebelumnya</button><span>Hal ${pageProp}/${totalHal}</span><button class="btn-cetak-mutasi" onclick="navProp(1)" ${pageProp === totalHal ? 'disabled style="opacity:0.3"' : ''}>Selanjutnya</button></div></td></tr>` : "");
-}
-window.navProp = (d) => { pageProp += d; renderProposal(); };
+    if (dataProposalTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
+    
+    const start = (halamanProposalSaatIni - 1) * BARIS_PROPOSAL_PER_HALAMAN;
+    const pageData = dataProposalTersaring.slice(start, start + BARIS_PROPOSAL_PER_HALAMAN);
+    
+    let html = pageData.map(i => {
+        let warnaBadge = i.kategori.toLowerCase().includes('bantuan') ? '#388E3C' : '#F57C00';
+        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaProposalViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+    }).join('');
 
-// 15. MODUL SURAT
-let dataSurat = [], pageSurat = 1;
-async function ambilDataSurat() {
-    try {
-        const res = await fetch("URL_TSV_SURAT_DISINI");
-        const tsv = await res.text();
-        dataSurat = tsv.split(/\r?\n/).slice(1).filter(r => r.length > 5).map(r => { const c = r.split('\t'); return { tgl: c[1], nama: c[2], kat: c[3], url: c[4] }; }).reverse();
-        renderSurat();
-    } catch(e) { console.error("Error Surat:", e); }
+    const totalHal = Math.ceil(dataProposalTersaring.length / BARIS_PROPOSAL_PER_HALAMAN);
+    if (totalHal > 1) {
+        let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+        if (halamanProposalSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navProposalManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        else if (halamanProposalSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navProposalManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+        else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navProposalManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navProposalManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+    }
+    tbody.innerHTML = html;
 }
-function renderSurat() {
+window.navProposalManual = (dir) => { halamanProposalSaatIni += dir; tampilkanDataProposalKeTabel(); };
+
+
+/* ==========================================================================
+   15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
+   ========================================================================== */
+const SPREADSHEET_ID_SURAT = '1ILm2T8ed5oJ85cU2YzTiDHnHlGgtMjVoKYmhSxFF2PQ'; const SHEET_NAME_SURAT = 'Form Responses 1'; 
+let semuaDataSurat = [], dataSuratTersaring = []; const BARIS_SURAT_PER_HALAMAN = 5; let halamanSuratSaatIni = 1; 
+
+function ambilDataSuratGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_SURAT}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_SURAT)}`;
+    fetch(url).then(res => res.text()).then(data => {
+        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
+        semuaDataSurat = []; const setTahun = new Set();
+        for (let i = 1; i < barisData.length; i++) {
+            const baris = barisData[i];
+            if (baris && baris.c && baris.c[2]) {
+                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+                let thn = tgl.split('/')[2] || 'Umum';
+                semuaDataSurat.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
+            }
+        }
+        semuaDataSurat.reverse(); dataSuratTersaring = [...semuaDataSurat];
+        const sel = document.getElementById('filter-surat-tahun');
+        if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
+        halamanSuratSaatIni = 1; tampilkanDataSuratKeTabel();
+    }).catch(err => console.error(err));
+}
+
+function tampilkanDataSuratKeTabel() {
     const tbody = document.getElementById('data-tabel-surat'); if (!tbody) return;
-    const start = (pageSurat - 1) * 5, totalHal = Math.ceil(dataSurat.length / 5);
-    const data = dataSurat.slice(start, start + 5);
-    tbody.innerHTML = data.map(i => `<tr><td>${i.tgl}</td><td><strong>${i.nama}</strong></td><td>${i.kat}</td><td style="text-align:center;"><button class="btn-cetak-mutasi" onclick="window.open('${konversiUrlDrive(i.url)}')">Lihat PDF</button></td></tr>`).join('') +
-    (totalHal > 1 ? `<tr><td colspan="4" style="background:#f9f9f9;"><div style="display:flex; justify-content:space-between; padding:10px;"><button class="btn-cetak-mutasi" onclick="navSurat(-1)" ${pageSurat === 1 ? 'disabled style="opacity:0.3"' : ''}>Sebelumnya</button><span>Hal ${pageSurat}/${totalHal}</span><button class="btn-cetak-mutasi" onclick="navSurat(1)" ${pageSurat === totalHal ? 'disabled style="opacity:0.3"' : ''}>Selanjutnya</button></div></td></tr>` : "");
-}
-window.navSurat = (d) => { pageSurat += d; renderSurat(); };
+    if (dataSuratTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
+    
+    const start = (halamanSuratSaatIni - 1) * BARIS_SURAT_PER_HALAMAN;
+    const pageData = dataSuratTersaring.slice(start, start + BARIS_SURAT_PER_HALAMAN);
 
-// 16. MODUL LPJ
-let dataLpj = [], pageLpj = 1;
-async function ambilDataLpj() {
-    try {
-        const res = await fetch("URL_TSV_LPJ_DISINI");
-        const tsv = await res.text();
-        dataLpj = tsv.split(/\r?\n/).slice(1).filter(r => r.length > 5).map(r => { const c = r.split('\t'); return { tgl: c[1], nama: c[2], kat: c[3], url: c[4] }; }).reverse();
-        renderLpj();
-    } catch(e) { console.error("Error LPJ:", e); }
+    let html = pageData.map(i => {
+        let warnaBadge = (i.kategori.toLowerCase().includes('masuk') || i.kategori.toLowerCase().includes('in')) ? '#388E3C' : '#D32F2F';
+        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaSuratViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+    }).join('');
+
+    const totalHal = Math.ceil(dataSuratTersaring.length / BARIS_SURAT_PER_HALAMAN);
+    if (totalHal > 1) {
+        let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+        if (halamanSuratSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navSuratManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        else if (halamanSuratSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navSuratManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+        else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navSuratManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navSuratManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+    }
+    tbody.innerHTML = html;
 }
-function renderLpj() {
+window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSuratKeTabel(); };
+
+
+/* ==========================================================================
+   16. MODUL KHUSUS: ARSIP DATA LPJ REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
+   ========================================================================== */
+const SPREADSHEET_ID_LPJ = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; const SHEET_NAME_LPJ = 'Form Responses 4'; 
+let semuaDataLpj = [], dataLpjTersaring = []; const BARIS_LPJ_PER_HALAMAN = 5; let halamanLpjSaatIni = 1; 
+
+function ambilDataLpjGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LPJ}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LPJ)}`;
+    fetch(url).then(res => res.text()).then(data => {
+        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
+        semuaDataLpj = []; const setTahun = new Set();
+        for (let i = 1; i < barisData.length; i++) {
+            const baris = barisData[i];
+            if (baris && baris.c && baris.c[2]) {
+                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+                let thn = tgl.split('/')[2] || 'Umum';
+                semuaDataLpj.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
+            }
+        }
+        semuaDataLpj.reverse(); dataLpjTersaring = [...semuaDataLpj];
+        const sel = document.getElementById('filter-lpj-tahun');
+        if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
+        halamanLpjSaatIni = 1; tampilkanDataLpjKeTabel();
+    }).catch(err => console.error(err));
+}
+
+function tampilkanDataLpjKeTabel() {
     const tbody = document.getElementById('data-tabel-lpj'); if (!tbody) return;
-    const start = (pageLpj - 1) * 5, totalHal = Math.ceil(dataLpj.length / 5);
-    const data = dataLpj.slice(start, start + 5);
-    tbody.innerHTML = data.map(i => `<tr><td>${i.tgl}</td><td><strong>${i.nama}</strong></td><td>${i.kat}</td><td style="text-align:center;"><button class="btn-cetak-mutasi" onclick="window.open('${konversiUrlDrive(i.url)}')">Lihat PDF</button></td></tr>`).join('') +
-    (totalHal > 1 ? `<tr><td colspan="4" style="background:#f9f9f9;"><div style="display:flex; justify-content:space-between; padding:10px;"><button class="btn-cetak-mutasi" onclick="navLpj(-1)" ${pageLpj === 1 ? 'disabled style="opacity:0.3"' : ''}>Sebelumnya</button><span>Hal ${pageLpj}/${totalHal}</span><button class="btn-cetak-mutasi" onclick="navLpj(1)" ${pageLpj === totalHal ? 'disabled style="opacity:0.3"' : ''}>Selanjutnya</button></div></td></tr>` : "");
+    if (dataLpjTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
+    
+    const start = (halamanLpjSaatIni - 1) * BARIS_LPJ_PER_HALAMAN;
+    const pageData = dataLpjTersaring.slice(start, start + BARIS_LPJ_PER_HALAMAN);
+
+    let html = pageData.map(i => {
+        let warnaBadge = i.kategori.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
+        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaLpjViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+    }).join('');
+
+    const totalHal = Math.ceil(dataLpjTersaring.length / BARIS_LPJ_PER_HALAMAN);
+    if (totalHal > 1) {
+        let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#D32F2F; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+        if (halamanLpjSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navLpjManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        else if (halamanLpjSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navLpjManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+        else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navLpjManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navLpjManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+    }
+    tbody.innerHTML = html;
 }
-window.navLpj = (d) => { pageLpj += d; renderLpj(); };
+window.navLpjManual = (dir) => { halamanLpjSaatIni += dir; tampilkanDataLpjKeTabel(); };
+
+function bukaProposalViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = urlEmbed; const panel = document.getElementById('proposal-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } }
+function tutupProposalViewer() { const panel = document.getElementById('proposal-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = ''; }
+function bukaSuratViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = urlEmbed; const panel = document.getElementById('surat-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } }
+function tutupSuratViewer() { const panel = document.getElementById('surat-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = ''; }
 
 
 /* ==========================================================================
