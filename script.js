@@ -771,65 +771,80 @@ window.bukaLpjViewer = function(urlAsli) {
     const panel = document.getElementById('lpj-viewer-section'); 
     if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); }
 };
+
+
 /* ==========================================================================
-   MASTER SCRIPT (STABIL & ANTI BENTROK)
+   MASTER SCRIPT: STABIL, NON-BLOCKING, & ANTI-LOADING
    ========================================================================== */
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Jalankan satu per satu secara terpisah agar tidak saling mengunci
+    if (document.getElementById('data-tabel-lomba')) ambilDataLomba();
+    if (document.getElementById('data-tabel-proposal')) ambilDataProposal();
+    if (document.getElementById('data-tabel-surat')) ambilDataSurat();
+    if (document.getElementById('data-tabel-lpj')) ambilDataLpj();
+});
+
+// FUNGSI UTAMA PARSE (Anti error)
+function parseTsv(teks) {
+    if (!teks) return [];
+    return teks.split(/\r?\n/).slice(1).filter(r => r.length > 0).map(row => row.split('\t'));
+}
+
 // 1. MODUL LOMBA
-let dataLomba = [], pageLomba = 1;
 async function ambilDataLomba() {
     try {
-        // MASUKKAN URL TSV LOMBA DI SINI
         const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSw_banvT8nzKY4nRI4WtHCLHUPKYgG1B8Cl_Nnyyfq3kQ8wvCYkGUlhuwL4deUpaI1vikN8YwmPxnj/pub?output=tsv");
         const tsv = await res.text();
-        dataLomba = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
-        renderLomba();
-    } catch(e) { console.error("Error Lomba:", e); }
+        let data = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderTable('data-tabel-lomba', data, 'Lomba');
+    } catch(e) { console.error("Lomba Error:", e); }
 }
 
 // 2. MODUL PROPOSAL
-let dataProp = [], pageProp = 1;
 async function ambilDataProposal() {
     try {
-        // MASUKKAN URL TSV PROPOSAL DI SINI
         const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRoz66DBnqrm8d-QF0FwdWCtuhYcwZU9L0rfNAz934uYYbgzxQOJ2v6tPGM4R6FvsB9PD-YWJOQ6Kqb/pub?output=tsv");
         const tsv = await res.text();
-        dataProp = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
-        renderProposal();
-    } catch(e) { console.error("Error Proposal:", e); }
+        let data = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderTable('data-tabel-proposal', data, 'Proposal');
+    } catch(e) { console.error("Proposal Error:", e); }
 }
 
 // 3. MODUL SURAT
-let dataSurat = [], pageSurat = 1;
 async function ambilDataSurat() {
     try {
-        // MASUKKAN URL TSV SURAT DI SINI
         const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vS8W2TwkroAmNvy1RKJI7_ol8RpmLCpbEabtsNeyUEyFXYz4RtF4y4qHF8bH_jwXq407AB9JX2lJBVQ/pub?output=tsv");
         const tsv = await res.text();
-        dataSurat = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
-        renderSurat();
-    } catch(e) { console.error("Error Surat:", e); }
+        let data = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderTable('data-tabel-surat', data, 'Surat');
+    } catch(e) { console.error("Surat Error:", e); }
 }
 
-// 4. MODUL LPJ
-let dataLpj = [], pageLpj = 1;
+// 4. MODUL LPJ (VERSI STABIL)
 async function ambilDataLpj() {
     try {
-        // MASUKKAN URL TSV LPJ DI SINI
         const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/pub?gid=292952199&single=true&output=tsv");
         const tsv = await res.text();
-        dataLpj = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
-        renderLpj();
-    } catch(e) { console.error("Error LPJ:", e); }
+        let data = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderTable('data-tabel-lpj', data, 'LPJ');
+    } catch(e) { console.error("LPJ Error:", e); }
 }
 
-// FUNGSI RENDER UMUM (Agar tidak freeze, setiap modul panggil fungsi rendernya masing-masing)
-function renderLomba() { /* ... render html lomba ... */ }
-function renderProposal() { /* ... render html proposal ... */ }
-function renderSurat() { /* ... render html surat ... */ }
-function renderLpj() { /* ... render html lpj ... */ }
+/* FUNGSI RENDER SATU PINTU (Mencegah duplikasi kode) */
+function renderTable(idTabel, data, tipe) {
+    const tbody = document.getElementById(idTabel);
+    if (!tbody) return;
 
-// PENTING: Gunakan fungsi parse tunggal agar tidak bentrok
-function parseTsv(teks) {
-    return teks.split(/\r?\n/).slice(1).filter(r => r.length > 0).map(row => row.split('\t'));
+    if (data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Data kosong</td></tr>`;
+        return;
+    }
+
+    let html = data.slice(0, 5).map(i => { // Tampilkan 5 data terbaru saja
+        let btn = i.url ? `<button class="btn-cetak-mutasi" onclick="window.open('${i.url}', '_blank')">Lihat</button>` : `-`;
+        return `<tr><td>${i.tgl}</td><td>${i.nama}</td><td>${i.kat}</td><td>${btn}</td></tr>`;
+    }).join('');
+    
+    tbody.innerHTML = html;
 }
