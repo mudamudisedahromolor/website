@@ -713,70 +713,146 @@ window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSura
 
 
 /* ==========================================================================
-   16. MODUL LPJ (VERSI FINAL - PAGINATION OTOMATIS)
+   16. MODUL KHUSUS: ARSIP DATA LPJ REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN / SURAT)
    ========================================================================== */
-let dataLpj = []; 
-let halLpj = 1; 
-const BARIS_PER_HAL = 5;
+const SPREADSHEET_ID_LPJ = '1e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV'; 
+const SHEET_NAME_LPJ = '292952199'; // Menggunakan GID/Sheet Name yang sesuai dari publish URL Anda
+let semuaDataLpj = [], dataLpjTersaring = []; 
+const BARIS_LPJ_PER_HALAMAN = 5; 
+let halamanLpjSaatIni = 1; 
 
-// Mengambil data TSV dari Google Sheet
-async function ambilDataLpj() {
-    try {
-        const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/pub?gid=292952199&single=true&output=tsv";
-        const res = await fetch(url);
-        const tsv = await res.text();
+function ambilDataLpjGoogleSheets() {
+    // Menggunakan URL gviz/tq untuk pembacaan JSON real-time, jika menggunakan link publikasi tsv, sesuaikan URL-nya.
+    // Di bawah ini diset menggunakan format gviz tq agar pembacaan JSON persis dengan Modul 15:
+    const url = `https://docs.google.com/spreadsheets/d/1e/2PACX-1vRCcy-y43aT5NF5OoB_dGBnQPS13egQCamJiF4adN9VwNKQnEMSo_eQIQD7re5eV6j4c3yTzmfgAaTV/gviz/tq?tqx=out:json&gid=${SHEET_NAME_LPJ}`;
+    
+    fetch(url).then(res => res.text()).then(data => {
+        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
+        semuaDataLpj = []; const setTahun = new Set();
         
-        // Memastikan data diurutkan dari yang terbaru (reverse)
-        dataLpj = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
-        renderLpj();
-    } catch(e) { 
-        console.error("Error LPJ:", e); 
+        for (let i = 1; i < barisData.length; i++) {
+            const baris = barisData[i];
+            if (baris && baris.c && baris.c[2]) {
+                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+                let thn = tgl.split('/')[2] || 'Umum';
+                
+                semuaDataLpj.push({ 
+                    tanggal: tgl, 
+                    tahun: thn, 
+                    nama: String(baris.c[2].v), 
+                    kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', 
+                    urlDrive: baris.c[4] ? String(baris.c[4].v) : '' 
+                });
+                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
+            }
+        }
+        semuaDataLpj.reverse(); 
+        dataLpjTersaring = [...semuaDataLpj];
+        
+        // Mengisi pilihan filter tahun di HTML
+        const sel = document.getElementById('filter-lpj-tahun');
+        if (sel) { 
+            sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; 
+            Array.from(setTahun).sort().reverse().forEach(th => { 
+                let opt = document.createElement('option'); 
+                opt.value = th; 
+                opt.textContent = th; 
+                sel.appendChild(opt); 
+            }); 
+        }
+        halamanLpjSaatIni = 1; 
+        tampilkanDataLpjKeTabel();
+    }).catch(err => {
+        console.error(err);
         const tbody = document.getElementById('data-tabel-lpj');
-        if (tbody) tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Gagal memuat data.</td></tr>`;
+        if (tbody) tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Gagal memuat data dari Google Sheets.</td></tr>`;
+    });
+}
+
+function terapkanFilterLpj() {
+    const filterTahun = document.getElementById('filter-lpj-tahun') ? document.getElementById('filter-lpj-tahun').value : 'Semua';
+    const cariKata = document.getElementById('input-cari-lpj') ? document.getElementById('input-cari-lpj').value.toLowerCase() : '';
+
+    dataLpjTersaring = semuaDataLpj.filter(i => {
+        const cocokTahun = (filterTahun === 'Semua' || i.tahun === filterTahun);
+        const cocokKata = (i.nama.toLowerCase().includes(cariKata) || i.kategori.toLowerCase().includes(cariKata));
+        return cocokTahun && cocokKata;
+    });
+
+    halamanLpjSaatIni = 1;
+    tampilkanDataLpjKeTabel();
+}
+
+function tampilkanDataLpjKeTabel() {
+    const tbody = document.getElementById('data-tabel-lpj'); if (!tbody) return;
+    if (dataLpjTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data dokumen LPJ tidak ditemukan.</td></tr>`; itungHalamanLpj(0); return; }
+    
+    const start = (halamanLpjSaatIni - 1) * BARIS_LPJ_PER_HALAMAN;
+    const pageData = dataLpjTersaring.slice(start, start + BARIS_LPJ_PER_HALAMAN);
+
+    let html = pageData.map(i => {
+        // Logika warna badge kategori (Kepanitiaan vs Rutin/Lainnya)
+        let warnaBadge = (i.kategori.toLowerCase().includes('panitia')) ? '#F57C00' : '#0288D1';
+        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaLpjViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+    }).join('');
+
+    const totalHal = Math.ceil(dataLpjTersaring.length / BARIS_LPJ_PER_HALAMAN);
+    itungHalamanLpj(totalHal);
+
+    if (totalHal > 1) {
+        let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+        if (halamanLpjSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navLpjManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        else if (halamanLpjSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navLpjManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+        else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navLpjManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navLpjManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+    }
+    tbody.innerHTML = html;
+}
+
+function itungHalamanLpj(totalHal) {
+    const infoHal = document.getElementById('info-halaman-lpj');
+    if (infoHal) {
+        infoHal.textContent = `Halaman ${totalHal === 0 ? 0 : halamanLpjSaatIni} dari ${totalHal}`;
     }
 }
 
-function renderLpj() {
-    const tbody = document.getElementById('data-tabel-lpj');
-    if (!tbody) return;
+window.navLpjManual = (dir) => { halamanLpjSaatIni += dir; tampilkanDataLpjKeTabel(); };
 
-    const totalHal = Math.ceil(dataLpj.length / BARIS_PER_HAL);
-    const start = (halLpj - 1) * BARIS_PER_HAL;
-    const pageData = dataLpj.slice(start, start + BARIS_PER_HAL);
-
-    // 1. Render Baris Data
-    let html = pageData.map(i => {
-        let warna = i.kat.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
-        let btn = i.url ? `<button class="btn-cetak-mutasi" onclick="window.open('${i.url}', '_blank')" style="height:34px; padding:0 12px; font-size:12px;">Lihat PDF</button>` : `-`;
-        return `<tr>
-            <td>${i.tgl}</td>
-            <td><strong>${i.nama}</strong></td>
-            <td><span style="background:${warna}; color:white; padding:4px 10px; border-radius:12px; font-size:11px;">${i.kat}</span></td>
-            <td style="text-align:center;">${btn}</td>
-        </tr>`;
-    }).join('');
-
-    // 2. Logika Navigasi Dinamis
-    // Tombol hanya muncul jika halaman memungkinkan
-    let nav = `
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border-top:1px solid #eee;">
-        <button onclick="navLpj(-1)" style="cursor:pointer; ${halLpj === 1 ? 'display:none;' : ''}">
-            <i class="fa-solid fa-chevron-left"></i> Sebelumnya
-        </button>
+/* ==========================================================================
+   FUNGSI KONTROL LIVE EMBED VIEWER LPJ
+   ========================================================================== */
+window.bukaLpjViewer = (url) => {
+    const viewerSection = document.getElementById('lpj-viewer-section');
+    const iframe = document.getElementById('lpj-iframe');
+    const btnUnduh = document.getElementById('btn-unduh-lpj');
+    
+    if(viewerSection && iframe) {
+        // Mengubah URL file biasa menjadi format preview embed Google Drive jika diperlukan
+        let embedUrl = url;
+        if(url.includes('file/d/')) {
+            embedUrl = url.replace('/view?usp=sharing', '/preview').replace('/view', '/preview');
+        }
         
-        <span style="font-size: 12px; color: #666;">Halaman ${halLpj} dari ${totalHal}</span>
-        
-        <button onclick="navLpj(1)" style="cursor:pointer; ${halLpj >= totalHal ? 'display:none;' : ''}">
-            Selanjutnya <i class="fa-solid fa-chevron-right"></i>
-        </button>
-    </div>`;
-
-    tbody.innerHTML = html + `<tr><td colspan="4">${nav}</td></tr>`;
-}
-
-// Fungsi Pemicu Navigasi
-window.navLpj = (dir) => { 
-    halLpj += dir; 
-    renderLpj(); 
+        iframe.src = embedUrl;
+        if(btnUnduh) btnUnduh.href = url;
+        viewerSection.style.display = 'block';
+        viewerSection.scrollIntoView({ behavior: 'smooth' });
+    }
 };
 
+window.tutupLpjViewer = () => {
+    const viewerSection = document.getElementById('lpj-viewer-section');
+    const iframe = document.getElementById('lpj-iframe');
+    if(viewerSection && iframe) {
+        iframe.src = '';
+        viewerSection.style.display = 'none';
+    }
+};
+
+// Pemicu inisialisasi awal saat dokumen dimuat
+document.addEventListener("DOMContentLoaded", () => {
+    if(document.getElementById('data-tabel-lpj')) {
+        ambilDataLpjGoogleSheets();
+    }
+});
