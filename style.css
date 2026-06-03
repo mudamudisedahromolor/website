@@ -842,7 +842,7 @@ body {
     width: 100%;
 }
 
-/* âŒ ATURAN KHUSUS GATEWAY LOGIN (DIISOLASI DENGAN EXPLICIT BODY CLASS) */
+/* ❌ ATURAN KHUSUS GATEWAY LOGIN (DIISOLASI DENGAN EXPLICIT BODY CLASS) */
 body.login-page-body .main-navbar,
 body.login-page-body .header-right-stuff,
 body.login-page-body .header-secure-badge {
@@ -931,12 +931,12 @@ body.login-page-body .box-subtitle {
     right: 25px;
     width: 60px; 
     height: 60px; 
-    background-color: #E53935 !important; /* ðŸŒŸ Lingkaran tetap berwarna MERAH */
+    background-color: #E53935 !important; 
     border-radius: 50% !important; 
     display: flex; 
     align-items: center; 
     justify-content: center;
-    color: #ffffff !important; /* ðŸŒŸ Ikon bubble di tengah berwarna PUTIH */
+    color: #ffffff !important; 
     font-size: 26px; 
     cursor: pointer; 
     border: 2px solid #ffffff; 
@@ -947,12 +947,11 @@ body.login-page-body .box-subtitle {
     -webkit-tap-highlight-color: transparent; 
 }
 
-/* ðŸŒŸ KETIKAL DIKETUK / SENTUH (HOVER & ACTIVE) */
 #mms-chat-launcher:hover, 
 #mms-chat-launcher:active,
 #mms-chat-launcher:focus { 
-    background-color: #ffeb3b !important; /* ðŸŒŸ Lingkaran berubah jadi KUNING */
-    color: #000000 !important; /* ðŸŒŸ Ikon bubble di tengah berubah jadi HITAM */
+    background-color: #ffeb3b !important; 
+    color: #000000 !important; 
     border-color: #ffffff !important; 
     transform: scale(1.05); 
     border-radius: 50% !important; 
@@ -974,7 +973,7 @@ body.login-page-body .box-subtitle {
     border: 1px solid #e2e8f0; 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     z-index: 999999 !important;
-    touch-action: manipulation; /* ðŸŒŸ Mencegah double-tap zoom di area luar chat */
+    touch-action: manipulation; 
 }
 
 .chat-box-header {
@@ -984,7 +983,7 @@ body.login-page-body .box-subtitle {
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    box-shadow: 0 2px 8px rgba(229, 57, 53, 0.3);
+    box-shadow: 0 2px 8 rgba(229, 57, 53, 0.3);
 }
 .chat-header-title { display: flex; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; }
 .chat-header-title img { width: 24px; height: 24px; margin-right: 10px; border-radius: 50%; background: #fff; padding: 1px; }
@@ -1024,13 +1023,12 @@ body.login-page-body .box-subtitle {
 
 .chat-box-footer { padding: 12px; background: #ffffff; border-top: 1px solid #edf2f7; display: flex; flex-direction: column; gap: 8px; }
 
-/* ðŸŒŸ OBAH INPUT NAMA: font-size 16px mengunci auto-zoom HP agar mati total */
 #chat-input-nama { 
     width: 100%; 
     padding: 8px 10px; 
     border: 1px solid #cbd5e1; 
     border-radius: 8px; 
-    font-size: 16px; /* Akali batas minimal browser HP */
+    font-size: 16px; 
     outline: none; 
     box-sizing: border-box; 
     background: #f8fafc; 
@@ -1040,13 +1038,12 @@ body.login-page-body .box-subtitle {
 
 .chat-input-group { display: flex; gap: 8px; }
 
-/* ðŸŒŸ OBAH INPUT PESAN: font-size 16px mematikan paksaan zoom-in layar browser */
 #chat-input-pesan { 
     flex: 1; 
     padding: 9px 12px; 
     border: 1px solid #cbd5e1; 
     border-radius: 8px; 
-    font-size: 16px; /* Akali batas minimal browser HP */
+    font-size: 16px; 
     outline: none; 
     box-sizing: border-box; 
     transition: all 0.2s; 
@@ -1060,15 +1057,13 @@ body.login-page-body .box-subtitle {
 .chat-box-footer button:hover { background: #d32f2f; transform: translateY(-1px); }
 
 @media (max-width: 480px) {
-    /* ðŸŒŸ PERBAIKAN TATA LETAK MOBILE: Posisi dipatok dari bawah (bottom) agar saat keyboard naik, 
-       kotak chat terdorong proporsional, bukan membesar atau mental ke tengah layar */
     #mms-chat-box {
         right: 5% !important; 
         left: 5% !important;
-        bottom: 85px !important; /* Diselaraskan nempel manis di atas peluncur tombol chat */
-        transform: none !important; /* Matikan translateY yang bikin layout lari saat keyboard muncul */
+        bottom: 85px !important; 
+        transform: none !important; 
         width: 90% !important;
-        height: 65vh !important; /* Beri ruang aman di atas untuk sisa dokumen web */
+        height: 65vh !important; 
         max-height: 480px !important;
         border-radius: 16px !important; 
         border: 1px solid #e2e8f0 !important;
@@ -1079,7 +1074,6 @@ body.login-page-body .box-subtitle {
         right: 5% !important;
     }
     
-    /* Pengecilan visual font tipis agar ukuran di mata user tetap estetik seolah berukuran 13px */
     #chat-input-nama, #chat-input-pesan {
         font-size: 16px;
     }
@@ -1090,32 +1084,29 @@ body.login-page-body .box-subtitle {
    13. BANNER PWA ASLI MMS - VERSI POP-UP KECIL (STABIL & IKUT TURUN)
    ========================================================================== */
 #pwa-install-popup {
-    display: none; /* Dikontrol via JavaScript */
-    position: absolute; /* ðŸŒŸ Mengikat posisi secara absolut tepat di bawah kontainer header */
-    
-    /* ðŸ“± Aturan posisi kotak kecil di HP (Mobile) */
-    top: calc(100% + 15px); /* ðŸŒŸ Akurat menghitung tinggi total navbar, lalu diberi jarak 15px */
+    display: none; 
+    position: absolute; 
+    top: calc(100% + 15px); 
     left: 50%;
-    transform: translateX(-50%); /* Memastikan posisi kotak pas di tengah-tengah layar */
+    transform: translateX(-50%); 
     
-    width: 92%; /* Bentuk kotak kustom, tidak memenuhi layar */
-    max-width: 380px; /* Batas lebar maksimal kotak pop-up */
+    width: 92%; 
+    max-width: 380px; 
     
     font-family: sans-serif; 
     background-color: #ffffff; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Efek bayangan tebal agar terlihat melayang di atas konten */
-    border-radius: 12px; /* Sudut membulat kustom */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+    border-radius: 12px; 
     padding: 16px; 
     z-index: 999999 !important; 
-    border-left: 5px solid #E53935; /* Garis aksen merah khas MMS di kiri */
+    border-left: 5px solid #E53935; 
     box-sizing: border-box;
-    transition: top 0.2s ease-in-out; /* Efek transisi halus saat gorden menu dibuka */
+    transition: top 0.2s ease-in-out; 
 }
 
-/* ðŸ’» SETTINGAN KHUSUS LAPTOP / DESKTOP (Layar Besar) */
 @media (min-width: 769px) {
     #pwa-install-popup {
-        position: fixed !important; /* Di desktop dikembalikan ke melayang di pojok kanan atas */
+        position: fixed !important; 
         top: 90px !important; 
         bottom: auto !important;
         right: 25px !important; 
@@ -1196,7 +1187,6 @@ body.login-page-body .box-subtitle {
 }
 
 
-
 /* ==========================================================================
    GAYA UNTUK MODAL POP-UP ANTI-JUDOL (KUNCI TOTAL DARI ZOOM HP)
    ========================================================================== */
@@ -1206,8 +1196,8 @@ body.login-page-body .box-subtitle {
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100vw; /* ðŸŒŸ Mengunci mutlak seukuran lebar kaca HP */
-  height: 100vh; /* ðŸŒŸ Mengunci mutlak seukuran tinggi kaca HP */
+  width: 100vw; 
+  height: 100vh; 
   background-color: rgba(0, 0, 0, 0.7); 
   backdrop-filter: blur(8px); 
   display: flex;
@@ -1217,8 +1207,6 @@ body.login-page-body .box-subtitle {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
-  
-  /* ðŸŒŸ KUNCI UTAMA: Melarang browser menjalankan gesture cubitan zoom di area overlay */
   touch-action: none; 
 }
 
@@ -1230,14 +1218,12 @@ body.login-page-body .box-subtitle {
 .modal-content {
   background-color: #ffffff;
   width: 90%;
-  max-width: 440px; /* ðŸŒŸ Dioptimalkan agar proporsional dan pas di layar handphone */
+  max-width: 440px; 
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  
-  /* ðŸŒŸ KUNCI KEDUA: Mencegah kotak konten ikut membesar secara tidak sengaja */
   touch-action: manipulation; 
 }
 
@@ -1245,7 +1231,7 @@ body.login-page-body .box-subtitle {
   width: 100%;
   max-width: 100%;
   height: auto;
-  max-height: 60vh; /* ðŸŒŸ BATASI TINGGI GAMBAR: Agar tombol "Tutup" di bawahnya tidak terlempar keluar dari layar HP */
+  max-height: 60vh; 
   display: block;
   object-fit: contain; 
 }
@@ -1321,10 +1307,9 @@ body.login-page-body .box-subtitle {
 
 @media (max-width: 480px) {
   .modal-content {
-    width: 88%; /* ðŸŒŸ Sedikit disesuaikan agar pas melayang di tengah layar HP spek kecil */
+    width: 88%; 
   }
 }
-
 
 
 /* ==========================================================================
@@ -1367,4 +1352,28 @@ body.login-page-body .box-subtitle {
         display: flex;
         justify-content: space-between;
     }
+}
+
+
+/* ==========================================================================
+   14. CLASS KHUSUS PAGINATION BUTTON MERAH INDEPENDEN (ANTI-COLLISION)
+   ========================================================================== */
+.btn-nav-aktif {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background-color: #D32F2F !important;
+    color: white !important;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.btn-nav-aktif:hover {
+    background-color: #B71C1C !important;
 }
