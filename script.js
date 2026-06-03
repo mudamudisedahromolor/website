@@ -1,1645 +1,1755 @@
 /* ==========================================================================
-   0. RESET DASAR & TYPOGRAPHY
-   ========================================================================== */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
+  NAMA ORGANISASI : MUDA MUDI SEDAHROMO LOR 05
+  BERKAS UTAMA    : SCRIPT.JS (LOGIKA INTERAKTIF & DATABASE REAL-TIME)
+  ========================================================================== */
+
+// Konstanta Global yang dipakai bersama oleh seluruh modul halaman
+const namaBulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "December"];
+
+/* ==========================================================================
+  1. SISTEM INISIALISASI UTAMA
+  --------------------------------------------------------------------------
+  Instruksi: Menjalankan berbagai fungsi ketika halaman web selesai dimuat.
+  ========================================================================== */
+document.addEventListener("DOMContentLoaded", function() {
+initNavigasiMobile();
+initCarouselOrganisasi();
+initHeroSlider(); // Inisialisasi slider untuk halaman beranda (index.html)
+
+// Memuat database eksternal berdasarkan halaman yang sedang dibuka (Isolasi Ketat)
+if (document.getElementById('data-tabel-keuangan')) loadKeuanganDariDrive();
+if (document.getElementById('data-tabel-rapat')) loadRapatDariDrive();
+if (document.getElementById('data-tabel-dokumentasi')) loadDokumentasiDariDrive();
+if (document.getElementById('data-tabel-anggota')) loadAnggotaDariDrive(); 
+if (document.getElementById('data-tabel-lomba')) ambilDataGoogleSheets(); // Deteksi Halaman Arsip Lomba
+if (document.getElementById('data-tabel-proposal')) ambilDataProposalGoogleSheets(); // Deteksi Halaman Arsip Proposal
+if (document.getElementById('data-tabel-surat')) ambilDataSuratGoogleSheets(); // Deteksi Halaman Arsip Surat
+});
+
+/* ==========================================================================
+  2. SISTEM NAVIGASI & MENU DROPDOWN MOBILE (HP)
+  --------------------------------------------------------------------------
+  Instruksi: Mengatur fungsi buka-tutup menu utama dan sub-menu untuk HP.
+  ========================================================================== */
+function initNavigasiMobile() {
+const menuBtn = document.getElementById('mobile-menu-btn');
+const navBar = document.querySelector('.main-navbar');
+
+// A. Tombol Hamburger (Buka/Tutup Navigasi Utama) - Diisolasi agar selalu aman
+if (menuBtn && navBar) {
+menuBtn.addEventListener('click', function(e) {
+e.preventDefault();
+navBar.classList.toggle('aktif'); 
+});
 }
 
-body { 
-    font-family: 'Poppins', sans-serif; 
-    background-color: #f4f4f4; 
-    overflow-x: hidden;
-    width: 100%;
+// B. Trigger Dropdown Kegiatan (Diberi pengaman 'if' ketat per baris agar tidak freeze)
+const btnBulanan = document.getElementById('btn-bulanan');
+const menuRapat = document.getElementById('menu-rapat');
+const btnTahunan = document.getElementById('btn-tahunan');
+const menu17an = document.getElementById('menu-17an');
+
+if (btnBulanan && menuRapat) {
+btnBulanan.addEventListener('click', function(e) {
+e.preventDefault(); e.stopPropagation();
+if (menu17an) menu17an.classList.remove('buka'); 
+menuRapat.classList.toggle('buka');
+});
+}
+
+if (btnTahunan && menu17an) {
+btnTahunan.addEventListener('click', function(e) {
+e.preventDefault(); e.stopPropagation();
+if (menuRapat) menuRapat.classList.remove('buka'); 
+menu17an.classList.toggle('buka');
+});
+}
 }
 
 /* ==========================================================================
-   1. GLOBAL HEADER & NAVBAR (DESKTOP DEFAULT)
-   ========================================================================== */
-.site-header { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    z-index: 1000; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
-}
-
-.top-header { 
-    background-color: #fff; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 10px 40px; 
-}
-
-.header-logo-area { 
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
-}
-
-.logo-wrapper {
-    text-decoration: none; 
-    color: inherit; 
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
-}
-
-.mini-logo { 
-    width: 45px; 
-    height: auto; 
-}
-
-.header-text { 
-    display: flex; 
-    flex-direction: column; 
-}
-
-.brand-title { 
-    color: #333; 
-    font-weight: bold; 
-    font-size: 18px; 
-    letter-spacing: 0.5px; 
-}
-
-.brand-subtitle { 
-    color: #666; 
-    font-size: 13px; 
-}
-
-.header-right-stuff { 
-    display: flex; 
-    align-items: center; 
-    gap: 25px; 
-}
-
-.header-socials { 
-    display: flex; 
-    gap: 15px; 
-}
-
-.header-socials a { 
-    color: #555; 
-    font-size: 18px; 
-    text-decoration: none; 
-    transition: 0.2s; 
-}
-
-.header-socials a:hover { 
-    transform: scale(1.15); 
-    color: #E53935; 
-}
-
-.menu-toggle { 
-    display: none; 
-    background: none; 
-    border: none; 
-    font-size: 26px; 
-    cursor: pointer;
-    color: #333;
-}
-
-/* Baris Merah Navbar Layer 1 */
-.main-navbar { 
-    background-color: #E53935; 
-    padding: 0 40px; 
-}
-
-.nav-list { 
-    display: flex; 
-    list-style: none; 
-}
-
-.nav-item { 
-    position: relative; 
-}
-
-.nav-item a { 
-    display: block; 
-    padding: 14px 20px; 
-    color: #fff; 
-    text-decoration: none; 
-    font-weight: bold; 
-    font-size: 14px; 
-}
-
-.nav-item a:hover { 
-    background-color: #C62828; 
-}
-
-.navbar-mobile-only {
-    display: none;
-}
-
-/* Layer 2: Dropdown Menu */
-.submenu { 
-    display: none; 
-    position: absolute; 
-    top: 100%; 
-    left: 0; 
-    background-color: #E53935; 
-    list-style: none; 
-    padding: 0;
-    margin: 0;
-    min-width: 200px; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.15); 
-}
-
-.submenu-item {
-    position: relative;
-}
-
-.submenu-item a { 
-    font-size: 13px; 
-    font-weight: normal; 
-}
-
-.submenu-item > a:hover { 
-    color: yellow !important; 
-    background-color: #C62828; 
-}
-
-.nav-item:hover > .submenu { 
-    display: block; 
-}
-
-.sub-submenu-dalam {
-    display: none; 
-    list-style: none; 
-    padding: 0;
-    margin: 0;
-    background-color: #bd2724; 
-}
-
-/* ==========================================================================
-   2. HERO SECTION & CONTENT MAIN DESIGN
-   ========================================================================== */
-.hero-container {
-    position: relative; 
-    width: 100%; 
-    min-height: 100vh;
-    background-image: url('images/mms-foto-bersama2025.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding-top: 100px;
-}
-
-.hero-overlay { 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0, 0, 0, 0.6); 
-    z-index: 1; 
-}
-
-.hero-content { 
-    position: relative; 
-    z-index: 2; 
-    text-align: center; 
-    color: #fff; 
-    padding: 20px; 
-    max-width: 800px; 
-}
-
-.hero-title-box { 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 15px; 
-    margin-bottom: 5px; 
-}
-
-.hero-title-box h1 { 
-    font-size: 38px; 
-    font-weight: 800; 
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.7); 
-}
-
-.hero-content h2 { 
-    font-size: 26px; 
-    font-weight: 600; 
-    color: #FFD700; 
-    margin-bottom: 20px; 
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.7); 
-}
-
-.hero-description { 
-    font-size: 16px; 
-    line-height: 1.8; 
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8); 
-}
-
-.content-box {
-    position: relative; 
-    z-index: 2; 
-    background-color: #ffffff;
-    width: 90%; 
-    max-width: 800px; 
-    padding: 40px 50px; 
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-    text-align: left;
-    color: #333333; 
-    margin: 0 auto;
-}
-
-.box-title {
-    color: #E53935 !important; 
-    font-size: 28px !important; 
-    margin-bottom: 15px !important;
-    text-align: center; 
-    text-shadow: none !important;
-}
-
-.box-divider {
-    border: 0; 
-    height: 3px; 
-    background-color: #E53935; 
-    width: 60px;
-    margin: 0 auto 30px auto; 
-    border-radius: 2px;
-}
-
-.content-box h3 { color: #333; font-size: 20px; margin-top: 25px; margin-bottom: 10px; font-weight: 700; }
-.content-box p, .content-box ul { font-size: 15px; line-height: 1.8; color: #555; margin-bottom: 15px; }
-.content-box ul { padding-left: 20px; }
-.content-box li { margin-bottom: 8px; }
-
-/* ==========================================================================
-   3. INDEX AUTOMATIC CAROUSEL SLIDER
-   ========================================================================== */
-.slider-wrapper {
-    position: relative; 
-    max-width: 900px; 
-    margin: -80px auto 50px; 
-    background-color: #fff;
-    border-radius: 12px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
-    z-index: 10; 
-    overflow: hidden;
-}
-
-.slide { 
-    display: none; 
-    animation: fadeEffect 1s; 
-}
-
-.slide.aktif { 
-    display: flex; 
-}
-
-@keyframes fadeEffect { 
-    from { opacity: 0.4; } 
-    to { opacity: 1; } 
-}
-
-.slide-img { 
-    width: 50%; 
-    min-height: 300px; 
-    object-fit: cover; 
-}
-
-.slide-content { 
-    width: 50%; 
-    padding: 40px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-}
-
-.slide-content h3 { font-size: 24px; color: #333; margin-bottom: 15px; }
-.slide-content p { font-size: 15px; color: #666; line-height: 1.6; }
-.slider-dots { text-align: center; padding: 20px 0; background-color: #fff; }
-
-.dot { 
-    cursor: pointer; 
-    height: 12px; 
-    width: 12px; 
-    margin: 0 5px; 
-    background-color: #ccc; 
-    border-radius: 50%; 
-    display: inline-block; 
-    transition: 0.3s; 
-}
-.dot.aktif, .dot:hover { background-color: #E53935; }
-
-/* ==========================================================================
-   4. HALAMAN TRANSPARANSI KAS KEUANGAN & TRANSAKSI
-   ========================================================================== */
-.finance-page-wrapper { padding-top: 150px; margin-top: -50px; padding-bottom: 60px; display: flex; justify-content: center; }
-.summary-cards { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
-.card-box { flex: 1; min-width: 200px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-.card-box h4 { font-size: 14px; color: #666; margin-bottom: 10px; font-weight: normal; }
-.card-box .amount { font-size: 22px; font-weight: 800; }
-.card-box.masuk .amount { color: #2e7d32; }
-.card-box.keluar .amount { color: #E53935; }
-.card-box.saldo .amount { color: #1565c0; }
-
-.filter-container { display: flex; gap: 15px; justify-content: flex-end; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
-.filter-box { padding: 10px 15px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none; height: 40px; }
-.filter-box:focus { border-color: #E53935; }
-
-.btn-cetak-mutasi {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #E53935;
-    color: #ffffff !important;
-    padding: 0 16px;
-    font-size: 13px;
-    font-weight: bold;
-    text-decoration: none !important;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: all 0.2s ease-in-out;
-    height: 40px;
-    box-sizing: border-box;
-}
-
-.btn-cetak-mutasi:hover {
-    background-color: #c62828;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transform: translateY(-1px);
-}
-
-.btn-cetak-mutasi i {
-    margin-right: 8px;
-    font-size: 14px;
-}
-
-.table-responsive { width: 100%; overflow-x: auto; }
-.finance-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-.finance-table th { background-color: #E53935; color: white; padding: 12px 15px; white-space: nowrap; }
-.finance-table td { padding: 12px 15px; border-bottom: 1px solid #eee; }
-.finance-table tr:nth-child(even) { background-color: #fafafa; }
-.finance-table tr:hover { background-color: #f1f1f1; }
-
-/* ==========================================================================
-   5. HALAMAN STRUKTUR PENGURUS INTI & SWIPER CAROUSEL
-   ========================================================================== */
-.structure-page-wrapper { padding-top: 150px; padding-bottom: 60px; display: flex; justify-content: center; }
-.content-box-structure { position: relative; z-index: 2; background-color: #ffffff; width: 95%; max-width: 1000px; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 0 auto; }
-.swipe-instruction { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
-.swiper { width: 100%; padding: 20px 0 50px 0; }
-.swiper-slide { transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0.5; transform: scale(0.85); }
-.swiper-slide-active { opacity: 1; transform: scale(1.05); z-index: 10; }
-.team-card { background: #fff; padding: 30px 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; display: flex; flex-direction: column; align-items: center; border: 1px solid #eee; min-height: 280px; }
-.team-card img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid #ddd; }
-.team-card.ketua-card img { border-color: #E53935; width: 130px; height: 130px; }
-.team-card h4 { color: #333; font-size: 16px; margin-bottom: 5px; font-weight: bold; }
-.team-card p { color: #E53935; font-weight: 600; font-size: 13px; text-transform: uppercase; margin-bottom: 5px; }
-.nim-text { font-size: 11px !important; color: #888 !important; text-transform: none !important; font-weight: normal !important; margin-bottom: 15px !important; }
-.team-socials { display: flex; justify-content: center; gap: 15px; margin-top: auto; }
-.team-socials a { color: #555; font-size: 18px; transition: 0.3s; }
-.team-socials a:hover { color: #E53935; transform: scale(1.2); }
-
-/* ==========================================================================
-   6. HALAMAN DOKUMENTASI (GOOGLE DRIVE EMBED & AUTOMATED TABLE)
-   ========================================================================== */
-.gallery-page-wrapper { padding-top: 150px; padding-bottom: 60px; display: flex; justify-content: center; }
-.content-box-gallery { position: relative; z-index: 2; background-color: #ffffff; width: 95%; max-width: 1100px; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 0 auto; }
-.gallery-desc { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
-.drive-embed-container { position: relative; width: 100%; height: 600px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; background: #fafafa; }
-.drive-iframe { width: 100%; height: 100%; border: none; }
-#data-tabel-dokumentasi img { max-width: 180px; max-height: 120px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); border: 1px solid #ddd; transition: transform 0.2s ease-in-out; }
-#data-tabel-dokumentasi img:hover { transform: scale(1.04); }
-
-/* ==========================================================================
-   7. MEDIA QUERIES KHUSUS DESKTOP / LAPTOP (PC)
-   ========================================================================= */
-@media screen and (min-width: 769px) {
-    .submenu-item:hover > .sub-submenu-dalam { display: block; }
-    .sub-submenu-dalam { position: absolute; top: 0; left: 100%; min-width: 200px; box-shadow: 2px 4px 6px rgba(0,0,0,0.15); }
-    .sub-submenu-dalam li a { padding-left: 20px !important; }
-}
-
-/* ==========================================================================
-   8. MEDIA QUERIES SATU PINTU KHUSUS MOBILE (HP)
-   ========================================================================== */
-@media screen and (max-width: 768px) {
-    .top-header { 
-        background-color: #E53935 !important; 
-        flex-direction: row !important; 
-        padding: 12px 20px !important; 
-        position: relative !important; 
-    }
-    
-    .header-logo-area { margin-bottom: 0 !important; }
-    .mini-logo { width: 34px !important; }
-    
-    .logo-wrapper { color: #ffffff !important; }
-    .brand-title { font-size: 14px !important; }
-    .brand-subtitle { font-size: 10px !important; color: rgba(255, 255, 255, 0.8) !important; }
-    
-    .top-header .header-right-stuff { 
-        display: none !important; 
-    }
-    
-    .menu-toggle { 
-        display: block !important; 
-        position: static !important; 
-        color: #ffffff !important;
-    }
-  
-    .main-navbar { display: none; padding: 5px 0; width: 100%; flex-direction: column; align-items: stretch; background-color: #C62828; }
-    .main-navbar.aktif { display: flex; }
-    .nav-list { flex-direction: column; }
-    .nav-item a { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 12px 20px; font-size: 13px; }
-    
-    .submenu { position: static; box-shadow: none; padding-left: 15px; background-color: #B71C1C; }
-
-    .navbar-mobile-only { 
-        display: flex !important; 
-        flex-direction: column; 
-        padding: 15px 20px; 
-        background-color: #B71C1C; 
-        border-top: 1px solid rgba(255,255,255,0.1); 
-    }
-    .navbar-mobile-only .header-socials { justify-content: center; width: 100%; gap: 24px; }
-    .navbar-mobile-only .header-socials a { color: #ffffff !important; font-size: 18px; }
-
-    /* FIX PADDING GATEWAY: Menambahkan .login-page-wrapper agar elemen form login turun & tidak tertimbun */
-    .finance-page-wrapper, .structure-page-wrapper, .gallery-page-wrapper, .hero-container, .login-page-wrapper { 
-        padding-top: 150px !important; 
-    }
-
-    .content-box, .content-box-structure, .content-box-gallery { padding: 20px; width: 95%; }
-    .box-title { font-size: 22px !important; }
-    .summary-cards { gap: 10px; }
-    .card-box { padding: 15px; }
-    .card-box .amount { font-size: 18px; }
-
-    .slider-wrapper { margin: -20px 10px 30px; }
-    .slide.aktif { flex-direction: column; } 
-    .slide-img { width: 100%; height: 185px; }
-    .slide-content { width: 100%; padding: 20px; }
-
-    .btn-cetak-mutasi { display: flex; width: 100%; margin-top: 5px; height: 40px; }
-    
-    /* ðŸ“± DIHAPUS: Gaya lama #pwa-install-popup posisi fixed di bagian bawah HP telah dihapus dari sini */
-}
-
-/* ==========================================================================
-   9. INDEPENDENT SITE FOOTER DESIGN
-   ========================================================================== */
-.site-footer {
-    background-color: #B71C1C; 
-    color: #ffffff;
-    padding: 50px 0 0 0;
-    font-family: 'Poppins', sans-serif;
-    margin-top: 60px; 
-}
-
-.footer-container {
-    max-width: 1100px;
-    width: 90%;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr; 
-    gap: 40px;
-    padding-bottom: 40px;
-}
-
-.footer-column h5 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    position: relative;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #FFD700; 
-}
-
-.footer-column h5::after {
-    content: '';
-    display: block;
-    width: 35px;
-    height: 2px;
-    background-color: #ffffff;
-    margin-top: 8px;
-}
-
-.footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.footer-logo {
-    width: 40px;
-    height: auto;
-}
-
-.footer-brand h4 {
-    font-size: 17px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.footer-text {
-    font-size: 13px;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 12px;
-}
-
-.footer-text i {
-    margin-right: 8px;
-    color: #FFD700;
-}
-
-.footer-text a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.footer-text a:hover {
-    color: #FFD700;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links li {
-    margin-bottom: 10px;
-}
-
-.footer-links a {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-}
-
-.footer-links a i {
-    font-size: 10px;
-    margin-right: 8px;
-    transition: transform 0.2s;
-}
-
-.footer-links a:hover {
-    color: #FFD700;
-    padding-left: 5px; 
-}
-
-.footer-social-icons {
-    display: flex;
-    gap: 12px;
-    margin-top: 15px;
-}
-
-.footer-social-icons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.footer-social-icons a:hover {
-    background-color: #ffffff;
-    color: #B71C1C;
-    transform: translateY(-3px);
-}
-
-.footer-bottom {
-    background-color: rgba(0, 0, 0, 0.2); 
-    padding: 15px 0;
-    text-align: center;
-}
-
-.footer-bottom p {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0;
-}
-
-@media screen and (max-width: 768px) {
-    .footer-container {
-        grid-template-columns: 1fr; 
-        gap: 30px;
-        padding-bottom: 30px;
-    }
-    
-    .footer-column {
-        text-align: center;
-    }
-    
-    .footer-brand {
-        justify-content: center;
-    }
-    
-    .footer-column h5::after {
-        margin: 8px auto 0 auto; 
-    }
-    
-    .footer-social-icons {
-        justify-content: center;
-    }
-    
-    .footer-links a:hover {
-        padding-left: 0; 
-    }
-}
-
-/* ==========================================================================
-   10. MODAL POPUP FOTO PROFILE / DOKUMENTASI OVERLAY
-   ========================================================================== */
-.modal-foto-mms {
-    display: none; 
-    position: fixed; 
-    z-index: 9999; 
-    left: 0; 
-    top: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0,0,0,0.85); 
-    backdrop-filter: blur(5px); 
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.modal-foto-mms img {
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    animation: zoomInModal 0.3s ease;
-}
-
-@keyframes zoomInModal {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-.close-modal-mms {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.close-modal-mms:hover { 
-    color: #E53935; 
-}
-
-/* ==========================================================================
-   11. TAMBAHAN UNTUK TOMBOL GOOGLE FORM | INPUT CASH FLOW |
-   ========================================================================== */
-.google-form-btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-    margin-top: 10px;
-}
-
-.btn-google-form {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 15px 32px;
-    background-color: #673ab7; 
-    color: white;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(103, 58, 183, 0.3);
-    transition: all 0.3s ease;
-}
-
-.btn-google-form:hover {
-    background-color: #512da8;
-    box-shadow: 0 6px 15px rgba(81, 45, 168, 0.4);
-    transform: translateY(-2px);
-    color: white; 
-}
-
-.btn-google-form:active {
-    transform: translateY(0);
-}
-
-/* ==========================================================================
-   12. PORTAL LOGIN GATEWAY ADMIN KUSTOM & FIX LAYOUT HEADER (LOGO CENTERING)
-   ========================================================================== */
-.login-page-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    min-height: calc(100vh - 140px);
-}
-
-.login-content-box {
-    background: #ffffff;
-    width: 100%;
-    max-width: 420px !important;  
-    padding: 40px 35px !important; 
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    text-align: center;
-    border-top: 6px solid #E53935 !important; 
-    margin: auto;
-}
-
-.input-wrapper {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.input-wrapper i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #888;
-    font-size: 16px;
-}
-
-.login-input {
-    width: 100%;
-    padding: 14px 14px 14px 45px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
-    outline: none;
-    transition: all 0.3s ease;
-    background-color: #fafafa;
-}
-
-.login-input:focus {
-    border-color: #E53935;
-    background-color: #fff;
-    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
-}
-
-.btn-login {
-    width: 100%;
-    padding: 14px;
-    background-color: #E53935;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.2);
-    transition: all 0.3s ease;
-}
-
-.btn-login:hover {
-    background-color: #c62828;
-    box-shadow: 0 6px 15px rgba(198, 40, 40, 0.3);
-    transform: translateY(-1px);
-}
-
-.btn-login:active {
-    transform: translateY(0);
-}
-
-.portal-footer {
-    text-align: center;
-    padding: 15px;
-    font-size: 12px;
-    color: #888;
-    border-top: 1px solid #eee;
-    background-color: #ffffff;
-    width: 100%;
-}
-
-/* ❌ ATURAN KHUSUS GATEWAY LOGIN (DIISOLASI DENGAN EXPLICIT BODY CLASS) */
-body.login-page-body .main-navbar,
-body.login-page-body .header-right-stuff,
-body.login-page-body .header-secure-badge {
-    display: none !important;
-}
-
-body.login-page-body .site-header {
-    position: fixed !important;
-    height: auto !important;
-    min-height: unset !important;
-    background-color: #ffffff !important;
-    border-bottom: 4px solid #E53935 !important; 
-}
-
-body.login-page-body .top-header {
-    background-color: #ffffff !important;
-    justify-content: center !important; 
-    padding: 20px 20px !important; 
-    box-shadow: none !important; 
-}
-
-body.login-page-body .header-logo-area {
-    justify-content: center !important;
-    width: 100%;
-}
-
-body.login-page-body .logo-wrapper {
-    flex-direction: column !important; 
-    text-align: center !important;
-    gap: 6px !important;
-}
-
-body.login-page-body .mini-logo {
-    width: 55px !important; 
-    height: auto !important;
-    margin-top: 5px !important;    
-    margin-bottom: 0px !important;
-}
-
-body.login-page-body .brand-title {
-    font-size: 18px !important;
-}
-
-body.login-page-body .brand-subtitle {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    color: #666 !important; 
-    font-size: 12px !important;
-    margin-bottom: 5px !important; 
-}
-
-body.login-page-body .box-subtitle {
-    margin-bottom: 35px !important; 
-}
-
-/* DESIGN TEKS ERROR SALAH PASSWORD */
-.error-text {
-    display: none; 
-    color: #D32F2F; 
-    background-color: #FFEBEE; 
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 6px;
-    margin-top: -10px; 
-    margin-bottom: 20px; 
-    text-align: center;
-    border: 1px solid #FFCDD2;
-    animation: shakeEffect 0.3s ease-in-out; 
-}
-
-@keyframes shakeEffect {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+  3. SISTEM CAROUSEL & SLIDER GAMBAR
+  ========================================================================== */
+
+// --- A. Carousel Struktur Organisasi (Swiper.js) ---
+function initCarouselOrganisasi() {
+if (document.querySelector('.mySwiper') && typeof Swiper !== 'undefined') {
+new Swiper(".mySwiper", {
+slidesPerView: 1, 
+spaceBetween: 15,
+centeredSlides: true, 
+loop: true,
+initialSlide: 2, // Fokus awal ke Ketua
+observer: true,
+observeParents: true,
+breakpoints: {
+768: { slidesPerView: 3, spaceBetween: 30 } // Tampilan 3 kolom di Desktop
+}
+});
+}
+}
+
+// --- B. Slider Otomatis Halaman Beranda (index.html) ---
+const kegiatanData = [
+{
+gambar: "images/foto-tirakatan.jpg", 
+judul: "Malam Tirakatan 17 Agustus 2025",
+deskripsi: "Kegiatan rutin tahunan untuk memperingati Hari Kemerdekaan Indonesia. Warga berkumpul di madrasah dinniyah untuk doa bersama, refleksi perjuangan para pahlawan bangsa."
+},
+{
+gambar: "images/foto-lomba.jpg",
+judul: "Lomba Agustusan Tahun 2025",
+deskripsi: "Salah satu lomba anak yaitu pindah air dengan sendok untuk memperingati hari ulang tahun kemerdekaan Indonesia.yang ke-80 Tahun"
+},
+{
+gambar: "images/momen-kebersamaan.jpg",
+judul: "Momen Kebersamaan di Evaluasi Kegiatan",
+deskripsi: "Momen indah di mana seluruh anggota organisasi berkumpul untuk mengevaluasi kegiatan dalam memperingati HUT-RI yang ke 80 tahun dari persiapan, eksekusi acara, serta harapan kedepannya"
+}
+];
+
+let slideIndex = 1, slideTimer;
+
+function initHeroSlider() {
+const sliderContainer = document.getElementById('slider-container');
+const dotsContainer = document.getElementById('dots-container');
+
+if (!sliderContainer || !dotsContainer) return;
+
+let slidesHTML = "", dotsHTML = "";
+kegiatanData.forEach((item, index) => {
+slidesHTML += `
+           <div class="slide ${index === 0 ? 'aktif' : ''}">
+               <img src="${item.gambar}" alt="${item.judul}" class="slide-img">
+               <div class="slide-content">
+                   <h3>${item.judul}</h3><p>${item.deskripsi}</p>
+               </div>
+           </div>`;
+dotsHTML += `<span class="dot ${index === 0 ? 'aktif' : ''}" onclick="currentSlide(${index + 1})"></span>`;
+});
+
+sliderContainer.innerHTML = slidesHTML;
+dotsContainer.innerHTML = dotsHTML;
+
+showSlides(slideIndex);
+autoSlide();
+}
+
+function showSlides(n) {
+let slides = document.getElementsByClassName("slide");
+let dots = document.getElementsByClassName("dot");
+
+if (slides.length === 0) return;
+
+if (n > slides.length) slideIndex = 1;    
+if (n < 1) slideIndex = slides.length;
+
+Array.from(slides).forEach(s => s.classList.remove("aktif"));
+Array.from(dots).forEach(d => d.classList.remove("aktif"));
+
+slides[slideIndex-1].classList.add("aktif");  
+dots[slideIndex-1].classList.add("aktif");
+}
+
+function autoSlide() {
+slideTimer = setInterval(() => { slideIndex++; showSlides(slideIndex); }, 5000);
+}
+
+window.currentSlide = function(n) { 
+showSlides(slideIndex = n); 
+clearInterval(slideTimer);
+autoSlide();
 }
 
 
 /* ==========================================================================
-   WIDGET LIVE CHAT MELAYANG INDEPENDEN (ANGKRINGAN CHAT MMS 05)
-   ========================================================================== */
-#mms-chat-launcher {
-    position: fixed; 
-    bottom: 25px; 
-    right: 25px;
-    width: 60px; 
-    height: 60px; 
-    background-color: #E53935 !important; 
-    border-radius: 50% !important; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    color: #ffffff !important; 
-    font-size: 26px; 
-    cursor: pointer; 
-    border: 2px solid #ffffff; 
-    box-shadow: 0 4px 18px rgba(0,0,0,0.3); 
-    transition: all 0.2s ease-in-out; 
-    z-index: 999999 !important; 
-    outline: none !important; 
-    -webkit-tap-highlight-color: transparent; 
+  4. SISTEM TRANSPARANSI KAS KEUANGAN (GOOGLE SHEETS TSV)
+  ========================================================================== */
+const linkTsvKeuangan = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTqiCluDyXYQijRAElBYLeYPzrT7ENOPtbaxnoHfyZXFFMMxnO1pnZuOAKJaaVgSvFs6eKacEAd4w5I/pub?gid=1216205715&single=true&output=tsv";
+let dataKeuanganGlobal = [];
+let dataTersaringGlobal = [];
+let halamanKeuanganSaatIni = 1; 
+const barisKeuanganPerHalaman = 7;
+
+function parseTanggalKeObjek(strTanggal) {
+if (!strTanggal) return new Date(0);
+const bagian = strTanggal.split("/");
+if (bagian.length !== 3) return new Date(0);
+return new Date(parseInt(bagian[2], 10), parseInt(bagian[1], 10) - 1, parseInt(bagian[0], 10));
 }
 
-#mms-chat-launcher:hover, 
-#mms-chat-launcher:active,
-#mms-chat-launcher:focus { 
-    background-color: #ffeb3b !important; 
-    color: #000000 !important; 
-    border-color: #ffffff !important; 
-    transform: scale(1.05); 
-    border-radius: 50% !important; 
-    outline: none !important;
+function bersihkanNominal(teksNominal) {
+if (!teksNominal) return 0;
+let bersih = teksNominal.toString().replace(/Rp/gi, "").replace(/\s/g, "");
+bersih = bersih.replace(/[\.\,]/g, "");
+bersih = bersih.replace(/[^0-9-]/g, "");
+return parseInt(bersih, 10) || 0;
 }
 
-#mms-chat-box {
-    position: fixed; 
-    bottom: 95px; 
-    right: 25px;
-    width: 330px; 
-    height: 460px; 
-    background-color: #ffffff;
-    border-radius: 16px; 
-    box-shadow: 0 10px 35px rgba(0,0,0,0.25);
-    display: flex; 
-    flex-direction: column; 
-    overflow: hidden;
-    border: 1px solid #e2e8f0; 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    z-index: 999999 !important;
-    touch-action: manipulation; 
+async function loadKeuanganDariDrive() {
+try {
+const response = await fetch(`${linkTsvKeuangan}&cache=${new Date().getTime()}`);
+const teksData = await response.text();
+const baris = teksData.split(/\r?\n/);
+
+dataKeuanganGlobal = [];
+let daftarTahun = new Set();
+let daftarBulan = new Set();
+
+for (let i = 1; i < baris.length; i++) {
+const barisBersih = baris[i].trim();
+if (!barisBersih) continue; 
+
+const kolom = barisBersih.split("\t");
+if (kolom.length < 4) continue; 
+
+let tglRaw = kolom[0] ? kolom[0].trim() : "";       
+let ketTransaksi = kolom[1] ? kolom[1].trim() : ""; 
+let linkNotaRaw = kolom[5] ? kolom[5].trim() : "";  
+
+if (!tglRaw || tglRaw === "Tanggal" || ketTransaksi.toUpperCase() === "TOTAL") continue; 
+
+let nilaiC = kolom[2] ? bersihkanNominal(kolom[2]) : 0; 
+let nilaiD = kolom[3] ? bersihkanNominal(kolom[3]) : 0; 
+
+let statusTipe = "";
+let nominalFix = 0;
+
+if (nilaiC > 0 && nilaiD === 0) {
+statusTipe = "masuk"; 
+nominalFix = nilaiC;  
+} else if (nilaiD > 0 && nilaiC === 0) {
+statusTipe = "keluar"; 
+nominalFix = nilaiD;   
+} else {
+continue; 
 }
 
-.chat-box-header {
-    background-color: #E53935; 
-    color: white; 
-    padding: 14px;
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    box-shadow: 0 2px 8 rgba(229, 57, 53, 0.3);
-}
-.chat-header-title { display: flex; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; }
-.chat-header-title img { width: 24px; height: 24px; margin-right: 10px; border-radius: 50%; background: #fff; padding: 1px; }
-.chat-close-btn { background: none; border: none; color: white; font-size: 26px; cursor: pointer; line-height: 1; }
+let tglSplit = tglRaw.split("/");
+let thn = tglSplit[2] ? tglSplit[2].trim() : "2026";
+let bln = namaBulanIndo[parseInt(tglSplit[1], 10) - 1] || "Semua";
 
-#chat-box-body { 
-    flex: 1; 
-    padding: 14px; 
-    overflow-y: auto; 
-    background-color: #f4efe9;
-    background-image: url("https://www.transparenttextures.com/patterns/lined-paper.png");
-    display: flex; 
-    flex-direction: column; 
-    gap: 10px; 
-    scroll-behavior: smooth; 
+daftarTahun.add(thn);
+daftarBulan.add(bln);
+
+dataKeuanganGlobal.push({ 
+tanggal: tglRaw, 
+bulan: bln, 
+tahun: thn, 
+keterangan: ketTransaksi, 
+tipe: statusTipe, 
+jumlah: nominalFix.toString(), 
+linkNota: linkNotaRaw
+});
 }
 
-.chat-loading-status { text-align: center; color: #7f8c8d; font-size: 13px; margin-top: 60px; font-weight: 500; }
+dataKeuanganGlobal.sort((a, b) => {
+return parseTanggalKeObjek(b.tanggal) - parseTanggalKeObjek(a.tanggal);
+});
 
-.chat-bubble { 
-    background: rgba(255, 255, 255, 0.95); 
-    padding: 8px 12px 6px 12px; 
-    border-radius: 4px 12px 12px 12px; 
-    max-width: 85%; 
-    align-self: flex-start; 
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 6px -1px rgba(0,0,0,0.05); 
-    position: relative; 
-    display: flex; 
-    flex-direction: column; 
-    min-width: 90px;
-    border-left: 3px solid #E53935;
+isiDropdown('filter-tahun', Array.from(daftarTahun).sort().reverse());
+isiDropdown('filter-bulan', Array.from(daftarBulan).sort((a,b) => namaBulanIndo.indexOf(a) - namaBulanIndo.indexOf(b)));
+
+terapkanFilter();
+} catch (e) {
+console.error("Gagal memuat data keuangan", e);
+const tBody = document.getElementById('data-tabel-keuangan');
+if (tBody) tBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red;">Gagal memuat data dari database. Pastikan koneksi internet stabil.</td></tr>`;
+}
 }
 
-.chat-sender-name { font-size: 11px; color: #E53935; font-weight: 700; margin-bottom: 3px; letter-spacing: 0.2px; }
-.chat-text { font-size: 13px; color: #2d3748; word-break: break-word; line-height: 1.45; margin-bottom: 8px; }
-.chat-timestamp { font-size: 9px; color: #a0aec0; align-self: flex-end; position: absolute; bottom: 4px; right: 8px; font-weight: 500; }
+window.terapkanFilter = function() {
+const thnInput = document.getElementById('filter-tahun');
+const blnInput = document.getElementById('filter-bulan');
+const katInput = document.getElementById('filter-kategori');
+const cariInput = document.getElementById('input-cari');
 
-.chat-box-footer { padding: 12px; background: #ffffff; border-top: 1px solid #edf2f7; display: flex; flex-direction: column; gap: 8px; }
+if(!thnInput || !blnInput || !katInput || !cariInput) return;
 
-#chat-input-nama { 
-    width: 100%; 
-    padding: 8px 10px; 
-    border: 1px solid #cbd5e1; 
-    border-radius: 8px; 
-    font-size: 16px; 
-    outline: none; 
-    box-sizing: border-box; 
-    background: #f8fafc; 
-    transition: all 0.2s; 
+const thn = thnInput.value;
+const bln = blnInput.value;
+const kat = katInput.value;
+const cari = cariInput.value.toLowerCase();
+
+dataTersaringGlobal = dataKeuanganGlobal.filter(item => {
+return (thn === "Semua" || item.tahun === thn) && 
+(bln === "Semua" || item.bulan === bln) && 
+(kat === "Semua" || item.tipe === kat) && 
+(item.keterangan.toLowerCase().includes(cari) || item.tanggal.toLowerCase().includes(cari));
+});
+
+dataTersaringGlobal.sort((a, b) => {
+return parseTanggalKeObjek(b.tanggal) - parseTanggalKeObjek(a.tanggal);
+});
+
+let m = 0, k = 0;
+let dataUntukKartu = thn === "Semua" ? dataKeuanganGlobal : dataKeuanganGlobal.filter(item => item.tahun === thn);
+
+dataUntukKartu.forEach(i => {
+let n = parseInt(i.jumlah) || 0; 
+i.tipe === 'masuk' ? m += n : k += n;
+});
+
+document.getElementById('total-masuk').innerText = formatRupiah(m);
+document.getElementById('total-keluar').innerText = formatRupiah(k);
+
+const saldoCardTitle = document.querySelector('.card-box.saldo h4');
+if (saldoCardTitle) saldoCardTitle.innerHTML = `<i class="fa-solid fa-wallet"></i> Saldo Kas ${thn === "Semua" ? "Keseluruhan" : "(" + thn + ")"}`;
+
+document.getElementById('saldo-akhir').innerText = formatRupiah(m - k);
+
+halamanKeuanganSaatIni = 1; 
+renderTabel();
 }
-#chat-input-nama:focus { border-color: #E53935; background: #fff; box-shadow: 0 0 0 2px rgba(229,57,53,0.1); }
 
-.chat-input-group { display: flex; gap: 8px; }
+function renderTabel() {
+const tbody = document.getElementById('data-tabel-keuangan');
+if (!tbody) return;
 
-#chat-input-pesan { 
-    flex: 1; 
-    padding: 9px 12px; 
-    border: 1px solid #cbd5e1; 
-    border-radius: 8px; 
-    font-size: 16px; 
-    outline: none; 
-    box-sizing: border-box; 
-    transition: all 0.2s; 
+if (dataTersaringGlobal.length === 0) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`;
+return;
 }
-#chat-input-pesan:focus { border-color: #E53935; box-shadow: 0 0 0 2px rgba(229,57,53,0.1); }
 
-.chat-box-footer button { 
-    background: #E53935; color: white; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; 
-    box-shadow: 0 2px 4px rgba(229, 57, 53, 0.2);
+const start = (halamanKeuanganSaatIni - 1) * barisKeuanganPerHalaman;
+const pageData = dataTersaringGlobal.slice(start, start + barisKeuanganPerHalaman);
+
+let html = pageData.map(i => `
+       <tr>
+           <td>${i.tanggal}</td>
+           <td>
+               ${i.keterangan}
+               ${i.linkNota && i.linkNota !== "-" && i.linkNota.trim() !== "" ? `<br><a href="${i.linkNota}" target="_blank" style="color:#E53935; font-size:10px; font-weight:bold; text-decoration:underline;">[Lihat Nota]</a>` : ""}
+           </td>
+           <td style="font-weight:bold;">
+               ${i.tipe === 'masuk' ? '<span style="color:#2e7d32;"><i class="fa-solid fa-arrow-down"></i> Pemasukan</span>' : '<span style="color:#E53935;"><i class="fa-solid fa-arrow-up"></i> Pengeluaran</span>'}
+           </td>
+           <td><strong>${formatRupiah(parseInt(i.jumlah) || 0)}</strong></td>
+       </tr>
+   `).join('');
+
+const totalHal = Math.ceil(dataTersaringGlobal.length / barisKeuanganPerHalaman);
+if (totalHal > 1) {
+let tombolNav = "";
+const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+
+if (halamanKeuanganSaatIni === 1) {
+tombolNav = `<div style="text-align:right;"><button onclick="nav(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+} else if (halamanKeuanganSaatIni === totalHal) {
+tombolNav = `<div style="text-align:left;"><button onclick="nav(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+} else {
+tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="nav(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="nav(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
 }
-.chat-box-footer button:hover { background: #d32f2f; transform: translateY(-1px); }
+html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+}
+tbody.innerHTML = html;
+}
 
-@media (max-width: 480px) {
-    #mms-chat-box {
-        right: 5% !important; 
-        left: 5% !important;
-        bottom: 85px !important; 
-        transform: none !important; 
-        width: 90% !important;
-        height: 65vh !important; 
-        max-height: 480px !important;
-        border-radius: 16px !important; 
-        border: 1px solid #e2e8f0 !important;
-    }
-    
-    #mms-chat-launcher {
-        bottom: 15px !important;
-        right: 5% !important;
-    }
-    
-    #chat-input-nama, #chat-input-pesan {
-        font-size: 16px;
-    }
+window.nav = (dir) => { 
+halamanKeuanganSaatIni += dir; 
+renderTabel(); 
+};
+
+/* ==========================================================================
+  5. SISTEM NOTULEN & HASIL MUSYAWARAH RAPAT BULANAN
+  ========================================================================== */
+const linkTsvRapat = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRq9to0l-2kWwtGcTvwY70z_Ga8NAVmI-C_k4LYoDgTxGhqPY954gdkuRGmqRYe3wP-zSd6M9cUz-qC/pub?gid=1613608992&single=true&output=tsv";
+let dataRapatGlobal = [];
+let dataRapatTersaring = [];
+let halRapatSaatIni = 1;
+const barisRapatPerHal = 5; 
+
+async function loadRapatDariDrive() {
+try {
+const response = await fetch(`${linkTsvRapat}&cache=${new Date().getTime()}`);
+const teksData = await response.text();
+
+dataRapatGlobal = [];
+let daftarTahunRapat = new Set();
+let daftarBulanRapat = new Set();
+
+let baris = [];
+let barisSaatIni = [];
+let diDalamKutip = false;
+let penampungTeks = "";
+
+for (let i = 0; i < teksData.length; i++) {
+let char = teksData[i];
+let nextChar = teksData[i + 1];
+
+if (char === '"') {
+diDalamKutip = !diDalamKutip; 
+} else if (char === '\t' && !diDalamKutip) {
+barisSaatIni.push(penampungTeks.trim());
+penampungTeks = "";
+} else if ((char === '\n' || char === '\r') && !diDalamKutip) {
+if (char === '\r' && nextChar === '\n') i++; 
+barisSaatIni.push(penampungTeks.trim());
+if (barisSaatIni.length > 0) baris.push(barisSaatIni);
+barisSaatIni = [];
+penampungTeks = "";
+} else {
+penampungTeks += char;
+}
+}
+if (penampungTeks) {
+barisSaatIni.push(penampungTeks.trim());
+baris.push(barisSaatIni);
+}
+
+for (let i = 1; i < baris.length; i++) {
+let kolom = baris[i];
+if (kolom.length < 5) continue;
+
+let tglRaw = kolom[1] || ""; 
+let agendaRaw = kolom[2] || "-";
+
+let hasilRaw = kolom[3] || "-";
+let hasilFormatBaris = hasilRaw
+.replace(/\r\n/g, '<br>')
+.replace(/\n/g, '<br>')
+.replace(/\r/g, '<br>');
+
+let lokasiRaw = kolom[4] || "-";
+
+let tglSplit = tglRaw.includes("/") ? tglRaw.split("/") : tglRaw.split("-");
+let thn = tglSplit[2] || tglSplit[0] || "2026";
+if(thn.length > 4) thn = thn.substring(0,4); 
+
+let indexBulan = parseInt(tglSplit[1], 10) - 1;
+let bln = namaBulanIndo[indexBulan] || "Semual";
+
+if(thn && thn !== "") daftarTahunRapat.add(thn);
+if(bln && bln !== "Semua") daftarBulanRapat.add(bln);
+
+dataRapatGlobal.push({ 
+tanggal: tglRaw, 
+bulan: bln, 
+tahun: thn, 
+agenda: agendaRaw, 
+hasil: hasilFormatBaris, 
+lokasi: lokasiRaw 
+});
+}
+
+isiDropdown('filter-rapat-tahun', Array.from(daftarTahunRapat).sort().reverse());
+isiDropdown('filter-rapat-bulan', Array.from(daftarBulanRapat).sort((a,b) => namaBulanIndo.indexOf(a) - namaBulanIndo.indexOf(b)));
+
+terapkanFilterRapat();
+} catch (e) {
+console.error("Gagal memuat arsip rapat", e);
+const tBodyRapat = document.getElementById('data-tabel-rapat');
+if (tBodyRapat) tBodyRapat.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red;">Gagal memuat database rapat.</td></tr>`;
+}
+}
+
+window.terapkanFilterRapat = function() {
+const thn = document.getElementById('filter-rapat-tahun').value;
+const bln = document.getElementById('filter-rapat-bulan').value;
+const cari = document.getElementById('input-cari-rapat').value.toLowerCase();
+
+dataRapatTersaring = dataRapatGlobal.filter(item => {
+return (thn === "Semua" || item.tahun === thn) && 
+(bln === "Semua" || item.bulan === bln) && 
+(item.agenda.toLowerCase().includes(cari) || item.hasil.toLowerCase().includes(cari) || item.lokasi.toLowerCase().includes(cari));
+});
+
+halRapatSaatIni = 1; 
+renderTabelRapat();
+}
+
+function renderTabelRapat() {
+const tbody = document.getElementById('data-tabel-rapat');
+if (!tbody) return;
+
+if (dataRapatTersaring.length === 0) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Tidak ada arsip hasil rapat yang cocok.</td></tr>`;
+return;
+}
+
+const start = (halRapatSaatIni - 1) * barisRapatPerHal;
+const pageData = dataRapatTersaring.slice(start, start + barisRapatPerHal);
+
+let html = pageData.map(i => `
+       <tr>
+           <td style="font-weight: 500; color: #333; vertical-align: top;"><i class="fa-regular fa-calendar-days" style="color:#E53935; margin-right:5px;"></i> ${i.tanggal}</td>
+           <td style="font-weight: bold; color: #E53935; vertical-align: top;">${i.agenda}</td>
+           <td style="vertical-align: top; padding-right:20px;">
+               <div style="line-height: 1.6; text-align: left; color: #333; display: block; white-space: normal;">
+                   ${i.hasil}
+               </div>
+           </td>
+           <td style="vertical-align: top;"><i class="fa-solid fa-location-dot" style="color: #666; margin-right:4px;"></i> ${i.lokasi}</td>
+       </tr>
+   `).join('');
+
+const totalHal = Math.ceil(dataRapatTersaring.length / barisRapatPerHal);
+if (totalHal > 1) {
+let tombolNav = "";
+const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;";
+
+if (halRapatSaatIni === 1) {
+tombolNav = `<div style="text-align:right;"><button onclick="navRapat(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+} else if (halRapatSaatIni === totalHal) {
+tombolNav = `<div style="text-align:left;"><button onclick="navRapat(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+} else {
+tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="navRapat(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="navRapat(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+}
+html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9;">${tombolNav}</td></tr>`;
+}
+tbody.innerHTML = html;
+}
+
+window.navRapat = (dir) => { 
+halRapatSaatIni += dir; 
+renderTabelRapat(); 
+setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 100);
+};
+
+/* ==========================================================================
+  6. SISTEM DOKUMENTASI & GALERI KEGIATAN
+  ========================================================================== */
+const linkTsvDokumentasi = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSGNBxjdguHX3DyMAm4824Cw9Nv6t83MDuqojSZUcwftKAKyuC2jRLtPGId7FdK7w1asPeEVVtdSqqN/pub?gid=600804245&single=true&output=tsv";
+let dataDokumentasiGlobal = [];
+let dataDokumentasiTersaring = [];
+let halDokSaatIni = 1;
+const barisDokPerHal = 5; 
+
+async function loadDokumentasiDariDrive() {
+try {
+const response = await fetch(`${linkTsvDokumentasi}&cache=${new Date().getTime()}`);
+const teksData = await response.text();
+const baris = teksData.split("\n");
+
+dataDokumentasiGlobal = [];
+let daftarTahunDok = new Set();
+let daftarBulanDok = new Set();
+
+for (let i = 1; i < baris.length; i++) {
+const barisBersih = baris[i].trim();
+if (!barisBersih) continue;
+
+const kolom = barisBersih.split("\t");
+if (kolom.length < 5) continue; 
+
+let tglRaw = kolom[1] ? kolom[1].trim() : ""; 
+let agendaRaw = kolom[2] ? kolom[2].trim() : "-";
+let kegiatanRaw = kolom[3] ? kolom[3].trim() : "-";
+let subjekRaw = kolom[4] ? kolom[4].trim() : "-";
+let linkFotoAsli = kolom[5] ? kolom[5].trim() : ""; 
+
+if (!tglRaw) continue;
+
+let tglSplit = tglRaw.includes("/") ? tglRaw.split("/") : tglRaw.split("-");
+let thn = tglSplit[2] ? tglSplit[2].trim() : "2026";
+if(thn.length > 4) thn = thn.substring(0,4);
+
+let indexBulan = parseInt(tglSplit[1], 10) - 1;
+let bln = namaBulanIndo[indexBulan] || "Semua";
+
+if(thn && thn.trim() !== "") daftarTahunDok.add(thn);
+if(bln && bln !== "Semua") daftarBulanDok.add(bln);
+
+dataDokumentasiGlobal.push({ 
+tanggal: tglRaw, bulan: bln, tahun: thn, agenda: agendaRaw, kegiatan: kegiatanRaw, subjek: subjekRaw, linkAsli: linkFotoAsli 
+});
+}
+
+dataDokumentasiGlobal.sort((itemA, itemB) => {
+let splitA = itemA.tanggal.includes("/") ? itemA.tanggal.split("/") : itemA.tanggal.split("-");
+let splitB = itemB.tanggal.includes("/") ? itemB.tanggal.split("/") : itemB.tanggal.split("-");
+let dateA = new Date(splitA[2], splitA[1] - 1, splitA[0]);
+let dateB = new Date(splitB[2], splitB[1] - 1, splitB[0]);
+return dateB - dateA;
+});
+
+isiDropdown('filter-dok-tahun', Array.from(daftarTahunDok).sort().reverse());
+isiDropdown('filter-dok-bulan', Array.from(daftarBulanDok).sort((a,b) => namaBulanIndo.indexOf(a) - namaBulanIndo.indexOf(b)));
+
+terapkanFilterDokumentasi();
+} catch (e) {
+console.error("Gagal memuat data dokumentasi", e);
+document.getElementById('data-tabel-dokumentasi').innerHTML = `<tr><td colspan="5" style="text-align:center; color:red; padding:20px;">Gagal terhubung ke database dokumentasi.</td></tr>`;
+}
+}
+
+window.terapkanFilterDokumentasi = function() {
+const thn = document.getElementById('filter-dok-tahun').value;
+const bln = document.getElementById('filter-dok-bulan').value;
+const cari = document.getElementById('input-cari-dok').value.toLowerCase();
+
+dataDokumentasiTersaring = dataDokumentasiGlobal.filter(item => {
+return (thn === "Semua" || item.tahun === thn) && 
+(bln === "Semua" || item.bulan === bln) && 
+(item.agenda.toLowerCase().includes(cari) || item.kegiatan.toLowerCase().includes(cari) || item.subjek.toLowerCase().includes(cari));
+});
+
+halDokSaatIni = 1; 
+renderTabelDokumentasi();
+}
+
+function renderTabelDokumentasi() {
+const tbody = document.getElementById('data-tabel-dokumentasi');
+if (!tbody) return;
+
+if (dataDokumentasiTersaring.length === 0) {
+tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;">Tidak ditemukan rekaman kegiatan yang cocok.</td></tr>`;
+return;
+}
+
+const start = (halDokSaatIni - 1) * barisDokPerHal;
+const pageData = dataDokumentasiTersaring.slice(start, start + barisDokPerHal);
+
+let html = pageData.map(i => {
+let kolomMedia = "";
+
+if (i.linkAsli) {
+let daftarLink = i.linkAsli.split(",").map(link => link.trim());
+kolomMedia = `<div style="display: flex; flex-direction: column; gap: 14px; align-items: center;">`;
+
+daftarLink.forEach((linkSingle, index) => {
+if (!linkSingle) return;
+
+let renderUrl = linkSingle;
+let isImg = false;
+
+if (linkSingle.includes("id=")) {
+let idFile = linkSingle.split("id=")[1].split("&")[0];
+renderUrl = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`;
+isImg = true;
+} else if (linkSingle.includes("/d/")) {
+let idFile = linkSingle.split("/d/")[1].split("/")[0];
+renderUrl = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`;
+isImg = true;
+} else if (linkSingle.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+isImg = true;
+}
+
+if (isImg) {
+kolomMedia += `
+                       <div style="text-align:center; margin-bottom: 5px;">
+                           <a href="${linkSingle}" target="_blank">
+                               <img src="${renderUrl}" alt="${i.agenda}" style="max-width:260px; max-height:200px; object-fit:contain; background-color:#fafafa; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.12); border:1px solid #ddd;">
+                           </a>
+                           <br>
+                           <a href="${linkSingle}" target="_blank" style="font-size:11px; color:#E53935; text-decoration:none; display:inline-block; margin-top:4px; font-weight:600;"><i class="fa-solid fa-magnifying-glass-plus"></i> Foto ${index + 1} (Penuh)</a>
+                       </div>`;
+} else {
+kolomMedia += `
+                       <a href="${linkSingle}" target="_blank" style="padding:6px 12px; background:#f5f5f5; border:1px solid #ccc; border-radius:4px; text-decoration:none; color:#333; font-size:11px; display:inline-block; font-weight:bold;">
+                           <i class="fa-solid fa-paperclip" style="color:#E53935;"></i> Buka Berkas ${index + 1}
+                       </a>`;
+}
+});
+kolomMedia += `</div>`;
+} else {
+kolomMedia = `<div style="text-align:center; color:#999; font-style:italic; font-size:12px;">Tidak ada file</div>`;
+}
+
+return `
+           <tr>
+               <td style="font-weight:500; color:#444; vertical-align:top;"><i class="fa-regular fa-calendar" style="color:#E53935; margin-right:4px;"></i> ${i.tanggal}</td>
+               <td style="vertical-align:top; padding-top:15px;">${kolomMedia}</td>
+               <td style="font-weight:bold; color:#E53935; vertical-align:top; line-height:1.4;">${i.agenda}</td>
+               <td style="font-weight:600; color:#555; vertical-align:top;">${i.subjek}</td>
+               <td style="line-height:1.6; text-align:justify; white-space:pre-line; vertical-align:top; padding-right:10px;">${i.kegiatan}</td>
+           </tr>
+       `;
+}).join('');
+
+const totalHal = Math.ceil(dataDokumentasiTersaring.length / barisDokPerHal);
+if (totalHal > 1) {
+let tombolNav = "";
+const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;";
+
+if (halDokSaatIni === 1) {
+tombolNav = `<div style="text-align:right;"><button onclick="navDok(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+} else if (halDokSaatIni === totalHal) {
+tombolNav = `<div style="text-align:left;"><button onclick="navDok(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+} else {
+tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="navDok(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="navDok(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+}
+html += `<tr><td colspan="5" style="padding:15px; background:#f9f9f9;">${tombolNav}</td></tr>`;
+}
+tbody.innerHTML = html;
+}
+
+window.navDok = (dir) => { 
+halDokSaatIni += dir; 
+renderTabelDokumentasi(); 
+setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 100);
+};
+
+/* ==========================================================================
+  8. MODUL KHUSUS: DATABASE ANGGOTA, UMUR JUJUR & FOTO POPUP
+  ========================================================================== */
+const linkTsvAnggota = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR45-ysPdK4uVibwJQbXKvaGGA2zlX3m2GnAS2392fiSDwENSz9ABffImneI-u4ZGmErvHbdM5RJoDi/pub?gid=992968433&single=true&output=tsv";
+let dataAnggotaGlobal = [];
+let dataAnggotaTersaring = [];
+let halAnggotaSaatIni = 1;
+const barisAnggotaPerHal = 7; 
+
+async function loadAnggotaDariDrive() {
+try {
+const response = await fetch(`${linkTsvAnggota}&cache=${new Date().getTime()}`);
+const teksData = await response.text();
+const baris = teksData.split("\n");
+
+dataAnggotaGlobal = [];
+
+for (let i = 1; i < baris.length; i++) {
+const barisBersih = baris[i].trim();
+if (!barisBersih) continue;
+
+const kolom = barisBersih.split("\t");
+
+let nama = kolom[2] ? kolom[2].trim() : "-";         
+let nim = kolom[4] ? kolom[4].trim() : "-";          
+let tglLahirRaw = kolom[6] ? kolom[6].trim() : "";   
+let linkFotoRaw = kolom[13] ? kolom[13].trim() : ""; 
+
+let usiaTeks = "-";
+let tahunLahirInt = 0;
+
+let matchTahun = tglLahirRaw.match(/\b(19\d{2}|20\d{2})\b/);
+if (matchTahun) {
+tahunLahirInt = parseInt(matchTahun[0], 10);
+}
+
+if (tahunLahirInt > 0) {
+let tglInggris = tglLahirRaw.toLowerCase()
+.replace('mei', 'may').replace('agu', 'aug').replace('okt', 'oct').replace('des', 'dec');
+
+let tglLahirObj = new Date(tglInggris);
+let hariIni = new Date();
+let umur = hariIni.getFullYear() - tahunLahirInt;
+
+if (!isNaN(tglLahirObj.getTime())) {
+let bulanSelisih = hariIni.getMonth() - tglLahirObj.getMonth();
+if (bulanSelisih < 0 || (bulanSelisih === 0 && hariIni.getDate() < tglLahirObj.getDate())) {
+umur--; 
+}
+}
+usiaTeks = umur + " Tahun";
+}
+
+if (tahunLahirInt > 0) {
+dataAnggotaGlobal.push({ 
+nim: nim, nama: nama, tahunLahirInt: tahunLahirInt, usia: usiaTeks, foto: linkFotoRaw 
+});
+}
+}
+terapkanFilterAnggota();
+} catch (e) {
+console.error("Gagal memuat database anggota", e);
+const tBody = document.getElementById('data-tabel-anggota');
+if (tBody) tBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red; padding:20px;">Gagal memuat data dari database.</td></tr>`;
+}
+}
+
+window.terapkanFilterAnggota = function() {
+const cariInput = document.getElementById('input-cari-anggota');
+if(!cariInput) return;
+
+const cari = cariInput.value.toLowerCase();
+
+dataAnggotaTersaring = dataAnggotaGlobal.filter(item => {
+return item.nama.toLowerCase().includes(cari) || item.nim.toLowerCase().includes(cari);
+});
+
+halAnggotaSaatIni = 1; 
+renderTabelAnggota();
+}
+
+function renderTabelAnggota() {
+const tbody = document.getElementById('data-tabel-anggota');
+if (!tbody) return;
+
+if (dataAnggotaTersaring.length === 0) {
+tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;"><strong>Data anggota tidak ditemukan.</strong></td></tr>`;
+return;
+}
+
+const start = (halAnggotaSaatIni - 1) * barisAnggotaPerHal;
+const dataPerHalaman = dataAnggotaTersaring.slice(start, start + barisAnggotaPerHal);
+
+let html = dataPerHalaman.map(i => {
+let linkDefaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(i.nama)}&background=E53935&color=fff&size=150&bold=true`;
+let urlFotoTampil = linkDefaultAvatar; 
+
+if (i.foto && i.foto !== "" && i.foto !== "-") {
+let idFile = "";
+if (i.foto.includes("id=")) {
+idFile = i.foto.split("id=")[1].split("&")[0];
+} else if (i.foto.includes("/d/")) {
+idFile = i.foto.split("/d/")[1].split("/")[0];
+}
+
+if (idFile !== "") {
+urlFotoTampil = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`;
+} else if (i.foto.startsWith("http")) {
+urlFotoTampil = i.foto;
+}
+}
+
+let generasi = "-";
+if (i.tahunLahirInt <= 1964) {
+generasi = '<span style="background-color: #5D4037; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; min-width: 85px; text-align: center;">Baby Boomer</span>';
+} else if (i.tahunLahirInt >= 1965 && i.tahunLahirInt <= 1980) {
+generasi = '<span style="background-color: #7B1FA2; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; min-width: 85px; text-align: center;">Gen X</span>';
+} else if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
+generasi = '<span style="background-color: #0288D1; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; min-width: 85px; text-align: center;">Millennial</span>';
+} else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2012) {
+generasi = '<span style="background-color: #388E3C; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; min-width: 85px; text-align: center;">Gen Z</span>';
+} else if (i.tahunLahirInt >= 2013 && i.tahunLahirInt <= 2024) {
+generasi = '<span style="background-color: #F57C00; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; min-width: 85px; text-align: center;">Gen Alpha</span>';
+} else if (i.tahunLahirInt >= 2025) {
+generasi = '<span style="background-color: #D32F2F; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; min-width: 85px; text-align: center;">Gen Beta</span>';
+} 
+
+return `
+           <tr style="height: 90px; vertical-align: middle;"> 
+               <td style="font-size: 14px; font-weight: bold; color: #555;">${i.nim}</td>
+               <td style="padding: 10px 0;">
+                   <img src="${urlFotoTampil}" alt="Foto ${i.nama}" 
+                        style="width: 75px; height: 75px; object-fit: cover; border-radius: 50%; border: 3px solid #E53935; box-shadow: 0 4px 8px rgba(0,0,0,0.15); background-color: #fafafa; display: block; margin: 0 auto; cursor: pointer; position: relative; z-index: 10;" 
+                        onerror="this.src='${linkDefaultAvatar}'"
+                        onclick="event.stopPropagation(); window.bukaFotoFull('${urlFotoTampil}');">
+               </td>
+               <td style="text-align: left; padding-left: 20px; font-size: 15px; font-weight: 600; color: #333;">
+                   <i class="fa-solid fa-user" style="color:#E53935; margin-right:8px; font-size: 13px;"></i> ${i.nama}
+               </td>
+               <td><span class="badge-usia" style="font-size: 13px; font-weight: 600; padding: 4px 10px;">${i.usia}</span></td>
+               <td>${generasi}</td>
+           </tr>
+       `;
+}).join('');
+
+const totalHal = Math.ceil(dataAnggotaTersaring.length / barisAnggotaPerHal);
+if (totalHal > 1) {
+let tombolNav = "";
+const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+
+if (halAnggotaSaatIni === 1) {
+tombolNav = `<div style="text-align:right;"><button onclick="window.navAnggota(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+} else if (halAnggotaSaatIni === totalHal) {
+tombolNav = `<div style="text-align:left;"><button onclick="window.navAnggota(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+} else {
+tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navAnggota(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navAnggota(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+}
+html += `<tr><td colspan="5" style="padding:12px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+}
+tbody.innerHTML = html;
+}
+
+window.navAnggota = function(arah) { 
+halAnggotaSaatIni += arah; 
+renderTabelAnggota(); 
+setTimeout(() => { document.querySelector('.finance-table').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+};
+
+window.bukaFotoFull = function(url) {
+const modal = document.getElementById('modal-foto-full');
+const imgModal = document.getElementById('img-modal-tampil');
+if(modal && imgModal) {
+imgModal.src = url; 
+modal.style.display = 'flex'; 
+} else {
+alert("Kode HTML Popup (modal-foto-full) belum dipasang di file daftar-anggota.html");
+}
+}
+
+window.tutupFoto = function() {
+const modal = document.getElementById('modal-foto-full');
+if(modal) {
+modal.style.display = 'none'; 
+}
+}
+
+/* ==========================================================================
+  9. FUNGSI UTILITAS & PEMBANTU UMUM
+  ========================================================================== */
+function isiDropdown(id, dataArray) {
+const el = document.getElementById(id);
+if (!el) return;
+el.innerHTML = el.options[0].outerHTML; 
+dataArray.forEach(item => {
+let opt = document.createElement("option");
+opt.value = item; 
+opt.text = item;
+el.appendChild(opt);
+});
+}
+
+function formatRupiah(angka) { 
+return 'Rp ' + Math.abs(angka).toLocaleString('id-ID'); 
+}
+
+
+// ==========================================================================
+// LOGIKA PWA MMS 05 - AMAN & ANTI-CRASH (TIDAK MERUSAK KODE LAIN)
+// ==========================================================================
+let pemicuInstal = null;
+const ID_KOTAK_POPUP = 'pwa-install-popup';
+const ID_TOMBOL_INSTAL = 'btn-instal-pwa';
+
+window.addEventListener('beforeinstallprompt', (e) => {
+e.preventDefault();
+pemicuInstal = e;
+
+try {
+if (sessionStorage.getItem('pwa_ditunda') !== 'true') {
+const popup = document.getElementById(ID_KOTAK_POPUP);
+if (popup) popup.style.display = 'block';
+}
+} catch (err) {
+const popup = document.getElementById(ID_KOTAK_POPUP);
+if (popup) popup.style.display = 'block';
+}
+});
+
+const tombolInstal = document.getElementById(ID_TOMBOL_INSTAL);
+if (tombolInstal) {
+tombolInstal.addEventListener('click', async () => {
+if (!pemicuInstal) {
+alert("Silakan klik tombol Titik Tiga di pojok kanan atas browser kamu, lalu pilih 'Tambahkan ke Layar Utama' / 'Instal Aplikasi' ya, Bro!");
+return;
+}
+pemicuInstal.prompt();
+const { outcome } = await pemicuInstal.userChoice;
+if (outcome === 'accepted') {
+tutupPopupInstalMurni();
+}
+pemicuInstal = null;
+});
+}
+
+window.tutupPopupInstal = function() {
+const popup = document.getElementById(ID_KOTAK_POPUP);
+if (popup) {
+popup.style.display = 'none';
+}
+try {
+sessionStorage.setItem('pwa_ditunda', 'true');
+} catch (e) {
+console.log("Session storage tidak diizinkan oleh perangkat, status penundaan diabaikan.");
+}
+};
+
+function tutupPopupInstalMurni() {
+const popup = document.getElementById(ID_KOTAK_POPUP);
+if (popup) {
+popup.style.display = 'none';
+}
+}
+
+window.addEventListener('appinstalled', () => {
+tutupPopupInstalMurni();
+});
+
+
+/* ==========================================================================
+  10. MODAL POP-UP ANNOUNCEMENT (ANTI-JUDI ONLINE)
+  ========================================================================== */
+window.closeModal = function() {
+const modal = document.getElementById('modalOverlay');
+if (modal) {
+modal.classList.remove('active');
+}
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+const modal = document.getElementById('modalOverlay');
+if (modal) {
+setTimeout(function() {
+modal.classList.add('active');
+}, 1000); 
+}
+});
+
+
+/* ==========================================================================
+  11. ENGINE LIVE CHAT REAL-TIME (ANGKRINGAN CHAT MMS 05)
+  ========================================================================== */
+const URL_ENGINE_CHAT_MMS = "https://script.google.com/macros/s/AKfycbwVCoU1UZByMqIcQP3_wxI-fNk_q4PWh4zg3eOykC0KKbvRJhr-F7zK_Z2CKEMm0IgZZw/exec"; 
+let loopPenyegarObrolan = null;
+
+window.toggleKotakChatMMS = function() {
+const kotakChat = document.getElementById("mms-chat-box");
+if (!kotakChat) return;
+
+if (kotakChat.style.display === "none" || kotakChat.style.display === "") {
+kotakChat.style.display = "flex";
+ambilRiwayatChatMMS();
+loopPenyegarObrolan = setInterval(ambilRiwayatChatMMS, 3000); 
+} else {
+kotakChat.style.display = "none";
+clearInterval(loopPenyegarObrolan);
+}
+};
+
+async function ambilRiwayatChatMMS() {
+const wadahTubuhChat = document.getElementById("chat-box-body");
+if (!wadahTubuhChat) return;
+
+try {
+const respon = await fetch(`${URL_ENGINE_CHAT_MMS}?aksi=ambil_chat`);
+const arrayChat = await respon.json();
+
+if (arrayChat.length === 0) {
+wadahTubuhChat.innerHTML = `
+               <div style="text-align:center; color:#7f8c8d; font-size:12px; margin-top:60px; font-weight:500;">
+                   Belum ada obrolan hari ini.<br>Ayo Kita Hujat Pemerintah Teman-Teman 👋
+               </div>`;
+return;
+}
+
+const posisiScrollSudahDiBawah = wadahTubuhChat.scrollHeight - wadahTubuhChat.clientHeight <= wadahTubuhChat.scrollTop + 70;
+
+const susunanHtml = arrayChat.map(item => `
+           <div class="chat-bubble">
+               <span class="chat-sender-name">${item.nama}</span>
+               <span class="chat-text">${item.pesan}</span>
+               <span class="chat-timestamp">${item.waktu}</span>
+           </div>
+       `).join('');
+
+wadahTubuhChat.innerHTML = susunanHtml;
+if (posisiScrollSudahDiBawah) {
+wadahTubuhChat.scrollTop = wadahTubuhChat.scrollHeight;
+}
+} catch (err) {
+console.error("Gagal sinkronisasi data obrolan:", err);
+}
+}
+
+window.kirimPesanChatMMS = async function() {
+const inputNama = document.getElementById("chat-input-nama");
+const inputPesan = document.getElementById("chat-input-pesan");
+
+if (!inputNama || !inputPesan) return;
+
+const stringNama = inputNama.value.trim();
+const stringPesan = inputPesan.value.trim();
+
+if (!stringNama) { 
+alert("Ketikan nama panggilanmu dulu, Bro!"); 
+inputNama.focus(); 
+return; 
+}
+if (!stringPesan) return;
+
+inputPesan.value = "Mengirim...";
+inputPesan.disabled = true;
+
+try {
+await fetch(`${URL_ENGINE_CHAT_MMS}?aksi=kirimChat&nama=${encodeURIComponent(stringNama)}&pesan=${encodeURIComponent(stringPesan)}`, {
+method: "POST"
+});
+inputPesan.value = "";
+inputPesan.disabled = false;
+ambilRiwayatChatMMS();
+inputPesan.focus();
+} catch (error) {
+alert("Koneksi gagal, silakan kirim ulang!");
+inputPesan.value = stringPesan;
+inputPesan.disabled = false;
+}
+};
+
+window.deteksiEnterChatMMS = function(event) {
+if (event.key === "Enter") {
+window.kirimPesanChatMMS();
+}
+};
+
+
+/* ==========================================================================
+  12. FUNGSI GLOBAL PEMBANTU: ENCODER EMBED GOOGLE DRIVE
+  ========================================================================== */
+function konversiUrlDriveUntukEmbed(urlLama) {
+if (urlLama && urlLama.includes('drive.google.com')) {
+let idFile = '';
+if (urlLama.includes('/d/')) {
+idFile = urlLama.split('/d/')[1].split('/')[0];
+} else if (urlLama.includes('id=')) {
+idFile = urlLama.split('id=')[1].split('&')[0];
+}
+if (idFile) return `https://drive.google.com/file/d/${idFile}/preview`;
+}
+return urlLama; 
 }
 
 
 /* ==========================================================================
-   13. BANNER PWA ASLI MMS - VERSI POP-UP KECIL (STABIL & IKUT TURUN)
-   ========================================================================== */
-#pwa-install-popup {
-    display: none; 
-    position: absolute; 
-    top: calc(100% + 15px); 
-    left: 50%;
-    transform: translateX(-50%); 
-    
-    width: 92%; 
-    max-width: 380px; 
-    
-    font-family: sans-serif; 
-    background-color: #ffffff; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-    border-radius: 12px; 
-    padding: 16px; 
-    z-index: 999999 !important; 
-    border-left: 5px solid #E53935; 
-    box-sizing: border-box;
-    transition: top 0.2s ease-in-out; 
-}
-
-@media (min-width: 769px) {
-    #pwa-install-popup {
-        position: fixed !important; 
-        top: 90px !important; 
-        bottom: auto !important;
-        right: 25px !important; 
-        left: auto !important; 
-        transform: none !important; 
-        width: 360px !important; 
-        box-shadow: 0 4px 24px rgba(0,0,0,0.25); 
-    }
-}
-
-.pwa-mms-container {
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
-    margin-bottom: 12px;
-}
-
-.pwa-mms-logo {
-    width: 45px; 
-    height: 45px; 
-    border-radius: 8px;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-.pwa-mms-text-block {
-    display: flex;
-    flex-direction: column;
-}
-
-.pwa-mms-title {
-    margin: 0 !important; 
-    color: #333 !important; 
-    font-size: 14px !important;
-    font-weight: bold;
-    line-height: 1.2;
-}
-
-.pwa-mms-subtitle {
-    margin: 2px 0 0 0 !important; 
-    color: #666 !important; 
-    font-size: 11px !important;
-    line-height: 1.3;
-}
-
-.pwa-mms-buttons {
-    display: flex; 
-    justify-content: flex-end; 
-    gap: 10px;
-}
-
-.pwa-mms-btn-later {
-    background: none !important; 
-    border: none !important; 
-    color: #888 !important; 
-    font-weight: bold !important; 
-    cursor: pointer; 
-    padding: 8px 12px; 
-    font-size: 13px;
-    outline: none;
-}
-
-.pwa-mms-btn-install {
-    background-color: #E53935 !important; 
-    border: none !important; 
-    color: white !important; 
-    font-weight: bold !important; 
-    padding: 8px 16px; 
-    border-radius: 6px; 
-    cursor: pointer; 
-    font-size: 13px; 
-    box-shadow: 0 2px 5px rgba(229,57,53,0.3);
-    transition: background-color 0.2s;
-}
-
-.pwa-mms-btn-install:hover {
-    background-color: #d32f2f !important;
-}
-
-
-/* ==========================================================================
-   GAYA UNTUK MODAL POP-UP ANTI-JUDOL (KUNCI TOTAL DARI ZOOM HP)
-   ========================================================================== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw; 
-  height: 100vh; 
-  background-color: rgba(0, 0, 0, 0.7); 
-  backdrop-filter: blur(8px); 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999999 !important; 
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
-  touch-action: none; 
-}
-
-.modal-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal-content {
-  background-color: #ffffff;
-  width: 90%;
-  max-width: 440px; 
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  touch-action: manipulation; 
-}
-
-.modal-image {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  max-height: 60vh; 
-  display: block;
-  object-fit: contain; 
-}
-
-.modal-header {
-  position: relative;
-  height: 30px;
-}
-
-.modal-close-x {
-  position: absolute;
-  top: 5px;
-  right: 15px;
-  font-size: 28px;
-  color: #aaa;
-  cursor: pointer;
-  z-index: 10001;
-}
-
-.modal-close-x:hover {
-  color: #333;
-}
-
-.modal-cta-container {
-  padding: 15px 20px 10px;
-  text-align: center;
-}
-
-.modal-cta-text {
-  font-family: sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  color: #E53935; 
-  margin: 0;
-}
-
-.modal-footer {
-  padding: 10px 20px 20px;
-  text-align: center;
-  border-top: 1px solid #f0f0f0;
-}
-
-.modal-info-text {
-  font-size: 11px;
-  color: #888;
-  margin: 0 0 15px;
-}
-
-.modal-close-btn {
-  background-color: #ffffff;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 13px;
-  color: #4a4a4a;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: auto;
-  margin: 0 auto;
-}
-
-.modal-close-btn span {
-  font-size: 18px;
-  line-height: 1;
-}
-
-.modal-close-btn:hover {
-  background-color: #f7f7f7;
-}
-
-@media (max-width: 480px) {
-  .modal-content {
-    width: 88%; 
-  }
-}
-
-
-/* ==========================================================================
-   KUSTOM TAMBAHAN: HALAMAN ARSIP & PEMBACA PDF HASIL LOMBA
-   ========================================================================== */
-.lomba-viewer-hide {
-    display: none; 
-    border-top: 2px dashed #eee; 
-    padding-top: 25px;
-    animation: fadeInLomba 0.4s ease-in-out;
-}
-
-.pdf-viewer-control-bar {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    margin-bottom: 15px;
-}
-
-.pdf-viewer-title-text {
-    font-size: 16px; 
-    font-weight: bold; 
-    color: #333; 
-    margin: 0;
-}
-
-@keyframes fadeInLomba {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@media screen and (max-width: 768px) {
-    .pdf-viewer-control-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-    .pdf-viewer-control-bar div {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-}
-
-
-/* ==========================================================================
-   13. MODUL ARSIP DATA LOMBA REAL-TIME (SISTEM PAGINATION MERAH TABEL FIX)
-   ========================================================================== */
+  13. MODUL ARSIP DATA LOMBA REAL-TIME (BEBAS TABRAKAN)
+  ========================================================================== */
 const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
 const SHEET_NAME_LOMBA = 'Form Responses 1'; 
 
-let semuaDataLomba = [], dataLombaTersaring = []; const BARIS_LOMBA_PER_HALAMAN = 5; let halamanLombaSaatIni = 1; 
+let semuaDataLomba = [];
+let dataLombaTersaring = []; 
+
+const BARIS_LOMBA_PER_HALAMAN = 5;
+let halamanLombaSaatIni = 1; 
 
 function ambilDataGoogleSheets() {
-    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LOMBA}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LOMBA)}`;
-    fetch(url).then(res => res.text()).then(data => {
-        const jsonPembersihLomba = JSON.parse(data.substr(47).slice(0, -2)), barisDataLomba = jsonPembersihLomba.table.rows;
-        semuaDataLomba = []; const setTahunLomba = new Set();
-        for (let i = 1; i < barisDataLomba.length; i++) {
-            const baris = barisDataLomba[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
-                let thn = tgl.split('/')[2] || 'Umum';
-                semuaDataLomba.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
-                if (thn !== 'Umum' && !isNaN(thn)) setTahunLomba.add(thn);
-            }
-        }
-        semuaDataLomba.reverse(); dataLombaTersaring = [...semuaDataLomba];
-        const selLomba = document.getElementById('filter-lomba-tahun');
-        if (selLomba) { selLomba.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahunLomba).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; selLomba.appendChild(opt); }); }
-        halamanLombaSaatIni = 1; tampilkanDataLombaKeTabel();
-    }).catch(err => console.error(err));
+const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LOMBA}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LOMBA)}`;
+
+fetch(url)
+.then(res => res.text())
+.then(data => {
+const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2));
+const barisData = jsonPembersih.table.rows;
+
+semuaDataLomba = [];
+const setTahun = new Set();
+
+for (let i = 1; i < barisData.length; i++) {
+const baris = barisData[i];
+
+if (baris && baris.c && baris.c[2]) {
+                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggalRaw = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggal = teksTanggalRaw.trim();
+
+let angkaTahun = 'Umum';
+if (teksTanggal && teksTanggal !== '-') {
+const pecahan = teksTanggal.split('/');
+if (pecahan.length >= 3) {
+angkaTahun = pecahan[2].trim(); 
+}
+}
+
+const dataItem = {
+tanggal: teksTanggal,
+tahun: angkaTahun, 
+nama: baris.c[2] ? String(baris.c[2].v) : '-',
+kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', 
+urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
+};
+
+semuaDataLomba.push(dataItem);
+if (angkaTahun && angkaTahun !== 'Umum' && !isNaN(angkaTahun)) {
+setTahun.add(angkaTahun);
+}
+}
+}
+
+semuaDataLomba.reverse();
+dataLombaTersaring = [...semuaDataLomba];
+
+const selectTahun = document.getElementById('filter-lomba-tahun');
+if (selectTahun) {
+selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
+Array.from(setTahun).sort().reverse().forEach(th => {
+const opt = document.createElement('option');
+opt.value = th;
+opt.textContent = th;
+selectTahun.appendChild(opt);
+});
+}
+
+halamanLombaSaatIni = 1;
+tampilkanDataLombaKeTabel();
+})
+.catch(err => {
+console.error("Gagal memuat arsip data lomba:", err);
+const tbody = document.getElementById('data-tabel-lomba');
+if (tbody) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #d32f2f;"><i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat data.</td></tr>`;
+}
+});
 }
 
 function tampilkanDataLombaKeTabel() {
-    const tbodyLomba = document.getElementById('data-tabel-lomba'); if (!tbodyLomba) return;
-    if (dataLombaTersaring.length === 0) { tbodyLomba.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada berkas arsip lomba.</td></tr>`; return; }
-    const startLomba = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN, pageDataLomba = dataLombaTersaring.slice(startLomba, startLomba + BARIS_LOMBA_PER_HALAMAN);
+const tbody = document.getElementById('data-tabel-lomba');
+if (!tbody) return;
 
-    let htmlLomba = pageDataLomba.map(item => {
-        let warnaBadge = item.kategori.toLowerCase().includes('anak') ? '#388E3C' : (item.kategori.toLowerCase().includes('remaja') ? '#F57C00' : '#0288D1');
-        let btnLomba = item.urlDrive ? `<button class="btn-nav-aktif" onclick="bukaPdfViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
-        return `<tr><td>${item.tanggal}</td><td style="font-weight:bold;">${item.nama}</td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${item.kategori}</span></td><td style="text-align:center;">${btnLomba}</td></tr>`;
-    }).join('');
+tbody.innerHTML = '';
 
-    const totalHalamanLomba = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
-    if (totalHalamanLomba > 1) {
-        let navHTMLLomba = ""; 
-        if (halamanLombaSaatIni === 1) {
-            navHTMLLomba = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:right;"><button class="btn-nav-aktif" onclick="window.navLombaManual(1)">Halaman Selanjutnya ></button></td>`;
-        } else if (halamanLombaSaatIni === totalHalamanLomba) {
-            navHTMLLomba = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:left;"><button class="btn-nav-aktif" onclick="window.navLombaManual(-1)">< Halaman Sebelumnya</button></td>`;
-        } else {
-            navHTMLLomba = `<td colspan="4" style="padding:15px; background:#f9f9f9;"><div style="display:flex; justify-content:space-between; width:100%;"><button class="btn-nav-aktif" onclick="window.navLombaManual(-1)">< Halaman Sebelumnya</button><button class="btn-nav-aktif" onclick="window.navLombaManual(1)">Halaman Selanjutnya ></button></div></td>`;
-        }
-        htmlLomba += `<tr>${navHTMLLomba}</tr>`;
-    }
-    tbodyLomba.innerHTML = htmlLomba;
+if (dataLombaTersaring.length === 0) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #777;">Tidak ada berkas arsip lomba yang cocok.</td></tr>`;
+perbaruiTombolNavigasiLomba(0);
+return;
 }
-window.navLombaManual = function(dir) { halamanLombaSaatIni += dir; tampilkanDataLombaKeTabel(); };
-window.halamanSebelumnya = function() { window.navLombaManual(1); };
-window.halamanTerbaru = function() { window.navLombaManual(-1); };
+
+const indeksAwal = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN;
+const indeksAkhir = indeksAwal + BARIS_LOMBA_PER_HALAMAN;
+const dataHalamanAktif = dataLombaTersaring.slice(indeksAwal, indeksAkhir);
+
+dataHalamanAktif.forEach(item => {
+const tr = document.createElement('tr');
+
+let warnaBadge = '#0288D1'; 
+if(item.kategori.toLowerCase().includes('anak')) {
+warnaBadge = '#388E3C'; 
+} else if(item.kategori.toLowerCase().includes('remaja') || item.kategori.toLowerCase().includes('muda')) {
+warnaBadge = '#F57C00'; 
+}
+
+let tombolAksi = item.urlDrive ? `
+           <button class="btn-cetak-mutasi" onclick="bukaPdfViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
+               <i class="fa-solid fa-eye"></i> Lihat PDF
+           </button>
+       ` : `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
+
+tr.innerHTML = `
+           <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
+           <td style="font-weight: bold; color: #333;">${item.nama}</td>
+           <td><span style="background-color: ${warnaBadge}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold;">${item.kategori}</span></td>
+           <td style="text-align: center;">${tombolAksi}</td>
+       `;
+tbody.appendChild(tr);
+});
+
+perbaruiTombolNavigasiLomba(dataLombaTersaring.length);
+}
+
+function perbaruiTombolNavigasiLomba(totalData) {
+const totalHalaman = Math.ceil(totalData / BARIS_LOMBA_PER_HALAMAN) || 1;
+const infoHalaman = document.getElementById('info-halaman-tabel');
+if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanLombaSaatIni} dari ${totalHalaman}`;
+
+const btnTerbaru = document.getElementById('btn-halaman-terbaru');
+    if (btnTerbaru) btnTerbaru.style.display = (halamanLombaSaatIni > 1) ? 'inline-flex' : 'none';
+    if (btnTerbaru) {
+        btnTerbaru.style.display = 'inline-flex';
+        if (halamanLombaSaatIni > 1) {
+            btnTerbaru.disabled = false;
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.disabled = true;
+            btnTerbaru.style.backgroundColor = '#555';
+        }
+    }
+
+const btnSebelumnya = document.getElementById('btn-halaman-sebelumnya');
+    if (btnSebelumnya) btnSebelumnya.style.display = (halamanLombaSaatIni < totalHalaman) ? 'inline-flex' : 'none';
+    if (btnSebelumnya) {
+        btnSebelumnya.style.display = 'inline-flex';
+        if (halamanLombaSaatIni < totalHalaman) {
+            btnSebelumnya.disabled = false;
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.disabled = true;
+            btnSebelumnya.style.backgroundColor = '#555';
+        }
+    }
+}
+
+window.halamanSebelumnya = function() {
+const totalHalaman = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
+if (halamanLombaSaatIni < totalHalaman) {
+halamanLombaSaatIni++;
+tampilkanDataLombaKeTabel();
+}
+}
+
+window.halamanTerbaru = function() {
+if (halamanLombaSaatIni > 1) {
+halamanLombaSaatIni--;
+tampilkanDataLombaKeTabel();
+}
+}
 
 window.terapkanFilterLomba = function() {
-    const yearLomba = document.getElementById('filter-lomba-tahun')?.value || 'Semua', keyLomba = document.getElementById('input-cari-lomba')?.value.toLowerCase() || '';
-    dataLombaTersaring = semuaDataLomba.filter(i => (yearLomba === 'Semua' || i.tahun === yearLomba) && (i.nama.toLowerCase().includes(keyLomba) || i.kategori.toLowerCase().includes(keyLomba)));
-    halamanLombaSaatIni = 1; tampilkanDataLombaKeTabel();
-};
+const selectTahun = document.getElementById('filter-lomba-tahun');
+const inputCari = document.getElementById('input-cari-lomba');
+
+    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
+    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+    const yearSelect = selectTahun ? selectTahun.value : 'Semua';
+    const searchKeyword = inputCari ? inputCari.value.toLowerCase() : '';
+
+dataLombaTersaring = semuaDataLomba.filter(item => {
+        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
+        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
+                              item.kategori.toLowerCase().includes(kataKunciCari) ||
+                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
+                              item.tahun.includes(kataKunciCari);
+        const cocokTahun = (yearSelect === 'Semua' || item.tahun === yearSelect);
+        const cocokKataKunci = item.nama.toLowerCase().includes(searchKeyword) || 
+                              item.kategori.toLowerCase().includes(searchKeyword) ||
+                              item.tanggal.toLowerCase().includes(searchKeyword) ||
+                              item.tahun.includes(searchKeyword);
+return cocokTahun && cocokKataKunci;
+});
+
+halamanLombaSaatIni = 1;
+tampilkanDataLombaKeTabel();
+}
 
 window.bukaPdfViewer = function(urlAsli) {
-    const urlEmbedLomba = konversiUrlDriveUntukEmbed(urlAsli); const iframeLomba = document.getElementById('pdf-iframe'); if (iframeLomba) iframeLomba.src = urlEmbedLomba;
-    const panelViewerLomba = document.getElementById('pdf-viewer-section'); if (panelViewerLomba) { panelViewerLomba.style.display = 'block'; panelViewerLomba.scrollIntoView({ behavior: 'smooth' }); }
+const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
+const iframe = document.getElementById('pdf-iframe');
+const btnUnduh = document.getElementById('btn-unduh-pdf');
+const panelViewer = document.getElementById('pdf-viewer-section');
+
+if (iframe) iframe.src = urlEmbed;
+if (btnUnduh) btnUnduh.href = urlAsli;
+if (panelViewer) {
+panelViewer.style.display = 'block';
+panelViewer.scrollIntoView({ behavior: 'smooth' });
 }
+}
+
 window.tutupPdfViewer = function() {
-    const panelViewerLomba = document.getElementById('pdf-viewer-section'); const iframeLomba = document.getElementById('pdf-iframe');
-    if (panelViewerLomba) panelViewerLomba.style.display = 'none'; if (iframeLomba) iframeLomba.src = '';
+const panelViewer = document.getElementById('pdf-viewer-section');
+const iframe = document.getElementById('pdf-iframe');
+if (panelViewer) panelViewer.style.display = 'none';
+if (iframe) iframe.src = '';
 }
 
 
 /* ==========================================================================
-   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (SISTEM PAGINATION MERAH TABEL FIX)
+   14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
    ========================================================================== */
-const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; const SHEET_NAME_PROPOSAL = 'Form Responses 1'; 
-let semuaDataProposal = [], dataProposalTersaring = []; const BARIS_PROPOSAL_PER_HALAMAN = 5; let halamanProposalSaatIni = 1; 
+/* ==========================================================================
+  14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
+  ========================================================================== */
+const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; 
+const SHEET_NAME_PROPOSAL = 'Form Responses 1'; 
+
+let semuaDataProposal = [];
+let dataProposalTersaring = []; 
+
+const BARIS_PROPOSAL_PER_HALAMAN = 5;
+let halamanProposalSaatIni = 1; 
 
 function ambilDataProposalGoogleSheets() {
-    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_PROPOSAL}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_PROPOSAL)}`;
-    fetch(url).then(res => res.text()).then(data => {
-        const jsonPembersihProp = JSON.parse(data.substr(47).slice(0, -2)), barisDataProp = jsonPembersihProp.table.rows;
-        semuaDataProposal = []; const setTahunProp = new Set();
-        for (let i = 1; i < barisDataProp.length; i++) {
-            const baris = barisDataProp[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
-                let thn = tgl.split('/')[2] ? tgl.split('/')[2].substring(0,4) : 'Umum';
-                semuaDataProposal.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
-                if (thn !== 'Umum' && !isNaN(thn)) setTahunProp.add(thn);
-            }
-        }
-        semuaDataProposal.reverse(); dataProposalTersaring = [...semuaDataProposal];
-        const selProp = document.getElementById('filter-proposal-tahun');
-        if (selProp) { selProp.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahunProp).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; selProp.appendChild(opt); }); }
-        halamanProposalSaatIni = 1; tampilkanDataProposalKeTabel();
-    }).catch(err => console.error(err));
+const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_PROPOSAL}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_PROPOSAL)}`;
+
+fetch(url)
+.then(res => res.text())
+.then(data => {
+const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2));
+const barisData = jsonPembersih.table.rows;
+
+semuaDataProposal = [];
+const setTahun = new Set();
+
+            // i dimulai dari 0 agar baris data pertama Google Sheet tidak terlewat
+            for (let i = 0; i < barisData.length; i++) {
+            for (let i = 1; i < barisData.length; i++) {
+const baris = barisData[i];
+
+                // Memastikan baris data ada dan kolom tanggal (Indeks 1 / Kolom B) tidak kosong
+                if (baris && baris.c && baris.c[1]) {
+                    // Kolom B (Indeks 1) = tanggal
+                    const teksTanggal = String(baris.c[1].f || baris.c[1].v || '-');
+                if (baris && baris.c && baris.c[2]) {
+                    const teksTanggalRaw = baris.c[1] ? String(baris.c[1].f || baris.c[1].v || '-') : '-';
+                    const teksTanggal = teksTanggalRaw.trim();
+
+let angkaTahun = 'Umum';
+if (teksTanggal && teksTanggal !== '-') {
+const pecahan = teksTanggal.split('/');
+                        // Perbaikan typo dari 'pecapan' menjadi 'pecahan'
+if (pecahan.length >= 3) {
+angkaTahun = pecahan[2].trim().substring(0, 4); 
+}
+}
+
+const dataItem = {
+tanggal: teksTanggal,
+tahun: angkaTahun, 
+                        nama: baris.c[2] ? String(baris.c[2].v) : '-',       // Kolom C (Indeks 2) = keterangan
+                        kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', // Kolom D (Indeks 3) = kategori
+                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''     // Kolom E (Indeks 4) = upload file proposal
+                        nama: baris.c[2] ? String(baris.c[2].v) : '-',       
+                        kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', 
+                        urlDrive: baris.c[4] ? String(baris.c[4].v) : ''     
+};
+
+semuaDataProposal.push(dataItem);
+if (angkaTahun && angkaTahun !== 'Umum' && !isNaN(angkaTahun)) {
+setTahun.add(angkaTahun);
+}
+}
+}
+
+semuaDataProposal.reverse();
+dataProposalTersaring = [...semuaDataProposal];
+
+const selectTahun = document.getElementById('filter-proposal-tahun');
+if (selectTahun) {
+selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
+Array.from(setTahun).sort().reverse().forEach(th => {
+const opt = document.createElement('option');
+opt.value = th;
+opt.textContent = th;
+selectTahun.appendChild(opt);
+});
+}
+
+halamanProposalSaatIni = 1;
+tampilkanDataProposalKeTabel();
+})
+.catch(err => {
+console.error("Gagal memuat arsip data proposal:", err);
+const tbody = document.getElementById('data-tabel-proposal');
+if (tbody) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #d32f2f;"><i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat data proposal.</td></tr>`;
+}
+});
 }
 
 function tampilkanDataProposalKeTabel() {
-    const tbodyProp = document.getElementById('data-tabel-proposal'); if (!tbodyProp) return;
-    if (dataProposalTersaring.length === 0) { tbodyProp.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada berkas proposal.</td></tr>`; return; }
-    const startProp = (halamanProposalSaatIni - 1) * BARIS_PROPOSAL_PER_HALAMAN, pageDataProp = dataProposalTersaring.slice(startProp, startProp + BARIS_PROPOSAL_PER_HALAMAN);
+const tbody = document.getElementById('data-tabel-proposal');
+if (!tbody) return;
 
-    let htmlProp = pageDataProp.map(item => {
-        let warnaBadge = item.kategori.toLowerCase().includes('bantuan') ? '#388E3C' : '#F57C00';
-        let btnProp = item.urlDrive ? `<button class="btn-nav-aktif" onclick="window.bukaProposalViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
-        return `<tr><td>${item.tanggal}</td><td style="font-weight:bold;">${item.nama}</td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${item.kategori}</span></td><td style="text-align:center;">${btnProp}</td></tr>`;
-    }).join('');
+tbody.innerHTML = '';
 
-    const totalHalamanProp = Math.ceil(dataProposalTersaring.length / BARIS_PROPOSAL_PER_HALAMAN);
-    if (totalHalamanProp > 1) {
-        let navHTMLProp = ""; 
-        if (halamanProposalSaatIni === 1) {
-            navHTMLProp = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:right;"><button class="btn-nav-aktif" onclick="window.navProposalManual(1)">Halaman Selanjutnya ></button></td>`;
-        } else if (halamanProposalSaatIni === totalHalamanProp) {
-            navHTMLProp = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:left;"><button class="btn-nav-aktif" onclick="window.navProposalManual(-1)">< Halaman Sebelumnya</button></td>`;
-        } else {
-            navHTMLProp = `<td colspan="4" style="padding:15px; background:#f9f9f9;"><div style="display:flex; justify-content:space-between; width:100%;"><button class="btn-nav-aktif" onclick="window.navProposalManual(-1)">< Halaman Sebelumnya</button><button class="btn-nav-aktif" onclick="window.navProposalManual(1)">Halaman Selanjutnya ></button></div></td>`;
-        }
-        htmlProp += `<tr>${navHTMLProp}</tr>`;
-    }
-    tbodyProp.innerHTML = htmlProp;
+if (dataProposalTersaring.length === 0) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #777;">Tidak ada berkas arsip proposal yang cocok.</td></tr>`;
+perbaruiTombolNavigasiProposal(0);
+return;
 }
-window.navProposalManual = function(dir) { halamanProposalSaatIni += dir; tampilkanDataProposalKeTabel(); };
-window.halamanSebelumnyaProposal = function() { window.navProposalManual(1); };
-window.halamanTerbaruProposal = function() { window.navProposalManual(-1); };
+
+const indeksAwal = (halamanProposalSaatIni - 1) * BARIS_PROPOSAL_PER_HALAMAN;
+const indeksAkhir = indeksAwal + BARIS_PROPOSAL_PER_HALAMAN;
+const dataHalamanAktif = dataProposalTersaring.slice(indeksAwal, indeksAkhir);
+
+dataHalamanAktif.forEach(item => {
+const tr = document.createElement('tr');
+
+let warnaBadge = '#0288D1'; 
+if(item.kategori.toLowerCase().includes('bantuan') || item.kategori.toLowerCase().includes('dana')) {
+warnaBadge = '#388E3C'; 
+} else if(item.kategori.toLowerCase().includes('kegiatan') || item.kategori.toLowerCase().includes('acara')) {
+warnaBadge = '#F57C00'; 
+}
+
+let tombolAksi = item.urlDrive ? `
+           <button class="btn-cetak-mutasi" onclick="bukaProposalViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
+               <i class="fa-solid fa-eye"></i> Lihat PDF
+           </button>
+       ` : `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
+
+tr.innerHTML = `
+           <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
+           <td style="font-weight: bold; color: #333;">${item.nama}</td>
+           <td><span style="background-color: ${warnaBadge}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold;">${item.kategori}</span></td>
+           <td style="text-align: center;">${tombolAksi}</td>
+       `;
+tbody.appendChild(tr);
+});
+
+perbaruiTombolNavigasiProposal(dataProposalTersaring.length);
+}
+
+function perbaruiTombolNavigasiProposal(totalData) {
+const totalHalaman = Math.ceil(totalData / BARIS_PROPOSAL_PER_HALAMAN) || 1;
+const infoHalaman = document.getElementById('info-halaman-proposal');
+if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanProposalSaatIni} dari ${totalHalaman}`;
+
+const btnTerbaru = document.getElementById('btn-prop-terbaru');
+    if (btnTerbaru) btnTerbaru.style.display = (halamanProposalSaatIni > 1) ? 'inline-flex' : 'none';
+    if (btnTerbaru) {
+        btnTerbaru.style.display = 'inline-flex';
+        if (halamanProposalSaatIni > 1) {
+            btnTerbaru.disabled = false;
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.disabled = true;
+            btnTerbaru.style.backgroundColor = '#555';
+        }
+    }
+
+const btnSebelumnya = document.getElementById('btn-prop-sebelumnya');
+    if (btnSebelumnya) btnSebelumnya.style.display = (halamanProposalSaatIni < totalHalaman) ? 'inline-flex' : 'none';
+    if (btnSebelumnya) {
+        btnSebelumnya.style.display = 'inline-flex';
+        if (halamanProposalSaatIni < totalHalaman) {
+            btnSebelumnya.disabled = false;
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.disabled = true;
+            btnSebelumnya.style.backgroundColor = '#555';
+        }
+    }
+}
+
+window.halamanSebelumnyaProposal = function() {
+const totalHalaman = Math.ceil(dataProposalTersaring.length / BARIS_PROPOSAL_PER_HALAMAN);
+if (halamanProposalSaatIni < totalHalaman) {
+halamanProposalSaatIni++;
+tampilkanDataProposalKeTabel();
+}
+}
+
+window.halamanTerbaruProposal = function() {
+if (halamanProposalSaatIni > 1) {
+halamanProposalSaatIni--;
+tampilkanDataProposalKeTabel();
+}
+}
 
 window.terapkanFilterProposal = function() {
-    const yearProp = document.getElementById('filter-proposal-tahun')?.value || 'Semua', keyProp = document.getElementById('input-cari-proposal')?.value.toLowerCase() || '';
-    dataProposalTersaring = semuaDataProposal.filter(i => (yearProp === 'Semua' || i.tahun === yearProp) && (i.nama.toLowerCase().includes(keyProp) || i.kategori.toLowerCase().includes(keyProp)));
-    halamanProposalSaatIni = 1; tampilkanDataProposalKeTabel();
-};
+const selectTahun = document.getElementById('filter-proposal-tahun');
+const inputCari = document.getElementById('input-cari-proposal');
 
-window.bukaProposalViewer = function(urlAsli) { 
-    const urlEmbedProp = konversiUrlDriveUntukEmbed(urlAsli); const iframeProp = document.getElementById('proposal-iframe'); if (iframeProp) iframeProp.src = urlEmbedProp; 
-    const panelProp = document.getElementById('proposal-viewer-section'); if (panelProp) { panelProp.style.display = 'block'; panelProp.scrollIntoView({ behavior: 'smooth' }); } 
+    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
+    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+    const yearSelect = selectTahun ? selectTahun.value : 'Semua';
+    const searchKeyword = inputCari ? inputCari.value.toLowerCase() : '';
+
+dataProposalTersaring = semuaDataProposal.filter(item => {
+        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
+        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
+                              item.kategori.toLowerCase().includes(kataKunciCari) ||
+                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
+                              item.tahun.includes(kataKunciCari);
+        const cocokTahun = (yearSelect === 'Semua' || item.tahun === yearSelect);
+        const cocokKataKunci = item.nama.toLowerCase().includes(searchKeyword) || 
+                              item.kategori.toLowerCase().includes(searchKeyword) ||
+                              item.tanggal.toLowerCase().includes(searchKeyword) ||
+                              item.tahun.includes(searchKeyword);
+return cocokTahun && cocokKataKunci;
+});
+
+halamanProposalSaatIni = 1;
+tampilkanDataProposalKeTabel();
 }
-window.tutupProposalViewer = function() { 
-    const panelProp = document.getElementById('proposal-viewer-section'); if (panelProp) panelProp.style.display = 'none'; 
-    const iframeProp = document.getElementById('proposal-iframe'); if (iframeProp) iframeProp.src = ''; 
+
+window.bukaProposalViewer = function(urlAsli) {
+const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
+const iframe = document.getElementById('proposal-iframe');
+const btnUnduh = document.getElementById('btn-unduh-proposal');
+const panelViewer = document.getElementById('proposal-viewer-section');
+
+if (iframe) iframe.src = urlEmbed;
+if (btnUnduh) btnUnduh.href = urlAsli;
+if (panelViewer) {
+panelViewer.style.display = 'block';
+panelViewer.scrollIntoView({ behavior: 'smooth' });
+}
+}
+
+window.tutupProposalViewer = function() {
+const panelViewer = document.getElementById('proposal-viewer-section');
+const iframe = document.getElementById('proposal-iframe');
+if (panelViewer) panelViewer.style.display = 'none';
+if (iframe) iframe.src = '';
 }
 
 
 /* ==========================================================================
-   15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (SISTEM PAGINATION MERAH TABEL FIX)
-   ========================================================================== */
-const SPREADSHEET_ID_SURAT = '1ILm2T8ed5oJ85cU2YzTiDHnHlGgtMjVoKYmhSxFF2PQ'; const SHEET_NAME_SURAT = 'Form Responses 1'; 
-let semuaDataSurat = [], dataSuratTersaring = []; const BARIS_SURAT_PER_HALAMAN = 5; let halamanSuratSaatIni = 1; 
+  15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (BEBAS BENTROK)
+  ========================================================================== */
+const SPREADSHEET_ID_SURAT = '1ILm2T8ed5oJ85cU2YzTiDHnHlGgtMjVoKYmhSxFF2PQ'; 
+const SHEET_NAME_SURAT = 'Form Responses 1'; 
+
+let semuaDataSurat = [];
+let dataSuratTersaring = []; 
+
+const BARIS_SURAT_PER_HALAMAN = 5;
+let halamanSuratSaatIni = 1; 
 
 function ambilDataSuratGoogleSheets() {
-    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_SURAT}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_SURAT)}`;
-    fetch(url).then(res => res.text()).then(data => {
-        const jsonPembersihSurat = JSON.parse(data.substr(47).slice(0, -2)), barisDataSurat = jsonPembersihSurat.table.rows;
-        semuaDataSurat = []; const setTahunSurat = new Set();
-        for (let i = 1; i < barisDataSurat.length; i++) {
-            const baris = barisDataSurat[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
-                let thn = tgl.split('/')[2] || 'Umum';
-                semuaDataSurat.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
-                if (thn !== 'Umum' && !isNaN(thn)) setTahunSurat.add(thn);
-            }
-        }
-        semuaDataSurat.reverse(); dataSuratTersaring = [...semuaDataSurat];
-        const selSurat = document.getElementById('filter-surat-tahun');
-        if (selSurat) { selSurat.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahunSurat).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; selSurat.appendChild(opt); }); }
-        halamanSuratSaatIni = 1; tampilkanDataSuratKeTabel();
-    }).catch(err => console.error(err));
+const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_SURAT}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_SURAT)}`;
+
+fetch(url)
+.then(res => res.text())
+.then(data => {
+const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2));
+const barisData = jsonPembersih.table.rows;
+
+semuaDataSurat = [];
+const setTahun = new Set();
+
+for (let i = 1; i < barisData.length; i++) {
+const baris = barisData[i];
+
+if (baris && baris.c && baris.c[2]) {
+                    const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggalRaw = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                    const teksTanggal = teksTanggalRaw.trim();
+
+let angkaTahun = 'Umum';
+if (teksTanggal && teksTanggal !== '-') {
+const pecahan = teksTanggal.split('/');
+if (pecahan.length >= 3) {
+angkaTahun = pecahan[2].trim(); 
+}
+}
+
+const dataItem = {
+tanggal: teksTanggal,
+tahun: angkaTahun, 
+nama: baris.c[2] ? String(baris.c[2].v) : '-',
+kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', 
+urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
+};
+
+semuaDataSurat.push(dataItem);
+if (angkaTahun && angkaTahun !== 'Umum' && !isNaN(angkaTahun)) {
+setTahun.add(angkaTahun);
+}
+}
+}
+
+semuaDataSurat.reverse();
+dataSuratTersaring = [...semuaDataSurat];
+
+const selectTahun = document.getElementById('filter-surat-tahun');
+if (selectTahun) {
+selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
+Array.from(setTahun).sort().reverse().forEach(th => {
+const opt = document.createElement('option');
+opt.value = th;
+opt.textContent = th;
+selectTahun.appendChild(opt);
+});
+}
+
+halamanSuratSaatIni = 1;
+tampilkanDataSuratKeTabel();
+})
+.catch(err => {
+console.error("Gagal memuat arsip data surat:", err);
+const tbody = document.getElementById('data-tabel-surat');
+if (tbody) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #d32f2f;"><i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat data surat.</td></tr>`;
+}
+});
 }
 
 function tampilkanDataSuratKeTabel() {
-    const tbodySurat = document.getElementById('data-tabel-surat'); if (!tbodySurat) return;
-    if (dataSuratTersaring.length === 0) { tbodySurat.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada log data surat.</td></tr>`; return; }
-    const startSurat = (halamanSuratSaatIni - 1) * BARIS_SURAT_PER_HALAMAN, pageDataSurat = dataSuratTersaring.slice(startSurat, startSurat + BARIS_SURAT_PER_HALAMAN);
+const tbody = document.getElementById('data-tabel-surat');
+if (!tbody) return;
 
-    let htmlSurat = pageDataSurat.map(item => {
-        let warnaBadge = (item.kategori.toLowerCase().includes('masuk') || item.kategori.toLowerCase().includes('in')) ? '#388E3C' : '#D32F2F';
-        let btnSurat = item.urlDrive ? `<button class="btn-nav-aktif" onclick="window.bukaSuratViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
-        return `<tr><td>${item.tanggal}</td><td style="font-weight:bold;">${item.nama}</td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${item.kategori}</span></td><td style="text-align:center;">${btnSurat}</td></tr>`;
-    }).join('');
+tbody.innerHTML = '';
 
-    const totalHalamanSurat = Math.ceil(dataSuratTersaring.length / BARIS_SURAT_PER_HALAMAN);
-    if (totalHalamanSurat > 1) {
-        let navHTMLSurat = ""; 
-        if (halamanSuratSaatIni === 1) {
-            navHTMLSurat = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:right;"><button class="btn-nav-aktif" onclick="window.navSuratManual(1)">Halaman Selanjutnya ></button></td>`;
-        } else if (halamanSuratSaatIni === totalHalamanSurat) {
-            navHTMLSurat = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:left;"><button class="btn-nav-aktif" onclick="window.navSuratManual(-1)">< Halaman Sebelumnya</button></td>`;
-        } else {
-            navHTMLSurat = `<td colspan="4" style="padding:15px; background:#f9f9f9;"><div style="display:flex; justify-content:space-between; width:100%;"><button class="btn-nav-aktif" onclick="window.navSuratManual(-1)">< Halaman Sebelumnya</button><button class="btn-nav-aktif" onclick="window.navSuratManual(1)">Halaman Selanjutnya ></button></div></td>`;
-        }
-        htmlSurat += `<tr>${navHTMLSurat}</tr>`;
-    }
-    tbodySurat.innerHTML = htmlSurat;
+if (dataSuratTersaring.length === 0) {
+tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #777;">Tidak ada log data surat yang ditemukan.</td></tr>`;
+perbaruiTombolNavigasiSurat(0);
+return;
 }
-window.navSuratManual = function(dir) { halamanSuratSaatIni += dir; tampilkanDataSuratKeTabel(); };
-window.halamanSebelumnyaSurat = function() { window.navSuratManual(1); };
-window.halamanTerbaruSurat = function() { window.navSuratManual(-1); };
+
+const indeksAwal = (halamanSuratSaatIni - 1) * BARIS_SURAT_PER_HALAMAN;
+const indeksAkhir = indeksAwal + BARIS_SURAT_PER_HALAMAN;
+const dataHalamanAktif = dataSuratTersaring.slice(indeksAwal, indeksAkhir);
+
+dataHalamanAktif.forEach(item => {
+const tr = document.createElement('tr');
+
+let warnaBadge = '#0288D1'; 
+if(item.kategori.toLowerCase().includes('masuk') || item.kategori.toLowerCase().includes('in')) {
+warnaBadge = '#388E3C'; 
+} else if(item.kategori.toLowerCase().includes('keluar') || item.kategori.toLowerCase().includes('out')) {
+warnaBadge = '#D32F2F'; 
+}
+
+let tombolAksi = item.urlDrive ? `
+           <button class="btn-cetak-mutasi" onclick="bukaSuratViewer('${item.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;">
+               <i class="fa-solid fa-eye"></i> Lihat PDF
+           </button>
+       ` : `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
+
+tr.innerHTML = `
+           <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
+           <td style="font-weight: bold; color: #333;">${item.nama}</td>
+           <td><span style="background-color: ${warnaBadge}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold;">${item.kategori}</span></td>
+           <td style="text-align: center;">${tombolAksi}</td>
+       `;
+tbody.appendChild(tr);
+});
+
+perbaruiTombolNavigasiSurat(dataSuratTersaring.length);
+}
+
+function perbaruiTombolNavigasiSurat(totalData) {
+const totalHalaman = Math.ceil(totalData / BARIS_SURAT_PER_HALAMAN) || 1;
+const infoHalaman = document.getElementById('info-halaman-surat');
+if (infoHalaman) infoHalaman.textContent = `Halaman ${halamanSuratSaatIni} dari ${totalHalaman}`;
+
+const btnTerbaru = document.getElementById('btn-surat-terbaru');
+    if (btnTerbaru) btnTerbaru.style.display = (halamanSuratSaatIni > 1) ? 'inline-flex' : 'none';
+    if (btnTerbaru) {
+        btnTerbaru.style.display = 'inline-flex';
+        if (halamanSuratSaatIni > 1) {
+            btnTerbaru.disabled = false;
+            btnTerbaru.style.backgroundColor = '#0288D1';
+        } else {
+            btnTerbaru.disabled = true;
+            btnTerbaru.style.backgroundColor = '#555';
+        }
+    }
+
+const btnSebelumnya = document.getElementById('btn-surat-sebelumnya');
+    if (btnSebelumnya) btnSebelumnya.style.display = (halamanSuratSaatIni < totalHalaman) ? 'inline-flex' : 'none';
+    if (btnSebelumnya) {
+        btnSebelumnya.style.display = 'inline-flex';
+        if (halamanSuratSaatIni < totalHalaman) {
+            btnSebelumnya.disabled = false;
+            btnSebelumnya.style.backgroundColor = '#0288D1';
+        } else {
+            btnSebelumnya.disabled = true;
+            btnSebelumnya.style.backgroundColor = '#555';
+        }
+    }
+}
+
+window.halamanSebelumnyaSurat = function() {
+const totalHalaman = Math.ceil(dataSuratTersaring.length / BARIS_SURAT_PER_HALAMAN);
+if (halamanSuratSaatIni < totalHalaman) {
+halamanSuratSaatIni++;
+tampilkanDataSuratKeTabel();
+}
+}
+
+window.halamanTerbaruSurat = function() {
+if (halamanSuratSaatIni > 1) {
+halamanSuratSaatIni--;
+tampilkanDataSuratKeTabel();
+}
+}
 
 window.terapkanFilterSurat = function() {
-    const yearSurat = document.getElementById('filter-surat-tahun')?.value || 'Semua', keySurat = document.getElementById('input-cari-surat')?.value.toLowerCase() || '';
-    dataSuratTersaring = semuaDataSurat.filter(i => (yearSurat === 'Semua' || i.tahun === yearSurat) && (i.nama.toLowerCase().includes(keySurat) || i.kategori.toLowerCase().includes(keySurat)));
-    halamanSuratSaatIni = 1; tampilkanDataSuratKeTabel();
-};
+const selectTahun = document.getElementById('filter-surat-tahun');
+const inputCari = document.getElementById('input-cari-surat');
 
-window.bukaSuratViewer = function(urlAsli) { 
-    const urlEmbedSurat = konversiUrlDriveUntukEmbed(urlAsli); const iframeSurat = document.getElementById('surat-iframe'); if (iframeSurat) iframeSurat.src = urlEmbedSurat; 
-    const panelSurat = document.getElementById('surat-viewer-section'); if (panelSurat) { panelSurat.style.display = 'block'; panelSurat.scrollIntoView({ behavior: 'smooth' }); } 
-}
-window.tutupSuratViewer = function() { 
-    const panelSurat = document.getElementById('surat-viewer-section'); if (panelSurat) panelSurat.style.display = 'none'; 
-    const iframeSurat = document.getElementById('surat-iframe'); if (iframeSurat) iframeSurat.src = ''; 
-}
+    const tahunDipilih = selectTahun ? selectTahun.value : 'Semua';
+    const kataKunciCari = inputCari ? inputCari.value.toLowerCase() : '';
+    const yearSelect = selectTahun ? selectTahun.value : 'Semua';
+    const searchKeyword = inputCari ? inputCari.value.toLowerCase() : '';
 
+dataSuratTersaring = semuaDataSurat.filter(item => {
+        const cocokTahun = (tahunDipilih === 'Semua' || item.tahun === tahunDipilih);
+        const cocokKataKunci = item.nama.toLowerCase().includes(kataKunciCari) || 
+                              item.kategori.toLowerCase().includes(kataKunciCari) ||
+                              item.tanggal.toLowerCase().includes(kataKunciCari) ||
+                              item.tahun.includes(kataKunciCari);
+        const cocokTahun = (yearSelect === 'Semua' || item.tahun === yearSelect);
+        const cocokKataKunci = item.nama.toLowerCase().includes(searchKeyword) || 
+                              item.kategori.toLowerCase().includes(searchKeyword) ||
+                              item.tanggal.toLowerCase().includes(searchKeyword) ||
+                              item.tahun.includes(searchKeyword);
+return cocokTahun && cocokKataKunci;
+});
 
-/* ==========================================================================
-   16. MODUL KHUSUS: ARSIP DATA LPJ REAL-TIME (SISTEM PAGINATION MERAH TABEL FIX)
-   ========================================================================== */
-const SPREADSHEET_ID_LPJ = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; const SHEET_NAME_LPJ = 'Form Responses 4'; 
-let semuaDataLpj = [], dataLpjTersaring = []; const BARIS_LPJ_PER_HALAMAN = 5; let halamanLpjSaatIni = 1; 
-
-function ambilDataLpjGoogleSheets() {
-    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LPJ}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LPJ)}`;
-    fetch(url).then(res => res.text()).then(data => {
-        const jsonPembersihLpj = JSON.parse(data.substr(47).slice(0, -2)), barisDataLpj = jsonPembersihLpj.table.rows;
-        semuaDataLpj = []; const setTahunLpj = new Set();
-        for (let i = 1; i < barisDataLpj.length; i++) {
-            const baris = barisDataLpj[i];
-            if (baris && baris.c && baris.c[2]) {
-                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
-                let thn = tgl.split('/')[2] || 'Umum';
-                semuaDataLpj.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
-                if (thn !== 'Umum' && !isNaN(thn)) setTahunLpj.add(thn);
-            }
-        }
-        semuaDataLpj.reverse(); dataLpjTersaring = [...semuaDataLpj];
-        const selLpj = document.getElementById('filter-lpj-tahun');
-        if (selLpj) { selLpj.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahunLpj).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; selLpj.appendChild(opt); }); }
-        halamanLpjSaatIni = 1; tampilkanDataLpjKeTabel();
-    }).catch(err => console.error(err));
+halamanSuratSaatIni = 1;
+tampilkanDataSuratKeTabel();
 }
 
-function tampilkanDataLpjKeTabel() {
-    const tbodyLpj = document.getElementById('data-tabel-lpj'); if (!tbodyLpj) return;
-    if (dataLpjTersaring.length === 0) { tbodyLpj.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada log berkas LPJ yang ditemukan.</td></tr>`; return; }
-    const startLpj = (halamanLpjSaatIni - 1) * BARIS_LPJ_PER_HALAMAN, pageDataLpj = dataLpjTersaring.slice(startLpj, startLpj + BARIS_LPJ_PER_HALAMAN);
+window.bukaSuratViewer = function(urlAsli) {
+const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli);
+const iframe = document.getElementById('surat-iframe');
+const btnUnduh = document.getElementById('btn-unduh-surat');
+const panelViewer = document.getElementById('surat-viewer-section');
 
-    let htmlLpj = pageDataLpj.map(item => {
-        let warnaBadge = item.kategori.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
-        let btnLpj = item.urlDrive ? `<button class="btn-nav-aktif" onclick="window.bukaLpjViewer('${item.urlDrive}')" style="height:34px; padding:0 12px; font-size:12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
-        return `<tr><td>${item.tanggal}</td><td style="font-weight:bold;">${item.nama}</td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${item.kategori}</span></td><td style="text-align:center;">${btnLpj}</td></tr>`;
-    }).join('');
-
-    const totalHalamanLpj = Math.ceil(dataLpjTersaring.length / BARIS_LPJ_PER_HALAMAN);
-    if (totalHalamanLpj > 1) {
-        let navHTMLLpj = ""; 
-        if (halamanLpjSaatIni === 1) {
-            navHTMLLpj = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:right;"><button class="btn-nav-aktif" onclick="window.navLpjManual(1)">Halaman Selanjutnya ></button></td>`;
-        } else if (halamanLpjSaatIni === totalHalamanLpj) {
-            navHTMLLpj = `<td colspan="4" style="padding:15px; background:#f9f9f9; text-align:left;"><button class="btn-nav-aktif" onclick="window.navLpjManual(-1)">< Halaman Sebelumnya</button></td>`;
-        } else {
-            navHTMLLpj = `<td colspan="4" style="padding:15px; background:#f9f9f9;"><div style="display:flex; justify-content:space-between; width:100%;"><button class="btn-nav-aktif" onclick="window.navLpjManual(-1)">< Halaman Sebelumnya</button><button class="btn-nav-aktif" onclick="window.navLpjManual(1)">Halaman Selanjutnya ></button></div></td>`;
-        }
-        htmlLpj += `<tr>${navHTMLLpj}</tr>`;
-    }
-    tbodyLpj.innerHTML = htmlLpj;
+if (iframe) iframe.src = urlEmbed;
+if (btnUnduh) btnUnduh.href = urlAsli;
+if (panelViewer) {
+panelViewer.style.display = 'block';
+panelViewer.scrollIntoView({ behavior: 'smooth' });
 }
-window.navLpjManual = function(dir) { halamanLpjSaatIni += dir; tampilkanDataLpjKeTabel(); };
-window.halamanSebelumnyaLpj = function() { window.navLpjManual(1); };
-window.halamanTerbaruLpj = function() { window.navLpjManual(-1); };
-
-window.terapkanFilterLpj = function() {
-    const yearLpj = document.getElementById('filter-lpj-tahun')?.value || 'Semua', keyLpj = document.getElementById('input-cari-lpj')?.value.toLowerCase() || '';
-    dataLpjTersaring = semuaDataLpj.filter(i => (yearLpj === 'Semua' || i.tahun === yearLpj) && (i.nama.toLowerCase().includes(keyLpj) || i.kategori.toLowerCase().includes(keyLpj)));
-    halamanLpjSaatIni = 1; tampilkanDataLpjKeTabel();
-};
-
-window.bukaLpjViewer = function(urlAsli) { 
-    const urlEmbedLpj = konversiUrlDriveUntukEmbed(urlAsli); const iframeLpj = document.getElementById('lpj-iframe'); if (iframeLpj) iframeLpj.src = urlEmbedLpj; 
-    const panelLpj = document.getElementById('lpj-viewer-section'); if (panelLpj) { panelLpj.style.display = 'block'; panelLpj.scrollIntoView({ behavior: 'smooth' }); } 
 }
-window.tutupLpjViewer = function() { 
-    const panelLpj = document.getElementById('lpj-viewer-section'); if (panelLpj) panelLpj.style.display = 'none'; 
-    const iframeLpj = document.getElementById('lpj-iframe'); if (iframeLpj) iframeLpj.src = ''; 
+
+window.tutupSuratViewer = function() {
+const panelViewer = document.getElementById('surat-viewer-section');
+const iframe = document.getElementById('surat-iframe');
+if (panelViewer) panelViewer.style.display = 'none';
+if (iframe) iframe.src = '';
 }
