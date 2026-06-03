@@ -1300,8 +1300,8 @@ window.tutupPdfViewer = function() {
 /* ==========================================================================
    14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (ISOLASI MANDIRI)
    ========================================================================== */
-const SPREADSHEET_ID_PROPOSAL = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; 
-const SHEET_NAME_PROPOSAL = 'Form Responses 2'; // Ganti nama Tab sesuai form proposal kamu
+const SPREADSHEET_ID_PROPOSAL = '1_kuBIdFvRYvtHvBFP7CtKqgONewIIU3A0XElDuc2cNA'; 
+const SHEET_NAME_PROPOSAL = 'Form Responses 1'; // Ganti nama Tab sesuai form proposal kamu
 
 let semuaDataProposal = [];
 let dataProposalTersaring = []; 
