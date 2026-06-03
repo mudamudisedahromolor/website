@@ -1355,25 +1355,4 @@ body.login-page-body .box-subtitle {
 }
 
 
-/* ==========================================================================
-   14. CLASS KHUSUS PAGINATION BUTTON MERAH INDEPENDEN (ANTI-COLLISION)
-   ========================================================================== */
-.btn-nav-aktif {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    background-color: #D32F2F !important;
-    color: white !important;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 12px;
-    text-decoration: none;
-    transition: background 0.2s ease;
-}
 
-.btn-nav-aktif:hover {
-    background-color: #B71C1C !important;
-}
