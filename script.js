@@ -848,3 +848,11 @@ function renderTable(idTabel, data, tipe) {
     
     tbody.innerHTML = html;
 }
+
+function runTask(task) {
+    try {
+        task();
+    } catch (e) {
+        console.error("Modul Gagal Dimuat:", e);
+    }
+}
