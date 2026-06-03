@@ -1474,7 +1474,7 @@ window.tutupProposalViewer = function() {
    15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (BEBAS BENTROK)
    ========================================================================== */
 const SPREADSHEET_ID_SURAT = '1ILm2T8ed5oJ85cU2YzTiDHnHlGgtMjVoKYmhSxFF2PQ'; 
-const SHEET_NAME_SURAT = 'Form Responses 3'; 
+const SHEET_NAME_SURAT = 'Form Responses 1'; 
 
 let semuaDataSurat = [];
 let dataSuratTersaring = []; 
