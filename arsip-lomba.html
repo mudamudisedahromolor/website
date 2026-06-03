@@ -112,16 +112,15 @@
                 <table class="finance-table">
                     <thead>
                         <tr>
-                            <th style="width: 10%;">Tahun</th>
-                            <th style="width: 15%;">Tanggal</th>
-                            <th style="width: 35%;">Nama Perlombaan / Berkas</th>
+                            <th style="width: 20%;">Tanggal Pembuatan</th>
+                            <th style="width: 40%;">Nama Perlombaan / Berkas</th>
                             <th style="width: 20%;">Kategori</th>
                             <th style="width: 20%; text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="data-tabel-lomba">
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 20px; color: #777;">
+                            <td colspan="4" style="text-align: center; padding: 20px; color: #777;">
                                 <i class="fa-solid fa-spinner fa-spin"></i> Memuat data dari berkas arsip...
                             </td>
                         </tr>
@@ -247,7 +246,7 @@
                     console.error("Gagal memuat arsip data lomba:", err);
                     document.getElementById('data-tabel-lomba').innerHTML = `
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 20px; color: #d32f2f;">
+                            <td colspan="4" style="text-align: center; padding: 20px; color: #d32f2f;">
                                 <i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat data. Periksa pengaturan share berkas Excel/Sheets Anda.
                             </td>
                         </tr>
@@ -262,7 +261,7 @@
             if (dataArray.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="5" style="text-align: center; padding: 20px; color: #777;">
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #777;">
                             Tidak ada berkas arsip lomba yang cocok.
                         </td>
                     </tr>
@@ -291,8 +290,8 @@
                     tombolAksi = `<span style="font-size:11px; color:#999; font-style:italic;">File tidak tersedia</span>`;
                 }
 
+                // Baris di bawah ini dimodifikasi: elemen td kolom tahun telah dibuang
                 tr.innerHTML = `
-                    <td>${item.tahun}</td>
                     <td style="color: #666; font-size: 13px;">${item.tanggal}</td>
                     <td style="font-weight: bold; color: #333;">${item.nama}</td>
                     <td><span style="background-color: ${warnaBadge}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold;">${item.kategori}</span></td>
