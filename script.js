@@ -768,3 +768,67 @@ function bukaProposalViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmb
 function tutupProposalViewer() { const panel = document.getElementById('proposal-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('proposal-iframe'); if (iframe) iframe.src = ''; }
 function bukaSuratViewer(urlAsli) { const urlEmbed = konversiUrlDriveUntukEmbed(urlAsli); const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = urlEmbed; const panel = document.getElementById('surat-viewer-section'); if (panel) { panel.style.display = 'block'; panel.scrollIntoView({ behavior: 'smooth' }); } }
 function tutupSuratViewer() { const panel = document.getElementById('surat-viewer-section'); if (panel) panel.style.display = 'none'; const iframe = document.getElementById('surat-iframe'); if (iframe) iframe.src = ''; }
+
+
+/* ==========================================================================
+   MASTER SCRIPT (STABIL & ANTI BENTROK)
+   ========================================================================== */
+
+// 1. MODUL LOMBA
+let dataLomba = [], pageLomba = 1;
+async function ambilDataLomba() {
+    try {
+        // MASUKKAN URL TSV LOMBA DI SINI
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSw_banvT8nzKY4nRI4WtHCLHUPKYgG1B8Cl_Nnyyfq3kQ8wvCYkGUlhuwL4deUpaI1vikN8YwmPxnj/pub?output=tsv");
+        const tsv = await res.text();
+        dataLomba = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderLomba();
+    } catch(e) { console.error("Error Lomba:", e); }
+}
+
+// 2. MODUL PROPOSAL
+let dataProp = [], pageProp = 1;
+async function ambilDataProposal() {
+    try {
+        // MASUKKAN URL TSV PROPOSAL DI SINI
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRoz66DBnqrm8d-QF0FwdWCtuhYcwZU9L0rfNAz934uYYbgzxQOJ2v6tPGM4R6FvsB9PD-YWJOQ6Kqb/pub?output=tsv");
+        const tsv = await res.text();
+        dataProp = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderProposal();
+    } catch(e) { console.error("Error Proposal:", e); }
+}
+
+// 3. MODUL SURAT
+let dataSurat = [], pageSurat = 1;
+async function ambilDataSurat() {
+    try {
+        // MASUKKAN URL TSV SURAT DI SINI
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vS8W2TwkroAmNvy1RKJI7_ol8RpmLCpbEabtsNeyUEyFXYz4RtF4y4qHF8bH_jwXq407AB9JX2lJBVQ/pub?output=tsv");
+        const tsv = await res.text();
+        dataSurat = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderSurat();
+    } catch(e) { console.error("Error Surat:", e); }
+}
+
+// 4. MODUL LPJ
+let dataLpj = [], pageLpj = 1;
+async function ambilDataLpj() {
+    try {
+        // MASUKKAN URL TSV LPJ DI SINI
+        const res = await fetch("URL_TSV_LPJ_KAMU_DI_SINI");
+        const tsv = await res.text();
+        dataLpj = parseTsv(tsv).map(r => ({ tgl: r[1], nama: r[2], kat: r[3], url: r[4] })).reverse();
+        renderLpj();
+    } catch(e) { console.error("Error LPJ:", e); }
+}
+
+// FUNGSI RENDER UMUM (Agar tidak freeze, setiap modul panggil fungsi rendernya masing-masing)
+function renderLomba() { /* ... render html lomba ... */ }
+function renderProposal() { /* ... render html proposal ... */ }
+function renderSurat() { /* ... render html surat ... */ }
+function renderLpj() { /* ... render html lpj ... */ }
+
+// PENTING: Gunakan fungsi parse tunggal agar tidak bentrok
+function parseTsv(teks) {
+    return teks.split(/\r?\n/).slice(1).filter(r => r.length > 0).map(row => row.split('\t'));
+}
