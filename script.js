@@ -557,6 +557,7 @@ function konversiUrlDriveUntukEmbed(urlLama) {
    ========================================================================== */
 const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM';
 const SHEET_NAME_LOMBA = 'Form Responses 1'; 
+
 let semuaDataLomba = [], dataLombaTersaring = []; const BARIS_LOMBA_PER_HALAMAN = 5; let halamanLombaSaatIni = 1; 
 
 function ambilDataGoogleSheets() {
@@ -583,7 +584,9 @@ function ambilDataGoogleSheets() {
 function tampilkanDataLombaKeTabel() {
     const tbodyLomba = document.getElementById('data-tabel-lomba'); if (!tbodyLomba) return;
     if (dataLombaTersaring.length === 0) { tbodyLomba.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada berkas arsip lomba.</td></tr>`; return; }
-    const startLomba = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN, pageDataLomba = dataLombaTersaring.slice(startLomba, startLomba + BARIS_LOMBA_PER_HALAMAN);
+    
+    const startLomba = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN;
+    const pageDataLomba = dataLombaTersaring.slice(startLomba, startLomba + BARIS_LOMBA_PER_HALAMAN);
 
     let htmlLomba = pageDataLomba.map(item => {
         let warnaBadge = item.kategori.toLowerCase().includes('anak') ? '#388E3C' : (item.kategori.toLowerCase().includes('remaja') ? '#F57C00' : '#0288D1');
@@ -592,6 +595,8 @@ function tampilkanDataLombaKeTabel() {
     }).join('');
 
     const totalHalamanLomba = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
+    
+    // KONDISI BARU: Jika total halaman lebih dari 1, suntikkan tombol navigasi merah ke dalam baris tabel
     if (totalHalamanLomba > 1) {
         let navHTMLLomba = ""; 
         if (halamanLombaSaatIni === 1) {
@@ -603,7 +608,11 @@ function tampilkanDataLombaKeTabel() {
         }
         htmlLomba += `<tr>${navHTMLLomba}</tr>`;
     }
+    
     tbodyLomba.innerHTML = htmlLomba;
+
+    const infoLomba = document.getElementById('info-halaman-tabel');
+    if (infoLomba) infoLomba.textContent = `Halaman ${halamanLombaSaatIni} dari ${totalHalamanLomba}`;
 }
 window.navLombaManual = function(dir) { halamanLombaSaatIni += dir; tampilkanDataLombaKeTabel(); };
 window.halamanSebelumnya = function() { window.navLombaManual(1); };
@@ -624,6 +633,7 @@ window.tutupPdfViewer = function() {
     if (panelViewerLomba) panelViewerLomba.style.display = 'none'; if (iframeLomba) iframeLomba.src = '';
 }
 
+
 /* ==========================================================================
    14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME (SISTEM PAGINATION MERAH TABEL FIX)
    ========================================================================== */
@@ -640,7 +650,7 @@ function ambilDataProposalGoogleSheets() {
             if (baris && baris.c && baris.c[2]) {
                 const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
                 let thn = tgl.split('/')[2] ? tgl.split('/')[2].substring(0,4) : 'Umum';
-                semuaDataProposal.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                semuaDataProposal.push({ tanggal: tgl, autumn: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
                 if (thn !== 'Umum' && !isNaN(thn)) setTahunProp.add(thn);
             }
         }
@@ -654,7 +664,9 @@ function ambilDataProposalGoogleSheets() {
 function tampilkanDataProposalKeTabel() {
     const tbodyProp = document.getElementById('data-tabel-proposal'); if (!tbodyProp) return;
     if (dataProposalTersaring.length === 0) { tbodyProp.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada berkas proposal.</td></tr>`; return; }
-    const startProp = (halamanProposalSaatIni - 1) * BARIS_PROPOSAL_PER_HALAMAN, pageDataProp = dataProposalTersaring.slice(startProp, startProp + BARIS_PROPOSAL_PER_HALAMAN);
+    
+    const startProp = (halamanProposalSaatIni - 1) * BARIS_PROPOSAL_PER_HALAMAN;
+    const pageDataProp = dataProposalTersaring.slice(startProp, startProp + BARIS_PROPOSAL_PER_HALAMAN);
 
     let htmlProp = pageDataProp.map(item => {
         let warnaBadge = item.kategori.toLowerCase().includes('bantuan') ? '#388E3C' : '#F57C00';
@@ -663,6 +675,7 @@ function tampilkanDataProposalKeTabel() {
     }).join('');
 
     const totalHalamanProp = Math.ceil(dataProposalTersaring.length / BARIS_PROPOSAL_PER_HALAMAN);
+    
     if (totalHalamanProp > 1) {
         let navHTMLProp = ""; 
         if (halamanProposalSaatIni === 1) {
@@ -674,7 +687,11 @@ function tampilkanDataProposalKeTabel() {
         }
         htmlProp += `<tr>${navHTMLProp}</tr>`;
     }
+    
     tbodyProp.innerHTML = htmlProp;
+
+    const infoProp = document.getElementById('info-halaman-proposal');
+    if (infoProp) infoProp.textContent = `Halaman ${halamanProposalSaatIni} dari ${totalHalamanProp}`;
 }
 window.navProposalManual = function(dir) { halamanProposalSaatIni += dir; tampilkanDataProposalKeTabel(); };
 window.halamanSebelumnyaProposal = function() { window.navProposalManual(1); };
@@ -682,7 +699,7 @@ window.halamanTerbaruProposal = function() { window.navProposalManual(-1); };
 
 window.terapkanFilterProposal = function() {
     const yearProp = document.getElementById('filter-proposal-tahun')?.value || 'Semua', keyProp = document.getElementById('input-cari-proposal')?.value.toLowerCase() || '';
-    dataProposalTersaring = semuaDataProposal.filter(i => (yearProp === 'Semua' || i.tahun === yearProp) && (i.nama.toLowerCase().includes(keyProp) || i.kategori.toLowerCase().includes(keyProp)));
+    dataProposalTersaring = semuaDataProposal.filter(i => (yearProp === 'Semua' || i.autumn === yearProp) && (i.nama.toLowerCase().includes(keyProp) || i.kategori.toLowerCase().includes(keyProp)));
     halamanProposalSaatIni = 1; tampilkanDataProposalKeTabel();
 };
 
@@ -694,6 +711,7 @@ window.tutupProposalViewer = function() {
     const panelProp = document.getElementById('proposal-viewer-section'); if (panelProp) panelProp.style.display = 'none'; 
     const iframeProp = document.getElementById('proposal-iframe'); if (iframeProp) iframeProp.src = ''; 
 }
+
 
 /* ==========================================================================
    15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (SISTEM PAGINATION MERAH TABEL FIX)
@@ -725,7 +743,9 @@ function ambilDataSuratGoogleSheets() {
 function tampilkanDataSuratKeTabel() {
     const tbodySurat = document.getElementById('data-tabel-surat'); if (!tbodySurat) return;
     if (dataSuratTersaring.length === 0) { tbodySurat.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada log data surat.</td></tr>`; return; }
-    const startSurat = (halamanSuratSaatIni - 1) * BARIS_SURAT_PER_HALAMAN, pageDataSurat = dataSuratTersaring.slice(startSurat, startSurat + BARIS_SURAT_PER_HALAMAN);
+    
+    const startSurat = (halamanSuratSaatIni - 1) * BARIS_SURAT_PER_HALAMAN;
+    const pageDataSurat = dataSuratTersaring.slice(startSurat, startSurat + BARIS_SURAT_PER_HALAMAN);
 
     let htmlSurat = pageDataSurat.map(item => {
         let warnaBadge = (item.kategori.toLowerCase().includes('masuk') || item.kategori.toLowerCase().includes('in')) ? '#388E3C' : '#D32F2F';
@@ -734,6 +754,7 @@ function tampilkanDataSuratKeTabel() {
     }).join('');
 
     const totalHalamanSurat = Math.ceil(dataSuratTersaring.length / BARIS_SURAT_PER_HALAMAN);
+    
     if (totalHalamanSurat > 1) {
         let navHTMLSurat = ""; 
         if (halamanSuratSaatIni === 1) {
@@ -745,7 +766,11 @@ function tampilkanDataSuratKeTabel() {
         }
         htmlSurat += `<tr>${navHTMLSurat}</tr>`;
     }
+    
     tbodySurat.innerHTML = htmlSurat;
+
+    const infoSurat = document.getElementById('info-halaman-surat');
+    if (infoSurat) infoSurat.textContent = `Halaman ${halamanSuratSaatIni} dari ${totalHalamanSurat}`;
 }
 window.navSuratManual = function(dir) { halamanSuratSaatIni += dir; tampilkanDataSuratKeTabel(); };
 window.halamanSebelumnyaSurat = function() { window.navSuratManual(1); };
@@ -796,7 +821,9 @@ function ambilDataLpjGoogleSheets() {
 function tampilkanDataLpjKeTabel() {
     const tbodyLpj = document.getElementById('data-tabel-lpj'); if (!tbodyLpj) return;
     if (dataLpjTersaring.length === 0) { tbodyLpj.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada log berkas LPJ yang ditemukan.</td></tr>`; return; }
-    const startLpj = (halamanLpjSaatIni - 1) * BARIS_LPJ_PER_HALAMAN, pageDataLpj = dataLpjTersaring.slice(startLpj, startLpj + BARIS_LPJ_PER_HALAMAN);
+    
+    const startLpj = (halamanLpjSaatIni - 1) * BARIS_LPJ_PER_HALAMAN;
+    const pageDataLpj = dataLpjTersaring.slice(startLpj, startLpj + BARIS_LPJ_PER_HALAMAN);
 
     let htmlLpj = pageDataLpj.map(item => {
         let warnaBadge = item.kategori.toLowerCase().includes('panitia') ? '#F57C00' : '#0288D1';
@@ -805,6 +832,8 @@ function tampilkanDataLpjKeTabel() {
     }).join('');
 
     const totalHalamanLpj = Math.ceil(dataLpjTersaring.length / BARIS_LPJ_PER_HALAMAN);
+    
+    // PERBAIKAN MUTAKHIR: Jika total halaman lebih dari 1, baru pasang tombol. Jika tidak, kosongkan area bawah tabel!
     if (totalHalamanLpj > 1) {
         let navHTMLLpj = ""; 
         if (halamanLpjSaatIni === 1) {
@@ -816,7 +845,11 @@ function tampilkanDataLpjKeTabel() {
         }
         htmlLpj += `<tr>${navHTMLLpj}</tr>`;
     }
+    
     tbodyLpj.innerHTML = htmlLpj;
+
+    const infoLpj = document.getElementById('info-halaman-lpj');
+    if (infoLpj) infoLpj.textContent = `Halaman ${halamanLpjSaatIni} dari ${totalHalamanLpj}`;
 }
 window.navLpjManual = function(dir) { halamanLpjSaatIni += dir; tampilkanDataLpjKeTabel(); };
 window.halamanSebelumnyaLpj = function() { window.navLpjManual(1); };
