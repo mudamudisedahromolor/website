@@ -1,216 +1,79 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsip Data Lomba - Muda Mudi Sedahromo Lor</title>
+/* ==========================================================================
+   13. MODUL KHUSUS: ARSIP DATA LOMBA REAL-TIME
+   ========================================================================== */
+const SPREADSHEET_ID_LOMBA = '1oMdAVAlvfCH_KAmyT6y3PKteXFg5G9-X7al81rlvQtM'; const SHEET_NAME_LOMBA = 'Form Responses 1'; 
+let semuaDataLomba = [], dataLombaTersaring = []; const BARIS_LOMBA_PER_HALAMAN = 5; let halamanLombaSaatIni = 1; 
+
+function ambilDataGoogleSheets() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID_LOMBA}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME_LOMBA)}`;
+    fetch(url).then(res => res.text()).then(data => {
+        const jsonPembersih = JSON.parse(data.substr(47).slice(0, -2)), barisData = jsonPembersih.table.rows;
+        semuaDataLomba = []; const setTahun = new Set();
+        for (let i = 1; i < barisData.length; i++) {
+            const baris = barisData[i];
+            if (baris && baris.c && baris.c[2]) {
+                const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
+                let thn = tgl.split('/')[2] || 'Umum';
+                semuaDataLomba.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                if (thn !== 'Umum' && !isNaN(thn)) setTahun.add(thn);
+            }
+        }
+        semuaDataLomba.reverse(); dataLombaTersaring = [...semuaDataLomba];
+        const sel = document.getElementById('filter-lomba-tahun');
+        if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
+        halamanLombaSaatIni = 1; terapkanFilterLomba();
+    }).catch(err => console.error(err));
+}
+
+function terapkanFilterLomba() {
+    const filterTahun = document.getElementById('filter-lomba-tahun') ? document.getElementById('filter-lomba-tahun').value : 'Semua';
+    const cariKata = document.getElementById('input-cari-lomba') ? document.getElementById('input-cari-lomba').value.toLowerCase() : '';
+    dataLombaTersaring = semuaDataLomba.filter(i => {
+        const cocokTahun = (filterTahun === 'Semua' || i.tahun === filterTahun);
+        const cocokKata = (i.nama.toLowerCase().includes(cariKata) || i.kategori.toLowerCase().includes(cariKata));
+        return cocokTahun && cocokKata;
+    });
+    halamanLombaSaatIni = 1; tampilkanDataLombaKeTabel();
+}
+
+function tampilkanDataLombaKeTabel() {
+    const tbody = document.getElementById('data-tabel-lomba'); if (!tbody) return;
+    if (dataLombaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data lomba tidak ditemukan.</td></tr>`; itungHalamanLomba(0); return; }
     
-    <link rel="icon" href="images/mms.png" type="image/png">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
-    
-    <link rel="stylesheet" href="style.css?v=103">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="manifest" href="manifest.json">
-</head>
-<body> 
-    
-    <header class="site-header">
-        <div class="top-header">
-            <div class="header-logo-area">
-                <a href="index.html" class="logo-wrapper">
-                    <img src="images/mms.png" alt="Logo MMS" class="mini-logo">
-                    <div class="header-text">
-                        <span class="brand-title">MUDA MUDI</span>
-                        <span class="brand-subtitle">Sedahromo Lor 05</span>
-                    </div>
-                </a>
-            </div>
-            
-            <div class="header-right-stuff">
-                <div class="header-socials">
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
+    const start = (halamanLombaSaatIni - 1) * BARIS_LOMBA_PER_HALAMAN;
+    const pageData = dataLombaTersaring.slice(start, start + BARIS_LOMBA_PER_HALAMAN);
 
-            <button class="menu-toggle" id="mobile-menu-btn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div> 
-        
-        <nav class="main-navbar">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="index.html">BERANDA</a></li>
-                <li class="nav-item">
-                    <a href="#">PROFIL</a>
-                    <ul class="submenu">
-                        <li class="submenu-item"><a href="struktur.html"> - STRUKTUR KEANGGOTAAN</a></li>
-                        <li class="submenu-item"><a href="visi-misi.html"> - VISI & MISI</a></li>
-                        <li class="submenu-item"><a href="daftar-anggota.html"> - DAFTAR ANGGOTA</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" id="btn-bulanan">KEGIATAN</a>
-                    <ul class="submenu" id="menu-rapat">
-                        <li class="submenu-item"><a href="rapat-hasilrapat.html"> - RAPAT BULANAN</a></li>
-                        <li class="submenu-item"><a href="dokumentasi-kegiatan.html"> - DOKUMENTASI</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#">LAPORAN</a>
-                    <ul class="submenu">
-                        <li class="submenu-item"><a href="laporan-keuangan.html"> - KEUANGAN</a></li>
-                        <li class="submenu-item"><a href="iuran-bulanan.html"> - KAS BULANAN</a></li>
-                        <li class="submenu-item"><a href="lpj.html"> - PERTANGGUNG JAWABAN</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" id="btn-tahunan">DATA ARSIP</a>
-                    <ul class="submenu" id="menu-17an">
-                        <li class="submenu-item"><a href="arsip-proposal.html"> - PROPOSAL</a></li>
-                        <li class="submenu-item"><a href="arsip-lomba.html"> - LOMBA</a></li>
-                        <li class="submenu-item"><a href="arsip-surat.html"> - SURAT</a></li>
-                    </ul>
-                </li> 
-                <li class="nav-item">
-                    <a href="#">INFORMASI</a>
-                    <ul class="submenu">
-                        <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
-                        <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                    </ul>
-                </li>
-            </ul>
+    let html = pageData.map(i => {
+        let warnaBadge = i.kategori.toLowerCase().includes('anak') ? '#388E3C' : (i.kategori.toLowerCase().includes('remaja') ? '#F57C00' : '#0288D1');
+        let btn = i.urlDrive ? `<button class="btn-cetak-mutasi" onclick="window.bukaLombaViewer('${i.urlDrive}')" style="height: 34px; padding: 0 12px; font-size: 12px;"><i class="fa-solid fa-eye"></i> Lihat PDF</button>` : `<i>Tidak tersedia</i>`;
+        return `<tr><td>${i.tanggal}</td><td><strong>${i.nama}</strong></td><td><span style="background-color:${warnaBadge}; color:white; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${i.kategori}</span></td><td style="text-align:center;">${btn}</td></tr>`;
+    }).join('');
 
-            <div class="navbar-mobile-only">
-                <div class="header-socials">
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
-        </nav>
-    </header>
+    const totalHal = Math.ceil(dataLombaTersaring.length / BARIS_LOMBA_PER_HALAMAN);
+    itungHalamanLomba(totalHal);
 
-    <div class="gallery-page-wrapper">
-        <div class="content-box-gallery">
-            <h2 class="box-title">ARSIP DATA HASIL LOMBA</h2>
-            <hr class="box-divider">
-            <p class="gallery-desc">
-                Papan informasi digital pengumuman pemenang, skor, dan data hasil perlombaan Muda Mudi Sedahromo Lor 05.
-            </p>
+    if (totalHal > 1) {
+        let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
+        if (halamanLombaSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navLombaManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        else if (halamanLombaSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navLombaManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button></div>`;
+        else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navLombaManual(-1)" style="${styleBtn}"><i class="fa-solid fa-chevron-left"></i> Halaman Sebelumnya</button><button onclick="window.navLombaManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
+        html += `<tr><td colspan="4" style="padding:15px; background:#f9f9f9; border-top:1px solid #eee;">${tombolNav}</td></tr>`;
+    }
+    tbody.innerHTML = html;
+}
 
-            <div class="filter-container" style="justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <div style="font-size: 14px; color: #555; font-weight: bold;">
-                    <i class="fa-solid fa-trophy" style="color: #FFD700;"></i> Berkas Rekapitulasi Juara
-                </div>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <select id="filter-lomba-tahun" class="filter-box" onchange="terapkanFilterLomba()">
-                        <option value="Semua">Semua Tahun</option>
-                    </select>
-                    <input type="text" id="input-cari-lomba" class="filter-box" style="width: 230px;" placeholder="Cari nama lomba atau berkas..." onkeyup="terapkanFilterLomba()">
-                </div>
-            </div>
+function itungHalamanLomba(totalHal) {
+    // Disamakan menggunakan ID 'info-halaman-tabel' sesuai file HTML Anda
+    const infoHal = document.getElementById('info-halaman-tabel');
+    if (infoHal) { infoHal.textContent = `Halaman ${totalHal === 0 ? 0 : halamanLombaSaatIni} dari ${totalHal}`; }
+}
+window.navLombaManual = (dir) => { halamanLombaSaatIni += dir; tampilkanDataLombaKeTabel(); };
 
-            <div class="table-responsive" style="margin-bottom: 15px;">
-                <table class="finance-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 20%;">Tanggal Pembuatan</th>
-                            <th style="width: 40%;">Nama Perlombaan / Berkas</th>
-                            <th style="width: 20%;">Kategori</th>
-                            <th style="width: 20%; text-align: center;">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-tabel-lomba">
-                        <tr>
-                            <td colspan="4" style="text-align: center; padding: 20px; color: #777;">
-                                <i class="fa-solid fa-spinner fa-spin"></i> Memuat data dari berkas arsip...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; min-height: 32px;">
-                <button id="btn-halaman-terbaru" class="btn-cetak-mutasi" onclick="halamanTerbaru()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
-                    <i class="fa-solid fa-chevron-left"></i> Terbaru
-                </button>
-                <span id="info-halaman-tabel" style="font-size: 13px; color: #555; font-weight: bold; margin: 0 auto;">Halaman 1 dari 1</span>
-                <button id="btn-halaman-sebelumnya" class="btn-cetak-mutasi" onclick="halamanSebelumnya()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
-                    Sebelumnya <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div>
-
-            <div id="pdf-viewer-section" class="lomba-viewer-hide" style="display: none; width: 100%; margin-top: 35px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                <div class="pdf-viewer-control-bar" style="background-color: #f8f9fa; padding: 12px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                    <h3 class="pdf-viewer-title-text" style="margin: 0; font-size: 16px; color: #333; font-weight: bold;">
-                        <i class="fa-regular fa-file-pdf" style="color: #E53935;"></i> Pratinjau Dokumen Hasil Lomba
-                    </h3>
-                    <div style="display: flex; gap: 8px;">
-                        <a id="btn-unduh-pdf" href="#" target="_blank" class="btn-cetak-mutasi" style="height: 36px; background-color: #2e7d32; display: inline-flex; align-items: center; text-decoration: none; font-weight: bold; padding: 0 15px;">
-                            <i class="fa-solid fa-download"></i> Unduh File
-                        </a>
-                        <button onclick="tutupPdfViewer()" class="btn-cetak-mutasi" style="height: 36px; background-color: #555; font-weight: bold; padding: 0 15px;">
-                            <i class="fa-solid fa-xmark"></i> Tutup
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="drive-embed-container" style="width: 100%; height: 780px; background-color: #525659;">
-                    <iframe id="pdf-iframe" class="drive-iframe" src="" style="width: 100%; height: 100%; border: none; block-size: 100%;"></iframe>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-column info-col">
-                <div class="footer-brand">
-                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
-                    <h4>Muda Mudi Sedahromo Lor</h4>
-                </div>
-                <p class="footer-text">
-                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
-                </p>
-                <p class="footer-text">
-                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a>
-                </p>
-            </div>
-
-            <div class="footer-column links-col">
-                <h5>Sitemap</h5>
-                <ul class="footer-links">
-                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
-                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
-                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
-                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
-                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column social-col">
-                <h5>Media Sosial</h5>
-                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
-                <div class="footer-social-icons">
-                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
-        </div>
-    </footer>
-    
-    <script src="script.js?v=115"></script>
-</body>
-</html>
+window.bukaLombaViewer = (url) => {
+    const viewerSection = document.getElementById('pdf-viewer-section'); const iframe = document.getElementById('pdf-iframe'); const btnUnduh = document.getElementById('btn-unduh-pdf');
+    if(viewerSection && iframe) {
+        let embedUrl = url; if(url.includes('file/d/')) { embedUrl = url.replace('/view?usp=sharing', '/preview').replace('/view', '/preview').replace('/view?usp=drive_link', '/preview'); }
+        iframe.src = embedUrl; if(btnUnduh) btnUnduh.href = url; viewerSection.style.display = 'block'; viewerSection.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+window.tutupPdfViewer = () => { const viewerSection = document.getElementById('pdf-viewer-section'); const iframe = document.getElementById('pdf-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
