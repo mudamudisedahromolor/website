@@ -617,21 +617,20 @@ function tampilkanDataLombaKeTabel() {
 }
 
 function itungHalamanLomba(totalHal) {
-    const infoHal = document.getElementById('info-halaman-lomba');
+    // Disamakan menggunakan ID 'info-halaman-tabel' sesuai file HTML Anda
+    const infoHal = document.getElementById('info-halaman-tabel');
     if (infoHal) { infoHal.textContent = `Halaman ${totalHal === 0 ? 0 : halamanLombaSaatIni} dari ${totalHal}`; }
 }
 window.navLombaManual = (dir) => { halamanLombaSaatIni += dir; tampilkanDataLombaKeTabel(); };
 
 window.bukaLombaViewer = (url) => {
-    const viewerSection = document.getElementById('lomba-viewer-section'); const iframe = document.getElementById('lomba-iframe'); const btnUnduh = document.getElementById('btn-unduh-lomba');
+    const viewerSection = document.getElementById('pdf-viewer-section'); const iframe = document.getElementById('pdf-iframe'); const btnUnduh = document.getElementById('btn-unduh-pdf');
     if(viewerSection && iframe) {
         let embedUrl = url; if(url.includes('file/d/')) { embedUrl = url.replace('/view?usp=sharing', '/preview').replace('/view', '/preview').replace('/view?usp=drive_link', '/preview'); }
         iframe.src = embedUrl; if(btnUnduh) btnUnduh.href = url; viewerSection.style.display = 'block'; viewerSection.scrollIntoView({ behavior: 'smooth' });
     }
 };
-window.tutupLombaViewer = () => { const viewerSection = document.getElementById('lomba-viewer-section'); const iframe = document.getElementById('lomba-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
-
-
+window.tutupPdfViewer = () => { const viewerSection = document.getElementById('pdf-viewer-section'); const iframe = document.getElementById('pdf-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
 /* ==========================================================================
    14. MODUL KHUSUS: ARSIP DATA PROPOSAL REAL-TIME
    ========================================================================== */
