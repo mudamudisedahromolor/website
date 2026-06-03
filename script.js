@@ -717,7 +717,7 @@ window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSura
    ========================================================================== */
 // Gunakan Spreadsheet ID asli dari berkas Google Sheets Anda (bukan link pub)
 const SPREADSHEET_ID_LPJ = '1rYD76yBGXEj99jxRVh-ZmlKrOGIO4-Zqf4aIw1PPHuA'; 
-const SHEET_NAME_LPJ = 'Form_Responses 1'; 
+const SHEET_NAME_LPJ = 'Form Responses 1'; 
 let semuaDataLpj = [], dataLpjTersaring = []; const BARIS_LPJ_PER_HALAMAN = 5; let halamanLpjSaatIni = 1; 
 
 function ambilDataLpjGoogleSheets() {
