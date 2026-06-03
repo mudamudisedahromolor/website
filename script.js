@@ -660,7 +660,7 @@ window.navProposalManual = (dir) => { halamanProposalSaatIni += dir; tampilkanDa
 
 
 /* ==========================================================================
-   15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME (DUPLIKASI PERSIS KAS KEUANGAN)
+   15. MODUL KHUSUS: ARSIP DATA AGENDA SURAT REAL-TIME
    ========================================================================== */
 const SPREADSHEET_ID_SURAT = '1ILm2T8ed5oJ85cU2YzTiDHnHlGgtMjVoKYmhSxFF2PQ'; const SHEET_NAME_SURAT = 'Form Responses 1'; 
 let semuaDataSurat = [], dataSuratTersaring = []; const BARIS_SURAT_PER_HALAMAN = 5; let halamanSuratSaatIni = 1; 
@@ -682,13 +682,24 @@ function ambilDataSuratGoogleSheets() {
         semuaDataSurat.reverse(); dataSuratTersaring = [...semuaDataSurat];
         const sel = document.getElementById('filter-surat-tahun');
         if (sel) { sel.innerHTML = '<option value="Semua">Semua Tahun</option>'; Array.from(setTahun).sort().reverse().forEach(th => { let opt = document.createElement('option'); opt.value = th; opt.textContent = th; sel.appendChild(opt); }); }
-        halamanSuratSaatIni = 1; tampilkanDataSuratKeTabel();
+        halamanSuratSaatIni = 1; terapkanFilterSurat();
     }).catch(err => console.error(err));
+}
+
+function terapkanFilterSurat() {
+    const filterTahun = document.getElementById('filter-surat-tahun') ? document.getElementById('filter-surat-tahun').value : 'Semua';
+    const cariKata = document.getElementById('input-cari-surat') ? document.getElementById('input-cari-surat').value.toLowerCase() : '';
+    dataSuratTersaring = semuaDataSurat.filter(i => {
+        const cocokTahun = (filterTahun === 'Semua' || i.tahun === filterTahun);
+        const cocokKata = (i.nama.toLowerCase().includes(cariKata) || i.kategori.toLowerCase().includes(cariKata));
+        return cocokTahun && cocokKata;
+    });
+    halamanSuratSaatIni = 1; tampilkanDataSuratKeTabel();
 }
 
 function tampilkanDataSuratKeTabel() {
     const tbody = document.getElementById('data-tabel-surat'); if (!tbody) return;
-    if (dataSuratTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data transaksi tidak ditemukan.</td></tr>`; return; }
+    if (dataSuratTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#666;">Data surat tidak ditemukan.</td></tr>`; itungHalamanSurat(0); return; }
     
     const start = (halamanSuratSaatIni - 1) * BARIS_SURAT_PER_HALAMAN;
     const pageData = dataSuratTersaring.slice(start, start + BARIS_SURAT_PER_HALAMAN);
@@ -700,6 +711,8 @@ function tampilkanDataSuratKeTabel() {
     }).join('');
 
     const totalHal = Math.ceil(dataSuratTersaring.length / BARIS_SURAT_PER_HALAMAN);
+    itungHalamanSurat(totalHal);
+
     if (totalHal > 1) {
         let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#E53935; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;";
         if (halamanSuratSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navSuratManual(1)" style="${styleBtn}">Halaman Selanjutnya <i class="fa-solid fa-chevron-right"></i></button></div>`;
@@ -709,7 +722,21 @@ function tampilkanDataSuratKeTabel() {
     }
     tbody.innerHTML = html;
 }
+
+function itungHalamanSurat(totalHal) {
+    const infoHal = document.getElementById('info-halaman-surat');
+    if (infoHal) { infoHal.textContent = `Halaman ${totalHal === 0 ? 0 : halamanSuratSaatIni} dari ${totalHal}`; }
+}
 window.navSuratManual = (dir) => { halamanSuratSaatIni += dir; tampilkanDataSuratKeTabel(); };
+
+window.bukaSuratViewer = (url) => {
+    const viewerSection = document.getElementById('surat-viewer-section'); const iframe = document.getElementById('surat-iframe'); const btnUnduh = document.getElementById('btn-unduh-surat');
+    if(viewerSection && iframe) {
+        let embedUrl = url; if(url.includes('file/d/')) { embedUrl = url.replace('/view?usp=sharing', '/preview').replace('/view', '/preview').replace('/view?usp=drive_link', '/preview'); }
+        iframe.src = embedUrl; if(btnUnduh) btnUnduh.href = url; viewerSection.style.display = 'block'; viewerSection.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+window.tutupSuratViewer = () => { const viewerSection = document.getElementById('surat-viewer-section'); const iframe = document.getElementById('surat-iframe'); if(viewerSection && iframe) { iframe.src = ''; viewerSection.style.display = 'none'; } };
 
 
 /* ==========================================================================
