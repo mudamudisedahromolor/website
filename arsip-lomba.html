@@ -90,7 +90,7 @@
 
     <div class="gallery-page-wrapper">
         <div class="content-box-gallery">
-            <h2 class="box-title">ARSIP DATA LOMBA</h2>
+            <h2 class="box-title">ARSIP DATA HASIL LOMBA</h2>
             <hr class="box-divider">
             <p class="gallery-desc">
                 Papan informasi digital pengumuman pemenang, skor, dan data hasil perlombaan Muda Mudi Sedahromo Lor 05.
@@ -231,29 +231,50 @@
                     semuaDataLomba = [];
                     const setTahun = new Set();
 
-                    // PERUBAHAN UTAMA: Memulai perulangan dari indeks 1 (baris kedua) untuk melewati baris header judul
+                    // PEMETAAN KOLOM AKURAT SESUAI SCREENSHOT SPREADSHEET BARU:
+                    // baris.c[0] = Timestamp (Diabaikan)
+                    // baris.c[1] = Tanggal Pelaksanaan (Kolom Pertanyaan)
+                    // baris.c[2] = Nama File
+                    // baris.c[3] = Kategori
+                    // baris.c[4] = Link File (PDF)
+                    
+                    // i = 1 untuk melewati baris judul header paling atas agar teks "Timestamp" dkk tidak ikut tampil
                     for (let i = 1; i < barisData.length; i++) {
                         const baris = barisData[i];
                         
-                        // Memastikan sel kolom di Sheets tidak kosong sebelum memproses data
-                        if (baris.c && baris.c[1] && baris.c[2] && baris.c[3]) {
+                        // Validasi toleran: Cukup pastikan struktur baris ada dan Nama File (baris.c[2]) terisi
+                        if (baris.c && baris.c[2]) {
+                            const teksTanggal = baris.c[1] ? String(baris.c[1].f || baris.c[1].v) : '-';
+                            
+                            // Logika ekstraksi 4 digit angka tahun otomatis dari teks kolom Tanggal (format DD/MM/YYYY)
+                            let angkaTahun = 'Umum';
+                            if (teksTanggal && teksTanggal !== '-') {
+                                const pecahan = teksTanggal.split('/');
+                                if (pecahan.length >= 3) {
+                                    angkaTahun = pecahan[2].trim(); // Mengambil elemen tahun paling belakang
+                                }
+                            }
+
                             const dataItem = {
-                                // baris.c[2] = Mengambil dari kolom pertanyaan Tanggal, BUKAN baris.c[0] (Timestamp)
-                                tanggal: baris.c[2] ? String(baris.c[2].f || baris.c[2].v) : '-',
-                                tahun: baris.c[1] ? String(baris.c[1].v) : '',
-                                nama: baris.c[3] ? String(baris.c[3].v) : '',
-                                kategori: baris.c[4] ? String(baris.c[4].v) : 'Umum',
-                                urlDrive: baris.c[5] ? String(baris.c[5].v) : ''
+                                tanggal: teksTanggal,
+                                tahun: angkaTahun, // Dipakai khusus untuk filter dropdown di web
+                                nama: baris.c[2] ? String(baris.c[2].v) : '-',
+                                kategori: (baris.c[3] && baris.c[3].v) ? String(baris.c[3].v) : 'Umum', // Jika kosong, otomatis diisi badge 'Umum'
+                                urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
                             };
+                            
                             semuaDataLomba.push(dataItem);
-                            if (dataItem.tahun) setTahun.add(dataItem.tahun);
+                            if (angkaTahun && angkaTahun !== 'Umum' && !isNaN(angkaTahun)) {
+                                setTahun.add(angkaTahun);
+                            }
                         }
                     }
 
-                    // Urutkan data kronologis terbalik (terbaru berada paling atas)
+                    // Susun berurutan terbalik (data masukan paling bawah/terbaru diposisikan ke atas tabel web)
                     semuaDataLomba.reverse();
                     dataTersaring = [...semuaDataLomba];
 
+                    // Isi pilihan tahun di dalam dropdown secara otomatis berdasarkan isi data tanggal
                     const selectTahun = document.getElementById('filter-lomba-tahun');
                     selectTahun.innerHTML = '<option value="Semua">Semua Tahun</option>';
                     Array.from(setTahun).sort().reverse().forEach(th => {
@@ -278,13 +299,6 @@
                 });
         }
 
-        // Catatan Indeks Array untuk dicocokkan kembali jika urutan kolom Form Anda berbeda:
-        // baris.c[1] = Kolom B (Tahun)
-        // baris.c[2] = Kolom C (Pertanyaan Tanggal Input Manual Admin)
-        // baris.c[3] = Kolom D (Nama Perlombaan)
-        // baris.c[4] = Kolom E (Kategori Lomba)
-        // baris.c[5] = Kolom F (Link PDF dari Google Drive)
-
         function tampilkanDataKeTabel() {
             const tbody = document.getElementById('data-tabel-lomba');
             tbody.innerHTML = '';
@@ -295,6 +309,7 @@
                 return;
             }
 
+            // Membatasi penampilan data khusus kelipatan maksimal 5 baris saja
             const indeksAwal = (halamanSaatIni - 1) * BARIS_PER_HALAMAN;
             const indeksAkhir = indeksAwal + BARIS_PER_HALAMAN;
             const dataHalamanAktif = dataTersaring.slice(indeksAwal, indeksAkhir);
