@@ -50,7 +50,7 @@
                     <ul class="submenu">
                         <li class="submenu-item"><a href="struktur.html"> - STRUKTUR KEANGGOTAAN</a></li>
                         <li class="submenu-item"><a href="visi-misi.html"> - VISI & MISI</a></li>
-                        <li class="submenu-item"><a href="daftar-anggota"> - DAFTAR ANGGOTA</a></li>
+                        <li class="submenu-item"><a href="daftar-anggota.html"> - DAFTAR ANGGOTA</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -136,16 +136,14 @@
                 </table>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 15px; margin-bottom: 30px; font-size: 13px; color: #555; min-height: 32px;">
-                <span id="info-halaman-surat" style="font-weight: bold;">Halaman 1 dari 1</span>
-                <div style="display: flex; gap: 5px;">
-                    <button id="btn-surat-terbaru" class="btn-cetak-mutasi" onclick="halamanTerbaruSurat()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
-                        <i class="fa-solid fa-chevron-left"></i> Terbaru
-                    </button>
-                    <button id="btn-surat-sebelumnya" class="btn-cetak-mutasi" onclick="halamanSebelumnyaSurat()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
-                        Sebelumnya <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; min-height: 32px;">
+                <button id="btn-surat-terbaru" class="btn-cetak-mutasi" onclick="halamanTerbaruSurat()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
+                    <i class="fa-solid fa-chevron-left"></i> Terbaru
+                </button>
+                <span id="info-halaman-surat" style="font-size: 13px; color: #555; font-weight: bold; margin: 0 auto;">Halaman 1 dari 1</span>
+                <button id="btn-surat-sebelumnya" class="btn-cetak-mutasi" onclick="halamanSebelumnyaSurat()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
+                    Sebelumnya <i class="fa-solid fa-chevron-right"></i>
+                </button>
             </div>
 
             <div id="surat-viewer-section" class="lomba-viewer-hide" style="display: none; width: 100%; margin-top: 35px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
@@ -213,6 +211,6 @@
         </div>
     </footer>
     
-    <script src="script.js?v=113"></script>
+    <script src="script.js?v=115"></script>
 </body>
 </html>
