@@ -81,17 +81,17 @@ const kegiatanData = [
     {
         gambar: "images/foto-tirakatan.jpg", 
         judul: "Malam Tirakatan 17 Agustus 2025",
-        deskripsi: "Kegiatan rutin tahunan untuk memperingati Hari Kemerdekaan Indonesia."
+        deskripsi: "Kegiatan rutin tahunan untuk memperingati Hari Kemerdekaan Indonesia. Warga berkumpul di madrasah dinniyah untuk doa bersama, refleksi perjuangan para pahlawan bangsa."
     },
     {
         gambar: "images/foto-lomba.jpg",
         judul: "Lomba Agustusan Tahun 2025",
-        deskripsi: "Salah satu lomba anak yaitu pindah air dengan sendok."
+        deskripsi: "Salah satu lomba anak yaitu pindah air dengan sendok untuk memperingati hari ulang tahun kemerdekaan Indonesia yang ke-80 Tahun."
     },
     {
         gambar: "images/momen-kebersamaan.jpg",
         judul: "Momen Kebersamaan di Evaluasi Kegiatan",
-        deskripsi: "Momen indah di mana seluruh anggota organisasi berkumpul."
+        deskripsi: "Momen indah di mana seluruh anggota organisasi berkumpul untuk mengevaluasi kegiatan dalam memperingati HUT-RI yang ke 80 tahun."
     }
 ];
 
@@ -145,7 +145,7 @@ window.currentSlide = function(n) {
 }
 
 /* ==========================================================================
-   4. SISTEM TRANSPARANSI KAS KEUANGAN
+   4. SISTEM TRANSPARANSI KAS KEUANGAN (GOOGLE SHEETS TSV)
    ========================================================================== */
 const linkTsvKeuangan = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTqiCluDyXYQijRAElBYLeYPzrT7ENOPtbaxnoHfyZXFFMMxnO1pnZuOAKJaaVgSvFs6eKacEAd4w5I/pub?gid=1216205715&single=true&output=tsv";
 let dataKeuanganGlobal = [];
@@ -319,7 +319,7 @@ async function loadRapatDariDrive() {
 window.terapkanFilterRapat = function() {
     const thn = document.getElementById('filter-rapat-tahun').value;
     const bln = document.getElementById('filter-rapat-bulan').value;
-    const cari = document.getElementById('input-cari-ratat' || 'input-cari-rapat').value.toLowerCase();
+    const cari = document.getElementById('input-cari-rapat').value.toLowerCase();
     dataRapatTersaring = dataRapatGlobal.filter(item => {
         return (thn === "Semua" || item.tahun === thn) && (bln === "Semua" || item.bulan === bln) && (item.agenda.toLowerCase().includes(cari) || item.hasil.toLowerCase().includes(cari) || item.lokasi.toLowerCase().includes(cari));
     });
@@ -408,7 +408,7 @@ function renderTabelDokumentasi() {
                 else kolomMedia += `<a href="${linkSingle}" target="_blank" style="padding:6px 12px; background:#f5f5f5; border:1px solid #ccc; font-size:11px; font-weight:bold;"><i class="fa-solid fa-paperclip" style="color:#E53935;"></i> Berkas ${index + 1}</a>`;
             });
             kolomMedia += `</div>`;
-        } else kolomMedia = `<div style="text-align:center; color:#999; font-style:italic;">Tidak ada file</div>`;
+        } else kolomMedia = `<div style="text-align:center; color:#999; font-style:italic; font-size:12px;">Tidak ada file</div>`;
 
         return `<tr><td>${i.tanggal}</td><td>${kolomMedia}</td><td style="font-weight:bold; color:#E53935;">${i.agenda}</td><td style="font-weight:600; color:#555;">${i.subjek}</td><td style="line-height:1.6; text-align:justify;">${i.kegiatan}</td></tr>`;
     }).join('');
@@ -711,7 +711,7 @@ function ambilDataSuratGoogleSheets() {
             if (baris && baris.c && baris.c[2]) {
                 const tgl = String(baris.c[1] ? baris.c[1].f || baris.c[1].v : '-').trim();
                 let thn = tgl.split('/')[2] || 'Umum';
-                semuaDataSurat.push({ tanggal: tgl, autumn: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
+                semuaDataSurat.push({ tanggal: tgl, tahun: thn, nama: String(baris.c[2].v), kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum', urlDrive: baris.c[4] ? String(baris.c[4].v) : '' });
                 if (thn !== 'Umum' && !isNaN(thn)) setTahunSurat.add(thn);
             }
         }
@@ -753,7 +753,7 @@ window.halamanTerbaruSurat = function() { window.navSuratManual(-1); };
 
 window.terapkanFilterSurat = function() {
     const yearSurat = document.getElementById('filter-surat-tahun')?.value || 'Semua', keySurat = document.getElementById('input-cari-surat')?.value.toLowerCase() || '';
-    dataSuratTersaring = semuaDataSurat.filter(i => (yearSurat === 'Semua' || i.autumn === yearSurat) && (i.nama.toLowerCase().includes(keySurat) || i.kategori.toLowerCase().includes(keySurat)));
+    dataSuratTersaring = semuaDataSurat.filter(i => (yearSurat === 'Semua' || i.tahun === yearSurat) && (i.nama.toLowerCase().includes(keySurat) || i.kategori.toLowerCase().includes(keySurat)));
     halamanSuratSaatIni = 1; tampilkanDataSuratKeTabel();
 };
 
