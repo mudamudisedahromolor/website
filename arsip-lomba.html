@@ -210,9 +210,8 @@
         const SHEET_NAME = 'Form Responses 1'; 
         
         let semuaDataLomba = [];
-        let dataTersaring = []; // Data yang lolos filter pencarian / dropdown tahun
+        let dataTersaring = []; 
         
-        // Pengaturan Sistem Pagination (Max 5 baris)
         const BARIS_PER_HALAMAN = 5;
         let halamanSaatIni = 1;
 
@@ -232,24 +231,27 @@
                     semuaDataLomba = [];
                     const setTahun = new Set();
 
-                    barisData.forEach(baris => {
-                        if(baris.c && baris.c[1] && baris.c[2]) {
+                    // PERUBAHAN UTAMA: Memulai perulangan dari indeks 1 (baris kedua) untuk melewati baris header judul
+                    for (let i = 1; i < barisData.length; i++) {
+                        const baris = barisData[i];
+                        
+                        // Memastikan sel kolom di Sheets tidak kosong sebelum memproses data
+                        if (baris.c && baris.c[1] && baris.c[2] && baris.c[3]) {
                             const dataItem = {
-                                tanggal: baris.c[0] ? String(baris.c[0].f || baris.c[0].v) : '-',
+                                // baris.c[2] = Mengambil dari kolom pertanyaan Tanggal, BUKAN baris.c[0] (Timestamp)
+                                tanggal: baris.c[2] ? String(baris.c[2].f || baris.c[2].v) : '-',
                                 tahun: baris.c[1] ? String(baris.c[1].v) : '',
-                                nama: baris.c[2] ? String(baris.c[2].v) : '',
-                                kategori: baris.c[3] ? String(baris.c[3].v) : 'Umum',
-                                urlDrive: baris.c[4] ? String(baris.c[4].v) : ''
+                                nama: baris.c[3] ? String(baris.c[3].v) : '',
+                                kategori: baris.c[4] ? String(baris.c[4].v) : 'Umum',
+                                urlDrive: baris.c[5] ? String(baris.c[5].v) : ''
                             };
                             semuaDataLomba.push(dataItem);
-                            if(dataItem.tahun) setTahun.add(dataItem.tahun);
+                            if (dataItem.tahun) setTahun.add(dataItem.tahun);
                         }
-                    });
+                    }
 
-                    // Urutkan dari tanggal paling baru (paling atas) ke lama
+                    // Urutkan data kronologis terbalik (terbaru berada paling atas)
                     semuaDataLomba.reverse();
-                    
-                    // Set data tersaring default sama dengan semua data di awal
                     dataTersaring = [...semuaDataLomba];
 
                     const selectTahun = document.getElementById('filter-lomba-tahun');
@@ -276,6 +278,13 @@
                 });
         }
 
+        // Catatan Indeks Array untuk dicocokkan kembali jika urutan kolom Form Anda berbeda:
+        // baris.c[1] = Kolom B (Tahun)
+        // baris.c[2] = Kolom C (Pertanyaan Tanggal Input Manual Admin)
+        // baris.c[3] = Kolom D (Nama Perlombaan)
+        // baris.c[4] = Kolom E (Kategori Lomba)
+        // baris.c[5] = Kolom F (Link PDF dari Google Drive)
+
         function tampilkanDataKeTabel() {
             const tbody = document.getElementById('data-tabel-lomba');
             tbody.innerHTML = '';
@@ -286,7 +295,6 @@
                 return;
             }
 
-            // Hitung batasan data khusus halaman aktif saja (Max 5)
             const indeksAwal = (halamanSaatIni - 1) * BARIS_PER_HALAMAN;
             const indeksAkhir = indeksAwal + BARIS_PER_HALAMAN;
             const dataHalamanAktif = dataTersaring.slice(indeksAwal, indeksAkhir);
@@ -321,21 +329,17 @@
 
         function perbaruiTombolNavigasi(totalData) {
             const totalHalaman = Math.ceil(totalData / BARIS_PER_HALAMAN) || 1;
-            
-            // Perbarui label petunjuk teks halaman
             document.getElementById('info-halaman-tabel').textContent = `Halaman ${halamanSaatIni} dari ${totalHalaman}`;
 
-            // Tombol "Terbaru" (Kembali ke data atas/baru) aktif jika posisi halaman > 1
             const btnTerbaru = document.getElementById('btn-halaman-terbaru');
             if (halamanSaatIni > 1) {
                 btnTerbaru.disabled = false;
-                btnTerbaru.style.backgroundColor = '#0288D1'; // Warna aktif biru
+                btnTerbaru.style.backgroundColor = '#0288D1';
             } else {
                 btnTerbaru.disabled = true;
-                btnTerbaru.style.backgroundColor = '#555'; // Warna redup terkunci
+                btnTerbaru.style.backgroundColor = '#555';
             }
 
-            // Tombol "Sebelumnya" (Melihat data lama ke bawah) aktif jika masih ada sisa data di bawahnya
             const btnSebelumnya = document.getElementById('btn-halaman-sebelumnya');
             if (halamanSaatIni < totalHalaman) {
                 btnSebelumnya.disabled = false;
@@ -346,7 +350,6 @@
             }
         }
 
-        // Aksi klik navigasi melihat berkas lama (Ke Halaman Berikutnya)
         function halamanSebelumnya() {
             const totalHalaman = Math.ceil(dataTersaring.length / BARIS_PER_HALAMAN);
             if (halamanSaatIni < totalHalaman) {
@@ -355,7 +358,6 @@
             }
         }
 
-        // Aksi klik navigasi kembali ke berkas baru (Ke Halaman Sebelumnya)
         function halamanTerbaru() {
             if (halamanSaatIni > 1) {
                 halamanSaatIni--;
@@ -376,7 +378,6 @@
                 return cocokTahun && cocokKataKunci;
             });
 
-            // Setel ulang halaman ke angka 1 setiap kali user menyaring data baru
             halamanSaatIni = 1;
             tampilkanDataKeTabel();
         }
