@@ -160,15 +160,20 @@
             const rows = dataCSV.split('\n').map(row => row.split(','));
 
             // Mencari baris yang ID-nya cocok
-            const berita = rows.find(row => row[0] == id);
+            // ... kode fetch sebelumnya ...
 
-            if (berita) {
-                document.getElementById('judul-berita').innerText = berita[1];
-                document.getElementById('gambar-berita').src = berita[4];
-                document.getElementById('isi-berita').innerText = berita[3];
-            } else {
-                document.getElementById('judul-berita').innerText = "Berita tidak ditemukan.";
-            }
+// Mencari baris yang ID-nya cocok (ID sekarang ada di kolom indeks 1)
+const berita = rows.find(row => row[1] == id);
+
+if (berita) {
+    // Sesuaikan indeks dengan urutan kolom baru
+    document.getElementById('judul-berita').innerText = berita[2]; // Judul di kolom indeks 2
+    document.getElementById('gambar-berita').src = berita[5];    // Gambar di kolom indeks 5
+    document.getElementById('isi-berita').innerText = berita[4];  // Isi di kolom indeks 4
+} else {
+    document.getElementById('judul-berita').innerText = "Berita tidak ditemukan.";
+}
+
         }
         window.onload = tampilkanDetail;
     </script>
