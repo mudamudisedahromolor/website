@@ -13,66 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
 
-    <style>
-        /* Styling khusus area Under Construction agar responsif dan pas di tengah box */
-        .uc-container {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .uc-icon-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 25px;
-        }
-        .uc-icon-main {
-            font-size: 70px;
-            color: #E53935; /* Menyelaraskan dengan warna merah tema MMS */
-        }
-        .uc-icon-sub {
-            font-size: 35px;
-            color: #fbc02d; /* Warna aksen kuning pengerjaan */
-            position: absolute;
-            bottom: -5px;
-            right: -10px;
-            background: #ffffff;
-            border-radius: 50%;
-            padding: 2px;
-        }
-        .uc-title {
-            font-size: 24px;
-            color: #333333;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .uc-text {
-            font-size: 15px;
-            color: #666666;
-            max-width: 500px;
-            margin: 0 auto 30px auto;
-            line-height: 1.6;
-        }
-        .uc-btn-kembali {
-            display: inline-block;
-            background-color: #E53935;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .uc-btn-kembali:hover {
-            background-color: #d32f2f;
-            transform: translateY(-2px);
-        }
-        .uc-btn-kembali i {
-            margin-right: 8px;
-        }
-    </style>
+   
 </head>
 <body> 
     
@@ -156,29 +97,25 @@
         </nav>
 </header>
 
-    <div class="finance-page-wrapper">
-        <div class="content-box" style="max-width: 800px; width: 95%;">
-            
-            <div class="uc-container">
-                <div class="uc-icon-wrapper">
-                    <i class="fa-solid fa-gear fa-spin uc-icon-main" style="--fa-animation-duration: 4s;"></i>
-                    <i class="fa-solid fa-wrench uc-icon-sub"></i>
-                </div>
-                
-                <h2 class="uc-title">Halaman Sedang Dikembangkan</h2>
-                <hr class="box-divider" style="max-width: 150px; margin: 15px auto;">
-                
-                <p class="uc-text">
-                    Mohon maaf, Bro! Halaman ini saat ini masih dalam proses pengerjaan dan pengembangan tim admin teknis Muda Mudi Sedahromo Lor 05 agar fiturnya bisa berjalan maksimal.
-                </p>
-                
-                <a href="index.html" class="uc-btn-kembali">
-                    <i class="fa-solid fa-house"></i> Kembali ke Beranda
-                </a>
-            </div>
+<div class="finance-page-wrapper">
+    <div class="content-box" style="max-width: 1000px; width: 100%;">
+        <h2 class="box-title">SEDAROMO ENGINE <br> (Sistem Turnamen)</h2>
+        <hr class="box-divider">
+        
+        <!-- Tombol Filter/Navigasi -->
+        <div class="filter-container">
+            <button onclick="renderBracket('Semifinal')" class="btn-cetak-mutasi">Semifinal</button>
+            <button onclick="renderBracket('Final')" class="btn-cetak-mutasi">Final</button>
+            <button onclick="renderBracket('Juara3')" class="btn-cetak-mutasi">Juara 3</button>
+        </div>
 
-        </div> 
-    </div> 
+        <!-- Tempat hasil generate -->
+        <div id="bracket-render-area" style="margin-top: 20px;">
+            <p style="text-align:center;">Silakan pilih babak untuk menampilkan bracket...</p>
+        </div>
+    </div>
+</div>
+
     
     <footer class="site-footer">
         <div class="footer-container">
