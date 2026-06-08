@@ -16,37 +16,31 @@
     <link rel="manifest" href="manifest.json">
 
     <style>
-      /* PENYELARASAN LAYOUT AGAR NAVIGASI TIDAK SALING BERTUMPUK */
- body { 
-        background: #F4F6F9; 
-        color: #333; 
-        font-family: 'Segoe UI', sans-serif; 
-        padding-top: 0; 
-      }
-
-      /* Bar Jingga Shopee: Kita beri margin atas agar turun dari balik posisi header fixed portal */
+      /* MANAJEMEN LAYOUTING CSS SINKRONISASI PORTAL & SHOPEE FJB */
+      body { background: #F4F6F9; color: #333; font-family: 'Segoe UI', sans-serif; padding-top: 0; }
+      
       .navbar-shopee { 
         background-color: #EE4D2D; 
         color: white; 
         box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
         position: sticky; 
-        top: 130px; /* Sesuai perkiraan tinggi total header merah MMS kamu */
+        top: 0; 
         z-index: 999; 
-        margin-top: 135px; /* PANDUAN PENTING: Dorong navbar jingga agar keluar dari bawah menu merah */
+        margin-top: 135px; /* Dorong navbar jingga keluar dari balik posisi header fixed portal */
       }
       
-      .btn-shopee { background-color: #EE4D2D; color: white; font-weight: 600; }
+      .btn-shopee { background-color: #EE4D2D; color: white; font-weight: 600; border: none; }
       .btn-shopee:hover { background-color: #E03E1A; color: white; }
       
-      /* Area Konten Utama Pencarian & Grid Produk */
       .market-container {
         max-width: 960px;
-        margin: 25px auto 80px auto; /* Memberi jarak aman atas dan bawah sebelum footer */
+        margin: 25px auto 80px auto; 
         padding: 0 15px;
       }
       
       .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; padding: 15px 0; }
-      .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #EAEAEA; display: flex; flex-direction: column; height: 345px; position: relative; }
+      .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #EAEAEA; display: flex; flex-direction: column; height: 345px; position: relative; transition: 0.2s; }
+      .product-card:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(238, 77, 45, 0.15); border-color: rgba(238, 77, 45, 0.3); }
       .img-wrapper { position: relative; width: 100%; height: 160px; background-color: #ECEFF1; display: flex; align-items: center; justify-content: center; }
       .img-product { width: 100%; height: 100%; object-fit: cover; }
       .badge-kondisi { position: absolute; top: 6px; left: 6px; font-size: 0.65rem; font-weight: 700; padding: 3px 6px; border-radius: 4px; z-index: 3; }
@@ -164,7 +158,7 @@
       <div class="mb-3">
         <div class="input-group shadow-sm">
           <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-          <input type="text" id="inputCari" class="form-control" placeholder="Cari barang di lapak RT..." onkeyup="filterCariBarang()">
+          <input type="text" id="inputCari" class="form-control" placeholder="Cari barang..." onkeyup="filterCariBarang()">
         </div>
       </div>
 
@@ -179,135 +173,122 @@
       <div id="emptyMsg" class="text-center text-muted my-5 hidden"><h5>Belum ada produk aktif.</h5></div>
     </div>
 
-   <div class="modal fade" id="formJualModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content" style="border-radius:12px; border-top:5px solid #EE4D2D;">
-      <div class="modal-header bg-light">
-        <h6 class="modal-title fw-bold"><i class="fa-solid fa-box-open text-danger me-2"></i>Buka Lapak Dagangan RT</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal fade" id="formJualModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius:12px; border-top:5px solid #EE4D2D;">
+          <div class="modal-header bg-light">
+            <h6 class="modal-title fw-bold"><i class="fa-solid fa-box-open text-danger me-2"></i>Buka Lapak Dagangan RT</h6>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-3">
+            <div class="row g-3">
+              
+              <div class="col-md-6 border-end text-start">
+                <div id="jualAlert" class="alert alert-danger hidden" style="font-size: 0.8rem;"></div>
+                <form id="formLapak" onsubmit="event.preventDefault(); prosesSimpanBarang();">
+                  <div class="mb-2">
+                    <label class="small fw-bold text-secondary">Email Terdaftar *</label>
+                    <input type="email" id="jualEmail" class="form-control form-control-sm" required placeholder="nama@email.com">
+                  </div>
+                  <div class="mb-2">
+                    <label class="small fw-bold text-secondary">Nama Barang *</label>
+                    <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Helm Bogo Retro Preloved">
+                  </div>
+                  <div class="row g-2 mb-2">
+                    <div class="col-6">
+                      <label class="small fw-bold text-secondary">Harga Jual (Rp) *</label>
+                      <input type="number" id="jualHarga" class="form-control form-control-sm" min="0" step="1000" required placeholder="85000">
+                    </div>
+                    <div class="col-6">
+                      <label class="small fw-bold text-secondary">Stok Barang *</label>
+                      <input type="number" id="jualStok" class="form-control form-control-sm" value="1" min="1" step="1" required>
+                    </div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="small fw-bold text-secondary">Kondisi *</label>
+                    <select id="jualKondisi" class="form-select form-select-sm" required>
+                      <option value="2nd Good Condition">2nd Good Condition</option>
+                      <option value="Baru / UMKM">Baru / Produk UMKM</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="small fw-bold text-secondary">Metode Pengiriman *</label>
+                    <div class="d-flex gap-3 mt-1">
+                      <div class="form-check"><input class="form-check-input" type="checkbox" value="COD" id="chkCod" checked><label class="form-check-label small">COD Ketemuan</label></div>
+                      <div class="form-check"><input class="form-check-input" type="checkbox" value="Ambil" id="chkAmbil"><label class="form-check-label small">Ambil di Rumah</label></div>
+                    </div>
+                  </div>
+                  <button type="submit" id="btnSubmitLapak" class="btn btn-sm btn-shopee w-100 p-2 shadow-sm">Kirim Data Lapak Teks</button>
+                </form>
+              </div>
+
+              <div class="col-md-6 d-flex flex-column text-start">
+                <label class="small fw-bold text-dark mb-1"><i class="fa-solid fa-camera text-danger me-1"></i> Area Upload Foto Produk *</label>
+                <div class="flex-grow-1 border rounded shadow-inner" style="background: #F8F9FA; min-height: 250px; position: relative; overflow: hidden;">
+                  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfD_X1_M-GantiDenganIDFormAnda/viewform?embedded=true" 
+                          width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" 
+                          style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;">
+                    Loading…
+                  </iframe>
+                </div>
+                <div class="text-muted mt-1" style="font-size: 0.65rem; line-height: 1.3;">
+                  * <b>Catatan:</b> Setelah mengisi formulir teks di sebelah kiri, pastikan kamu juga menyelesaikan unggah foto produk lewat kotak di atas sampai klik <b>Kirim/Submit</b>.
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body p-3">
-        <div class="row g-3">
-          
-          <div class="col-md-6 border-end text-start">
-            <div id="jualAlert" class="alert alert-danger hidden" style="font-size: 0.8rem;"></div>
-            <form id="formLapak" onsubmit="event.preventDefault(); prosesSimpanBarang();">
-              <div class="mb-2">
-                <label class="small fw-bold text-secondary">Email Terdaftar *</label>
-                <input type="email" id="jualEmail" class="form-control form-control-sm" required placeholder="nama@email.com">
+    </div>
+
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius:12px; overflow: hidden;">
+          <div class="modal-header bg-dark text-white p-2.5 px-3">
+            <h6 class="modal-title fw-bold" id="lblDetailTitle">Detail Produk</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-3">
+            
+            <div id="panelDetailBarang" class="mb-3 border-bottom pb-3 text-start"></div>
+            
+            <div class="card bg-light border p-2 mb-3 text-start">
+              <label class="fw-bold text-secondary mb-1" style="font-size:0.72rem;"><i class="fa-solid fa-user-gear me-1"></i> Fitur Pemilik Lapak (Konfirmasi Penjual)</label>
+              <div class="input-group input-group-sm">
+                <input type="email" id="emailVerifikasiAksi" class="form-control form-control-sm" placeholder="Masukkan email konfirmasi kamu">
+                <button class="btn btn-sm btn-warning fw-bold text-dark" onclick="eksekusiAksiLapak('setTerjual')"><i class="fa-solid fa-circle-check"></i> Terjual</button>
+                <button class="btn btn-sm btn-danger fw-bold" onclick="eksekusiAksiLapak('hapusBarang')"><i class="fa-solid fa-trash-can"></i> Hapus</button>
               </div>
-              <div class="mb-2">
-                <label class="small fw-bold text-secondary">Nama Barang *</label>
-                <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Gitar Akustik Yamaha">
-              </div>
+              <div class="text-muted mt-1" style="font-size:0.62rem; line-height:1.2;">* Penjual bisa menandai status laku atau menghapus postingan sewaktu-waktu dengan memasukkan email pendaftaran.</div>
+            </div>
+
+            <h6 class="fw-bold mb-2 text-start" style="font-size:0.85rem;"><i class="fa-solid fa-comments text-danger me-1"></i> Ruang Diskusi</h6>
+            <div id="boxInteraksi" class="chat-box mb-3"></div>
+            
+            <form id="formInteraksi" onsubmit="event.preventDefault(); prosesKirimInteraksi();">
+              <input type="hidden" id="intIdProduk">
               <div class="row g-2 mb-2">
+                <div class="col-6"><input type="text" id="intNama" class="form-control form-control-sm" placeholder="Nama Anda" required></div>
                 <div class="col-6">
-                  <label class="small fw-bold text-secondary">Harga Jual *</label>
-                  <div class="input-group input-group-sm">
-                    <span class="input-group-text bg-light text-secondary fw-bold" style="font-size: 0.72rem;">Rp</span>
-                    <input type="text" id="jualHarga" class="form-control form-control-sm" 
-                           inputmode="numeric" pattern="[0-9]*" required placeholder="200000"
-                           oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                  </div>
-                </div>
-                <div class="col-6">
-                  <label class="small fw-bold text-secondary">Stok Barang (Quantity) *</label>
-                  <div class="input-group input-group-sm">
-                    <input type="text" id="jualStok" class="form-control form-control-sm" 
-                           inputmode="numeric" pattern="[0-9]*" value="1" required
-                           oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                    <span class="input-group-text bg-light text-muted" style="font-size: 0.65rem;">1 stk = 7 Hari</span>
-                  </div>
+                  <select id="intJenis" class="form-select form-select-sm" onchange="aturFormJenis()" required>
+                    <option value="Komentar">Komentar</option>
+                    <option value="Nego">Nego Harga</option>
+                    <option value="Rating">Rating</option>
+                  </select>
                 </div>
               </div>
-              <div class="mb-2">
-                <label class="small fw-bold text-secondary">Kondisi *</label>
-                <select id="jualKondisi" class="form-select form-select-sm" required>
-                  <option value="2nd Good Condition">2nd Good Condition</option>
-                  <option value="Baru / UMKM">Baru / Produk UMKM</option>
-                </select>
+              <div class="mb-2 hidden" id="rowNilaiNego"><input type="number" id="intNilaiNego" class="form-control form-control-sm" placeholder="Nominal Nego Jual"></div>
+              <div class="mb-2 hidden" id="rowNilaiRating">
+                <select id="intNilaiRating" class="form-select form-select-sm"><option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option></select>
               </div>
-              <div class="mb-2">
-                <label class="small fw-bold text-secondary">Metode Pengiriman *</label>
-                <div class="d-flex gap-3 mt-1">
-                  <div class="form-check"><input class="form-check-input" type="checkbox" value="COD" id="chkCod" checked><label class="form-check-label small">COD Ketemuan</label></div>
-                  <div class="form-check"><input class="form-check-input" type="checkbox" value="Ambil" id="chkAmbil"><label class="form-check-label small">Ambil di Rumah</label></div>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label class="small fw-bold text-secondary">Link Hasil Upload Foto *</label>
-                <input type="url" id="jualFoto" class="form-control form-control-sm" required placeholder="Tempel URL tautan gambar dari kolom kanan">
-              </div>
-              <button type="submit" id="btnSubmitLapak" class="btn btn-sm btn-shopee w-100 p-2 shadow-sm">Tayangkan Dagangan</button>
+              <div class="mb-2"><textarea id="intIsiPesan" class="form-control form-control-sm" rows="2" placeholder="Pesan Anda..." required></textarea></div>
+              <button type="submit" id="btnSubmitInteraksi" class="btn btn-xs btn-dark w-100">Kirim</button>
             </form>
           </div>
-
-          <div class="col-md-6 d-flex flex-column text-start">
-            <label class="small fw-bold text-dark mb-1"><i class="fa-solid fa-camera text-danger me-1"></i> Area Upload Foto Produk</label>
-            <div class="flex-grow-1 border rounded shadow-inner" style="background: #F8F9FA; min-height: 290px; position: relative; overflow: hidden;">
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfD_X1_M-GantiDenganIDFormAnda/viewform?embedded=true" 
-                      width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" 
-                      style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;">
-                Loading…
-              </iframe>
-            </div>
-            <div class="text-muted mt-1" style="font-size: 0.65rem; line-height: 1.3;">
-              * <b>Panduan:</b> Upload gambar barang lewat kotak widget diatas, selesaikan proses kirim form, lalu lampirkan link salinan berkasnya pada kolom isian di sebelah kiri.
-            </div>
-          </div>
-
         </div>
       </div>
-    </div>
-</div>
-
-<div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius:12px;">
-      <div class="modal-header bg-dark text-white p-2.5 px-3">
-        <h6 class="modal-title fw-bold" id="lblDetailTitle">Detail Produk</h6>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body p-3">
-        
-        <div id="panelDetailBarang" class="mb-3 border-bottom pb-3 text-start"></div>
-        
-        <div class="card bg-light border p-2 mb-3 text-start">
-          <label class="fw-bold text-secondary mb-1" style="font-size:0.72rem;"><i class="fa-solid fa-user-gear me-1"></i> Fitur Pemilik Lapak (Konfirmasi Penjual)</label>
-          <div class="input-group input-group-sm">
-            <input type="email" id="emailVerifikasiAksi" class="form-control form-control-sm" placeholder="Masukkan email kamu untuk eksekusi">
-            <button class="btn btn-sm btn-warning fw-bold text-dark" onclick="eksekusiAksiLapak('setTerjual')"><i class="fa-solid fa-circle-check"></i> Terjual</button>
-            <button class="btn btn-sm btn-danger fw-bold" onclick="eksekusiAksiLapak('hapusBarang')"><i class="fa-solid fa-trash-can"></i> Hapus</button>
-          </div>
-          <div class="text-muted mt-1" style="font-size:0.62rem; line-height:1.2;">* Masukkan email yang kamu pakai saat mendaftarkan barang ini untuk menandai barang sudah laku atau menghapusnya.</div>
-        </div>
-
-        <h6 class="fw-bold mb-2 text-start" style="font-size:0.85rem;"><i class="fa-solid fa-comments text-danger me-1"></i> Ruang Diskusi</h6>
-        <div id="boxInteraksi" class="chat-box mb-3"></div>
-        
-        <form id="formInteraksi" onsubmit="event.preventDefault(); prosesKirimInteraksi();">
-          <input type="hidden" id="intIdProduk">
-          <div class="row g-2 mb-2">
-            <div class="col-6"><input type="text" id="intNama" class="form-control form-control-sm" placeholder="Nama Anda" required></div>
-            <div class="col-6">
-              <select id="intJenis" class="form-select form-select-sm" onchange="aturFormJenis()" required>
-                <option value="Komentar">Komentar</option>
-                <option value="Nego">Nego Harga</option>
-                <option value="Rating">Rating</option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-2 hidden" id="rowNilaiNego"><input type="number" id="intNilaiNego" class="form-control form-control-sm" placeholder="Nominal Nego Jual"></div>
-          <div class="mb-2 hidden" id="rowNilaiRating">
-            <select id="intNilaiRating" class="form-select form-select-sm"><option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option></select>
-          </div>
-          <div class="mb-2"><textarea id="intIsiPesan" class="form-control form-control-sm" rows="2" placeholder="Pesan Anda..." required></textarea></div>
-          <button type="submit" id="btnSubmitInteraksi" class="btn btn-xs btn-dark w-100">Kirim</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+    </div> 
 
     <footer class="site-footer">
         <div class="footer-container">
@@ -354,6 +335,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      // LINK API UTAMA DARI DEPLOYMENT APPS SCRIPT ANDA UTK BYPASS CORS GOOGLE
       const API_URL = "https://script.google.com/macros/s/AKfycby4X0hmuZJPUkTZcPlTSPEuXmqnzCP3erXO6Q4TAAjNdZzkB1egsdVWfxDQTudFDSt7OA/exec";
 
       let databaseMaster = { produk: [], interaksi: [] };
@@ -403,24 +385,36 @@
         $(container).removeClass('hidden');
 
         filtered.forEach(p => {
-          let img = p.foto;
+          // Setel foto default dari sistem admin karang taruna Anda jika kosong
+          let img = p.foto || 'https://via.placeholder.com/150?text=Uploaded+via+Form';
           if(p.foto && p.foto.includes('/d/')) {
             let id = p.foto.split('/d/')[1].split('/')[0];
             img = `https://drive.google.com/thumbnail?id=${id}&sz=w300`;
           }
-          let badge = p.kondisi === '2nd Good Condition' ? 'bg-warning text-dark' : 'bg-success text-white';
           
+          let isTerjual = p.status === "Terjual";
+          let badgeKondisi = p.kondisi;
+          let badgeColor = p.kondisi === '2nd Good Condition' ? 'bg-warning text-dark' : 'bg-success text-white';
+          
+          if(isTerjual) {
+            badgeKondisi = "TERJUAL";
+            badgeColor = "bg-danger text-white";
+          }
+
+          let displayHarga = "Rp " + Number(p.harga).toLocaleString('id-ID');
+          let displaySisaWaktu = isTerjual ? `<b class="text-danger">Sudah Laku (Dihapus otomatis)</b>` : `Aktif: <b>${p.sisaHari} Hari</b> (${p.stok} Stk)`;
+
           $(container).append(`
-            <div class="product-card" data-nama="${p.nama.toLowerCase()}">
+            <div class="product-card" data-nama="${p.nama.toLowerCase()}" style="${isTerjual ? 'opacity: 0.65;' : ''}">
               <div class="img-wrapper">
-                <span class="badge ${badge} badge-kondisi">${p.kondisi}</span>
+                <span class="badge ${badgeColor} badge-kondisi">${badgeKondisi}</span>
                 <img src="${img}" class="img-product" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
               </div>
               <div class="product-info">
                 <div>
-                  <div class="product-title fw-bold">${p.nama}</div>
-                  <div class="product-price text-danger fw-bold">Rp ${Number(p.harga).toLocaleString('id-ID')}</div>
-                  <div class="meta-text mt-1"><i class="fa-solid fa-hourglass-half text-danger"></i> Aktif: ${p.sisaHari} Hari</div>
+                  <div class="product-title fw-bold ${isTerjual ? 'text-decoration-line-through text-muted' : ''}">${p.nama}</div>
+                  <div class="product-price text-danger fw-bold">${displayHarga}</div>
+                  <div class="meta-text mt-1"><i class="fa-solid fa-hourglass-half text-danger"></i> ${displaySisaWaktu}</div>
                   <div class="meta-text text-truncate"><i class="fa-solid fa-truck"></i> ${p.metode}</div>
                 </div>
                 <button class="btn btn-sm btn-outline-danger w-100 mt-2" onclick="bukaDetailBarang('${p.id}')">Detail / Nego</button>
@@ -461,7 +455,7 @@
           harga: $('#jualHarga').val(),
           stok: $('#jualStok').val(),
           kondisi: $('#jualKondisi').val(),
-          foto: $('#jualFoto').val(),
+          foto: "", // Disimpan teks kosong karena arsip file gambar dialirkan murni ke Drive Google Form kanan
           metode: mt.join(" / ") || "Hubungi Penjual"
         };
 
@@ -469,14 +463,14 @@
           .then(r => r.json())
           .then(res => {
             if(res.status === 'success') {
-              alert("Lapak berhasil ditayangkan!");
+              alert("Data barang berhasil disimpan! Selesaikan juga upload gambarnya di kotak sebelah kanan ya.");
               modalJual.hide();
               muatDataAwal();
             } else {
               $('#jualAlert').removeClass('hidden').text(res.message);
             }
-            btn.prop('disabled', false).text('Tayangkan Dagangan');
-          }).catch(() => { btn.prop('disabled', false).text('Tayangkan Dagangan'); });
+            btn.prop('disabled', false).text('Kirim Data Lapak Teks');
+          }).catch(() => { btn.prop('disabled', false).text('Kirim Data Lapak Teks'); });
       }
 
       function bukaDetailBarang(id) {
@@ -484,11 +478,43 @@
         if(!p) return;
         $('#intIdProduk').val(p.id);
         $('#formInteraksi')[0].reset();
+        $('#emailVerifikasiAksi').val('');
         aturFormJenis();
         $('#lblDetailTitle').text("Katalog: " + p.nama);
         $('#panelDetailBarang').html(`<h6><b>${p.nama}</b></h6><p class="text-danger fw-bold">Rp ${Number(p.harga).toLocaleString('id-ID')}</p><small class="text-muted">Penjual: ${p.email}</small>`);
         renderInteraksi(p.id);
         modalDetail.show();
+      }
+
+      function eksekusiAksiLapak(jenisAksi) {
+        let idProduk = $('#intIdProduk').val();
+        let emailInput = $('#emailVerifikasiAksi').val();
+        
+        if(!emailInput) {
+          alert("Masukkan email kamu terlebih dahulu untuk verifikasi kepemilikan lapak!");
+          return;
+        }
+        
+        let konfirmasiTeks = jenisAksi === "setTerjual" ? "Tandai produk ini sudah laku/terjual?" : "Hapus postingan lapak ini secara permanen?";
+        if(!confirm(konfirmasiTeks)) return;
+
+        let payload = {
+          aksi: jenisAksi,
+          id: idProduk,
+          email: emailInput
+        };
+
+        fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payload) })
+          .then(r => r.json())
+          .then(res => {
+            if(res.status === 'success') {
+              alert("Pembaruan status lapak berhasil diterapkan!");
+              modalDetail.hide();
+              muatDataAwal(); 
+            } else {
+              alert("Gagal: " + res.message);
+            }
+          }).catch(() => { alert("Koneksi gagal memproses permintaan."); });
       }
 
       function renderInteraksi(idProduk) {
