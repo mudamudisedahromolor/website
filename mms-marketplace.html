@@ -57,14 +57,15 @@
       .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #EE4D2D; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 40px auto; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       
-      /* Tambahan CSS khusus kerapian form input group agar Rp menyatu sempurna */
-      .input-group-text-custom {
-        background-color: #e9ecef;
-        border: 1px solid #ced4da;
-        color: #495057;
-        font-weight: bold;
-        font-size: 0.85rem;
-      }
+      /* Perbaikan Struktur Form Agar Kotak Input Group Sejajar Sempurna */
+      .input-group-custom { display: flex !important; align-items: stretch !important; width: 100% !important; }
+      .input-group-text-custom { background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; padding: 0 10px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
+      .input-field-custom { border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
+      
+      /* Kotak Preview Upload Gambar Mandiri */
+      .box-upload-area { border: 2px dashed #ced4da; padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px; cursor: pointer; position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 220px; }
+      .box-upload-area:hover { border-color: #EE4D2D; background: #fff5f3; }
+      .preview-img-upload { max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 6px; display: none; margin-top: 10px; }
     </style>
 </head>
 <body> 
@@ -207,9 +208,9 @@
                   <div class="row g-2 mb-2">
                     <div class="col-6">
                       <label class="small fw-bold text-secondary">Harga Jual *</label>
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-text input-group-text-custom">Rp</span>
-                        <input type="number" id="jualHarga" class="form-control form-control-sm" min="0" step="1000" required placeholder="85000">
+                      <div class="input-group-custom">
+                        <span class="input-group-text-custom">Rp</span>
+                        <input type="number" id="jualHarga" class="form-control form-control-sm input-field-custom" min="0" step="1000" required placeholder="85000">
                       </div>
                     </div>
                     <div class="col-6">
@@ -232,21 +233,21 @@
                       <div class="form-check"><input class="form-check-input" type="checkbox" value="Ambil" id="chkAmbil"><label class="form-check-label small">Ambil di Rumah</label></div>
                     </div>
                   </div>
-                  <button type="submit" id="btnSubmitLapak" class="btn btn-sm btn-shopee w-100 p-2 shadow-sm">Kirim Data Lapak Teks</button>
+                  <button type="submit" id="btnSubmitLapak" class="btn btn-sm btn-shopee w-100 p-2 shadow-sm">Tayangkan Dagangan Sekarang</button>
                 </form>
               </div>
 
               <div class="col-md-6 d-flex flex-column text-start">
-                <label class="small fw-bold text-dark mb-1"><i class="fa-solid fa-camera text-danger me-1"></i> Area Upload Foto Produk *</label>
-                <div class="flex-grow-1 border rounded shadow-inner" style="background: #F8F9FA; min-height: 250px; position: relative; overflow: hidden;">
-                  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScsXgTWhhD8n6e4OidpWw1K2Y6fU_o1fUf2Xn_G8tN96Yq5Eg/viewform?embedded=true" 
-                          width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" 
-                          style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;">
-                    Loading…
-                  </iframe>
-                </div>
-                <div class="text-muted mt-1" style="font-size: 0.65rem; line-height: 1.3;">
-                  * <b>Catatan:</b> Setelah mengisi formulir teks di sebelah kiri, pastikan kamu juga menyelesaikan unggah foto produk lewat kotak di atas sampai klik <b>Kirim/Submit</b>.
+                <label class="small fw-bold text-dark mb-1"><i class="fa-solid fa-camera text-danger me-1"></i> Foto Produk Lapak *</label>
+                <div class="box-upload-area" onclick="document.getElementById('fileGambarUpload').click();">
+                  <div id="textUploadPrompt">
+                    <i class="fa-solid fa-cloud-arrow-up text-muted mb-2" style="font-size: 2.5rem;"></i>
+                    <p class="mb-1 small fw-bold text-secondary">Klik / Ketuk area ini untuk pilih foto</p>
+                    <p class="text-muted" style="font-size: 0.65rem;">Mendukung format JPG, JPEG, PNG (Maks 2MB)</p>
+                  </div>
+                  <img id="previewGambarLapak" class="preview-img-upload" alt="Preview">
+                  
+                  <input type="file" id="fileGambarUpload" class="hidden" accept="image/*" onchange="bacaDanPreviewFoto(this)">
                 </div>
               </div>
 
@@ -354,12 +355,35 @@
       let databaseMaster = { produk: [], interaksi: [] };
       let kategoriAktif = 'Semua';
       let modalJual, modalDetail;
+      let stringFotoBase64 = ""; // Penampung teks gambar lokal
 
       $(document).ready(function() {
         modalJual = new bootstrap.Modal(document.getElementById('formJualModal'));
         modalDetail = new bootstrap.Modal(document.getElementById('detailModal'));
         muatDataAwal();
       });
+
+      // Fungsi membaca data foto dari komputer/HP warga lalu merubahnya jadi teks
+      function bacaDanPreviewFoto(input) {
+        if (input.files && input.files[0]) {
+          let file = input.files[0];
+          if (file.size > 2 * 1024 * 1024) {
+            alert("Ukuran file terlalu besar! Maksimal adalah 2MB.");
+            input.value = "";
+            return;
+          }
+          
+          let reader = new FileReader();
+          reader.onload = function(e) {
+            stringFotoBase64 = e.target.result; // Menyimpan data text gambar
+            document.getElementById('textUploadPrompt').style.display = 'none';
+            let preview = document.getElementById('previewGambarLapak');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+          };
+          reader.readAsDataURL(file);
+        }
+      }
 
       function muatDataAwal() {
         $('#mainLoader').removeClass('hidden');
@@ -398,11 +422,7 @@
         $(container).removeClass('hidden');
 
         filtered.forEach(p => {
-          let img = p.foto || 'https://via.placeholder.com/150?text=Uploaded+via+Form';
-          if(p.foto && p.foto.includes('/d/')) {
-            let id = p.foto.split('/d/')[1].split('/')[0];
-            img = `https://drive.google.com/thumbnail?id=${id}&sz=w300`;
-          }
+          let img = p.foto || 'https://via.placeholder.com/150?text=No+Image';
           
           let isTerjual = p.status === "Terjual";
           let badgeKondisi = p.kondisi;
@@ -450,11 +470,23 @@
         });
       }
 
-      function bukaModalJual() { $('#formLapak')[0].reset(); $('#jualAlert').addClass('hidden'); modalJual.show(); }
+      function bukaModalJual() { 
+        $('#formLapak')[0].reset(); 
+        $('#jualAlert').addClass('hidden'); 
+        stringFotoBase64 = "";
+        document.getElementById('previewGambarLapak').style.display = 'none';
+        document.getElementById('textUploadPrompt').style.display = 'block';
+        modalJual.show(); 
+      }
 
       function prosesSimpanBarang() {
+        if(!stringFotoBase64) {
+          alert("Wajib memilih dan mengunggah foto produk terlebih dahulu!");
+          return;
+        }
+
         let btn = $('#btnSubmitLapak');
-        btn.prop('disabled', true).text('Memproses...');
+        btn.prop('disabled', true).text('Memproses Lapak...');
         
         let mt = [];
         if($('#chkCod').is(':checked')) mt.push("COD");
@@ -467,7 +499,7 @@
           harga: $('#jualHarga').val(),
           stok: $('#jualStok').val(),
           kondisi: $('#jualKondisi').val(),
-          foto: "", 
+          foto: stringFotoBase64, // Mengirim text Base64 gambar langsung ke Sheets
           metode: mt.join(" / ") || "Hubungi Penjual"
         };
 
@@ -475,14 +507,14 @@
           .then(r => r.json())
           .then(res => {
             if(res.status === 'success') {
-              alert("Data barang berhasil disimpan! Selesaikan juga upload gambarnya di kotak sebelah kanan ya.");
+              alert("Lapak dagangan kamu berhasil ditayangkan!");
               modalJual.hide();
               muatDataAwal();
             } else {
               $('#jualAlert').removeClass('hidden').text(res.message);
             }
-            btn.prop('disabled', false).text('Kirim Data Lapak Teks');
-          }).catch(() => { btn.prop('disabled', false).text('Kirim Data Lapak Teks'); });
+            btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang');
+          }).catch(() => { btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang'); });
       }
 
       function bukaDetailBarang(id) {
