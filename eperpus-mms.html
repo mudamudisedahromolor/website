@@ -44,7 +44,7 @@
 
       /* ==========================================================================
          DATATABLES HYBRID CATALOGUE GRID CARD
-         ========================================================================= */
+         ========================================================================== */
       .dataTables_wrapper { width: 100% !important; overflow-x: hidden; }
       #tabelBuku { border: none !important; background: transparent !important; display: block !important; width: 100% !important; }
       #tabelBuku thead { display: none !important; } 
@@ -82,13 +82,8 @@
       .dataTables_wrapper .dataTables_filter input { width: 100% !important; border-radius: 6px; padding: 8px 12px; border: 1px solid #DDD; display: block; font-size: 0.85rem; }
       .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_info { display: none !important; } 
       
-       /* Efek Animasi Denyut Cahaya (Pulse Glow) untuk Nama Anggota */
-      .glow-text { font-weight: 700; color: #333333; text-shadow: 0 0 10px rgba(229, 57, 53, 0.2); animation: pulseGlow 2s infinite ease-in-out; display: inline-block; }
-      @keyframes pulseGlow {
-        0% { text-shadow: 0 0 5px rgba(229, 57, 53, 0.3), 0 0 10px rgba(229, 57, 53, 0.2); }
-        50% { text-shadow: 0 0 15px rgba(229, 57, 53, 0.7), 0 0 25px rgba(229, 57, 53, 0.4); color: #E53935; }
-        100% { text-shadow: 0 0 5px rgba(229, 57, 53, 0.3), 0 0 10px rgba(229, 57, 53, 0.2); }
-      }
+      .glow-text { font-weight: 700; color: #E53935; text-shadow: 0 0 8px rgba(229, 57, 53, 0.15); }
+      .hidden { display: none !important; }
 
       @media (max-width: 576px) {
         #tabelBuku tbody { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)) !important; gap: 10px !important; }
@@ -194,7 +189,7 @@
         <div id="mainPage" class="bg-white p-3 shadow-sm rounded border hidden">
           <div class="d-flex justify-content-between align-items-start mb-3 border-bottom pb-2 gap-2 text-start">
             <div>
-              <h4 class="mb-0 fw-bold" style="color: #E53935; font-size: 1.2rem;"><i class="fa-solid fa-folder-open me-2"></i>RUANG LITERASI DIGITAL</h4>
+              <h4 class="mb-0 fw-bold" style="color: #E53935; font-size: 1.2rem;"><i class="fa-solid fa-folder-open me-2"></i>KATALOG KOLEKSI E-BOOK</h4>
               <div id="welcomeMsg" class="small mt-1 text-secondary"></div>
             </div>
             <button class="btn btn-outline-secondary btn-sm px-2 py-1" style="font-size: 0.72rem" onclick="logoutSesi()"><i class="fa-solid fa-power-off me-1"></i>Keluar</button>
@@ -202,7 +197,7 @@
 
           <div class="mb-4 text-start">
             <button class="btn btn-sm btn-red-custom w-100 text-start d-flex justify-content-between align-items-center p-2.5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRequest">
-              <span><i class="fa-solid fa-bullhorn me-2"></i> <strong>Daftar Usulan E-book</strong></span>
+              <span><i class="fa-solid fa-bullhorn me-2"></i> <strong>Daftar Usulan E-book Warga RT</strong></span>
               <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="collapse mt-2" id="collapseRequest">
@@ -257,7 +252,7 @@
               <i class="fa-solid fa-circle-info text-danger me-2"></i>Informasi & Aturan Ruang Literasi
             </h5>
           </div>
-          <div class="modal-body p-3 small text-secondary text-start" style="line-height: 1.6;">
+          <div class="modal-body p-3 small text-secondary" style="line-height: 1.6;">
             <p class="mb-2 fw-semibold text-dark" style="font-size: 0.9rem;">
               Halo <span id="disclaimerNama" class="glow-text">Anggota Muda Mudi MMS 05</span>,
             </p>
@@ -360,11 +355,7 @@
         $('#loginPage').addClass('hidden');
         $('#mainPage').removeClass('hidden');
         
-        // MENAMBAHKAN KELAS glow-text AGAR NAMA ANGGOTA BERDENYUT KETIKA BERHASIL LOGIN SINKRON
-        document.getElementById('welcomeMsg').innerHTML = `
-          <i class="fa-solid fa-circle-user me-1" style="color: #E53935;"></i> 
-          Selamat Datang, <span class="glow-text">${res.nama}</span> <span class="text-muted fw-normal">(${res.nim})</span>
-        `;
+        document.getElementById('welcomeMsg').innerHTML = `<i class="fa-solid fa-circle-user text-danger me-1"></i> Anggota: <b>${res.nama}</b> (${res.nim})`;
         
         let htmlBuku = '';
         res.buku.forEach(row => {
