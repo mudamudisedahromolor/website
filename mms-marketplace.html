@@ -16,10 +16,29 @@
     <link rel="manifest" href="manifest.json">
 
     <style>
-      body { background: #F4F6F9; color: #333; font-family: 'Segoe UI', sans-serif; }
-      .navbar-shopee { background-color: #EE4D2D; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+      /* PENYELARASAN LAYOUT AGAR NAVIGASI TIDAK SALING BERTUMPUK */
+      body { background: #F4F6F9; color: #333; font-family: 'Segoe UI', sans-serif; padding-top: 0; }
+      
+      /* Bar Shopee dikunci menempel tepat di bawah Navigasi Utama Organisasi saat di-scroll */
+      .navbar-shopee { 
+        background-color: #EE4D2D; 
+        color: white; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+        position: sticky; 
+        top: 0; 
+        z-index: 999; /* Memastikan tidak tenggelam di bawah komponen grid */
+      }
+      
       .btn-shopee { background-color: #EE4D2D; color: white; font-weight: 600; }
       .btn-shopee:hover { background-color: #E03E1A; color: white; }
+      
+      /* Pengaman Jarak Konten Katalog */
+      .market-container {
+        max-width: 960px;
+        margin: 25px auto 80px auto;
+        padding: 0 15px;
+      }
+      
       .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; padding: 15px 0; }
       .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #EAEAEA; display: flex; flex-direction: column; height: 345px; position: relative; }
       .img-wrapper { position: relative; width: 100%; height: 160px; background-color: #ECEFF1; display: flex; align-items: center; justify-content: center; }
@@ -128,18 +147,18 @@
         </nav>
     </header>
 
-    <nav class="navbar navbar-shopee sticky-top p-2">
+    <nav class="navbar navbar-shopee p-2">
       <div class="container-fluid d-flex justify-content-between align-items-center" style="max-width: 960px; margin: 0 auto;">
         <span class="fw-bold fs-6"><i class="fa-solid fa-store me-2"></i> PASAR DIGITAL MMS 05</span>
-        <button class="btn btn-sm btn-light text-danger fw-bold" onclick="bukaModalJual()"><i class="fa-solid fa-circle-plus me-1"></i> Mulai Jual</button>
+        <button class="btn btn-sm btn-light text-danger fw-bold shadow-sm" onclick="bukaModalJual()"><i class="fa-solid fa-circle-plus me-1"></i> Mulai Jual</button>
       </div>
     </nav>
 
-    <div class="container mt-3 mb-5" style="max-width: 960px;">
+    <div class="market-container">
       <div class="mb-3">
         <div class="input-group shadow-sm">
           <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-          <input type="text" id="inputCari" class="form-control" placeholder="Cari barang..." onkeyup="filterCariBarang()">
+          <input type="text" id="inputCari" class="form-control" placeholder="Cari barang di lapak RT..." onkeyup="filterCariBarang()">
         </div>
       </div>
 
@@ -223,7 +242,9 @@
           </div>
         </div>
       </div>
-    </div> <footer class="site-footer">
+    </div> 
+
+    <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-column info-col">
                 <div class="footer-brand">
@@ -268,7 +289,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // SINKRONISASI LINK WEB APP APPS SCRIPT ANDA UTK BYPASS CORS
       const API_URL = "https://script.google.com/macros/s/AKfycby4X0hmuZJPUkTZcPlTSPEuXmqnzCP3erXO6Q4TAAjNdZzkB1egsdVWfxDQTudFDSt7OA/exec";
 
       let databaseMaster = { produk: [], interaksi: [] };
@@ -286,7 +306,6 @@
         $('#katalogContainer').addClass('hidden');
         $('#emptyMsg').addClass('hidden');
 
-        // Perbaikan Metode: Ditambahkan parameter penjinak CORS Google Server
         fetch(API_URL, { method: 'GET', mode: 'cors' })
           .then(response => response.json())
           .then(res => {
