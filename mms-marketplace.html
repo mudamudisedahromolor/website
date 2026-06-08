@@ -17,25 +17,31 @@
 
     <style>
       /* PENYELARASAN LAYOUT AGAR NAVIGASI TIDAK SALING BERTUMPUK */
-      body { background: #F4F6F9; color: #333; font-family: 'Segoe UI', sans-serif; padding-top: 0; }
-      
-      /* Bar Shopee dikunci menempel tepat di bawah Navigasi Utama Organisasi saat di-scroll */
+ body { 
+        background: #F4F6F9; 
+        color: #333; 
+        font-family: 'Segoe UI', sans-serif; 
+        padding-top: 0; 
+      }
+
+      /* Bar Jingga Shopee: Kita beri margin atas agar turun dari balik posisi header fixed portal */
       .navbar-shopee { 
         background-color: #EE4D2D; 
         color: white; 
         box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
         position: sticky; 
-        top: 0; 
-        z-index: 999; /* Memastikan tidak tenggelam di bawah komponen grid */
+        top: 130px; /* Sesuai perkiraan tinggi total header merah MMS kamu */
+        z-index: 999; 
+        margin-top: 135px; /* PANDUAN PENTING: Dorong navbar jingga agar keluar dari bawah menu merah */
       }
       
       .btn-shopee { background-color: #EE4D2D; color: white; font-weight: 600; }
       .btn-shopee:hover { background-color: #E03E1A; color: white; }
       
-      /* Pengaman Jarak Konten Katalog */
+      /* Area Konten Utama Pencarian & Grid Produk */
       .market-container {
         max-width: 960px;
-        margin: 25px auto 80px auto;
+        margin: 25px auto 80px auto; /* Memberi jarak aman atas dan bawah sebelum footer */
         padding: 0 15px;
       }
       
