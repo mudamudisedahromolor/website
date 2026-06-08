@@ -12,28 +12,11 @@
     <link rel="manifest" href="manifest.json">
 
     <style>
-      /* MANAJEMEN LAYOUTING CSS SINKRONISASI PORTAL & SHOPEE FJB */
       body { background: #F4F6F9; color: #333; font-family: 'Segoe UI', sans-serif; padding-top: 0; }
-      
-      .navbar-shopee { 
-        background-color: #EE4D2D; 
-        color: white; 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
-        position: sticky; 
-        top: 0; 
-        z-index: 999; 
-        margin-top: 135px; /* Dorong navbar jingga keluar dari balik posisi header fixed portal */
-      }
-      
+      .navbar-shopee { background-color: #EE4D2D; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 999; margin-top: 135px; }
       .btn-shopee { background-color: #EE4D2D; color: white; font-weight: 600; border: none; }
       .btn-shopee:hover { background-color: #E03E1A; color: white; }
-      
-      .market-container {
-        max-width: 960px;
-        margin: 25px auto 80px auto; 
-        padding: 0 15px;
-      }
-      
+      .market-container { max-width: 960px; margin: 25px auto 80px auto; padding: 0 15px; }
       .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; padding: 15px 0; }
       .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #EAEAEA; display: flex; flex-direction: column; height: 345px; position: relative; transition: 0.2s; }
       .product-card:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(238, 77, 45, 0.15); border-color: rgba(238, 77, 45, 0.3); }
@@ -53,12 +36,11 @@
       .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #EE4D2D; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 40px auto; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       
-      /* Perbaikan Struktur Group Agar Rp Menyatu Sempurna & Full Width */
+      /* Input Group Rp Menempel Rapi & Sejajar */
       .input-group-custom { display: flex !important; align-items: stretch !important; width: 100% !important; }
       .input-group-text-custom { background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; font-weight: bold; font-size: 0.82rem; display: flex; align-items: center; padding: 0 14px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
       .input-field-custom { border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
       
-      /* Kotak Preview Upload Gambar */
       .box-upload-area { border: 2px dashed #ced4da; padding: 15px; text-align: center; background: #f8f9fa; border-radius: 8px; cursor: pointer; position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 310px; }
       .box-upload-area:hover { border-color: #EE4D2D; background: #fff5f3; }
       .preview-img-upload { max-width: 100%; max-height: 260px; object-fit: contain; border-radius: 6px; display: none; }
@@ -77,7 +59,6 @@
                     </div>
                 </a>
             </div>
-            
             <div class="header-right-stuff">
                 <div class="header-socials">
                     <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -86,12 +67,8 @@
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
-            <button class="menu-toggle" id="mobile-menu-btn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            <button class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
         </div> 
-        
         <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
@@ -142,14 +119,6 @@
                     </ul>
                 </li>
              </ul>
-            <div class="navbar-mobile-only">
-                <div class="header-socials">
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
         </nav>
     </header>
 
@@ -238,10 +207,10 @@
                   <div id="textUploadPrompt">
                     <i class="fa-solid fa-cloud-arrow-up text-muted mb-2" style="font-size: 2.5rem;"></i>
                     <p class="mb-1 small fw-bold text-secondary">Klik / Ketuk disini pilih foto</p>
-                    <p class="text-muted" style="font-size: 0.65rem;">Arsip langsung tersimpan terintegrasi di sistem GitHub</p>
+                    <p class="text-muted" style="font-size: 0.65rem;">File diproses aman langsung lewat sistem cloud Google Drive</p>
                   </div>
                   <img id="previewGambarLapak" class="preview-img-upload" alt="Preview">
-                  <input type="file" id="fileGambarUpload" class="hidden" accept="image/*" onchange="bacaDanPreviewFoto(this)">
+                  <input type="file" id="fileGambarUpload" class="hidden" accept="image/*" onchange="bacaDanDownscaleFoto(this)">
                 </div>
               </div>
 
@@ -259,22 +228,17 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body p-3">
-            
             <div id="panelDetailBarang" class="mb-3 border-bottom pb-3 text-start"></div>
-            
             <div class="card bg-light border p-2 mb-3 text-start">
-              <label class="fw-bold text-secondary mb-1" style="font-size:0.72rem;"><i class="fa-solid fa-user-gear me-1"></i> Fitur Pemilik Lapak (Konfirmasi Penjual)</label>
+              <label class="fw-bold text-secondary mb-1" style="font-size:0.72rem;"><i class="fa-solid fa-user-gear me-1"></i> Fitur Pemilik Lapak</label>
               <div class="input-group input-group-sm">
                 <input type="email" id="emailVerifikasiAksi" class="form-control form-control-sm" placeholder="Masukkan email konfirmasi kamu">
                 <button class="btn btn-sm btn-warning fw-bold text-dark" onclick="eksekusiAksiLapak('setTerjual')"><i class="fa-solid fa-circle-check"></i> Terjual</button>
                 <button class="btn btn-sm btn-danger fw-bold" onclick="eksekusiAksiLapak('hapusBarang')"><i class="fa-solid fa-trash-can"></i> Hapus</button>
               </div>
-              <div class="text-muted mt-1" style="font-size:0.62rem; line-height:1.2;">* Penjual bisa menandai status laku atau menghapus postingan sewaktu-waktu dengan memasukkan email pendaftaran.</div>
             </div>
-
             <h6 class="fw-bold mb-2 text-start" style="font-size:0.85rem;"><i class="fa-solid fa-comments text-danger me-1"></i> Ruang Diskusi</h6>
             <div id="boxInteraksi" class="chat-box mb-3"></div>
-            
             <form id="formInteraksi" onsubmit="event.preventDefault(); prosesKirimInteraksi();">
               <input type="hidden" id="intIdProduk">
               <div class="row g-2 mb-2">
@@ -299,72 +263,16 @@
       </div>
     </div> 
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-column info-col">
-                <div class="footer-brand">
-                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
-                    <h4>Muda Mudi Sedahromo Lor</h4>
-                </div>
-                <p class="footer-text">
-                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
-                </p>
-                <p class="footer-text">
-                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a>
-                </p>
-            </div>
-
-            <div class="footer-column links-col">
-                <h5>Sitemap</h5>
-                <ul class="footer-links">
-                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
-                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
-                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
-                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
-                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column social-col">
-                <h5>Media Sosial</h5>
-                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
-                <div class="footer-social-icons">
-                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
-        </div>
-    </footer>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      const API_URL = "https://script.google.com/macros/s/AKfycby4X0hmuZJPUkTZcPlTSPEuXmqnzCP3erXO6Q4TAAjNdZzkB1egsdVWfxDQTudFDSt7OA/exec";
-      
-      const GH_USER = "mudamudisedahromolor";
-      const GH_REPO = "mudamudisedahromolor.github.io";
-      const GH_PATH = "website/images/products/";
-
-      // ==========================================================================
-      // GANTI DENGAN KODE REKAYASA STRING BERIKUT AGAR AMAN 100% DARI RADAR SCANNER BOT:
-      // Potong token aslimu menjadi dua bagian, lalu tempelkan di part1 dan part2.
-      // ==========================================================================
-      const part1 = "PASANG_POTONGAN_TOKEN_DEPAN_DISINI"; 
-      const part2 = "PASANG_POTONGAN_TOKEN_BELAKANG_DISINI";
-      
-      // Menggabungkan token secara langsung di memori browser (Bypass total robot otomatis GitHub!)
-      const GH_TOKEN = part1 + part2;
+      // MASUKKAN URL WEB APP APPS SCRIPT (YANG BARU DEPLOY) ANDA DI SINI
+      const API_URL = "PASANG_URL_EXEC_WEB_APP_BARU_ANDA_DISINI";
 
       let databaseMaster = { produk: [], interaksi: [] };
       let kategoriAktif = 'Semua';
       let modalJual, modalDetail;
-      let stringBase64Murni = ""; 
-      let tipeEkstensiFile = "";
+      let stringFotoBase64Katalog = ""; 
 
       $(document).ready(function() {
         modalJual = new bootstrap.Modal(document.getElementById('formJualModal'));
@@ -372,18 +280,30 @@
         muatDataAwal();
       });
 
-      function bacaDanPreviewFoto(input) {
+      // Penjinak Dimensi Gambar: Menjadikan data Base64 super ringan murni untuk preview
+      function bacaDanDownscaleFoto(input) {
         if (input.files && input.files[0]) {
           let file = input.files[0];
-          tipeEkstensiFile = file.name.split('.').pop().toLowerCase();
-          
           let reader = new FileReader();
           reader.onload = function(e) {
-            stringBase64Murni = e.target.result.split(',')[1];
-            document.getElementById('textUploadPrompt').style.display = 'none';
-            let preview = document.getElementById('previewGambarLapak');
-            preview.src = e.target.result;
-            preview.style.display = 'block';
+            let img = new Image();
+            img.src = e.target.result;
+            img.onload = function() {
+              let max_width = 180; 
+              let scale = max_width / img.width;
+              let canvas = document.createElement('canvas');
+              canvas.width = max_width;
+              canvas.height = img.height * scale;
+              let ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              
+              stringFotoBase64Katalog = canvas.toDataURL('image/jpeg', 0.40);
+              
+              document.getElementById('textUploadPrompt').style.display = 'none';
+              let preview = document.getElementById('previewGambarLapak');
+              preview.src = stringFotoBase64Katalog;
+              preview.style.display = 'block';
+            };
           };
           reader.readAsDataURL(file);
         }
@@ -393,63 +313,38 @@
         $('#mainLoader').removeClass('hidden');
         $('#katalogContainer').addClass('hidden');
         $('#emptyMsg').addClass('hidden');
-
         fetch(API_URL, { method: 'GET', mode: 'cors' })
-          .then(response => response.json())
+          .then(r => r.json())
           .then(res => {
-            if (res.status === "error") {
-              alert("Error Database: " + res.message);
-            } else {
-              databaseMaster = res;
-              renderKatalog(res.produk);
-            }
+            if (res.status === "error") alert("Error Database: " + res.message);
+            else { databaseMaster = res; renderKatalog(res.produk); }
             $('#mainLoader').addClass('hidden');
-          })
-          .catch(err => {
-            $('#mainLoader').addClass('hidden');
-            alert("Gagal sinkronisasi data API.");
-          });
+          }).catch(() => { $('#mainLoader').addClass('hidden'); alert("Gagal sinkronisasi data API."); });
       }
 
       function renderKatalog(listProduk) {
         let container = document.getElementById('katalogContainer');
         container.innerHTML = '';
         let filtered = kategoriAktif === 'Semua' ? listProduk : listProduk.filter(p => p.kondisi === kategoriAktif);
-
-        if(!filtered || filtered.length === 0) {
-          $(container).addClass('hidden');
-          $('#emptyMsg').removeClass('hidden');
-          return;
-        }
-
-        $('#emptyMsg').addClass('hidden');
-        $(container).removeClass('hidden');
+        if(!filtered || filtered.length === 0) { $(container).addClass('hidden'); $('#emptyMsg').removeClass('hidden'); return; }
+        $('#emptyMsg').addClass('hidden'); $(container).removeClass('hidden');
 
         filtered.forEach(p => {
-          let img = p.foto || 'https://via.placeholder.com/150?text=No+Image';
-          
           let isTerjual = p.status === "Terjual";
-          let badgeKondisi = p.kondisi;
-          let badgeColor = p.kondisi === '2nd Good Condition' ? 'bg-warning text-dark' : 'bg-success text-white';
-          
-          if(isTerjual) {
-            badgeKondisi = "TERJUAL";
-            badgeColor = "bg-danger text-white";
-          }
-
-          let displayHarga = "Rp " + Number(p.harga).toLocaleString('id-ID');
+          let badgeKondisi = isTerjual ? "TERJUAL" : p.kondisi;
+          let badgeColor = isTerjual ? "bg-danger text-white" : (p.kondisi === '2nd Good Condition' ? 'bg-warning text-dark' : 'bg-success text-white');
           let displaySisaWaktu = isTerjual ? `<b class="text-danger">Sudah Laku (Dihapus otomatis)</b>` : `Aktif: <b>${p.sisaHari} Hari</b> (${p.stok} Stk)`;
 
           $(container).append(`
             <div class="product-card" data-nama="${p.nama.toLowerCase()}" style="${isTerjual ? 'opacity: 0.65;' : ''}">
               <div class="img-wrapper">
                 <span class="badge ${badgeColor} badge-kondisi">${badgeKondisi}</span>
-                <img src="${img}" class="img-product" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+                <img src="${p.foto || 'https://via.placeholder.com/150?text=No+Image'}" class="img-product" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
               </div>
               <div class="product-info">
                 <div>
                   <div class="product-title fw-bold ${isTerjual ? 'text-decoration-line-through text-muted' : ''}">${p.nama}</div>
-                  <div class="product-price text-danger fw-bold">${displayHarga}</div>
+                  <div class="product-price text-danger fw-bold">Rp ${Number(p.harga).toLocaleString('id-ID')}</div>
                   <div class="meta-text mt-1"><i class="fa-solid fa-hourglass-half text-danger"></i> ${displaySisaWaktu}</div>
                   <div class="meta-text text-truncate"><i class="fa-solid fa-truck"></i> ${p.metode}</div>
                 </div>
@@ -460,186 +355,72 @@
         });
       }
 
-      function filterKategori(kat, btn) {
-        $('.category-btn').removeClass('active');
-        $(btn).addClass('active');
-        kategoriAktif = kat;
-        renderKatalog(databaseMaster.produk);
-      }
-
-      function filterCariBarang() {
-        let q = $('#inputCari').val().toLowerCase();
-        $('.product-card').each(function() {
-          $(this).attr('data-nama').includes(q) ? $(this).removeClass('hidden') : $(this).addClass('hidden');
-        });
-      }
-
-      function bukaModalJual() { 
-        $('#formLapak')[0].reset(); 
-        $('#jualAlert').addClass('hidden'); 
-        stringBase64Murni = "";
-        document.getElementById('previewGambarLapak').style.display = 'none';
-        document.getElementById('textUploadPrompt').style.display = 'block';
-        modalJual.show(); 
-      }
+      function filterKategori(kat, btn) { $('.category-btn').removeClass('active'); $(btn).addClass('active'); kategoriAktif = kat; renderKatalog(databaseMaster.produk); }
+      function filterCariBarang() { let q = $('#inputCari').val().toLowerCase(); $('.product-card').each(function() { $(this).attr('data-nama').includes(q) ? $(this).removeClass('hidden') : $(this).addClass('hidden'); }); }
+      function bukaModalJual() { $('#formLapak')[0].reset(); $('#jualAlert').addClass('hidden'); stringFotoBase64Katalog = ""; document.getElementById('previewGambarLapak').style.display = 'none'; document.getElementById('textUploadPrompt').style.display = 'block'; modalJual.show(); }
 
       function prosesSimpanBarang() {
-        if(!stringBase64Murni) {
-          alert("Wajib memilih foto produk terlebih dahulu!");
-          return;
-        }
-
-        if(GH_TOKEN.includes("PASANG_POTONGAN")) {
-          alert("🚨 CONFIG ERROR: Silakan pasang potongan Personal Access Token GitHub Anda pada baris kode javascript 183-184!");
-          return;
-        }
-
+        if(!stringFotoBase64Katalog) { alert("Wajib memilih foto produk terlebih dahulu!"); return; }
         let btn = $('#btnSubmitLapak');
-        btn.prop('disabled', true).text('Mengunggah Gambar ke GitHub...');
-
-        let namaFileUnik = "img-" + new Date().getTime() + "." + tipeEkstensiFile;
-        let targetUrlApiGitHub = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${GH_PATH}${namaFileUnik}`;
-
-        let payloadGitHub = {
-          message: `Upload foto produk otomatis: ${namaFileUnik}`,
-          content: stringBase64Murni
-        };
-
-        // PIPELINE TAHAP 1: Kirim data biner Base64 ke repositori GitHub via REST API
-        fetch(targetUrlApiGitHub, {
-          method: "PUT",
-          headers: {
-            "Authorization": `token ${GH_TOKEN}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payloadGitHub)
-        })
-        .then(resGH => {
-          if (!resGH.ok) throw new Error("Akses Token Ditolak atau Kadaluwarsa. Periksa kembali konfigurasi hak izin token Anda.");
-          return resGH.json();
-        })
-        .then(hasilGH => {
-          let linkUrlGambarKatalog = `https://${GH_USER}.github.io/${GH_REPO}/${GH_PATH}${namaFileUnik}`;
-          btn.text('Menayangkan Lapak...');
-
-          let mt = [];
-          if($('#chkCod').is(':checked')) mt.push("COD");
-          if($('#chkAmbil').is(':checked')) mt.push("Ambil");
-
-          let payloadSpreadsheet = {
-            aksi: "tambahBarang",
-            email: $('#jualEmail').val(),
-            nama: $('#jualNama').val(),
-            harga: $('#jualHarga').val(),
-            stok: $('#jualStok').val(),
-            kondisi: $('#jualKondisi').val(),
-            foto: linkUrlGambarKatalog, 
-            metode: mt.join(" / ") || "Hubungi Penjual"
-          };
-
-          // PIPELINE TAHAP 2: Catat log data teks pendek ke Google Sheets
-          return fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payloadSpreadsheet) });
-        })
-        .then(r => r.json())
-        .then(res => {
-          if(res.status === 'success') {
-            alert("Lapak dagangan kamu sukses ditayangkan!");
-            modalJual.hide();
-            muatDataAwal();
-          } else {
-            $('#jualAlert').removeClass('hidden').text(res.message);
-          }
-          btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang');
-        })
-        .catch((err) => { 
-          alert("Error Sistem: " + err.message);
-          btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang'); 
-        });
-      }
-
-      function bukaDetailBarang(id) {
-        let p = databaseMaster.produk.find(x => x.id === id);
-        if(!p) return;
-        $('#intIdProduk').val(p.id);
-        $('#formInteraksi')[0].reset();
-        $('#emailVerifikasiAksi').val('');
-        aturFormJenis();
-        $('#lblDetailTitle').text("Katalog: " + p.nama);
-        $('#panelDetailBarang').html(`<h6><b>${p.nama}</b></h6><p class="text-danger fw-bold">Rp ${Number(p.harga).toLocaleString('id-ID')}</p><small class="text-muted">Penjual: ${p.email}</small>`);
-        renderInteraksi(p.id);
-        modalDetail.show();
-      }
-
-      function eksekusiAksiLapak(jenisAksi) {
-        let idProduk = $('#intIdProduk').val();
-        let emailInput = $('#emailVerifikasiAksi').val();
+        btn.prop('disabled', true).text('Menayangkan Lapak...');
         
-        if(!emailInput) {
-          alert("Masukkan email kamu terlebih dahulu untuk verifikasi kepemilikan lapak!");
-          return;
-        }
-        
-        let konfirmasiTeks = jenisAksi === "setTerjual" ? "Tandai produk ini sudah laku/terjual?" : "Hapus postingan lapak ini secara permanen?";
-        if(!confirm(konfirmasiTeks)) return;
+        let mt = [];
+        if($('#chkCod').is(':checked')) mt.push("COD");
+        if($('#chkAmbil').is(':checked')) mt.push("Ambil");
 
         let payload = {
-          aksi: jenisAksi,
-          id: idProduk,
-          email: emailInput
+          aksi: "tambahBarang",
+          email: $('#jualEmail').val(),
+          nama: $('#jualNama').val(),
+          harga: $('#jualHarga').val(),
+          stok: $('#jualStok').val(),
+          kondisi: $('#jualKondisi').val(),
+          fotoData: stringFotoBase64Katalog, // Dikirim aman, Apps Script yang akan mengunggahnya ke Drive
+          metode: mt.join(" / ") || "Hubungi Penjual"
         };
 
         fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payload) })
           .then(r => r.json())
           .then(res => {
-            if(res.status === 'success') {
-              alert("Pembaruan status lapak berhasil diterapkan!");
-              modalDetail.hide();
-              muatDataAwal(); 
-            } else {
-              alert("Gagal: " + res.message);
-            }
-          }).catch(() => { alert("Koneksi gagal memproses permintaan."); });
+            if(res.status === 'success') { alert("Lapak dagangan kamu sukses ditayangkan!"); modalJual.hide(); muatDataAwal(); }
+            else $('#jualAlert').removeClass('hidden').text(res.message);
+            btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang');
+          }).catch(() => { btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang'); });
+      }
+
+      function bukaDetailBarang(id) {
+        let p = databaseMaster.produk.find(x => x.id === id); if(!p) return;
+        $('#intIdProduk').val(p.id); $('#formInteraksi')[0].reset(); $('#emailVerifikasiAksi').val(''); aturFormJenis();
+        $('#lblDetailTitle').text("Katalog: " + p.nama);
+        $('#panelDetailBarang').html(`<h6><b>${p.nama}</b></h6><p class="text-danger fw-bold">Rp ${Number(p.harga).toLocaleString('id-ID')}</p><small class="text-muted">Penjual: ${p.email}</small>`);
+        renderInteraksi(p.id); modalDetail.show();
+      }
+
+      function eksekusiAksiLapak(jenisAksi) {
+        let idProduk = $('#intIdProduk').val(); let emailInput = $('#emailVerifikasiAksi').val();
+        if(!emailInput) { alert("Masukkan email kamu terlebih dahulu!"); return; }
+        if(!confirm("Apakah Anda yakin ingin memproses aksi ini?")) return;
+
+        fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify({ aksi: jenisAksi, id: idProduk, email: emailInput }) })
+          .then(r => r.json())
+          .then(res => { if(res.status === 'success') { alert("Berhasil!"); modalDetail.hide(); muatDataAwal(); } else alert("Gagal: " + res.message); });
       }
 
       function renderInteraksi(idProduk) {
-        let box = $('#boxInteraksi').html('');
-        let filtered = databaseMaster.interaksi.filter(x => x.idProduk === idProduk);
+        let box = $('#boxInteraksi').html(''); let filtered = databaseMaster.interaksi.filter(x => x.idProduk === idProduk);
         if(filtered.length === 0) { box.html('<div class="text-center text-muted small py-2">Belum ada diskusi.</div>'); return; }
-        
         filtered.forEach(i => {
           let badge = i.jenis === 'Nego' ? `<span class="badge bg-danger">NEGO: Rp ${Number(i.nilai).toLocaleString('id-ID')}</span>` : (i.jenis === 'Rating' ? `<span class="badge bg-warning text-dark">RATING: ${'⭐'.repeat(i.nilai)}</span>` : `<span class="badge bg-secondary">TANYA</span>`);
           box.append(`<div class="chat-item"><small class="fw-bold">${i.namaPengunjung}</small> (${i.waktu})<br>${badge} ${i.isi}</div>`);
         });
       }
 
-      function aturFormJenis() {
-        let j = $('#intJenis').val();
-        $('#rowNilaiNego,#rowNilaiRating').addClass('hidden');
-        if(j === 'Nego') $('#rowNilaiNego').removeClass('hidden');
-        if(j === 'Rating') $('#rowNilaiRating').removeClass('hidden');
-      }
-
+      function aturFormJenis() { let j = $('#intJenis').val(); $('#rowNilaiNego,#rowNilaiRating').addClass('hidden'); if(j === 'Nego') $('#rowNilaiNego').removeClass('hidden'); if(j === 'Rating') $('#rowNilaiRating').removeClass('hidden'); }
       function prosesKirimInteraksi() {
         let idProduk = $('#intIdProduk').val();
-        let payload = {
-          aksi: "kirimInteraksi",
-          idProduk: idProduk,
-          namaPengunjung: $('#intNama').val(),
-          jenis: $('#intJenis').val(),
-          nilai: $('#intJenis').val() === 'Nego' ? $('#intNilaiNego').val() : ($('#intJenis').val() === 'Rating' ? $('#intNilaiRating').val() : '0'),
-          isi: $('#intIsiPesan').val()
-        };
-
-        fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payload) })
-          .then(r => r.json())
-          .then(res => {
-            if(res.status === 'success') {
-              fetch(API_URL).then(r => r.json()).then(newData => { databaseMaster = newData; renderInteraksi(idProduk); });
-              $('#intIsiPesan').val('');
-            }
-          });
+        let payload = { aksi: "kirimInteraksi", idProduk: idProduk, namaPengunjung: $('#intNama').val(), jenis: $('#intJenis').val(), nilai: $('#intJenis').val() === 'Nego' ? $('#intNilaiNego').val() : ($('#intJenis').val() === 'Rating' ? $('#intNilaiRating').val() : '0'), isi: $('#intIsiPesan').val() };
+        fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payload) }).then(r => r.json()).then(res => { if(res.status === 'success') { fetch(API_URL).then(r => r.json()).then(newData => { databaseMaster = newData; renderInteraksi(idProduk); }); $('#intIsiPesan').val(''); } });
       }
     </script>
-    <script src="script.js?v=115"></script>
 </body>
 </html>
