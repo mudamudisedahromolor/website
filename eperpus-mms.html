@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>e-Perpustakaan Muda Mudi Sedahromo Lor 05</title>
     
     <link rel="icon" href="images/mms.png" type="image/png">
@@ -38,7 +38,7 @@
       .category-nav-btn.active { background: #E53935; color: white; border-color: #E53935; box-shadow: 0 3px 8px rgba(229, 57, 53, 0.2); }
 
       /* Sub Navbar Kategori */
-      .sub-category-navbar { display: flex; gap: 6px; margin-bottom: 15px; padding: 4px 8px; overflow-x: auto; white-space: nowrap; }
+      .sub-category-navbar { display: flex; gap: 6px; margin-bottom: 15px; padding: 4px 8px; overflow-x: auto; white-space: nowrap; transition: all 0.3s ease; }
       .sub-category-btn { background: transparent; color: #7F8C8D; border: 1px dashed #BDC3C7; font-size: 0.72rem; font-weight: 600; padding: 4px 12px; border-radius: 15px; cursor: pointer; }
       .sub-category-btn.active { background: #5A6268; color: white; border-color: #5A6268; border-style: solid; }
 
@@ -252,7 +252,7 @@
               <i class="fa-solid fa-circle-info text-danger me-2"></i>Informasi & Aturan Ruang Literasi
             </h5>
           </div>
-          <div class="modal-body p-3 small text-secondary" style="line-height: 1.6;">
+          <div class="modal-body p-3 small text-secondary text-start" style="line-height: 1.6;">
             <p class="mb-2 fw-semibold text-dark" style="font-size: 0.9rem;">
               Halo <span id="disclaimerNama" class="glow-text">Anggota Muda Mudi MMS 05</span>,
             </p>
@@ -355,7 +355,8 @@
         $('#loginPage').addClass('hidden');
         $('#mainPage').removeClass('hidden');
         
-        document.getElementById('welcomeMsg').innerHTML = `<i class="fa-solid fa-circle-user text-danger me-1"></i> Anggota: <b>${res.nama}</b> (${res.nim})`;
+        // PEMBERIAN EFEK GLOW PULSE BERDENYUT PADA NAMA ANGGOTA SAAT BERHASIL LOGIN DI SINI
+        document.getElementById('welcomeMsg').innerHTML = `<i class="fa-solid fa-circle-user text-danger me-1"></i> Anggota: <span class="glow-text">${res.nama}</span> (${res.nim})`;
         
         let htmlBuku = '';
         res.buku.forEach(row => {
