@@ -44,7 +44,7 @@
 
       /* ==========================================================================
          DATATABLES HYBRID CATALOGUE GRID CARD
-         ========================================================================== */
+         ========================================================================= */
       .dataTables_wrapper { width: 100% !important; overflow-x: hidden; }
       #tabelBuku { border: none !important; background: transparent !important; display: block !important; width: 100% !important; }
       #tabelBuku thead { display: none !important; } 
@@ -257,7 +257,7 @@
               <i class="fa-solid fa-circle-info text-danger me-2"></i>Informasi & Aturan Ruang Literasi
             </h5>
           </div>
-          <div class="modal-body p-3 small text-secondary" style="line-height: 1.6;">
+          <div class="modal-body p-3 small text-secondary text-start" style="line-height: 1.6;">
             <p class="mb-2 fw-semibold text-dark" style="font-size: 0.9rem;">
               Halo <span id="disclaimerNama" class="glow-text">Anggota Muda Mudi MMS 05</span>,
             </p>
@@ -360,7 +360,8 @@
         $('#loginPage').addClass('hidden');
         $('#mainPage').removeClass('hidden');
         
-         document.getElementById('welcomeMsg').innerHTML = `
+        // MENAMBAHKAN KELAS glow-text AGAR NAMA ANGGOTA BERDENYUT KETIKA BERHASIL LOGIN SINKRON
+        document.getElementById('welcomeMsg').innerHTML = `
           <i class="fa-solid fa-circle-user me-1" style="color: #E53935;"></i> 
           Selamat Datang, <span class="glow-text">${res.nama}</span> <span class="text-muted fw-normal">(${res.nim})</span>
         `;
