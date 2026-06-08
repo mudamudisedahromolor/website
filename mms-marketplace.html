@@ -198,14 +198,14 @@
                   </div>
                   <div class="mb-2">
                     <label class="small fw-bold text-secondary">Nama Barang *</label>
-                    <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Komik Doraemon">
+                    <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Komik Marvel Preloved">
                   </div>
                   
                   <div class="mb-2">
                     <label class="small fw-bold text-secondary">Harga Jual *</label>
                     <div class="input-group-custom">
                       <span class="input-group-text-custom">Rp</span>
-                      <input type="number" id="jualHarga" class="form-control form-control-sm input-field-custom" min="0" step="1000" required placeholder="15000">
+                      <input type="number" id="jualHarga" class="form-control form-control-sm input-field-custom" min="0" step="1000" required placeholder="25000">
                     </div>
                   </div>
 
@@ -238,10 +238,10 @@
                   <div id="textUploadPrompt">
                     <i class="fa-solid fa-cloud-arrow-up text-muted mb-2" style="font-size: 2.5rem;"></i>
                     <p class="mb-1 small fw-bold text-secondary">Klik / Ketuk disini pilih foto</p>
-                    <p class="text-muted" style="font-size: 0.65rem;">Otomatis dikecilkan agar hemat memori database</p>
+                    <p class="text-muted" style="font-size: 0.65rem;">Mendukung format gambar resolusi tinggi (HD)</p>
                   </div>
                   <img id="previewGambarLapak" class="preview-img-upload" alt="Preview">
-                  <input type="file" id="fileGambarUpload" class="hidden" accept="image/*" onchange="bacaDanDownscaleFoto(this)">
+                  <input type="file" id="fileGambarUpload" class="hidden" accept="image/*" onchange="bacaDanPreviewFoto(this)">
                 </div>
               </div>
 
@@ -349,7 +349,7 @@
       let databaseMaster = { produk: [], interaksi: [] };
       let kategoriAktif = 'Semua';
       let modalJual, modalDetail;
-      let stringFotoBase64Ringan = ""; // Menyimpan teks string super ringan
+      let fileFotoMentah = null; 
 
       $(document).ready(function() {
         modalJual = new bootstrap.Modal(document.getElementById('formJualModal'));
@@ -357,38 +357,18 @@
         muatDataAwal();
       });
 
-      // MICRO-COMPRESSOR: Mengecilkan gambar secara brutal murni untuk pratinjau thumbnail
-      function bacaDanDownscaleFoto(input) {
+      function bacaDanPreviewFoto(input) {
         if (input.files && input.files[0]) {
-          let file = input.files[0];
-          let reader = new FileReader();
+          fileFotoMentah = input.files[0];
           
+          let reader = new FileReader();
           reader.onload = function(e) {
-            let imgElement = new Image();
-            imgElement.src = e.target.result;
-            
-            imgElement.onload = function() {
-              // Paksa lebar maksimal 180 pixel agar string teks super kecil (Di bawah 15 KB)
-              let max_width = 180; 
-              let scale = max_width / imgElement.width;
-              let canvas = document.createElement('canvas');
-              
-              canvas.width = max_width;
-              canvas.height = imgElement.height * scale;
-              
-              let ctx = canvas.getContext('2d');
-              ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
-              
-              // Turunkan kualitas ke 30%. String teks menjadi super pendek, 100% lolos limit Google!
-              stringFotoBase64Ringan = canvas.toDataURL('image/jpeg', 0.30);
-              
-              document.getElementById('textUploadPrompt').style.display = 'none';
-              let preview = document.getElementById('previewGambarLapak');
-              preview.src = stringFotoBase64Ringan;
-              preview.style.display = 'block';
-            };
+            document.getElementById('textUploadPrompt').style.display = 'none';
+            let preview = document.getElementById('previewGambarLapak');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
           };
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(fileFotoMentah);
         }
       }
 
@@ -480,48 +460,72 @@
       function bukaModalJual() { 
         $('#formLapak')[0].reset(); 
         $('#jualAlert').addClass('hidden'); 
-        stringFotoBase64Ringan = "";
+        fileFotoMentah = null;
         document.getElementById('previewGambarLapak').style.display = 'none';
         document.getElementById('textUploadPrompt').style.display = 'block';
         modalJual.show(); 
       }
 
       function prosesSimpanBarang() {
-        if(!stringFotoBase64Ringan) {
+        if(!fileFotoMentah) {
           alert("Wajib memilih foto produk terlebih dahulu!");
           return;
         }
 
         let btn = $('#btnSubmitLapak');
-        btn.prop('disabled', true).text('Menayangkan Lapak Pemuda...');
-        
-        let mt = [];
-        if($('#chkCod').is(':checked')) mt.push("COD");
-        if($('#chkAmbil').is(':checked')) mt.push("Ambil");
+        btn.prop('disabled', true).text('Mengunggah Gambar...');
 
-        let payload = {
-          aksi: "tambahBarang",
-          email: $('#jualEmail').val(),
-          nama: $('#jualNama').val(),
-          harga: $('#jualHarga').val(),
-          stok: $('#jualStok').val(),
-          kondisi: $('#jualKondisi').val(),
-          foto: stringFotoBase64Ringan, // Teks mikro string super enteng
-          metode: mt.join(" / ") || "Hubungi Penjual"
-        };
+        // PIPELINE UTAMA: Unggah file biner asli ke server awan Litterbox (Catbox) API
+        let dataFormFile = new FormData();
+        dataFormFile.append("reqtype", "fileupload");
+        dataFormFile.append("time", "72h"); // Berkas otomatis hangus/dihapus dari internet dalam 3 hari (Sangat bersih!)
+        dataFormFile.append("fileToUpload", fileFotoMentah);
 
-        fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payload) })
+        // Menembak endpoint peladen publik awan tanpa proteksi CORS
+        fetch("https://litterbox.catbox.moe/resources/internals/api.php", { method: "POST", body: dataFormFile })
+          .then(resTautan => {
+            if(!resTautan.ok) throw new Error("Gagal transmisi file ke server awan.");
+            return resTautan.text(); // Catbox mengembalikan teks link langsung
+          })
+          .then(linkUrlGambar => {
+            if(!linkUrlGambar.includes("http")) {
+              throw new Error("Respon server awan tidak valid.");
+            }
+            
+            btn.text('Menayangkan Lapak...');
+
+            let mt = [];
+            if($('#chkCod').is(':checked')) mt.push("COD");
+            if($('#chkAmbil').is(':checked')) mt.push("Ambil");
+
+            let payload = {
+              aksi: "tambahBarang",
+              email: $('#jualEmail').val(),
+              nama: $('#jualNama').val(),
+              harga: $('#jualHarga').val(),
+              stok: $('#jualStok').val(),
+              kondisi: $('#jualKondisi').val(),
+              foto: linkUrlGambar, // Mengirim link teks super pendek (100% Lolos Batasan Limit!)
+              metode: mt.join(" / ") || "Hubungi Penjual"
+            };
+
+            return fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payload) });
+          })
           .then(r => r.json())
           .then(res => {
             if(res.status === 'success') {
-              alert("Lapak dagangan pemuda sukses ditayangkan!");
+              alert("Lapak dagangan kamu sukses ditayangkan!");
               modalJual.hide();
               muatDataAwal();
             } else {
               $('#jualAlert').removeClass('hidden').text(res.message);
             }
             btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang');
-          }).catch(() => { btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang'); });
+          })
+          .catch((err) => { 
+            alert("Error: " + err.message + " \nSilakan coba pilih file gambar lain.");
+            btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang'); 
+          });
       }
 
       function bukaDetailBarang(id) {
