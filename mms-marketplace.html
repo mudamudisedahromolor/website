@@ -6,10 +6,6 @@
     <title>Pasar Digital - Muda Mudi Sedahromo Lor</title>
     
     <link rel="icon" href="images/mms.png" type="image/png">
-    <link class="hidden" type="image/png" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
-    
     <link rel="stylesheet" href="style.css?v=103">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -57,15 +53,15 @@
       .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #EE4D2D; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 40px auto; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       
-      /* Perbaikan Struktur Group Sejajar Sempurna */
+      /* Perbaikan Struktur Group Agar Rp Menyatu Sempurna & Full Width */
       .input-group-custom { display: flex !important; align-items: stretch !important; width: 100% !important; }
-      .input-group-text-custom { background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; padding: 0 12px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
+      .input-group-text-custom { background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; font-weight: bold; font-size: 0.82rem; display: flex; align-items: center; padding: 0 14px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
       .input-field-custom { border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
       
       /* Kotak Preview Upload Gambar */
-      .box-upload-area { border: 2px dashed #ced4da; padding: 15px; text-align: center; background: #f8f9fa; border-radius: 8px; cursor: pointer; position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 240px; }
+      .box-upload-area { border: 2px dashed #ced4da; padding: 15px; text-align: center; background: #f8f9fa; border-radius: 8px; cursor: pointer; position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 310px; }
       .box-upload-area:hover { border-color: #EE4D2D; background: #fff5f3; }
-      .preview-img-upload { max-width: 100%; max-height: 200px; object-fit: contain; border-radius: 6px; display: none; }
+      .preview-img-upload { max-width: 100%; max-height: 260px; object-fit: contain; border-radius: 6px; display: none; }
     </style>
 </head>
 <body> 
@@ -202,21 +198,20 @@
                   </div>
                   <div class="mb-2">
                     <label class="small fw-bold text-secondary">Nama Barang *</label>
-                    <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Sepatu Awet">
+                    <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Komik Doraemon">
                   </div>
                   
-                  <div class="row g-2 mb-2">
-                    <div class="col-6">
-                      <label class="small fw-bold text-secondary">Harga Jual *</label>
-                      <div class="input-group-custom">
-                        <span class="input-group-text-custom">Rp</span>
-                        <input type="number" id="jualHarga" class="form-control form-control-sm input-field-custom" min="0" step="1000" required placeholder="150000">
-                      </div>
+                  <div class="mb-2">
+                    <label class="small fw-bold text-secondary">Harga Jual *</label>
+                    <div class="input-group-custom">
+                      <span class="input-group-text-custom">Rp</span>
+                      <input type="number" id="jualHarga" class="form-control form-control-sm input-field-custom" min="0" step="1000" required placeholder="15000">
                     </div>
-                    <div class="col-6">
-                      <label class="small fw-bold text-secondary">Stok Barang *</label>
-                      <input type="number" id="jualStok" class="form-control form-control-sm" value="1" min="1" step="1" required>
-                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="small fw-bold text-secondary">Stok Barang *</label>
+                    <input type="number" id="jualStok" class="form-control form-control-sm" value="1" min="1" step="1" required>
                   </div>
                   
                   <div class="mb-2">
@@ -241,7 +236,7 @@
                 <label class="small fw-bold text-dark mb-1"><i class="fa-solid fa-camera text-danger me-1"></i> Foto Produk Lapak *</label>
                 <div class="box-upload-area" onclick="document.getElementById('fileGambarUpload').click();">
                   <div id="textUploadPrompt">
-                    <i class="fa-solid fa-cloud-arrow-up text-muted mb-2" style="font-size: 2.2rem;"></i>
+                    <i class="fa-solid fa-cloud-arrow-up text-muted mb-2" style="font-size: 2.5rem;"></i>
                     <p class="mb-1 small fw-bold text-secondary">Klik / Ketuk disini pilih foto</p>
                     <p class="text-muted" style="font-size: 0.65rem;">Otomatis tersimpan stabil di server cloud gratis</p>
                   </div>
@@ -351,13 +346,13 @@
     <script>
       const API_URL = "https://script.google.com/macros/s/AKfycby4X0hmuZJPUkTZcPlTSPEuXmqnzCP3erXO6Q4TAAjNdZzkB1egsdVWfxDQTudFDSt7OA/exec";
       
-      // KUNCI GATEWAY INSTANT UPLOAD IMGBB CLOUD (SUDAH AKTIF SIAP PAKAI)
+      // KEY API IMGBB CLOUD SUDAH AKTIF DAN SIAP PROSES BYPASS LIMIT
       const IMGBB_API_KEY = "6463fb7df34ca7b3a7b1b369da8a5061";
 
       let databaseMaster = { produk: [], interaksi: [] };
       let kategoriAktif = 'Semua';
       let modalJual, modalDetail;
-      let fileFotoMentah = null; // Menyimpan objek file asli galeri
+      let fileFotoMentah = null; 
 
       $(document).ready(function() {
         modalJual = new bootstrap.Modal(document.getElementById('formJualModal'));
@@ -365,7 +360,6 @@
         muatDataAwal();
       });
 
-      // Membaca file gambar dari galeri untuk pratinjau lokal
       function bacaDanPreviewFoto(input) {
         if (input.files && input.files[0]) {
           fileFotoMentah = input.files[0];
@@ -419,6 +413,10 @@
 
         filtered.forEach(p => {
           let img = p.foto || 'https://via.placeholder.com/150?text=No+Image';
+          if(p.foto && p.foto.includes('/d/')) {
+            let id = p.foto.split('/d/')[1].split('/')[0];
+            img = `https://drive.google.com/thumbnail?id=${id}&sz=w300`;
+          }
           
           let isTerjual = p.status === "Terjual";
           let badgeKondisi = p.kondisi;
@@ -484,7 +482,6 @@
         let btn = $('#btnSubmitLapak');
         btn.prop('disabled', true).text('Mengunggah Gambar...');
 
-        // TAHAP 1: Unggah gambar ke server cloud ImgBB di latar belakang
         let formData = new FormData();
         formData.append("image", fileFotoMentah);
 
@@ -495,7 +492,6 @@
               throw new Error("Gagal mengunggah gambar ke server ImgBB cloud.");
             }
             
-            // Ambil link url pendek hasil upload
             let urlFotoPendek = hasilImg.data.url;
             btn.text('Menayangkan Lapak...');
 
@@ -510,11 +506,10 @@
               harga: $('#jualHarga').val(),
               stok: $('#jualStok').val(),
               kondisi: $('#jualKondisi').val(),
-              foto: urlFotoPendek, // Hanya mengirim link teks pendek ke Sheets, 100% Lolos Bypass Limit!
+              foto: urlFotoPendek, 
               metode: mt.join(" / ") || "Hubungi Penjual"
             };
 
-            // TAHAP 2: Kirim data muatan teks pendek ke Google Sheets
             return fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payload) });
           })
           .then(r => r.json())
