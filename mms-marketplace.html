@@ -57,15 +57,15 @@
       .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #EE4D2D; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 40px auto; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       
-      /* Perbaikan Struktur Form Agar Kotak Input Group Sejajar Sempurna */
+      /* Perbaikan Struktur Group Sejajar Sempurna */
       .input-group-custom { display: flex !important; align-items: stretch !important; width: 100% !important; }
-      .input-group-text-custom { background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; padding: 0 10px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
+      .input-group-text-custom { background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; padding: 0 12px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
       .input-field-custom { border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
       
-      /* Kotak Preview Upload Gambar Mandiri */
-      .box-upload-area { border: 2px dashed #ced4da; padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px; cursor: pointer; position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 220px; }
+      /* Kotak Preview Upload Gambar */
+      .box-upload-area { border: 2px dashed #ced4da; padding: 15px; text-align: center; background: #f8f9fa; border-radius: 8px; cursor: pointer; position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 240px; }
       .box-upload-area:hover { border-color: #EE4D2D; background: #fff5f3; }
-      .preview-img-upload { max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 6px; display: none; margin-top: 10px; }
+      .preview-img-upload { max-width: 100%; max-height: 200px; object-fit: contain; border-radius: 6px; display: none; }
     </style>
 </head>
 <body> 
@@ -202,7 +202,7 @@
                   </div>
                   <div class="mb-2">
                     <label class="small fw-bold text-secondary">Nama Barang *</label>
-                    <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Helm Bogo Retro Preloved">
+                    <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Komik Doraemon">
                   </div>
                   
                   <div class="row g-2 mb-2">
@@ -210,7 +210,7 @@
                       <label class="small fw-bold text-secondary">Harga Jual *</label>
                       <div class="input-group-custom">
                         <span class="input-group-text-custom">Rp</span>
-                        <input type="number" id="jualHarga" class="form-control form-control-sm input-field-custom" min="0" step="1000" required placeholder="85000">
+                        <input type="number" id="jualHarga" class="form-control form-control-sm input-field-custom" min="0" step="1000" required placeholder="15000">
                       </div>
                     </div>
                     <div class="col-6">
@@ -241,13 +241,12 @@
                 <label class="small fw-bold text-dark mb-1"><i class="fa-solid fa-camera text-danger me-1"></i> Foto Produk Lapak *</label>
                 <div class="box-upload-area" onclick="document.getElementById('fileGambarUpload').click();">
                   <div id="textUploadPrompt">
-                    <i class="fa-solid fa-cloud-arrow-up text-muted mb-2" style="font-size: 2.5rem;"></i>
-                    <p class="mb-1 small fw-bold text-secondary">Klik / Ketuk area ini untuk pilih foto</p>
-                    <p class="text-muted" style="font-size: 0.65rem;">Mendukung format JPG, JPEG, PNG (Maks 2MB)</p>
+                    <i class="fa-solid fa-cloud-arrow-up text-muted mb-2" style="font-size: 2.2rem;"></i>
+                    <p class="mb-1 small fw-bold text-secondary">Klik / Ketuk disini pilih foto</p>
+                    <p class="text-muted" style="font-size: 0.65rem;">Otomatis dikompres & hemat kuota database</p>
                   </div>
                   <img id="previewGambarLapak" class="preview-img-upload" alt="Preview">
-                  
-                  <input type="file" id="fileGambarUpload" class="hidden" accept="image/*" onchange="bacaDanPreviewFoto(this)">
+                  <input type="file" id="fileGambarUpload" class="hidden" accept="image/*" onchange="bacaDanKompresFoto(this)">
                 </div>
               </div>
 
@@ -355,7 +354,7 @@
       let databaseMaster = { produk: [], interaksi: [] };
       let kategoriAktif = 'Semua';
       let modalJual, modalDetail;
-      let stringFotoBase64 = ""; // Penampung teks gambar lokal
+      let stringFotoBase64 = ""; 
 
       $(document).ready(function() {
         modalJual = new bootstrap.Modal(document.getElementById('formJualModal'));
@@ -363,23 +362,37 @@
         muatDataAwal();
       });
 
-      // Fungsi membaca data foto dari komputer/HP warga lalu merubahnya jadi teks
-      function bacaDanPreviewFoto(input) {
+      // ENGINE BARU: AUTO COMPRESSOR UNTUK MEREMUKKAN UKURAN FILE GAMBAR SECARA INSTAN
+      function bacaDanKompresFoto(input) {
         if (input.files && input.files[0]) {
           let file = input.files[0];
-          if (file.size > 2 * 1024 * 1024) {
-            alert("Ukuran file terlalu besar! Maksimal adalah 2MB.");
-            input.value = "";
-            return;
-          }
-          
           let reader = new FileReader();
+          
           reader.onload = function(e) {
-            stringFotoBase64 = e.target.result; // Menyimpan data text gambar
-            document.getElementById('textUploadPrompt').style.display = 'none';
-            let preview = document.getElementById('previewGambarLapak');
-            preview.src = e.target.result;
-            preview.style.display = 'block';
+            let imgElement = new Image();
+            imgElement.src = e.target.result;
+            
+            imgElement.onload = function() {
+              // Set ukuran dimensi maksimal pratinjau katalog
+              let max_width = 400; 
+              let scale = max_width / imgElement.width;
+              let canvas = document.createElement('canvas');
+              
+              canvas.width = max_width;
+              canvas.height = imgElement.height * scale;
+              
+              let ctx = canvas.getContext('2d');
+              ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+              
+              // Kompres kualitas gambar murni menjadi 35% agar teks muatan menjadi super ringan
+              stringFotoBase64 = canvas.toDataURL('image/jpeg', 0.35);
+              
+              // Tampilkan hasil ke area preview kotak kanan
+              document.getElementById('textUploadPrompt').style.display = 'none';
+              let preview = document.getElementById('previewGambarLapak');
+              preview.src = stringFotoBase64;
+              preview.style.display = 'block';
+            };
           };
           reader.readAsDataURL(file);
         }
@@ -481,7 +494,7 @@
 
       function prosesSimpanBarang() {
         if(!stringFotoBase64) {
-          alert("Wajib memilih dan mengunggah foto produk terlebih dahulu!");
+          alert("Wajib memilih foto produk terlebih dahulu!");
           return;
         }
 
@@ -499,7 +512,7 @@
           harga: $('#jualHarga').val(),
           stok: $('#jualStok').val(),
           kondisi: $('#jualKondisi').val(),
-          foto: stringFotoBase64, // Mengirim text Base64 gambar langsung ke Sheets
+          foto: stringFotoBase64, 
           metode: mt.join(" / ") || "Hubungi Penjual"
         };
 
