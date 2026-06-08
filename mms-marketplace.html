@@ -53,7 +53,7 @@
       .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #EE4D2D; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 40px auto; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       
-      /* Perbaikan Struktur Group Agar Rp Menyatu Sempurna & Full Width */
+      /* Perbaikan Form Layout: Vertikal Berurutan ke Bawah */
       .input-group-custom { display: flex !important; align-items: stretch !important; width: 100% !important; }
       .input-group-text-custom { background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; font-weight: bold; font-size: 0.82rem; display: flex; align-items: center; padding: 0 14px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
       .input-field-custom { border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
@@ -346,11 +346,17 @@
     <script>
       const API_URL = "https://script.google.com/macros/s/AKfycby4X0hmuZJPUkTZcPlTSPEuXmqnzCP3erXO6Q4TAAjNdZzkB1egsdVWfxDQTudFDSt7OA/exec";
       
-      // CONFIG CONFIG GITHUB API (DIENKRIPSI BAGIAN TOKEN AGAR AMAN DARI SCANNER BOT REPO)
+      // MENGUNCI MANIFEST REPO TUJUAN
       const GH_USER = "mudamudisedahromolor";
       const GH_REPO = "mudamudisedahromolor.github.io";
-      const GH_PATH = "website/images/products/"; // Gambar otomatis tersimpan ke folder murni ini
-      const GH_TOKEN = atob("Z2hwX25vRExWOUFhSml2TEFSMzdZc0l3QUV3bktHUTZnbjJ2Q2oxQw=="); // Bypass token enkripsi lokal
+      const GH_PATH = "website/images/products/";
+
+      // ==========================================================================
+      // INSTRUKSI WAJIB BAGI ADMIN (ARDYAN):
+      // Ganti teks di bawah ini dengan hasil konversi Base64 Token Baru Anda.
+      // Cara generate token aman ada di panduan petunjuk bawah kode.
+      // ==========================================================================
+      const GH_TOKEN = atob("TUFTVURLQU5fVEVLU19CQVNFNjRfVE9LRU5fQkFSVV9ESVNJTkk="); 
 
       let databaseMaster = { produk: [], interaksi: [] };
       let kategoriAktif = 'Semua';
@@ -371,9 +377,7 @@
           
           let reader = new FileReader();
           reader.onload = function(e) {
-            // Memisahkan header DataURL untuk mengambil data teks Base64 murni kebutuhan GitHub API
             stringBase64Murni = e.target.result.split(',')[1];
-            
             document.getElementById('textUploadPrompt').style.display = 'none';
             let preview = document.getElementById('previewGambarLapak');
             preview.src = e.target.result;
@@ -483,6 +487,11 @@
           return;
         }
 
+        if(GH_TOKEN.includes("MASUKKAN_TEKS_BASE64")) {
+          alert("🚨 TOKEN BELUM DIAKTIFKAN: Selesaikan prosedur pembuatan Fine-Grained Token GitHub terlebih dahulu!");
+          return;
+        }
+
         let btn = $('#btnSubmitLapak');
         btn.prop('disabled', true).text('Mengunggah Gambar ke GitHub...');
 
@@ -494,7 +503,7 @@
           content: stringBase64Murni
         };
 
-        // TAHAP 1: Unggah data biner Base64 murni ke repositori via GitHub REST API
+        // PIPELINE TAHAP 1: Kirim data biner Base64 ke repositori GitHub via REST API
         fetch(targetUrlApiGitHub, {
           method: "PUT",
           headers: {
@@ -504,11 +513,10 @@
           body: JSON.stringify(payloadGitHub)
         })
         .then(resGH => {
-          if (!resGH.ok) throw new Error("Gagal mengunggah berkas gambar ke repositori GitHub.");
+          if (!resGH.ok) throw new Error("Akses Token Ditolak atau Kadaluwarsa. Periksa kembali konfigurasi hak izin token Anda.");
           return resGH.json();
         })
         .then(hasilGH => {
-          // Buat konstruksi CDN url pendek publik gambar yang baru saja masuk ke repo
           let linkUrlGambarKatalog = `https://${GH_USER}.github.io/${GH_REPO}/${GH_PATH}${namaFileUnik}`;
           btn.text('Menayangkan Lapak...');
 
@@ -523,11 +531,11 @@
             harga: $('#jualHarga').val(),
             stok: $('#jualStok').val(),
             kondisi: $('#jualKondisi').val(),
-            foto: linkUrlGambarKatalog, // Hanya mengirim link teks CDN pendek ke Sheets (100% Lolos Limit!)
+            foto: linkUrlGambarKatalog, 
             metode: mt.join(" / ") || "Hubungi Penjual"
           };
 
-          // TAHAP 2: Catat data teks pendek ke Google Sheets
+          // PIPELINE TAHAP 2: Catat log data teks pendek ke Google Sheets
           return fetch(API_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(payloadSpreadsheet) });
         })
         .then(r => r.json())
@@ -542,7 +550,7 @@
           btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang');
         })
         .catch((err) => { 
-          alert("Error Sistem: " + err.message + " \nSilakan coba lagi.");
+          alert("Error Sistem: " + err.message);
           btn.prop('disabled', false).text('Tayangkan Dagangan Sekarang'); 
         });
       }
