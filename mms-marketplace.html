@@ -56,6 +56,15 @@
       .hidden { display: none !important; }
       .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #EE4D2D; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 40px auto; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      
+      /* Tambahan CSS khusus kerapian form input group agar Rp menyatu sempurna */
+      .input-group-text-custom {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: #495057;
+        font-weight: bold;
+        font-size: 0.85rem;
+      }
     </style>
 </head>
 <body> 
@@ -194,16 +203,21 @@
                     <label class="small fw-bold text-secondary">Nama Barang *</label>
                     <input type="text" id="jualNama" class="form-control form-control-sm" required placeholder="Contoh: Helm Bogo Retro Preloved">
                   </div>
+                  
                   <div class="row g-2 mb-2">
                     <div class="col-6">
-                      <label class="small fw-bold text-secondary">Harga Jual (Rp) *</label>
-                      <input type="number" id="jualHarga" class="form-control form-control-sm" min="0" step="1000" required placeholder="85000">
+                      <label class="small fw-bold text-secondary">Harga Jual *</label>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-text input-group-text-custom">Rp</span>
+                        <input type="number" id="jualHarga" class="form-control form-control-sm" min="0" step="1000" required placeholder="85000">
+                      </div>
                     </div>
                     <div class="col-6">
                       <label class="small fw-bold text-secondary">Stok Barang *</label>
                       <input type="number" id="jualStok" class="form-control form-control-sm" value="1" min="1" step="1" required>
                     </div>
                   </div>
+                  
                   <div class="mb-2">
                     <label class="small fw-bold text-secondary">Kondisi *</label>
                     <select id="jualKondisi" class="form-select form-select-sm" required>
@@ -225,7 +239,7 @@
               <div class="col-md-6 d-flex flex-column text-start">
                 <label class="small fw-bold text-dark mb-1"><i class="fa-solid fa-camera text-danger me-1"></i> Area Upload Foto Produk *</label>
                 <div class="flex-grow-1 border rounded shadow-inner" style="background: #F8F9FA; min-height: 250px; position: relative; overflow: hidden;">
-                  <iframe src="https://forms.gle/uRt9U7XXqaYhB1UE6/viewform?embedded=true" 
+                  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScsXgTWhhD8n6e4OidpWw1K2Y6fU_o1fUf2Xn_G8tN96Yq5Eg/viewform?embedded=true" 
                           width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" 
                           style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;">
                     Loading…
@@ -335,7 +349,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // LINK API UTAMA DARI DEPLOYMENT APPS SCRIPT ANDA UTK BYPASS CORS GOOGLE
       const API_URL = "https://script.google.com/macros/s/AKfycby4X0hmuZJPUkTZcPlTSPEuXmqnzCP3erXO6Q4TAAjNdZzkB1egsdVWfxDQTudFDSt7OA/exec";
 
       let databaseMaster = { produk: [], interaksi: [] };
@@ -385,7 +398,6 @@
         $(container).removeClass('hidden');
 
         filtered.forEach(p => {
-          // Setel foto default dari sistem admin karang taruna Anda jika kosong
           let img = p.foto || 'https://via.placeholder.com/150?text=Uploaded+via+Form';
           if(p.foto && p.foto.includes('/d/')) {
             let id = p.foto.split('/d/')[1].split('/')[0];
@@ -455,7 +467,7 @@
           harga: $('#jualHarga').val(),
           stok: $('#jualStok').val(),
           kondisi: $('#jualKondisi').val(),
-          foto: "", // Disimpan teks kosong karena arsip file gambar dialirkan murni ke Drive Google Form kanan
+          foto: "", 
           metode: mt.join(" / ") || "Hubungi Penjual"
         };
 
