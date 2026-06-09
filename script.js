@@ -459,13 +459,6 @@ async function loadAnggotaDariDrive() {
     } catch (e) { console.error(e); }
 }
 
-window.terapkanFilterAnggota = function() {
-    const cariInput = document.getElementById('input-cari-anggota'); if(!cariInput) return;
-    const cari = cariInput.value.toLowerCase();
-    dataAnggotaTersaring = dataAnggotaGlobal.filter(item => item.nama.toLowerCase().includes(cari) || item.nim.toLowerCase().includes(cari));
-    halAnggotaSaatIni = 1; renderTabelAnggota();
-}
-
 function renderTabelAnggota() {
     const tbody = document.getElementById('data-tabel-anggota'); if (!tbody) return;
     if (dataAnggotaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;">Data anggota tidak ditemukan.</td></tr>`; return; }
@@ -479,24 +472,33 @@ function renderTabelAnggota() {
         }
 
         // ==========================================================================
-        // LOGIKA KLASIFIKASI GENERASI & WARNA PEMBEDA
+        // LOGIKA KLASIFIKASI 4 GENERASI DENGAN PALET WARNA FILOSOFIS
         // ==========================================================================
+        let generasiTeks = "Umum";
+        let gayaBadge = "background-color: #757575; color: white;"; // Default warna abu-abu netral
 
-let generasiTeks = "Lainnya";
-let gayaBadge = "background-color: #757575; color: white;"; // Default bila tidak masuk kategori
+        if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
+            // 1. MILENIAL (Senior / Paling Tua di Muda-Mudi)
+            generasiTeks = "Milenial";
+            gayaBadge = "background-color: #1A237E; color: white; box-shadow: 0 2px 5px rgba(26, 35, 126, 0.2);"; // Biru Navy (Bijaksana & Mantap)
+        } 
+        else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2005) {
+            // 2. GEN Z DEWASA (Kategori Sedang - Kuliah / Kerja)
+            generasiTeks = "Gen Z";
+            gayaBadge = "background-color: #2E7D32; color: white; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);"; // Hijau Emerald (Produktif & Seimbang)
+        } 
+        else if (i.tahunLahirInt >= 2006 && i.tahunLahirInt <= 2012) {
+            // 3. GEN Z REMAJA (Kategori Muda - Masa Sekolah SMA)
+            generasiTeks = "Gen Z";
+            gayaBadge = "background-color: #81C784; color: #1B5E20; box-shadow: 0 2px 5px rgba(129, 199, 132, 0.2);"; // Hijau Daun Muda (Energi Baru)
+        } 
+        else if (i.tahunLahirInt >= 2013 && i.tahunLahirInt <= 2026) {
+            // 4. GENERASI ALPHA (Kategori Paling Muda - Remaja Awal / Penerus)
+            generasiTeks = "Gen Alpha";
+            gayaBadge = "background-color: #008080; color: white; box-shadow: 0 2px 5px rgba(0, 128, 128, 0.2);"; // Teal / Hijau Toska (Fajar Baru & Harapan Masa Depan)
+        }
 
-if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
-    generasiTeks = "Milenial";
-    gayaBadge = "background-color: #1A237E; color: white; box-shadow: 0 2px 5px rgba(26, 35, 126, 0.2);"; // Navy (Tua)
-} else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2005) {
-    generasiTeks = "Gen Z (Dewasa)";
-    gayaBadge = "background-color: #2E7D32; color: white; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);"; // Emerald (Sedang)
-} else if (i.tahunLahirInt >= 2006 && i.tahunLahirInt <= 2012) {
-    generasiTeks = "Gen Z (Remaja)";
-    gayaBadge = "background-color: #81C784; color: #1B5E20; box-shadow: 0 2px 5px rgba(129, 199, 132, 0.2);"; // Daun Muda (Muda)
-}
-
-let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
+        let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
 
         return `<tr style="height: 90px; vertical-align: middle;">
             <td>${i.nim}</td>
