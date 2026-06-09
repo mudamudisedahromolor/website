@@ -257,7 +257,7 @@
       box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); 
       animation: dotPulseUmumMMS 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
   "></span>
-  <span id="umumUserCount">0</span> Warga Online
+  <span id="umumUserCount">0</span> Orang Online
 </div>
 
 <style>
@@ -276,7 +276,7 @@
     // Cek atau generate nama acak perangkat warga agar tidak bentrok
     let savedName = localStorage.getItem('mms_umum_anonymous_name');
     if (!savedName) {
-      savedName = "Orang-" + Math.floor(100 + Math.random() * 900);
+      savedName = "Warga-" + Math.floor(100 + Math.random() * 900);
       localStorage.setItem('mms_umum_anonymous_name', savedName);
     }
     namaPengunjungUmum = savedName;
