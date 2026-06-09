@@ -516,11 +516,11 @@ function renderTabelAnggota() {
             gayaBadge = "background-color: #1A237E; color: white; box-shadow: 0 2px 5px rgba(26, 35, 126, 0.2);"; // Navy
         } 
         else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2005) {
-            generasiTeks = "Gen Z (Dewasa)";
+            generasiTeks = "Gen Z";
             gayaBadge = "background-color: #2E7D32; color: white; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);"; // Emerald
         } 
         else if (i.tahunLahirInt >= 2006 && i.tahunLahirInt <= 2012) {
-            generasiTeks = "Gen Z (Remaja)";
+            generasiTeks = "Gen Z";
             gayaBadge = "background-color: #81C784; color: #1B5E20; box-shadow: 0 2px 5px rgba(129, 199, 132, 0.2);"; // Daun Muda
         } 
         else if (i.tahunLahirInt >= 2013 && i.tahunLahirInt <= 2026) {
