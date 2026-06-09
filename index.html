@@ -276,7 +276,7 @@
     // Cek atau generate nama acak perangkat warga agar tidak bentrok
     let savedName = localStorage.getItem('mms_umum_anonymous_name');
     if (!savedName) {
-      savedName = "Warga-" + Math.floor(100 + Math.random() * 900);
+      savedName = "Orang-" + Math.floor(100 + Math.random() * 900);
       localStorage.setItem('mms_umum_anonymous_name', savedName);
     }
     namaPengunjungUmum = savedName;
