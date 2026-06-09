@@ -302,9 +302,45 @@
       </div>
     </div>
 
-    <footer class="site-footer mt-5">
-        <div class="footer-bottom text-center p-3 bg-dark text-white" style="font-size: 0.8rem;">
-            <p class="m-0">Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
+  <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column info-col">
+                <div class="footer-brand">
+                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
+                    <h4>Muda Mudi Sedahromo Lor</h4>
+                </div>
+                <p class="footer-text">
+                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
+                </p>
+                <p class="footer-text">
+                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a>
+                </p>
+            </div>
+
+            <div class="footer-column links-col">
+                <h5>Sitemap</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
+                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
+                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
+                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
+                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column social-col">
+                <h5>Media Sosial</h5>
+                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -330,13 +366,6 @@
         } else {
           document.getElementById('loginPage').classList.remove('hidden');
         }
-
-        // Event listener untuk Auto Scroll Up ketika nomor page DataTables diketuk
-        $(document).on('click', '.dataTables_wrapper .pagination .page-item', function() {
-          $('html, body').animate({
-            scrollTop: $("#mainPage").offset().top - 20
-          }, 300);
-        });
       });
 
       // ENGINE LOGIN BARU: Melakukan panggilan AJAX/Fetch langsung bypass CORS iframe
@@ -375,8 +404,17 @@
         $('#loginPage').addClass('hidden');
         $('#mainPage').removeClass('hidden');
         
-        document.getElementById('welcomeMsg').innerHTML = `<i class="fa-solid fa-circle-user text-danger me-1"></i> Anggota: <b>${res.nama}</b> (${res.nim})`;
+        document.getElementById('welcomeMsg').innerHTML = `<i class="fa-solid fa-circle-user text-danger me-1"></i> Anggota: <b class="glow-text">${res.nama}</b> (${res.nim})`;
         
+        // Mengurutkan otomatis data buku berdasarkan alfabet (A-Z) judul buku
+        if (res.buku && res.buku.length > 0) {
+          res.buku.sort((a, b) => {
+            let judulA = (a.judul || '').toLowerCase();
+            let judulB = (b.judul || '').toLowerCase();
+            return judulA.localeCompare(judulB);
+          });
+        }
+
         let htmlBuku = '';
         res.buku.forEach(row => {
           if(row.linkDrive && row.linkDrive.indexOf('/d/') !== -1) { 
@@ -421,7 +459,7 @@
         document.getElementById('tableBody').innerHTML = htmlBuku;
         renderTabelRequest(res.requests);
         
-        $('#tabelBuku').DataTable({
+        var tabel = $('#tabelBuku').DataTable({
           "pageLength": 12, 
           "bDestroy": true,
           "ordering": true,
@@ -432,6 +470,13 @@
             "zeroRecords": "E-book tidak ditemukan",
             "paginate": { "next": "»", "previous": "«" }
           }
+        });
+
+        // Logika Event Listener DataTables untuk Auto Scroll Up ketika pagination diklik (angka maupun prev/next)
+        tabel.on('page.dt', function() {
+          $('html, body').animate({
+            scrollTop: $("#mainPage").offset().top - 20
+          }, 300);
         });
       }
 
