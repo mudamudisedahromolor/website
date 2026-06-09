@@ -282,24 +282,25 @@
     namaPengunjungUmum = savedName;
 
     function kirimPingAktifUmum() {
-      fetch(`${URL_API_MMS}?aksi=pingUmum&namaUser=${encodeURIComponent(namaPengunjungUmum)}`)
-        .then(r => r.json())
-        .then(res => {
-          if(res.status === 'success' && res.onlineUsers) {
-            // Update angka total warga yang sedang membuka web secara real-time
-            document.getElementById('umumUserCount').innerText = res.onlineUsers.length;
-            // Munculkan badge mengambang di layar
-            document.getElementById('umumActiveBadge').style.display = 'inline-flex';
-          }
-        })
-        .catch(() => { console.log("Koneksi indikator aktif umum sibuk."); });
-    }
+  // Menambahkan konfigurasi { cache: "no-store" } agar refresh data instan
+  fetch(`${URL_API_MMS}?aksi=pingUmum&namaUser=${encodeURIComponent(namaPengunjungUmum)}`, {
+    cache: "no-store"
+  })
+    .then(r => r.json())
+    .then(res => {
+      if(res.status === 'success' && res.onlineUsers) {
+        document.getElementById('umumUserCount').innerText = res.onlineUsers.length;
+        document.getElementById('umumActiveBadge').style.display = 'inline-flex';
+      }
+    })
+    .catch(() => { console.log("Koneksi indikator aktif umum sibuk."); });
+}
 
     // Eksekusi otomatis saat halaman selesai dimuat sempurna
     document.addEventListener("DOMContentLoaded", function() {
       kirimPingAktifUmum();
       // Kirim sinyal berkala setiap 30 detik untuk memastikan user masih aktif di halaman
-      setInterval(kirimPingAktifUmum, 30000);
+      setInterval(kirimPingAktifUmum, 15000);
     });
   })();
 </script>
