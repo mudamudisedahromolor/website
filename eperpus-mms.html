@@ -44,7 +44,7 @@
 
       /* ==========================================================================
          DATATABLES HYBRID CATALOGUE GRID CARD
-         ========================================================================== */
+         ========================================================================= */
       .dataTables_wrapper { width: 100% !important; overflow-x: hidden; }
       #tabelBuku { border: none !important; background: transparent !important; display: block !important; width: 100% !important; }
       #tabelBuku thead { display: none !important; } 
@@ -82,7 +82,20 @@
       .dataTables_wrapper .dataTables_filter input { width: 100% !important; border-radius: 6px; padding: 8px 12px; border: 1px solid #DDD; display: block; font-size: 0.85rem; }
       .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_info { display: none !important; } 
       
-      .glow-text { font-weight: 700; color: #E53935; text-shadow: 0 0 8px rgba(229, 57, 53, 0.15); }
+      /* Efek Glow Pulse untuk Nama Anggota */
+      .glow-text { 
+        font-weight: 700; 
+        color: #E53935; 
+        display: inline-block;
+        animation: glowPulse 2s infinite ease-in-out;
+      }
+
+      @keyframes glowPulse {
+        0% { text-shadow: 0 0 4px rgba(229, 57, 53, 0.2); }
+        50% { text-shadow: 0 0 16px rgba(229, 57, 53, 0.7), 0 0 22px rgba(229, 57, 53, 0.4); }
+        100% { text-shadow: 0 0 4px rgba(229, 57, 53, 0.2); }
+      }
+
       .hidden { display: none !important; }
 
       @media (max-width: 576px) {
@@ -317,6 +330,13 @@
         } else {
           document.getElementById('loginPage').classList.remove('hidden');
         }
+
+        // Event listener untuk Auto Scroll Up ketika nomor page DataTables diketuk
+        $(document).on('click', '.dataTables_wrapper .pagination .page-item', function() {
+          $('html, body').animate({
+            scrollTop: $("#mainPage").offset().top - 20
+          }, 300);
+        });
       });
 
       // ENGINE LOGIN BARU: Melakukan panggilan AJAX/Fetch langsung bypass CORS iframe
