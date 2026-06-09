@@ -228,6 +228,41 @@
         </div>
     </div>
 
+    <script>
+  (function() {
+    // Ganti dengan URL Web App Google Apps Script hasil New Deployment kamu
+    const URL_API_MMS = "https://script.google.com/macros/s/AKfycbzbXLQ8kBNDh-xTaOpamrzdRuZTFbNGIZwToVh7TfmpOg4C0scshNs7tgDsjKfAAXzlvg/exec"; 
+    
+    let namaPengunjungUmum = "";
+    
+    // Cek atau buat nama acak unik per perangkat biar tidak bentrok
+    let savedName = localStorage.getItem('mms_umum_anonymous_name');
+    if (!savedName) {
+      savedName = "Warga-" + Math.floor(100 + Math.random() * 900);
+      localStorage.setItem('mms_umum_anonymous_name', savedName);
+    }
+    namaPengunjungUmum = savedName;
+
+    function kirimPingAktifUmum() {
+      fetch(`${URL_API_MMS}?aksi=pingUmum&namaUser=${encodeURIComponent(namaPengunjungUmum)}`)
+        .then(r => r.json())
+        .then(res => {
+          if(res.status === 'success' && res.onlineUsers) {
+            document.getElementById('umumUserCount').innerText = res.onlineUsers.length;
+            document.getElementById('umumActiveBadge').style.display = 'inline-flex';
+          }
+        })
+        .catch(() => { console.log("Koneksi absensi aktif umum sibuk."); });
+    }
+
+    // Jalankan pertama kali saat halaman terbuka
+    document.addEventListener("DOMContentLoaded", function() {
+      kirimPingAktifUmum();
+      // Kirim sinyal otomatis setiap 30 detik selama tab masih dibuka
+      setInterval(kirimPingAktifUmum, 30000);
+    });
+  })();
+</script>
     <script src="script.js?v=30"></script>
 </body>
 </html>
