@@ -477,7 +477,30 @@ function renderTabelAnggota() {
             let idFile = ""; if (i.foto.includes("id=")) idFile = i.foto.split("id=")[1].split("&")[0]; else if (i.foto.includes("/d/")) idFile = i.foto.split("/d/")[1].split("/")[0];
             if (idFile !== "") urlFotoTampil = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`; else if (i.foto.startsWith("http")) urlFotoTampil = i.foto;
         }
-        return `<tr style="height: 90px; vertical-align: middle;"><td>${i.nim}</td><td><img src="${urlFotoTampil}" style="width:75px; height:75px; object-fit:cover; border-radius:50%; border:3px solid #E53935;" onclick="window.bukaFotoFull('${urlFotoTampil}');"></td><td style="text-align:left; padding-left:20px;"><i class="fa-solid fa-user" style="color:#E53935; margin-right:8px;"></i> ${i.nama}</td><td>${i.usia}</td><td>Gen Z</td></tr>`;
+
+        // ==========================================================================
+        // LOGIKA KLASIFIKASI GENERASI & WARNA PEMBEDA
+        // ==========================================================================
+        let generasiTeks = "Lainnya";
+        let gayaBadge = "background-color: #6c757d; color: white;"; // Default abu-abu
+
+        if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
+            generasiTeks = "Milenial";
+            gayaBadge = "background-color: #5A6268; color: white;"; // Abu-abu gelap elegan organisasi
+        } else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2012) {
+            generasiTeks = "Gen Z";
+            gayaBadge = "background-color: #E53935; color: white; box-shadow: 0 2px 6px rgba(229, 57, 53, 0.2);"; // Merah khas MMS
+        }
+
+        let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
+
+        return `<tr style="height: 90px; vertical-align: middle;">
+            <td>${i.nim}</td>
+            <td><img src="${urlFotoTampil}" style="width:75px; height:75px; object-fit:cover; border-radius:50%; border:3px solid #E53935; cursor:pointer;" onclick="window.bukaFotoFull('${urlFotoTampil}');"></td>
+            <td style="text-align:left; padding-left:20px;"><i class="fa-solid fa-user" style="color:#E53935; margin-right:8px;"></i> ${i.nama}</td>
+            <td>${i.usia}</td>
+            <td>${badgeHtml}</td>
+        </tr>`;
     }).join('');
 
     const totalHal = Math.ceil(dataAnggotaTersaring.length / barisAnggotaPerHal);
