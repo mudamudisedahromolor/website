@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-Perpustakaan Muda Mudi Sedahromo Lor 05</title>
     
-     <link rel="icon" href="images/mms.png" type="image/png">
+    <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
@@ -98,6 +98,35 @@
         0% { text-shadow: 0 0 4px rgba(229, 57, 53, 0.2); }
         50% { text-shadow: 0 0 16px rgba(229, 57, 53, 0.7), 0 0 22px rgba(229, 57, 53, 0.4); }
         100% { text-shadow: 0 0 4px rgba(229, 57, 53, 0.2); }
+      }
+
+      /* Gaya Tampilan Badge Anggota Aktif */
+      .active-badge-wrapper {
+        cursor: pointer;
+        background-color: #E8F5E9;
+        color: #2E7D32;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.72rem;
+        font-weight: bold;
+        border: 1px solid #C8E6C9;
+        transition: 0.2s;
+      }
+      .active-badge-wrapper:hover {
+        background-color: #C8E6C9;
+      }
+      .dot-pulse-green {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #4CAF50;
+        margin-right: 5px;
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+        animation: activeDotPulse 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
+      }
+      @keyframes activeDotPulse {
+        to { box-shadow: 0 0 0 8px rgba(76, 175, 80, 0); }
       }
 
       .hidden { display: none !important; }
@@ -209,7 +238,13 @@
               <h4 class="mb-0 fw-bold" style="color: #E53935; font-size: 1.2rem;"><i class="fa-solid fa-folder-open me-2"></i>RUANG LITERASI DIGITAL</h4>
               <div id="welcomeMsg" class="small mt-1 text-secondary"></div>
             </div>
-            <button class="btn btn-outline-secondary btn-sm px-2 py-1" style="font-size: 0.72rem" onclick="logoutSesi()"><i class="fa-solid fa-power-off me-1"></i>Keluar</button>
+            
+            <div class="d-flex align-items-center gap-2">
+              <div id="activeUserBadge" class="active-badge-wrapper hidden" onclick="bukaModalAnggotaAktif()">
+                <span class="dot-pulse-green"></span> <span id="activeUserCount">0</span> Aktif
+              </div>
+              <button class="btn btn-outline-secondary btn-sm px-2 py-1" style="font-size: 0.72rem" onclick="logoutSesi()"><i class="fa-solid fa-power-off me-1"></i>Keluar</button>
+            </div>
           </div>
 
           <div class="mb-4 text-start">
@@ -292,6 +327,21 @@
       </div>
     </div>
 
+    <div class="modal fade" id="activeUsersModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 10px; overflow: hidden; border-top: 4px solid #4CAF50;">
+          <div class="modal-header bg-light p-2 px-3">
+            <h6 class="modal-title fw-bold text-dark" style="font-size: 0.85rem;"><i class="fa-solid fa-users text-success me-1"></i> Anggota Online</h6>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" style="font-size: 0.7rem;"></button>
+          </div>
+          <div class="modal-body p-2">
+            <ul id="activeUsersList" class="list-group list-group-flush small" style="max-height: 250px; overflow-y: auto;">
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade" id="pdfModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content" style="border-radius: 8px; overflow: hidden;">
@@ -361,16 +411,55 @@
 
       let userSessionGlobal = null;
       let kategoriUtamaAktif = 'semua';
+      let listAnggotaOnlineGlobal = []; // Array penampung user aktif secara real-time
+      let intervalPingMMS = null;
 
       $(document).ready(function() {
         var savedSession = sessionStorage.getItem('ePerpusUser');
         if (savedSession) {
           userSessionGlobal = JSON.parse(savedSession);
           renderHalamanMMS(userSessionGlobal);
+          mulaiSistemSinyalAktif();
         } else {
           document.getElementById('loginPage').classList.remove('hidden');
         }
       });
+
+      // Fungsi Pengiriman Sinyal Ping Anggota Aktif (Berjalan berkala tiap 30 detik)
+      function mulaiSistemSinyalAktif() {
+        if(!userSessionGlobal || !userSessionGlobal.nama) return;
+        
+        function kirimSinyal() {
+          fetch(`${API_URL}?aksi=pingAktif&namaUser=${encodeURIComponent(userSessionGlobal.nama)}`)
+            .then(r => r.json())
+            .then(res => {
+              if(res.status === 'success' && res.onlineUsers) {
+                listAnggotaOnlineGlobal = res.onlineUsers;
+                document.getElementById('activeUserCount').innerText = res.onlineUsers.length;
+                document.getElementById('activeUserBadge').classList.remove('hidden');
+              }
+            })
+            .catch(() => { console.log("Gagal menyinkronkan status aktif."); });
+        }
+        
+        kirimSinyal(); // Jalankan sekali di awal
+        if(intervalPingMMS) clearInterval(intervalPingMMS);
+        intervalPingMMS = setInterval(kirimSinyal, 30000); // Ulangi berkala setiap 30 detik
+      }
+
+      // Menampilkan nama-nama anggota yang sedang online ke dalam modal khusus
+      function bukaModalAnggotaAktif() {
+        let htmlList = '';
+        if(listAnggotaOnlineGlobal && listAnggotaOnlineGlobal.length > 0) {
+          listAnggotaOnlineGlobal.forEach(u => {
+            htmlList += `<li class="list-group-item d-flex align-items-center p-2"><i class="fa-solid fa-circle text-success me-2" style="font-size:0.55rem;"></i>${u.nama}</li>`;
+          });
+        } else {
+          htmlList = `<li class="list-group-item text-muted text-center p-2">Hanya Anda yang aktif.</li>`;
+        }
+        document.getElementById('activeUsersList').innerHTML = htmlList;
+        new bootstrap.Modal(document.getElementById('activeUsersModal')).show();
+      }
 
       // ENGINE LOGIN BARU: Melakukan panggilan AJAX/Fetch langsung bypass CORS iframe
       function prosesLoginAPI() {
@@ -387,6 +476,7 @@
               sessionStorage.setItem('ePerpusUser', JSON.stringify(res));
               userSessionGlobal = res;
               renderHalamanMMS(res);
+              mulaiSistemSinyalAktif();
               
               document.getElementById('disclaimerNama').innerText = res.nama;
               if (!sessionStorage.getItem('disclaimerDibaca')) {
@@ -584,7 +674,11 @@
         new bootstrap.Modal(document.getElementById('pdfModal')).show();
       }
 
-      function logoutSesi() { sessionStorage.clear(); location.reload(); }
+      function logoutSesi() { 
+        if(intervalPingMMS) clearInterval(intervalPingMMS);
+        sessionStorage.clear(); 
+        location.reload(); 
+      }
     </script>
 </body>
 </html>
