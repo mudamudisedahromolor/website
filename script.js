@@ -436,24 +436,53 @@ async function loadAnggotaDariDrive() {
         const response = await fetch(`${linkTsvAnggota}&cache=${new Date().getTime()}`);
         const teksData = await response.text(); const baris = teksData.split("\n");
         dataAnggotaGlobal = [];
+        
+        const hariIni = new Date();
+        const tahunSekarang = hariIni.getFullYear();
+        const bulanSekarang = hariIni.getMonth(); // 0 = Januari, 11 = Desember
+        const tanggalSekarang = hariIni.getDate();
+
+        // Map nama bulan Indonesia ke indeks angka (0-11) untuk performa instan
+        const mapBulan = {
+            'jan': 0, 'peb': 1, 'feb': 1, 'mar': 2, 'apr': 3, 'mei': 4, 'jun': 5,
+            'jul': 6, 'agu': 7, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'des': 11, 'dec': 11
+        };
+
         for (let i = 1; i < baris.length; i++) {
             const barisBersih = baris[i].trim(); if (!barisBersih) continue;
             const kolom = barisBersih.split("\t");
             let nama = kolom[2] ? kolom[2].trim() : "-", nim = kolom[4] ? kolom[4].trim() : "-", tglLahirRaw = kolom[6] ? kolom[6].trim() : "", linkFotoRaw = kolom[13] ? kolom[13].trim() : ""; 
+            
             let usiaTeks = "-", tahunLahirInt = 0;
             let matchTahun = tglLahirRaw.match(/\b(19\d{2}|20\d{2})\b/);
             if (matchTahun) tahunLahirInt = parseInt(matchTahun[0], 10);
 
             if (tahunLahirInt > 0) {
-                let tglInggris = tglLahirRaw.toLowerCase().replace('mei', 'may').replace('agu', 'aug').replace('okt', 'oct').replace('des', 'dec');
-                let tglLahirObj = new Date(tglInggris), hariIni = new Date(), umur = hariIni.getFullYear() - tahunLahirInt;
-                if (!isNaN(tglLahirObj.getTime())) {
-                    let bulanSelisih = hariIni.getMonth() - tglLahirObj.getMonth();
-                    if (bulanSelisih < 0 || (bulanSelisih === 0 && hariIni.getDate() < tglLahirObj.getDate())) umur--; 
+                let umur = tahunSekarang - tahunLahirInt;
+                
+                // Ambil data tanggal dan nama bulan dari teks mentah (misal: "16 September 1997" -> ["16", "September"])
+                let tglLahirLow = tglLahirRaw.toLowerCase();
+                let matchHari = tglLahirLow.match(/^\d+/);
+                let hariLahir = matchHari ? parseInt(matchHari[0], 10) : 1;
+                
+                // Cari potongan nama bulan di dalam string
+                let bulanLahir = 0;
+                for (let kunci in mapBulan) {
+                    if (tglLahirLow.includes(kunci)) {
+                        bulanLahir = mapBulan[kunci];
+                        break;
+                    }
                 }
+
+                // LOGIKA PRESISI HARI: Jika bulan ini belum masuk bulan lahir, ATAU
+                // jika bulannya sama tapi tanggal hari ini belum melewati tanggal lahirnya, umur dikurangi 1
+                if (bulanSekarang < bulanLahir || (bulanSekarang === bulanLahir && tanggalSekarang < hariLahir)) {
+                    umur--;
+                }
+
                 usiaTeks = umur + " Tahun";
+                dataAnggotaGlobal.push({ nim: nim, nama: nama, tahunLahirInt: tahunLahirInt, usia: usiaTeks, foto: linkFotoRaw });
             }
-            if (tahunLahirInt > 0) dataAnggotaGlobal.push({ nim: nim, nama: nama, tahunLahirInt: tahunLahirInt, usia: usiaTeks, foto: linkFotoRaw });
         }
         terapkanFilterAnggota();
     } catch (e) { console.error(e); }
