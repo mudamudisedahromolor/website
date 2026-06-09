@@ -460,12 +460,11 @@ async function loadAnggotaDariDrive() {
             if (tahunLahirInt > 0) {
                 let umur = tahunSekarang - tahunLahirInt;
                 
-                // Ambil data tanggal dan nama bulan dari teks mentah (misal: "16 September 1997" -> ["16", "September"])
+                // Ambil data tanggal dan nama bulan dari teks mentah
                 let tglLahirLow = tglLahirRaw.toLowerCase();
                 let matchHari = tglLahirLow.match(/^\d+/);
                 let hariLahir = matchHari ? parseInt(matchHari[0], 10) : 1;
                 
-                // Cari potongan nama bulan di dalam string
                 let bulanLahir = 0;
                 for (let kunci in mapBulan) {
                     if (tglLahirLow.includes(kunci)) {
@@ -474,8 +473,7 @@ async function loadAnggotaDariDrive() {
                     }
                 }
 
-                // LOGIKA PRESISI HARI: Jika bulan ini belum masuk bulan lahir, ATAU
-                // jika bulannya sama tapi tanggal hari ini belum melewati tanggal lahirnya, umur dikurangi 1
+                // LOGIKA PRESISI HARI: Mengurangi 1 tahun jika belum melewati hari H ulang tahunnya
                 if (bulanSekarang < bulanLahir || (bulanSekarang === bulanLahir && tanggalSekarang < hariLahir)) {
                     umur--;
                 }
@@ -488,49 +486,49 @@ async function loadAnggotaDariDrive() {
     } catch (e) { console.error(e); }
 }
 
-function renderTabelAnggota() {
-    const tbody = document.getElementById('data-tabel-anggota'); if (!tbody) return;
-    if (dataAnggotaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;">Data anggota tidak ditemukan.</td></tr>`; return; }
-    const start = (halAnggotaSaatIni - 1) * barisAnggotaPerHal, dataPerHalaman = dataAnggotaTersaring.slice(start, start + barisAnggotaPerHal);
-    
-    let html = dataPerHalaman.map(i => {
-        let linkDefaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(i.nama)}&background=E53935&color=fff&size=150&bold=true`, urlFotoTampil = linkDefaultAvatar; 
-        if (i.foto && i.foto !== "-" && i.foto !== "") {
-            let idFile = ""; if (i.foto.includes("id=")) idFile = i.foto.split("id=")[1].split("&")[0]; else if (i.foto.includes("/d/")) idFile = i.foto.split("/d/")[1].split("/")[0];
-            if (idFile !== "") urlFotoTampil = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`; else if (i.foto.startsWith("http")) urlFotoTampil = i.foto;
-        }
-
-        // ==========================================================================
-        // LOGIKA KLASIFIKASI 4 GENERASI DENGAN PALET WARNA FILOSOFIS
-        // ==========================================================================
-function renderTabelAnggota() {
-    const tbody = document.getElementById('data-tabel-anggota'); if (!tbody) return;
-    if (dataAnggotaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;">Data anggota tidak ditemukan.</td></tr>`; return; }
-    const start = (halAnggotaSaatIni - 1) * barisAnggotaPerHal, dataPerHalaman = dataAnggotaTersaring.slice(start, start + barisAnggotaPerHal);
-    
-    let html = dataPerHalaman.map(i => {
-        let linkDefaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(i.nama)}&background=E53935&color=fff&size=150&bold=true`, urlFotoTampil = linkDefaultAvatar; 
-        if (i.foto && i.foto !== "-" && i.foto !== "") {
-            let idFile = ""; if (i.foto.includes("id=")) idFile = i.foto.split("id=")[1].split("&")[0]; else if (i.foto.includes("/d/")) idFile = i.foto.split("/d/")[1].split("/")[0];
-            if (idFile !== "") urlFotoTampil = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`; else if (i.foto.startsWith("http")) urlFotoTampil = i.foto;
-        }
-
-       
-let generasiTeks = "Lainnya";
-let gayaBadge = "background-color: #757575; color: white;"; // Default bila tidak masuk kategori
-
-if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
-    generasiTeks = "Milenial";
-    gayaBadge = "background-color: #1A237E; color: white; box-shadow: 0 2px 5px rgba(26, 35, 126, 0.2);"; // Navy (Tua)
-} else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2005) {
-    generasiTeks = "Gen Z";
-    gayaBadge = "background-color: #2E7D32; color: white; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);"; // Emerald (Sedang)
-} else if (i.tahunLahirInt >= 2006 && i.tahunLahirInt <= 2012) {
-    generasiTeks = "Gen Z";
-    gayaBadge = "background-color: #81C784; color: #1B5E20; box-shadow: 0 2px 5px rgba(129, 199, 132, 0.2);"; // Daun Muda (Muda)
+window.terapkanFilterAnggota = function() {
+    const cariInput = document.getElementById('input-cari-anggota'); if(!cariInput) return;
+    const cari = cariInput.value.toLowerCase();
+    dataAnggotaTersaring = dataAnggotaGlobal.filter(item => item.nama.toLowerCase().includes(cari) || item.nim.toLowerCase().includes(cari));
+    halAnggotaSaatIni = 1; renderTabelAnggota();
 }
 
-let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
+function renderTabelAnggota() {
+    const tbody = document.getElementById('data-tabel-anggota'); if (!tbody) return;
+    if (dataAnggotaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;">Data anggota tidak ditemukan.</td></tr>`; return; }
+    const start = (halAnggotaSaatIni - 1) * barisAnggotaPerHal, dataPerHalaman = dataAnggotaTersaring.slice(start, start + barisAnggotaPerHal);
+    
+    let html = dataPerHalaman.map(i => {
+        let linkDefaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(i.nama)}&background=E53935&color=fff&size=150&bold=true`, urlFotoTampil = linkDefaultAvatar; 
+        if (i.foto && i.foto !== "-" && i.foto !== "") {
+            let idFile = ""; if (i.foto.includes("id=")) idFile = i.foto.split("id=")[1].split("&")[0]; else if (i.foto.includes("/d/")) idFile = i.foto.split("/d/")[1].split("/")[0];
+            if (idFile !== "") urlFotoTampil = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`; else if (i.foto.startsWith("http")) urlFotoTampil = i.foto;
+        }
+
+        // ==========================================================================
+        // LOGIKA KLASIFIKASI GENERASI DENGAN PALET WARNA FILOSOFIS (SINKRON)
+        // ==========================================================================
+        let generasiTeks = "Umum";
+        let gayaBadge = "background-color: #757575; color: white;"; 
+
+        if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
+            generasiTeks = "Milenial";
+            gayaBadge = "background-color: #1A237E; color: white; box-shadow: 0 2px 5px rgba(26, 35, 126, 0.2);"; // Navy
+        } 
+        else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2005) {
+            generasiTeks = "Gen Z (Dewasa)";
+            gayaBadge = "background-color: #2E7D32; color: white; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);"; // Emerald
+        } 
+        else if (i.tahunLahirInt >= 2006 && i.tahunLahirInt <= 2012) {
+            generasiTeks = "Gen Z (Remaja)";
+            gayaBadge = "background-color: #81C784; color: #1B5E20; box-shadow: 0 2px 5px rgba(129, 199, 132, 0.2);"; // Daun Muda
+        } 
+        else if (i.tahunLahirInt >= 2013 && i.tahunLahirInt <= 2026) {
+            generasiTeks = "Gen Alpha";
+            gayaBadge = "background-color: #008080; color: white; box-shadow: 0 2px 5px rgba(0, 128, 128, 0.2);"; // Teal
+        }
+
+        let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
 
         return `<tr style="height: 90px; vertical-align: middle;">
             <td>${i.nim}</td>
