@@ -481,18 +481,22 @@ function renderTabelAnggota() {
         // ==========================================================================
         // LOGIKA KLASIFIKASI GENERASI & WARNA PEMBEDA
         // ==========================================================================
-        let generasiTeks = "Lainnya";
-        let gayaBadge = "background-color: #6c757d; color: white;"; // Default abu-abu
 
-        if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
-            generasiTeks = "Milenial";
-            gayaBadge = "background-color: #5A6268; color: white;"; // Abu-abu gelap elegan organisasi
-        } else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2012) {
-            generasiTeks = "Gen Z";
-            gayaBadge = "background-color: #E53935; color: white; box-shadow: 0 2px 6px rgba(229, 57, 53, 0.2);"; // Merah khas MMS
-        }
+let generasiTeks = "Lainnya";
+let gayaBadge = "background-color: #757575; color: white;"; // Default bila tidak masuk kategori
 
-        let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
+if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
+    generasiTeks = "Milenial";
+    gayaBadge = "background-color: #1A237E; color: white; box-shadow: 0 2px 5px rgba(26, 35, 126, 0.2);"; // Navy (Tua)
+} else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2005) {
+    generasiTeks = "Gen Z (Dewasa)";
+    gayaBadge = "background-color: #2E7D32; color: white; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);"; // Emerald (Sedang)
+} else if (i.tahunLahirInt >= 2006 && i.tahunLahirInt <= 2012) {
+    generasiTeks = "Gen Z (Remaja)";
+    gayaBadge = "background-color: #81C784; color: #1B5E20; box-shadow: 0 2px 5px rgba(129, 199, 132, 0.2);"; // Daun Muda (Muda)
+}
+
+let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
 
         return `<tr style="height: 90px; vertical-align: middle;">
             <td>${i.nim}</td>
