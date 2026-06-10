@@ -195,7 +195,7 @@
     </div>
 
     <script>
-    // URL SPREADSHEET INDONESIA (WIB)
+    // URL DEPLOYMENT GS DENGAN HAK AKSES ANYONE
     const API_HEALTH = "https://script.google.com/macros/s/AKfycbyeQ24l_9VzRkznullLOgVaFkiwC4P3TSqaDXbTIob_kPDmxvoltMg66XIlwE2sxXlvRg/exec"; 
 
     let appSession = null;
@@ -215,12 +215,14 @@
         setTimeout(() => { toast.classList.remove("toast-show"); }, 3500);
     }
 
-    // FUNGSI KRUSIAL: MENGGAMBAR DATA JURNAL LANGSUNG KE DALAM KOTAK HTML
+    // FIX UTAMA: FUNGSI YANG SINKRON MEMBACA STRUKTUR OBJEK GS V5
     function renderVisualJurnalLog(jurnal) {
         const wrapperMakan = document.getElementById("jurnal-makanan-wrapper");
         const wrapperOlahraga = document.getElementById("jurnal-olahraga-wrapper");
 
-        // 1. Gambar Jurnal Makanan
+        if (!wrapperMakan || !wrapperOlahraga) return;
+
+        // 1. Gambar Jurnal Makanan Masuk
         if (!jurnal || !jurnal.makanan || jurnal.makanan.length === 0) {
             wrapperMakan.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada makanan yang dicatat hari ini.</div>`;
         } else {
@@ -235,7 +237,7 @@
             });
         }
 
-        // 2. Gambar Jurnal Olahraga
+        // 2. Gambar Jurnal Olahraga (Disinkronkan membaca properti .aktivitas dari GAS)
         if (!jurnal || !jurnal.aktivitas || jurnal.aktivitas.length === 0) {
             wrapperOlahraga.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada olahraga yang dicatat hari ini.</div>`;
         } else {
@@ -281,7 +283,7 @@
             jalankanLoader(false);
             if(res.status === "old_user") {
                 appSession = res.data;
-                appSession.jurnalAktual = res.jurnal; 
+                appSession.jurnalAktual = res.jurnal; // Mengunci data jurnal terbaru
                 lemparToast("Data berhasil dimuat!", "success");
             } else {
                 appSession = { email: res.email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, kaloriHariIni:0, kaloriTerbakarIni:0, programDiet:"maintain", jurnalAktual: {makanan:[], aktivitas:[]} };
@@ -474,7 +476,7 @@
             if(res.status === "success") {
                 lemparToast("Jurnal makanan berhasil ditambahkan!", "success");
                 appSession.kaloriHariIni = res.totalKaloriSekarang;
-                appSession.jurnalAktual = res.jurnal; 
+                appSession.jurnalAktual = res.jurnal; // Sinkronisasi database hasil submit
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 keranjangMakanan = [];
@@ -483,13 +485,6 @@
                 renderVisualJurnalLog(appSession.jurnalAktual);
             }
         }).catch(() => { jalankanLoader(false); lemparToast("Gagal menyimpan data", "danger"); });
-    }
-
-    function ubahPlaceholderVolume(jenis) {
-        const vol = document.getElementById("ex-volume");
-        const satuan = document.getElementById("label-satuan-olahraga");
-        if(jenis === "Angkat Beban") { vol.placeholder = "Berapa set?"; satuan.innerText = "set"; } 
-        else { vol.placeholder = "Berapa km?"; satuan.innerText = "km"; }
     }
 
     function kirimLogAktivitas() {
@@ -509,7 +504,7 @@
             if(res.status === "success") {
                 lemparToast("Log pembakaran sukses dicatat!", "success");
                 appSession.kaloriTerbakarIni = res.totalBakarSekarang;
-                appSession.jurnalAktual = res.jurnal; 
+                appSession.jurnalAktual = res.jurnal; // Sinkronisasi database hasil submit
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 document.getElementById("ex-volume").value = "";
