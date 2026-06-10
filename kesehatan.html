@@ -50,7 +50,6 @@
         .toast-show { bottom: 20px !important; }
         .t-success { background: #10b981; } .t-danger { background: #ef4444; } .t-info { background: #3b82f6; }
 
-        /* Style Tambahan untuk Fitur Sembunyikan Profil */
         .card-header-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
         .btn-toggle-profile { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.2s; }
         .btn-toggle-profile:hover { background: #e2e8f0; }
@@ -260,7 +259,6 @@
     let kamusMenu = [];
     let cart = [];
 
-    // Fungsi Baru untuk Sembunyikan & Tampilkan Data Diri
     function toggleProfile() {
         const area = document.getElementById('profile-content-area');
         const icon = document.getElementById('btn-toggle-icon');
@@ -312,7 +310,6 @@
             localStorage.setItem("mms_v2", JSON.stringify(sess));
             initUI();
             
-            // Otomatis sembunyikan profil jika user lama agar dashboard langsung rapi
             if (res.status === 'old_user') {
                 toggleProfile();
             }
@@ -366,7 +363,7 @@
         let targetKalori = baseBMR - defisit;
         if(targetKalori < 1100 && baseBMR > 0) targetKalori = 1100;
         
-        let netKaloriMasuk = sess.kaloriMasuk - sess.kaloriBakar; if(netKaloriMasuk < 0) netKaloriMasuk = 0;
+        let netKaloriMasuk = Number(sess.kaloriMasuk || 0) - Number(sess.kaloriBakar || 0); if(netKaloriMasuk < 0) netKaloriMasuk = 0;
         let sisaKalori = targetKalori - netKaloriMasuk;
         let pctKal = targetKalori > 0 ? Math.min(Math.round((netKaloriMasuk/targetKalori)*100), 100) : 0;
 
@@ -377,10 +374,11 @@
         document.getElementById('txt-kal').innerText = pctKal + '%';
 
         let targetPro = sess.targetProtein || 0;
-        let pctPro = targetPro > 0 ? Math.min(Math.round((sess.proteinMasuk/targetPro)*100), 100) : 0;
+        let proMasuk = Number(sess.proteinMasuk || 0);
+        let pctPro = targetPro > 0 ? Math.min(Math.round((proMasuk/targetPro)*100), 100) : 0;
         
         document.getElementById('ui-netpro').innerText = targetPro;
-        document.getElementById('ui-sisapro').innerText = sess.proteinMasuk;
+        document.getElementById('ui-sisapro').innerText = proMasuk;
         document.getElementById('bar-pro').style.width = pctPro + '%';
         document.getElementById('txt-pro').innerText = pctPro + '%';
     }
@@ -401,7 +399,7 @@
                 sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 toast("Profil & Target Diupdate!", "success"); initUI();
-                toggleProfile(); // Otomatis sembunyikan kembali setelah disimpan sukses
+                toggleProfile(); 
             }
         });
     }
@@ -450,7 +448,9 @@
         fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "logMakan", email: sess.email, namaMakanan: nms.join(", "), kalori: tC, protein: tP }) })
         .then(r=>r.json()).then(res => {
             loading(false);
-            sess.kaloriMasuk = res.kaloriSekarang; sess.proteinMasuk = res.proteinSekarang; sess.jurnal = res.jurnal;
+            sess.kaloriMasuk = res.kaloriSekarang; 
+            sess.proteinMasuk = res.proteinSekarang; 
+            sess.jurnal = res.jurnal;
             localStorage.setItem("mms_v2", JSON.stringify(sess));
             cart=[]; renderCart(); kalkulasiUI(); drawJurnal(); toast("Tercatat!", "success");
         });
@@ -486,64 +486,61 @@
         fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "logAktivitas", email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar }) })
         .then(r=>r.json()).then(res => {
             loading(false);
-            sess.kaloriBakar = res.bakarSekarang; sess.jurnal = res.jurnal;
+            sess.kaloriBakar = res.bakarSekarang; 
+            sess.jurnal = res.jurnal;
             localStorage.setItem("mms_v2", JSON.stringify(sess));
             document.getElementById('akt-km').value=""; document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value="";
             kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
         });
     }
 
-function drawJurnal() {
-    let bM = document.getElementById('jr-makan'); 
-    let bA = document.getElementById('jr-akt');
-    let j = sess.jurnal;
-    
-    bM.innerHTML = ""; 
-    bA.innerHTML = "";
-
-    // 🍱 1. PROSES JURNAL MAKANAN (RINGKAS)
-    if (j && j.makanan && j.makanan.length > 0) {
-        let totalKaloriHarian = 0;
-        let totalProteinHarian = 0;
-
-        j.makanan.forEach((item) => {
-            totalKaloriHarian += Number(item.kalori) || 0;
-            totalProteinHarian += Number(item.protein) || 0;
-
-            bM.innerHTML += `
-                <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-                    <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${item.nama}</strong></span>
-                    <div>
-                        <span class="badge-cal">+${item.kalori}k</span>
-                        <span class="badge-pro">+${item.protein}p</span>
-                    </div>
-                </div>`;
-        });
+    function drawJurnal() {
+        let bM = document.getElementById('jr-makan'); 
+        let bA = document.getElementById('jr-akt');
+        let j = sess.jurnal;
         
-        bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
-    } else {
-        bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat.</div>`;
+        bM.innerHTML = ""; 
+        bA.innerHTML = "";
+
+        if (j && j.makanan && j.makanan.length > 0) {
+            let totalKaloriHarian = 0;
+            let totalProteinHarian = 0;
+
+            j.makanan.forEach((item) => {
+                totalKaloriHarian += Number(item.kalori) || 0;
+                totalProteinHarian += Number(item.protein) || 0;
+
+                bM.innerHTML += `
+                    <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${item.nama}</strong></span>
+                        <div>
+                            <span class="badge-cal">+${item.kalori}k</span>
+                            <span class="badge-pro">+${item.protein}p</span>
+                        </div>
+                    </div>`;
+            });
+            bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
+        } else {
+            bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat.</div>`;
+        }
+
+        if (j && j.aktivitas && j.aktivitas.length > 0) {
+            let totalBakarHarian = 0;
+
+            j.aktivitas.forEach((item) => {
+                totalBakarHarian += Number(item.kalori) || 0;
+
+                bA.innerHTML += `
+                    <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${item.jenis}</strong></span>
+                        <span class="badge-cal" style="background:#ecfdf5; color:#065f46;">-${item.kalori}k</span>
+                    </div>`;
+            });
+            bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
+        } else {
+            bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat.</div>`;
+        }
     }
-
-    // 🏃 2. PROSES JURNAL AKTIVITAS FISIK (RINGKAS)
-    if (j && j.aktivitas && j.aktivitas.length > 0) {
-        let totalBakarHarian = 0;
-
-        j.aktivitas.forEach((item) => {
-            totalBakarHarian += Number(item.kalori) || 0;
-
-            bA.innerHTML += `
-                <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-                    <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${item.jenis}</strong></span>
-                    <span class="badge-cal" style="background:#ecfdf5; color:#065f46;">-${item.kalori}k</span>
-                </div>`;
-        });
-        
-        bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
-    } else {
-        bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat.</div>`;
-    }
-}
 
     function resetHarian() {
         if(!confirm("Yakin hapus dan bersihkan baris log hari ini di spreadsheet?")) return;
@@ -551,7 +548,10 @@ function drawJurnal() {
         fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "resetHarian", email: sess.email }) })
         .then(r=>r.json()).then(res => {
             loading(false);
-            sess.kaloriMasuk = 0; sess.proteinMasuk = 0; sess.kaloriBakar = 0; sess.jurnal = res.jurnal;
+            sess.kaloriMasuk = 0; 
+            sess.proteinMasuk = 0; 
+            sess.kaloriBakar = 0; 
+            sess.jurnal = res.jurnal;
             localStorage.setItem("mms_v2", JSON.stringify(sess)); 
             kalkulasiUI(); drawJurnal(); toast("Log harian di sheet terhapus otomatis!", "success");
         }).catch(() => { loading(false); toast("Gagal terkoneksi", "danger"); });
