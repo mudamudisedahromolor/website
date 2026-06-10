@@ -462,50 +462,64 @@
     }
 
     function drawJurnal() {
-        let bM = document.getElementById('jr-makan'); 
-        let bA = document.getElementById('jr-akt');
-        let j = sess.jurnal;
+    let bM = document.getElementById('jr-makan'); 
+    let bA = document.getElementById('jr-akt');
+    let j = sess.jurnal;
+    
+    bM.innerHTML = ""; 
+    bA.innerHTML = "";
+
+    // 🍱 1. PROSES JURNAL MAKANAN
+    if (j && j.makanan && j.makanan.length > 0) {
+        let totalKaloriHarian = 0;
+        let totalProteinHarian = 0;
+
+        j.makanan.forEach((item) => {
+            totalKaloriHarian += Number(item.kalori) || 0;
+            totalProteinHarian += Number(item.protein) || 0;
+
+            bM.innerHTML += `
+                <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px;">
+                    <span>
+                        <i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> 
+                        <strong>${item.nama}</strong> 
+                        <span class="badge-cal" style="margin-left:5px;">+${item.kalori}k</span>
+                        <span class="badge-pro">+${item.protein}p</span>
+                    </span>
+                    <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
+                </div>`;
+        });
         
-        bM.innerHTML = ""; 
-        bA.innerHTML = "";
-
-        if (j && j.makanan && j.makanan.length > 0 && j.makanan[0].nama) {
-            let arrayMenuHarian = j.makanan[0].nama.split(", ");
-            let jamUpdate = j.makanan[0].jam;
-            let totalKaloriHarian = j.makanan[0].kalori;
-            let totalProteinHarian = j.makanan[0].protein;
-
-            arrayMenuHarian.forEach((menu) => {
-                bM.innerHTML += `
-                    <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px;">
-                        <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${menu}</strong></span>
-                        <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${jamUpdate} WIB</span>
-                    </div>`;
-            });
-            bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
-        } else {
-            bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat hari ini.</div>`;
-        }
-
-        if (j && j.aktivitas && j.aktivitas.length > 0 && j.aktivitas[0].jenis) {
-            let arrayJenis = j.aktivitas[0].jenis.split(", ");
-            let arrayDetail = j.aktivitas[0].detail.split(", ");
-            let jamUpdateAkt = j.aktivitas[0].jam;
-            let totalBakarHarian = j.aktivitas[0].kalori;
-
-            arrayJenis.forEach((olahraga, idx) => {
-                let det = arrayDetail[idx] || "";
-                bA.innerHTML += `
-                    <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px;">
-                        <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${olahraga}</strong> <small>(${det})</small></span>
-                        <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${jamUpdateAkt} WIB</span>
-                    </div>`;
-            });
-            bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
-        } else {
-            bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat hari ini.</div>`;
-        }
+        // Tampilkan Akumulasi Total di bawah Log
+        bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
+    } else {
+        bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat hari ini.</div>`;
     }
+
+    // 🏃 2. PROSES JURNAL AKTIVITAS FISIK
+    if (j && j.aktivitas && j.aktivitas.length > 0) {
+        let totalBakarHarian = 0;
+
+        j.aktivitas.forEach((item) => {
+            totalBakarHarian += Number(item.kalori) || 0;
+
+            bA.innerHTML += `
+                <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px;">
+                    <span>
+                        <i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> 
+                        <strong>${item.jenis}</strong> <small>(${item.detail})</small>
+                        <span class="badge-cal" style="background:#ecfdf5; color:#065f46; margin-left:5px;">-${item.kalori}k</span>
+                    </span>
+                    <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
+                </div>`;
+        });
+        
+        // Tampilkan Akumulasi Total Bakar di bawah Log
+        bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
+    } else {
+        bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat hari ini.</div>`;
+    }
+}
 
     function resetHarian() {
         if(!confirm("Yakin hapus dan bersihkan baris log hari ini di spreadsheet?")) return;
