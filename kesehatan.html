@@ -235,7 +235,7 @@
             });
         }
 
-        // 2. Gambar Jurnal Olahraga (FIX SINKRON: Menggunakan nama properti .aktivitas sesuai struktur GS V5)
+        // 2. Gambar Jurnal Olahraga
         if (!jurnal || !jurnal.aktivitas || jurnal.aktivitas.length === 0) {
             wrapperOlahraga.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada olahraga yang dicatat hari ini.</div>`;
         } else {
@@ -388,7 +388,7 @@
                 appSession.bmr = res.bmr;
                 appSession.nama = res.nama;
                 appSession.programDiet = res.programDiet;
-                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal dari simpan Metrik BMR GAS V5
+                appSession.jurnalAktual = res.jurnal; 
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 hitungKalkulasiKesehatanLokal(); 
                 renderVisualJurnalLog(appSession.jurnalAktual);
@@ -474,7 +474,7 @@
             if(res.status === "success") {
                 lemparToast("Jurnal makanan berhasil ditambahkan!", "success");
                 appSession.kaloriHariIni = res.totalKaloriSekarang;
-                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal dari catat Konsumsi GAS V5
+                appSession.jurnalAktual = res.jurnal; 
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 keranjangMakanan = [];
@@ -502,7 +502,7 @@
             if(res.status === "success") {
                 lemparToast("Log pembakaran sukses dicatat!", "success");
                 appSession.kaloriTerbakarIni = res.totalBakarSekarang;
-                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal dari catat Aktivitas GAS V5
+                appSession.jurnalAktual = res.jurnal; 
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 document.getElementById("ex-volume").value = "";
@@ -522,13 +522,13 @@
             if(res.status === "success") {
                 lemparToast("Data kalori hari ini kembali bersih.", "info");
                 appSession.kaloriHariIni = 0; appSession.kaloriTerbakarIni = 0;
-                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal kosong dari reset Sesi GAS V5
+                appSession.jurnalAktual = res.jurnal;
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 hitungKalkulasiKesehatanLokal();
                 renderVisualJurnalLog(appSession.jurnalAktual);
             }
-        }).catch(() => jalankanLoader(false));
+        }).catch(() => { jalankanLoader(false); lemparToast("Gagal mereset data", "danger"); });
     }
 </script>
 </body>
