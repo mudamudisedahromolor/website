@@ -49,6 +49,12 @@
         .custom-toast { position: fixed; bottom: -100px; right: 20px; z-index: 9999; padding: 15px 22px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; transition: bottom 0.4s; font-size: 13px; }
         .toast-show { bottom: 20px !important; }
         .t-success { background: #10b981; } .t-danger { background: #ef4444; } .t-info { background: #3b82f6; }
+
+        /* Style Tambahan untuk Fitur Sembunyikan Profil */
+        .card-header-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+        .btn-toggle-profile { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.2s; }
+        .btn-toggle-profile:hover { background: #e2e8f0; }
+        .profile-content-wrapper { transition: all 0.3s ease-in-out; overflow: hidden; }
     </style>
 </head>
 <body> 
@@ -144,27 +150,33 @@
 
             <div class="health-grid">
                 <div class="card-health">
-                    <h4 style="margin-top:0; color:#D32F2F;"><i class="fa-solid fa-address-card"></i> Profil & Konfigurasi AI</h4>
-                    <hr style="border:none; border-top:1px solid #e2e8f0; margin-bottom:15px;">
-                    <div class="form-group"><label>Nama</label><input type="text" id="p-nama" class="form-input"></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                        <div class="form-group"><label>Gender</label><select id="p-gender" class="form-input"><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
-                        <div class="form-group"><label>Umur</label><input type="number" id="p-umur" class="form-input"></div>
+                    <div class="card-header-toggle" onclick="toggleProfile()">
+                        <h4 style="margin:0; color:#D32F2F;"><i class="fa-solid fa-address-card"></i> Profil & Konfigurasi AI</h4>
+                        <button class="btn-toggle-profile" id="btn-toggle-icon"><i class="fa-solid fa-chevron-up"></i></button>
                     </div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                        <div class="form-group"><label>Tinggi (cm)</label><input type="number" id="p-tb" class="form-input"></div>
-                        <div class="form-group"><label>Berat (kg)</label><input type="number" id="p-bb" class="form-input"></div>
+                    
+                    <div id="profile-content-area" class="profile-content-wrapper" style="margin-top: 15px;">
+                        <hr style="border:none; border-top:1px solid #e2e8f0; margin-bottom:15px; margin-top:0;">
+                        <div class="form-group"><label>Nama</label><input type="text" id="p-nama" class="form-input"></div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <div class="form-group"><label>Gender</label><select id="p-gender" class="form-input"><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
+                            <div class="form-group"><label>Umur</label><input type="number" id="p-umur" class="form-input"></div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <div class="form-group"><label>Tinggi (cm)</label><input type="number" id="p-tb" class="form-input"></div>
+                            <div class="form-group"><label>Berat (kg)</label><input type="number" id="p-bb" class="form-input"></div>
+                        </div>
+                        <div class="form-group" style="background:#fffbeb; padding:12px; border-radius:6px; border:1px solid #fcd34d;">
+                            <label style="color:#b45309;"><i class="fa-solid fa-bullseye"></i> Program Diet Mingguan</label>
+                            <select id="p-diet" class="form-input" style="border-color:#f59e0b;" onchange="kalkulasiUI()">
+                                <option value="maintain">Normal / Pertahankan BB</option>
+                                <option value="lose_025">Turun Ringan (-0.25 kg/minggu)</option>
+                                <option value="lose_050">Turun Sedang (-0.50 kg/minggu)</option>
+                                <option value="lose_100">Turun Agresif (-1.00 kg/minggu)</option>
+                            </select>
+                        </div>
+                        <button class="btn-mms" onclick="simpanProfil()"><i class="fa-solid fa-floppy-disk"></i> Simpan & Generate Target</button>
                     </div>
-                    <div class="form-group" style="background:#fffbeb; padding:12px; border-radius:6px; border:1px solid #fcd34d;">
-                        <label style="color:#b45309;"><i class="fa-solid fa-bullseye"></i> Program Diet Mingguan</label>
-                        <select id="p-diet" class="form-input" style="border-color:#f59e0b;" onchange="kalkulasiUI()">
-                            <option value="maintain">Normal / Pertahankan BB</option>
-                            <option value="lose_025">Turun Ringan (-0.25 kg/minggu)</option>
-                            <option value="lose_050">Turun Sedang (-0.50 kg/minggu)</option>
-                            <option value="lose_100">Turun Agresif (-1.00 kg/minggu)</option>
-                        </select>
-                    </div>
-                    <button class="btn-mms" onclick="simpanProfil()"><i class="fa-solid fa-floppy-disk"></i> Simpan & Generate Target</button>
                 </div>
 
                 <div class="card-health">
@@ -248,6 +260,20 @@
     let kamusMenu = [];
     let cart = [];
 
+    // Fungsi Baru untuk Sembunyikan & Tampilkan Data Diri
+    function toggleProfile() {
+        const area = document.getElementById('profile-content-area');
+        const icon = document.getElementById('btn-toggle-icon');
+        
+        if (area.style.display === 'none') {
+            area.style.display = 'block';
+            icon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+        } else {
+            area.style.display = 'none';
+            icon.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
+        }
+    }
+
     function loading(show, text="Memproses...") {
         document.getElementById('loader-text').innerText = text;
         document.getElementById('custom-loader').style.display = show ? 'flex' : 'none';
@@ -285,6 +311,11 @@
             }
             localStorage.setItem("mms_v2", JSON.stringify(sess));
             initUI();
+            
+            // Otomatis sembunyikan profil jika user lama agar dashboard langsung rapi
+            if (res.status === 'old_user') {
+                toggleProfile();
+            }
         }).catch(()=> { loading(false); toast("Gagal terhubung server", "danger"); });
     }
 
@@ -370,6 +401,7 @@
                 sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 toast("Profil & Target Diupdate!", "success"); initUI();
+                toggleProfile(); // Otomatis sembunyikan kembali setelah disimpan sukses
             }
         });
     }
@@ -462,64 +494,58 @@
     }
 
     function drawJurnal() {
-    let bM = document.getElementById('jr-makan'); 
-    let bA = document.getElementById('jr-akt');
-    let j = sess.jurnal;
-    
-    bM.innerHTML = ""; 
-    bA.innerHTML = "";
-
-    // 🍱 1. PROSES JURNAL MAKANAN
-    if (j && j.makanan && j.makanan.length > 0) {
-        let totalKaloriHarian = 0;
-        let totalProteinHarian = 0;
-
-        j.makanan.forEach((item) => {
-            totalKaloriHarian += Number(item.kalori) || 0;
-            totalProteinHarian += Number(item.protein) || 0;
-
-            bM.innerHTML += `
-                <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px;">
-                    <span>
-                        <i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> 
-                        <strong>${item.nama}</strong> 
-                        <span class="badge-cal" style="margin-left:5px;">+${item.kalori}k</span>
-                        <span class="badge-pro">+${item.protein}p</span>
-                    </span>
-                    <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
-                </div>`;
-        });
+        let bM = document.getElementById('jr-makan'); 
+        let bA = document.getElementById('jr-akt');
+        let j = sess.jurnal;
         
-        // Tampilkan Akumulasi Total di bawah Log
-        bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
-    } else {
-        bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat hari ini.</div>`;
+        bM.innerHTML = ""; 
+        bA.innerHTML = "";
+
+        if (j && j.makanan && j.makanan.length > 0) {
+            let totalKaloriHarian = 0;
+            let totalProteinHarian = 0;
+
+            j.makanan.forEach((item) => {
+                totalKaloriHarian += Number(item.kalori) || 0;
+                totalProteinHarian += Number(item.protein) || 0;
+
+                bM.innerHTML += `
+                    <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px;">
+                        <span>
+                            <i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> 
+                            <strong>${item.nama}</strong> 
+                            <span class="badge-cal" style="margin-left:5px;">+${item.kalori}k</span>
+                            <span class="badge-pro">+${item.protein}p</span>
+                        </span>
+                        <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
+                    </div>`;
+            });
+            bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
+        } else {
+            bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat hari ini.</div>`;
+        }
+
+        if (j && j.aktivitas && j.aktivitas.length > 0) {
+            let totalBakarHarian = 0;
+
+            j.aktivitas.forEach((item) => {
+                totalBakarHarian += Number(item.kalori) || 0;
+
+                bA.innerHTML += `
+                    <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px;">
+                        <span>
+                            <i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> 
+                            <strong>${item.jenis}</strong> <small>(${item.detail})</small>
+                            <span class="badge-cal" style="background:#ecfdf5; color:#065f46; margin-left:5px;">-${item.kalori}k</span>
+                        </span>
+                        <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
+                    </div>`;
+            });
+            bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
+        } else {
+            bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat hari ini.</div>`;
+        }
     }
-
-    // 🏃 2. PROSES JURNAL AKTIVITAS FISIK
-    if (j && j.aktivitas && j.aktivitas.length > 0) {
-        let totalBakarHarian = 0;
-
-        j.aktivitas.forEach((item) => {
-            totalBakarHarian += Number(item.kalori) || 0;
-
-            bA.innerHTML += `
-                <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px;">
-                    <span>
-                        <i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> 
-                        <strong>${item.jenis}</strong> <small>(${item.detail})</small>
-                        <span class="badge-cal" style="background:#ecfdf5; color:#065f46; margin-left:5px;">-${item.kalori}k</span>
-                    </span>
-                    <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
-                </div>`;
-        });
-        
-        // Tampilkan Akumulasi Total Bakar di bawah Log
-        bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
-    } else {
-        bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat hari ini.</div>`;
-    }
-}
 
     function resetHarian() {
         if(!confirm("Yakin hapus dan bersihkan baris log hari ini di spreadsheet?")) return;
