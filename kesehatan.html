@@ -509,17 +509,17 @@
                 totalKaloriHarian += Number(item.kalori) || 0;
                 totalProteinHarian += Number(item.protein) || 0;
 
-                bM.innerHTML += `
-                    <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px;">
-                        <span>
-                            <i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> 
-                            <strong>${item.nama}</strong> 
-                            <span class="badge-cal" style="margin-left:5px;">+${item.kalori}k</span>
-                            <span class="badge-pro">+${item.protein}p</span>
-                        </span>
-                        <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
-                    </div>`;
-            });
+             bM.innerHTML += `
+    <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px;">
+        <span>
+            <i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> 
+            <strong>${item.nama}</strong> 
+            <span class="badge-cal" style="margin-left:5px;">+${item.kalori}k</span>
+            <span class="badge-pro">+${item.protein}p</span>
+        </span>
+        <span style="color: #94a3b8; font-size:11px; white-space: nowrap;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
+    </div>`;
+            });      
             bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
         } else {
             bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat hari ini.</div>`;
@@ -531,15 +531,15 @@
             j.aktivitas.forEach((item) => {
                 totalBakarHarian += Number(item.kalori) || 0;
 
-                bA.innerHTML += `
-                    <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px;">
-                        <span>
-                            <i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> 
-                            <strong>${item.jenis}</strong> <small>(${item.detail})</small>
-                            <span class="badge-cal" style="background:#ecfdf5; color:#065f46; margin-left:5px;">-${item.kalori}k</span>
-                        </span>
-                        <span style="color: #94a3b8; font-size:11px;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
-                    </div>`;
+              bA.innerHTML += `
+    <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px;">
+        <span>
+            <i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> 
+            <strong>${item.jenis}</strong> <small>(${item.detail})</small>
+            <span class="badge-cal" style="background:#ecfdf5; color:#065f46; margin-left:5px;">-${item.kalori}k</span>
+        </span>
+        <span style="color: #94a3b8; font-size:11px; white-space: nowrap;"><i class="fa-regular fa-clock"></i> ${item.jam} WIB</span>
+    </div>`;
             });
             bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
         } else {
