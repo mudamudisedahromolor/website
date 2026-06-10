@@ -150,15 +150,22 @@
                         </div>
 
                         <div class="sub-panel">
-                            <h5 style="margin:0 0 10px 0; color:#1e293b;"><i class="fa-solid fa-person-running"></i> Lapor Olahraga (Mengurangi Kalori)</h5>
-                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                                <select id="ex-jenis" class="form-input" onchange="ubahPlaceholderVolume(this.value)">
-                                    <option value="Lari">Lari</option><option value="Jalan">Jalan Kaki</option><option value="Angkat Beban">Angkat Beban</option><option value="Bersepeda">Bersepeda</option>
-                                </select>
-                                <input type="number" id="ex-volume" class="form-input" placeholder="Berapa km?">
-                            </div>
-                            <button onclick="kirimLogAktivitas()" class="btn-mms" style="background:#0f766e; padding:10px; margin-top:8px;"><i class="fa-solid fa-fire"></i> Catat Pembakaran</button>
-                        </div>
+    <h5 style="margin:0 0 10px 0; color:#1e293b;"><i class="fa-solid fa-person-running"></i> Lapor Olahraga (Mengurangi Kalori)</h5>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+        <select id="ex-jenis" class="form-input" onchange="ubahPlaceholderVolume(this.value)">
+            <option value="Lari">Lari</option>
+            <option value="Jalan">Jalan Kaki</option>
+            <option value="Angkat Beban">Angkat Beban</option>
+            <option value="Bersepeda">Bersepeda</option>
+        </select>
+        
+        <div style="position: relative; display: flex; align-items: center;">
+            <input type="number" id="ex-volume" class="form-input" placeholder="Input angka..." style="padding-right: 45px;">
+            <span id="label-satuan-olahraga" style="position: absolute; right: 12px; color: #64748b; font-weight: bold; font-size: 13px; pointer-events: none;">km</span>
+        </div>
+    </div>
+    <button onclick="kirimLogAktivitas()" class="btn-mms" style="background:#0f766e; padding:10px; margin-top:8px;"><i class="fa-solid fa-fire"></i> Catat Pembakaran</button>
+</div>
 
                         <button onclick="resetSesiManual()" class="btn-mms" style="background:#64748b; margin-top:15px; font-size:12px; padding:8px 15px;"><i class="fa-solid fa-rotate-left"></i> Paksa Reset Data Hari Ini Ke 0</button>
                     </div>
