@@ -195,341 +195,348 @@
     </div>
 
     <script>
-        const API_HEALTH = "https://script.google.com/macros/s/AKfycbyeQ24l_9VzRkznullLOgVaFkiwC4P3TSqaDXbTIob_kPDmxvoltMg66XIlwE2sxXlvRg/exec"; 
+    // URL SPREADSHEET INDONESIA (WIB)
+    const API_HEALTH = "https://script.google.com/macros/s/AKfycbyeQ24l_9VzRkznullLOgVaFkiwC4P3TSqaDXbTIob_kPDmxvoltMg66XIlwE2sxXlvRg/exec"; 
 
-        let appSession = null;
-        let masterKamusMakanan = []; 
-        let keranjangMakanan = []; 
+    let appSession = null;
+    let masterKamusMakanan = []; 
+    let keranjangMakanan = []; 
 
-        function jalankanLoader(show, teks = "Memproses...") {
-            document.getElementById("custom-loader-text").innerText = teks;
-            document.getElementById("custom-loader").style.display = show ? "flex" : "none";
-        }
+    function jalankanLoader(show, teks = "Memproses...") {
+        document.getElementById("custom-loader-text").innerText = teks;
+        document.getElementById("custom-loader").style.display = show ? "flex" : "none";
+    }
 
-        function lemparToast(pesan, jenis = "info") {
-            const toast = document.getElementById("custom-toast");
-            document.getElementById("toast-msg").innerText = pesan;
-            document.getElementById("toast-icon").className = `fa-solid ${jenis === 'success' ? 'fa-circle-check' : (jenis === 'danger' ? 'fa-circle-xmark' : 'fa-circle-info')}`;
-            toast.className = `custom-toast t-${jenis} toast-show`;
-            setTimeout(() => { toast.classList.remove("toast-show"); }, 3500);
-        }
+    function lemparToast(pesan, jenis = "info") {
+        const toast = document.getElementById("custom-toast");
+        document.getElementById("toast-msg").innerText = pesan;
+        document.getElementById("toast-icon").className = `fa-solid ${jenis === 'success' ? 'fa-circle-check' : (jenis === 'danger' ? 'fa-circle-xmark' : 'fa-circle-info')}`;
+        toast.className = `custom-toast t-${jenis} toast-show`;
+        setTimeout(() => { toast.classList.remove("toast-show"); }, 3500);
+    }
 
-        // FUNGSI RENDER VISUAL JURNAL LOG KE HTML (YANG SEBELUMNYA HILANG)
-        function renderVisualJurnalLog(jurnal) {
-            const wrapperMakan = document.getElementById("jurnal-makanan-wrapper");
-            const wrapperOlahraga = document.getElementById("jurnal-olahraga-wrapper");
+    // FUNGSI KRUSIAL: MENGGAMBAR DATA JURNAL LANGSUNG KE DALAM KOTAK HTML
+    function renderVisualJurnalLog(jurnal) {
+        const wrapperMakan = document.getElementById("jurnal-makanan-wrapper");
+        const wrapperOlahraga = document.getElementById("jurnal-olahraga-wrapper");
 
-            if (!jurnal || !jurnal.makanan || jurnal.makanan.length === 0) {
-                wrapperMakan.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada makanan dicatat hari ini.</div>`;
-            } else {
-                wrapperMakan.innerHTML = "";
-                jurnal.makanan.forEach(m => {
-                    wrapperMakan.innerHTML += `
-                        <div class="journal-item">
-                            <span><i class="fa-solid fa-cookie" style="color:#b45309; margin-right:5px;"></i> <strong>${m.nama}</strong> <small style="color:#718096; margin-left:5px;">${m.jam}</small></span>
-                            <span class="badge-cal">+${m.kalori} kcal</span>
-                        </div>
-                    `;
-                });
-            }
-
-            if (!jurnal || !jurnal.aktivitas || jurnal.aktivitas.length === 0) {
-                wrapperOlahraga.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada olahraga dicatat hari ini.</div>`;
-            } else {
-                wrapperOlahraga.innerHTML = "";
-                jurnal.aktivitas.forEach(o => {
-                    wrapperOlahraga.innerHTML += `
-                        <div class="journal-item">
-                            <span><i class="fa-solid fa-person-running" style="color:#15803d; margin-right:5px;"></i> <strong>${o.jenis}</strong> (${o.volume}) <small style="color:#718096; margin-left:5px;">${o.jam}</small></span>
-                            <span class="badge-cal" style="background:#dcfce7; color:#15803d;">-${o.kalori} kcal</span>
-                        </div>
-                    `;
-                });
-            }
-        }
-
-        window.onload = function() {
-            const localData = localStorage.getItem("mms_health_session");
-            if (localData) {
-                appSession = JSON.parse(localData);
-                muatDashboardUtama(appSession);
-                if(appSession.jurnalAktual) renderVisualJurnalLog(appSession.jurnalAktual);
-                downloadKamusMakanan(); 
-            }
-        };
-
-        function downloadKamusMakanan() {
-            fetch(`${API_HEALTH}?aksi=getAllMakanan`)
-            .then(res => res.json())
-            .then(data => { masterKamusMakanan = data; })
-            .catch(() => console.log("Gagal memuat kamus makanan"));
-        }
-
-        function antarmukaLogin() {
-            const email = document.getElementById("user-email-input").value;
-            if(!email || !email.includes("@")) return lemparToast("Format email tidak valid!", "warning");
-
-            jalankanLoader(true, "Mengecek basis data kesehatan...");
-            fetch(`${API_HEALTH}?aksi=loginBmr&email=${encodeURIComponent(email)}`)
-            .then(res => res.json())
-            .then(res => {
-                jalankanLoader(false);
-                if(res.status === "old_user") {
-                    appSession = res.data;
-                    appSession.jurnalAktual = res.jurnal; 
-                    lemparToast("Data berhasil dimuat!", "success");
-                } else {
-                    appSession = { email: res.email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, kaloriHariIni:0, kaloriTerbakarIni:0, programDiet:"maintain", jurnalAktual: {makanan:[], aktivitas:[]} };
-                    lemparToast("Halo! Silakan konfigurasi profil tubuh Anda.", "info");
-                }
-                localStorage.setItem("mms_health_session", JSON.stringify(appSession));
-                muatDashboardUtama(appSession);
-                renderVisualJurnalLog(appSession.jurnalAktual);
-                downloadKamusMakanan(); 
-            })
-            .catch(() => { jalankanLoader(false); lemparToast("Gagal terhubung ke Google Script.", "danger"); });
-        }
-
-        function keluarAplikasi() {
-            localStorage.removeItem("mms_health_session");
-            location.reload();
-        }
-
-        function muatDashboardUtama(user) {
-            document.getElementById("login-frame").style.display = "none";
-            document.getElementById("main-dashboard-frame").style.display = "block";
-            document.getElementById("header-user-email").innerText = user.email;
-
-            document.getElementById("reg-nama").value = user.nama || "";
-            document.getElementById("reg-gender").value = user.gender || "Laki-laki";
-            document.getElementById("reg-umur").value = user.umur || "";
-            document.getElementById("reg-tb").value = user.tb || "";
-            document.getElementById("reg-bb").value = user.bb || "";
-            document.getElementById("reg-diet").value = user.programDiet || "maintain";
-
-            hitungKalkulasiKesehatanLokal();
-        }
-
-        function gantiDietModeInstan(modeVal) {
-            appSession.programDiet = modeVal;
-            localStorage.setItem("mms_health_session", JSON.stringify(appSession));
-            hitungKalkulasiKesehatanLokal(true);
-        }
-
-        function hitungKalkulasiKesehatanLokal(isSimulasi = false) {
-            const bb = Number(document.getElementById("reg-bb").value) || 0;
-            const tb = Number(document.getElementById("reg-tb").value) || 0;
-            let bannerBmi = document.getElementById("bmi-status-banner");
-            
-            if(bb > 0 && tb > 0 && !isSimulasi) {
-                let bmi = (bb / ((tb/100) * (tb/100))).toFixed(1);
-                if(bmi >= 25.0) bannerBmi.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> Kategori: Obesitas (${bmi}). Risiko tinggi. Yuk ubah target diet ke 'Turun BB Agresif' dan raih berat ideal bersama pemuda MMS!</div>`;
-                else if(bmi >= 23.0) bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> Kategori: Overweight (${bmi}). Selangkah lagi menuju obesitas. Yuk perbanyak olahraga dan kurangi makan berminyak!</div>`;
-                else if(bmi >= 18.5) bannerBmi.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-circle-check"></i> Kategori: Ideal (${bmi}). Pertahankan pola sehat Anda!</div>`;
-                else bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-info"></i> Kategori: Kurang Berat Badan (${bmi}). Tambah porsi makan sehat Anda.</div>`;
-            }
-
-            let deficit = 0;
-            const dietMode = document.getElementById("reg-diet").value;
-            if(dietMode === "lose_025") deficit = 275;
-            else if(dietMode === "lose_050") deficit = 550;
-            else if(dietMode === "lose_100") deficit = 1100;
-
-            let bmrBase = appSession.bmr || 0;
-            let targetNet = bmrBase - deficit;
-            if(targetNet < 1100 && bmrBase > 0) targetNet = 1100; 
-
-            document.getElementById("label-target-net").innerText = targetNet;
-            document.getElementById("label-masuk").innerText = appSession.kaloriHariIni;
-            document.getElementById("label-bakar").innerText = appSession.kaloriTerbakarIni;
-
-            let netSekarang = appSession.kaloriHariIni - appSession.kaloriTerbakarIni;
-            if(netSekarang < 0) netSekarang = 0;
-
-            let persen = Math.round((netSekarang / targetNet) * 100) || 0;
-            document.getElementById("bar-fill").style.width = `${Math.min(persen, 100)}%`;
-            document.getElementById("bar-text").innerText = `${persen}% Anggaran Terpakai`;
-
-            let stopBanner = document.getElementById("stop-eating-banner");
-            if(netSekarang >= targetNet && targetNet > 0 && bmrBase > 0) {
-                document.getElementById("bar-fill").style.backgroundColor = "#ef4444";
-                stopBanner.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-hand"></i> STOP MAKAN! Batas target kalori Anda hari ini telah terpenuhi. Biarkan tubuh beristirahat memproses energi.</div>`;
-            } else {
-                document.getElementById("bar-fill").style.backgroundColor = "#10b981";
-                stopBanner.innerHTML = "";
-            }
-        }
-
-        function simpanMetrikFisik() {
-            const payload = {
-                aksi: "simpanProfilBmr", email: appSession.email,
-                nama: document.getElementById("reg-nama").value,
-                gender: document.getElementById("reg-gender").value,
-                umur: document.getElementById("reg-umur").value,
-                tb: document.getElementById("reg-tb").value,
-                bb: document.getElementById("reg-bb").value,
-                programDiet: document.getElementById("reg-diet").value 
-            };
-
-            if(!payload.umur || !payload.tb || !payload.bb) return lemparToast("Lengkapi form dengan benar!", "warning");
-            jalankanLoader(true, "Menyimpan konfigurasi tubuh ke database...");
-
-            fetch(API_HEALTH, { method: "POST", body: JSON.stringify(payload) })
-            .then(res => res.json())
-            .then(res => {
-                jalankanLoader(false);
-                if(res.status === "success") {
-                    lemparToast("Profil & Target Diet tersimpan permanen!", "success");
-                    appSession.bmr = res.bmr;
-                    appSession.nama = res.nama;
-                    appSession.programDiet = res.programDiet;
-                    localStorage.setItem("mms_health_session", JSON.stringify(appSession));
-                    hitungKalkulasiKesehatanLokal(); 
-                }
-            }).catch(() => { jalankanLoader(false); lemparToast("Gagal menyimpan data", "danger"); });
-        }
-
-        function cariKamusMakananLokal(val) {
-            const box = document.getElementById("food-dropdown-box");
-            box.innerHTML = "";
-            let query = val.toLowerCase().trim();
-            
-            let hasil = masterKamusMakanan;
-            if(query !== "") {
-                hasil = masterKamusMakanan.filter(item => item.nama.toLowerCase().includes(query));
-            }
-
-            if(hasil.length === 0) {
-                box.innerHTML = `<div style="padding:12px; font-size:12px; color:#ef4444;">Menu kuliner belum terdaftar di database.</div>`;
-            } else {
-                hasil.slice(0, 30).forEach((item, index) => {
-                    let div = document.createElement("div");
-                    div.className = "search-item";
-                    div.innerHTML = `<span>${item.nama} <small style="color:#64748b;">(${item.kategori})</small></span> <span class="badge-cal">+${item.kalori} kcal</span>`;
-                    div.onclick = function() { tambahkanKeKeranjang(item.nama, item.kalori, index); };
-                    box.appendChild(div);
-                });
-            }
-            box.style.display = "block";
-        }
-
-        document.addEventListener('click', function(e) {
-            if(!document.getElementById("food-search-box").contains(e.target) && !document.getElementById("food-dropdown-box").contains(e.target)) {
-                document.getElementById("food-dropdown-box").style.display = "none";
-            }
-        });
-
-        function tambahkanKeKeranjang(nama, kalori, id_unik) {
-            document.getElementById("food-search-box").value = "";
-            document.getElementById("food-dropdown-box").style.display = "none";
-            keranjangMakanan.push({ id: id_unik + Date.now(), nama: nama, kalori: Number(kalori) });
-            renderKeranjang();
-        }
-
-        function hapusDariKeranjang(id) {
-            keranjangMakanan = keranjangMakanan.filter(item => item.id !== id);
-            renderKeranjang();
-        }
-
-        function renderKeranjang() {
-            const container = document.getElementById("cart-container");
-            const wrapper = document.getElementById("cart-items-wrapper");
-            if(keranjangMakanan.length === 0) { container.style.display = "none"; return; }
-            
-            container.style.display = "block";
-            wrapper.innerHTML = "";
-            let total = 0;
-            keranjangMakanan.forEach(item => {
-                total += item.kalori;
-                wrapper.innerHTML += `
-                    <div class="cart-item">
-                        <span>${item.nama} <strong>(+${item.kalori} kcal)</strong></span>
-                        <i class="fa-solid fa-xmark" style="color:#ef4444;cursor:pointer;" onclick="hapusDariKeranjang(${item.id})"></i>
+        // 1. Gambar Jurnal Makanan
+        if (!jurnal || !jurnal.makanan || jurnal.makanan.length === 0) {
+            wrapperMakan.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada makanan yang dicatat hari ini.</div>`;
+        } else {
+            wrapperMakan.innerHTML = "";
+            jurnal.makanan.forEach(m => {
+                wrapperMakan.innerHTML += `
+                    <div class="journal-item">
+                        <span><i class="fa-solid fa-cookie" style="color:#b45309; margin-right:5px;"></i> <strong>${m.nama}</strong> <small style="color:#718096; margin-left:5px;">${m.jam || ''}</small></span>
+                        <span class="badge-cal">+${m.kalori} kcal</span>
                     </div>
                 `;
             });
-            document.getElementById("cart-total-cal").innerText = total;
         }
 
-        function submitKeranjangMakanan() {
-            if(keranjangMakanan.length === 0) return;
-            let totalKalori = 0; let listNama = [];
-            keranjangMakanan.forEach(item => { totalKalori += item.kalori; listNama.push(item.nama); });
+        // 2. Gambar Jurnal Olahraga
+        if (!jurnal || !jurnal.aktivitas || jurnal.aktivitas.length === 0) {
+            wrapperOlahraga.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada olahraga yang dicatat hari ini.</div>`;
+        } else {
+            wrapperOlahraga.innerHTML = "";
+            jurnal.aktivitas.forEach(o => {
+                wrapperOlahraga.innerHTML += `
+                    <div class="journal-item">
+                        <span><i class="fa-solid fa-person-running" style="color:#15803d; margin-right:5px;"></i> <strong>${o.jenis}</strong> (${o.volume}) <small style="color:#718096; margin-left:5px;">${o.jam || ''}</small></span>
+                        <span class="badge-cal" style="background:#dcfce7; color:#15803d;">-${o.kalori} kcal</span>
+                    </div>
+                `;
+            });
+        }
+    }
 
-            let namaGabungan = listNama.join(", ");
-            jalankanLoader(true, "Mencatat menu ke jurnal harian...");
-            const payload = { aksi: "logKonsumsiMakan", email: appSession.email, namaMakanan: namaGabungan, kalori: totalKalori };
-            
-            fetch(API_HEALTH, { method: "POST", body: JSON.stringify(payload) })
-            .then(res => res.json())
-            .then(res => {
-                jalankanLoader(false);
-                if(res.status === "success") {
-                    lemparToast("Jurnal makanan berhasil ditambahkan!", "success");
-                    appSession.kaloriHariIni = res.totalKaloriSekarang;
-                    appSession.jurnalAktual = res.jurnal; 
-                    localStorage.setItem("mms_health_session", JSON.stringify(appSession));
-                    
-                    keranjangMakanan = [];
-                    renderKeranjang();
-                    hitungKalkulasiKesehatanLokal();
-                    renderVisualJurnalLog(appSession.jurnalAktual);
-                }
-            }).catch(() => { jalankanLoader(false); lemparToast("Gagal menyimpan data", "danger"); });
+    window.onload = function() {
+        const localData = localStorage.getItem("mms_health_session");
+        if (localData) {
+            appSession = JSON.parse(localData);
+            muatDashboardUtama(appSession);
+            if(appSession.jurnalAktual) {
+                renderVisualJurnalLog(appSession.jurnalAktual);
+            }
+            downloadKamusMakanan(); 
+        }
+    };
+
+    function downloadKamusMakanan() {
+        fetch(`${API_HEALTH}?aksi=getAllMakanan`)
+        .then(res => res.json())
+        .then(data => { masterKamusMakanan = data; })
+        .catch(() => console.log("Gagal memuat kamus makanan"));
+    }
+
+    function antarmukaLogin() {
+        const email = document.getElementById("user-email-input").value;
+        if(!email || !email.includes("@")) return lemparToast("Format email tidak valid!", "warning");
+
+        jalankanLoader(true, "Mengecek basis data kesehatan...");
+        fetch(`${API_HEALTH}?aksi=loginBmr&email=${encodeURIComponent(email)}`)
+        .then(res => res.json())
+        .then(res => {
+            jalankanLoader(false);
+            if(res.status === "old_user") {
+                appSession = res.data;
+                appSession.jurnalAktual = res.jurnal; 
+                lemparToast("Data berhasil dimuat!", "success");
+            } else {
+                appSession = { email: res.email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, kaloriHariIni:0, kaloriTerbakarIni:0, programDiet:"maintain", jurnalAktual: {makanan:[], aktivitas:[]} };
+                lemparToast("Halo! Silakan konfigurasi profil tubuh Anda.", "info");
+            }
+            localStorage.setItem("mms_health_session", JSON.stringify(appSession));
+            muatDashboardUtama(appSession);
+            renderVisualJurnalLog(appSession.jurnalAktual);
+            downloadKamusMakanan(); 
+        })
+        .catch(() => { jalankanLoader(false); lemparToast("Gagal terhubung ke Google Script.", "danger"); });
+    }
+
+    function keluarAplikasi() {
+        localStorage.removeItem("mms_health_session");
+        location.reload();
+    }
+
+    function muatDashboardUtama(user) {
+        document.getElementById("login-frame").style.display = "none";
+        document.getElementById("main-dashboard-frame").style.display = "block";
+        document.getElementById("header-user-email").innerText = user.email;
+
+        document.getElementById("reg-nama").value = user.nama || "";
+        document.getElementById("reg-gender").value = user.gender || "Laki-laki";
+        document.getElementById("reg-umur").value = user.umur || "";
+        document.getElementById("reg-tb").value = user.tb || "";
+        document.getElementById("reg-bb").value = user.bb || "";
+        document.getElementById("reg-diet").value = user.programDiet || "maintain";
+
+        hitungKalkulasiKesehatanLokal();
+    }
+
+    function gantiDietModeInstan(modeVal) {
+        appSession.programDiet = modeVal;
+        localStorage.setItem("mms_health_session", JSON.stringify(appSession));
+        hitungKalkulasiKesehatanLokal(true);
+    }
+
+    function hitungKalkulasiKesehatanLokal(isSimulasi = false) {
+        const bb = Number(document.getElementById("reg-bb").value) || 0;
+        const tb = Number(document.getElementById("reg-tb").value) || 0;
+        let bannerBmi = document.getElementById("bmi-status-banner");
+        
+        if(bb > 0 && tb > 0 && !isSimulasi) {
+            let bmi = (bb / ((tb/100) * (tb/100))).toFixed(1);
+            if(bmi >= 25.0) bannerBmi.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> Kategori: Obesitas (${bmi}). Risiko tinggi. Yuk ubah target diet ke 'Turun BB Agresif' dan raih berat ideal bersama pemuda MMS!</div>`;
+            else if(bmi >= 23.0) bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> Kategori: Overweight (${bmi}). Selangkah lagi menuju obesitas. Yuk perbanyak olahraga dan kurangi makan berminyak!</div>`;
+            else if(bmi >= 18.5) bannerBmi.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-circle-check"></i> Kategori: Ideal (${bmi}). Pertahankan pola sehat Anda!</div>`;
+            else bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-info"></i> Kategori: Kurang Berat Badan (${bmi}). Tambah porsi makan sehat Anda.</div>`;
         }
 
-        function ubahPlaceholderVolume(jenis) {
-            const vol = document.getElementById("ex-volume");
-            const satuan = document.getElementById("label-satuan-olahraga");
-            if(jenis === "Angkat Beban") { vol.placeholder = "Berapa set?"; satuan.innerText = "set"; } 
-            else { vol.placeholder = "Berapa km?"; satuan.innerText = "km"; }
+        let deficit = 0;
+        const dietMode = document.getElementById("reg-diet").value;
+        if(dietMode === "lose_025") deficit = 275;
+        else if(dietMode === "lose_050") deficit = 550;
+        else if(dietMode === "lose_100") deficit = 1100;
+
+        let bmrBase = appSession.bmr || 0;
+        let targetNet = bmrBase - deficit;
+        if(targetNet < 1100 && bmrBase > 0) targetNet = 1100; 
+
+        document.getElementById("label-target-net").innerText = targetNet;
+        document.getElementById("label-masuk").innerText = appSession.kaloriHariIni;
+        document.getElementById("label-bakar").innerText = appSession.kaloriTerbakarIni;
+
+        let netSekarang = appSession.kaloriHariIni - appSession.kaloriTerbakarIni;
+        if(netSekarang < 0) netSekarang = 0;
+
+        let persen = Math.round((netSekarang / targetNet) * 100) || 0;
+        document.getElementById("bar-fill").style.width = `${Math.min(persen, 100)}%`;
+        document.getElementById("bar-text").innerText = `${persen}% Anggaran Terpakai`;
+
+        let stopBanner = document.getElementById("stop-eating-banner");
+        if(netSekarang >= targetNet && targetNet > 0 && bmrBase > 0) {
+            document.getElementById("bar-fill").style.backgroundColor = "#ef4444";
+            stopBanner.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-hand"></i> STOP MAKAN! Batas target kalori Anda hari ini telah terpenuhi. Biarkan tubuh beristirahat memproses energi.</div>`;
+        } else {
+            document.getElementById("bar-fill").style.backgroundColor = "#10b981";
+            stopBanner.innerHTML = "";
+        }
+    }
+
+    function simpanMetrikFisik() {
+        const payload = {
+            aksi: "simpanProfilBmr", email: appSession.email,
+            nama: document.getElementById("reg-nama").value,
+            gender: document.getElementById("reg-gender").value,
+            umur: document.getElementById("reg-umur").value,
+            tb: document.getElementById("reg-tb").value,
+            bb: document.getElementById("reg-bb").value,
+            programDiet: document.getElementById("reg-diet").value 
+        };
+
+        if(!payload.umur || !payload.tb || !payload.bb) return lemparToast("Lengkapi form dengan benar!", "warning");
+        jalankanLoader(true, "Menyimpan konfigurasi tubuh ke database...");
+
+        fetch(API_HEALTH, { method: "POST", body: JSON.stringify(payload) })
+        .then(res => res.json())
+        .then(res => {
+            jalankanLoader(false);
+            if(res.status === "success") {
+                lemparToast("Profil & Target Diet tersimpan permanen!", "success");
+                appSession.bmr = res.bmr;
+                appSession.nama = res.nama;
+                appSession.programDiet = res.programDiet;
+                appSession.jurnalAktual = res.jurnal;
+                localStorage.setItem("mms_health_session", JSON.stringify(appSession));
+                hitungKalkulasiKesehatanLokal(); 
+                renderVisualJurnalLog(appSession.jurnalAktual);
+            }
+        }).catch(() => { jalankanLoader(false); lemparToast("Gagal menyimpan data", "danger"); });
+    }
+
+    function cariKamusMakananLokal(val) {
+        const box = document.getElementById("food-dropdown-box");
+        box.innerHTML = "";
+        let query = val.toLowerCase().trim();
+        
+        let hasil = masterKamusMakanan;
+        if(query !== "") {
+            hasil = masterKamusMakanan.filter(item => item.nama.toLowerCase().includes(query));
         }
 
-        function kirimLogAktivitas() {
-            const jenis = document.getElementById("ex-jenis").value;
-            const volume = Number(document.getElementById("ex-volume").value) || 0;
-            if(volume <= 0) return lemparToast("Masukkan volume olahraga!", "warning");
-
-            let kaloriTerbakar = Math.round(volume * (jenis === "Lari" ? 65 : (jenis === "Jalan" ? 42 : (jenis === "Bersepeda" ? 30 : 35))));
-            jalankanLoader(true, "Menyimpan data log olahraga...");
-
-            const payload = { aksi: "logAktivitasFisik", email: appSession.email, jenisAktivitas: jenis, volumeDetail: `${volume} ${jenis === 'Angkat Beban'?'set':'km'}`, kaloriTerbakar: kaloriTerbakar };
-
-            fetch(API_HEALTH, { method: "POST", body: JSON.stringify(payload) })
-            .then(res => res.json())
-            .then(res => {
-                jalankanLoader(false);
-                if(res.status === "success") {
-                    lemparToast("Log pembakaran sukses dicatat!", "success");
-                    appSession.kaloriTerbakarIni = res.totalBakarSekarang;
-                    appSession.jurnalAktual = res.jurnal; 
-                    localStorage.setItem("mms_health_session", JSON.stringify(appSession));
-                    
-                    document.getElementById("ex-volume").value = "";
-                    hitungKalkulasiKesehatanLokal();
-                    renderVisualJurnalLog(appSession.jurnalAktual);
-                }
-            }).catch(() => jalankanLoader(false));
+        if(hasil.length === 0) {
+            box.innerHTML = `<div style="padding:12px; font-size:12px; color:#ef4444;">Menu kuliner belum terdaftar di database.</div>`;
+        } else {
+            hasil.slice(0, 30).forEach((item, index) => {
+                let div = document.createElement("div");
+                div.className = "search-item";
+                div.innerHTML = `<span>${item.nama} <small style="color:#64748b;">(${item.kategori})</small></span> <span class="badge-cal">+${item.kalori} kcal</span>`;
+                div.onclick = function() { tambahkanKeKeranjang(item.nama, item.kalori, index); };
+                box.appendChild(div);
+            });
         }
+        box.style.display = "block";
+    }
 
-        function resetSesiManual() {
-            if(!confirm("Yakin ingin menghapus jurnal masuk/keluar kalori hari ini?")) return;
-            jalankanLoader(true, "Mereset data harian...");
-            fetch(API_HEALTH, { method: "POST", body: JSON.stringify({ aksi: "resetSesiOtomatis", email: appSession.email }) })
-            .then(res => res.json())
-            .then(res => {
-                jalankanLoader(false);
-                if(res.status === "success") {
-                    lemparToast("Data kalori hari ini kembali bersih.", "info");
-                    appSession.kaloriHariIni = 0; appSession.kaloriTerbakarIni = 0;
-                    appSession.jurnalAktual = res.jurnal;
-                    localStorage.setItem("mms_health_session", JSON.stringify(appSession));
-                    
-                    hitungKalkulasiKesehatanLokal();
-                    renderVisualJurnalLog(appSession.jurnalAktual);
-                }
-            }).catch(() => jalankanLoader(false));
+    document.addEventListener('click', function(e) {
+        if(!document.getElementById("food-search-box").contains(e.target) && !document.getElementById("food-dropdown-box").contains(e.target)) {
+            document.getElementById("food-dropdown-box").style.display = "none";
         }
-    </script>
+    });
+
+    function tambahkanKeKeranjang(nama, kalori, id_unik) {
+        document.getElementById("food-search-box").value = "";
+        document.getElementById("food-dropdown-box").style.display = "none";
+        keranjangMakanan.push({ id: id_unik + Date.now(), nama: nama, kalori: Number(kalori) });
+        renderKeranjang();
+    }
+
+    function hapusDariKeranjang(id) {
+        keranjangMakanan = keranjangMakanan.filter(item => item.id !== id);
+        renderKeranjang();
+    }
+
+    function renderKeranjang() {
+        const container = document.getElementById("cart-container");
+        const wrapper = document.getElementById("cart-items-wrapper");
+        if(keranjangMakanan.length === 0) { container.style.display = "none"; return; }
+        
+        container.style.display = "block";
+        wrapper.innerHTML = "";
+        let total = 0;
+        keranjangMakanan.forEach(item => {
+            total += item.kalori;
+            wrapper.innerHTML += `
+                <div class="cart-item">
+                    <span>${item.nama} <strong>(+${item.kalori} kcal)</strong></span>
+                    <i class="fa-solid fa-xmark" style="color:#ef4444;cursor:pointer;" onclick="hapusDariKeranjang(${item.id})"></i>
+                </div>
+            `;
+        });
+        document.getElementById("cart-total-cal").innerText = total;
+    }
+
+    function submitKeranjangMakanan() {
+        if(keranjangMakanan.length === 0) return;
+        let totalKalori = 0; let listNama = [];
+        keranjangMakanan.forEach(item => { totalKalori += item.kalori; listNama.push(item.nama); });
+
+        let namaGabungan = listNama.join(", ");
+        jalankanLoader(true, "Mencatat menu ke jurnal harian...");
+        const payload = { aksi: "logKonsumsiMakan", email: appSession.email, namaMakanan: namaGabungan, kalori: totalKalori };
+        
+        fetch(API_HEALTH, { method: "POST", body: JSON.stringify(payload) })
+        .then(res => res.json())
+        .then(res => {
+            jalankanLoader(false);
+            if(res.status === "success") {
+                lemparToast("Jurnal makanan berhasil ditambahkan!", "success");
+                appSession.kaloriHariIni = res.totalKaloriSekarang;
+                appSession.jurnalAktual = res.jurnal; 
+                localStorage.setItem("mms_health_session", JSON.stringify(appSession));
+                
+                keranjangMakanan = [];
+                renderKeranjang();
+                hitungKalkulasiKesehatanLokal();
+                renderVisualJurnalLog(appSession.jurnalAktual);
+            }
+        }).catch(() => { jalankanLoader(false); lemparToast("Gagal menyimpan data", "danger"); });
+    }
+
+    function ubahPlaceholderVolume(jenis) {
+        const vol = document.getElementById("ex-volume");
+        const satuan = document.getElementById("label-satuan-olahraga");
+        if(jenis === "Angkat Beban") { vol.placeholder = "Berapa set?"; satuan.innerText = "set"; } 
+        else { vol.placeholder = "Berapa km?"; satuan.innerText = "km"; }
+    }
+
+    function kirimLogAktivitas() {
+        const jenis = document.getElementById("ex-jenis").value;
+        const volume = Number(document.getElementById("ex-volume").value) || 0;
+        if(volume <= 0) return lemparToast("Masukkan volume olahraga!", "warning");
+
+        let kaloriTerbakar = Math.round(volume * (jenis === "Lari" ? 65 : (jenis === "Jalan" ? 42 : (jenis === "Bersepeda" ? 30 : 35))));
+        jalankanLoader(true, "Menyimpan data log olahraga...");
+
+        const payload = { aksi: "logAktivitasFisik", email: appSession.email, jenisAktivitas: jenis, volumeDetail: `${volume} ${jenis === 'Angkat Beban'?'set':'km'}`, kaloriTerbakar: kaloriTerbakar };
+
+        fetch(API_HEALTH, { method: "POST", body: JSON.stringify(payload) })
+        .then(res => res.json())
+        .then(res => {
+            jalankanLoader(false);
+            if(res.status === "success") {
+                lemparToast("Log pembakaran sukses dicatat!", "success");
+                appSession.kaloriTerbakarIni = res.totalBakarSekarang;
+                appSession.jurnalAktual = res.jurnal; 
+                localStorage.setItem("mms_health_session", JSON.stringify(appSession));
+                
+                document.getElementById("ex-volume").value = "";
+                hitungKalkulasiKesehatanLokal();
+                renderVisualJurnalLog(appSession.jurnalAktual);
+            }
+        }).catch(() => jalankanLoader(false));
+    }
+
+    function resetSesiManual() {
+        if(!confirm("Yakin ingin menghapus jurnal masuk/keluar kalori hari ini?")) return;
+        jalankanLoader(true, "Mereset data harian...");
+        fetch(API_HEALTH, { method: "POST", body: JSON.stringify({ aksi: "resetSesiOtomatis", email: appSession.email }) })
+        .then(res => res.json())
+        .then(res => {
+            jalankanLoader(false);
+            if(res.status === "success") {
+                lemparToast("Data kalori hari ini kembali bersih.", "info");
+                appSession.kaloriHariIni = 0; appSession.kaloriTerbakarIni = 0;
+                appSession.jurnalAktual = res.jurnal;
+                localStorage.setItem("mms_health_session", JSON.stringify(appSession));
+                
+                hitungKalkulasiKesehatanLokal();
+                renderVisualJurnalLog(appSession.jurnalAktual);
+            }
+        }).catch(() => jalankanLoader(false));
+    }
+</script>
 </body>
 </html>
