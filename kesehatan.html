@@ -525,28 +525,32 @@
     }
 
     // FUNGSI RENDER JURNAL YANG SINKRON 100% DENGAN GOOGLE SCRIPT
-    function drawJurnal() {
-        let bM = document.getElementById('jr-makan'); let bA = document.getElementById('jr-akt');
-        let j = sess.jurnal;
-        
-        if(!j || !j.makanan || j.makanan.length === 0) {
-            bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Kosong. Mulai catat makanmu.</div>`;
-        } else {
-            bM.innerHTML = "";
-            j.makanan.forEach(m => {
-                bM.innerHTML += `<div class="journal-item"><span><b>${m.nama}</b> <small style="color:#94a3b8;">${m.jam}</small></span> <span><span class="badge-cal">+${m.kalori}k</span><span class="badge-pro">+${m.protein}p</span></span></div>`;
-            });
-        }
+function drawJurnal() {
+    let bM = document.getElementById('jr-makan'); 
+    let bA = document.getElementById('jr-akt');
+    let j = sess.jurnal; // Data ini sudah disaring bersih oleh server Apps Script sesuai tanggal WIB
+    
+    bM.innerHTML = "";
+    bA.innerHTML = "";
 
-        if(!j || !j.aktivitas || j.aktivitas.length === 0) {
-            bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Kosong. Ayo bergerak hari ini.</div>`;
-        } else {
-            bA.innerHTML = "";
-            j.aktivitas.forEach(a => {
-                bA.innerHTML += `<div class="journal-item"><span><b>${a.jenis}</b> <small>(${a.detail})</small> <small style="color:#94a3b8;">${a.jam}</small></span> <span class="badge-cal" style="background:#dcfce7; color:#15803d;">-${a.kalori}k</span></div>`;
-            });
-        }
+    // 1. Render Jurnal Makanan Hari Ini (Bersih tanpa filter browser)
+    if (j && j.makanan && j.makanan.length > 0) {
+        j.makanan.forEach(m => {
+            bM.innerHTML += `<div class="journal-item"><span><b>${m.nama}</b> <small style="color:#94a3b8;">${m.jam}</small></span> <span><span class="badge-cal">+${m.kalori}k</span><span class="badge-pro">+${m.protein}p</span></span></div>`;
+        });
+    } else {
+        bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat hari ini.</div>`;
     }
+
+    // 2. Render Jurnal Olahraga Hari Ini (Bersih tanpa filter browser)
+    if (j && j.aktivitas && j.aktivitas.length > 0) {
+        j.aktivitas.forEach(a => {
+            bA.innerHTML += `<div class="journal-item"><span><b>${a.jenis}</b> <small>(${a.detail})</small> <small style="color:#94a3b8;">${a.jam}</small></span> <span class="badge-cal" style="background:#dcfce7; color:#15803d;">-${a.kalori}k</span></div>`;
+        });
+    } else {
+        bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat hari ini.</div>`;
+    }
+}
 
     function resetHarian() {
         if(!confirm("Yakin hapus jurnal hari ini ke 0?")) return;
