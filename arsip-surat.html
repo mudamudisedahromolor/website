@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Health Assistant - Muda Mudi Sedahromo Lor</title>
+    <title>Arsip Surat Organisasi - Muda Mudi Sedahromo Lor</title>
     
     <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
@@ -13,51 +13,9 @@
     <link rel="stylesheet" href="style.css?v=103">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
-
-    <style>
-        /* CSS KHUSUS SMART HEALTH ASSISTANT */
-        .health-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
-        @media(min-width: 992px) { .health-grid { grid-template-columns: 1fr 1.3fr; } }
-        .card-health { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 13px; color: #475569; }
-        .form-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
-        .btn-mms { background-color: #D32F2F; color: #fff; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
-        .btn-mms:hover { background-color: #b71c1c; }
-        .search-results { border: 1px solid #e2e8f0; max-height: 250px; overflow-y: auto; background: #fff; position: absolute; width: 100%; z-index: 100; border-radius: 6px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        .search-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
-        .search-item:hover { background-color: #f8fafc; }
-        
-        .progress-container { background: #e2e8f0; border-radius: 20px; height: 22px; width: 100%; overflow: hidden; margin-top: 10px; position: relative; }
-        .progress-fill { height: 100%; width: 0%; transition: width 0.5s ease; background: #10b981; }
-        .progress-text { position: absolute; width: 100%; text-align: center; top: 2px; font-weight: bold; font-size: 11px; color: #1e293b; }
-        
-        .alert-banner { padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; border-left: 5px solid; font-size: 13px;}
-        .alert-danger { background: #fef2f2; color: #991b1b; border-color: #ef4444; }
-        .alert-warning { background: #fffbeb; color: #92400e; border-color: #f59e0b; }
-        .alert-success { background: #ecfdf5; color: #065f46; border-color: #10b981; }
-        
-        .badge-cal { background: #fef08a; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; color: #854d0e; }
-        .badge-pro { background: #bfdbfe; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; color: #1e3a8a; margin-left: 5px;}
-        
-        .journal-box { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 15px; }
-        @media(min-width: 768px) { .journal-box { grid-template-columns: 1fr 1fr; } }
-        .journal-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff; border: 1px solid #edf2f7; border-radius: 6px; margin-bottom: 8px; font-size: 12px; }
-
-        .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.85); z-index:9999; justify-content:center; align-items:center; flex-direction:column; gap:15px; backdrop-filter: blur(4px); }
-        .custom-toast { position: fixed; bottom: -100px; right: 20px; z-index: 9999; padding: 15px 22px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; transition: bottom 0.4s; font-size: 13px; }
-        .toast-show { bottom: 20px !important; }
-        .t-success { background: #10b981; } .t-danger { background: #ef4444; } .t-info { background: #3b82f6; }
-    </style>
 </head>
 <body> 
     
-    <div id="custom-loader" class="loading-overlay">
-        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color:#D32F2F;"></i>
-        <div id="loader-text" style="font-weight:bold;">Memproses...</div>
-    </div>
-    <div id="custom-toast" class="custom-toast"><i id="toast-icon" class="fa-solid"></i><span id="toast-msg">Notifikasi</span></div>
-
     <header class="site-header">
         <div class="top-header">
             <div class="header-logo-area">
@@ -123,17 +81,10 @@
                     <ul class="submenu">
                         <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
                         <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                         <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
                     </ul>
                 </li>
-               <li class="nav-item">
-                 <a href="index.html">RUANG LITERASI</a>
-                    <ul class="submenu">
-                       <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
-                       <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
-                    </ul>
-                 </li>
             </ul>
+
             <div class="navbar-mobile-only">
                 <div class="header-socials">
                     <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -145,125 +96,78 @@
         </nav>
     </header>
 
-    <main style="padding: 20px; max-width: 1200px; margin: 0 auto; min-height: 60vh;">
-        
-        <div id="login-frame" class="card-health" style="max-width: 400px; margin: 40px auto; text-align: center;">
-            <i class="fa-solid fa-heart-pulse" style="font-size: 50px; color: #D32F2F; margin-bottom: 15px;"></i>
-            <h3>Akses Database Kesehatan</h3>
-            <div class="form-group" style="text-align: left; margin-top:20px;">
-                <label>Email Terdaftar</label>
-                <input type="email" id="input-email" class="form-input" placeholder="email@anda.com">
+    <div class="gallery-page-wrapper">
+        <div class="content-box-gallery">
+            <h2 class="box-title">ARSIP SURAT ORGANISASI</h2>
+            <hr class="box-divider">
+            <p class="gallery-desc">
+                Papan digital pencatatan, klasifikasi, dan rekapitulasi data surat masuk serta surat keluar Muda Mudi Sedahromo Lor 05.
+            </p>
+
+            <div class="filter-container" style="justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <div style="font-size: 14px; color: #555; font-weight: bold;">
+                    <i class="fa-solid fa-envelope-open-text" style="color: #FFD700;"></i> Lembar Log Surat Organisasi
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <select id="filter-surat-tahun" class="filter-box" onchange="terapkanFilterSurat()">
+                        <option value="Semua">Semua Tahun</option>
+                    </select>
+                    <input type="text" id="input-cari-surat" class="filter-box" style="width: 230px;" placeholder="Cari nomor atau perihal surat..." onkeyup="terapkanFilterSurat()">
+                </div>
             </div>
-            <button class="btn-mms" onclick="loginApp()"><i class="fa-solid fa-right-to-bracket"></i> Masuk Sistem</button>
+
+            <div class="table-responsive" style="margin-bottom: 15px;">
+                <table class="finance-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Tanggal Pembuatan</th>
+                            <th style="width: 40%;">Nomor / Perihal Surat</th>
+                            <th style="width: 20%;">Kategori</th>
+                            <th style="width: 20%; text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-tabel-surat">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 20px; color: #777;">
+                                <i class="fa-solid fa-spinner fa-spin"></i> Memuat berkas agenda surat...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; min-height: 32px;">
+                <button id="btn-surat-terbaru" class="btn-cetak-mutasi" onclick="halamanTerbaruSurat()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
+                    <i class="fa-solid fa-chevron-left"></i> Terbaru
+                </button>
+                <span id="info-halaman-surat" style="font-size: 13px; color: #555; font-weight: bold; margin: 0 auto;">Halaman 1 dari 1</span>
+                <button id="btn-surat-sebelumnya" class="btn-cetak-mutasi" onclick="halamanSebelumnyaSurat()" style="height: 32px; padding: 0 12px; font-size: 12px; display: none;">
+                    Sebelumnya <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div id="surat-viewer-section" class="lomba-viewer-hide" style="display: none; width: 100%; margin-top: 35px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div class="pdf-viewer-control-bar" style="background-color: #f8f9fa; padding: 12px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <h3 class="pdf-viewer-title-text" style="margin: 0; font-size: 16px; color: #333; font-weight: bold;">
+                        <i class="fa-regular fa-file-pdf" style="color: #E53935;"></i> Pratinjau Dokumen Surat Resmi
+                    </h3>
+                    <div style="display: flex; gap: 8px;">
+                        <a id="btn-unduh-surat" href="#" target="_blank" class="btn-cetak-mutasi" style="height: 36px; background-color: #2e7d32; display: inline-flex; align-items: center; text-decoration: none; font-weight: bold; padding: 0 15px;">
+                            <i class="fa-solid fa-download"></i> Unduh File
+                        </a>
+                        <button onclick="tutupSuratViewer()" class="btn-cetak-mutasi" style="height: 36px; background-color: #555; font-weight: bold; padding: 0 15px;">
+                            <i class="fa-solid fa-xmark"></i> Tutup
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="drive-embed-container" style="width: 100%; height: 780px; background-color: #525659;">
+                    <iframe id="surat-iframe" class="drive-iframe" src="" style="width: 100%; height: 100%; border: none; block-size: 100%;"></iframe>
+                </div>
+            </div>
+
         </div>
-
-        <div id="dashboard-frame" style="display: none;">
-            <div style="background: #1e293b; color:#fff; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom:20px;">
-                <div>Sesi Aktif: <strong id="lbl-email"></strong></div>
-                <button class="btn-mms" onclick="logoutApp()" style="width:auto; padding:6px 12px; background:#475569; font-size:12px;">Keluar</button>
-            </div>
-
-            <div id="ai-bmi-banner"></div>
-
-            <div class="health-grid">
-                <div class="card-health">
-                    <h4 style="margin-top:0; color:#D32F2F;"><i class="fa-solid fa-address-card"></i> Profil & Konfigurasi AI</h4>
-                    <hr style="border:none; border-top:1px solid #e2e8f0; margin-bottom:15px;">
-                    <div class="form-group"><label>Nama</label><input type="text" id="p-nama" class="form-input"></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                        <div class="form-group"><label>Gender</label><select id="p-gender" class="form-input"><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
-                        <div class="form-group"><label>Umur (Tahun)</label><input type="number" id="p-umur" class="form-input"></div>
-                    </div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                        <div class="form-group"><label>Tinggi (cm)</label><input type="number" id="p-tb" class="form-input"></div>
-                        <div class="form-group"><label>Berat (kg)</label><input type="number" id="p-bb" class="form-input"></div>
-                    </div>
-                    <div class="form-group" style="background:#fffbeb; padding:12px; border-radius:6px; border:1px solid #fcd34d;">
-                        <label style="color:#b45309;"><i class="fa-solid fa-bullseye"></i> Program Diet Mingguan</label>
-                        <select id="p-diet" class="form-input" style="border-color:#f59e0b;" onchange="kalkulasiUI()">
-                            <option value="maintain">Normal / Pertahankan BB</option>
-                            <option value="lose_025">Turun Ringan (-0.25 kg/minggu)</option>
-                            <option value="lose_050">Turun Sedang (-0.50 kg/minggu)</option>
-                            <option value="lose_100">Turun Agresif (-1.00 kg/minggu)</option>
-                        </select>
-                    </div>
-                    <button class="btn-mms" onclick="simpanProfil()"><i class="fa-solid fa-floppy-disk"></i> Simpan & Generate Target</button>
-                </div>
-
-                <div class="card-health">
-                    <h4 style="margin-top:0; color:#0f766e;"><i class="fa-solid fa-microchip"></i> Smart Tracker Log</h4>
-                    <hr style="border:none; border-top:1px solid #e2e8f0; margin-bottom:15px;">
-                    
-                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:20px;">
-                        <div style="display:flex; justify-content:space-between; font-weight:bold; color:#334155; font-size:14px;">
-                            <span>Target Kalori Bersih: <span id="ui-netkal">0</span> kcal</span>
-                            <span>Sisa: <span id="ui-sisakal" style="color:#10b981;">0</span> kcal</span>
-                        </div>
-                        <div class="progress-container"><div id="bar-kal" class="progress-fill"></div><div id="txt-kal" class="progress-text">0%</div></div>
-                        
-                        <div style="display:flex; justify-content:space-between; font-weight:bold; color:#334155; font-size:13px; margin-top:15px;">
-                            <span>Target Protein Harian: <span id="ui-netpro">0</span> g</span>
-                            <span>Tercapai: <span id="ui-sisapro" style="color:#3b82f6;">0</span> g</span>
-                        </div>
-                        <div class="progress-container"><div id="bar-pro" class="progress-fill" style="background:#3b82f6;"></div><div id="txt-pro" class="progress-text" style="color:#fff;">0%</div></div>
-                    </div>
-
-                    <div class="form-group" style="position:relative;">
-                        <label><i class="fa-solid fa-burger"></i> Cari & Tambah Makanan</label>
-                        <input type="text" id="box-cari" class="form-input" placeholder="Ketik nama makanan..." onfocus="cariMenu('')" oninput="cariMenu(this.value)">
-                        <div id="hasil-cari" class="search-results" style="display:none;"></div>
-                    </div>
-                    
-                    <div id="cart-area" style="background:#f1f5f9; padding:10px; border-radius:6px; margin-bottom:15px; display:none;">
-                        <div style="font-size:11px; font-weight:bold; margin-bottom:5px; color:#64748b;">Akan Disubmit:</div>
-                        <div id="cart-list"></div>
-                        <button onclick="submitMakan()" class="btn-mms" style="background:#10b981; padding:8px; margin-top:8px; font-size:13px;"><i class="fa-solid fa-check"></i> Catat Jurnal (<span id="cart-c">0</span> kcal | <span id="cart-p">0</span>g)</button>
-                    </div>
-
-                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
-                        <label style="font-weight:bold; font-size:13px; display:block; margin-bottom:10px;"><i class="fa-solid fa-person-running"></i> Catat Olahraga Harian</label>
-                        <select id="akt-jenis" class="form-input" style="margin-bottom:10px;" onchange="aturInputAkt(this.value)">
-                            <option value="Lari">Lari</option>
-                            <option value="Jalan Kaki">Jalan Kaki</option>
-                            <option value="Bersepeda">Bersepeda</option>
-                            <option value="Angkat Beban">Angkat Beban / Gym</option>
-                        </select>
-                        
-                        <div id="in-kardio" style="position:relative; display:flex; align-items:center;">
-                            <input type="number" id="akt-km" class="form-input" placeholder="Jarak tempuh..." style="padding-right: 40px;">
-                            <span style="position:absolute; right:12px; color:#64748b; font-weight:bold; font-size:12px;">km</span>
-                        </div>
-                        
-                        <div id="in-beban" style="display:none; grid-template-columns: 1fr 1fr; gap:10px;">
-                            <div style="position:relative;"><input type="number" id="akt-set" class="form-input" placeholder="Berapa Set?"><span style="position:absolute; right:12px; top:10px; color:#64748b; font-size:12px; font-weight:bold;">Set</span></div>
-                            <div style="position:relative;"><input type="number" id="akt-kg" class="form-input" placeholder="Beban rata-rata?"><span style="position:absolute; right:12px; top:10px; color:#64748b; font-size:12px; font-weight:bold;">Kg</span></div>
-                        </div>
-
-                        <button onclick="submitAkt()" class="btn-mms" style="background:#0f766e; padding:8px; margin-top:10px; font-size:13px;"><i class="fa-solid fa-fire"></i> Catat Pembakaran</button>
-                    </div>
-                </div>
-
-                <div class="card-health" style="grid-column: 1 / -1;">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h4 style="margin:0;"><i class="fa-solid fa-book-open" style="color:#D32F2F;"></i> Jurnal Hari Ini</h4>
-                        <button onclick="resetHarian()" style="background:transparent; border:1px solid #ef4444; color:#ef4444; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:11px; transition: 0.3s;"><i class="fa-solid fa-trash"></i> Reset Data</button>
-                    </div>
-                    <hr style="border:none; border-top:1px solid #e2e8f0; margin:15px 0;">
-                    <div class="journal-box">
-                        <div class="journal-card">
-                            <h5 style="margin:0 0 10px 0; color:#b91c1c;">🍱 Makanan Masuk</h5>
-                            <div id="jr-makan"></div>
-                        </div>
-                        <div class="journal-card">
-                            <h5 style="margin:0 0 10px 0; color:#15803d;">🏃 Aktivitas Fisik</h5>
-                            <div id="jr-akt"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </main>
+    </div>
 
     <footer class="site-footer">
         <div class="footer-container">
@@ -307,318 +211,6 @@
         </div>
     </footer>
     
-    <script src="online-tracker.js"></script>
     <script src="script.js?v=115"></script>
-
-    <script>
-    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
-    const API_URL = "ISI_URL_WEB_APP_ANDA_DISINI";
-
-    let sess = null;
-    let kamusMenu = [];
-    let cart = [];
-
-    function loading(show, text="Memproses...") {
-        document.getElementById('loader-text').innerText = text;
-        document.getElementById('custom-loader').style.display = show ? 'flex' : 'none';
-    }
-
-    function toast(msg, type="info") {
-        const el = document.getElementById('custom-toast');
-        document.getElementById('toast-msg').innerText = msg;
-        el.className = `custom-toast t-${type} toast-show`;
-        setTimeout(() => el.classList.remove('toast-show'), 3500);
-    }
-
-    window.onload = () => {
-        let mem = localStorage.getItem("mms_v2");
-        if(mem) { 
-            sess = JSON.parse(mem); 
-            initUI(); 
-            fetchKamus(); 
-        }
-    };
-
-    function fetchKamus() {
-        fetch(`${API_URL}?aksi=getMakanan`).then(r=>r.json()).then(d => kamusMenu = d).catch(console.error);
-    }
-
-    function loginApp() {
-        let email = document.getElementById('input-email').value;
-        if(!email) return toast("Email wajib diisi", "danger");
-        loading(true, "Membuka database...");
-        fetch(`${API_URL}?aksi=login&email=${email}`).then(r=>r.json()).then(res => {
-            loading(false);
-            if(res.status === 'old_user') {
-                sess = res.data; sess.jurnal = res.jurnal; toast("Data dimuat!", "success");
-            } else {
-                sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
-                toast("Registrasi baru!", "info");
-            }
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            initUI(); fetchKamus();
-        }).catch(()=> { loading(false); toast("Gagal terhubung server", "danger"); });
-    }
-
-    function keluarAplikasi() { localStorage.removeItem("mms_v2"); location.reload(); }
-
-    function initUI() {
-        document.getElementById('login-frame').style.display = 'none';
-        document.getElementById('dashboard-frame').style.display = 'block';
-        document.getElementById('lbl-email').innerText = sess.email;
-        
-        document.getElementById('p-nama').value = sess.nama || ""; 
-        document.getElementById('p-gender').value = sess.gender || "Laki-laki";
-        document.getElementById('p-umur').value = sess.umur || ""; 
-        document.getElementById('p-tb').value = sess.tb || "";
-        document.getElementById('p-bb').value = sess.bb || ""; 
-        document.getElementById('p-diet').value = sess.diet || "maintain";
-        
-        kalkulasiUI(); 
-        drawJurnal();
-    }
-
-    function kalkulasiUI() {
-        // AI Deteksi Obesitas
-        let bb = Number(document.getElementById('p-bb').value) || 0;
-        let tb = Number(document.getElementById('p-tb').value) || 0;
-        let aiBox = document.getElementById('ai-bmi-banner');
-        if(bb > 0 && tb > 0) {
-            let bmi = (bb / ((tb/100)*(tb/100))).toFixed(1);
-            if(bmi >= 25) aiBox.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> AI Alert: Kategori Obesitas (BMI ${bmi}). Sistem sangat menyarankan program 'Turun Agresif' dan jaga asupan protein!</div>`;
-            else if(bmi >= 23) aiBox.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> AI Alert: Overweight (BMI ${bmi}). Waspada kenaikan berat badan.</div>`;
-            else aiBox.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-check-circle"></i> AI: Berat Badan Ideal (BMI ${bmi}). Pertahankan!</div>`;
-        }
-
-        // Kalkulasi Target Kalori Bersih
-        let diet = document.getElementById('p-diet').value;
-        let defisit = diet === "lose_025" ? 275 : (diet === "lose_050" ? 550 : (diet === "lose_100" ? 1100 : 0));
-        let baseBMR = sess.bmr || 0;
-        let targetKalori = baseBMR - defisit;
-        if(targetKalori < 1100 && baseBMR > 0) targetKalori = 1100; // Batas aman sehat manusia
-        
-        let netKaloriMasuk = sess.kaloriMasuk - sess.kaloriBakar; if(netKaloriMasuk < 0) netKaloriMasuk = 0;
-        let sisaKalori = targetKalori - netKaloriMasuk;
-        let pctKal = targetKalori > 0 ? Math.min(Math.round((netKaloriMasuk/targetKalori)*100), 100) : 0;
-
-        document.getElementById('ui-netkal').innerText = targetKalori;
-        document.getElementById('ui-sisakal').innerText = sisaKalori > 0 ? sisaKalori : "HABIS!";
-        document.getElementById('label-masuk').innerText = sess.kaloriMasuk;
-        document.getElementById('label-bakar').innerText = sess.kaloriBakar;
-        
-        document.getElementById('bar-kal').style.width = pctKal + '%';
-        document.getElementById('bar-kal').style.background = pctKal >= 100 ? '#ef4444' : '#10b981';
-        document.getElementById('txt-kal').innerText = pctKal + '%';
-
-        // Kalkulasi Protein
-        let targetPro = sess.targetProtein || 0;
-        let pctPro = targetPro > 0 ? Math.min(Math.round((sess.proteinMasuk/targetPro)*100), 100) : 0;
-        
-        document.getElementById('ui-netpro').innerText = targetPro;
-        document.getElementById('ui-sisapro').innerText = sess.proteinMasuk;
-        document.getElementById('bar-pro').style.width = pctPro + '%';
-        document.getElementById('txt-pro').innerText = pctPro + '%';
-        
-        sess.diet = diet; // Mengunci state diet dropdown jika di-refresh
-    }
-
-    function simpanProfil() {
-        let payload = {
-            aksi: "simpanProfilBmr", email: sess.email,
-            nama: document.getElementById('p-nama').value, 
-            gender: document.getElementById('p-gender').value,
-            umur: document.getElementById('p-umur').value, 
-            tb: document.getElementById('p-tb').value,
-            bb: document.getElementById('p-bb').value, 
-            programDiet: document.getElementById('p-diet').value
-        };
-        
-        loading(true, "Menghitung & Menyimpan AI Metrik...");
-        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(r=>r.json()).then(res => {
-            loading(false);
-            if(res.status==='success'){
-                // FIX BUG 1: Memori harus diperbarui dengan isian baru sebelum disave ke cache lokal
-                sess.nama = payload.nama;
-                sess.gender = payload.gender;
-                sess.umur = payload.umur;
-                sess.tb = payload.tb;
-                sess.bb = payload.bb;
-                sess.diet = payload.programDiet;
-                
-                sess.bmr = res.bmr; 
-                sess.targetProtein = res.targetProtein || 0; 
-                sess.jurnal = res.jurnal;
-                
-                localStorage.setItem("mms_v2", JSON.stringify(sess));
-                toast("Profil & Target Diupdate!", "success"); 
-                kalkulasiUI(); 
-                drawJurnal();
-            }
-        });
-    }
-
-    // --- ENGINE MAKANAN (CART & SEARCH) ---
-    function cariMenu(q) {
-        let box = document.getElementById('hasil-cari'); box.innerHTML = "";
-        let src = q.toLowerCase();
-        let filt = kamusMenu.filter(k => k.nama.toLowerCase().includes(src));
-        if(filt.length === 0) box.innerHTML = '<div style="padding:10px; font-size:12px;">Tidak ditemukan.</div>';
-        else {
-            filt.slice(0,15).forEach((f,i) => {
-                let div = document.createElement('div'); div.className = 'search-item';
-                div.innerHTML = `<span>${f.nama}</span> <div><span class="badge-cal">+${f.kalori}k</span> <span class="badge-pro">+${f.protein || 0}p</span></div>`;
-                div.onclick = () => { tambahkanCart(f.nama, f.kalori, f.protein || 0); };
-                box.appendChild(div);
-            });
-        }
-        box.style.display = 'block';
-    }
-    document.addEventListener('click', (e) => { if(!e.target.closest('.form-group')) document.getElementById('hasil-cari').style.display='none'; });
-
-    function tambahkanCart(nm, cal, pro) {
-        cart.push({ id: Date.now(), n: nm, c: Number(cal), p: Number(pro) });
-        document.getElementById('box-cari').value = ""; document.getElementById('hasil-cari').style.display='none';
-        renderCart();
-    }
-    
-    function hapusCart(id) { cart = cart.filter(c => c.id !== id); renderCart(); }
-    
-    function renderCart() {
-        let cArea = document.getElementById('cart-area'); let cList = document.getElementById('cart-list');
-        if(cart.length === 0) { cArea.style.display='none'; return; }
-        cArea.style.display='block'; cList.innerHTML = "";
-        let tC=0, tP=0;
-        cart.forEach(c => {
-            tC+=c.c; tP+=c.p;
-            cList.innerHTML += `<div class="journal-item" style="margin-bottom:4px; padding:6px;"><span>${c.n}</span> <span><b style="color:#b45309;">+${c.c}k</b> <b style="color:#1d4ed8;">+${c.p}p</b> <i class="fa-solid fa-xmark" style="color:red; margin-left:8px; cursor:pointer;" onclick="hapusCart(${c.id})"></i></span></div>`;
-        });
-        document.getElementById('cart-c').innerText = tC; document.getElementById('cart-p').innerText = tP;
-    }
-
-    function submitMakan() {
-        if(cart.length===0) return;
-        let tC=0, tP=0, nms=[];
-        cart.forEach(c => { tC+=c.c; tP+=c.p; nms.push(c.n); });
-        loading(true, "Mencatat Gizi...");
-        
-        fetch(API_URL, { method: "POST", body: JSON.stringify({ 
-            aksi: "logKonsumsiMakan", email: sess.email, namaMakanan: nms.join(", "), kalori: tC, protein: tP 
-        }) })
-        .then(r=>r.json()).then(res => {
-            loading(false);
-            sess.kaloriMasuk = res.kaloriSekarang || sess.kaloriMasuk; 
-            sess.proteinMasuk = res.proteinSekarang || sess.proteinMasuk; 
-            sess.jurnal = res.jurnal;
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            cart=[]; renderCart(); kalkulasiUI(); drawJurnal(); toast("Tercatat!", "success");
-        });
-    }
-
-    // --- ENGINE OLAHRAGA SMART UI ---
-    function aturInputAkt(jns) {
-        if(jns === "Angkat Beban") {
-            document.getElementById('in-kardio').style.display = 'none';
-            document.getElementById('in-beban').style.display = 'grid';
-        } else {
-            document.getElementById('in-kardio').style.display = 'flex';
-            document.getElementById('in-beban').style.display = 'none';
-        }
-    }
-
-    function submitAkt() {
-        let jenis = document.getElementById('akt-jenis').value;
-        let detail = "", kalBakar = 0;
-
-        if(jenis === "Angkat Beban") {
-            let s = Number(document.getElementById('akt-set').value); let k = Number(document.getElementById('akt-kg').value);
-            if(!s || !k) return toast("Isi set dan beban!", "warning");
-            detail = `${s} Set x ${k}kg`;
-            kalBakar = Math.round(s * (k * 0.5)); // AI Simple Rumus beban
-        } else {
-            let km = Number(document.getElementById('akt-km').value);
-            if(!km) return toast("Isi jarak km!", "warning");
-            detail = `${km} km`;
-            kalBakar = Math.round(km * (jenis==="Lari"?65:(jenis==="Jalan Kaki"?42:30)));
-        }
-
-        loading(true, "Mencatat olahraga...");
-        fetch(API_URL, { method: "POST", body: JSON.stringify({ 
-            aksi: "logAktivitasFisik", email: sess.email, jenisAktivitas: jenis, volumeDetail: detail, kaloriTerbakar: kalBakar 
-        }) })
-        .then(r=>r.json()).then(res => {
-            loading(false);
-            sess.kaloriBakar = res.bakarSekarang || sess.kaloriBakar; 
-            sess.jurnal = res.jurnal;
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            document.getElementById('akt-km').value=""; document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value="";
-            kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
-        });
-    }
-
-    // FIX BUG 2: JURNAL PINTAR MENCARI TANGGAL TERAKHIR DARI DATABASE (ANTI ZONA WAKTU ERROR)
-    function drawJurnal() {
-        let bM = document.getElementById('jr-makan'); 
-        let bA = document.getElementById('jr-akt');
-        let j = sess.jurnal;
-        
-        let lastDateStr = "";
-        let allLogs = [];
-        
-        if (j && j.makanan) allLogs = allLogs.concat(j.makanan);
-        if (j && j.aktivitas) allLogs = allLogs.concat(j.aktivitas);
-
-        // Cari tanggal submit yang paling mutakhir dari susunan array data
-        if (allLogs.length > 0) {
-            let latestLog = allLogs[allLogs.length - 1]; // Data terbawah di spreadsheet biasanya yg paling baru
-            if (latestLog && latestLog.tanggalRaw) {
-                lastDateStr = latestLog.tanggalRaw.split(" ")[0]; // Mengambil misal "11/06/2026"
-            }
-        }
-        
-        // Backup jika benar-benar kosong:
-        if (!lastDateStr) {
-            const d = new Date();
-            lastDateStr = String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
-        }
-
-        // Filter list untuk memunculkan HANYA yang sama dengan lastDateStr
-        let filteredMakan = (j && j.makanan) ? j.makanan.filter(x => x.tanggalRaw && x.tanggalRaw.includes(lastDateStr)) : [];
-        let filteredAkt = (j && j.aktivitas) ? j.aktivitas.filter(x => x.tanggalRaw && x.tanggalRaw.includes(lastDateStr)) : [];
-        
-        // Render Makanan
-        if(filteredMakan.length === 0) {
-            bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Kosong. Mulai catat makanmu hari ini.</div>`;
-        } else {
-            bM.innerHTML = "";
-            filteredMakan.forEach(m => {
-                let jam = m.tanggalRaw ? m.tanggalRaw.split(" ")[1] : "";
-                let tagPro = m.protein ? `<span class="badge-pro">+${m.protein}p</span>` : "";
-                bM.innerHTML += `<div class="journal-item"><span><b>${m.nama}</b> <small style="color:#94a3b8;">${jam}</small></span> <span><span class="badge-cal">+${m.kalori}k</span>${tagPro}</span></div>`;
-            });
-        }
-
-        // Render Olahraga
-        if(filteredAkt.length === 0) {
-            bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Kosong. Ayo bergerak hari ini.</div>`;
-        } else {
-            bA.innerHTML = "";
-            filteredAkt.forEach(a => {
-                let jam = a.tanggalRaw ? a.tanggalRaw.split(" ")[1] : "";
-                let det = a.volume || a.detail || a.volumeDetail || "";
-                bA.innerHTML += `<div class="journal-item"><span><b>${a.jenis || a.jenisAktivitas}</b> <small>(${det})</small> <small style="color:#94a3b8;">${jam}</small></span> <span class="badge-cal" style="background:#dcfce7; color:#15803d;">-${a.kalori}k</span></div>`;
-            });
-        }
-    }
-
-    function resetHarian() {
-        if(!confirm("Yakin hapus jurnal hari ini ke 0?")) return;
-        loading(true, "Mereset data...");
-        fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "resetSesiOtomatis", email: sess.email }) }).then(r=>r.json()).then(res => {
-            loading(false);
-            sess.kaloriMasuk = 0; sess.proteinMasuk = 0; sess.kaloriBakar = 0; sess.jurnal = res.jurnal || {makanan:[], aktivitas:[]};
-            localStorage.setItem("mms_v2", JSON.stringify(sess)); kalkulasiUI(); drawJurnal(); toast("Mulai lembaran baru hari ini", "success");
-        });
-    }
-    </script>
 </body>
 </html>
