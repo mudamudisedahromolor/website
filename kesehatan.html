@@ -525,30 +525,56 @@
     }
 
     // FUNGSI RENDER JURNAL YANG SINKRON 100% DENGAN GOOGLE SCRIPT
+// SMART DECODER JOURNAL: Mengurai kalimat koma dari database satu baris per hari
 function drawJurnal() {
     let bM = document.getElementById('jr-makan'); 
     let bA = document.getElementById('jr-akt');
-    let j = sess.jurnal; // Data ini sudah disaring bersih oleh server Apps Script sesuai tanggal WIB
+    let j = sess.jurnal;
     
     bM.innerHTML = "";
     bA.innerHTML = "";
 
-    // 1. Render Jurnal Makanan Hari Ini (Bersih tanpa filter browser)
-    if (j && j.makanan && j.makanan.length > 0) {
-        j.makanan.forEach(m => {
-            bM.innerHTML += `<div class="journal-item"><span><b>${m.nama}</b> <small style="color:#94a3b8;">${m.jam}</small></span> <span><span class="badge-cal">+${m.kalori}k</span><span class="badge-pro">+${m.protein}p</span></span></div>`;
+    // 1. Mengurai Array String Kompresi Makanan
+    if (j && j.makanan && j.makanan.length > 0 && j.makanan[0].nama) {
+        // Pecah teks string panjang berdasarkan pemisah koma (", ")
+        let arrayMenuHarian = j.makanan[0].nama.split(", ");
+        let jamUpdate = j.makanan[0].jam;
+        let totalKaloriHarian = j.makanan[0].kalori;
+        let totalProteinHarian = j.makanan[0].protein;
+
+        arrayMenuHarian.forEach((menuSinggal) => {
+            bM.innerHTML += `
+                <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px; padding: 8px 12px; background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                    <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${menuSinggal}</strong></span>
+                    <span style="color: #64748b; font-size:11px;"><i class="fa-regular fa-clock"></i> Log: ${jamUpdate} WIB</span>
+                </div>
+            `;
         });
+        // Tampilkan rangkuman kecil di dasar list
+        bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total Gizi Hari Ini: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Protein</div>`;
     } else {
-        bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat hari ini.</div>`;
+        bM.innerHTML = `<div style="text-align:center; padding:25px; font-size:12px; color:#94a3b8; italic">🍱 Belum ada konsumsi makanan harian yang dicatat.</div>`;
     }
 
-    // 2. Render Jurnal Olahraga Hari Ini (Bersih tanpa filter browser)
-    if (j && j.aktivitas && j.aktivitas.length > 0) {
-        j.aktivitas.forEach(a => {
-            bA.innerHTML += `<div class="journal-item"><span><b>${a.jenis}</b> <small>(${a.detail})</small> <small style="color:#94a3b8;">${a.jam}</small></span> <span class="badge-cal" style="background:#dcfce7; color:#15803d;">-${a.kalori}k</span></div>`;
+    // 2. Mengurai Array String Kompresi Olahraga / Aktivitas
+    if (j && j.aktivitas && j.aktivitas.length > 0 && j.aktivitas[0].jenis) {
+        let arrayJenisOlahraga = j.aktivitas[0].jenis.split(", ");
+        let arrayVolumeOlahraga = j.aktivitas[0].detail.split(", ");
+        let jamUpdateAkt = j.aktivitas[0].jam;
+        let totalBakarHarian = j.aktivitas[0].kalori;
+
+        arrayJenisOlahraga.forEach((olahragaTunggal, indeks) => {
+            let volumeTunggal = arrayVolumeOlahraga[indeks] || "";
+            bA.innerHTML += `
+                <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px; padding: 8px 12px; background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                    <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${olahragaTunggal}</strong> <small style="color:#64748b;">(${volumeTunggal})</small></span>
+                    <span style="color: #64748b; font-size:11px;"><i class="fa-regular fa-clock"></i> Log: ${jamUpdateAkt} WIB</span>
+                </div>
+            `;
         });
+        bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Pembakaran Hari Ini: -${totalBakarHarian} kcal</div>`;
     } else {
-        bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat hari ini.</div>`;
+        bA.innerHTML = `<div style="text-align:center; padding:25px; font-size:12px; color:#94a3b8; italic">🏃 Belum ada aktivitas olahraga harian yang dilaporkan.</div>`;
     }
 }
 
