@@ -195,7 +195,6 @@
     </div>
 
     <script>
-    // URL DEPLOYMENT GS DENGAN HAK AKSES ANYONE
     const API_HEALTH = "https://script.google.com/macros/s/AKfycbyeQ24l_9VzRkznullLOgVaFkiwC4P3TSqaDXbTIob_kPDmxvoltMg66XIlwE2sxXlvRg/exec"; 
 
     let appSession = null;
@@ -215,14 +214,13 @@
         setTimeout(() => { toast.classList.remove("toast-show"); }, 3500);
     }
 
-    // FIX UTAMA: FUNGSI YANG SINKRON MEMBACA STRUKTUR OBJEK GS V5
     function renderVisualJurnalLog(jurnal) {
         const wrapperMakan = document.getElementById("jurnal-makanan-wrapper");
         const wrapperOlahraga = document.getElementById("jurnal-olahraga-wrapper");
 
         if (!wrapperMakan || !wrapperOlahraga) return;
 
-        // 1. Gambar Jurnal Makanan Masuk
+        // 1. Gambar Jurnal Makanan
         if (!jurnal || !jurnal.makanan || jurnal.makanan.length === 0) {
             wrapperMakan.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada makanan yang dicatat hari ini.</div>`;
         } else {
@@ -237,7 +235,7 @@
             });
         }
 
-        // 2. Gambar Jurnal Olahraga (Disinkronkan membaca properti .aktivitas dari GAS)
+        // 2. Gambar Jurnal Olahraga (FIX SINKRON: Menggunakan nama properti .aktivitas sesuai struktur GS V5)
         if (!jurnal || !jurnal.aktivitas || jurnal.aktivitas.length === 0) {
             wrapperOlahraga.innerHTML = `<div style="text-align:center; color:#a0aec0; font-size:12px; padding:20px;">Belum ada olahraga yang dicatat hari ini.</div>`;
         } else {
@@ -283,7 +281,7 @@
             jalankanLoader(false);
             if(res.status === "old_user") {
                 appSession = res.data;
-                appSession.jurnalAktual = res.jurnal; // Mengunci data jurnal terbaru
+                appSession.jurnalAktual = res.jurnal; 
                 lemparToast("Data berhasil dimuat!", "success");
             } else {
                 appSession = { email: res.email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, kaloriHariIni:0, kaloriTerbakarIni:0, programDiet:"maintain", jurnalAktual: {makanan:[], aktivitas:[]} };
@@ -390,7 +388,7 @@
                 appSession.bmr = res.bmr;
                 appSession.nama = res.nama;
                 appSession.programDiet = res.programDiet;
-                appSession.jurnalAktual = res.jurnal;
+                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal dari simpan Metrik BMR GAS V5
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 hitungKalkulasiKesehatanLokal(); 
                 renderVisualJurnalLog(appSession.jurnalAktual);
@@ -476,7 +474,7 @@
             if(res.status === "success") {
                 lemparToast("Jurnal makanan berhasil ditambahkan!", "success");
                 appSession.kaloriHariIni = res.totalKaloriSekarang;
-                appSession.jurnalAktual = res.jurnal; // Sinkronisasi database hasil submit
+                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal dari catat Konsumsi GAS V5
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 keranjangMakanan = [];
@@ -504,7 +502,7 @@
             if(res.status === "success") {
                 lemparToast("Log pembakaran sukses dicatat!", "success");
                 appSession.kaloriTerbakarIni = res.totalBakarSekarang;
-                appSession.jurnalAktual = res.jurnal; // Sinkronisasi database hasil submit
+                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal dari catat Aktivitas GAS V5
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 document.getElementById("ex-volume").value = "";
@@ -524,7 +522,7 @@
             if(res.status === "success") {
                 lemparToast("Data kalori hari ini kembali bersih.", "info");
                 appSession.kaloriHariIni = 0; appSession.kaloriTerbakarIni = 0;
-                appSession.jurnalAktual = res.jurnal;
+                appSession.jurnalAktual = res.jurnal; // SINKRON: Mengikat kembalian .jurnal kosong dari reset Sesi GAS V5
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 
                 hitungKalkulasiKesehatanLokal();
