@@ -1,109 +1,63 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Sedang Dikembangkan - Muda Mudi Sedahromo Lor</title>
+    <title>Kalkulator BMR & Pelacak Kalori - Muda Mudi Sedahromo Lor</title>
     
     <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=103">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
-
+    
     <style>
-        /* Styling khusus area Under Construction agar responsif dan pas di tengah box */
-        .uc-container {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .uc-icon-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 25px;
-        }
-        .uc-icon-main {
-            font-size: 70px;
-            color: #E53935; /* Menyelaraskan dengan warna merah tema MMS */
-        }
-        .uc-icon-sub {
-            font-size: 35px;
-            color: #fbc02d; /* Warna aksen kuning pengerjaan */
-            position: absolute;
-            bottom: -5px;
-            right: -10px;
-            background: #ffffff;
-            border-radius: 50%;
-            padding: 2px;
-        }
-        .uc-title {
-            font-size: 24px;
-            color: #333333;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .uc-text {
-            font-size: 15px;
-            color: #666666;
-            max-width: 500px;
-            margin: 0 auto 30px auto;
-            line-height: 1.6;
-        }
-        .uc-btn-kembali {
-            display: inline-block;
-            background-color: #E53935;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .uc-btn-kembali:hover {
-            background-color: #d32f2f;
-            transform: translateY(-2px);
-        }
-        .uc-btn-kembali i {
-            margin-right: 8px;
-        }
+        .bmr-container { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+        @media(min-width: 768px) { .bmr-container { grid-template-columns: 1fr 1fr; } }
+        .card-bmr { background: #fff; padding: 25px; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #333; }
+        .form-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box; }
+        .btn-mms { background-color: #D32F2F; color: #fff; border: none; padding: 12px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn-mms:hover { background-color: #b71c1c; }
+        .search-results { border: 1px solid #ddd; border-top: none; max-height: 200px; overflow-y: auto; background: #fff; position: absolute; width: 93%; z-index: 100; border-radius: 0 0 4px 4px; }
+        .search-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+        .search-item:hover { background-color: #f5f5f5; }
+        .badge-kalori { background: #ffeb3b; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .progress-bar-container { background: #eee; border-radius: 20px; height: 25px; width: 100%; overflow: hidden; margin-top: 15px; position: relative; }
+        .progress-bar-fill { background: #4caf50; height: 100%; width: 0%; transition: width 0.5s; }
+        .progress-text { position: absolute; width: 100%; text-align: center; top: 3px; font-weight: bold; font-size: 13px; color: #000; }
+        .modal-backup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     </style>
 </head>
 <body> 
     
-<header class="site-header">
-    <div class="top-header">
-        <div class="header-logo-area">
-            <a href="index.html" class="logo-wrapper">
-                <img src="images/mms.png" alt="Logo MMS" class="mini-logo">
-                <div class="header-text">
-                    <span class="brand-title">MUDA MUDI</span>
-                    <span class="brand-subtitle">Sedahromo Lor 05</span>
-                </div>
-            </a>
-        </div>
-        
-        <div class="header-right-stuff">
-            <div class="header-socials">
-                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <header class="site-header">
+        <div class="top-header">
+            <div class="header-logo-area">
+                <a href="index.html" class="logo-wrapper">
+                    <img src="images/mms.png" alt="Logo MMS" class="mini-logo">
+                    <div class="header-text">
+                        <span class="brand-title">MUDA MUDI</span>
+                        <span class="brand-subtitle">Sedahromo Lor 05</span>
+                    </div>
+                </a>
             </div>
-        </div>
-
-        <button class="menu-toggle" id="mobile-menu-btn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </div> 
-
-<nav class="main-navbar">
+            <div class="header-right-stuff">
+                <div class="header-socials">
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <button class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div> 
+        
+        <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
                 <li class="nav-item">
@@ -141,55 +95,142 @@
                     <a href="#">INFORMASI</a>
                     <ul class="submenu">
                         <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
-                        <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                         <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
+                        <li class="submenu-item"><a href="kesehatan.html" class="active"> - KESEHATAN</a></li>
+                        <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
                     </ul>
                 </li>
-               <li class="nav-item">
-                 <a href="index.html">RUANG LITERASI</a>
+                <li class="nav-item">
+                    <a href="index.html">RUANG LITERASI</a>
                     <ul class="submenu">
-                       <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
-                       <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
+                        <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
+                        <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
                     </ul>
-                 </li>
-
+                </li>
             </ul>
-
-            <div class="navbar-mobile-only">
-                <div class="header-socials">
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
         </nav>
-</header>
+    </header>
 
-    <div class="finance-page-wrapper">
-        <div class="content-box" style="max-width: 800px; width: 95%;">
+    <div class="gallery-page-wrapper">
+        <div class="content-box-gallery">
+            <h2 class="box-title">SMART BMR & CALORIE TRACKER</h2>
+            <hr class="box-divider">
             
-            <div class="uc-container">
-                <div class="uc-icon-wrapper">
-                    <i class="fa-solid fa-gear fa-spin uc-icon-main" style="--fa-animation-duration: 4s;"></i>
-                    <i class="fa-solid fa-wrench uc-icon-sub"></i>
+            <div id="section-login-bmr" class="card-bmr" style="max-width: 500px; margin: 0 auto; text-align: center;">
+                <i class="fa-solid fa-heart-pulse style-icon" style="font-size: 48px; color: #D32F2F; margin-bottom: 15px;"></i>
+                <h3>Pintu Masuk Integrasi Kesehatan</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Masukkan email Anda untuk memuat profil fisik personal dan catatan kalori harian terupdate.</p>
+                <div class="form-group" style="text-align: left;">
+                    <label>Alamat Email Aktif</label>
+                    <input type="email" id="email-log-bmr" class="form-input" placeholder="contoh: budi@gmail.com">
                 </div>
-                
-                <h2 class="uc-title">Halaman Sedang Dikembangkan</h2>
-                <hr class="box-divider" style="max-width: 150px; margin: 15px auto;">
-                
-                <p class="uc-text">
-                    Mohon maaf, Bro! Halaman ini saat ini masih dalam proses pengerjaan dan pengembangan tim admin teknis Muda Mudi Sedahromo Lor 05 agar fiturnya bisa berjalan maksimal.
-                </p>
-                
-                <a href="index.html" class="uc-btn-kembali">
-                    <i class="fa-solid fa-house"></i> Kembali ke Beranda
-                </a>
+                <button class="btn-mms" onclick="prosesLoginBmr()"><i class="fa-solid fa-right-to-bracket"></i> Masuk Aplikasi</button>
             </div>
 
-        </div> 
-    </div> 
-    
+            <div id="section-dashboard-bmr" style="display: none;">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #D32F2F;">
+                    <div>
+                        <span>Selamat Datang, </span><strong id="txt-nama-user">Pemuda MMS</strong>! (<span id="txt-email-user"></span>)
+                    </div>
+                    <button class="btn-cetak-mutasi" onclick="logoutBmr()" style="background:#555; height:32px; padding:0 12px; font-size:12px;">Keluar</button>
+                </div>
+
+                <div class="bmr-container">
+                    <div class="card-bmr">
+                        <h4 style="margin-top:0; color:#D32F2F;"><i class="fa-solid fa-calculator"></i> Pengaturan Profil Fisik (BMR)</h4>
+                        <hr style="border:none; border-top:1px solid #eee; margin-bottom:15px;">
+                        
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" id="bmr-nama" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Jenis Kelamin</label>
+                            <select id="bmr-gender" class="form-input">
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Umur (Tahun)</label>
+                            <input type="number" id="bmr-umur" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Tinggi Badan (cm)</label>
+                            <input type="number" id="bmr-tb" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Berat Badan (kg)</label>
+                            <input type="number" id="bmr-bb" class="form-input">
+                        </div>
+                        <button class="btn-mms" onclick="simpanProfilBmr()"><i class="fa-solid fa-rotate"></i> Hitung & Sinkronisasi Ke Database</button>
+                    </div>
+
+                    <div class="card-bmr">
+                        <h4 style="margin-top:0; color:#2e7d32;"><i class="fa-solid fa-utensils"></i> Konsumsi Harian & Kamus Kalori</h4>
+                        <hr style="border:none; border-top:1px solid #eee; margin-bottom:15px;">
+                        
+                        <div class="form-group" style="position: relative;">
+                            <label>Cari Nama Makanan / Minuman</label>
+                            <div style="display:flex; gap:5px;">
+                                <input type="text" id="search-makanan" class="form-input" placeholder="Ketik nasi goreng, telur, dll..." oninput="liveSearchMakanan(this.value)">
+                            </div>
+                            <div id="wrapper-search-results" class="search-results" style="display:none;"></div>
+                        </div>
+
+                        <div style="margin-top: 25px; background: #f1f8e9; padding: 15px; border-radius: 6px; border: 1px solid #c8e6c9;">
+                            <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                                <span>Target Energi Standar (BMR):</span>
+                                <span id="view-bmr-angka">0</span> kalori
+                            </div>
+                            <div style="display:flex; justify-content:space-between; margin-top:5px; color:#c62828; font-weight:bold;">
+                                <span>Sudah Masuk Hari Ini:</span>
+                                <span id="view-kalori-masuk">0</span> kalori
+                            </div>
+                            
+                            <div class="progress-bar-container">
+                                <div id="progress-kalori-fill" class="progress-bar-fill"></div>
+                                <div id="progress-kalori-text" class="progress-text">0% Terpenuhi</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:20px; display:flex; gap:10px;">
+                            <button onclick="bukaModalMakanan()" class="btn-cetak-mutasi" style="flex:1; background:#0288d1;"><i class="fa-solid fa-plus"></i> Tambah Kamus Baru</button>
+                            <button onclick="resetSesiKaloriHariIni()" class="btn-cetak-mutasi" style="flex:1; background:#757575;"><i class="fa-solid fa-trash-can"></i> Reset Sesi Hari Ini</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="modal-tambah-makanan" class="modal-backup" style="display: none;">
+        <div class="card-bmr" style="width:90%; max-width:400px; position:relative;">
+            <h4 style="margin-top:0; color:#D32F2F;"><i class="fa-solid fa-folder-plus"></i> Daftarkan Makanan Baru</h4>
+            <div class="form-group">
+                <label>Nama Kuliner / Merk</label>
+                <input type="text" id="add-makan-nama" class="form-input" placeholder="Misal: Es Teh Manis Jumbo">
+            </div>
+            <div class="form-group">
+                <label>Jumlah Kalori (kalori)</label>
+                <input type="number" id="add-makan-kalori" class="form-input" placeholder="Misal: 120">
+            </div>
+            <div class="form-group">
+                <label>Kelompok Kategori</label>
+                <select id="add-makan-kategori" class="form-input">
+                    <option value="Makanan Pokok">Makanan Pokok</option>
+                    <option value="Lauk Pauk">Lauk Pauk</option>
+                    <option value="Cemilan / Snack">Cemilan / Snack</option>
+                    <option value="Minuman">Minuman</option>
+                </select>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn-mms" onclick="eksekusiTambahDatabaseMakanan()">Daftarkan</button>
+                <button class="btn-mms" onclick="tutupModalMakanan()" style="background:#555;">Batal</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-column info-col">
@@ -197,14 +238,9 @@
                     <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
                     <h4>Muda Mudi Sedahromo Lor</h4>
                 </div>
-                <p class="footer-text">
-                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
-                </p>
-                <p class="footer-text">
-                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a>
-                </p>
+                <p class="footer-text"><i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167</p>
+                <p class="footer-text"><i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a></p>
             </div>
-
             <div class="footer-column links-col">
                 <h5>Sitemap</h5>
                 <ul class="footer-links">
@@ -212,26 +248,209 @@
                     <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
                     <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
                     <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
+                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
                 </ul>
             </div>
-
             <div class="footer-column social-col">
                 <h5>Media Sosial</h5>
                 <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
                 <div class="footer-social-icons">
-                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
         </div>
     </footer>
-<script src="online-tracker.js"></script>
-    <script src="script.js?v=1"></script>
+
+    <script>
+        // TEMPELKAN URL DEPLOYMENT WEB APP SPREADSHEET BARU ANDA DI SINI (BERAKHIRAN /exec)
+        const URL_API_BMR = "MASUKKAN_URL_WEB_APP_BARU_DI_SINI";
+
+        let userSessionData = null;
+
+        // Otomatis membaca LocalStorage/Cache ketika aplikasi dimuat pertama kali
+        window.onload = function() {
+            const cachedSession = localStorage.getItem("mms_bmr_session");
+            if (cachedSession) {
+                userSessionData = JSON.parse(cachedSession);
+                bukaDashboardAplikasi(userSessionData);
+            }
+        };
+
+        function prosesLoginBmr() {
+            const email = document.getElementById("email-log-bmr").value;
+            if(!email || !email.includes("@")) return alert("Harap isi alamat email dengan benar.");
+
+            alert("Mengecek basis data, mohon tunggu...");
+            fetch(`${URL_API_BMR}?aksi=loginBmr&email=${encodeURIComponent(email)}`)
+            .then(res => res.json())
+            .then(res => {
+                if(res.status === "old_user") {
+                    userSessionData = res.data;
+                    localStorage.setItem("mms_bmr_session", JSON.stringify(userSessionData));
+                    bukaDashboardAplikasi(userSessionData);
+                } else if(res.status === "new_user") {
+                    alert("Email Anda belum terdaftar. Silakan buat profil fisik awal Anda.");
+                    userSessionData = { email: res.email, nama: "", gender: "Laki-laki", umur: "", tb: "", bb: "", bmr: 0, kaloriHariIni: 0 };
+                    bukaDashboardAplikasi(userSessionData);
+                }
+            }).catch(err => alert("Gagal koneksi backend: " + err));
+        }
+
+        function bukaDashboardAplikasi(user) {
+            document.getElementById("section-login-bmr").style.display = "none";
+            document.getElementById("section-dashboard-bmr").style.display = "block";
+            
+            document.getElementById("txt-email-user").innerText = user.email;
+            document.getElementById("txt-nama-user").innerText = user.nama || "Pemuda MMS";
+            
+            // Set values ke field form
+            document.getElementById("bmr-nama").value = user.nama || "";
+            document.getElementById("bmr-gender").value = user.gender || "Laki-laki";
+            document.getElementById("bmr-umur").value = user.umur || "";
+            document.getElementById("bmr-tb").value = user.tb || "";
+            document.getElementById("bmr-bb").value = user.bb || "";
+            
+            updateVisualTracker();
+        }
+
+        function updateVisualTracker() {
+            document.getElementById("view-bmr-angka").innerText = userSessionData.bmr;
+            document.getElementById("view-kalori-masuk").innerText = userSessionData.kaloriHariIni;
+            
+            let persen = 0;
+            if (userSessionData.bmr > 0) {
+                persen = Math.round((userSessionData.kaloriHariIni / userSessionData.bmr) * 100);
+            }
+            
+            const fill = document.getElementById("progress-kalori-fill");
+            fill.style.width = `${Math.min(persen, 100)}%`;
+            if(persen > 100) fill.style.backgroundColor = "#d32f2f";
+            else if(persen >= 80) fill.style.backgroundColor = "#ff9100";
+            else fill.style.backgroundColor = "#4caf50";
+            
+            document.getElementById("progress-kalori-text").innerText = `${persen}% Terpenuhi`;
+        }
+
+        function simpanProfilBmr() {
+            const payload = {
+                aksi: "simpanProfilBmr",
+                email: userSessionData.email,
+                nama: document.getElementById("bmr-nama").value,
+                gender: document.getElementById("bmr-gender").value,
+                umur: document.getElementById("bmr-umur").value,
+                tb: document.getElementById("bmr-tb").value,
+                bb: document.getElementById("bmr-bb").value
+            };
+
+            if(!payload.nama || !payload.umur || !payload.tb || !payload.bb) return alert("Harap lengkapi semua parameter fisik.");
+
+            fetch(URL_API_BMR, { method: "POST", body: JSON.stringify(payload) })
+            .then(res => res.json())
+            .then(res => {
+                if(res.status === "success") {
+                    alert(res.message);
+                    userSessionData.bmr = res.bmr;
+                    userSessionData.nama = res.nama;
+                    document.getElementById("txt-nama-user").innerText = res.nama;
+                    localStorage.setItem("mms_bmr_session", JSON.stringify(userSessionData));
+                    updateVisualTracker();
+                }
+            });
+        }
+
+        function liveSearchMakanan(val) {
+            const wrapper = document.getElementById("wrapper-search-results");
+            if(val.length < 1) { wrapper.style.display = "none"; return; }
+
+            fetch(`${URL_API_BMR}?aksi=cariMakanan&query=${encodeURIComponent(val)}`)
+            .then(res => res.json())
+            .then(data => {
+                wrapper.innerHTML = "";
+                if(data.length === 0) {
+                    wrapper.innerHTML = `<div style="padding:10px; font-size:12px; color:#aa2222;">Item tidak ditemukan. Silakan klik tombol 'Tambah Kamus Baru' di bawah.</div>`;
+                    wrapper.style.display = "block";
+                    return;
+                }
+                data.forEach(item => {
+                    let div = document.createElement("div");
+                    div.className = "search-item";
+                    div.innerHTML = `<span>${item.nama} <small style='color:#777;'>(${item.kategori})</small></span> <span class='badge-kalori'>${item.kalori} Cal</span>`;
+                    div.onclick = function() { eksekusiMakanItem(item.nama, item.kalori); };
+                    wrapper.appendChild(div);
+                });
+                wrapper.style.display = "block";
+            });
+        }
+
+        function eksekusiMakanItem(nama, kalori) {
+            document.getElementById("wrapper-search-results").style.display = "none";
+            document.getElementById("search-makanan").value = "";
+            
+            const payload = { aksi: "logKonsumsiMakan", email: userSessionData.email, namaMakanan: nama, kalori: kalori };
+            
+            fetch(URL_API_BMR, { method: "POST", body: JSON.stringify(payload) })
+            .then(res => res.json())
+            .then(res => {
+                if(res.status === "success") {
+                    userSessionData.kaloriHariIni = res.totalKaloriSekarang;
+                    localStorage.setItem("mms_bmr_session", JSON.stringify(userSessionData));
+                    updateVisualTracker();
+                    alert(`Berhasil mencatatkan konsumsi ${nama} (+${kalori} kalori).`);
+                }
+            });
+        }
+
+        function resetSesiKaloriHariIni() {
+            if(!confirm("Apakah Anda yakin ingin me-reset total hitungan kalori Anda hari ini kembali ke nol?")) return;
+            const payload = { aksi: "resetKaloriHarian", email: userSessionData.email };
+            
+            fetch(URL_API_BMR, { method: "POST", body: JSON.stringify(payload) })
+            .then(res => res.json())
+            .then(res => {
+                if(res.status === "success") {
+                    userSessionData.kaloriHariIni = 0;
+                    localStorage.setItem("mms_bmr_session", JSON.stringify(userSessionData));
+                    updateVisualTracker();
+                    alert(res.message);
+                }
+            });
+        }
+
+        function eksekusiTambahDatabaseMakanan() {
+            const payload = {
+                aksi: "tambahMakananBaru",
+                nama: document.getElementById("add-makan-nama").value,
+                kalori: document.getElementById("add-makan-kalori").value,
+                kategori: document.getElementById("add-makan-kategori").value
+            };
+            if(!payload.nama || !payload.kalori) return alert("Lengkapi data makanan baru!");
+
+            fetch(URL_API_BMR, { method: "POST", body: JSON.stringify(payload) })
+            .then(res => res.json())
+            .then(res => {
+                if(res.status === "success") {
+                    alert(res.message);
+                    tutupModalMakanan();
+                }
+            });
+        }
+
+        function bukaModalMakanan() { document.getElementById("modal-tambah-makanan").style.display = "flex"; }
+        function tutupModalMakanan() { 
+            document.getElementById("modal-tambah-makanan").style.display = "none";
+            document.getElementById("add-makan-nama").value = "";
+            document.getElementById("add-makan-kalori").value = "";
+        }
+        function logoutBmr() {
+            localStorage.removeItem("mms_bmr_session");
+            location.reload();
+        }
+    </script>
 </body>
 </html>
