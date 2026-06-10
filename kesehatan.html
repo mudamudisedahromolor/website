@@ -76,6 +76,11 @@
 
             <div id="main-dashboard-frame" style="display: none;">
                 
+                <div style="background: #f8fafc; padding: 15px; border-radius: 6px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #D32F2F;">
+                    <div><span style="color:#64748b;">Sesi Aktif:</span> <strong id="header-user-email"></strong></div>
+                    <button class="btn-mms" onclick="keluarAplikasi()" style="width:auto; background:#64748b; padding:8px 15px; font-size:12px;">Keluar</button>
+                </div>
+
                 <div id="bmi-status-banner"></div>
                 <div id="stop-eating-banner"></div>
 
@@ -114,7 +119,7 @@
                         <hr style="border:none; border-top:1px solid #e2e8f0; margin-bottom:15px;">
                         
                         <div class="form-group" style="position: relative;">
-                            <label><i class="fa-solid fa-magnifying-glass"></i> Masukkan Makanan/Minuman Yang Dikonsumsi</label>
+                            <label><i class="fa-solid fa-magnifying-glass"></i> Masukkan Makanan/Minuman</label>
                             <input type="text" id="food-search-box" class="form-input" placeholder="Cari makanan Anda..." oninput="cariKamusMakanan(this.value)">
                             <div id="food-dropdown-box" class="search-results" style="display:none;"></div>
                         </div>
@@ -168,7 +173,9 @@
     </footer>
 
     <script>
-        const API_HEALTH = "https://script.google.com/macros/s/AKfycbyeQ24l_9VzRkznullLOgVaFkiwC4P3TSqaDXbTIob_kPDmxvoltMg66XIlwE2sxXlvRg/exec"; // Ganti dengan URL deployment GAS Baru Anda
+        // 1. GANTI URL DI BAWAH INI DENGAN LINK WEB APP ANDA
+        const API_HEALTH = "MASUKKAN_URL_WEB_APP_BARU_DI_SINI"; 
+
         let appSession = null;
 
         window.onload = function() {
@@ -180,28 +187,48 @@
         };
 
         function antarmukaLogin() {
+            // Proteksi URL Kosong
+            if(API_HEALTH === "MASUKKAN_URL_WEB_APP_BARU_DI_SINI" || !API_HEALTH.startsWith("https://script.google.com/")) {
+                return alert("ERROR PENGATURAN: Anda belum memasukkan Link Web App Google Script ke dalam variabel API_HEALTH di kode HTML.");
+            }
+
             const email = document.getElementById("user-email-input").value;
             if(!email || !email.includes("@")) return alert("Masukkan alamat email yang valid!");
 
-            alert("Mengecek basis data kesehatan, mohon tunggu...");
+            document.getElementById("login-frame").style.opacity = "0.5";
+
             fetch(`${API_HEALTH}?aksi=loginBmr&email=${encodeURIComponent(email)}`)
-            .then(res => res.json())
             .then(res => {
+                if(!res.ok) throw new Error("Terjadi kesalahan jaringan.");
+                return res.json();
+            })
+            .then(res => {
+                document.getElementById("login-frame").style.opacity = "1";
                 if(res.status === "old_user") {
                     appSession = res.data;
                 } else {
-                    alert("Email baru terdeteksi. Silakan bangun profil tubuh awal Anda.");
                     appSession = { email: res.email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, kaloriHariIni:0, kaloriTerbakarIni:0, programDiet:"maintain" };
                 }
                 localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                 muatDashboardUtama(appSession);
-            }).catch(err => alert("Gagal menyambungkan ke server: " + err));
+            })
+            .catch(err => {
+                document.getElementById("login-frame").style.opacity = "1";
+                alert("GAGAL MENGAMBIL DATA: Pastikan Anda men-deploy ulang Google Script dengan Who Has Access: 'Anyone'.");
+                console.error(err);
+            });
+        }
+
+        function keluarAplikasi() {
+            localStorage.removeItem("mms_health_session");
+            location.reload();
         }
 
         function muatDashboardUtama(user) {
             document.getElementById("login-frame").style.display = "none";
             document.getElementById("main-dashboard-frame").style.display = "block";
 
+            document.getElementById("header-user-email").innerText = user.email;
             document.getElementById("reg-nama").value = user.nama || "";
             document.getElementById("reg-gender").value = user.gender || "Laki-laki";
             document.getElementById("reg-umur").value = user.umur || "";
@@ -219,7 +246,6 @@
         }
 
         function hitungKalkulasiKesehatanLokal() {
-            // 1. Hitung Status Obesitas / BMI
             const bb = Number(document.getElementById("reg-bb").value) || 0;
             const tb = Number(document.getElementById("reg-tb").value) || 0;
             let bannerBmi = document.getElementById("bmi-status-banner");
@@ -229,19 +255,17 @@
                 let bmi = bb / ((tb/100) * (tb/100));
                 bmi = bmi.toFixed(1);
                 
-                // Menggunakan Standar Batas BMI Asia Pasifik
                 if(bmi >= 25.0) {
-                    bannerBmi.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> Kategori Tubuh: Obesitas (${bmi}). Tubuh Anda berisiko tinggi. Yuk, ambil kendali hari ini, ubah setelan diet ke 'Turun BB Agresif' dan raih berat ideal bersama pemuda MMS!</div>`;
+                    bannerBmi.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> Kategori: Obesitas (${bmi}). Risiko tinggi. Yuk ubah ke 'Turun BB Agresif'.</div>`;
                 } else if(bmi >= 23.0) {
-                    bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> Kategori Tubuh: Kelebihan Berat Badan / Overweight (${bmi}). Selangkah lagi menuju obesitas. Mulai kurangi makanan manis gorengan dan perbanyak log aktivitas jalan/lari!</div>`;
+                    bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> Kategori: Overweight (${bmi}). Kurangi kalori dan perbanyak log aktivitas!</div>`;
                 } else if(bmi >= 18.5) {
-                    bannerBmi.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-circle-check"></i> Kategori Tubuh: Normal / Ideal (${bmi}). Pertahankan pola makan dan hidup sehat Anda!</div>`;
+                    bannerBmi.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-circle-check"></i> Kategori: Ideal (${bmi}). Pertahankan pola sehat Anda!</div>`;
                 } else {
-                    bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-info"></i> Kategori Tubuh: Kekurangan Berat Badan (${bmi}). Pertahankan BMR normal dan tambah asupan protein harian Anda.</div>`;
+                    bannerBmi.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-info"></i> Kategori: Kurus (${bmi}). Tambah asupan kalori dan protein harian.</div>`;
                 }
             }
 
-            // 2. Kalkulasi Defisit Kalori Berdasarkan Target Diet Pilihan
             let deficit = 0;
             const dietMode = appSession.programDiet;
             if(dietMode === "lose_025") deficit = 275;
@@ -249,13 +273,12 @@
             else if(dietMode === "lose_100") deficit = 1100;
 
             let targetNet = appSession.bmr - deficit;
-            if(targetNet < 1100) targetNet = 1100; // Batas aman energi minimum tubuh manusia
+            if(targetNet < 1100) targetNet = 1100;
 
             document.getElementById("label-target-net").innerText = targetNet;
             document.getElementById("label-masuk").innerText = appSession.kaloriHariIni;
             document.getElementById("label-bakar").innerText = appSession.kaloriTerbakarIni;
 
-            // Perhitungan Net Kalori Aktual Hari Ini = Masuk - Terbakar
             let netSekarang = appSession.kaloriHariIni - appSession.kaloriTerbakarIni;
             if(netSekarang < 0) netSekarang = 0;
 
@@ -263,11 +286,10 @@
             document.getElementById("bar-fill").style.width = `${Math.min(persen, 100)}%`;
             document.getElementById("bar-text").innerText = `${persen}% Anggaran Terpakai`;
 
-            // 3. Peringatan Cerdas Pembatasan Makan (Stop Eating Control)
             let stopBanner = document.getElementById("stop-eating-banner");
-            if(netSekarang >= targetNet) {
+            if(netSekarang >= targetNet && targetNet > 0) {
                 document.getElementById("bar-fill").style.backgroundColor = "#ef4444";
-                stopBanner.innerHTML = `<div class="alert-banner alert-danger" style="animation: pulse 2s infinite;"><i class="fa-solid fa-hand"></i> STOP MAKAN! Batas target anggaran energi bersih harian Anda telah terpenuhi/terlewati. Biarkan tubuh Anda membakar sisa energi ini.</div>`;
+                stopBanner.innerHTML = `<div class="alert-banner alert-danger" style="animation: pulse 2s infinite;"><i class="fa-solid fa-hand"></i> STOP MAKAN! Batas target anggaran Anda telah terpenuhi/terlewati. Biarkan tubuh membakar sisa energi.</div>`;
             } else {
                 document.getElementById("bar-fill").style.backgroundColor = "#10b981";
                 stopBanner.innerHTML = "";
@@ -310,7 +332,7 @@
             .then(data => {
                 box.innerHTML = "";
                 if(data.length === 0) {
-                    box.innerHTML = `<div style="padding:12px; font-size:12px; color:#ef4444;"><i class="fa-solid fa-circle-info"></i> Menu belum terdaftar di database. Hubungi Developer Organisasi.</div>`;
+                    box.innerHTML = `<div style="padding:12px; font-size:12px; color:#ef4444;"><i class="fa-solid fa-circle-info"></i> Menu belum terdaftar di database organisasi.</div>`;
                     box.style.display = "block"; return;
                 }
                 data.forEach(item => {
@@ -336,7 +358,6 @@
                     appSession.kaloriHariIni = res.totalKaloriSekarang;
                     localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                     hitungKalkulasiKesehatanLokal();
-                    alert(`Berhasil menambahkan makanan: ${nama} (+${kalori} kcal)`);
                 }
             });
         }
@@ -346,7 +367,6 @@
             const volume = Number(document.getElementById("ex-volume").value) || 0;
             if(volume <= 0) return alert("Masukkan besaran volume aktivitas yang valid!");
 
-            // Formula Cerdas Estimasi Pembakaran Kalori berdasarkan Jenis Aktivitas
             let kaloriTerbakar = 0;
             let detailTeks = "";
             if(jenis === "Lari") { kaloriTerbakar = volume * 65; detailTeks = `${volume} km`; } 
@@ -356,10 +376,7 @@
 
             kaloriTerbakar = Math.round(kaloriTerbakar);
 
-            const payload = { 
-                aksi: "logAktivitasFisik", email: appSession.email, 
-                jenisAktivitas: jenis, volumeDetail: detailTeks, kaloriTerbakar: kaloriTerbakar 
-            };
+            const payload = { aksi: "logAktivitasFisik", email: appSession.email, jenisAktivitas: jenis, volumeDetail: detailTeks, kaloriTerbakar: kaloriTerbakar };
 
             fetch(API_HEALTH, { method: "POST", body: JSON.stringify(payload) })
             .then(res => res.json())
@@ -369,7 +386,6 @@
                     localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                     hitungKalkulasiKesehatanLokal();
                     document.getElementById("ex-volume").value = "";
-                    alert(`Hebat! Aktivitas ${jenis} berhasil dicatat. Membakar (-${kaloriTerbakar} kcal).`);
                 }
             });
         }
@@ -384,7 +400,6 @@
                     appSession.kaloriTerbakarIni = 0;
                     localStorage.setItem("mms_health_session", JSON.stringify(appSession));
                     hitungKalkulasiKesehatanLokal();
-                    alert("Sesi hari ini berhasil dibersihkan.");
                 }
             });
         }
