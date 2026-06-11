@@ -133,7 +133,7 @@
             <i class="fa-solid fa-heart-pulse" style="font-size: 50px; color: #D32F2F; margin-bottom: 15px;"></i>
             <h3>Akses Database Kesehatan</h3>
             <div class="form-group" style="text-align: left; margin-top:20px;">
-                <label>Masukkan Email Untuk Menggunakan Aplikasi Ini</label>
+                <label>Email Terdaftar</label>
                 <input type="email" id="user-email-input" class="form-input" placeholder="email@anda.com">
             </div>
             <button class="btn-mms" onclick="loginApp()"><i class="fa-solid fa-right-to-bracket"></i> Masuk Sistem</button>
@@ -317,14 +317,13 @@
                 sess = res.data; sess.jurnal = res.jurnal; toast("Data dimuat!", "success");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(false); // Sembunyikan panel profil otomatis untuk user lama
+                setProfileVisibility(false);
             } else {
-                // USER BARU: Arahkan langsung ke form pengisian data diri
                 sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
                 toast("Email belum terdaftar. Silakan lengkapi profil data diri Anda terlebih dahulu!", "warning");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(true); // Paksa panel profil terbuka lebar untuk user baru
+                setProfileVisibility(true);
             }
         }).catch(()=> { loading(false); toast("Gagal terhubung server", "danger"); });
     }
@@ -412,7 +411,7 @@
                 sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 toast("Profil & Target Diupdate ke Sistem!", "success"); initUI();
-                setProfileVisibility(false); // Sembunyikan panel secara otomatis setelah sukses disimpan
+                setProfileVisibility(false);
             }
         });
     }
