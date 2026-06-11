@@ -45,6 +45,11 @@
         .journal-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; max-height: 300px; overflow-y: auto; }
         .journal-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff; border: 1px solid #edf2f7; border-radius: 6px; margin-bottom: 8px; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
 
+        .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.85); z-index:9999; justify-content:center; align-items:center; flex-direction:column; gap:15px; backdrop-filter: blur(4px); }
+        .custom-toast { position: fixed; bottom: -100px; right: 20px; z-index: 9999; padding: 15px 22px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; transition: bottom 0.4s; font-size: 13px; }
+        .toast-show { bottom: 20px !important; }
+        .t-success { background: #10b981; } .t-danger { background: #ef4444; } .t-info { background: #3b82f6; }
+
         .card-header-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
         .btn-toggle-profile { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.2s; }
         .btn-toggle-profile:hover { background: #e2e8f0; }
@@ -53,9 +58,9 @@
 </head>
 <body> 
     
-    <div id="custom-loader" class="loading-overlay" style="display:none;">
+    <div id="custom-loader" class="loading-overlay">
         <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color:#D32F2F;"></i>
-        <div id="loader-text" style="font-weight:bold; margin-top:10px;">Memproses...</div>
+        <div id="loader-text" style="font-weight:bold;">Memproses...</div>
     </div>
     <div id="custom-toast" class="custom-toast"><i id="toast-icon" class="fa-solid"></i><span id="toast-msg">Notifikasi</span></div>
 
@@ -140,7 +145,6 @@
                 <button class="btn-mms" onclick="logoutApp()" style="width:auto; padding:6px 12px; background:#475569; font-size:12px;">Keluar</button>
             </div>
 
-            <div id="pengingat-manual-banner"></div>
             <div id="ai-bmi-banner"></div>
 
             <div class="health-grid">
@@ -249,6 +253,25 @@
     </div>
 
     <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzN0NB4NmmJuEaEvtwUr9yGKNbNitMEz_7OE80Umd4uMkQ2I3WOk_WwVJx929ThQodt/exec";
+
+    let sess = null;
+    let kamusMenu = [];
+    let cart = [];
+
+    function toggleProfile() {
+        const area = document.getElementById('profile-content-area');
+        const icon = document.getElementById('btn-toggle-icon');
+        
+        if (area.style.display === 'none') {
+            area.style.display = 'block';
+            icon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+        } else {
+            area.style.display = 'none';
+            icon.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
+        }
+    }
+
     function setProfileVisibility(show) {
         const area = document.getElementById('profile-content-area');
         const icon = document.getElementById('btn-toggle-icon');
@@ -273,73 +296,50 @@
         setTimeout(() => el.classList.remove('toast-show'), 3500);
     }
 
-    // Fungsi Pengingat Jam 5 Pagi Berdasarkan Jam di HP User
-    function cekPengingatJam5Pagi() {
-        let sekarang = new Date();
-        let jamHp = sekarang.getHours();
-        let banner = document.getElementById('pengingat-manual-banner');
-        
-        let totalKaloriMasuk = Number(sess ? sess.kaloriMasuk : 0);
-
-        // Jika jam HP menunjukkan jam 5 pagi ke atas, dan di memori masih ada log data tersisa
-        if (jamHp >= 5 && totalKaloriMasuk > 0) {
-            banner.innerHTML = `
-                <div class="alert-banner alert-warning" style="background:#fff7ed; color:#c2410c; border-color:#f97316;">
-                    <i class="fa-solid fa-bell"></i> Sudah lewat jam 5 Pagi! Jangan lupa klik tombol 
-                    <strong style="text-decoration:underline; cursor:pointer;" onclick="resetHarian()">"Reset Log"</strong> 
-                    merah untuk mengosongkan jurnal hari baru Anda.
-                </div>`;
-        } else {
-            banner.innerHTML = "";
-        }
-    }
-
     window.onload = () => {
         localStorage.removeItem("mms_v2");
         document.getElementById('login-frame').style.display = 'block';
         document.getElementById('dashboard-frame').style.display = 'none';
-        
-        google.script.run.withSuccessHandler(function(d) {
-            kamusMenu = JSON.parse(d);
-        }).getKamusMakanan();
+        fetchKamus();
     };
+
+    function fetchKamus() {
+        fetch(`${API_URL}?aksi=getMakanan`).then(r=>r.json()).then(d => kamusMenu = d).catch(console.error);
+    }
 
     function loginApp() {
         let email = document.getElementById('user-email-input').value;
         if(!email) return toast("Email wajib diisi", "danger");
         loading(true, "Membuka database...");
-        
-        google.script.run.withSuccessHandler(function(response) {
+        fetch(`${API_URL}?aksi=login&email=${email}`).then(r=>r.json()).then(res => {
             loading(false);
-            let res = JSON.parse(response);
             if(res.status === 'old_user') {
                 sess = res.data; sess.jurnal = res.jurnal; toast("Data dimuat!", "success");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(false);
+                setProfileVisibility(false); // Sembunyikan panel profil otomatis untuk user lama
             } else {
+                // USER BARU: Arahkan langsung ke form pengisian data diri
                 sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
                 toast("Email belum terdaftar. Silakan lengkapi profil data diri Anda terlebih dahulu!", "warning");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(true);
+                setProfileVisibility(true); // Paksa panel profil terbuka lebar untuk user baru
             }
-        }).prosesLogin(email);
+        }).catch(()=> { loading(false); toast("Gagal terhubung server", "danger"); });
     }
 
     function manualRefresh() {
         if(!sess || !sess.email) return;
         loading(true, "Sinkronisasi data terbaru...");
-        
-        google.script.run.withSuccessHandler(function(response) {
+        fetch(`${API_URL}?aksi=login&email=${sess.email}`).then(r=>r.json()).then(res => {
             loading(false);
-            let res = JSON.parse(response);
             if(res.status === 'old_user') {
                 sess = res.data; sess.jurnal = res.jurnal;
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI(); toast("Tampilan terupdate!", "success");
             }
-        }).prosesLogin(sess.email);
+        }).catch(() => { loading(false); toast("Gagal mengambil data", "danger"); });
     }
 
     function logoutApp() { localStorage.removeItem("mms_v2"); location.reload(); }
@@ -394,30 +394,27 @@
         document.getElementById('ui-sisapro').innerText = proMasuk;
         document.getElementById('bar-pro').style.width = pctPro + '%';
         document.getElementById('txt-pro').innerText = pctPro + '%';
-
-        // Panggil pengingat jam HP setiap kali UI dikalkulasi
-        cekPengingatJam5Pagi();
     }
 
     function simpanProfil() {
         let payload = {
-            email: sess.email,
+            aksi: "simpanProfil", email: sess.email,
             nama: document.getElementById('p-nama').value, gender: document.getElementById('p-gender').value,
             umur: document.getElementById('p-umur').value, tb: document.getElementById('p-tb').value,
             bb: document.getElementById('p-bb').value, diet: document.getElementById('p-diet').value
         };
         loading(true, "Menghitung & Menyimpan AI Metrik...");
-        
-        google.script.run.withSuccessHandler(function(response) {
+        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(r=>r.json()).then(res => {
             loading(false);
-            let res = JSON.parse(response);
-            sess.nama = payload.nama; sess.gender = payload.gender;
-            sess.umur = payload.umur; sess.tb = payload.tb; sess.bb = payload.bb;
-            sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            toast("Profil & Target Diupdate ke Sistem!", "success"); initUI();
-            setProfileVisibility(false);
-        }).simpanProfil(payload);
+            if(res.status==='success'){
+                sess.nama = payload.nama; sess.gender = payload.gender;
+                sess.umur = payload.umur; sess.tb = payload.tb; sess.bb = payload.bb;
+                sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
+                localStorage.setItem("mms_v2", JSON.stringify(sess));
+                toast("Profil & Target Diupdate ke Sistem!", "success"); initUI();
+                setProfileVisibility(false); // Sembunyikan panel secara otomatis setelah sukses disimpan
+            }
+        });
     }
 
     function cariMenu(q) {
@@ -461,18 +458,15 @@
         let tC=0, tP=0, nms=[];
         cart.forEach(c => { tC+=c.c; tP+=c.p; nms.push(c.n); });
         loading(true, "Mencatat Gizi...");
-        
-        let payload = { email: sess.email, namaMakanan: nms.join(", "), kalori: tC, protein: tP };
-        
-        google.script.run.withSuccessHandler(function(response) {
+        fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "logMakan", email: sess.email, namaMakanan: nms.join(", "), kalori: tC, protein: tP }) })
+        .then(r=>r.json()).then(res => {
             loading(false);
-            let res = JSON.parse(response);
             sess.kaloriMasuk = res.kaloriSekarang; 
             sess.proteinMasuk = res.proteinSekarang; 
             sess.jurnal = res.jurnal;
             localStorage.setItem("mms_v2", JSON.stringify(sess));
             cart=[]; renderCart(); kalkulasiUI(); drawJurnal(); toast("Tercatat!", "success");
-        }).catatMakan(payload);
+        });
     }
 
     function aturInputAkt(jns) {
@@ -502,17 +496,15 @@
         }
 
         loading(true, "Mencatat olahraga...");
-        let payload = { email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar };
-        
-        google.script.run.withSuccessHandler(function(response) {
+        fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "logAktivitas", email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar }) })
+        .then(r=>r.json()).then(res => {
             loading(false);
-            let res = JSON.parse(response);
             sess.kaloriBakar = res.bakarSekarang; 
             sess.jurnal = res.jurnal;
             localStorage.setItem("mms_v2", JSON.stringify(sess));
             document.getElementById('akt-km').value=""; document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value="";
             kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
-        }).catatAktivitas(payload);
+        });
     }
 
     function drawJurnal() {
@@ -566,17 +558,16 @@
     function resetHarian() {
         if(!confirm("Yakin hapus dan bersihkan baris log hari ini di spreadsheet?")) return;
         loading(true, "Menghapus baris harian di server...");
-        
-        google.script.run.withSuccessHandler(function(response) {
+        fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "resetHarian", email: sess.email }) })
+        .then(r=>r.json()).then(res => {
             loading(false);
-            let res = JSON.parse(response);
             sess.kaloriMasuk = 0; 
             sess.proteinMasuk = 0; 
             sess.kaloriBakar = 0; 
             sess.jurnal = res.jurnal;
             localStorage.setItem("mms_v2", JSON.stringify(sess)); 
             kalkulasiUI(); drawJurnal(); toast("Log harian di sheet terhapus otomatis!", "success");
-        }).resetManual(sess.email);
+        }).catch(() => { loading(false); toast("Gagal terkoneksi", "danger"); });
     }
     </script>
 </body>
