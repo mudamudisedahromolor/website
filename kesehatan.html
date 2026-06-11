@@ -589,33 +589,48 @@
         }
     }
 
-    function submitAkt() {
-        let jenis = document.getElementById('akt-jenis').value;
-        let detail = "", kalBakar = 0;
+function submitAkt() {
+    let jenis = document.getElementById('akt-jenis').value;
+    let detail = "", kalBakar = 0;
 
-        if(jenis === "Angkat Beban") {
-            let s = Number(document.getElementById('akt-set').value); let k = Number(document.getElementById('akt-kg').value);
-            if(!s || !k) return toast("Isi set dan beban!", "warning");
-            detail = `${s} Set x ${k}kg`;
-            kalBakar = Math.round(s * (k * 0.5));
-        } else {
-            let km = Number(document.getElementById('akt-km').value);
-            if(!km) return toast("Isi jarak km!", "warning");
-            detail = `${km} km`;
-            kalBakar = Math.round(km * (jenis==="Lari"?65:(jenis==="Jalan Kaki"?42:30)));
-        }
-
-        loading(true, "Mencatat olahraga...");
-        let payload = { email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar };
-        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(r=>r.json()).then(res => {
-            loading(false);
-            sess.kaloriBakar = res.bakarSekarang; 
-            sess.jurnal = res.jurnal;
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            document.getElementById('akt-km').value=""; document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value="";
-            kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
-        });
+    if(jenis === "Angkat Beban") {
+        let s = Number(document.getElementById('akt-set').value); let k = Number(document.getElementById('akt-kg').value);
+        if(!s || !k) return toast("Isi set dan beban!", "warning");
+        detail = `${s} Set x ${k}kg`;
+        kalBakar = Math.round(s * (k * 0.5));
+    } else {
+        let km = Number(document.getElementById('akt-km').value);
+        if(!km) return toast("Isi jarak km!", "warning");
+        detail = `${km} km`;
+        kalBakar = Math.round(km * (jenis==="Lari"?65:(jenis==="Jalan Kaki"?42:30)));
     }
+
+    loading(true, "Mencatat olahraga...");
+    
+    // 🚀 PERBAIKAN: Masukkan properti aksi agar dikenali oleh induk doPost() di server
+    let payload = { 
+        aksi: "logAktivitas", 
+        email: sess.email, 
+        jenis: jenis, 
+        detail: detail, 
+        kalBakar: kalBakar 
+    };
+    
+    fetch(API_URL, { method: "POST", body: JSON.stringify(payload) })
+    .then(r=>r.json())
+    .then(res => {
+        loading(false);
+        sess.kaloriBakar = res.bakarSekarang; 
+        sess.jurnal = res.jurnal;
+        localStorage.setItem("mms_v2", JSON.stringify(sess));
+        document.getElementById('akt-km').value=""; document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value="";
+        kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
+    })
+    .catch(() => {
+        loading(false);
+        toast("Gagal mencatat ke server", "danger");
+    });
+}
 
     function drawJurnal() {
         let bM = document.getElementById('jr-makan'); 
