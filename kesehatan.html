@@ -45,6 +45,11 @@
         .journal-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; max-height: 300px; overflow-y: auto; }
         .journal-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff; border: 1px solid #edf2f7; border-radius: 6px; margin-bottom: 8px; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
 
+        .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.85); z-index:9999; justify-content:center; align-items:center; flex-direction:column; gap:15px; backdrop-filter: blur(4px); }
+        .custom-toast { position: fixed; bottom: -100px; right: 20px; z-index: 9999; padding: 15px 22px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; transition: bottom 0.4s; font-size: 13px; }
+        .toast-show { bottom: 20px !important; }
+        .t-success { background: #10b981; } .t-danger { background: #ef4444; } .t-info { background: #3b82f6; }
+
         .card-header-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
         .btn-toggle-profile { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.2s; }
         .btn-toggle-profile:hover { background: #e2e8f0; }
@@ -53,9 +58,9 @@
 </head>
 <body> 
     
-    <div id="custom-loader" class="loading-overlay" style="display:none;">
+    <div id="custom-loader" class="loading-overlay">
         <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color:#D32F2F;"></i>
-        <div id="loader-text" style="font-weight:bold; margin-top:10px;">Memproses...</div>
+        <div id="loader-text" style="font-weight:bold;">Memproses...</div>
     </div>
     <div id="custom-toast" class="custom-toast"><i id="toast-icon" class="fa-solid"></i><span id="toast-msg">Notifikasi</span></div>
 
@@ -248,7 +253,6 @@
     </div>
 
     <script>
-    // ⚠️ PASTE URL WEB APP BARU HASIL DEPLOY KAMU DI SINI
     const API_URL = "https://script.google.com/macros/s/AKfycbzN0NB4NmmJuEaEvtwUr9yGKNbNitMEz_7OE80Umd4uMkQ2I3WOk_WwVJx929ThQodt/exec";
 
     let sess = null;
@@ -258,6 +262,7 @@
     function toggleProfile() {
         const area = document.getElementById('profile-content-area');
         const icon = document.getElementById('btn-toggle-icon');
+        
         if (area.style.display === 'none') {
             area.style.display = 'block';
             icon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
@@ -312,13 +317,14 @@
                 sess = res.data; sess.jurnal = res.jurnal; toast("Data dimuat!", "success");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(false); 
+                setProfileVisibility(false); // Sembunyikan panel profil otomatis untuk user lama
             } else {
+                // USER BARU: Arahkan langsung ke form pengisian data diri
                 sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
                 toast("Email belum terdaftar. Silakan lengkapi profil data diri Anda terlebih dahulu!", "warning");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(true); 
+                setProfileVisibility(true); // Paksa panel profil terbuka lebar untuk user baru
             }
         }).catch(()=> { loading(false); toast("Gagal terhubung server", "danger"); });
     }
@@ -406,7 +412,7 @@
                 sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 toast("Profil & Target Diupdate ke Sistem!", "success"); initUI();
-                setProfileVisibility(false);
+                setProfileVisibility(false); // Sembunyikan panel secara otomatis setelah sukses disimpan
             }
         });
     }
