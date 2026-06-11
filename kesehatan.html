@@ -263,25 +263,50 @@
                         <button onclick="submitMakan()" class="btn-mms" style="background:#10b981; padding:8px; margin-top:8px; font-size:13px;"><i class="fa-solid fa-check"></i> Catat Jurnal (<span id="cart-c">0</span> kcal | <span id="cart-p">0</span>g)</button>
                     </div>
 
-                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
-                        <label style="font-weight:bold; font-size:13px; display:block; margin-bottom:10px;"><i class="fa-solid fa-person-running"></i> Catat Olahraga Harian</label>
-                        <select id="akt-jenis" class="form-input" style="margin-bottom:10px;" onchange="aturInputAkt(this.value)">
-                            <option value="Lari">Lari</option><option value="Jalan Kaki">Jalan Kaki</option>
-                            <option value="Bersepeda">Bersepeda</option><option value="Angkat Beban">Angkat Beban / Gym</option>
-                        </select>
-                        
-                        <div id="in-kardio" style="position:relative; display:flex; align-items:center;">
-                            <input type="number" id="akt-km" class="form-input" placeholder="Jarak tempuh..." style="padding-right: 40px;">
-                            <span style="position:absolute; right:10px; color:#64748b; font-weight:bold; font-size:12px;">km</span>
-                        </div>
-                        
-                        <div id="in-beban" style="display:none; grid-template-columns: 1fr 1fr; gap:10px;">
-                            <div style="position:relative;"><input type="number" id="akt-set" class="form-input" placeholder="Berapa Set?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Set</span></div>
-                            <div style="position:relative;"><input type="number" id="akt-kg" class="form-input" placeholder="Beban rata-rata?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Kg</span></div>
-                        </div>
+               <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+    <label style="font-weight:bold; font-size:13px; display:block; margin-bottom:10px;"><i class="fa-solid fa-person-running"></i> Catat Olahraga Harian</label>
+    <select id="akt-jenis" class="form-input" style="margin-bottom:10px;" onchange="aturInputAkt(this.value)">
+        <option value="Lari">Lari</option>
+        <option value="Jalan Kaki">Jalan Kaki</option>
+        <option value="Bersepeda">Bersepeda</option>
+        <option value="Angkat Beban">Angkat Beban / Gym</option>
+    </select>
+    
+    <div id="in-kardio" style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div style="position:relative;">
+                <input type="number" id="akt-km" class="form-input" placeholder="Jarak..." style="padding-right: 40px;">
+                <span style="position:absolute; right:10px; top:10px; color:#64748b; font-weight:bold; font-size:12px;">km</span>
+            </div>
+            <div style="position:relative;">
+                <input type="number" id="akt-menit" class="form-input" placeholder="Waktu..." style="padding-right: 50px;">
+                <span style="position:absolute; right:10px; top:10px; color:#64748b; font-weight:bold; font-size:12px;">menit</span>
+            </div>
+        </div>
+        <div id="box-elevasi" style="position:relative;">
+            <label style="font-size:11px; font-weight:bold; color:#64748b; display:block; margin-bottom:4px;">Elevasi Lintasan (Incline Treadmill)</label>
+            <select id="akt-elevasi" class="form-input">
+                <option value="0">Datar / Luar Ruangan (0%)</option>
+                <option value="2">Incline Ringan (1% - 3%)</option>
+                <option value="5">Incline Sedang (4% - 6%)</option>
+                <option value="9">Incline Tinggi / Menanjak (7% - 10%)</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="in-beban" style="display:none; flex-direction:column; gap:10px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div style="position:relative;"><input type="number" id="akt-set" class="form-input" placeholder="Berapa Set?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Set</span></div>
+            <div style="position:relative;"><input type="number" id="akt-kg" class="form-input" placeholder="Beban?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Kg</span></div>
+        </div>
+        <div style="position:relative;">
+            <input type="number" id="akt-durasi-beban" class="form-input" placeholder="Durasi latihan beban..." style="padding-right:50px;">
+            <span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">menit</span>
+        </div>
+    </div>
 
-                        <button onclick="submitAkt()" class="btn-mms" style="background:#0f766e; padding:8px; margin-top:10px; font-size:13px;"><i class="fa-solid fa-fire"></i> Catat Pembakaran</button>
-                    </div>
+    <button onclick="submitAkt()" class="btn-mms" style="background:#0f766e; padding:8px; margin-top:10px; font-size:13px;"><i class="fa-solid fa-fire"></i> Catat Pembakaran</button>
+</div>
                 </div>
 
                 <div class="card-health" style="grid-column: 1 / -1;">
