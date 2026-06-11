@@ -557,6 +557,85 @@ window.bukaFotoFull = function(url) {
 }
 window.tutupFoto = function() { const modal = document.getElementById('modal-foto-full'); if(modal) modal.style.display = 'none'; }
 
+
+
+    /* ==========================================================================
+       LOGIKA TAMBAHAN: AUTH CHECK EMAIL LANGSUNG BERDASARKAN TSV DATABASE ANGGOTA
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+        const emailTersimpan = localStorage.getItem("mms_auth_email");
+        if (emailTersimpan) {
+            bukaAksesHalaman(emailTersimpan);
+        } else {
+            document.getElementById("auth-frame-anggota").style.display = "block";
+            document.getElementById("data-frame-anggota").style.display = "none";
+        }
+    });
+
+    function callToast(msg, type="info") {
+        const toast = document.getElementById("auth-toast");
+        const icon = document.getElementById("auth-toast-icon");
+        document.getElementById("auth-toast-msg").innerText = msg;
+        
+        icon.className = type === "success" ? "fa-solid fa-circle-check" : "fa-solid fa-circle-exclamation";
+        toast.style.background = type === "success" ? "#10b981" : "#ef4444";
+        
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function verifikasiAksesAnggota() {
+        const emailInput = document.getElementById("user-email-auth").value.trim().toLowerCase();
+        if (!emailInput) return callToast("Alamat email wajib diisi!", "warning");
+
+        document.getElementById("custom-loader").style.display = "flex";
+        
+        // Membaca linkTsvAnggota murni tanpa perantara script lain
+        fetch(`${linkTsvAnggota}&cache=${new Date().getTime()}`)
+        .then(res => res.text())
+        .then(teksData => {
+            document.getElementById("custom-loader").style.display = "none";
+            const baris = teksData.split("\n");
+            let emailDitemukan = false;
+
+            // Memeriksa kolom indeks 1 (Kolom B / Kolom ke-2 tempat email terekam di TSV)
+            for (let i = 1; i < baris.length; i++) {
+                const kolom = baris[i].split("\t");
+                if (kolom[1] && kolom[1].trim().toLowerCase() === emailInput) { 
+                    emailDitemukan = true;
+                    break;
+                }
+            }
+
+            if (emailDitemukan) {
+                localStorage.setItem("mms_auth_email", emailInput);
+                callToast("Akses terverifikasi!", "success");
+                bukaAksesHalaman(emailInput);
+            } else {
+                callToast("Email Anda tidak terdaftar di database Anggota!", "danger");
+            }
+        })
+        .catch(() => {
+            document.getElementById("custom-loader").style.display = "none";
+            callToast("Gagal memuat berkas verifikasi!", "danger");
+        });
+    }
+
+    function bukaAksesHalaman(email) {
+        document.getElementById("auth-frame-anggota").style.display = "none";
+        document.getElementById("data-frame-anggota").style.display = "block";
+        document.getElementById("lbl-user-auth").innerText = email;
+        
+        // Mengeksekusi fungsi pemrosesan data aslimu tanpa modifikasi
+        loadAnggotaDariDrive();
+    }
+
+    function logoutAksesAnggota() {
+        localStorage.removeItem("mms_auth_email");
+        location.reload();
+    }
+
+
 /* ==========================================================================
    9. LOGIKA PWA & UTILLITAS UMUM
    ========================================================================== */
