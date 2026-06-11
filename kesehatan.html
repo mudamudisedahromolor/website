@@ -45,15 +45,23 @@
         .journal-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; max-height: 300px; overflow-y: auto; }
         .journal-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff; border: 1px solid #edf2f7; border-radius: 6px; margin-bottom: 8px; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
 
-        .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.85); z-index:9999; justify-content:center; align-items:center; flex-direction:column; gap:15px; backdrop-filter: blur(4px); }
-        .custom-toast { position: fixed; bottom: -100px; right: 20px; z-index: 9999; padding: 15px 22px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; transition: bottom 0.4s; font-size: 13px; }
-        .toast-show { bottom: 20px !important; }
-        .t-success { background: #10b981; } .t-danger { background: #ef4444; } .t-info { background: #3b82f6; }
-
         .card-header-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
         .btn-toggle-profile { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.2s; }
         .btn-toggle-profile:hover { background: #e2e8f0; }
         .profile-content-wrapper { transition: all 0.3s ease-in-out; overflow: hidden; }
+
+        .mms-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+        .mms-modal-content { background-color: #fff; padding: 30px; border-radius: 16px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-top: 6px solid #D32F2F; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-small-text { display: block; font-size: 11px; color: #64748b; margin-top: 15px; background: #f1f5f9; padding: 8px; border-radius: 6px; border-left: 3px solid #64748b; text-align: left; }
+
+        /* Style Baru Efek Glow Pulse Merah ePerpustakaan MMS */
+        .welcome-user-box { padding: 15px 20px; background: #fff; border: 1px solid #ef4444; border-radius: 10px; font-weight: bold; font-size: 16px; color: #1e293b; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(211, 47, 47, 0.2); animation: pulse-glow-red 2s infinite alternate; }
+        @keyframes pulse-glow-red {
+            0% { box-shadow: 0 0 8px rgba(211, 47, 47, 0.3); border-color: #ef4444; }
+            100% { box-shadow: 0 0 18px rgba(211, 47, 47, 0.7); border-color: #b71c1c; }
+        }
+        .username-glow { color: #D32F2F; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 2px rgba(211, 47, 47, 0.1); }
     </style>
 </head>
 <body> 
@@ -63,6 +71,20 @@
         <div id="loader-text" style="font-weight:bold;">Memproses...</div>
     </div>
     <div id="custom-toast" class="custom-toast"><i id="toast-icon" class="fa-solid"></i><span id="toast-msg">Notifikasi</span></div>
+
+    <div id="reminder-modal" class="mms-modal">
+        <div class="mms-modal-content">
+            <i class="fa-solid fa-heart-circle-check" style="font-size: 55px; color: #D32F2F; margin-bottom: 15px;"></i>
+            <h3 style="margin-top:0; color:#1e293b;">Kontrol Asupan Gizi</h3>
+            <p style="font-size: 14px; color: #475569; line-height: 1.5; margin-bottom: 20px;">
+                Tetap semangat memantau asupan kalori dan makananmu hari ini. Jaga selalu pola makan demi kesehatan investasimu di masa depan!
+            </p>
+            <button class="btn-mms" onclick="tutupModalReminder()"><i class="fa-solid fa-circle-check"></i> Saya Siap Catat</button>
+            <small class="modal-small-text">
+                <i class="fa-solid fa-triangle-exclamation"></i> <strong>Catatan:</strong> Jangan lupa klik tombol <strong>"Reset Log"</strong> jika Anda ingin mengosongkan riwayat lama untuk menghitung ulang data/asupan baru hari ini.
+            </small>
+        </div>
+    </div>
 
     <header class="site-header">
         <div class="top-header">
@@ -145,6 +167,7 @@
                 <button class="btn-mms" onclick="logoutApp()" style="width:auto; padding:6px 12px; background:#475569; font-size:12px;">Keluar</button>
             </div>
 
+            <div id="mms-welcome-banner"></div>
             <div id="ai-bmi-banner"></div>
 
             <div class="health-grid">
@@ -259,6 +282,35 @@
     let kamusMenu = [];
     let cart = [];
 
+    function bukaModalReminder() {
+        document.getElementById('reminder-modal').style.display = 'flex';
+    }
+
+    // Penambahan Modifikasi Fungsi Tutup Modal Agar Sekaligus Mengecek UI Banner
+    function tutupModalReminder() {
+        document.getElementById('reminder-modal').style.display = 'none';
+        buatBannerSalam();
+    }
+
+    // FUNGSI BARU UNTUK GENERATE BANNER SALAM DINAMIS & EFEK GLOW PULSE
+    function buatBannerSalam() {
+        const bannerBox = document.getElementById('mms-welcome-banner');
+        if (sess && sess.nama) {
+            bannerBox.innerHTML = `
+                <div class="welcome-user-box">
+                    <i class="fa-solid fa-user-shield" style="color: #D32F2F;"></i>
+                    <span>Halo, <span class="username-glow">${sess.nama}</span></span>
+                </div>`;
+        } else if (sess) {
+            bannerBox.innerHTML = `
+                <div class="alert-banner alert-warning">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Silakan isi data diri Anda terlebih dahulu untuk melanjutkan penggunaan sistem!
+                </div>`;
+        } else {
+            bannerBox.innerHTML = "";
+        }
+    }
+
     function toggleProfile() {
         const area = document.getElementById('profile-content-area');
         const icon = document.getElementById('btn-toggle-icon');
@@ -317,14 +369,17 @@
                 sess = res.data; sess.jurnal = res.jurnal; toast("Data dimuat!", "success");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(false); // Sembunyikan panel profil otomatis untuk user lama
+                setProfileVisibility(false); 
+                
+                // USER LAMA: Munculkan modal popup, banner salam otomatis ke-load saat modal ditutup
+                bukaModalReminder();
             } else {
-                // USER BARU: Arahkan langsung ke form pengisian data diri
+                // USER BARU: Langsung buat banner instruksi isi data diri tanpa modal popup
                 sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
-                toast("Email belum terdaftar. Silakan lengkapi profil data diri Anda terlebih dahulu!", "warning");
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
-                setProfileVisibility(true); // Paksa panel profil terbuka lebar untuk user baru
+                setProfileVisibility(true); 
+                buatBannerSalam();
             }
         }).catch(()=> { loading(false); toast("Gagal terhubung server", "danger"); });
     }
@@ -412,7 +467,10 @@
                 sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 toast("Profil & Target Diupdate ke Sistem!", "success"); initUI();
-                setProfileVisibility(false); // Sembunyikan panel secara otomatis setelah sukses disimpan
+                setProfileVisibility(false); 
+                
+                // Setelah profil sukses disimpan pertama kali, generate banner salam
+                buatBannerSalam();
             }
         });
     }
@@ -496,8 +554,8 @@
         }
 
         loading(true, "Mencatat olahraga...");
-        fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "logAktivitas", email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar }) })
-        .then(r=>r.json()).then(res => {
+        let payload = { email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar };
+        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(r=>r.json()).then(res => {
             loading(false);
             sess.kaloriBakar = res.bakarSekarang; 
             sess.jurnal = res.jurnal;
