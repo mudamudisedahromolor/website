@@ -251,61 +251,71 @@
                         <div class="progress-container"><div id="bar-pro" class="progress-fill" style="background:#3b82f6;"></div><div id="txt-pro" class="progress-text" style="color:#fff;">0%</div></div>
                     </div>
 
-                    <div class="form-group" style="position:relative;">
-                        <label><i class="fa-solid fa-burger"></i> Cari & Tambah Makanan / Minuman</label>
-                        <input type="text" id="box-cari" class="form-input" placeholder="Ketik nama makanan..." onfocus="cariMenu('')" oninput="cariMenu(this.value)">
-                        <div id="hasil-cari" class="search-results" style="display:none;"></div>
-                    </div>
-                    
-                    <div id="cart-area" style="background:#f1f5f9; padding:10px; border-radius:6px; margin-bottom:15px; display:none;">
-                        <div style="font-size:11px; font-weight:bold; margin-bottom:5px; color:#64748b;">Akan Disubmit:</div>
-                        <div id="cart-list"></div>
-                        <button onclick="submitMakan()" class="btn-mms" style="background:#10b981; padding:8px; margin-top:8px; font-size:13px;"><i class="fa-solid fa-check"></i> Catat Jurnal (<span id="cart-c">0</span> kcal | <span id="cart-p">0</span>g)</button>
-                    </div>
-
-                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
-                        <label style="font-weight:bold; font-size:13px; display:block; margin-bottom:10px;"><i class="fa-solid fa-person-running"></i> Catat Olahraga Harian</label>
-                        <select id="akt-jenis" class="form-input" style="margin-bottom:10px;" onchange="aturInputAkt(this.value)">
-                            <option value="Lari">Lari</option>
-                            <option value="Jalan Kaki">Jalan Kaki</option>
-                            <option value="Bersepeda">Bersepeda</option>
-                            <option value="Angkat Beban">Angkat Beban / Gym</option>
-                        </select>
-                        
-                        <div id="in-kardio" style="display:flex; flex-direction:column; gap:10px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                                <div style="position:relative;">
-                                    <input type="number" id="akt-km" class="form-input" placeholder="Jarak..." style="padding-right: 40px;">
-                                    <span style="position:absolute; right:10px; top:10px; color:#64748b; font-weight:bold; font-size:12px;">km</span>
-                                </div>
-                                <div style="position:relative;">
-                                    <input type="number" id="akt-menit" class="form-input" placeholder="Waktu..." style="padding-right: 50px;">
-                                    <span style="position:absolute; right:10px; top:10px; color:#64748b; font-weight:bold; font-size:12px;">menit</span>
-                                </div>
-                            </div>
-                            <div id="box-elevasi" style="position:relative;">
-                                <label style="font-size:11px; font-weight:bold; color:#64748b; display:block; margin-bottom:4px;">Elevasi Lintasan (Incline Treadmill)</label>
-                                <select id="akt-elevasi" class="form-input">
-                                    <option value="0">Datar / Luar Ruangan (0%)</option>
-                                    <option value="2">Incline Ringan (1% - 3%)</option>
-                                    <option value="5">Incline Sedang (4% - 6%)</option>
-                                    <option value="9">Incline Tinggi / Menanjak (7% - 10%)</option>
-                                </select>
+                    <div style="border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; overflow: hidden;">
+                        <div onclick="toggleSubMenu('fold-makan', 'icon-fold-makan')" style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:12px 15px; cursor:pointer; user-select:none;">
+                            <span style="font-weight:bold; font-size:13px; color:#334155;"><i class="fa-solid fa-burger" style="color:#D32F2F;"></i> Cari & Tambah Makanan / Minuman</span>
+                            <span id="icon-fold-makan" style="color:#64748b; font-size:12px;"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div id="fold-makan" style="display:none; padding:15px; border-top:1px solid #e2e8f0; position:relative;">
+                            <input type="text" id="box-cari" class="form-input" placeholder="Ketik nama makanan..." onfocus="cariMenu('')" oninput="cariMenu(this.value)">
+                            <div id="hasil-cari" class="search-results" style="display:none;"></div>
+                            
+                            <div id="cart-area" style="background:#f1f5f9; padding:10px; border-radius:6px; margin-top:15px; display:none;">
+                                <div style="font-size:11px; font-weight:bold; margin-bottom:5px; color:#64748b;">Akan Disubmit:</div>
+                                <div id="cart-list"></div>
+                                <button onclick="submitMakan()" class="btn-mms" style="background:#10b981; padding:8px; margin-top:8px; font-size:13px;"><i class="fa-solid fa-check"></i> Catat Jurnal (<span id="cart-c">0</span> kcal | <span id="cart-p">0</span>g)</button>
                             </div>
                         </div>
-                        
-                        <div id="in-beban" style="display:none; flex-direction:column; gap:10px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                                <div style="position:relative;"><input type="number" id="akt-set" class="form-input" placeholder="Berapa Set?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Set</span></div>
-                                <div style="position:relative;"><input type="number" id="akt-kg" class="form-input" placeholder="Beban?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Kg</span></div>
-                            </div>
-                            <div style="position:relative;">
-                                <input type="number" id="akt-durasi-beban" class="form-input" placeholder="Durasi latihan beban..." style="padding-right:50px;">
-                                <span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">menit</span>
-                            </div>
-                        </div>
+                    </div>
 
-                        <button onclick="submitAkt()" class="btn-mms" style="background:#0f766e; padding:8px; margin-top:10px; font-size:13px;"><i class="fa-solid fa-fire"></i> Catat Pembakaran</button>
+                    <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                        <div onclick="toggleSubMenu('fold-olahraga', 'icon-fold-olahraga')" style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:12px 15px; cursor:pointer; user-select:none;">
+                            <span style="font-weight:bold; font-size:13px; color:#334155;"><i class="fa-solid fa-person-running" style="color:#0f766e;"></i> Catat Olahraga Harian</span>
+                            <span id="icon-fold-olahraga" style="color:#64748b; font-size:12px;"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div id="fold-olahraga" style="display:none; padding:15px; border-top:1px solid #e2e8f0; background:#fff;">
+                            <select id="akt-jenis" class="form-input" style="margin-bottom:10px;" onchange="aturInputAkt(this.value)">
+                                <option value="Lari">Lari</option>
+                                <option value="Jalan Kaki">Jalan Kaki</option>
+                                <option value="Bersepeda">Bersepeda</option>
+                                <option value="Angkat Beban">Angkat Beban / Gym</option>
+                            </select>
+                            
+                            <div id="in-kardio" style="display:flex; flex-direction:column; gap:10px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                    <div style="position:relative;">
+                                        <input type="number" id="akt-km" class="form-input" placeholder="Jarak..." style="padding-right: 40px;">
+                                        <span style="position:absolute; right:10px; top:10px; color:#64748b; font-weight:bold; font-size:12px;">km</span>
+                                    </div>
+                                    <div style="position:relative;">
+                                        <input type="number" id="akt-menit" class="form-input" placeholder="Waktu..." style="padding-right: 50px;">
+                                        <span style="position:absolute; right:10px; top:10px; color:#64748b; font-weight:bold; font-size:12px;">menit</span>
+                                    </div>
+                                </div>
+                                <div id="box-elevasi" style="position:relative;">
+                                    <label style="font-size:11px; font-weight:bold; color:#64748b; display:block; margin-bottom:4px;">Elevasi Lintasan (Incline Treadmill)</label>
+                                    <select id="akt-elevasi" class="form-input">
+                                        <option value="0">Datar / Luar Ruangan (0%)</option>
+                                        <option value="2">Incline Ringan (1% - 3%)</option>
+                                        <option value="5">Incline Sedang (4% - 6%)</option>
+                                        <option value="9">Incline Tinggi / Menanjak (7% - 10%)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div id="in-beban" style="display:none; flex-direction:column; gap:10px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                    <div style="position:relative;"><input type="number" id="akt-set" class="form-input" placeholder="Berapa Set?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Set</span></div>
+                                    <div style="position:relative;"><input type="number" id="akt-kg" class="form-input" placeholder="Beban?"><span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">Kg</span></div>
+                                </div>
+                                <div style="position:relative;">
+                                    <input type="number" id="akt-durasi-beban" class="form-input" placeholder="Durasi latihan beban..." style="padding-right:50px;">
+                                    <span style="position:absolute; right:10px; top:10px; color:#64748b; font-size:12px;">menit</span>
+                                </div>
+                            </div>
+
+                            <button onclick="submitAkt()" class="btn-mms" style="background:#0f766e; padding:8px; margin-top:12px; font-size:13px;"><i class="fa-solid fa-fire"></i> Catat Pembakaran</button>
+                        </div>
                     </div>
                 </div>
 
@@ -436,6 +446,20 @@
         fetchKamus();
     };
 
+    // 🟢 SAKELAR TRIGGER UNTUK TAMPIL SEMBUNYI MODUL INPUT
+    function toggleSubMenu(idTarget, idIcon) {
+        const areaMenu = document.getElementById(idTarget);
+        const areaIcon = document.getElementById(idIcon);
+        
+        if (areaMenu.style.display === 'none' || areaMenu.style.display === '') {
+            areaMenu.style.display = 'block';
+            areaIcon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+        } else {
+            areaMenu.style.display = 'none';
+            areaIcon.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
+        }
+    }
+
     function fetchKamus() {
         fetch(`${API_URL}?aksi=getMakanan`).then(r=>r.json()).then(d => { kamusMenu = d; }).catch(console.error);
     }
@@ -560,7 +584,6 @@
             filt.slice(0,15).forEach((f,i) => {
                 let div = document.createElement('div'); div.className = 'search-item';
                 div.innerHTML = `<span>${f.nama}</span> <div><span class="badge-cal">+${f.kalori}k</span> <span class="badge-pro">+${f.protein}p</span></div>`;
-                // Kirim juga parameter kategori (f.kategori) ke fungsi cart
                 div.onclick = () => { tambahkanCart(f.nama, f.kalori, f.protein, f.kategori || "Makanan"); };
                 box.appendChild(div);
             });
@@ -594,7 +617,6 @@
         cart.forEach(c => { tC+=c.c; tP+=c.p; nms.push(c.n); kats.push(c.k); });
         
         loading(true, "Mencatat Gizi...");
-        // Sertakan data kategori gabungan ke server (dipisah tanda koma jika multi-submit)
         fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "logMakan", email: sess.email, namaMakanan: nms.join(", "), kalori: tC, protein: tP, kategori: kats.join(", ") }) })
         .then(r=>r.json()).then(res => {
             loading(false);
@@ -606,20 +628,16 @@
         });
     }
 
- function aturInputAkt(jns) {
-    if(jns === "Angkat Beban") {
-        // Tampilkan blok beban, sembunyikan blok kardio
-        document.getElementById('in-kardio').style.display = 'none';
-        document.getElementById('in-beban').style.display = 'flex';
-    } else {
-        // Tampilkan blok kardio, sembunyikan total blok beban 🚀 (KUNCI DI SINI)
-        document.getElementById('in-kardio').style.display = 'flex';
-        document.getElementById('in-beban').style.display = 'none';
-        
-        // Tampilkan opsi elevasi HANYA untuk Lari atau Jalan Kaki. Jika Bersepeda, sembunyikan.
-        document.getElementById('box-elevasi').style.display = (jns === "Bersepeda") ? "none" : "block";
+    function aturInputAkt(jns) {
+        if(jns === "Angkat Beban") {
+            document.getElementById('in-kardio').style.display = 'none';
+            document.getElementById('in-beban').style.display = 'flex';
+        } else {
+            document.getElementById('in-kardio').style.display = 'flex';
+            document.getElementById('in-beban').style.display = 'none';
+            document.getElementById('box-elevasi').style.display = (jns === "Bersepeda") ? "none" : "block";
+        }
     }
-}
 
     function submitAkt() {
         let jenis = document.getElementById('akt-jenis').value;
@@ -693,13 +711,12 @@
                 totalKaloriHarian += Number(item.kalori) || 0;
                 totalProteinHarian += Number(item.protein) || 0;
                 
-                // 🚀 PERUBAHAN ICON DINAMIS: Jika teks kategori mengandung "Minuman", gunakan fa-glass-water
                 let kelasIcon = "fa-solid fa-cookie-bite";
                 let warnaIcon = "#b45309";
                 
                 if(item.kategori && item.kategori.toLowerCase().includes("minuman")) {
                     kelasIcon = "fa-solid fa-glass-water";
-                    warnaIcon = "#1d4ed8"; // Warna biru segar untuk indikasi cairan
+                    warnaIcon = "#1d4ed8";
                 }
 
                 bM.innerHTML += `
