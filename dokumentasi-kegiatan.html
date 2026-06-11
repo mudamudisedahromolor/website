@@ -14,9 +14,41 @@
     <link rel="stylesheet" href="style.css?v=103">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
+
+    <style>
+        /* Standarisasi text adjustment browser agar tidak auto-scale layout */
+        html, body { -webkit-text-size-adjust: 100%; -moz-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        /* Kunci ukuran font input minimal 16px di mobile untuk mencegah forced-zoom browser */
+        @media (max-width: 768px) {
+            #user-email-auth, #input-cari-dok { font-size: 16px !important; }
+        }
+
+        /* Desain Box Form Login Akses Dokumentasi */
+        .auth-card-mms { background: #fff; padding: 30px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); max-width: 420px; margin: 60px auto; text-align: center; border-top: 5px solid #D32F2F; }
+        .auth-form-group { text-align: left; margin: 20px 0; }
+        .auth-form-group label { display: block; font-weight: bold; font-size: 13px; color: #475569; margin-bottom: 6px; }
+        .auth-input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        .btn-auth-submit { background-color: #D32F2F; color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; font-size: 14px; }
+        .btn-auth-submit:hover { background-color: #b71c1c; }
+
+        /* Toast Komponen Notifikasi Kustom */
+        .toast-auth { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #334155; color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: bold; font-size: 14px; z-index: 99999; transition: top 0.4s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 8px; }
+        .toast-auth.show { top: 30px; }
+    </style>
 </head>
 <body> 
     
+    <div id="custom-loader" class="loading-overlay" style="display: none;">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color:#D32F2F;"></i>
+        <div id="loader-text" style="font-weight:bold; margin-top: 10px;">Memverifikasi Akses...</div>
+    </div>
+
+    <div id="auth-toast" class="toast-auth">
+        <i id="auth-toast-icon" class="fa-solid"></i>
+        <span id="auth-toast-msg"></span>
+    </div>
+
     <header class="site-header">
         <div class="top-header">
             <div class="header-logo-area">
@@ -29,21 +61,21 @@
                 </a>
             </div>
             
-        <div class="header-right-stuff">
-            <div class="header-socials">
-                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <div class="header-right-stuff">
+                <div class="header-socials">
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
             </div>
-        </div>
 
-        <button class="menu-toggle" id="mobile-menu-btn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </div> 
+            <button class="menu-toggle" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div> 
         
-<nav class="main-navbar">
+        <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
                 <li class="nav-item">
@@ -82,17 +114,17 @@
                     <ul class="submenu">
                         <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
                         <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                         <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
+                        <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
                     </ul>
                 </li>
-               <li class="nav-item">
-                 <a href="index.html">RUANG LITERASI</a>
+                <li class="nav-item">
+                    <a href="index.html">RUANG LITERASI</a>
                     <ul class="submenu">
-                       <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
-                       <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
+                        <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
+                        <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
                     </ul>
-                 </li>
-             </ul>
+                </li>
+            </ul>
 
             <div class="navbar-mobile-only">
                 <div class="header-socials">
@@ -105,9 +137,25 @@
         </nav>
     </header>
 
-    <!-- 🛠️ DIUBAH: Mengganti class pembungkus utama menjadi gallery-page-wrapper agar kotak putih otomatis naik ke atas -->
     <div class="gallery-page-wrapper">
-        <div class="content-box-gallery">
+        <div id="auth-frame-anggota" class="auth-card-mms" style="display: none;">
+            <i class="fa-solid fa-user-lock" style="font-size: 50px; color: #D32F2F;"></i>
+            <h3 style="margin-top:15px; color:#1e293b;">Deklarasi Hak Akses</h3>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.4;">Untuk melindungi privasi arsip dokumentasi warga pemuda, silakan konfirmasi email terdaftar Anda untuk membuka galeri kegiatan.</p>
+            
+            <div class="auth-form-group">
+                <label>Alamat Email Warga</label>
+                <input type="email" id="user-email-auth" class="auth-input" placeholder="nama@email.com">
+            </div>
+            <button class="btn-auth-submit" onclick="verifikasiAksesAnggota()"><i class="fa-solid fa-unlock-keyhole"></i> Verifikasi & Buka Galeri</button>
+        </div>
+
+        <div id="data-frame-anggota" class="content-box-gallery" style="display: none;">
+            <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 20px; background:#f8fafc; padding:10px 15px; border-radius:8px; border:1px solid #e2e8f0;">
+                <div style="font-size: 12px; color:#475569;"><i class="fa-solid fa-circle-user" style="color:#10b981;"></i> Sesi: <strong id="lbl-user-auth"></strong></div>
+                <button onclick="logoutAksesAnggota()" style="background:none; border:none; color:#ef4444; font-weight:bold; font-size:11px; cursor:pointer;"><i class="fa-solid fa-power-off"></i> Kunci Akses</button>
+            </div>
+
             <h2 class="box-title">DOKUMENTASI KEGIATAN</h2>
             <hr class="box-divider">
             <p class="gallery-desc">
@@ -161,10 +209,8 @@
         </div>
     </div>
 
-
     <footer class="site-footer">
         <div class="footer-container">
-            
             <div class="footer-column info-col">
                 <div class="footer-brand">
                     <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
@@ -199,7 +245,6 @@
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
         </div>
 
         <div class="footer-bottom">
@@ -207,7 +252,86 @@
         </div>
     </footer>
     
-<script src="online-tracker.js"></script>
+    <script src="online-tracker.js"></script>
     <script src="script.js?v=1"></script>
+
+    <script>
+    const linkTsvAnggota = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR45-ysPdK4uVibwJQbXKvaGGA2zlX3m2GnAS2392fiSDwENSz9ABffImneI-u4ZGmErvHbdM5RJoDi/pub?gid=992968433&single=true&output=tsv";
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const emailSaved = localStorage.getItem("mms_auth_email");
+        if (emailSaved) {
+            bukaAksesHalaman(emailSaved);
+        } else {
+            document.getElementById("auth-frame-anggota").style.display = "block";
+            document.getElementById("data-frame-anggota").style.display = "none";
+        }
+    });
+
+    function callToast(msg, type="info") {
+        const toast = document.getElementById("auth-toast");
+        const icon = document.getElementById("auth-toast-icon");
+        document.getElementById("auth-toast-msg").innerText = msg;
+        
+        icon.className = type === "success" ? "fa-solid fa-circle-check" : "fa-solid fa-circle-exclamation";
+        toast.style.background = type === "success" ? "#10b981" : "#ef4444";
+        
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function verifikasiAksesAnggota() {
+        const emailInput = document.getElementById("user-email-auth").value.trim().toLowerCase();
+        if (!emailInput) return callToast("Alamat email wajib diisi!", "warning");
+
+        document.getElementById("custom-loader").style.display = "flex";
+        
+        // Membaca file database TSV Anggota secara lokal untuk validasi email
+        fetch(`${linkTsvAnggota}&cache=${new Date().getTime()}`)
+        .then(res => res.text())
+        .then(teksData => {
+            document.getElementById("custom-loader").style.display = "none";
+            const baris = teksData.split("\n");
+            let emailDitemukan = false;
+
+            // Memeriksa kolom indeks 1 (Kolom B / Tempat penyimpanan data email warga)
+            for (let i = 1; i < baris.length; i++) {
+                const kolom = baris[i].split("\t");
+                if (kolom[1] && kolom[1].trim().toLowerCase() === emailInput) { 
+                    emailDitemukan = true;
+                    break;
+                }
+            }
+
+            if (emailDitemukan) {
+                localStorage.setItem("mms_auth_email", emailInput);
+                callToast("Akses terverifikasi!", "success");
+                bukaAksesHalaman(emailInput);
+            } else {
+                callToast("Email Anda tidak terdaftar di database Anggota!", "danger");
+            }
+        })
+        .catch(() => {
+            document.getElementById("custom-loader").style.display = "none";
+            callToast("Gagal memuat berkas verifikasi!", "danger");
+        });
+    }
+
+    function bukaAksesHalaman(email) {
+        document.getElementById("auth-frame-anggota").style.display = "none";
+        document.getElementById("data-frame-anggota").style.display = "block";
+        document.getElementById("lbl-user-auth").innerText = email;
+        
+        // Pemicu otomatis penarik berkas galeri aslimu dari script.js jika ada
+        if (typeof loadDokumentasiDariDrive === "function") {
+            loadDokumentasiDariDrive();
+        }
+    }
+
+    function logoutAksesAnggota() {
+        localStorage.removeItem("mms_auth_email");
+        location.reload();
+    }
+    </script>
 </body>
 </html>
