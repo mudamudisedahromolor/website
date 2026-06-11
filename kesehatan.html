@@ -45,11 +45,6 @@
         .journal-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; max-height: 300px; overflow-y: auto; }
         .journal-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff; border: 1px solid #edf2f7; border-radius: 6px; margin-bottom: 8px; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
 
-        .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.85); z-index:9999; justify-content:center; align-items:center; flex-direction:column; gap:15px; backdrop-filter: blur(4px); }
-        .custom-toast { position: fixed; bottom: -100px; right: 20px; z-index: 9999; padding: 15px 22px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; transition: bottom 0.4s; font-size: 13px; }
-        .toast-show { bottom: 20px !important; }
-        .t-success { background: #10b981; } .t-danger { background: #ef4444; } .t-info { background: #3b82f6; }
-
         .card-header-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
         .btn-toggle-profile { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.2s; }
         .btn-toggle-profile:hover { background: #e2e8f0; }
@@ -58,9 +53,9 @@
 </head>
 <body> 
     
-    <div id="custom-loader" class="loading-overlay">
+    <div id="custom-loader" class="loading-overlay" style="display:none;">
         <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color:#D32F2F;"></i>
-        <div id="loader-text" style="font-weight:bold;">Memproses...</div>
+        <div id="loader-text" style="font-weight:bold; margin-top:10px;">Memproses...</div>
     </div>
     <div id="custom-toast" class="custom-toast"><i id="toast-icon" class="fa-solid"></i><span id="toast-msg">Notifikasi</span></div>
 
@@ -253,340 +248,316 @@
     </div>
 
     <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzN0NB4NmmJuEaEvtwUr9yGKNbNitMEz_7OE80Umd4uMkQ2I3WOk_WwVJx929ThQodt/exec";
+    let sess = null;
+    let kamusMenu = [];
+    let cart = [];
 
-   let sess = null;
-let kamusMenu = [];
-let cart = [];
-
-function toggleProfile() {
-    const area = document.getElementById('profile-content-area');
-    const icon = document.getElementById('btn-toggle-icon');
-    
-    if (area.style.display === 'none') {
-        area.style.display = 'block';
-        icon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
-    } else {
-        area.style.display = 'none';
-        icon.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
-    }
-}
-
-function setProfileVisibility(show) {
-    const area = document.getElementById('profile-content-area');
-    const icon = document.getElementById('btn-toggle-icon');
-    if(show) {
-        area.style.display = 'block';
-        icon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
-    } else {
-        area.style.display = 'none';
-        icon.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
-    }
-}
-
-function loading(show, text="Memproses...") {
-    document.getElementById('loader-text').innerText = text;
-    document.getElementById('custom-loader').style.display = show ? 'flex' : 'none';
-}
-
-function toast(msg, type="info") {
-    const el = document.getElementById('custom-toast');
-    document.getElementById('toast-msg').innerText = msg;
-    el.className = `custom-toast t-${type} toast-show`;
-    setTimeout(() => el.classList.remove('toast-show'), 3500);
-}
-
-// 1. KETIKA HALAMAN DIBUKA: AMBIL KAMUS MAKANAN LANGSUNG DARI SCRIPT
-window.onload = () => {
-    localStorage.removeItem("mms_v2");
-    document.getElementById('login-frame').style.display = 'block';
-    document.getElementById('dashboard-frame').style.display = 'none';
-    
-    // Sinkronisasi Kamus Makanan langsung dari backend
-    google.script.run.withSuccessHandler(function(d) {
-        kamusMenu = JSON.parse(d);
-    }).getKamusMakanan();
-};
-
-// 2. PROSES LOGIN AMAN (SINKRON KE BACKEND)
-function loginApp() {
-    let email = document.getElementById('user-email-input').value;
-    if(!email) return toast("Email wajib diisi", "danger");
-    loading(true, "Membuka database...");
-    
-    google.script.run.withSuccessHandler(function(response) {
-        loading(false);
-        let res = JSON.parse(response);
-        if(res.status === 'old_user') {
-            sess = res.data; sess.jurnal = res.jurnal; toast("Data dimuat!", "success");
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            initUI();
-            setProfileVisibility(false);
+    function setProfileVisibility(show) {
+        const area = document.getElementById('profile-content-area');
+        const icon = document.getElementById('btn-toggle-icon');
+        if(show) {
+            area.style.display = 'block';
+            icon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
         } else {
-            sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
-            toast("Email belum terdaftar. Silakan lengkapi profil data diri Anda!", "warning");
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            initUI();
-            setProfileVisibility(true);
+            area.style.display = 'none';
+            icon.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
         }
-    }).prosesLogin(email);
-}
-
-// 3. REFRESH DATA JURNAL SECARA REAL-TIME
-function manualRefresh() {
-    if(!sess || !sess.email) return;
-    loading(true, "Sinkronisasi data terbaru...");
-    
-    google.script.run.withSuccessHandler(function(response) {
-        loading(false);
-        let res = JSON.parse(response);
-        if(res.status === 'old_user') {
-            sess = res.data; sess.jurnal = res.jurnal;
-            localStorage.setItem("mms_v2", JSON.stringify(sess));
-            initUI(); toast("Tampilan terupdate!", "success");
-        }
-    }).prosesLogin(sess.email);
-}
-
-function logoutApp() { localStorage.removeItem("mms_v2"); location.reload(); }
-
-function initUI() {
-    document.getElementById('login-frame').style.display = 'none';
-    document.getElementById('dashboard-frame').style.display = 'block';
-    document.getElementById('lbl-email').innerText = sess.email;
-    
-    document.getElementById('p-nama').value = sess.nama || ""; 
-    document.getElementById('p-gender').value = sess.gender || "Laki-laki";
-    document.getElementById('p-umur').value = sess.umur || ""; 
-    document.getElementById('p-tb').value = sess.tb || "";
-    document.getElementById('p-bb').value = sess.bb || ""; 
-    document.getElementById('p-diet').value = sess.diet || "maintain";
-    
-    kalkulasiUI(); drawJurnal();
-}
-
-function kalkulasiUI() {
-    let bb = Number(document.getElementById('p-bb').value) || 0;
-    let tb = Number(document.getElementById('p-tb').value) || 0;
-    let aiBox = document.getElementById('ai-bmi-banner');
-    if(bb > 0 && tb > 0) {
-        let bmi = (bb / ((tb/100)*(tb/100))).toFixed(1);
-        if(bmi >= 25) aiBox.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> AI Alert: Kategori Obesitas (BMI ${bmi}). Sistem sangat menyarankan memilih program 'Turun Agresif' dan perhatikan asupan protein!</div>`;
-        else if(bmi >= 23) aiBox.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> AI Alert: Overweight (BMI ${bmi}). Waspada kenaikan berat badan.</div>`;
-        else aiBox.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-check-circle"></i> AI: Berat Badan Ideal (BMI ${bmi}). Pertahankan!</div>`;
     }
 
-    let diet = document.getElementById('p-diet').value;
-    let defisit = diet === "lose_025" ? 275 : (diet === "lose_050" ? 550 : (diet === "lose_100" ? 1100 : 0));
-    let baseBMR = sess.bmr || 0;
-    let targetKalori = baseBMR - defisit;
-    if(targetKalori < 1100 && baseBMR > 0) targetKalori = 1100;
-    
-    let netKaloriMasuk = Number(sess.kaloriMasuk || 0) - Number(sess.kaloriBakar || 0); if(netKaloriMasuk < 0) netKaloriMasuk = 0;
-    let sisaKalori = targetKalori - netKaloriMasuk;
-    let pctKal = targetKalori > 0 ? Math.min(Math.round((netKaloriMasuk/targetKalori)*100), 100) : 0;
+    function loading(show, text="Memproses...") {
+        document.getElementById('loader-text').innerText = text;
+        document.getElementById('custom-loader').style.display = show ? 'flex' : 'none';
+    }
 
-    document.getElementById('ui-netkal').innerText = targetKalori;
-    document.getElementById('ui-sisakal').innerText = sisaKalori > 0 ? sisaKalori : "HABIS!";
-    document.getElementById('bar-kal').style.width = pctKal + '%';
-    document.getElementById('bar-kal').style.background = pctKal >= 100 ? '#ef4444' : '#10b981';
-    document.getElementById('txt-kal').innerText = pctKal + '%';
+    function toast(msg, type="info") {
+        const el = document.getElementById('custom-toast');
+        document.getElementById('toast-msg').innerText = msg;
+        el.className = `custom-toast t-${type} toast-show`;
+        setTimeout(() => el.classList.remove('toast-show'), 3500);
+    }
 
-    let targetPro = sess.targetProtein || 0;
-    let proMasuk = Number(sess.proteinMasuk || 0);
-    let pctPro = targetPro > 0 ? Math.min(Math.round((proMasuk/targetPro)*100), 100) : 0;
-    
-    document.getElementById('ui-netpro').innerText = targetPro;
-    document.getElementById('ui-sisapro').innerText = proMasuk;
-    document.getElementById('bar-pro').style.width = pctPro + '%';
-    document.getElementById('txt-pro').innerText = pctPro + '%';
-}
-
-// 4. SIMPAN PROFIL LANGSUNG KE GOOGLE SHEETS
-function simpanProfil() {
-    let payload = {
-        email: sess.email,
-        nama: document.getElementById('p-nama').value, gender: document.getElementById('p-gender').value,
-        umur: document.getElementById('p-umur').value, tb: document.getElementById('p-tb').value,
-        bb: document.getElementById('p-bb').value, diet: document.getElementById('p-diet').value
+    window.onload = () => {
+        localStorage.removeItem("mms_v2");
+        document.getElementById('login-frame').style.display = 'block';
+        document.getElementById('dashboard-frame').style.display = 'none';
+        
+        // Ambil kamus makanan internal script
+        google.script.run.withSuccessHandler(function(d) {
+            kamusMenu = JSON.parse(d);
+        }).getKamusMakanan();
     };
-    loading(true, "Menghitung & Menyimpan AI Metrik...");
-    
-    google.script.run.withSuccessHandler(function(response) {
-        loading(false);
-        let res = JSON.parse(response);
-        if(res.status==='success'){
+
+    function loginApp() {
+        let email = document.getElementById('user-email-input').value;
+        if(!email) return toast("Email wajib diisi", "danger");
+        loading(true, "Membuka database...");
+        
+        google.script.run.withSuccessHandler(function(response) {
+            loading(false);
+            let res = JSON.parse(response);
+            if(res.status === 'old_user') {
+                sess = res.data; sess.jurnal = res.jurnal; toast("Data dimuat!", "success");
+                localStorage.setItem("mms_v2", JSON.stringify(sess));
+                initUI();
+                setProfileVisibility(false);
+            } else {
+                sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
+                toast("Email belum terdaftar. Silakan lengkapi profil data diri Anda terlebih dahulu!", "warning");
+                localStorage.setItem("mms_v2", JSON.stringify(sess));
+                initUI();
+                setProfileVisibility(true);
+            }
+        }).prosesLogin(email);
+    }
+
+    function manualRefresh() {
+        if(!sess || !sess.email) return;
+        loading(true, "Sinkronisasi data terbaru...");
+        
+        google.script.run.withSuccessHandler(function(response) {
+            loading(false);
+            let res = JSON.parse(response);
+            if(res.status === 'old_user') {
+                sess = res.data; sess.jurnal = res.jurnal;
+                localStorage.setItem("mms_v2", JSON.stringify(sess));
+                initUI(); toast("Tampilan terupdate!", "success");
+            }
+        }).prosesLogin(sess.email);
+    }
+
+    function logoutApp() { localStorage.removeItem("mms_v2"); location.reload(); }
+
+    function initUI() {
+        document.getElementById('login-frame').style.display = 'none';
+        document.getElementById('dashboard-frame').style.display = 'block';
+        document.getElementById('lbl-email').innerText = sess.email;
+        
+        document.getElementById('p-nama').value = sess.nama || ""; 
+        document.getElementById('p-gender').value = sess.gender || "Laki-laki";
+        document.getElementById('p-umur').value = sess.umur || ""; 
+        document.getElementById('p-tb').value = sess.tb || "";
+        document.getElementById('p-bb').value = sess.bb || ""; 
+        document.getElementById('p-diet').value = sess.diet || "maintain";
+        
+        kalkulasiUI(); drawJurnal();
+    }
+
+    function kalkulasiUI() {
+        let bb = Number(document.getElementById('p-bb').value) || 0;
+        let tb = Number(document.getElementById('p-tb').value) || 0;
+        let aiBox = document.getElementById('ai-bmi-banner');
+        if(bb > 0 && tb > 0) {
+            let bmi = (bb / ((tb/100)*(tb/100))).toFixed(1);
+            if(bmi >= 25) aiBox.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> AI Alert: Kategori Obesitas (BMI ${bmi}). Sistem sangat menyarankan memilih program 'Turun Agresif' dan perhatikan asupan protein!</div>`;
+            else if(bmi >= 23) aiBox.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> AI Alert: Overweight (BMI ${bmi}). Waspada kenaikan berat badan.</div>`;
+            else aiBox.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-check-circle"></i> AI: Berat Badan Ideal (BMI ${bmi}). Pertahankan!</div>`;
+        }
+
+        let diet = document.getElementById('p-diet').value;
+        let defisit = diet === "lose_025" ? 275 : (diet === "lose_050" ? 550 : (diet === "lose_100" ? 1100 : 0));
+        let baseBMR = sess.bmr || 0;
+        let targetKalori = baseBMR - defisit;
+        if(targetKalori < 1100 && baseBMR > 0) targetKalori = 1100;
+        
+        let netKaloriMasuk = Number(sess.kaloriMasuk || 0) - Number(sess.kaloriBakar || 0); if(netKaloriMasuk < 0) netKaloriMasuk = 0;
+        let sisaKalori = targetKalori - netKaloriMasuk;
+        let pctKal = targetKalori > 0 ? Math.min(Math.round((netKaloriMasuk/targetKalori)*100), 100) : 0;
+
+        document.getElementById('ui-netkal').innerText = targetKalori;
+        document.getElementById('ui-sisakal').innerText = sisaKalori > 0 ? sisaKalori : "HABIS!";
+        document.getElementById('bar-kal').style.width = pctKal + '%';
+        document.getElementById('bar-kal').style.background = pctKal >= 100 ? '#ef4444' : '#10b981';
+        document.getElementById('txt-kal').innerText = pctKal + '%';
+
+        let targetPro = sess.targetProtein || 0;
+        let proMasuk = Number(sess.proteinMasuk || 0);
+        let pctPro = targetPro > 0 ? Math.min(Math.round((proMasuk/targetPro)*100), 100) : 0;
+        
+        document.getElementById('ui-netpro').innerText = targetPro;
+        document.getElementById('ui-sisapro').innerText = proMasuk;
+        document.getElementById('bar-pro').style.width = pctPro + '%';
+        document.getElementById('txt-pro').innerText = pctPro + '%';
+    }
+
+    function simpanProfil() {
+        let payload = {
+            email: sess.email,
+            nama: document.getElementById('p-nama').value, gender: document.getElementById('p-gender').value,
+            umur: document.getElementById('p-umur').value, tb: document.getElementById('p-tb').value,
+            bb: document.getElementById('p-bb').value, diet: document.getElementById('p-diet').value
+        };
+        loading(true, "Menghitung & Menyimpan AI Metrik...");
+        
+        google.script.run.withSuccessHandler(function(response) {
+            loading(false);
+            let res = JSON.parse(response);
             sess.nama = payload.nama; sess.gender = payload.gender;
             sess.umur = payload.umur; sess.tb = payload.tb; sess.bb = payload.bb;
             sess.bmr = res.bmr; sess.targetProtein = res.targetProtein; sess.jurnal = res.jurnal;
             localStorage.setItem("mms_v2", JSON.stringify(sess));
             toast("Profil & Target Diupdate ke Sistem!", "success"); initUI();
             setProfileVisibility(false);
+        }).simpanProfil(payload);
+    }
+
+    function cariMenu(q) {
+        let box = document.getElementById('hasil-cari'); box.innerHTML = "";
+        let src = q.toLowerCase();
+        let filt = kamusMenu.filter(k => k.nama.toLowerCase().includes(src));
+        if(filt.length === 0) box.innerHTML = '<div style="padding:10px; font-size:12px;">Tidak ditemukan.</div>';
+        else {
+            filt.slice(0,15).forEach((f,i) => {
+                let div = document.createElement('div'); div.className = 'search-item';
+                div.innerHTML = `<span>${f.nama}</span> <div><span class="badge-cal">+${f.kalori}k</span> <span class="badge-pro">+${f.protein}p</span></div>`;
+                div.onclick = () => { tambahkanCart(f.nama, f.kalori, f.protein); };
+                box.appendChild(div);
+            });
         }
-    }).simpanProfil(payload);
-}
+        box.style.display = 'block';
+    }
+    document.addEventListener('click', (e) => { if(!e.target.closest('.form-group')) document.getElementById('hasil-cari').style.display='none'; });
 
-function cariMenu(q) {
-    let box = document.getElementById('hasil-cari'); box.innerHTML = "";
-    let src = q.toLowerCase();
-    let filt = kamusMenu.filter(k => k.nama.toLowerCase().includes(src));
-    if(filt.length === 0) box.innerHTML = '<div style="padding:10px; font-size:12px;">Tidak ditemukan.</div>';
-    else {
-        filt.slice(0,15).forEach((f,i) => {
-            let div = document.createElement('div'); div.className = 'search-item';
-            div.innerHTML = `<span>${f.nama}</span> <div><span class="badge-cal">+${f.kalori}k</span> <span class="badge-pro">+${f.protein}p</span></div>`;
-            div.onclick = () => { tambahkanCart(f.nama, f.kalori, f.protein); };
-            box.appendChild(div);
+    function tambahkanCart(nm, cal, pro) {
+        cart.push({ id: Date.now(), n: nm, c: Number(cal), p: Number(pro) });
+        document.getElementById('box-cari').value = ""; document.getElementById('hasil-cari').style.display='none';
+        renderCart();
+    }
+    function hapusCart(id) { cart = cart.filter(c => c.id !== id); renderCart(); }
+    
+    function renderCart() {
+        let cArea = document.getElementById('cart-area'); let cList = document.getElementById('cart-list');
+        if(cart.length === 0) { cArea.style.display='none'; return; }
+        cArea.style.display='block'; cList.innerHTML = "";
+        let tC=0, tP=0;
+        cart.forEach(c => {
+            tC+=c.c; tP+=c.p;
+            cList.innerHTML += `<div class="journal-item" style="margin-bottom:4px; padding:6px;"><span>${c.n}</span> <span><b style="color:#b45309;">+${c.c}k</b> <b style="color:#1d4ed8;">+${c.p}p</b> <i class="fa-solid fa-xmark" style="color:red; margin-left:8px; cursor:pointer;" onclick="hapusCart(${c.id})"></i></span></div>`;
         });
-    }
-    box.style.display = 'block';
-}
-document.addEventListener('click', (e) => { if(!e.target.closest('.form-group')) document.getElementById('hasil-cari').style.display='none'; });
-
-function tambahkanCart(nm, cal, pro) {
-    cart.push({ id: Date.now(), n: nm, c: Number(cal), p: Number(pro) });
-    document.getElementById('box-cari').value = ""; document.getElementById('hasil-cari').style.display='none';
-    renderCart();
-}
-function hapusCart(id) { cart = cart.filter(c => c.id !== id); renderCart(); }
-
-function renderCart() {
-    let cArea = document.getElementById('cart-area'); let cList = document.getElementById('cart-list');
-    if(cart.length === 0) { cArea.style.display='none'; return; }
-    cArea.style.display='block'; cList.innerHTML = "";
-    let tC=0, tP=0;
-    cart.forEach(c => {
-        tC+=c.c; tP+=c.p;
-        cList.innerHTML += `<div class="journal-item" style="margin-bottom:4px; padding:6px;"><span>${c.n}</span> <span><b style="color:#b45309;">+${c.c}k</b> <b style="color:#1d4ed8;">+${c.p}p</b> <i class="fa-solid fa-xmark" style="color:red; margin-left:8px; cursor:pointer;" onclick="hapusCart(${c.id})"></i></span></div>`;
-    });
-    document.getElementById('cart-c').innerText = tC; document.getElementById('cart-p').innerText = tP;
-}
-
-// 5. SUBMIT MAKANAN KE DATABASE
-function submitMakan() {
-    if(cart.length===0) return;
-    let tC=0, tP=0, nms=[];
-    cart.forEach(c => { tC+=c.c; tP+=c.p; nms.push(c.n); });
-    loading(true, "Mencatat Gizi...");
-    
-    let payload = { email: sess.email, namaMakanan: nms.join(", "), kalori: tC, protein: tP };
-    
-    google.script.run.withSuccessHandler(function(response) {
-        loading(false);
-        let res = JSON.parse(response);
-        sess.kaloriMasuk = res.kaloriSekarang; 
-        sess.proteinMasuk = res.proteinSekarang; 
-        sess.jurnal = res.jurnal;
-        localStorage.setItem("mms_v2", JSON.stringify(sess));
-        cart=[]; renderCart(); kalkulasiUI(); drawJurnal(); toast("Tercatat!", "success");
-    }).catatMakan(payload);
-}
-
-function aturInputAkt(jns) {
-    if(jns === "Angkat Beban") {
-        document.getElementById('in-kardio').style.display = 'none';
-        document.getElementById('in-beban').style.display = 'grid';
-    } else {
-        document.getElementById('in-kardio').style.display = 'flex';
-        document.getElementById('in-beban').style.display = 'none';
-    }
-}
-
-// 6. SUBMIT OLAHRAGA KE DATABASE
-function submitAkt() {
-    let jenis = document.getElementById('akt-jenis').value;
-    let detail = "", kalBakar = 0;
-
-    if(jenis === "Angkat Beban") {
-        let s = Number(document.getElementById('akt-set').value); let k = Number(document.getElementById('akt-kg').value);
-        if(!s || !k) return toast("Isi set dan beban!", "warning");
-        detail = `${s} Set x ${k}kg`;
-        kalBakar = Math.round(s * (k * 0.5));
-    } else {
-        let km = Number(document.getElementById('akt-km').value);
-        if(!km) return toast("Isi jarak km!", "warning");
-        detail = `${km} km`;
-        kalBakar = Math.round(km * (jenis==="Lari"?65:(jenis==="Jalan Kaki"?42:30)));
+        document.getElementById('cart-c').innerText = tC; document.getElementById('cart-p').innerText = tP;
     }
 
-    loading(true, "Mencatat olahraga...");
-    let payload = { email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar };
-    
-    google.script.run.withSuccessHandler(function(response) {
-        loading(false);
-        let res = JSON.parse(response);
-        sess.kaloriBakar = res.bakarSekarang; 
-        sess.jurnal = res.jurnal;
-        localStorage.setItem("mms_v2", JSON.stringify(sess));
-        document.getElementById('akt-km').value = ""; document.getElementById('akt-set').value = ""; document.getElementById('akt-kg').value = "";
-        kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
-    }).catatAktivitas(payload);
-}
-
-function drawJurnal() {
-    let bM = document.getElementById('jr-makan'); 
-    let bA = document.getElementById('jr-akt');
-    let j = sess.jurnal;
-    
-    bM.innerHTML = ""; 
-    bA.innerHTML = "";
-
-    if (j && j.makanan && j.makanan.length > 0) {
-        let totalKaloriHarian = 0;
-        let totalProteinHarian = 0;
-
-        j.makanan.forEach((item) => {
-            totalKaloriHarian += Number(item.kalori) || 0;
-            totalProteinHarian += Number(item.protein) || 0;
-
-            bM.innerHTML += `
-                <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-                    <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${item.nama}</strong></span>
-                    <div>
-                        <span class="badge-cal">+${item.kalori}k</span>
-                        <span class="badge-pro">+${item.protein}p</span>
-                    </div>
-                </div>`;
-        });
-        bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
-    } else {
-        bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat.</div>`;
+    function submitMakan() {
+        if(cart.length===0) return;
+        let tC=0, tP=0, nms=[];
+        cart.forEach(c => { tC+=c.c; tP+=c.p; nms.push(c.n); });
+        loading(true, "Mencatat Gizi...");
+        
+        let payload = { email: sess.email, namaMakanan: nms.join(", "), kalori: tC, protein: tP };
+        
+        google.script.run.withSuccessHandler(function(response) {
+            loading(false);
+            let res = JSON.parse(response);
+            sess.kaloriMasuk = res.kaloriSekarang; 
+            sess.proteinMasuk = res.proteinSekarang; 
+            sess.jurnal = res.jurnal;
+            localStorage.setItem("mms_v2", JSON.stringify(sess));
+            cart=[]; renderCart(); kalkulasiUI(); drawJurnal(); toast("Tercatat!", "success");
+        }).catatMakan(payload);
     }
 
-    if (j && j.aktivitas && j.aktivitas.length > 0) {
-        let totalBakarHarian = 0;
-
-        j.aktivitas.forEach((item) => {
-            totalBakarHarian += Number(item.kalori) || 0;
-
-            bA.innerHTML += `
-                <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-                    <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${item.jenis}</strong></span>
-                    <span class="badge-cal" style="background:#ecfdf5; color:#065f46;">-${item.kalori}k</span>
-                </div>`;
-        });
-        bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
-    } else {
-        bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat.</div>`;
+    function aturInputAkt(jns) {
+        if(jns === "Angkat Beban") {
+            document.getElementById('in-kardio').style.display = 'none';
+            document.getElementById('in-beban').style.display = 'grid';
+        } else {
+            document.getElementById('in-kardio').style.display = 'flex';
+            document.getElementById('in-beban').style.display = 'none';
+        }
     }
-}
 
-// 7. RESET MANUAL VIA SCRIPT BRIDGE
-function resetHarian() {
-    if(!confirm("Yakin hapus dan bersihkan baris log hari ini di spreadsheet?")) return;
-    loading(true, "Menghapus baris harian di server...");
-    
-    google.script.run.withSuccessHandler(function(response) {
-        loading(false);
-        let res = JSON.parse(response);
-        sess.kaloriMasuk = 0; 
-        sess.proteinMasuk = 0; 
-        sess.kaloriBakar = 0; 
-        sess.jurnal = res.jurnal;
-        localStorage.setItem("mms_v2", JSON.stringify(sess)); 
-        kalkulasiUI(); drawJurnal(); toast("Log harian di sheet terhapus otomatis!", "success");
-    }).resetManual(sess.email);
-}
-</script>
+    function submitAkt() {
+        let jenis = document.getElementById('akt-jenis').value;
+        let detail = "", kalBakar = 0;
+
+        if(jenis === "Angkat Beban") {
+            let s = Number(document.getElementById('akt-set').value); let k = Number(document.getElementById('akt-kg').value);
+            if(!s || !k) return toast("Isi set dan beban!", "warning");
+            detail = `${s} Set x ${k}kg`;
+            kalBakar = Math.round(s * (k * 0.5));
+        } else {
+            let km = Number(document.getElementById('akt-km').value);
+            if(!km) return toast("Isi jarak km!", "warning");
+            detail = `${km} km`;
+            kalBakar = Math.round(km * (jenis==="Lari"?65:(jenis==="Jalan Kaki"?42:30)));
+        }
+
+        loading(true, "Mencatat olahraga...");
+        let payload = { email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar };
+        
+        google.script.run.withSuccessHandler(function(response) {
+            loading(false);
+            let res = JSON.parse(response);
+            sess.kaloriBakar = res.bakarSekarang; 
+            sess.jurnal = res.jurnal;
+            localStorage.setItem("mms_v2", JSON.stringify(sess));
+            document.getElementById('akt-km').value=""; document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value="";
+            kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
+        }).catatAktivitas(payload);
+    }
+
+    function drawJurnal() {
+        let bM = document.getElementById('jr-makan'); 
+        let bA = document.getElementById('jr-akt');
+        let j = sess.jurnal;
+        
+        bM.innerHTML = ""; 
+        bA.innerHTML = "";
+
+        if (j && j.makanan && j.makanan.length > 0) {
+            let totalKaloriHarian = 0;
+            let totalProteinHarian = 0;
+
+            j.makanan.forEach((item) => {
+                totalKaloriHarian += Number(item.kalori) || 0;
+                totalProteinHarian += Number(item.protein) || 0;
+
+                bM.innerHTML += `
+                    <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${item.nama}</strong></span>
+                        <div>
+                            <span class="badge-cal">+${item.kalori}k</span>
+                            <span class="badge-pro">+${item.protein}p</span>
+                        </div>
+                    </div>`;
+            });
+            bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
+        } else {
+            bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat.</div>`;
+        }
+
+        if (j && j.aktivitas && j.aktivitas.length > 0) {
+            let totalBakarHarian = 0;
+
+            j.aktivitas.forEach((item) => {
+                totalBakarHarian += Number(item.kalori) || 0;
+
+                bA.innerHTML += `
+                    <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${item.jenis}</strong></span>
+                        <span class="badge-cal" style="background:#ecfdf5; color:#065f46;">-${item.kalori}k</span>
+                    </div>`;
+            });
+            bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
+        } else {
+            bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat.</div>`;
+        }
+    }
+
+    function resetHarian() {
+        if(!confirm("Yakin hapus dan bersihkan baris log hari ini di spreadsheet?")) return;
+        loading(true, "Menghapus baris harian di server...");
+        
+        google.script.run.withSuccessHandler(function(response) {
+            loading(false);
+            let res = JSON.parse(response);
+            sess.kaloriMasuk = 0; 
+            sess.proteinMasuk = 0; 
+            sess.kaloriBakar = 0; 
+            sess.jurnal = res.jurnal;
+            localStorage.setItem("mms_v2", JSON.stringify(sess)); 
+            kalkulasiUI(); drawJurnal(); toast("Log harian di sheet terhapus otomatis!", "success");
+        }).resetManual(sess.email);
+    }
+    </script>
 </body>
 </html>
