@@ -604,106 +604,132 @@
         });
     }
 
-    function aturInputAkt(jns) {
-        if(jns === "Angkat Beban") {
-            document.getElementById('in-kardio').style.display = 'none';
-            document.getElementById('in-beban').style.display = 'grid';
-        } else {
-            document.getElementById('in-kardio').style.display = 'flex';
-            document.getElementById('in-beban').style.display = 'none';
-        }
+function aturInputAkt(jns) {
+    if(jns === "Angkat Beban") {
+        document.getElementById('in-kardio').style.display = 'none';
+        document.getElementById('in-beban').style.display = 'flex';
+    } else {
+        document.getElementById('in-kardio').style.display = 'flex';
+        document.getElementById('in-beban').style.display = 'flex';
+        // Sembunyikan opsi elevasi jika bersepeda
+        document.getElementById('box-elevasi').style.display = (jns === "Bersepeda") ? "none" : "block";
     }
+}
 
 function submitAkt() {
     let jenis = document.getElementById('akt-jenis').value;
     let detail = "", kalBakar = 0;
 
     if(jenis === "Angkat Beban") {
-        let s = Number(document.getElementById('akt-set').value); let k = Number(document.getElementById('akt-kg').value);
+        let s = Number(document.getElementById('akt-set').value); 
+        let k = Number(document.getElementById('akt-kg').value);
+        let m = Number(document.getElementById('akt-durasi-beban').value) || 30;
         if(!s || !k) return toast("Isi set dan beban!", "warning");
-        detail = `${s} Set x ${k}kg`;
-        kalBakar = Math.round(s * (k * 0.5));
+        
+        detail = `${s} Set x ${k}kg (${m} mnt)`;
+        // RumusMET angkat beban rata-rata dikali durasi menit
+        kalBakar = Math.round(m * 4); 
     } else {
         let km = Number(document.getElementById('akt-km').value);
-        if(!km) return toast("Isi jarak km!", "warning");
-        detail = `${km} km`;
-        kalBakar = Math.round(km * (jenis==="Lari"?65:(jenis==="Jalan Kaki"?42:30)));
+        let m = Number(document.getElementById('akt-menit').value);
+        let el = Number(document.getElementById('akt-elevasi').value) || 0;
+        if(!km || !m) return toast("Isi jarak dan waktu menit!", "warning");
+        
+        // Logika faktor pengali elevasi treadmill (makin tinggi incline, kalori terbakar naik signifikan)
+        let faktorElevasi = 1 + (el / 100); 
+        let pengaliDasar = jenis === "Lari" ? 65 : (jenis === "Jalan Kaki" ? 42 : 35);
+        
+        detail = `${km} km (${m} mnt)${el > 0 ? ' Incline '+el+'%' : ''}`;
+        kalBakar = Math.round((km * pengaliDasar) * faktorElevasi);
     }
 
     loading(true, "Mencatat olahraga...");
-    
-    // 🚀 PERBAIKAN: Masukkan properti aksi agar dikenali oleh induk doPost() di server
-    let payload = { 
-        aksi: "logAktivitas", 
-        email: sess.email, 
-        jenis: jenis, 
-        detail: detail, 
-        kalBakar: kalBakar 
-    };
-    
-    fetch(API_URL, { method: "POST", body: JSON.stringify(payload) })
-    .then(r=>r.json())
-    .then(res => {
+    let payload = { aksi: "logAktivitas", email: sess.email, jenis: jenis, detail: detail, kalBakar: kalBakar };
+    fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(r=>r.json()).then(res => {
         loading(false);
         sess.kaloriBakar = res.bakarSekarang; 
         sess.jurnal = res.jurnal;
         localStorage.setItem("mms_v2", JSON.stringify(sess));
-        document.getElementById('akt-km').value=""; document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value="";
+        document.getElementById('akt-km').value=""; document.getElementById('akt-menit').value=""; 
+        document.getElementById('akt-set').value=""; document.getElementById('akt-kg').value=""; document.getElementById('akt-durasi-beban').value="";
         kalkulasiUI(); drawJurnal(); toast("Keringat tercatat!", "success");
-    })
-    .catch(() => {
-        loading(false);
-        toast("Gagal mencatat ke server", "danger");
     });
 }
 
-    function drawJurnal() {
-        let bM = document.getElementById('jr-makan'); 
-        let bA = document.getElementById('jr-akt');
-        let j = sess.jurnal;
-        
-        bM.innerHTML = ""; 
-        bA.innerHTML = "";
-
-        if (j && j.makanan && j.makanan.length > 0) {
-            let totalKaloriHarian = 0;
-            let totalProteinHarian = 0;
-
-            j.makanan.forEach((item) => {
-                totalKaloriHarian += Number(item.kalori) || 0;
-                totalProteinHarian += Number(item.protein) || 0;
-
-                bM.innerHTML += `
-                    <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-                        <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${item.nama}</strong></span>
-                        <div>
-                            <span class="badge-cal">+${item.kalori}k</span>
-                            <span class="badge-pro">+${item.protein}p</span>
-                        </div>
-                    </div>`;
-            });
-            bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
+// 🚀 FUNGSI BARU: EKSEKUSI HAPUS SATU BARIS KE GOOGLE SCRIPT
+function hapusItemJurnal(idLog, tipe) {
+    if(!idLog) return toast("ID baris data tidak valid!", "danger");
+    
+    loading(true, "Menghapus item log harian...");
+    let payload = { aksi: "hapusLogPerBaris", email: sess.email, idLog: idLog, tipe: tipe };
+    
+    fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(r=>r.json()).then(res => {
+        loading(false);
+        if(tipe === "makanan") {
+            sess.kaloriMasuk = res.kaloriMasuk;
+            sess.proteinMasuk = res.proteinMasuk;
         } else {
-            bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat.</div>`;
+            sess.kaloriBakar = res.kaloriBakar;
         }
+        sess.jurnal = res.jurnal;
+        localStorage.setItem("mms_v2", JSON.stringify(sess));
+        kalkulasiUI(); drawJurnal(); toast("Item log terhapus!", "success");
+    }).catch(() => { loading(false); toast("Gagal menghapus baris data", "danger"); });
+}
 
-        if (j && j.aktivitas && j.aktivitas.length > 0) {
-            let totalBakarHarian = 0;
+function drawJurnal() {
+    let bM = document.getElementById('jr-makan'); 
+    let bA = document.getElementById('jr-akt');
+    let j = sess.jurnal;
+    
+    bM.innerHTML = ""; 
+    bA.innerHTML = "";
 
-            j.aktivitas.forEach((item) => {
-                totalBakarHarian += Number(item.kalori) || 0;
-
-                bA.innerHTML += `
-                    <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-                        <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${item.jenis}</strong></span>
-                        <span class="badge-cal" style="background:#ecfdf5; color:#065f46;">-${item.kalori}k</span>
-                    </div>`;
-            });
-            bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
-        } else {
-            bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat.</div>`;
-        }
+    if (j && j.makanan && j.makanan.length > 0) {
+        let totalKaloriHarian = 0; let totalProteinHarian = 0;
+        j.makanan.forEach((item) => {
+            totalKaloriHarian += Number(item.kalori) || 0;
+            totalProteinHarian += Number(item.protein) || 0;
+            
+            // Ditambahkan ikon tong sampah kecil (fa-trash-can) untuk hapus per kotak
+            bM.innerHTML += `
+                <div class="journal-item" style="border-left: 4px solid #b91c1c; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                    <span><i class="fa-solid fa-cookie-bite" style="color:#b45309; margin-right:6px;"></i> <strong>${item.nama}</strong></span>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="badge-cal">+${item.kalori}k</span>
+                        <span class="badge-pro">+${item.protein}p</span>
+                        <i class="fa-regular fa-trash-can" style="color:#ef4444; cursor:pointer; margin-left:4px;" onclick="hapusItemJurnal('${item.idLog}', 'makanan')" title="Hapus baris ini"></i>
+                    </div>
+                </div>`;
+        });
+        bM.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#b91c1c; padding-top:5px;">Total: ${totalKaloriHarian} kcal | ${totalProteinHarian}g Pro</div>`;
+    } else {
+        bM.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada makanan dicatat.</div>`;
     }
+
+    if (j && j.aktivitas && j.aktivitas.length > 0) {
+        let totalBakarHarian = 0;
+        j.aktivitas.forEach((item) => {
+            totalBakarHarian += Number(item.kalori) || 0;
+            
+            // Ditambahkan kolom item.detail (menampilkan jarak km + durasi waktu + elevasi) di bawah nama olahraga
+            bA.innerHTML += `
+                <div class="journal-item" style="border-left: 4px solid #15803d; margin-bottom: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span><i class="fa-solid fa-fire-flame-curved" style="color:#15803d; margin-right:6px;"></i> <strong>${item.jenis}</strong></span>
+                        <small style="display:block; color:#64748b; font-size:10px; margin-top:2px; margin-left:22px;"><i class="fa-solid fa-circle-info"></i> ${item.detail}</small>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="badge-cal" style="background:#ecfdf5; color:#065f46;">-${item.kalori}k</span>
+                        <i class="fa-regular fa-trash-can" style="color:#ef4444; cursor:pointer; margin-left:4px;" onclick="hapusItemJurnal('${item.idLog}', 'aktivitas')" title="Hapus baris ini"></i>
+                    </div>
+                </div>`;
+        });
+        bA.innerHTML += `<div style="text-align:right; font-size:11px; font-weight:bold; color:#15803d; padding-top:5px;">Total Bakar: -${totalBakarHarian} kcal</div>`;
+    } else {
+        bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat.</div>`;
+    }
+}
     </script>
     <script src="script.js?v=30"></script>
 </body>
