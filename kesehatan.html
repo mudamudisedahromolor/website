@@ -251,20 +251,15 @@
                         <div class="progress-container"><div id="bar-pro" class="progress-fill" style="background:#3b82f6;"></div><div id="txt-pro" class="progress-text" style="color:#fff;">0%</div></div>
                     </div>
 
-                    <div style="border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; overflow: hidden;">
-                        <div onclick="toggleSubMenu('fold-makan', 'icon-fold-makan')" style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:12px 15px; cursor:pointer; user-select:none;">
-                            <span style="font-weight:bold; font-size:13px; color:#334155;"><i class="fa-solid fa-burger" style="color:#D32F2F;"></i> Cari & Tambah Makanan / Minuman</span>
-                            <span id="icon-fold-makan" style="color:#64748b; font-size:12px;"><i class="fa-solid fa-chevron-down"></i></span>
-                        </div>
-                        <div id="fold-makan" style="display:none; padding:15px; border-top:1px solid #e2e8f0; position:relative;">
-                            <input type="text" id="box-cari" class="form-input" placeholder="Ketik nama makanan..." onfocus="cariMenu('')" oninput="cariMenu(this.value)">
-                            <div id="hasil-cari" class="search-results" style="display:none;"></div>
-                            
-                            <div id="cart-area" style="background:#f1f5f9; padding:10px; border-radius:6px; margin-top:15px; display:none;">
-                                <div style="font-size:11px; font-weight:bold; margin-bottom:5px; color:#64748b;">Akan Disubmit:</div>
-                                <div id="cart-list"></div>
-                                <button onclick="submitMakan()" class="btn-mms" style="background:#10b981; padding:8px; margin-top:8px; font-size:13px;"><i class="fa-solid fa-check"></i> Catat Jurnal (<span id="cart-c">0</span> kcal | <span id="cart-p">0</span>g)</button>
-                            </div>
+                    <div style="background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:15px; position:relative;">
+                        <label style="font-weight:bold; font-size:13px; display:block; margin-bottom:10px;"><i class="fa-solid fa-burger" style="color:#D32F2F;"></i> Cari & Tambah Makanan / Minuman</label>
+                        <input type="text" id="box-cari" class="form-input" placeholder="Ketik nama makanan..." onfocus="cariMenu('')" oninput="cariMenu(this.value)">
+                        <div id="hasil-cari" class="search-results" style="display:none;"></div>
+                        
+                        <div id="cart-area" style="background:#f1f5f9; padding:10px; border-radius:6px; margin-top:15px; display:none;">
+                            <div style="font-size:11px; font-weight:bold; margin-bottom:5px; color:#64748b;">Akan Disubmit:</div>
+                            <div id="cart-list"></div>
+                            <button onclick="submitMakan()" class="btn-mms" style="background:#10b981; padding:8px; margin-top:8px; font-size:13px;"><i class="fa-solid fa-check"></i> Catat Jurnal (<span id="cart-c">0</span> kcal | <span id="cart-p">0</span>g)</button>
                         </div>
                     </div>
 
@@ -344,7 +339,7 @@
 
 
 
-        <footer class="site-footer">
+      <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-column info-col">
                 <div class="footer-brand">
@@ -387,7 +382,9 @@
     </footer>
 
 
+
     
+
     <script src="online-tracker.js"></script> 
 
     <script>
@@ -424,7 +421,6 @@
         }
     }
 
-    // POP-UP CONFIRMATION RESET DATA
     function resetHarian() {
         document.getElementById('confirm-reset-modal').style.display = 'flex';
     }
@@ -492,7 +488,6 @@
         fetchKamus();
     };
 
-    // 🟢 SAKELAR TRIGGER UNTUK TAMPIL SEMBUNYI MODUL INPUT
     function toggleSubMenu(idTarget, idIcon) {
         const areaMenu = document.getElementById(idTarget);
         const areaIcon = document.getElementById(idIcon);
@@ -569,7 +564,7 @@
         if(bb > 0 && tb > 0) {
             let bmi = (bb / ((tb/100)*(tb/100))).toFixed(1);
             if(bmi >= 25) aiBox.innerHTML = `<div class="alert-banner alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> AI Alert: Kategori Obesitas (BMI ${bmi}). Sistem sangat menyarankan memilih program 'Turun Agresif' dan perhatikan asupan protein!</div>`;
-            else if(bmi >= 23) aiBox.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> AI Alert: Overweight (BMI ${bmi}). Waspada kenaikan berat badan.</div>`;
+            else if(bmi >= 23) aiBox.innerHTML = `<div class="alert-banner alert-warning"><i class="fa-solid fa-circle-exclamation"></i> AI Alert: Overweight (BMI ${bmi}). Waspada kenaikan berat daemon.</div>`;
             else aiBox.innerHTML = `<div class="alert-banner alert-success"><i class="fa-solid fa-check-circle"></i> AI: Berat Badan Ideal (BMI ${bmi}). Pertahankan!</div>`;
         }
 
@@ -803,7 +798,6 @@
         }
     }
     </script>
-    
     <script src="script.js?v=30"></script>
 </body>
 </html>
