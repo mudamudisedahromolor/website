@@ -606,16 +606,20 @@
         });
     }
 
-    function aturInputAkt(jns) {
-        if(jns === "Angkat Beban") {
-            document.getElementById('in-kardio').style.display = 'none';
-            document.getElementById('in-beban').style.display = 'flex';
-        } else {
-            document.getElementById('in-kardio').style.display = 'flex';
-            document.getElementById('in-beban').style.display = 'flex';
-            document.getElementById('box-elevasi').style.display = (jns === "Bersepeda") ? "none" : "block";
-        }
+ function aturInputAkt(jns) {
+    if(jns === "Angkat Beban") {
+        // Tampilkan blok beban, sembunyikan blok kardio
+        document.getElementById('in-kardio').style.display = 'none';
+        document.getElementById('in-beban').style.display = 'flex';
+    } else {
+        // Tampilkan blok kardio, sembunyikan total blok beban 🚀 (KUNCI DI SINI)
+        document.getElementById('in-kardio').style.display = 'flex';
+        document.getElementById('in-beban').style.display = 'none';
+        
+        // Tampilkan opsi elevasi HANYA untuk Lari atau Jalan Kaki. Jika Bersepeda, sembunyikan.
+        document.getElementById('box-elevasi').style.display = (jns === "Bersepeda") ? "none" : "block";
     }
+}
 
     function submitAkt() {
         let jenis = document.getElementById('akt-jenis').value;
