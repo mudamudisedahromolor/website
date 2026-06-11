@@ -50,12 +50,13 @@
         .btn-toggle-profile:hover { background: #e2e8f0; }
         .profile-content-wrapper { transition: all 0.3s ease-in-out; overflow: hidden; }
 
+        /* Kumpulan Style Kustom Komponen Modal */
         .mms-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
         .mms-modal-content { background-color: #fff; padding: 30px; border-radius: 16px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-top: 6px solid #D32F2F; animation: slideDown 0.3s ease; }
         @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .modal-small-text { display: block; font-size: 11px; color: #64748b; margin-top: 15px; background: #f1f5f9; padding: 8px; border-radius: 6px; border-left: 3px solid #64748b; text-align: left; }
 
-        /* Style Baru Efek Glow Pulse Merah ePerpustakaan MMS */
+        /* Style Efek Glow Pulse Merah ePerpustakaan MMS */
         .welcome-user-box { padding: 15px 20px; background: #fff; border: 1px solid #ef4444; border-radius: 10px; font-weight: bold; font-size: 16px; color: #1e293b; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(211, 47, 47, 0.2); animation: pulse-glow-red 2s infinite alternate; }
         @keyframes pulse-glow-red {
             0% { box-shadow: 0 0 8px rgba(211, 47, 47, 0.3); border-color: #ef4444; }
@@ -83,6 +84,20 @@
             <small class="modal-small-text">
                 <i class="fa-solid fa-triangle-exclamation"></i> <strong>Catatan:</strong> Jangan lupa klik tombol <strong>"Reset Log"</strong> jika Anda ingin mengosongkan riwayat lama untuk menghitung ulang data/asupan baru hari ini.
             </small>
+        </div>
+    </div>
+
+    <div id="confirm-reset-modal" class="mms-modal">
+        <div class="mms-modal-content" style="border-top: 6px solid #b91c1c; max-width: 400px;">
+            <i class="fa-solid fa-triangle-exclamation" style="font-size: 55px; color: #b91c1c; margin-bottom: 15px;"></i>
+            <h3 style="margin-top:0; color:#1e293b;">Konfirmasi Hapus Log</h3>
+            <p style="font-size: 14px; color: #475569; line-height: 1.5; margin-bottom: 25px;">
+                Yakin ingin menghapus dan bersihkan baris log hari ini di spreadsheet? Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="btn-mms" onclick="tutupModalReset()" style="background-color: #64748b;"><i class="fa-solid fa-xmark"></i> Batal</button>
+                <button class="btn-mms" onclick="eksekusiResetServer()" style="background-color: #b91c1c;"><i class="fa-solid fa-trash-can"></i> Ya, Hapus</button>
+            </div>
         </div>
     </div>
 
@@ -286,13 +301,12 @@
         document.getElementById('reminder-modal').style.display = 'flex';
     }
 
-    // Penambahan Modifikasi Fungsi Tutup Modal Agar Sekaligus Mengecek UI Banner
     function tutupModalReminder() {
         document.getElementById('reminder-modal').style.display = 'none';
         buatBannerSalam();
     }
 
-    // FUNGSI BARU UNTUK GENERATE BANNER SALAM DINAMIS & EFEK GLOW PULSE
+    // FUNGSI UNTUK GENERATE BANNER SALAM DINAMIS & EFEK GLOW PULSE
     function buatBannerSalam() {
         const bannerBox = document.getElementById('mms-welcome-banner');
         if (sess && sess.nama) {
@@ -309,6 +323,30 @@
         } else {
             bannerBox.innerHTML = "";
         }
+    }
+
+    // LOGIKA BARU UNTUK KONTROL POP-UP CONFIRMATION RESET DATA
+    function resetHarian() {
+        document.getElementById('confirm-reset-modal').style.display = 'flex';
+    }
+
+    function tutupModalReset() {
+        document.getElementById('confirm-reset-modal').style.display = 'none';
+    }
+
+    function eksekusiResetServer() {
+        tutupModalReset();
+        loading(true, "Menghapus baris harian di server...");
+        fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "resetHarian", email: sess.email }) })
+        .then(r=>r.json()).then(res => {
+            loading(false);
+            sess.kaloriMasuk = 0; 
+            sess.proteinMasuk = 0; 
+            sess.kaloriBakar = 0; 
+            sess.jurnal = res.jurnal;
+            localStorage.setItem("mms_v2", JSON.stringify(sess)); 
+            kalkulasiUI(); drawJurnal(); toast("Log harian di sheet terhapus otomatis!", "success");
+        }).catch(() => { loading(false); toast("Gagal terkoneksi", "danger"); });
     }
 
     function toggleProfile() {
@@ -370,11 +408,8 @@
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
                 setProfileVisibility(false); 
-                
-                // USER LAMA: Munculkan modal popup, banner salam otomatis ke-load saat modal ditutup
                 bukaModalReminder();
             } else {
-                // USER BARU: Langsung buat banner instruksi isi data diri tanpa modal popup
                 sess = {email: email, nama:"", gender:"Laki-laki", umur:"", tb:"", bb:"", bmr:0, targetProtein:0, kaloriMasuk:0, proteinMasuk:0, kaloriBakar:0, diet:"maintain", jurnal:{makanan:[], aktivitas:[]}};
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 initUI();
@@ -468,8 +503,6 @@
                 localStorage.setItem("mms_v2", JSON.stringify(sess));
                 toast("Profil & Target Diupdate ke Sistem!", "success"); initUI();
                 setProfileVisibility(false); 
-                
-                // Setelah profil sukses disimpan pertama kali, generate banner salam
                 buatBannerSalam();
             }
         });
@@ -611,21 +644,6 @@
         } else {
             bA.innerHTML = `<div style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">Belum ada olahraga dicatat.</div>`;
         }
-    }
-
-    function resetHarian() {
-        if(!confirm("Yakin hapus dan bersihkan baris log hari ini di spreadsheet?")) return;
-        loading(true, "Menghapus baris harian di server...");
-        fetch(API_URL, { method: "POST", body: JSON.stringify({ aksi: "resetHarian", email: sess.email }) })
-        .then(r=>r.json()).then(res => {
-            loading(false);
-            sess.kaloriMasuk = 0; 
-            sess.proteinMasuk = 0; 
-            sess.kaloriBakar = 0; 
-            sess.jurnal = res.jurnal;
-            localStorage.setItem("mms_v2", JSON.stringify(sess)); 
-            kalkulasiUI(); drawJurnal(); toast("Log harian di sheet terhapus otomatis!", "success");
-        }).catch(() => { loading(false); toast("Gagal terkoneksi", "danger"); });
     }
     </script>
 </body>
