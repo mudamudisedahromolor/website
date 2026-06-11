@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Daftar Anggota - Muda Mudi Sedahromo Lor</title>
     
     <link rel="icon" href="images/mms.png" type="image/png">
@@ -14,36 +14,68 @@
     <link rel="stylesheet" href="style.css?v=101">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
+
+    <style>
+        /* Standarisasi text adjustment browser agar tidak auto-scale layout */
+        html, body { -webkit-text-size-adjust: 100%; -moz-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        /* Kunci ukuran font input minimal 16px di mobile untuk mencegah forced-zoom browser */
+        @media (max-width: 768px) {
+            #user-email-auth, #input-cari-anggota { font-size: 16px !important; }
+        }
+
+        /* Desain Box Form Login Akses Anggota */
+        .auth-card-mms { background: #fff; padding: 30px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); max-width: 420px; margin: 60px auto; text-align: center; border-top: 5px solid #D32F2F; }
+        .auth-form-group { text-align: left; margin: 20px 0; }
+        .auth-form-group label { display: block; font-weight: bold; font-size: 13px; color: #475569; margin-bottom: 6px; }
+        .auth-input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        .btn-auth-submit { background-color: #D32F2F; color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; font-size: 14px; }
+        .btn-auth-submit:hover { background-color: #b71c1c; }
+
+        /* Toast Komponen Notifikasi Kustom */
+        .toast-auth { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #334155; color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: bold; font-size: 14px; z-index: 99999; transition: top 0.4s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 8px; }
+        .toast-auth.show { top: 30px; }
+    </style>
 </head>
 <body> 
     
-  <header class="site-header">
-    <div class="top-header">
-        <div class="header-logo-area">
-            <a href="index.html" class="logo-wrapper">
-                <img src="images/mms.png" alt="Logo MMS" class="mini-logo">
-                <div class="header-text">
-                    <span class="brand-title">MUDA MUDI</span>
-                    <span class="brand-subtitle">Sedahromo Lor 05</span>
-                </div>
-            </a>
-        </div>
-        
-        <div class="header-right-stuff">
-            <div class="header-socials">
-                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <div id="custom-loader" class="loading-overlay" style="display: none;">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color:#D32F2F(" ></i>
+        <div id="loader-text" style="font-weight:bold; margin-top: 10px;">Memverifikasi Akses...</div>
+    </div>
+
+    <div id="auth-toast" class="toast-auth">
+        <i id="auth-toast-icon" class="fa-solid"></i>
+        <span id="auth-toast-msg"></span>
+    </div>
+
+    <header class="site-header">
+        <div class="top-header">
+            <div class="header-logo-area">
+                <a href="index.html" class="logo-wrapper">
+                    <img src="images/mms.png" alt="Logo MMS" class="mini-logo">
+                    <div class="header-text">
+                        <span class="brand-title">MUDA MUDI</span>
+                        <span class="brand-subtitle">Sedahromo Lor 05</span>
+                    </div>
+                </a>
             </div>
-        </div>
+            
+            <div class="header-right-stuff">
+                <div class="header-socials">
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
 
-        <button class="menu-toggle" id="mobile-menu-btn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </div> 
+            <button class="menu-toggle" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div> 
 
-<nav class="main-navbar">
+        <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
                 <li class="nav-item">
@@ -82,17 +114,17 @@
                     <ul class="submenu">
                         <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
                         <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                         <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
+                        <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
                     </ul>
                 </li>
-               <li class="nav-item">
-                 <a href="index.html">RUANG LITERASI</a>
+                <li class="nav-item">
+                    <a href="index.html">RUANG LITERASI</a>
                     <ul class="submenu">
-                       <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
-                       <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
+                        <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
+                        <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
                     </ul>
-                 </li>
-             </ul>
+                </li>
+            </ul>
 
             <div class="navbar-mobile-only">
                 <div class="header-socials">
@@ -103,18 +135,32 @@
                 </div>
             </div>
         </nav>
-</header>
+    </header>
    
-
     <div class="finance-page-wrapper">
-        <div class="content-box" style="max-width: 1100px; width: 95%;">
+        <div id="auth-frame-anggota" class="auth-card-mms" style="display: none;">
+            <i class="fa-solid fa-user-lock" style="font-size: 50px; color: #D32F2F;"></i>
+            <h3 style="margin-top:15px; color:#1e293b;">Deklarasi Hak Akses</h3>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.4;">Untuk melindungi privasi kependudukan warga pemuda, silakan konfirmasi email terdaftar Anda untuk membuka pangkalan data.</p>
+            
+            <div class="auth-form-group">
+                <label>Alamat Email Warga</label>
+                <input type="email" id="user-email-auth" class="auth-input" placeholder="nama@email.com">
+            </div>
+            <button class="btn-auth-submit" onclick="verifikasiAksesAnggota()"><i class="fa-solid fa-unlock-keyhole"></i> Verifikasi & Buka Data</button>
+        </div>
+
+        <div id="data-frame-anggota" class="content-box" style="max-width: 1100px; width: 95%; display: none;">
+            <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 20px; background:#f8fafc; padding:10px 15px; border-radius:8px; border:1px solid #e2e8f0;">
+                <div style="font-size: 12px; color:#475569;"><i class="fa-solid fa-circle-user" style="color:#10b981;"></i> Sesi: <strong id="lbl-user-auth"></strong></div>
+                <button onclick="logoutAksesAnggota()" style="background:none; border:none; color:#ef4444; font-weight:bold; font-size:11px; cursor:pointer;"><i class="fa-solid fa-power-off"></i> Kunci Akses</button>
+            </div>
+
             <h2 class="box-title">DAFTAR ANGGOTA</h2>
             <hr class="box-divider">
             <p style="text-align: center; margin-bottom: 30px;">
                  Daftar Anggota Muda Mudi Sedahromo Lor 05
             </p>
-
-
             
             <div class="filter-container" style="justify-content: flex-end; align-items: center; display: flex; margin-bottom: 20px;">
                 <div style="width: 100%; max-width: 350px; position: relative;">
@@ -123,8 +169,6 @@
                 </div>
             </div>
 
-
-            
             <div class="table-responsive">
                 <table class="finance-table" style="text-align: center;">
                     <thead>
@@ -138,7 +182,7 @@
                     </thead>
                     <tbody id="data-tabel-anggota">
                         <tr>
-                            <td colspan="4" style="text-align: center; padding: 30px; color: #666;">
+                            <td colspan="5" style="text-align: center; padding: 30px; color: #666;">
                                 <i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Database Anggota...
                             </td>
                         </tr>
@@ -148,18 +192,14 @@
         </div>
     </div>
 
-
-
-
     <div id="modal-foto-full" class="modal-foto-mms" onclick="tutupFoto()">
         <span class="close-modal-mms">&times;</span>
         <img id="img-modal-tampil" src="">
         <p style="color: white; margin-top: 15px; font-size: 14px;">Ketuk di mana saja untuk menutup</p>
     </div>
 
-            <footer class="site-footer">
+    <footer class="site-footer">
         <div class="footer-container">
-            
             <div class="footer-column info-col">
                 <div class="footer-brand">
                     <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
@@ -194,7 +234,6 @@
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
         </div>
 
         <div class="footer-bottom">
@@ -202,9 +241,212 @@
         </div>
     </footer>
 
-
-     <script src="script.js?v=1"></script> 
+    <script src="script.js?v=1"></script> 
     <script src="online-tracker.js"></script>
-    
+
+    <script>
+    /* ==========================================================================
+       8. DATABASE ANGGOTA, UMUR JUJUR & FOTO POPUP (MODUL ASLI - TIDAK DIRUBAH)
+       ========================================================================== */
+    const linkTsvAnggota = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR45-ysPdK4uVibwJQbXKvaGGA2zlX3m2GnAS2392fiSDwENSz9ABffImneI-u4ZGmErvHbdM5RJoDi/pub?gid=992968433&single=true&output=tsv";
+    let dataAnggotaGlobal = []; let dataAnggotaTersaring = []; let halAnggotaSaatIni = 1; const barisAnggotaPerHal = 7; 
+
+    async function loadAnggotaDariDrive() {
+        try {
+            const response = await fetch(`${linkTsvAnggota}&cache=${new Date().getTime()}`);
+            const teksData = await response.text(); const baris = teksData.split("\n");
+            dataAnggotaGlobal = [];
+            
+            const hariIni = new Date();
+            const tahunSekarang = hariIni.getFullYear();
+            const bulanSekarang = hariIni.getMonth(); 
+            const tanggalSekarang = hariIni.getDate();
+
+            const mapBulan = {
+                'jan': 0, 'peb': 1, 'feb': 1, 'mar': 2, 'apr': 3, 'mei': 4, 'jun': 5,
+                'jul': 6, 'agu': 7, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'des': 11, 'dec': 11
+            };
+
+            for (let i = 1; i < baris.length; i++) {
+                const barisBersih = baris[i].trim(); if (!barisBersih) continue;
+                const kolom = barisBersih.split("\t");
+                let nama = kolom[2] ? kolom[2].trim() : "-", nim = kolom[4] ? kolom[4].trim() : "-", tglLahirRaw = kolom[6] ? kolom[6].trim() : "", linkFotoRaw = kolom[13] ? kolom[13].trim() : ""; 
+                
+                let usiaTeks = "-", tahunLahirInt = 0;
+                let matchTahun = tglLahirRaw.match(/\b(19\d{2}|20\d{2})\b/);
+                if (matchTahun) tahunLahirInt = parseInt(matchTahun[0], 10);
+
+                if (tahunLahirInt > 0) {
+                    let umur = tahunSekarang - tahunLahirInt;
+                    
+                    let tglLahirLow = tglLahirRaw.toLowerCase();
+                    let matchHari = tglLahirLow.match(/^\d+/);
+                    let hariLahir = matchHari ? parseInt(matchHari[0], 10) : 1;
+                    
+                    let bulanLahir = 0;
+                    for (let kunci in mapBulan) {
+                        if (tglLahirLow.includes(kunci)) {
+                            bulanLahir = mapBulan[kunci];
+                            break;
+                        }
+                    }
+
+                    if (bulanSekarang < bulanLahir || (bulanSekarang === bulanLahir && tanggalSekarang < hariLahir)) {
+                        umur--;
+                    }
+
+                    usiaTeks = umur + " Tahun";
+                    dataAnggotaGlobal.push({ nim: nim, nama: nama, tahunLahirInt: tahunLahirInt, usia: usiaTeks, foto: linkFotoRaw });
+                }
+            }
+            terapkanFilterAnggota();
+        } catch (e) { console.error(e); }
+    }
+
+    window.terapkanFilterAnggota = function() {
+        const cariInput = document.getElementById('input-cari-anggota'); if(!cariInput) return;
+        const cari = cariInput.value.toLowerCase();
+        dataAnggotaTersaring = dataAnggotaGlobal.filter(item => item.nama.toLowerCase().includes(cari) || item.nim.toLowerCase().includes(cari));
+        halAnggotaSaatIni = 1; renderTabelAnggota();
+    }
+
+    function renderTabelAnggota() {
+        const tbody = document.getElementById('data-tabel-anggota'); if (!tbody) return;
+        if (dataAnggotaTersaring.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;">Data anggota tidak ditemukan.</td></tr>`; return; }
+        const start = (halAnggotaSaatIni - 1) * barisAnggotaPerHal, dataPerHalaman = dataAnggotaTersaring.slice(start, start + barisAnggotaPerHal);
+        
+        let html = dataPerHalaman.map(i => {
+            let linkDefaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(i.nama)}&background=E53935&color=fff&size=150&bold=true`, urlFotoTampil = linkDefaultAvatar; 
+            if (i.foto && i.foto !== "-" && i.foto !== "") {
+                let idFile = ""; if (i.foto.includes("id=")) idFile = i.foto.split("id=")[1].split("&")[0]; else if (i.foto.includes("/d/")) idFile = i.foto.split("/d/")[1].split("/")[0];
+                if (idFile !== "") urlFotoTampil = `https://drive.google.com/thumbnail?id=${idFile}&sz=w800`; else if (i.foto.startsWith("http")) urlFotoTampil = i.foto;
+            }
+
+            let generasiTeks = "Umum";
+            let gayaBadge = "background-color: #757575; color: white;"; 
+
+            if (i.tahunLahirInt >= 1981 && i.tahunLahirInt <= 1996) {
+                generasiTeks = "Milenial";
+                gayaBadge = "background-color: #1A237E; color: white; box-shadow: 0 2px 5px rgba(26, 35, 126, 0.2);"; 
+            } 
+            else if (i.tahunLahirInt >= 1997 && i.tahunLahirInt <= 2005) {
+                generasiTeks = "Gen Z";
+                gayaBadge = "background-color: #2E7D32; color: white; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);"; 
+            } 
+            else if (i.tahunLahirInt >= 2006 && i.tahunLahirInt <= 2012) {
+                generasiTeks = "Gen Z";
+                gayaBadge = "background-color: #81C784; color: #1B5E20; box-shadow: 0 2px 5px rgba(129, 199, 132, 0.2);"; 
+            } 
+            else if (i.tahunLahirInt >= 2013 && i.tahunLahirInt <= 2026) {
+                generasiTeks = "Gen Alpha";
+                gayaBadge = "background-color: #008080; color: white; box-shadow: 0 2px 5px rgba(0, 128, 128, 0.2);"; 
+            }
+
+            let badgeHtml = `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: bold; text-transform: uppercase; ${gayaBadge}">${generasiTeks}</span>`;
+
+            return `<tr style="height: 90px; vertical-align: middle;">
+                <td>${i.nim}</td>
+                <td><img src="${urlFotoTampil}" style="width:75px; height:75px; object-fit:cover; border-radius:50%; border:3px solid #E53935; cursor:pointer;" onclick="window.bukaFotoFull('${urlFotoTampil}');"></td>
+                <td style="text-align:left; padding-left:20px;"><i class="fa-solid fa-user" style="color:#E53935; margin-right:8px;"></i> ${i.nama}</td>
+                <td>${i.usia}</td>
+                <td>${badgeHtml}</td>
+            </tr>`;
+        }).join('');
+
+        const totalHal = Math.ceil(dataAnggotaTersaring.length / barisAnggotaPerHal);
+        if (totalHal > 1) {
+            let tombolNav = ""; const styleBtn = "padding:8px 16px; background:#D32F2F; color:white; border:none; border-radius:4px; cursor:pointer;";
+            if (halAnggotaSaatIni === 1) tombolNav = `<div style="text-align:right;"><button onclick="window.navAnggota(1)" style="${styleBtn}">Selanjutnya ></button></div>`;
+            else if (halAnggotaSaatIni === totalHal) tombolNav = `<div style="text-align:left;"><button onclick="window.navAnggota(-1)" style="${styleBtn}">< Sebelumnya</button></div>`;
+            else tombolNav = `<div style="display:flex; justify-content:space-between;"><button onclick="window.navAnggota(-1)" style="${styleBtn}">< Sebelumnya</button><button onclick="window.navAnggota(1)" style="${styleBtn}">Selanjutnya ></button></div>`;
+            html += `<tr><td colspan="5" style="padding:12px; background:#f9f9f9;">${tombolNav}</td></tr>`;
+        }
+        tbody.innerHTML = html;
+    }
+    window.navAnggota = (dir) => { halAnggotaSaatIni += dir; renderTabelAnggota(); };
+
+    window.bukaFotoFull = function(url) {
+        const modal = document.getElementById('modal-foto-full'); const imgModal = document.getElementById('img-modal-tampil');
+        if(modal && imgModal) { imgModal.src = url; modal.style.display = 'flex'; }
+    }
+    window.tutupFoto = function() { const modal = document.getElementById('modal-foto-full'); if(modal) modal.style.display = 'none'; }
+
+
+    /* ==========================================================================
+       LOGIKA AUTH: VERIFIKASI EMAIL LANGSUNG MEMBACA JALUR BARIS FILE TSV ANGGOTA
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+        const emailSaved = localStorage.getItem("mms_auth_email");
+        if (emailSaved) {
+            bukaAksesHalaman(emailSaved);
+        } else {
+            document.getElementById("auth-frame-anggota").style.display = "block";
+            document.getElementById("data-frame-anggota").style.display = "none";
+        }
+    });
+
+    function callToast(msg, type="info") {
+        const toast = document.getElementById("auth-toast");
+        const icon = document.getElementById("auth-toast-icon");
+        document.getElementById("auth-toast-msg").innerText = msg;
+        
+        icon.className = type === "success" ? "fa-solid fa-circle-check" : "fa-solid fa-circle-exclamation";
+        toast.style.background = type === "success" ? "#10b981" : "#ef4444";
+        
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function verifikasiAksesAnggota() {
+        const emailInput = document.getElementById("user-email-auth").value.trim().toLowerCase();
+        if (!emailInput) return callToast("Alamat email wajib diisi!", "warning");
+
+        document.getElementById("custom-loader").style.display = "flex";
+        
+        // Membaca file TSV Anggota secara mandiri untuk proses validasi email
+        fetch(`${linkTsvAnggota}&cache=${new Date().getTime()}`)
+        .then(res => res.text())
+        .then(teksData => {
+            document.getElementById("custom-loader").style.display = "none";
+            const baris = teksData.split("\n");
+            let emailDitemukan = false;
+
+            // Memeriksa kolom indeks 1 (Kolom B / Kolom ke-2 tempat email terekam di TSV Anggota)
+            for (let i = 1; i < baris.length; i++) {
+                const kolom = baris[i].split("\t");
+                if (kolom[1] && kolom[1].trim().toLowerCase() === emailInput) { 
+                    emailDitemukan = true;
+                    break;
+                }
+            }
+
+            if (emailDitemukan) {
+                localStorage.setItem("mms_auth_email", emailInput);
+                callToast("Akses terverifikasi!", "success");
+                bukaAksesHalaman(emailInput);
+            } else {
+                callToast("Email Anda tidak terdaftar di database Anggota!", "danger");
+            }
+        })
+        .catch(() => {
+            document.getElementById("custom-loader").style.display = "none";
+            callToast("Gagal memuat berkas verifikasi!", "danger");
+        });
+    }
+
+    function bukaAksesHalaman(email) {
+        document.getElementById("auth-frame-anggota").style.display = "none";
+        document.getElementById("data-frame-anggota").style.display = "block";
+        document.getElementById("lbl-user-auth").innerText = email;
+        
+        // Menjalankan modul rendering data bawaan asli milikmu
+        loadAnggotaDariDrive();
+    }
+
+    function logoutAksesAnggota() {
+        localStorage.removeItem("mms_auth_email");
+        location.reload();
+    }
+    </script>
 </body>
 </html>
