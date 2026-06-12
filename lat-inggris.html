@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MMS English Academy - Ruang Literasi</title>
    
-    <link rel="icon" href="images/mms.png" type="image/png">
+    <link class="img-box" icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
@@ -30,7 +30,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-          /* Pembungkus Konten Utama agar turun di bawah navbar melayang */
+        /* Pembungkus Konten Utama agar turun di bawah navbar melayang */
         .mms-app-container {
             width: 100%;
             max-width: 1200px;
@@ -219,8 +219,8 @@
             </div>
         </div>
 
-        <div id="leaderboard-panel" class="duo-container" style="display: none;">
-            <h3 style="margin-top:0; color:var(--mms-navy); border-bottom:2px solid #f1f5f9; padding-bottom:12px; font-size:16px;">
+        <div id="leaderboard-panel" class="duo-container" style="display: block;">
+             <h3 style="margin-top:0; color:var(--mms-navy); border-bottom:2px solid #f1f5f9; padding-bottom:12px; font-size:16px;">
                 <i class="fa-solid fa-trophy" style="color:var(--mms-red); margin-right:6px;"></i> Liga Kompetisi Pemuda
             </h3>
             <div id="list-leaderboard">
@@ -423,6 +423,11 @@
                 });
             });
         }
+
+        // Jalankan Liga Kompetisi Pemuda otomatis sejak awal halaman dibuka
+        window.addEventListener("DOMContentLoaded", () => {
+            muatLeaderboard();
+        });
     </script>
     <script src="online-tracker.js"></script>
     <script src="script.js?v=115"></script>
