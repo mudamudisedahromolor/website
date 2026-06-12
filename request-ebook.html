@@ -2,14 +2,13 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Muda Mudi Sedahromo Lor 05</title>
-
-    <meta name="description" content="Portal resmi Karang Taruna Muda Mudi Sedahromo Lor 05. Layanan administrasi warga, arsip laporan, berita, Kegiatan Pemuda-Pemudi , Karangtaruna , Kartasura , Sukoharjo , dan aplikasi Smart Health Assistant.">
-    <meta name="keywords" content="Muda Mudi, Sedahromo Lor, Karang Taruna, Smart Health, Sukoharjo, Database Warga">
-    <meta name="author" content="Muda Mudi Sedahromo Lor Official">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="icon" href="images/mms.png" type="image/png">
+    <script src="auth-guard.js"></script>
+    
+    <title>Request E-Book ePerpustakaan MMS 05</title>
+    
+    <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
@@ -23,7 +22,7 @@
     <header class="site-header">
         <div class="top-header">
             <div class="header-logo-area">
-                <a href="index.html" class="logo-wrapper">
+                <a href="admin.html" class="logo-wrapper">
                     <img src="images/mms.png" alt="Logo MMS" class="mini-logo">
                     <div class="header-text">
                         <span class="brand-title">MUDA MUDI</span>
@@ -31,7 +30,6 @@
                     </div>
                 </a>
             </div>
-            
             <div class="header-right-stuff">
                 <div class="header-socials">
                     <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -40,13 +38,12 @@
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
             <button class="menu-toggle" id="mobile-menu-btn">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div> 
 
- <nav class="main-navbar">
+     <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
                 <li class="nav-item">
@@ -106,43 +103,32 @@
                 </div>
             </div>
         </nav>
-
-        <div id="pwa-install-popup" style="display: none;">
-            <div class="pwa-mms-container">
-                <img src="images/mms.png" alt="Logo MMS" class="pwa-mms-logo">
-                <div class="pwa-mms-text-block">
-                    <h4 class="pwa-mms-title">Aplikasi BPH MMS 05</h4>
-                    <p class="pwa-mms-subtitle">Tambahkan ke layar utama HP agar akses lebih cepat</p>
-                </div>
-            </div>
-            <div class="pwa-mms-buttons">
-                <button onclick="tutupPopupInstal()" class="pwa-mms-btn-later">Nanti Saja</button>
-                <button id="btn-instal-pwa" class="pwa-mms-btn-install">Instal Sekarang</button>
-            </div>
-        </div>
     </header>
 
-    <div class="hero-container">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-title-box">
-                <h1>MUDA MUDI</h1>
-            </div>
-            <h2>Sedahromo Lor RT.05, Kartasura</h2>
-            <p class="hero-description">
-                Website ini merupakan sumber informasi resmi mengenai kegiatan, profil, dan laporan keuangan organisasi Muda Mudi Sedahromo Lor. Kami berkomitmen untuk transparansi dan kemajuan bersama demi mewujudkan pemuda desa yang aktif, kreatif, dan mandiri.
-            </p>
-        </div>
-    </div>
 
-    <div class="slider-wrapper">
-        <div id="slider-container"></div>
-        <div class="slider-dots" id="dots-container"></div>
-    </div>
+    
+    <div class="finance-page-wrapper">
+    <div class="content-box" style="max-width: 1000px; width: 100%;">
+        <h2 class="box-title">Form Request Buku</h2>
+        <hr class="box-divider">
+        <p style="text-align: center; margin-bottom: 20px;">Gunakan Form Dibawah Ini Untuk Request eBook baru</p>
+
+        <div class="google-form-embed-wrapper">
+            <iframe 
+                src="https://docs.google.com/forms/d/e/1FAIpQLSfDHLp144Xw9ot1977rMdRYlHcBDhx0DWywpNLYN_M1W6BbHw/viewform?embedded=true" 
+                width="100%" 
+                height="800" 
+                frameborder="0" 
+                marginheight="0" 
+                marginwidth="0">
+                Memuat…
+            </iframe>
+        </div>
+    </div> 
+</div>
 
     <footer class="site-footer">
         <div class="footer-container">
-            
             <div class="footer-column info-col">
                 <div class="footer-brand">
                     <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
@@ -152,7 +138,7 @@
                     <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
                 </p>
                 <p class="footer-text">
-                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a>
+                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor05@gmail.com</a>
                 </p>
             </div>
 
@@ -166,7 +152,7 @@
                     <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
                 </ul>
             </div>
-            </ul>
+
             <div class="footer-column social-col">
                 <h5>Media Sosial</h5>
                 <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
@@ -177,7 +163,6 @@
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
         </div>
 
         <div class="footer-bottom">
@@ -185,54 +170,8 @@
         </div>
     </footer>
 
-    <div id="mms-chat-launcher" onclick="toggleKotakChatMMS()">
-        <i class="fa-regular fa-comments"></i>
-    </div>
-
-    <div id="mms-chat-box" style="display: none;">
-        <div class="chat-box-header">
-            <div class="chat-header-title">
-                <img src="images/mms.png" alt="Logo MMS">
-                <span>Kolom Chat Bersama <br> Muda-Mudi Sedahromo Lor RT 05</span>
-            </div>
-            <button onclick="toggleKotakChatMMS()" class="chat-close-btn">&times;</button>
-        </div>
-
-        <div id="chat-box-body">
-            <div class="chat-loading-status">
-                <i class="fa-solid fa-spinner fa-spin"></i> Memuat obrolan warga konoha...
-            </div>
-        </div>
-        
-        <div class="chat-box-footer">
-            <input type="text" id="chat-input-nama" placeholder="Nama samaran/asli..." maxlength="12">
-            <div class="chat-input-group">
-                <input type="text" id="chat-input-pesan" placeholder="Ketikan sesuatu yang seru..." onkeypress="deteksiEnterChatMMS(event)">
-                <button onclick="kirimPesanChatMMS()"><i class="fa-solid fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay active" id="modalOverlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-close-x" onclick="closeModal()">×</span>
-            </div>
-            <div class="modal-body">
-                <img src="images/poster_stop_judol.jpg" alt="Stop Judi Online (JUDOL) Poster" class="modal-image">
-                <div class="modal-cta-container">
-                    <p class="modal-cta-text">STOP JUDOL SEBELUM TERLAMBAT!</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-close-btn" onclick="closeModal()">
-                    <span>×</span> Tutup
-                </button>
-            </div>
-        </div>
-    </div>
-
 <script src="online-tracker.js"></script>
-    <script src="script.js?v=30"></script>
+    <script src="script.js?v=2"></script>
+ 
 </body>
 </html>

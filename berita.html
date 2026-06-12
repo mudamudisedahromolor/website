@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Laporan keuangan - Muda Mudi Sedahromo Lor</title>
+    <title>Halaman Sedang Dikembangkan - Muda Mudi Sedahromo Lor</title>
     
     <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
+
+   
 </head>
 <body> 
     
- <header class="site-header">
+<header class="site-header">
     <div class="top-header">
         <div class="header-logo-area">
             <a href="index.html" class="logo-wrapper">
@@ -42,7 +43,7 @@
         </button>
     </div> 
 
-<nav class="main-navbar">
+ <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
                 <li class="nav-item">
@@ -81,100 +82,32 @@
                     <ul class="submenu">
                         <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
                         <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                         <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
+                        <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
                     </ul>
                 </li>
-               <li class="nav-item">
-                 <a href="index.html">RUANG LITERASI</a>
+                <li class="nav-item">
+                    <a href="index.html">RUANG LITERASI</a>
                     <ul class="submenu">
                        <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
                        <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
                     </ul>
                  </li>
-            </ul>
-
-            <div class="navbar-mobile-only">
-                <div class="header-socials">
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
+             </ul>
         </nav>
 </header>
 
-    <div class="finance-page-wrapper">
-        <div class="content-box" style="max-width: 1000px; width: 95%;">
-            <h2 class="box-title">TRANSPARANSI KAS</h2>
-            <hr class="box-divider">
-            <p style="text-align: center; margin-bottom: 30px;">Berikut adalah rincian laporan keuangan bulanan dan tahunan organisasi Muda Mudi Sedahromo Lor 05.</p>
-
-            <div class="summary-cards">
-                <div class="card-box masuk">
-                    <h4><i class="fa-solid fa-arrow-down"></i> Total Pemasukan</h4>
-                    <div class="amount" id="total-masuk">Rp 0</div>
-                </div>
-                <div class="card-box keluar">
-                    <h4><i class="fa-solid fa-arrow-up"></i> Total Pengeluaran</h4>
-                    <div class="amount" id="total-keluar">Rp 0</div>
-                </div>
-                <div class="card-box saldo">
-                    <h4><i class="fa-solid fa-wallet"></i> Saldo Kas (Filter)</h4>
-                    <div class="amount" id="saldo-akhir">Rp 0</div>
-                </div>
-            </div>
-
-            <div class="filter-container">
-                <select id="filter-kategori" class="filter-box" onchange="terapkanFilter()">
-                    <option value="Semua">Semua Kategori</option>
-                    <option value="masuk">Pemasukan</option>
-                    <option value="keluar">Pengeluaran</option>
-                </select>
-                
-                <select id="filter-tahun" class="filter-box" onchange="terapkanFilter()">
-                    <option value="Semua">Semua Tahun</option>
-                </select>
-                
-                <select id="filter-bulan" class="filter-box" onchange="terapkanFilter()">
-                    <option value="Semua">Semua Bulan</option>
-                </select>
-                
-                <input type="text" id="input-cari" class="filter-box" style="width: 200px;" placeholder="Cari transaksi..." onkeyup="terapkanFilter()">
-                
-                <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTqiCluDyXYQijRAElBYLeYPzrT7ENOPtbaxnoHfyZXFFMMxnO1pnZuOAKJaaVgSvFs6eKacEAd4w5I/pub?gid=1216205715&output=pdf&size=A4&portrait=true&fitw=true&gridlines=true" 
-                   download="Rekening_Koran_Kas_Muda_Mudi_Sedahromo.pdf" 
-                   class="btn-cetak-mutasi" 
-                   target="_blank">
-                    <i class="fa-solid fa-file-pdf"></i> Cetak Mutasi
-                </a>
-            </div>
-
-            <div class="table-responsive">
-                <table class="finance-table">
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Keterangan Transaksi</th>
-                            <th>Kategori</th>
-                            <th>Jumlah (Rp)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-tabel-keuangan">
-                        <tr>
-                            <td colspan="4" style="text-align: center; padding: 30px; color: #666;">
-                                <i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Database Real-time...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+       <div class="finance-page-wrapper">
+        <div class="content-box">
+            <h2 id="judul-berita">Memuat...</h2>
+            <img id="gambar-berita" src="" style="width:100%; border-radius:8px;">
+            <p id="isi-berita" style="margin-top:20px;"></p>
         </div>
     </div>
 
+    
+    
     <footer class="site-footer">
         <div class="footer-container">
-            
             <div class="footer-column info-col">
                 <div class="footer-brand">
                     <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
@@ -195,7 +128,6 @@
                     <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
                     <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
                     <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
-                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
                 </ul>
             </div>
 
@@ -209,15 +141,42 @@
                     <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
         </div>
 
         <div class="footer-bottom">
             <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
         </div>
     </footer>
+    
+    <script>
+        async function tampilkanDetail() {
+            // Mengambil ID dari URL (contoh: ?id=1)
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            
+            const response = await fetch('LINK_CSV_BERITA_ANDA');
+            const dataCSV = await response.text();
+            const rows = dataCSV.split('\n').map(row => row.split(','));
 
-    <script src="online-tracker.js"></script>
+            // Mencari baris yang ID-nya cocok
+            // ... kode fetch sebelumnya ...
+
+// Mencari baris yang ID-nya cocok (ID sekarang ada di kolom indeks 1)
+const berita = rows.find(row => row[1] == id);
+
+if (berita) {
+    // Sesuaikan indeks dengan urutan kolom baru
+    document.getElementById('judul-berita').innerText = berita[2]; // Judul di kolom indeks 2
+    document.getElementById('gambar-berita').src = berita[5];    // Gambar di kolom indeks 5
+    document.getElementById('isi-berita').innerText = berita[4];  // Isi di kolom indeks 4
+} else {
+    document.getElementById('judul-berita').innerText = "Berita tidak ditemukan.";
+}
+
+        }
+        window.onload = tampilkanDetail;
+    </script>
+<script src="online-tracker.js"></script>
     <script src="script.js?v=1"></script>
 </body>
 </html>
