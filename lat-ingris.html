@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MMS English Academy - Duolingo Engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root { --duo-green: #58cc02; --duo-blue: #1cb0f6; --duo-orange: #ff9600; --duo-red: #ff4b4b; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f7f9fa; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        
+        .duo-container { width: 100%; max-width: 500px; background: #fff; border: 2px solid #e5e5e5; border-radius: 16px; padding: 20px; box-sizing: border-box; margin-bottom: 20px; }
+        
+        /* Bar Status Atas */
+        .duo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e5e5e5; padding-bottom: 15px; margin-bottom: 20px; }
+        .stat-item { font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 6px; }
+        .stat-xp { color: var(--duo-blue); }
+        .stat-heart { color: var(--duo-red); }
+        
+        /* Animasi Mengocok Kardus / Shake jika nyawa berkurang */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .shake-effect { animation: shake 0.4s ease; }
+
+        /* Progress Bar Kelulusan */
+        .progress-container { background: #e5e5e5; height: 16px; border-radius: 10px; width: 100%; overflow: hidden; margin-bottom: 25px; position: relative; }
+        .progress-fill { background: var(--duo-green); height: 100%; width: 0%; transition: width 0.4s ease; }
+        
+        .question-box { font-size: 19px; font-weight: bold; color: #3c3c3c; text-align: center; margin-bottom: 20px; line-height: 1.4; }
+        
+        /* Area Box Visual */
+        .visual-frame { height: 130px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1; }
+        
+        /* Grid Pilihan Gambar Responsif */
+        .image-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .img-option-card { background: #fff; border: 2px solid #e5e5e5; border-bottom: 5px solid #e5e5e5; border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.1s ease; user-select: none; }
+        .img-option-card.selected { border-color: var(--duo-blue); background: #ddf4ff; border-bottom-width: 2px; transform: translateY(3px); }
+        .img-box { height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+        .img-box img { max-height: 100%; max-width: 100%; object-fit: contain; }
+        .img-label { font-weight: bold; color: #4b4b4b; font-size: 14px; }
+        
+        .btn-check { background: var(--duo-green); color: #fff; border: none; border-bottom: 4px solid #46a302; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; width: 100%; margin-top: 25px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .btn-check:active { border-bottom-width: 0; transform: translateY(4px); }
+
+        /* Desain Papan Peringkat Leaderboard */
+        .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border: 2px solid #e5e5e5; border-radius: 12px; background: #fff; font-weight: bold; margin-bottom: 8px; }
+        .rank-left { display: flex; align-items: center; gap: 12px; }
+    </style>
+</head>
+<body>
+
+    <div id="login-panel" class="duo-container" style="text-align: center; padding: 30px;">
+        <i class="fa-solid fa-graduation-cap" style="font-size: 55px; color: var(--duo-green); margin-bottom: 15px;"></i>
+        <h2>MMS English Academy</h2>
+        <p style="color:#64748b; font-size:13px; margin-bottom:20px;">Masukkan email terdaftar kamu untuk memuat progres belajar dan bersaing di papan peringkat kompetisi warga.</p>
+        <input type="email" id="user-email" class="form-input" placeholder="nama@email.com" style="width:100%; padding:12px; border:2px solid #cbd5e1; border-radius:8px; font-size:15px; box-sizing:border-box; margin-bottom:15px; text-align:center;">
+        <button class="btn-check" onclick="loginSistem()" style="margin-top:0;">Mulai Belajar</button>
+    </div>
+
+    <div id="main-panel" class="duo-container" style="display: none;">
+        <div class="duo-header" id="header-bar">
+            <div class="stat-item stat-xp"><i class="fa-solid fa-bolt"></i> <span id="lbl-xp">0</span> XP</div>
+            <div class="stat-item" style="color: #64748b; font-size:13px;" id="lbl-nama">User</div>
+            <div class="stat-item stat-heart"><i class="fa-solid fa-heart"></i> <span id="lbl-hearts">5</span></div>
+        </div>
+
+        <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
+
+        <div id="quiz-body">
+            <div class="question-box" id="lbl-pertanyaan">Memuat tantangan visual...</div>
+            <div class="visual-frame" id="box-visual">
+                <i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8;"></i>
+            </div>
+            <div class="image-grid-options" id="grid-opsi">
+                </div>
+            <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
+        </div>
+    </div>
+
+    <div id="leaderboard-panel" class="duo-container" style="display: none;">
+        <h3 style="margin-top:0; color:#3c3c3c; border-bottom:2px solid #e5e5e5; padding-bottom:10px;"><i class="fa-solid fa-trophy" style="color:var(--duo-orange);"></i> Liga Kompetisi Pemuda</h3>
+        <div id="list-leaderboard">
+            <div style="text-align:center; padding:10px; color:#888;"><i class="fa-solid fa-spinner fa-spin"></i> Membaca skor liga...</div>
+        </div>
+    </div>
+
+    <script>
+        // 🚀 TEMPEL URL WEB APP GOOGLE APPS SCRIPT KAMU DI SINI
+        const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
+
+        let userSession = null;
+        let bankSoal = [];
+        let indeksSoal = 0;
+        let jawabanTerpilih = "";
+        let nyawa = 5;
+
+        // Data Cadangan otomatis jika baris spreadsheet Bank_Soal kamu masih kosong
+        const soalDummy = [
+            { tanya: "Which one is the 'Beverage'?", opsi: ["Donut", "Coffee", "Egg", "Almond"], benar: "Coffee", visual: "fa-glass-water" },
+            { tanya: "They ... lunch before the monthly meeting started yesterday.", opsi: ["eat", "ate", "had eaten", "eating"], benar: "had eaten", visual: "fa-history" }
+        ];
+
+        function loginSistem() {
+            let email = document.getElementById("user-email").value.trim().toLowerCase();
+            if(!email) return alert("Email wajib diisi!");
+            
+            document.getElementById("login-panel").innerHTML = "<h3><i class='fa-solid fa-circle-notch fa-spin'></i> Menyinkronkan Akun...</h3>";
+            
+            fetch(`${API_URL}?aksi=login&email=${email}`)
+            .then(r => r.json()).then(res => {
+                userSession = res.data;
+                document.getElementById("login-panel").style.display = "none";
+                document.getElementById("main-panel").style.display = "block";
+                document.getElementById("leaderboard-panel").style.display = "block";
+                
+                document.getElementById("lbl-nama").innerText = userSession.nama;
+                document.getElementById("lbl-xp").innerText = userSession.xp;
+                
+                ambilAsetData();
+                muatLeaderboard();
+            }).catch(() => {
+                alert("Gagal terhubung ke API. Menjalankan mode luring mandiri!");
+                userSession = { email: email, nama: email.split("@")[0], xp: 0 };
+                document.getElementById("login-panel").style.display = "none";
+                document.getElementById("main-panel").style.display = "block";
+                ambilAsetData();
+            });
+        }
+
+        function ambilAsetData() {
+            fetch(`${API_URL}?aksi=getMateriDanSoal`)
+            .then(r => r.json()).then(res => {
+                bankSoal = res.soal && res.soal.length > 0 ? res.soal : soalDummy;
+                tampilkanSoalDinamis();
+            }).catch(() => {
+                bankSoal = soalDummy;
+                tampilkanSoalDinamis();
+            });
+        }
+
+        function tampilkanSoalDinamis() {
+            jawabanTerpilih = "";
+            if (indeksSoal >= bankSoal.length) {
+                document.getElementById("quiz-body").innerHTML = `<div class='question-box' style='color:var(--duo-green); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px;'></i><br>CONGRATULATIONS!<br>Kamu Menyelesaikan Modul Hari Ini!</div>`;
+                document.getElementById("quiz-progress").style.width = "100%";
+                return;
+            }
+
+            let pct = (indeksSoal / bankSoal.length) * 100;
+            document.getElementById("quiz-progress").style.width = pct + "%";
+
+            let s = bankSoal[indeksSoal];
+            document.getElementById("lbl-pertanyaan").innerText = s.tanya;
+            
+            // Render Frame Visual (Bisa berupa icon fontawesome atau tag img)
+            let frame = document.getElementById("box-visual");
+            if(s.visual && s.visual.startsWith("fa-")) {
+                frame.innerHTML = `<i class="fa-solid ${s.visual} fa-4x" style="color:var(--duo-blue)"></i>`;
+            } else if(s.visual) {
+                frame.innerHTML = `<img src="${s.visual}" alt="visual">`;
+            } else {
+                frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
+            }
+
+            // Render Pilihan Jawaban
+            let grid = document.getElementById("grid-opsi");
+            grid.innerHTML = "";
+            s.opsi.forEach((o, index) => {
+                if(o) {
+                    grid.innerHTML += `
+                        <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
+                            <div class="img-box"><i class="fa-solid fa-cubes fa-2xl" style="color:#cbd5e1;"></i></div>
+                            <div class="img-label">${o}</div>
+                        </div>`;
+                }
+            });
+        }
+
+        function pilihOpsiCard(el, teks) {
+            document.querySelectorAll(".img-option-card").forEach(c => card.classList ? c.classList.remove("selected") : c.className = "img-option-card");
+            el.className = "img-option-card selected";
+            jawabanTerpilih = teks;
+        }
+
+        function periksaJawabanUser() {
+            if(!jawabanTerpilih) return alert("Pilih satu jawaban dulu!");
+            let s = bankSoal[indeksSoal];
+            
+            if (jawabanTerpilih === s.benar) {
+                alert("🎉 Excellent! Jawabanmu Benar (+10 XP)");
+                indeksSoal++;
+                kirimPoinKeServer(10);
+            } else {
+                nyawa--;
+                document.getElementById("lbl-hearts").innerText = nyawa;
+                // Efek getar merah Duolingo pada bar status
+                let hb = document.getElementById("header-bar");
+                hb.className = "duo-header shake-effect";
+                setTimeout(() => hb.className = "duo-header", 400);
+                
+                alert(`❌ Oops! Kurang Tepat. Jawaban benar: ${s.benar}`);
+                if(nyawa <= 0) {
+                    alert("⚔️ Game Over! Nyawa kamu habis. Pelajari kembali ringkasan materi.");
+                    location.reload();
+                    return;
+                }
+                indeksSoal++;
+                tampilkanSoalDinamis();
+            }
+        }
+
+        function kirimPoinKeServer(poin) {
+            userSession.xp += poin;
+            document.getElementById("lbl-xp").innerText = userSession.xp;
+            tampilkanSoalDinamis();
+            
+            fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({ aksi: "updateXP", email: userSession.email, tambahanXP: poin })
+            })
+            .then(() => muatLeaderboard());
+        }
+
+        function muatLeaderboard() {
+            fetch(`${API_URL}?aksi=getLeaderboard`)
+            .then(r => r.json()).then(data => {
+                let box = document.getElementById("list-leaderboard");
+                box.innerHTML = "";
+                data.slice(0, 10).forEach((u, i) => {
+                    let medal = i === 0 ? "🥇" : (i === 1 ? "🥈" : (i === 2 ? "🥉" : `<span style='color:#64748b;'>#${i+1}</span>`));
+                    box.innerHTML += `
+                        <div class="rank-item" style="${i===0 ? 'border-color:var(--duo-orange); background:#fffbeb;' : ''}">
+                            <div class="rank-left">
+                                <span>${medal}</span>
+                                <span style="color:#334155;">${u.nama}</span>
+                            </div>
+                            <span style="color:var(--duo-blue); font-size:14px;">${u.xp} XP</span>
+                        </div>`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
