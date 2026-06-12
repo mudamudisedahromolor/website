@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MMS English Academy - Ruang Literasi</title>
    
-    <link class="img-box" icon" href="images/mms.png" type="image/png">
+    <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
@@ -207,15 +207,38 @@
                 <div class="stat-item stat-heart"><i class="fa-solid fa-heart"></i> <span id="lbl-hearts">5</span></div>
             </div>
 
-            <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
-
-            <div id="quiz-body">
-                <div class="question-box" id="lbl-pertanyaan">Memuat tantangan visual...</div>
-                <div class="visual-frame" id="box-visual">
-                    <i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8;"></i>
+            <div id="dashboard-menu" style="text-align: center; padding: 10px 0; display: block;">
+                <h3 style="color: var(--mms-navy); margin-bottom: 20px; margin-top: 0;">Selamat Datang di Ruang Belajar!</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <button class="btn-check" onclick="bukaMateri()" style="margin: 0; background: var(--mms-accent);">
+                        <i class="fa-solid fa-book-open" style="margin-right: 8px;"></i> Pelajari Materi
+                    </button>
+                    <button class="btn-check" onclick="bukaQuiz()" style="margin: 0;">
+                        <i class="fa-solid fa-gamepad" style="margin-right: 8px;"></i> Mulai Quiz Berhadiah XP
+                    </button>
                 </div>
-                <div class="image-grid-options" id="grid-opsi"></div>
-                <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
+            </div>
+
+            <div id="materi-body" style="display: none; padding: 5px 0;">
+                <h3 style="color: var(--mms-navy); text-align: center; margin-top: 0;"><i class="fa-solid fa-book"></i> Ringkasan Materi Hari Ini</h3>
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; color: #334155; font-size: 14px; line-height: 1.6; margin-bottom: 20px; text-align: left;">
+                    <p style="margin-top: 0;"><strong>1. Tense Dasar Organisasi (Past vs Perfect)</strong><br>Gunakan <em>Past Tense</em> untuk kejadian rapat atau agenda yang telah selesai mutlak di masa lampau (contoh: <em>yesterday</em>). Gunakan <em>Perfect Tense</em> jika dampaknya masih ada sampai sekarang.</p>
+                    <p style="margin-bottom: 0;"><strong>2. Glosarium Administrasi Inggris</strong><br>• <em>Proposal</em> = Rancangan Kegiatan Kegiatan<br>• <em>Database</em> = Pangkalan Data Warga<br>• <em>Cash Flow Statement</em> = Laporan Alur Kas Mandiri</p>
+                </div>
+                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 0;">Kembali ke Menu</button>
+            </div>
+
+            <div id="quiz-body-wrapper" style="display: none;">
+                <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
+                <div id="quiz-body">
+                    <div class="question-box" id="lbl-pertanyaan">Memuat tantangan visual...</div>
+                    <div class="visual-frame" id="box-visual">
+                        <i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8;"></i>
+                    </div>
+                    <div class="image-grid-options" id="grid-opsi"></div>
+                    <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
+                </div>
+                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 15px;">Kembali ke Menu</button>
             </div>
         </div>
 
@@ -303,6 +326,11 @@
                 document.getElementById("lbl-nama").innerText = userSession.nama;
                 document.getElementById("lbl-xp").innerText = userSession.xp;
                 
+                // Set default tampilan menu pilihan utama setelah login berhasil
+                document.getElementById("dashboard-menu").style.display = "block";
+                document.getElementById("materi-body").style.display = "none";
+                document.getElementById("quiz-body-wrapper").style.display = "none";
+                
                 ambilAsetData();
                 muatLeaderboard();
             }).catch(() => {
@@ -310,6 +338,11 @@
                 userSession = { email: email, nama: email.split("@")[0], xp: 0 };
                 document.getElementById("login-panel").style.display = "none";
                 document.getElementById("main-panel").style.display = "block";
+                
+                document.getElementById("dashboard-menu").style.display = "block";
+                document.getElementById("materi-body").style.display = "none";
+                document.getElementById("quiz-body-wrapper").style.display = "none";
+                
                 ambilAsetData();
             });
         }
@@ -424,7 +457,26 @@
             });
         }
 
-        // Jalankan Liga Kompetisi Pemuda otomatis sejak awal halaman dibuka
+        // Fungsi navigasi menu dashboard pilihan
+        function bukaMateri() {
+            document.getElementById("dashboard-menu").style.display = "none";
+            document.getElementById("materi-body").style.display = "block";
+            document.getElementById("quiz-body-wrapper").style.display = "none";
+        }
+
+        function bukaQuiz() {
+            document.getElementById("dashboard-menu").style.display = "none";
+            document.getElementById("materi-body").style.display = "none";
+            document.getElementById("quiz-body-wrapper").style.display = "block";
+        }
+
+        function kembaliKeDashboard() {
+            document.getElementById("dashboard-menu").style.display = "block";
+            document.getElementById("materi-body").style.display = "none";
+            document.getElementById("quiz-body-wrapper").style.display = "none";
+        }
+
+        // Memuat Papan Peringkat Liga otomatis saat halaman pertama kali diakses
         window.addEventListener("DOMContentLoaded", () => {
             muatLeaderboard();
         });
