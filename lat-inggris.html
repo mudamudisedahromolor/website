@@ -26,20 +26,22 @@
         body { 
             background: var(--mms-bg); 
             margin: 0; 
-            padding: 50; 
+            padding: 0; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        /* Pembungkus Konten Utama agar sejajar halaman lain */
+          /* Pembungkus Konten Utama agar turun di bawah navbar melayang */
         .mms-app-container {
             width: 100%;
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 50px;
+            margin: 140px auto 40px auto; /* Atas ditandai 140px agar melorot ke bawah navbar */
+            padding: 0 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
+            position: relative;
+            z-index: 1; /* Memastikan dia berada di lapisan bawah navbar */
         }
         
         .duo-container { 
