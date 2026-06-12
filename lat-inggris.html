@@ -3,28 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MMS English Academy - Duolingo Engine</title>
+    <title>MMS English Academy - Ruang Literasi</title>
    
-     <link rel="icon" href="images/mms.png" type="image/png">
+    <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=103">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     
     <style>
-        :root { --duo-green: #58cc02; --duo-blue: #1cb0f6; --duo-orange: #ff9600; --duo-red: #ff4b4b; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f7f9fa; margin: 30; padding: 50px; display: flex; flex-direction: column; align-items: center; }
+        :root { 
+            --mms-red: #cc0202; /* Merah khas utama Muda Mudi */
+            --mms-red-hover: #b30202;
+            --mms-navy: #0f172a; /* Navy gelap pendukung */
+            --mms-blue-light: #eef2ff;
+            --mms-accent: #3b82f6; 
+            --mms-bg: #f8fafc;
+        }
+
+        body { 
+            background: var(--mms-bg); 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         
-        .duo-container { width: 100%; max-width: 500px; background: #fff; border: 2px solid #e5e5e5; border-radius: 16px; padding: 20px; box-sizing: border-box; margin-bottom: 20px; }
+        /* Pembungkus Konten Utama agar sejajar halaman lain */
+        .mms-app-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        
+        .duo-container { 
+            width: 100%; 
+            max-width: 550px; 
+            background: #fff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 24px; 
+            box-sizing: border-box; 
+            margin-bottom: 25px; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
         
         /* Bar Status Atas */
-        .duo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e5e5e5; padding-bottom: 15px; margin-bottom: 20px; }
+        .duo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px; }
         .stat-item { font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 6px; }
-        .stat-xp { color: var(--duo-blue); }
-        .stat-heart { color: var(--duo-red); }
+        .stat-xp { color: var(--mms-accent); }
+        .stat-heart { color: var(--mms-red); }
         
         /* Animasi Mengocok Kardus / Shake jika nyawa berkurang */
         @keyframes shake {
@@ -35,32 +69,35 @@
         .shake-effect { animation: shake 0.4s ease; }
 
         /* Progress Bar Kelulusan */
-        .progress-container { background: #e5e5e5; height: 16px; border-radius: 10px; width: 100%; overflow: hidden; margin-bottom: 25px; position: relative; }
-        .progress-fill { background: var(--duo-green); height: 100%; width: 0%; transition: width 0.4s ease; }
+        .progress-container { background: #e2e8f0; height: 12px; border-radius: 10px; width: 100%; overflow: hidden; margin-bottom: 25px; position: relative; }
+        .progress-fill { background: var(--mms-red); height: 100%; width: 0%; transition: width 0.4s ease; }
         
-        .question-box { font-size: 19px; font-weight: bold; color: #3c3c3c; text-align: center; margin-bottom: 20px; line-height: 1.4; }
+        .question-box { font-size: 18px; font-weight: 600; color: #1e293b; text-align: center; margin-bottom: 20px; line-height: 1.5; }
         
         /* Area Box Visual */
-        .visual-frame { height: 130px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1; }
+        .visual-frame { height: 135px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 2px dashed #cbd5e1; overflow: hidden; }
+        .visual-frame img { max-height: 100%; max-width: 100%; object-fit: contain; }
         
         /* Grid Pilihan Gambar Responsif */
         .image-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .img-option-card { background: #fff; border: 2px solid #e5e5e5; border-bottom: 5px solid #e5e5e5; border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.1s ease; user-select: none; }
-        .img-option-card.selected { border-color: var(--duo-blue); background: #ddf4ff; border-bottom-width: 2px; transform: translateY(3px); }
-        .img-box { height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
-        .img-box img { max-height: 100%; max-width: 100%; object-fit: contain; }
-        .img-label { font-weight: bold; color: #4b4b4b; font-size: 14px; }
+        .img-option-card { background: #fff; border: 1px solid #e2e8f0; border-bottom: 4px solid #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.1s ease; user-select: none; }
+        .img-option-card:hover { border-color: var(--mms-red); background: #fff5f5; }
+        .img-option-card.selected { border-color: var(--mms-red); background: #fff5f5; border-bottom-width: 1px; transform: translateY(3px); }
+        .img-box { height: 65px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; color: #94a3b8; }
+        .img-label { font-weight: bold; color: #334155; font-size: 14px; }
         
-        .btn-check { background: var(--duo-green); color: #fff; border: none; border-bottom: 4px solid #46a302; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; width: 100%; margin-top: 25px; text-transform: uppercase; letter-spacing: 0.8px; }
-        .btn-check:active { border-bottom-width: 0; transform: translateY(4px); }
+        .btn-check { background: var(--mms-red); color: #fff; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 25px; text-transform: uppercase; letter-spacing: 0.8px; transition: background 0.2s; }
+        .btn-check:hover { background: var(--mms-red-hover); }
+        .btn-check:active { transform: translateY(1px); }
 
         /* Desain Papan Peringkat Leaderboard */
-        .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border: 2px solid #e5e5e5; border-radius: 12px; background: #fff; font-weight: bold; margin-bottom: 8px; }
+        .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; font-weight: bold; margin-bottom: 8px; }
         .rank-left { display: flex; align-items: center; gap: 12px; }
-    </style>
-</head>
-<body>
 
+        /* Gaya Form Input Login */
+        .mms-input-field { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; box-sizing: border-box; margin-bottom: 15px; text-align: center; background: #f8fafc; }
+        .mms-input-field:focus { outline: none; border-color: var(--mms-red); background: #fff; }
+    </style>
 </head>
 <body> 
     
@@ -90,7 +127,7 @@
             </button>
         </div> 
         
-   <nav class="main-navbar">
+        <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
                 <li class="nav-item">
@@ -129,17 +166,17 @@
                     <ul class="submenu">
                         <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
                         <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                         <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
+                        <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
                     </ul>
                 </li>
-               <li class="nav-item">
-                 <a href="index.html">RUANG LITERASI</a>
+                <li class="nav-item">
+                    <a href="index.html">RUANG LITERASI</a>
                     <ul class="submenu">
                        <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
                        <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
                     </ul>
-                 </li>
-             </ul>
+                </li>
+            </ul>
             <div class="navbar-mobile-only">
                 <div class="header-socials">
                     <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -151,45 +188,47 @@
         </nav>
     </header>
 
-
-    
-    <div id="login-panel" class="duo-container" style="text-align: center; padding: 30px;">
-        <i class="fa-solid fa-graduation-cap" style="font-size: 55px; color: var(--duo-green); margin-bottom: 15px;"></i>
-        <h2>MMS English Academy</h2>
-        <p style="color:#64748b; font-size:13px; margin-bottom:20px;">Masukkan email terdaftar kamu untuk memuat progres belajar dan bersaing di papan peringkat kompetisi warga.</p>
-        <input type="email" id="user-email" class="form-input" placeholder="nama@email.com" style="width:100%; padding:12px; border:2px solid #cbd5e1; border-radius:8px; font-size:15px; box-sizing:border-box; margin-bottom:15px; text-align:center;">
-        <button class="btn-check" onclick="loginSistem()" style="margin-top:0;">Mulai Belajar</button>
-    </div>
-
-    <div id="main-panel" class="duo-container" style="display: none;">
-        <div class="duo-header" id="header-bar">
-            <div class="stat-item stat-xp"><i class="fa-solid fa-bolt"></i> <span id="lbl-xp">0</span> XP</div>
-            <div class="stat-item" style="color: #64748b; font-size:13px;" id="lbl-nama">User</div>
-            <div class="stat-item stat-heart"><i class="fa-solid fa-heart"></i> <span id="lbl-hearts">5</span></div>
+    <div class="mms-app-container">
+        
+        <div id="login-panel" class="duo-container" style="text-align: center; padding: 40px 30px;">
+            <i class="fa-solid fa-graduation-cap" style="font-size: 55px; color: var(--mms-red); margin-bottom: 20px;"></i>
+            <h2 style="color: var(--mms-navy); margin-top:0;">MMS English Academy</h2>
+            <p style="color:#64748b; font-size:13px; margin-bottom:25px; line-height:1.5;">Masukkan email terdaftar kamu untuk memuat progres belajar dan bersaing di papan peringkat kompetisi warga.</p>
+            <input type="email" id="user-email" class="mms-input-field" placeholder="nama@email.com">
+            <button class="btn-check" onclick="loginSistem()" style="margin-top:10px;">Mulai Belajar</button>
         </div>
 
-        <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
-
-        <div id="quiz-body">
-            <div class="question-box" id="lbl-pertanyaan">Memuat tantangan visual...</div>
-            <div class="visual-frame" id="box-visual">
-                <i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8;"></i>
+        <div id="main-panel" class="duo-container" style="display: none;">
+            <div class="duo-header" id="header-bar">
+                <div class="stat-item stat-xp"><i class="fa-solid fa-bolt"></i> <span id="lbl-xp">0</span> XP</div>
+                <div class="stat-item" style="color: #64748b; font-size:13px; font-weight:600;" id="lbl-nama">User</div>
+                <div class="stat-item stat-heart"><i class="fa-solid fa-heart"></i> <span id="lbl-hearts">5</span></div>
             </div>
-            <div class="image-grid-options" id="grid-opsi">
+
+            <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
+
+            <div id="quiz-body">
+                <div class="question-box" id="lbl-pertanyaan">Memuat tantangan visual...</div>
+                <div class="visual-frame" id="box-visual">
+                    <i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8;"></i>
                 </div>
-            <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
+                <div class="image-grid-options" id="grid-opsi"></div>
+                <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
+            </div>
         </div>
+
+        <div id="leaderboard-panel" class="duo-container" style="display: none;">
+            <h3 style="margin-top:0; color:var(--mms-navy); border-bottom:2px solid #f1f5f9; padding-bottom:12px; font-size:16px;">
+                <i class="fa-solid fa-trophy" style="color:var(--mms-red); margin-right:6px;"></i> Liga Kompetisi Pemuda
+            </h3>
+            <div id="list-leaderboard">
+                <div style="text-align:center; padding:15px; color:#94a3b8; font-size:14px;"><i class="fa-solid fa-spinner fa-spin"></i> Membaca skor liga...</div>
+            </div>
+        </div>
+
     </div>
 
-    <div id="leaderboard-panel" class="duo-container" style="display: none;">
-        <h3 style="margin-top:0; color:#3c3c3c; border-bottom:2px solid #e5e5e5; padding-bottom:10px;"><i class="fa-solid fa-trophy" style="color:var(--duo-orange);"></i> Liga Kompetisi Pemuda</h3>
-        <div id="list-leaderboard">
-            <div style="text-align:center; padding:10px; color:#888;"><i class="fa-solid fa-spinner fa-spin"></i> Membaca skor liga...</div>
-        </div>
-    </div>
-
-
-<footer class="site-footer">
+    <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-column info-col">
                 <div class="footer-brand">
@@ -233,7 +272,6 @@
     
 
     <script>
-        // 🚀 TEMPEL URL WEB APP GOOGLE APPS SCRIPT KAMU DI SINI
         const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
 
         let userSession = null;
@@ -242,7 +280,6 @@
         let jawabanTerpilih = "";
         let nyawa = 5;
 
-        // Data Cadangan otomatis jika baris spreadsheet Bank_Soal kamu masih kosong
         const soalDummy = [
             { tanya: "Which one is the 'Beverage'?", opsi: ["Donut", "Coffee", "Egg", "Almond"], benar: "Coffee", visual: "fa-glass-water" },
             { tanya: "They ... lunch before the monthly meeting started yesterday.", opsi: ["eat", "ate", "had eaten", "eating"], benar: "had eaten", visual: "fa-history" }
@@ -289,7 +326,7 @@
         function tampilkanSoalDinamis() {
             jawabanTerpilih = "";
             if (indeksSoal >= bankSoal.length) {
-                document.getElementById("quiz-body").innerHTML = `<div class='question-box' style='color:var(--duo-green); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px;'></i><br>CONGRATULATIONS!<br>Kamu Menyelesaikan Modul Hari Ini!</div>`;
+                document.getElementById("quiz-body").innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu Menyelesaikan Modul Hari Ini!</div>`;
                 document.getElementById("quiz-progress").style.width = "100%";
                 return;
             }
@@ -300,24 +337,22 @@
             let s = bankSoal[indeksSoal];
             document.getElementById("lbl-pertanyaan").innerText = s.tanya;
             
-            // Render Frame Visual (Bisa berupa icon fontawesome atau tag img)
             let frame = document.getElementById("box-visual");
             if(s.visual && s.visual.startsWith("fa-")) {
-                frame.innerHTML = `<i class="fa-solid ${s.visual} fa-4x" style="color:var(--duo-blue)"></i>`;
+                frame.innerHTML = `<i class="fa-solid ${s.visual} fa-4x" style="color:var(--mms-accent)"></i>`;
             } else if(s.visual) {
                 frame.innerHTML = `<img src="${s.visual}" alt="visual">`;
             } else {
                 frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
             }
 
-            // Render Pilihan Jawaban
             let grid = document.getElementById("grid-opsi");
             grid.innerHTML = "";
             s.opsi.forEach((o, index) => {
                 if(o) {
                     grid.innerHTML += `
                         <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
-                            <div class="img-box"><i class="fa-solid fa-cubes fa-2xl" style="color:#cbd5e1;"></i></div>
+                            <div class="img-box"><i class="fa-solid fa-cubes fa-2xl"></i></div>
                             <div class="img-label">${o}</div>
                         </div>`;
                 }
@@ -325,8 +360,8 @@
         }
 
         function pilihOpsiCard(el, teks) {
-            document.querySelectorAll(".img-option-card").forEach(c => card.classList ? c.classList.remove("selected") : c.className = "img-option-card");
-            el.className = "img-option-card selected";
+            document.querySelectorAll(".img-option-card").forEach(c => c.classList.remove("selected"));
+            el.classList.add("selected");
             jawabanTerpilih = teks;
         }
 
@@ -341,7 +376,6 @@
             } else {
                 nyawa--;
                 document.getElementById("lbl-hearts").innerText = nyawa;
-                // Efek getar merah Duolingo pada bar status
                 let hb = document.getElementById("header-bar");
                 hb.className = "duo-header shake-effect";
                 setTimeout(() => hb.className = "duo-header", 400);
@@ -377,18 +411,18 @@
                 data.slice(0, 10).forEach((u, i) => {
                     let medal = i === 0 ? "🥇" : (i === 1 ? "🥈" : (i === 2 ? "🥉" : `<span style='color:#64748b;'>#${i+1}</span>`));
                     box.innerHTML += `
-                        <div class="rank-item" style="${i===0 ? 'border-color:var(--duo-orange); background:#fffbeb;' : ''}">
+                        <div class="rank-item" style="${i===0 ? 'border-color:var(--mms-red); background:#fff5f5;' : ''}">
                             <div class="rank-left">
                                 <span>${medal}</span>
                                 <span style="color:#334155;">${u.nama}</span>
                             </div>
-                            <span style="color:var(--duo-blue); font-size:14px;">${u.xp} XP</span>
+                            <span style="color:var(--mms-red); font-size:14px;">${u.xp} XP</span>
                         </div>`;
                 });
             });
         }
     </script>
- <script src="online-tracker.js"></script>
+    <script src="online-tracker.js"></script>
     <script src="script.js?v=115"></script>
     
 </body>
