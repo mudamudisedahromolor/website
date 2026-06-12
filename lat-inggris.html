@@ -357,7 +357,7 @@
             renderKamusKeHalaman();
         }
 
-        function renderKamusKeHalaman(filterText = "") {
+           function renderKamusKeHalaman(filterText = "") {
             let container = document.getElementById("box-daftar-vocab");
             container.innerHTML = "";
             
@@ -373,10 +373,20 @@
             }
 
             filtered.forEach(item => {
+                // Mengambil data kolom Contoh / Example dari sheet
+                let contohKalimat = item.contoh || item.Contoh || item.example || "Belum ada contoh kalimat.";
+
                 container.innerHTML += `
-                    <div class="vocab-item">
-                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 14px;"><i class="fa-solid fa-caret-right" style="color:var(--mms-green); margin-right:5px;"></i> ${item.kata || item.Kata}</div>
-                        <div style="color: #475569; font-size: 13px; margin-top:3px; padding-left:14px;">Arti: ${item.arti || item.Arti}</div>
+                    <div class="vocab-item" style="margin-bottom: 12px; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 14px;">
+                            <i class="fa-solid fa-language" style="color:var(--mms-green); margin-right:6px;"></i> ${item.kata || item.Kata}
+                        </div>
+                        <div style="color: #475569; font-size: 13px; margin-top:4px; padding-left:20px;">
+                            <b>Arti:</b> ${item.arti || item.Arti}
+                        </div>
+                        <div style="color: #64748b; font-size: 12px; margin-top:6px; padding: 6px 10px; background: #ffffff; border-left: 3px solid var(--mms-green); border-radius: 0 4px 4px 0; font-style: italic; padding-left:20px;">
+                            <b>Contoh:</b> ${contohKalimat}
+                        </div>
                     </div>`;
             });
         }
