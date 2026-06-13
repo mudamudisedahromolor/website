@@ -91,7 +91,6 @@
         .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
 
-        /* Desain Tombol Mikro Sub-Rumus (Verbal, Nominal, V-ing) */
         .btn-type-choice { padding: 10px 4px; background: #fff; border: 1px solid #cbd5e1; border-bottom: 3px solid #cbd5e1; border-radius: 6px; font-weight: bold; color: #475569; cursor: pointer; text-align: center; font-size: 12px; transition: all 0.1s; }
         .btn-type-choice:hover { border-color: var(--mms-accent); background: #f0f9ff; }
         .btn-type-choice:active { transform: translateY(2px); border-bottom-width: 1px; }
@@ -110,14 +109,14 @@
             line-height: 1.5;
         }
 
-        /* 🆕 STYLING MODAL POP-UP FULL LAYER BARU */
+        /* 🆕 STYLING HIGH-LAYER POP-UP MODAL BOX */
         .mms-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.6); /* Backdrop semi transparan */
+            background: rgba(15, 23, 42, 0.6); 
             backdrop-filter: blur(4px);
             z-index: 9999;
             display: flex;
@@ -135,8 +134,8 @@
             box-sizing: border-box;
             position: relative;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-            animation: modalFadeIn 0.25s ease-out;
-            max-height: 90vh;
+            animation: modalFadeIn 0.23s ease-out;
+            max-height: 85vh;
             overflow-y: auto;
         }
         .mms-modal-close-btn {
@@ -154,14 +153,14 @@
             color: #64748b;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s;
         }
         .mms-modal-close-btn:hover {
             background: var(--mms-red);
             color: #fff;
         }
         @keyframes modalFadeIn {
-            from { transform: scale(0.95); opacity: 0; }
+            from { transform: scale(0.96); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
     </style>
@@ -451,7 +450,7 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-        // --- 🆕 LOGIKA PERBAIKAN SINKRONISASI PENCARIAN 7 KOLOM DATABASE BARU ---
+        // --- 🆕 ENGINE PENCARIAN PENELUSUR BARIS KOMPATIBEL DENGAN 7 KOLOM BARU GS ---
         function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxRumus = document.getElementById("box-txt-rumus");
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
@@ -460,16 +459,19 @@
             let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
             document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
 
-            // Mencari data yang cocok berdasarkan parameter Kolom B/C (waktu/bentuk) dan D (tipe) dari GS
+            // Scanning teks baris fleksibel tanpa takut crash karena string dalam kurung spreadsheet
             let dataCocok = bankMateri.find(m => {
-                let wSheet = (m.waktu || "").toLowerCase().trim();
-                let bSheet = (m.bentuk || "").toLowerCase().trim();
-                let tSheet = (m.tipe || "").toLowerCase().trim();
+                let namaDiSheet = (m.namaMateri || m.Nama_Materi || m.nama || "").toLowerCase().trim();
+                let tipeDiSheet = (m.tipeRumus || m.Tipe_Rumus || m.tipe || "").toLowerCase().trim();
                 
-                // Mendukung pencarian dua arah (Nama tunggal seperti 'Simple Present' atau gabungan terpisah kolom B & C)
-                let namaTenseGabung = (wSheet + " " + bSheet).trim();
-                let matchNama = namaTenseGabung.includes(namaTense.toLowerCase().trim()) || (m.nama || m.Nama_Materi || "").toLowerCase().trim() === namaTense.toLowerCase().trim();
-                let matchTipe = tSheet === tipeRumusGabungan.toLowerCase().trim();
+                let matchNama = namaDiSheet.includes(namaTense.toLowerCase().trim());
+                let matchTipe = tipeDiSheet === tipeRumusGabungan.toLowerCase().trim();
+                
+                // Kondisi khusus untuk tombol panduan Dasar (Auxiliary / Verb-ing)
+                if (namaTense === 'Dasar') {
+                    matchNama = (m.modals || m.Modals || "").toLowerCase().trim().includes("present");
+                    matchTipe = tipeDiSheet.includes(tipeRumusGabungan.toLowerCase().trim());
+                }
                 
                 return matchNama && matchTipe;
             });
@@ -482,14 +484,14 @@
                 return;
             }
 
-            // Menggunakan .innerText agar break line enter \n tercetak vertikal sempurna
-            boxRumus.innerText = dataCocok.rumus || dataCocok.Rumus || "Rumus Kosong";
-            boxPembahasan.innerText = dataCocok.penjelasan || dataCocok.Pembahasan || dataCocok.pembahasan || "Penjelasan Kosong";
+            // Memanggil properti baru hasil olahan Code.gs 7 Kolom
+            boxRumus.innerText = dataCocok.rumus || "Rumus Kosong";
+            boxPembahasan.innerText = dataCocok.pembahasan || "Penjelasan Kosong";
 
-            let visual = dataCocok.visual || dataCocok.Link_Visual || "";
+            let visual = dataCocok.visual || "";
             if (visual.startsWith("fa-")) {
-                boxMedia.innerHTML = `<i class="fa-solid ${visual} style="color:var(--mms-accent)" class="fa-3x"></i>`;
-            } else if (visual.includes("youtube.com") || visual.includes("youtu.be")) {
+                boxMedia.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
+            } else if (visual.includes("v=") || visual.includes("youtu.be")) {
                 let videoId = visual.split("v=")[1] || visual.split("/").pop();
                 if(videoId.includes("&")) videoId = videoId.split("&")[0];
                 boxMedia.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
@@ -499,11 +501,9 @@
                 boxMedia.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
             }
 
-            // 🆕 Tampilkan modal top layer dengan display flex (bukan block) agar rata tengah
             document.getElementById("materi-pembahasan-box").style.display = "flex";
         }
 
-        // Fungsi Baru menutup Modal Pop-up
         function tutupModalMateri() {
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
