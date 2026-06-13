@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MMS English Academy - Ruang Literasi</title>
    
-    <link rel="icon" href="images/mms.png" type="image/png">
+    <link class="img-box" icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=105">
+    <link rel="stylesheet" href="style.css?v=103">
     <link rel="manifest" href="manifest.json">
     
     <style>
         :root { 
-            --mms-red: #cc0202; 
+            --mms-red: #cc0202; /* Merah khas utama Muda Mudi */
             --mms-red-hover: #b30202;
-            --mms-navy: #0f172a; 
+            --mms-navy: #0f172a; /* Navy gelap pendukung */
             --mms-blue-light: #eef2ff;
             --mms-accent: #3b82f6; 
             --mms-bg: #f8fafc;
-            --mms-green: #10b981;
         }
 
         body { 
@@ -31,22 +30,23 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        /* Pembungkus Konten Utama agar turun di bawah navbar melayang */
         .mms-app-container {
             width: 100%;
             max-width: 1200px;
-            margin: 140px auto 40px auto; 
+            margin: 140px auto 40px auto; /* Atas ditandai 140px agar melorot ke bawah navbar */
             padding: 0 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
             position: relative;
-            z-index: 1; 
+            z-index: 1; /* Memastikan dia berada di lapisan bawah navbar */
         }
         
         .duo-container { 
             width: 100%; 
-            max-width: 600px; 
+            max-width: 550px; 
             background: #fff; 
             border: 1px solid #e2e8f0; 
             border-radius: 12px; 
@@ -56,105 +56,49 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
         
+        /* Bar Status Atas */
         .duo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px; }
         .stat-item { font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 6px; }
         .stat-xp { color: var(--mms-accent); }
         .stat-heart { color: var(--mms-red); }
+        
+        /* Animasi Mengocok Kardus / Shake jika nyawa berkurang */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .shake-effect { animation: shake 0.4s ease; }
 
-        /* Desain Blok Rumpun Tenses */
-        .time-group-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background: #fff;
-            margin-bottom: 18px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .time-group-header {
-            background: var(--mms-navy);
-            color: #fff;
-            padding: 12px 16px;
-            font-weight: bold;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .sub-tense-section {
-            padding: 14px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .sub-tense-title {
-            font-weight: bold;
-            font-size: 13px;
-            color: #475569;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Tata Letak Grid Tombol Dinamis */
-        .btn-double-row-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .btn-triple-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-        }
-        .btn-sub-action {
-            padding: 8px 2px;
-            background: #fff;
-            border: 1px solid #cbd5e1;
-            border-bottom: 3px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
-            color: #334155;
-            cursor: pointer;
-            transition: all 0.1s;
-            text-align: center;
-        }
-        .btn-sub-action:hover {
-            border-color: var(--mms-accent);
-            background: var(--mms-blue-light);
-        }
-        .btn-sub-action:active {
-            transform: translateY(1px);
-            border-bottom-width: 1px;
-        }
-
+        /* Progress Bar Kelulusan */
+        .progress-container { background: #e2e8f0; height: 12px; border-radius: 10px; width: 100%; overflow: hidden; margin-bottom: 25px; position: relative; }
+        .progress-fill { background: var(--mms-red); height: 100%; width: 0%; transition: width 0.4s ease; }
+        
+        .question-box { font-size: 18px; font-weight: 600; color: #1e293b; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+        
+        /* Area Box Visual */
+        .visual-frame { height: 135px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 2px dashed #cbd5e1; overflow: hidden; }
+        .visual-frame img { max-height: 100%; max-width: 100%; object-fit: contain; }
+        
+        /* Grid Pilihan Gambar Responsif */
+        .image-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .img-option-card { background: #fff; border: 1px solid #e2e8f0; border-bottom: 4px solid #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.1s ease; user-select: none; }
+        .img-option-card:hover { border-color: var(--mms-red); background: #fff5f5; }
+        .img-option-card.selected { border-color: var(--mms-red); background: #fff5f5; border-bottom-width: 1px; transform: translateY(3px); }
+        .img-box { height: 65px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; color: #94a3b8; }
+        .img-label { font-weight: bold; color: #334155; font-size: 14px; }
+        
         .btn-check { background: var(--mms-red); color: #fff; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 25px; text-transform: uppercase; letter-spacing: 0.8px; transition: background 0.2s; }
         .btn-check:hover { background: var(--mms-red-hover); }
+        .btn-check:active { transform: translateY(1px); }
 
-        .dashboard-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .menu-card { display: flex; align-items: center; gap: 20px; padding: 18px; border: 1px solid #e2e8f0; border-bottom: 4px solid #cbd5e1; border-radius: 12px; cursor: pointer; text-align: left; transition: all 0.2s; background: #fff; }
-        .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
-
-        .vocab-search-box { width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; }
-        .vocab-list-container { max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-right: 5px; }
-        .vocab-item { padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }
-
+        /* Desain Papan Peringkat Leaderboard */
         .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; font-weight: bold; margin-bottom: 8px; }
         .rank-left { display: flex; align-items: center; gap: 12px; }
+
+        /* Gaya Form Input Login */
         .mms-input-field { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; box-sizing: border-box; margin-bottom: 15px; text-align: center; background: #f8fafc; }
-        
-        .box-pre-wrap {
-            white-space: pre-wrap;
-            font-family: monospace;
-            font-size: 14px;
-            font-weight: bold;
-            background: #fff;
-            border-left: 4px solid var(--mms-accent);
-            padding: 10px 12px;
-            margin-bottom: 15px;
-            border-radius: 0 4px 4px 0;
-            line-height: 1.5;
-            color: #1e293b;
-        }
+        .mms-input-field:focus { outline: none; border-color: var(--mms-red); background: #fff; }
     </style>
 </head>
 <body> 
@@ -170,7 +114,80 @@
                     </div>
                 </a>
             </div>
+            
+            <div class="header-right-stuff">
+                <div class="header-socials">
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <button class="menu-toggle" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div> 
+        
+        <nav class="main-navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html">BERANDA</a></li>
+                <li class="nav-item">
+                    <a href="#">PROFIL</a>
+                    <ul class="submenu">
+                        <li class="submenu-item"><a href="struktur.html"> - STRUKTUR KEANGGOTAAN</a></li>
+                        <li class="submenu-item"><a href="visi-misi.html"> - VISI & MISI</a></li>
+                        <li class="submenu-item"><a href="daftar-anggota.html"> - DAFTAR ANGGOTA</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" id="btn-bulanan">KEGIATAN</a>
+                    <ul class="submenu" id="menu-rapat">
+                        <li class="submenu-item"><a href="rapat-hasilrapat.html"> - RAPAT BULANAN</a></li>
+                        <li class="submenu-item"><a href="dokumentasi-kegiatan.html"> - DOKUMENTASI</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">LAPORAN</a>
+                    <ul class="submenu">
+                        <li class="submenu-item"><a href="laporan-keuangan.html"> - KEUANGAN</a></li>
+                        <li class="submenu-item"><a href="iuran-bulanan.html"> - KAS BULANAN</a></li>
+                        <li class="submenu-item"><a href="lpj.html"> - PERTANGGUNG JAWABAN</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" id="btn-tahunan">DATA ARSIP</a>
+                    <ul class="submenu" id="menu-17an">
+                        <li class="submenu-item"><a href="arsip-proposal.html"> - PROPOSAL</a></li>
+                        <li class="submenu-item"><a href="arsip-lomba.html"> - LOMBA</a></li>
+                        <li class="submenu-item"><a href="arsip-surat.html"> - SURAT</a></li>
+                    </ul>
+                </li> 
+                <li class="nav-item">
+                    <a href="#">INFORMASI</a>
+                    <ul class="submenu">
+                        <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
+                        <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
+                        <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html">RUANG LITERASI</a>
+                    <ul class="submenu">
+                       <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
+                       <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-mobile-only">
+                <div class="header-socials">
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <div class="mms-app-container">
@@ -178,236 +195,214 @@
         <div id="login-panel" class="duo-container" style="text-align: center; padding: 40px 30px;">
             <i class="fa-solid fa-graduation-cap" style="font-size: 55px; color: var(--mms-red); margin-bottom: 20px;"></i>
             <h2 style="color: var(--mms-navy); margin-top:0;">MMS English Academy</h2>
+            <p style="color:#64748b; font-size:13px; margin-bottom:25px; line-height:1.5;">Masukkan email terdaftar kamu untuk memuat progres belajar dan bersaing di papan peringkat kompetisi warga.</p>
             <input type="email" id="user-email" class="mms-input-field" placeholder="nama@email.com">
-            <button class="btn-check" onclick="loginSistem()">Mulai Belajar</button>
+            <button class="btn-check" onclick="loginSistem()" style="margin-top:10px;">Mulai Belajar</button>
         </div>
 
         <div id="main-panel" class="duo-container" style="display: none;">
             <div class="duo-header" id="header-bar">
                 <div class="stat-item stat-xp"><i class="fa-solid fa-bolt"></i> <span id="lbl-xp">0</span> XP</div>
-                <div class="stat-item" style="color: #64748b; font-size:13px;" id="lbl-nama">User</div>
+                <div class="stat-item" style="color: #64748b; font-size:13px; font-weight:600;" id="lbl-nama">User</div>
                 <div class="stat-item stat-heart"><i class="fa-solid fa-heart"></i> <span id="lbl-hearts">5</span></div>
             </div>
 
-            <div id="dashboard-menu" style="display: block;">
-                <div class="dashboard-grid">
-                    <div class="menu-card" onclick="bukaMateriMenu()">
-                        <div class="menu-card-icon" style="background: var(--mms-accent);"><i class="fa-solid fa-book-open"></i></div>
-                        <div>
-                            <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px;">Materi & Modals Tenses</div>
-                            <div style="color: #64748b; font-size: 12px;">Pohon hierarki tenses interaktif Verbal, Nominal, & Rumpun V-ing.</div>
-                        </div>
-                    </div>
-                    <div class="menu-card" onclick="bukaVocab()">
-                        <div class="menu-card-icon" style="background: var(--mms-green);"><i class="fa-solid fa-book-atlas"></i></div>
-                        <div>
-                            <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px;">Vocabulary & Kamus Warga</div>
-                            <div style="color: #64748b; font-size: 12px;">Pusat istilah administrasi dan contoh kalimat.</div>
-                        </div>
-                    </div>
+            <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
+
+            <div id="quiz-body">
+                <div class="question-box" id="lbl-pertanyaan">Memuat tantangan visual...</div>
+                <div class="visual-frame" id="box-visual">
+                    <i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8;"></i>
                 </div>
+                <div class="image-grid-options" id="grid-opsi"></div>
+                <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
             </div>
-
-            <div id="materi-body" style="display: none;">
-                <h3 style="color: var(--mms-navy); text-align: center; margin-top: 0; margin-bottom: 15px;"><i class="fa-solid fa-sitemap"></i> Pohon Hierarki Tenses</h3>
-                
-                <div id="hierarki-tenses-container"></div>
-
-                <div id="materi-pembahasan-box" style="display:none; border-top: 2px solid #e2e8f0; padding-top: 20px; margin-top: 20px;">
-                    <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:12px; font-size: 14px;">Kondisi Tense</h4>
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px;">
-                        
-                        <div style="font-weight: bold; font-size: 11px; color: var(--mms-accent); text-transform: uppercase; margin-bottom: 5px;">Konstruksi Rumus:</div>
-                        <div id="box-txt-rumus" class="box-pre-wrap">S + ...</div>
-                        
-                        <div style="font-weight: bold; font-size: 11px; color: var(--mms-green); text-transform: uppercase; margin-bottom: 5px;">Penjelasan / Pembahasan:</div>
-                        <div id="box-txt-pembahasan" style="font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 15px; white-space: pre-wrap;">Isi penjelasan...</div>
-
-                        <div style="font-weight: bold; font-size: 11px; color: var(--mms-red); text-transform: uppercase; margin-bottom: 5px;">Contoh Penerapan Kalimat & Arti:</div>
-                        <div id="box-txt-arti" style="font-size: 13px; color: #334155; line-height: 1.6; background:#fff; border-left:4px solid var(--mms-red); padding: 8px 12px; border-radius: 0 4px 4px 0; white-space: pre-wrap;">Isi arti...</div>
-                    </div>
-                </div>
-
-                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 25px;">Kembali ke Menu</button>
-            </div>
-
-            <div id="vocab-body" style="display: none;">
-                <h3 style="color: var(--mms-navy); text-align: center; margin-top: 0;"><i class="fa-solid fa-book-atlas"></i> Kamus Istilah Pemuda</h3>
-                <input type="text" id="vocab-search" class="vocab-search-box" placeholder="Cari kosakata..." oninput="filterKamusUser()">
-                <div class="vocab-list-container" id="box-daftar-vocab"></div>
-                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b;">Kembali ke Menu</button>
-            </div>
-
         </div>
 
-        <div id="leaderboard-panel" class="duo-container">
-             <h3 style="margin-top:0; color:var(--mms-navy); border-bottom:2px solid #f1f5f9; padding-bottom:12px; font-size:15px;"><i class="fa-solid fa-trophy" style="color:var(--mms-red); margin-right:6px;"></i> Liga Kompetisi Pemuda</h3>
-             <div id="list-leaderboard"></div>
+        <div id="leaderboard-panel" class="duo-container" style="display: block;">
+             <h3 style="margin-top:0; color:var(--mms-navy); border-bottom:2px solid #f1f5f9; padding-bottom:12px; font-size:16px;">
+                <i class="fa-solid fa-trophy" style="color:var(--mms-red); margin-right:6px;"></i> Liga Kompetisi Pemuda
+            </h3>
+            <div id="list-leaderboard">
+                <div style="text-align:center; padding:15px; color:#94a3b8; font-size:14px;"><i class="fa-solid fa-spinner fa-spin"></i> Membaca skor liga...</div>
+            </div>
         </div>
 
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column info-col">
+                <div class="footer-brand">
+                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
+                    <h4>Muda Mudi Sedahromo Lor</h4>
+                </div>
+                <p class="footer-text">
+                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
+                </p>
+                <p class="footer-text">
+                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a>
+                </p>
+            </div>
+
+            <div class="footer-column links-col">
+                <h5>Sitemap</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
+                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
+                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
+                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
+                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column social-col">
+                <h5>Media Sosial</h5>
+                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
+
         let userSession = null;
-        let bankMateri = []; 
-        let dataKamus = [];
+        let bankSoal = [];
+        let indeksSoal = 0;
+        let jawabanTerpilih = "";
+        let nyawa = 5;
 
-        const rentangWaktu = ["Present", "Past", "Future", "Past Future"];
-        const rentangBentuk = ["Simple", "Continuous", "Perfect", "Perfect Continuous"];
-
-        // 🆕 DETEKTOR GENERATOR STRUKTUR TOMBOL BERDASARKAN KARAKTERISTIK TENSES
-        function renderPohonTombolTenses() {
-            const container = document.getElementById("hierarki-tenses-container");
-            container.innerHTML = "";
-
-            rentangWaktu.forEach(waktu => {
-                let htmlCard = `
-                    <div class="time-group-card">
-                        <div class="time-group-header"><i class="fa-solid fa-clock"></i> Rumpun ${waktu}</div>
-                `;
-
-                rentangBentuk.forEach(bentuk => {
-                    let namaTenseLengkap = `${waktu} ${bentuk}`;
-                    let isContinuous = bentuk.toLowerCase().includes("continuous");
-
-                    htmlCard += `
-                        <div class="sub-tense-section">
-                            <div class="sub-tense-title">${namaTenseLengkap}</div>
-                    `;
-
-                    if (isContinuous) {
-                        // 🟢 Jika Rumpun Continuous/Perfect Continuous -> Munculkan 3 Tombol V-ing
-                        htmlCard += `
-                            <div class="btn-triple-grid">
-                                <button class="btn-sub-action" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'positif-vbing')">[V-ing] (+)</button>
-                                <button class="btn-sub-action" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'negatif-vbing')">[V-ing] (-)</button>
-                                <button class="btn-sub-action" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'tanya-vbing')">[V-ing] (?)</button>
-                            </div>
-                        `;
-                    } else {
-                        // 🔵 Jika Rumpun Simple & Perfect -> Munculkan 6 Tombol Terpisah (Verbal & Nominal)
-                        htmlCard += `
-                            <div class="btn-double-row-grid">
-                                <div class="btn-triple-grid">
-                                    <button class="btn-sub-action" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'positif-verbal')">Verbal (+)</button>
-                                    <button class="btn-sub-action" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'negatif-verbal')">Verbal (-)</button>
-                                    <button class="btn-sub-action" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'tanya-verbal')">Verbal (?)</button>
-                                </div>
-                                <div class="btn-triple-grid">
-                                    <button class="btn-sub-action" style="color:#475569; background:#f8fafc;" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'positif-nominal')">Nominal (+)</button>
-                                    <button class="btn-sub-action" style="color:#475569; background:#f8fafc;" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'negatif-nominal')">Nominal (-)</button>
-                                    <button class="btn-sub-action" style="color:#475569; background:#f8fafc;" onclick="panggilAksiRumus('${waktu}', '${bentuk}', 'tanya-nominal')">Nominal (?)</button>
-                                </div>
-                            </div>
-                        `;
-                    }
-
-                    htmlCard += `</div>`;
-                });
-
-                htmlCard += `</div>`;
-                container.innerHTML += htmlCard;
-            });
-        }
+        const soalDummy = [
+            { tanya: "Which one is the 'Beverage'?", opsi: ["Donut", "Coffee", "Egg", "Almond"], benar: "Coffee", visual: "fa-glass-water" },
+            { tanya: "They ... lunch before the monthly meeting started yesterday.", opsi: ["eat", "ate", "had eaten", "eating"], benar: "had eaten", visual: "fa-history" }
+        ];
 
         function loginSistem() {
             let email = document.getElementById("user-email").value.trim().toLowerCase();
             if(!email) return alert("Email wajib diisi!");
+            
+            document.getElementById("login-panel").innerHTML = "<h3><i class='fa-solid fa-circle-notch fa-spin'></i> Menyinkronkan Akun...</h3>";
             
             fetch(`${API_URL}?aksi=login&email=${email}`)
             .then(r => r.json()).then(res => {
                 userSession = res.data;
                 document.getElementById("login-panel").style.display = "none";
                 document.getElementById("main-panel").style.display = "block";
+                document.getElementById("leaderboard-panel").style.display = "block";
+                
                 document.getElementById("lbl-nama").innerText = userSession.nama;
                 document.getElementById("lbl-xp").innerText = userSession.xp;
                 
-                renderPohonTombolTenses();
-                ambilAsetDataWeb();
+                ambilAsetData();
                 muatLeaderboard();
             }).catch(() => {
+                alert("Gagal terhubung ke API. Menjalankan mode luring mandiri!");
                 userSession = { email: email, nama: email.split("@")[0], xp: 0 };
                 document.getElementById("login-panel").style.display = "none";
                 document.getElementById("main-panel").style.display = "block";
-                renderPohonTombolTenses();
+                ambilAsetData();
             });
         }
 
-        function ambilAsetDataWeb() {
+        function ambilAsetData() {
             fetch(`${API_URL}?aksi=getMateriDanSoal`)
             .then(r => r.json()).then(res => {
-                bankMateri = res.materi ? res.materi : [];
-                dataKamus = res.kamus ? res.kamus : [];
+                bankSoal = res.soal && res.soal.length > 0 ? res.soal : soalDummy;
+                tampilkanSoalDinamis();
+            }).catch(() => {
+                bankSoal = soalDummy;
+                tampilkanSoalDinamis();
             });
         }
 
-        function panggilAksiRumus(waktu, bentuk, tipeGabungan) {
-            document.getElementById("materi-pembahasan-box").style.display = "block";
-            
-            let labelClean = tipeGabungan.toUpperCase().replace("-", " ➜ ");
-            document.getElementById("lbl-judul-tense-aktif").innerHTML = `Pembahasan: <b>${waktu} ${bentuk} (${labelClean})</b>`;
-
-            let dataCocok = bankMateri.find(m => {
-                let wSheet = (m.waktu || "").toLowerCase().trim();
-                let bSheet = (m.bentuk || "").toLowerCase().trim();
-                let tSheet = (m.tipe || "").toLowerCase().trim();
-                return wSheet === waktu.toLowerCase().trim() && bSheet === bentuk.toLowerCase().trim() && tSheet === tipeGabungan.toLowerCase().trim();
-            });
-
-            let boxRumus = document.getElementById("box-txt-rumus");
-            let boxPenjelasan = document.getElementById("box-txt-pembahasan");
-            let boxArti = document.getElementById("box-txt-arti");
-
-            if (!dataCocok) {
-                boxRumus.innerText = "Data Belum Diinput";
-                boxPenjelasan.innerHTML = `Baris database kosong. Silakan isi di sheet Bank_Materi:<br><b>Kolom B (Waktu):</b> ${waktu}<br><b>Kolom C (Bentuk):</b> ${bentuk}<br><b>Kolom D (Tipe_Rumus):</b> ${tipeGabungan}`;
-                boxArti.innerText = "-";
+        function tampilkanSoalDinamis() {
+            jawabanTerpilih = "";
+            if (indeksSoal >= bankSoal.length) {
+                document.getElementById("quiz-body").innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu Menyelesaikan Modul Hari Ini!</div>`;
+                document.getElementById("quiz-progress").style.width = "100%";
                 return;
             }
 
-            boxRumus.innerText = dataCocok.rumus || "Kosong";
-            boxPenjelasan.innerHTML = dataCocok.penjelasan || "Kosong";
-            boxArti.innerHTML = dataCocok.arti || "Kosong";
+            let pct = (indeksSoal / bankSoal.length) * 100;
+            document.getElementById("quiz-progress").style.width = pct + "%";
 
-            document.getElementById("materi-pembahasan-box").scrollIntoView({ behavior: 'smooth' });
-        }
+            let s = bankSoal[indeksSoal];
+            document.getElementById("lbl-pertanyaan").innerText = s.tanya;
+            
+            let frame = document.getElementById("box-visual");
+            if(s.visual && s.visual.startsWith("fa-")) {
+                frame.innerHTML = `<i class="fa-solid ${s.visual} fa-4x" style="color:var(--mms-accent)"></i>`;
+            } else if(s.visual) {
+                frame.innerHTML = `<img src="${s.visual}" alt="visual">`;
+            } else {
+                frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
+            }
 
-        function bukaMateriMenu() {
-            document.getElementById("dashboard-menu").style.display = "none";
-            document.getElementById("materi-body").style.display = "block";
-            document.getElementById("vocab-body").style.display = "none";
-            document.getElementById("materi-pembahasan-box").style.display = "none";
-        }
-
-        function bukaVocab() {
-            document.getElementById("dashboard-menu").style.display = "none";
-            document.getElementById("materi-body").style.display = "none";
-            document.getElementById("vocab-body").style.display = "block";
-            renderKamusKeHalaman();
-        }
-
-        function renderKamusKeHalaman(filterText = "") {
-            let container = document.getElementById("box-daftar-vocab");
-            container.innerHTML = "";
-            let filtered = dataKamus.filter(item => {
-                let kata = (item.kata || "").toLowerCase();
-                return kata.includes(filterText);
-            });
-            filtered.forEach(item => {
-                container.innerHTML += `<div class="vocab-item"><b>${item.kata}</b>: ${item.arti}</div>`;
+            let grid = document.getElementById("grid-opsi");
+            grid.innerHTML = "";
+            s.opsi.forEach((o, index) => {
+                if(o) {
+                    grid.innerHTML += `
+                        <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
+                            <div class="img-box"><i class="fa-solid fa-cubes fa-2xl"></i></div>
+                            <div class="img-label">${o}</div>
+                        </div>`;
+                }
             });
         }
 
-        function filterKamusUser() {
-            let txt = document.getElementById("vocab-search").value.toLowerCase().trim();
-            renderKamusKeHalaman(txt);
+        function pilihOpsiCard(el, teks) {
+            document.querySelectorAll(".img-option-card").forEach(c => c.classList.remove("selected"));
+            el.classList.add("selected");
+            jawabanTerpilih = teks;
         }
 
-        function kembaliKeDashboard() {
-            document.getElementById("dashboard-menu").style.display = "block";
-            document.getElementById("materi-body").style.display = "none";
-            document.getElementById("vocab-body").style.display = "none";
+        function periksaJawabanUser() {
+            if(!jawabanTerpilih) return alert("Pilih satu jawaban dulu!");
+            let s = bankSoal[indeksSoal];
+            
+            if (jawabanTerpilih === s.benar) {
+                alert("🎉 Excellent! Jawabanmu Benar (+10 XP)");
+                indeksSoal++;
+                kirimPoinKeServer(10);
+            } else {
+                nyawa--;
+                document.getElementById("lbl-hearts").innerText = nyawa;
+                let hb = document.getElementById("header-bar");
+                hb.className = "duo-header shake-effect";
+                setTimeout(() => hb.className = "duo-header", 400);
+                
+                alert(`❌ Oops! Kurang Tepat. Jawaban benar: ${s.benar}`);
+                if(nyawa <= 0) {
+                    alert("⚔️ Game Over! Nyawa kamu habis. Pelajari kembali ringkasan materi.");
+                    location.reload();
+                    return;
+                }
+                indeksSoal++;
+                tampilkanSoalDinamis();
+            }
+        }
+
+        function kirimPoinKeServer(poin) {
+            userSession.xp += poin;
+            document.getElementById("lbl-xp").innerText = userSession.xp;
+            tampilkanSoalDinamis();
+            
+            fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({ aksi: "updateXP", email: userSession.email, tambahanXP: poin })
+            })
+            .then(() => muatLeaderboard());
         }
 
         function muatLeaderboard() {
@@ -415,11 +410,27 @@
             .then(r => r.json()).then(data => {
                 let box = document.getElementById("list-leaderboard");
                 box.innerHTML = "";
-                data.slice(0, 5).forEach((u, i) => {
-                    box.innerHTML += `<div class="rank-item"><div class="rank-left"><span>#${i+1}</span> <span>${u.nama}</span></div><span>${u.xp} XP</span></div>`;
+                data.slice(0, 10).forEach((u, i) => {
+                    let medal = i === 0 ? "🥇" : (i === 1 ? "🥈" : (i === 2 ? "🥉" : `<span style='color:#64748b;'>#${i+1}</span>`));
+                    box.innerHTML += `
+                        <div class="rank-item" style="${i===0 ? 'border-color:var(--mms-red); background:#fff5f5;' : ''}">
+                            <div class="rank-left">
+                                <span>${medal}</span>
+                                <span style="color:#334155;">${u.nama}</span>
+                            </div>
+                            <span style="color:var(--mms-red); font-size:14px;">${u.xp} XP</span>
+                        </div>`;
                 });
             });
         }
+
+        // Jalankan Liga Kompetisi Pemuda otomatis sejak awal halaman dibuka
+        window.addEventListener("DOMContentLoaded", () => {
+            muatLeaderboard();
+        });
     </script>
+    <script src="online-tracker.js"></script>
+    <script src="script.js?v=115"></script>
+    
 </body>
 </html>
