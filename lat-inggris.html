@@ -109,7 +109,6 @@
             line-height: 1.5;
         }
 
-        /* 📜 FIX CSS LAYERING MODAL POP-UP PAS DI BAWAH NAVBAR */
         .mms-modal-overlay {
             position: fixed;
             top: 0;
@@ -164,7 +163,6 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* 🆕 STYLING TERBARU: LOGIKA VERTISAL STACK (1 KOLOM UTUH KEBAWAH TANPA TERPOTONG) */
         .mms-vertical-layout-stack {
             display: flex;
             flex-direction: column;
@@ -219,6 +217,43 @@
             width: 100%; 
             object-fit: cover; 
             border-radius: 6px; 
+        }
+
+        /* 🆕 STYLING TERBARU: AKORDION TOMBOL SLIDE TOGGLE */
+        .mms-toggle-trigger-btn {
+            width: 100%;
+            background: #fff;
+            border: 1px dashed var(--mms-green);
+            color: var(--mms-green);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+        }
+        .mms-toggle-trigger-btn:hover {
+            background: #f0fdf4;
+            color: #15803d;
+            border-color: #15803d;
+        }
+        .mms-dropdown-content-panel {
+            display: none; /* Default tertutup rapat */
+            margin-top: 10px;
+            background: #f0fdf4;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--mms-green);
+            animation: slideDownIn 0.2s ease-out;
+        }
+        @keyframes slideDownIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -394,18 +429,26 @@
                                 <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 2px;">STRUKTUR RUMUS MUTLAK:</div>
                                 <div id="box-txt-rumus-aktif" class="box-pre-wrap" style="color:#0ea5e9; font-weight: bold; font-size: 14px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">S + V1...</div>
                                 
-                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:10px; margin-bottom: 2px;">CONTOH PENERAPAN & TERJEMAHAN:</div>
-                                <div id="box-txt-arti-aktif" style="background:#fff; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">Isi Aktif...</div>
+                                <button class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-aktif-contoh')">
+                                    <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh & Arti
+                                </button>
+                                <div id="panel-aktif-contoh" class="mms-dropdown-content-panel">
+                                    <div id="box-txt-arti-aktif">Isi Aktif...</div>
+                                </div>
                             </div>
 
-                            <div class="info-box-item" style="border-top: 3px solid #6366f1;">
-                                <div class="info-box-header style color: #6366f1;" style="color: #6366f1; font-size:13px;"><i class="fa-solid fa-code-branch"></i> JALUR KALIMAT PASIF (PASSIVE VOICE)</div>
+                            <div id="wrapper-box-pasif" class="info-box-item" style="border-top: 3px solid #6366f1;">
+                                <div class="info-box-header" style="color: #6366f1; font-size:13px;"><i class="fa-solid fa-code-branch"></i> JALUR KALIMAT PASIF (PASSIVE VOICE)</div>
                                 
                                 <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 2px;">STRUKTUR RUMUS MUTLAK:</div>
                                 <div id="box-txt-rumus-pasif" class="box-pre-wrap" style="color:#6366f1; font-weight: bold; font-size: 14px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">O + To Be...</div>
                                 
-                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:10px; margin-bottom: 2px;">CONTOH PENERAPAN & TERJEMAHAN:</div>
-                                <div id="box-txt-arti-pasif" style="background:#fff; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">Isi Pasif...</div>
+                                <button id="btn-toggle-pasif" class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-pasif-contoh')">
+                                    <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh & Arti
+                                </button>
+                                <div id="panel-pasif-contoh" class="mms-dropdown-content-panel">
+                                    <div id="box-txt-arti-pasif">Isi Pasif...</div>
+                                </div>
                             </div>
 
                         </div>
@@ -456,7 +499,7 @@
 
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
-        const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
+        const TSV_BASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
         let userSession = null;
         let bankSoal = [];
@@ -500,7 +543,10 @@
         }
 
         function ambilAsetDataWeb() {
-            fetch(TSV_URL)
+            // 🆕 TRaggregation cache-buster: Menyisipkan parameter waktu agar Google Sheets TSV dipaksa melakukan update instan
+            let cacheBusterUrl = TSV_BASE_URL + "&_cb=" + new Date().getTime();
+
+            fetch(cacheBusterUrl)
             .then(r => r.text())
             .then(tsvText => {
                 bankMateri = parseTSVMateri(tsvText);
@@ -531,8 +577,8 @@
                         namaMateri: kolom[2] ? kolom[2].trim() : "",
                         tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
                         rumus: kolom[4] ? kolom[4].trim() : "",
-                        pembahasan: kolom[5] ? kolom[5].trim() : "", // Kolom F (Inggris)
-                        arti: kolom[6] ? kolom[6].trim() : ""        // Kolom G (Arti Indo)
+                        pembahasan: kolom[5] ? kolom[5].trim() : "", 
+                        arti: kolom[6] ? kolom[6].trim() : ""        
                     });
                 }
             }
@@ -554,7 +600,16 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-        // --- 🔄 SINKRONISASI PEMECOHAN TOTAL & STYLE COUPLING (VERTikal 1 BARIS LAYOUT) ---
+        // 🆕 FUNGSI INTERAKTIF DROPDOWN ACCORDION TOGGLE KETUK BUKA-TUTUP
+        function toggleAccordionBox(panelId) {
+            let panel = document.getElementById(panelId);
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        }
+
         function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxVisualMateri = document.getElementById("box-media-materi");
             let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -562,6 +617,10 @@
             let boxArtiAktif = document.getElementById("box-txt-arti-aktif");
             let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
+
+            // Tutup semua panel dropdown accordion setiap kali warga membuka menu tenses baru
+            document.getElementById('panel-aktif-contoh').style.display = "none";
+            document.getElementById('panel-pasif-contoh').style.display = "none";
 
             let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
             document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
@@ -600,20 +659,21 @@
                 let bagianRumus = teksRumusGabungan.split(pemisah);
                 rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
                 rumusPasif = bagianRumus[1].trim();
+                document.getElementById("wrapper-box-pasif").style.display = "block"; // Tampilkan kotak pasif
             } else {
                 rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
+                document.getElementById("wrapper-box-pasif").style.display = "none"; // Sembunyikan jika Nominal
             }
             boxRumusAktif.innerText = rumusAktif;
             boxRumusPasif.innerText = rumusPasif;
 
-            // 2. ⚡ EKSTRAKSI PARALEL PASANGAN DATA: KOLOM F (INGGRIS) & KOLOM G (ARTI INDO)
-            let kolomF = dataCocok.pembahasan || ""; // Contoh Inggris
-            let kolomG = dataCocok.arti || "";       // Arti Indo
+            // 2. EKSTRAKSI GABUNGAN DATA KOLOM F (INGGRIS) & KOLOM G (ARTI)
+            let kolomF = dataCocok.pembahasan || ""; 
+            let kolomG = dataCocok.arti || "";       
 
             let inggrisAktif = "Belum ada contoh kalimat.", inggrisPasif = "No Passive Example.";
             let artiAktif = "", artiPasif = "";
 
-            // Pecah data Inggris Kolom F (Kebal data jika tag penanda tidak ada)
             if (kolomF.includes("[Pasif]") || kolomF.includes("Pasif")) {
                 let pemisahF = kolomF.includes("[Pasif]") ? "[Pasif]" : "Pasif";
                 let bagianF = kolomF.split(pemisahF);
@@ -623,7 +683,6 @@
                 inggrisAktif = kolomF.replace("[Aktif]", "").replace("Aktif", "").trim();
             }
 
-            // Pecah data Terjemahan Kolom G (Kebal data jika tag penanda tidak ada)
             if (kolomG.includes("[Pasif]") || kolomG.includes("Pasif")) {
                 let pemisahG = kolomG.includes("[Pasif]") ? "[Pasif]" : "Pasif";
                 let bagianG = kolomG.split(pemisahG);
@@ -633,24 +692,20 @@
                 artiAktif = kolomG.replace("[Aktif]", "").replace("Aktif", "").trim();
             }
 
-            // 3. Merender Perkawinan Data ke HTML Dengan Style Italic + Underline Border
+            // Render isi panel dropdown akordion
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisAktif}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiAktif || 'Belum ada terjemahan.'}</div>
             `;
 
-            if(teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
-                boxArtiPasif.innerHTML = `
-                    <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisPasif}</div>
-                    <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
-                    <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiPasif || 'Belum ada terjemahan Pasif.'}</div>
-                `;
-            } else {
-                boxArtiPasif.innerHTML = `<div style="font-size:12px; color:#64748b; font-style:italic;">Bentuk nominal tidak memiliki perubahan objek pasif.</div>`;
-            }
+            boxArtiPasif.innerHTML = `
+                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisPasif}</div>
+                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiPasif || 'Belum ada terjemahan Pasif.'}</div>
+            `;
 
-            // 4. Set Teks Judul Keterangan Atas Penggunaan
+            // 3. Set Teks Keterangan Atas Penggunaan
             boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
 
             // Render Media Visual / Player Video Youtube
