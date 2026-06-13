@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MMS English Academy - Ruang Literasi</title>
    
-    <link class="img-box" icon" href="images/mms.png" type="image/png">
+    <link rel="icon" href="images/mms.png" type="image/png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/mms.png">
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
@@ -15,12 +15,13 @@
     
     <style>
         :root { 
-            --mms-red: #cc0202; /* Merah khas utama Muda Mudi */
+            --mms-red: #cc0202; 
             --mms-red-hover: #b30202;
-            --mms-navy: #0f172a; /* Navy gelap pendukung */
+            --mms-navy: #0f172a; 
             --mms-blue-light: #eef2ff;
             --mms-accent: #3b82f6; 
             --mms-bg: #f8fafc;
+            --mms-green: #10b981;
         }
 
         body { 
@@ -30,18 +31,17 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        /* Pembungkus Konten Utama agar turun di bawah navbar melayang */
         .mms-app-container {
             width: 100%;
             max-width: 1200px;
-            margin: 140px auto 40px auto; /* Atas ditandai 140px agar melorot ke bawah navbar */
+            margin: 140px auto 40px auto; 
             padding: 0 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
             position: relative;
-            z-index: 1; /* Memastikan dia berada di lapisan bawah navbar */
+            z-index: 1; 
         }
         
         .duo-container { 
@@ -56,13 +56,11 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
         
-        /* Bar Status Atas */
         .duo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px; }
         .stat-item { font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 6px; }
         .stat-xp { color: var(--mms-accent); }
         .stat-heart { color: var(--mms-red); }
         
-        /* Animasi Mengocok Kardus / Shake jika nyawa berkurang */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-6px); }
@@ -70,17 +68,14 @@
         }
         .shake-effect { animation: shake 0.4s ease; }
 
-        /* Progress Bar Kelulusan */
         .progress-container { background: #e2e8f0; height: 12px; border-radius: 10px; width: 100%; overflow: hidden; margin-bottom: 25px; position: relative; }
         .progress-fill { background: var(--mms-red); height: 100%; width: 0%; transition: width 0.4s ease; }
         
         .question-box { font-size: 18px; font-weight: 600; color: #1e293b; text-align: center; margin-bottom: 20px; line-height: 1.5; }
         
-        /* Area Box Visual */
-        .visual-frame { height: 135px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 2px dashed #cbd5e1; overflow: hidden; }
-        .visual-frame img { max-height: 100%; max-width: 100%; object-fit: contain; }
+        .visual-frame { height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 2px dashed #cbd5e1; overflow: hidden; position: relative; }
+        .visual-frame img { max-height: 100%; width: 100%; object-fit: cover; }
         
-        /* Grid Pilihan Gambar Responsif */
         .image-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .img-option-card { background: #fff; border: 1px solid #e2e8f0; border-bottom: 4px solid #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.1s ease; user-select: none; }
         .img-option-card:hover { border-color: var(--mms-red); background: #fff5f5; }
@@ -90,15 +85,31 @@
         
         .btn-check { background: var(--mms-red); color: #fff; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 25px; text-transform: uppercase; letter-spacing: 0.8px; transition: background 0.2s; }
         .btn-check:hover { background: var(--mms-red-hover); }
-        .btn-check:active { transform: translateY(1px); }
 
-        /* Desain Papan Peringkat Leaderboard */
+        .dashboard-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .menu-card { display: flex; align-items: center; gap: 20px; padding: 18px; border: 1px solid #e2e8f0; border-bottom: 4px solid #cbd5e1; border-radius: 12px; cursor: pointer; text-align: left; transition: all 0.2s; background: #fff; }
+        .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
+
+        /* Desain Tombol Mikro Sub-Rumus (Verbal, Nominal, V-ing) */
+        .btn-type-choice { padding: 10px 4px; background: #fff; border: 1px solid #cbd5e1; border-bottom: 3px solid #cbd5e1; border-radius: 6px; font-weight: bold; color: #475569; cursor: pointer; text-align: center; font-size: 12px; transition: all 0.1s; }
+        .btn-type-choice:hover { border-color: var(--mms-accent); background: #f0f9ff; }
+        .btn-type-choice:active { transform: translateY(2px); border-bottom-width: 1px; }
+
+        .vocab-search-box { width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; }
+        .vocab-list-container { max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-right: 5px; }
+        .vocab-item { padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }
+
         .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; font-weight: bold; margin-bottom: 8px; }
         .rank-left { display: flex; align-items: center; gap: 12px; }
-
-        /* Gaya Form Input Login */
         .mms-input-field { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; box-sizing: border-box; margin-bottom: 15px; text-align: center; background: #f8fafc; }
         .mms-input-field:focus { outline: none; border-color: var(--mms-red); background: #fff; }
+        
+        /* 🆕 CLASS BARU: Mendeteksi break line enter [Aktif]/[Pasif] agar tercetak vertikal */
+        .box-pre-wrap {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body> 
@@ -114,79 +125,23 @@
                     </div>
                 </a>
             </div>
-            
             <div class="header-right-stuff">
                 <div class="header-socials">
                     <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
-            <button class="menu-toggle" id="mobile-menu-btn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
         </div> 
-        
         <nav class="main-navbar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="index.html">BERANDA</a></li>
-                <li class="nav-item">
-                    <a href="#">PROFIL</a>
-                    <ul class="submenu">
-                        <li class="submenu-item"><a href="struktur.html"> - STRUKTUR KEANGGOTAAN</a></li>
-                        <li class="submenu-item"><a href="visi-misi.html"> - VISI & MISI</a></li>
-                        <li class="submenu-item"><a href="daftar-anggota.html"> - DAFTAR ANGGOTA</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" id="btn-bulanan">KEGIATAN</a>
-                    <ul class="submenu" id="menu-rapat">
-                        <li class="submenu-item"><a href="rapat-hasilrapat.html"> - RAPAT BULANAN</a></li>
-                        <li class="submenu-item"><a href="dokumentasi-kegiatan.html"> - DOKUMENTASI</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#">LAPORAN</a>
-                    <ul class="submenu">
-                        <li class="submenu-item"><a href="laporan-keuangan.html"> - KEUANGAN</a></li>
-                        <li class="submenu-item"><a href="iuran-bulanan.html"> - KAS BULANAN</a></li>
-                        <li class="submenu-item"><a href="lpj.html"> - PERTANGGUNG JAWABAN</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" id="btn-tahunan">DATA ARSIP</a>
-                    <ul class="submenu" id="menu-17an">
-                        <li class="submenu-item"><a href="arsip-proposal.html"> - PROPOSAL</a></li>
-                        <li class="submenu-item"><a href="arsip-lomba.html"> - LOMBA</a></li>
-                        <li class="submenu-item"><a href="arsip-surat.html"> - SURAT</a></li>
-                    </ul>
-                </li> 
-                <li class="nav-item">
-                    <a href="#">INFORMASI</a>
-                    <ul class="submenu">
-                        <li class="submenu-item"><a href="berita.html"> - BERITA</a></li>
-                        <li class="submenu-item"><a href="kesehatan.html"> - KESEHATAN</a></li>
-                        <li class="submenu-item"><a href="monitor-lomba.html"> - MONITORING LOMBA</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html">RUANG LITERASI</a>
-                    <ul class="submenu">
-                       <li class="submenu-item"><a href="eperpus-mms.html"> - E-PERPUSTAKAAN</a></li>
-                       <li class="submenu-item"><a href="request-ebook.html"> - REQUEST EBOOK</a></li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a href="struktur.html">PROFIL</a></li>
+                <li class="nav-item"><a href="rapat-hasilrapat.html">KEGIATAN</a></li>
+                <li class="nav-item"><a href="laporan-keuangan.html">LAPORAN</a></li>
+                <li class="nav-item"><a href="arsip-proposal.html">DATA ARSIP</a></li> 
+                <li class="nav-item"><a href="eperpus-mms.html">RUANG LITERASI</a></li>
             </ul>
-            <div class="navbar-mobile-only">
-                <div class="header-socials">
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05?is_from_webapp=1&sender_device=pc" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
         </nav>
     </header>
 
@@ -195,7 +150,7 @@
         <div id="login-panel" class="duo-container" style="text-align: center; padding: 40px 30px;">
             <i class="fa-solid fa-graduation-cap" style="font-size: 55px; color: var(--mms-red); margin-bottom: 20px;"></i>
             <h2 style="color: var(--mms-navy); margin-top:0;">MMS English Academy</h2>
-            <p style="color:#64748b; font-size:13px; margin-bottom:25px; line-height:1.5;">Masukkan email terdaftar kamu untuk memuat progres belajar dan bersaing di papan peringkat kompetisi warga.</p>
+            <p style="color:#64748b; font-size:13px; margin-bottom:25px; line-height:1.5;">Masukkan email terdaftar kamu untuk masuk ke Ruang Belajar Mandiri Pemuda.</p>
             <input type="email" id="user-email" class="mms-input-field" placeholder="nama@email.com">
             <button class="btn-check" onclick="loginSistem()" style="margin-top:10px;">Mulai Belajar</button>
         </div>
@@ -207,15 +162,145 @@
                 <div class="stat-item stat-heart"><i class="fa-solid fa-heart"></i> <span id="lbl-hearts">5</span></div>
             </div>
 
-            <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
+            <div id="dashboard-menu" style="display: block;">
+                <h3 style="color: var(--mms-navy); margin-top: 0; margin-bottom: 5px; text-align: center;">Menu Utama</h3>
+                <p style="color: #64748b; font-size: 13px; text-align: center; margin-bottom: 20px;">Pilih rumpun pembelajaran yang ingin kamu akses:</p>
+                
+                <div class="dashboard-grid">
+                    <div class="menu-card" onclick="bukaMateriMenu()">
+                        <div class="menu-card-icon" style="background: var(--mms-accent);"><i class="fa-solid fa-book-open"></i></div>
+                        <div>
+                            <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px;">Materi & Modals Rumus</div>
+                            <div style="color: #64748b; font-size: 12px; margin-top: 2px;">Belajar tenses per rumus tunggal lengkap dengan video pembahasan.</div>
+                        </div>
+                    </div>
 
-            <div id="quiz-body">
-                <div class="question-box" id="lbl-pertanyaan">Memuat tantangan visual...</div>
-                <div class="visual-frame" id="box-visual">
-                    <i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8;"></i>
+                    <div class="menu-card" onclick="bukaVocab()">
+                        <div class="menu-card-icon" style="background: var(--mms-green);"><i class="fa-solid fa-book-atlas"></i></div>
+                        <div>
+                            <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px;">Vocabulary & Kamus Warga</div>
+                            <div style="color: #64748b; font-size: 12px; margin-top: 2px;">Pusat perbendaharaan kata organisasi lengkap dengan contoh kalimat.</div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" onclick="bukaQuiz()">
+                        <div class="menu-card-icon" style="background: var(--mms-red);"><i class="fa-solid fa-gamepad"></i></div>
+                        <div>
+                            <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px;">Mulai Quiz Evaluasi</div>
+                            <div style="color: #64748b; font-size: 12px; margin-top: 2px;">Uji pemahamanmu seputar tenses & vocab untuk klaim XP.</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="image-grid-options" id="grid-opsi"></div>
-                <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
+            </div>
+
+            <div id="materi-body" style="display: none; padding: 5px 0;">
+                <h3 style="color: var(--mms-navy); text-align: center; margin-top: 0; margin-bottom: 20px;"><i class="fa-solid fa-book-open"></i> Ruang Belajar Tenses</h3>
+
+                <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: var(--mms-blue-light); box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 16px;">
+                    <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 5px;">
+                        <i class="fa-solid fa-key" style="color: var(--mms-accent); margin-right: 6px;"></i> Kunci Dasar: Auxiliary & Verb-ing
+                    </div>
+                    <p style="color: #475569; font-size: 12px; margin-top: 0; margin-bottom: 12px;">Pelajari apa itu kata kerja bantu dan aturan perubahan bentuk kata kerja sebelum masuk ke rumus tenses.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <button class="btn-type-choice" style="border-color: var(--mms-accent); color: var(--mms-accent);" onclick="tampilkanMateriSpesifik('Dasar', 'auxiliary')">Auxiliary Verb 🔑</button>
+                        <button class="btn-type-choice" style="border-color: var(--mms-accent); color: var(--mms-accent);" onclick="tampilkanMateriSpesifik('Dasar', 'vbing-rules')">Aturan Verb-ing 📝</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 18px;">
+                    
+                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-star" style="color: var(--mms-accent); margin-right: 6px;"></i> Simple Present Tense</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'positif-verbal')">Verbal (+)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'negatif-verbal')">Verbal (-)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'tanya-verbal')">Verbal (?)</button>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'positif-nominal')">Nominal (+)</button>
+                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'negatif-nominal')">Nominal (-)</button>
+                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'tanya-nominal')">Nominal (?)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Present Continuous Tense</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Present Perfect Tense</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'positif-verbal')">Verbal (+)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'negatif-verbal')">Verbal (-)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'tanya-verbal')">Verbal (?)</button>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'positif-nominal')">Nominal (+)</button>
+                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'negatif-nominal')">Nominal (-)</button>
+                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'tanya-nominal')">Nominal (?)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Present Perfect Continuous</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="materi-pembahasan-box" style="display:none; border-top: 2px solid #e2e8f0; padding-top: 20px; margin-top: 20px;">
+                    <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:12px; font-size: 15px;">Materi</h4>
+                    
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: left;">
+                        <div style="font-weight: bold; font-size: 12px; color: var(--mms-accent); text-transform: uppercase; margin-bottom: 5px;">Rumus Resmi:</div>
+                        <div id="box-txt-rumus" class="box-pre-wrap" style="font-family: monospace; font-size: 14px; font-weight: bold; background: #fff; border-left: 4px solid var(--mms-accent); padding: 8px 12px; margin-bottom: 15px; border-radius: 0 6px 6px 0;">S + V1...</div>
+                        
+                        <div style="font-weight: bold; font-size: 12px; color: var(--mms-green); text-transform: uppercase; margin-bottom: 5px;">Kotak Pembahasan & Analisis:</div>
+                        <div id="box-txt-pembahasan" class="box-pre-wrap" style="font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 15px;">Detail...</div>
+                        
+                        <div style="font-weight: bold; font-size: 12px; color: var(--mms-red); text-transform: uppercase; margin-bottom: 8px;">Media Visual / Video Contoh:</div>
+                        <div class="visual-frame" id="box-media-materi" style="height: 180px; margin-bottom: 0; background: #fff;"></div>
+                    </div>
+                </div>
+
+                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 25px;">Kembali ke Menu</button>
+            </div>
+
+            <div id="vocab-body" style="display: none; padding: 5px 0;">
+                <h3 style="color: var(--mms-navy); text-align: center; margin-top: 0;"><i class="fa-solid fa-book-atlas"></i> Kamus Istilah Pemuda</h3>
+                <input type="text" id="vocab-search" class="vocab-search-box" placeholder="Cari kosakata atau arti kata..." oninput="filterKamusUser()">
+                <div class="vocab-list-container" id="box-daftar-vocab"></div>
+                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 0;">Kembali ke Menu</button>
+            </div>
+
+            <div id="quiz-body-wrapper" style="display: none;">
+                <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
+                <div id="quiz-body">
+                    <div class="question-box" id="lbl-pertanyaan">Memuat tantangan kuis...</div>
+                    <div class="visual-frame" id="box-visual">
+                        <i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>
+                    </div>
+                    <div class="image-grid-options" id="grid-opsi"></div>
+                    <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
+                </div>
+                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 15px;">Kembali ke Menu</button>
             </div>
         </div>
 
@@ -231,44 +316,8 @@
     </div>
 
     <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-column info-col">
-                <div class="footer-brand">
-                    <img src="images/mms.png" alt="Logo MMS" class="footer-logo">
-                    <h4>Muda Mudi Sedahromo Lor</h4>
-                </div>
-                <p class="footer-text">
-                    <i class="fa-solid fa-location-dot"></i> Jl. Sedahromo Lor, RT.05 / RW.06, Kel. Kartasura, Kec. Kartasura, Sukoharjo, Jawa Tengah 57167
-                </p>
-                <p class="footer-text">
-                    <i class="fa-solid fa-envelope"></i> <a href="mailto:mudamudisedahromolor@gmail.com">mudamudisedahromolor@gmail.com</a>
-                </p>
-            </div>
-
-            <div class="footer-column links-col">
-                <h5>Sitemap</h5>
-                <ul class="footer-links">
-                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
-                    <li><a href="struktur.html"><i class="fa-solid fa-chevron-right"></i> Struktur Organisasi</a></li>
-                    <li><a href="daftar-anggota.html"><i class="fa-solid fa-chevron-right"></i> Daftar Anggota</a></li>
-                    <li><a href="laporan-keuangan.html"><i class="fa-solid fa-chevron-right"></i> Transparansi Kas</a></li>
-                    <li><a href="dokumentasi-kegiatan.html"><i class="fa-solid fa-chevron-right"></i> Dokumentasi</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column social-col">
-                <h5>Media Sosial</h5>
-                <p class="footer-text">Ikuti linimasa kegiatan dan perkembangan pemuda kami melalui kanal resmi berikut:</p>
-                <div class="footer-social-icons">
-                    <a href="#" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@mudamudisedahromolor05" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
         <div class="footer-bottom">
-            <p>Copyright &copy; 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
+            <p>Copyright © 2026 Organisasi Muda Mudi Sedahromo Lor 05. All Rights Reserved.</p>
         </div>
     </footer>
     
@@ -278,13 +327,14 @@
 
         let userSession = null;
         let bankSoal = [];
+        let bankMateri = []; 
+        let dataKamus = [];  
         let indeksSoal = 0;
         let jawabanTerpilih = "";
         let nyawa = 5;
 
-        const soalDummy = [
-            { tanya: "Which one is the 'Beverage'?", opsi: ["Donut", "Coffee", "Egg", "Almond"], benar: "Coffee", visual: "fa-glass-water" },
-            { tanya: "They ... lunch before the monthly meeting started yesterday.", opsi: ["eat", "ate", "had eaten", "eating"], benar: "had eaten", visual: "fa-history" }
+        const kuisOffline = [
+            { tanya: "Which one is an administrative tool used to store residents' data?", opsi: ["Database", "Invoice", "Schedule", "Letterhead"], benar: "Database", visual: "fa-database" }
         ];
 
         function loginSistem() {
@@ -298,37 +348,149 @@
                 userSession = res.data;
                 document.getElementById("login-panel").style.display = "none";
                 document.getElementById("main-panel").style.display = "block";
-                document.getElementById("leaderboard-panel").style.display = "block";
-                
                 document.getElementById("lbl-nama").innerText = userSession.nama;
                 document.getElementById("lbl-xp").innerText = userSession.xp;
                 
-                ambilAsetData();
+                resetTampilanDashboard();
+                ambilAsetDataWeb();
                 muatLeaderboard();
             }).catch(() => {
-                alert("Gagal terhubung ke API. Menjalankan mode luring mandiri!");
+                alert("Membuka koneksi luring darurat!");
                 userSession = { email: email, nama: email.split("@")[0], xp: 0 };
                 document.getElementById("login-panel").style.display = "none";
                 document.getElementById("main-panel").style.display = "block";
-                ambilAsetData();
+                
+                bankSoal = kuisOffline;
+                resetTampilanDashboard();
+                tampilkanSoalDinamis();
             });
         }
 
-        function ambilAsetData() {
+        function ambilAsetDataWeb() {
             fetch(`${API_URL}?aksi=getMateriDanSoal`)
             .then(r => r.json()).then(res => {
-                bankSoal = res.soal && res.soal.length > 0 ? res.soal : soalDummy;
+                bankSoal = res.soal && res.soal.length > 0 ? res.soal : kuisOffline;
+                bankMateri = res.materi ? res.materi : [];
+                dataKamus = res.kamus ? res.kamus : [];
                 tampilkanSoalDinamis();
+                renderKamusKeHalaman();
             }).catch(() => {
-                bankSoal = soalDummy;
+                bankSoal = kuisOffline;
                 tampilkanSoalDinamis();
             });
+        }
+
+        function resetTampilanDashboard() {
+            document.getElementById("dashboard-menu").style.display = "block";
+            document.getElementById("materi-body").style.display = "none";
+            document.getElementById("vocab-body").style.display = "none";
+            document.getElementById("quiz-body-wrapper").style.display = "none";
+        }
+
+        function bukaMateriMenu() {
+            document.getElementById("dashboard-menu").style.display = "none";
+            document.getElementById("materi-body").style.display = "block";
+            document.getElementById("vocab-body").style.display = "none";
+            document.getElementById("quiz-body-wrapper").style.display = "none";
+            document.getElementById("materi-pembahasan-box").style.display = "none";
+        }
+
+        // --- SISTEM GABUNGAN: MENEMBAK NAMA TENSES + DATA TIPE ATRIBUT ---
+        function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
+            document.getElementById("materi-pembahasan-box").style.display = "block";
+            
+            let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
+            document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
+
+            let dataCocok = bankMateri.find(m => {
+                let namaSheet = (m.nama || m.Nama_Materi || "").toLowerCase().trim();
+                let tipeSheet = (m.tipe || m.Tipe_Rumus || "").toLowerCase().trim();
+                return namaSheet === namaTense.toLowerCase().trim() && tipeSheet === tipeRumusGabungan.toLowerCase().trim();
+            });
+
+            let boxRumus = document.getElementById("box-txt-rumus");
+            let boxPembahasan = document.getElementById("box-txt-pembahasan");
+            let boxMedia = document.getElementById("box-media-materi");
+
+            if (!dataCocok) {
+                boxRumus.innerText = "Belum Ada Data";
+                boxPembahasan.innerText = "Silakan isi baris rumus ini pada tab spreadsheet Bank_Materi kamu.";
+                boxMedia.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
+                return;
+            }
+
+            // 🆕 MENGGUNAKAN `.innerText` AGAR TANDA \n ENTER DI SPREADSHEET TERCETAK TURUN KE BAWAH
+            boxRumus.innerText = dataCocok.rumus || "Rumus Kosong";
+            boxPembahasan.innerText = dataCocok.pembahasan || "Penjelasan Kosong";
+
+            let visual = dataCocok.visual || "";
+            if (visual.startsWith("fa-")) {
+                boxMedia.innerHTML = `<i class="fa-solid ${visual} fa-3x" style="color:var(--mms-accent)"></i>`;
+            } else if (visual.includes("youtube.com/watch") || visual.includes("youtu.be")) {
+                let videoId = visual.split("v=")[1] || visual.split("/").pop();
+                if(videoId.includes("&")) videoId = videoId.split("&")[0];
+                boxMedia.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+            } else if (visual) {
+                boxMedia.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover;">`;
+            } else {
+                boxMedia.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+            }
+
+            document.getElementById("materi-pembahasan-box").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- RENDER MENU 2: VOCABULARY / KAMUS ---
+        function bukaVocab() {
+            document.getElementById("dashboard-menu").style.display = "none";
+            document.getElementById("materi-body").style.display = "none";
+            document.getElementById("vocab-body").style.display = "block";
+            document.getElementById("quiz-body-wrapper").style.display = "none";
+            renderKamusKeHalaman();
+        }
+
+        function renderKamusKeHalaman(filterText = "") {
+            let container = document.getElementById("box-daftar-vocab");
+            container.innerHTML = "";
+            
+            let filtered = dataKamus.filter(item => {
+                let kata = (item.kata || item.Kata || "").toLowerCase();
+                let arti = (item.arti || item.Arti || "").toLowerCase();
+                return kata.includes(filterText) || arti.includes(filterText);
+            });
+
+            if(filtered.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Kosakata tidak ditemukan...</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                let c = item.contoh || item.Contoh || "Belum tersedia contoh kalimat.";
+                container.innerHTML += `
+                    <div class="vocab-item">
+                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 14px;"><i class="fa-solid fa-language" style="color:var(--mms-green); margin-right:5px;"></i> ${item.kata || item.Kata}</div>
+                        <div style="color: #475569; font-size: 13px; margin-top:4px; padding-left:20px;"><b>Arti:</b> ${item.arti || item.Arti}</div>
+                        <div style="color: #64748b; font-size: 12px; margin-top:5px; padding:6px 10px; background:#fff; border-left:3px solid var(--mms-green); font-style:italic; padding-left:15px;"><b>Contoh:</b> ${c}</div>
+                    </div>`;
+            });
+        }
+
+        function filterKamusUser() {
+            let txt = document.getElementById("vocab-search").value.toLowerCase().trim();
+            renderKamusKeHalaman(txt);
+        }
+
+        // --- RENDER MENU 3: EVALUASI QUIZ ---
+        function bukaQuiz() {
+            document.getElementById("dashboard-menu").style.display = "none";
+            document.getElementById("materi-body").style.display = "none";
+            document.getElementById("vocab-body").style.display = "none";
+            document.getElementById("quiz-body-wrapper").style.display = "block";
         }
 
         function tampilkanSoalDinamis() {
             jawabanTerpilih = "";
             if (indeksSoal >= bankSoal.length) {
-                document.getElementById("quiz-body").innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu Menyelesaikan Modul Hari Ini!</div>`;
+                document.getElementById("quiz-body").innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu menyelesaikan kuis evaluasi hari ini!</div>`;
                 document.getElementById("quiz-progress").style.width = "100%";
                 return;
             }
@@ -337,24 +499,27 @@
             document.getElementById("quiz-progress").style.width = pct + "%";
 
             let s = bankSoal[indeksSoal];
-            document.getElementById("lbl-pertanyaan").innerText = s.tanya;
+            document.getElementById("lbl-pertanyaan").innerText = s.tanya || s.Pertanyaan;
             
             let frame = document.getElementById("box-visual");
-            if(s.visual && s.visual.startsWith("fa-")) {
-                frame.innerHTML = `<i class="fa-solid ${s.visual} fa-4x" style="color:var(--mms-accent)"></i>`;
-            } else if(s.visual) {
-                frame.innerHTML = `<img src="${s.visual}" alt="visual">`;
+            let kodeVisual = s.visual || s.Kode_Visual || s.visual_code;
+            if(kodeVisual && kodeVisual.startsWith("fa-")) {
+                frame.innerHTML = `<i class="fa-solid ${kodeVisual} fa-4x" style="color:var(--mms-accent)"></i>`;
+            } else if(kodeVisual) {
+                frame.innerHTML = `<img src="${kodeVisual}" alt="visual">`;
             } else {
                 frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
             }
 
             let grid = document.getElementById("grid-opsi");
             grid.innerHTML = "";
-            s.opsi.forEach((o, index) => {
+            
+            let arrayOpsi = s.opsi || [s.Opsi_A, s.Opsi_B, s.Opsi_C, s.Opsi_D];
+            arrayOpsi.forEach(o => {
                 if(o) {
                     grid.innerHTML += `
                         <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
-                            <div class="img-box"><i class="fa-solid fa-cubes fa-2xl"></i></div>
+                            <div class="img-box"><i class="fa-solid fa-cube fa-xl"></i></div>
                             <div class="img-label">${o}</div>
                         </div>`;
                 }
@@ -368,10 +533,11 @@
         }
 
         function periksaJawabanUser() {
-            if(!jawabanTerpilih) return alert("Pilih satu jawaban dulu!");
+            if(!jawabanTerpilih) return alert("Pilih salah satu opsi jawaban terlebih dahulu!");
             let s = bankSoal[indeksSoal];
+            let jawabanBenar = s.benar || s.Jawaban_Benar;
             
-            if (jawabanTerpilih === s.benar) {
+            if (jawabanTerpilih === jawabanBenar) {
                 alert("🎉 Excellent! Jawabanmu Benar (+10 XP)");
                 indeksSoal++;
                 kirimPoinKeServer(10);
@@ -382,9 +548,9 @@
                 hb.className = "duo-header shake-effect";
                 setTimeout(() => hb.className = "duo-header", 400);
                 
-                alert(`❌ Oops! Kurang Tepat. Jawaban benar: ${s.benar}`);
+                alert(`❌ Oops! Kurang tepat. Jawaban benar: ${jawabanBenar}`);
                 if(nyawa <= 0) {
-                    alert("⚔️ Game Over! Nyawa kamu habis. Pelajari kembali ringkasan materi.");
+                    alert("⚔️ Game Over! Nyawa habis.");
                     location.reload();
                     return;
                 }
@@ -401,8 +567,7 @@
             fetch(API_URL, {
                 method: "POST",
                 body: JSON.stringify({ aksi: "updateXP", email: userSession.email, tambahanXP: poin })
-            })
-            .then(() => muatLeaderboard());
+            }).then(() => muatLeaderboard());
         }
 
         function muatLeaderboard() {
@@ -424,13 +589,15 @@
             });
         }
 
-        // Jalankan Liga Kompetisi Pemuda otomatis sejak awal halaman dibuka
+        function kembaliKeDashboard() {
+            resetTampilanDashboard();
+        }
+
         window.addEventListener("DOMContentLoaded", () => {
             muatLeaderboard();
         });
     </script>
     <script src="online-tracker.js"></script>
     <script src="script.js?v=115"></script>
-    
 </body>
 </html>
