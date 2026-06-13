@@ -310,6 +310,54 @@
             color: #fff;
             font-weight: bold;
         }
+
+        /* 👑 STYLING KOTAK BESAR UNTUK RUMPUN KELOMPOK TENSES ACCORDION */
+        .mms-rumpun-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .mms-rumpun-header {
+            padding: 16px;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--mms-navy);
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .mms-rumpun-header:hover {
+            background: #f8fafc;
+        }
+        .mms-rumpun-content {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            padding: 16px;
+            background: #fff;
+        }
+        .mms-sub-tense-container {
+            border: 1px solid #f1f5f9;
+            border-radius: 10px;
+            padding: 12px;
+            background: #fdfdfd;
+        }
+        .mms-sub-title {
+            font-weight: bold;
+            color: var(--mms-navy);
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body> 
@@ -404,7 +452,6 @@
                     <p style="color: #475569; font-size: 12px; margin-top: 0; margin-bottom: 12px;">Ketuk judul di atas untuk melihat daftar kata kunci (Auxiliary, Verb-ing, To Be, dll).</p>
                     
                     <div id="mms-accordion-konten-dasar" style="display: none; flex-direction: column; gap: 10px; border-top: 1px dashed #cbd5e1; padding-top: 12px; margin-top: 5px;">
-                        
                         <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);">
                             <div style="font-size: 11px; font-weight: bold; color: var(--mms-accent); text-transform: uppercase; margin-bottom: 8px;"><i class="fa-solid fa-list-check"></i> Pilih Kata Kunci:</div>
                             <div id="mms-grid-sub-tombol" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;"></div>
@@ -417,60 +464,232 @@
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 18px;">
-                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-star" style="color: var(--mms-accent); margin-right: 6px;"></i> Simple Present Tense</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'positif-verbal')">Verbal (+)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'negatif-verbal')">Verbal (-)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'tanya-verbal')">Verbal (?)</button>
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                    
+                    <div class="mms-rumpun-card">
+                        <div class="mms-rumpun-header" onclick="toggleRumpunTense('mms-rumpun-present')">
+                            <span><i class="fa-solid fa-calendar-day" style="color: var(--mms-accent); margin-right: 8px;"></i> 1. Present Tense (Waktu Sekarang)</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
+                        </div>
+                        <div id="mms-rumpun-present" class="mms-rumpun-content">
+                            
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: var(--mms-accent); margin-right: 6px;"></i> Simple Present Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
-                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'positif-nominal')">Nominal (+)</button>
-                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'negatif-nominal')">Nominal (-)</button>
-                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'tanya-nominal')">Nominal (?)</button>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Present Continuous Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
                             </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Present Perfect Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
+                            </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Present Perfect Continuous</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Present Continuous Tense</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                    <div class="mms-rumpun-card">
+                        <div class="mms-rumpun-header" onclick="toggleRumpunTense('mms-rumpun-past')">
+                            <span><i class="fa-solid fa-history" style="color: #6366f1; margin-right: 8px;"></i> 2. Past Tense (Waktu Lampau)</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
+                        </div>
+                        <div id="mms-rumpun-past" class="mms-rumpun-content">
+                            
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: #6366f1; margin-right: 6px;"></i> Simple Past Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Past', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Past', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Past', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Past', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Past', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Past', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
                             </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Past Continuous Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
+                            </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Past Perfect Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Perfect', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Perfect', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Perfect', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
+                            </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid Bellevue fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Past Perfect Continuous</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Present Perfect Tense</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'positif-verbal')">Verbal (+)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'negatif-verbal')">Verbal (-)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect', 'tanya-verbal')">Verbal (?)</button>
+                    <div class="mms-rumpun-card">
+                        <div class="mms-rumpun-header" onclick="toggleRumpunTense('mms-rumpun-future')">
+                            <span><i class="fa-solid fa-paper-plane" style="color: #ec4899; margin-right: 8px;"></i> 3. Future Tense (Waktu Mendatang)</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
+                        </div>
+                        <div id="mms-rumpun-future" class="mms-rumpun-content">
+                            
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: #ec4899; margin-right: 6px;"></i> Simple Future Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Future', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Future', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Future', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Future', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Future', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Future', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
-                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'positif-nominal')">Nominal (+)</button>
-                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'negatif-nominal')">Nominal (-)</button>
-                                <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'tanya-nominal')">Nominal (?)</button>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Future Continuous Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
                             </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Future Perfect Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Future Perfect', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Future Perfect', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Future Perfect', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
+                            </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Future Perfect Continuous</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px; margin-bottom: 10px;"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Present Perfect Continuous</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
-                                <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                    <div class="mms-rumpun-card">
+                        <div class="mms-rumpun-header" onclick="toggleRumpunTense('mms-rumpun-past-future')">
+                            <span><i class="fa-solid fa-shuffle" style="color: #a855f7; margin-right: 8px;"></i> 4. Past Future Tense (Pengandaian Lampau)</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
+                        </div>
+                        <div id="mms-rumpun-past-future" class="mms-rumpun-content">
+                            
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: #a855f7; margin-right: 6px;"></i> Simple Past Future Tense</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
                             </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Past Future Continuous</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
+                            </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Past Future Perfect</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'positif-verbal')">Verbal (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'negatif-verbal')">Verbal (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'tanya-verbal')">Verbal (?)</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'positif-nominal')">Nominal (+)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'negatif-nominal')">Nominal (-)</button>
+                                    <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'tanya-nominal')">Nominal (?)</button>
+                                </div>
+                            </div>
+
+                            <div class="mms-sub-tense-container">
+                                <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Past Future Perfect Continuous</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
 
                 <div id="materi-pembahasan-box" class="mms-modal-overlay" style="display: none;">
@@ -702,7 +921,6 @@
             return hasil;
         }
 
-        // 🛠️ FILTER AMAN ANTI-MACET: JIKA TSV KOSONG ATAU BELUM SELESAI SINKRON, TIDAK AKAN MERUSAK HOOK SCRIPT LAINNYA
         function renderSubTombolKunciDasar() {
             let gridTombol = document.getElementById("mms-grid-sub-tombol");
             if (!gridTombol) return;
@@ -762,6 +980,28 @@
             btnElement.classList.add("mms-active-dasar");
         }
 
+        // 🆕 FUNGSI KHUSUS UNTUK TOGGLE BUKA/SEMBUNYI RUMPUN TENSES UTAMA
+        function toggleRumpunTense(panelId) {
+            let targetPanel = document.getElementById(panelId);
+            if (!targetPanel) return;
+
+            let icon = targetPanel.previousElementSibling.querySelector(".fa-chevron-down, .fa-chevron-up");
+
+            if (targetPanel.style.display === "flex") {
+                targetPanel.style.display = "none";
+                if (icon) {
+                    icon.classList.remove("fa-chevron-up");
+                    icon.classList.add("fa-chevron-down");
+                }
+            } else {
+                targetPanel.style.display = "flex";
+                if (icon) {
+                    icon.classList.remove("fa-chevron-down");
+                    icon.classList.add("fa-chevron-up");
+                }
+            }
+        }
+
         function toggleAccordionBox(panelId) {
             let panel = document.getElementById(panelId);
             if (!panel) return;
@@ -785,6 +1025,13 @@
                 document.getElementById("mms-box-penjelasan-dasar").style.display = "none";
             }
             document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
+
+            // Sembunyikan kembali semua konten kelompok tenses rumpun utama saat keluar halaman
+            document.querySelectorAll(".mms-rumpun-content").forEach(p => p.style.display = "none");
+            document.querySelectorAll(".mms-rumpun-header .fa-chevron-up").forEach(i => {
+                i.classList.remove("fa-chevron-up");
+                i.classList.add("fa-chevron-down");
+            });
         }
 
         function bukaMateriMenu() {
@@ -966,7 +1213,6 @@
             resetTampilanDashboard();
         }
 
-        // 🛠️ FIX PARSING UTAMA: KETIKA DI-KLIK TOMBOL MATERI TENSES LAINNYA, POP-UP MODAL SEKARANG BERFUNGSI SEPERTI SEMULA
         function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxVisualMateri = document.getElementById("box-media-materi");
             let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
