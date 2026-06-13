@@ -256,40 +256,43 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🆕 STYLING TERBARU: SINKRONISASI UKURAN ADAPTIF KEBAl LUAPAN LAYAR HP */
+        /* 🆕 CSS UPGRADE SAKTI: PENGUNCI 1 BARIS MUTLAK & SINKRONISASI UKURAN FONT OTOMATIS */
         .mms-glow-pulse-container {
             width: 100%;
             background: #fff;
             border: 1px solid #e2e8f0;
-            padding: 12px;
+            padding: 12px 10px;
             border-radius: 6px;
             box-sizing: border-box;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            overflow: hidden; /* Menghilangkan scrollbar sepenuhnya */
         }
 
         .mms-txt-rumus-glow {
-            /* Menggunakan clamp() & vw agar font otomatis mengecil di HP kecil, tapi besar di layar lebar */
-            font-size: clamp(14px, 3.6vw, 17px); 
             font-weight: 800;
             font-family: 'Consolas', 'Courier New', Courier, monospace;
             color: #cc0202; 
-            display: block;
+            display: inline-block;
+            white-space: nowrap; /* Mengunci paksa agar teks HARUS 1 baris */
+            
+            /* Trik Clamp Responsif Baru: Menggunakan 2.7vw agar mengecil drastis di layar HP sempit */
+            font-size: clamp(10.5px, 2.7vw, 17px); 
+            
+            letter-spacing: -0.3px; /* Merapatkan sedikit spasi antar-huruf khusus di resolusi selular */
             width: 100%;
-            word-wrap: break-word;
-            word-break: break-all; /* Pengaman jika ada kata tanpa spasi yang super panjang */
             box-sizing: border-box;
             animation: mmsNeonPulse 2s infinite ease-in-out;
         }
 
         @keyframes mmsNeonPulse {
-            0%, 100% {
-                text-shadow: 0 0 4px rgba(204, 2, 2, 0.2);
+            0%, 100__ {
+                text-shadow: 0 0 3px rgba(204, 2, 2, 0.15);
             }
             50% {
-                text-shadow: 0 0 10px rgba(204, 2, 2, 0.5), 0 0 16px rgba(204, 2, 2, 0.2);
+                text-shadow: 0 0 8px rgba(204, 2, 2, 0.4), 0 0 14px rgba(204, 2, 2, 0.15);
                 color: #ff3333;
             }
         }
@@ -870,7 +873,7 @@
                 hb.className = "duo-header shake-effect";
                 setTimeout(() => hb.className = "duo-header", 400);
                 
-                alert(`❌ Oops! Kurang tepat. Jawaban benar: ${jawabanBenar}`);
+                alert(`❌ Oops! Kurang tepat. Jawaban winners: ${jawabanBenar}`);
                 if(nyawa <= 0) {
                     alert("⚔️ Game Over! Nyawa habis.");
                     location.reload();
