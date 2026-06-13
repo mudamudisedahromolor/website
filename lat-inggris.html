@@ -11,366 +11,9 @@
     <link rel="apple-touch-icon" sizes="512x512" href="images/mms.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=103">
-    <link rel="manifest" href="manifest.json">
     
-    <style>
-        :root { 
-            --mms-red: #cc0202; 
-            --mms-red-hover: #b30202;
-            --mms-navy: #0f172a; 
-            --mms-blue-light: #eef2ff;
-            --mms-accent: #3b82f6; 
-            --mms-bg: #f8fafc;
-            --mms-green: #10b981;
-        }
-
-        body { 
-            background: var(--mms-bg); 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        .mms-app-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 140px auto 40px auto; 
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-sizing: border-box;
-            position: relative;
-            z-index: 1; 
-        }
-        
-        .duo-container { 
-            width: 100%; 
-            max-width: 550px; 
-            background: #fff; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 12px; 
-            padding: 24px; 
-            box-sizing: border-box; 
-            margin-bottom: 25px; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        }
-        
-        .duo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px; }
-        .stat-item { font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 6px; }
-        .stat-xp { color: var(--mms-accent); }
-        .stat-heart { color: var(--mms-red); }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
-        }
-        .shake-effect { animation: shake 0.4s ease; }
-
-        .progress-container { background: #e2e8f0; height: 12px; border-radius: 10px; width: 100%; overflow: hidden; margin-bottom: 25px; position: relative; }
-        .progress-fill { background: var(--mms-red); height: 100%; width: 0%; transition: width 0.4s ease; }
-        
-        .question-box { font-size: 18px; font-weight: 600; color: #1e293b; text-align: center; margin-bottom: 20px; line-height: 1.5; }
-        
-        .visual-frame { height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 2px dashed #cbd5e1; overflow: hidden; position: relative; }
-        .visual-frame img { max-height: 100%; width: 100%; object-fit: cover; }
-        
-        .image-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .img-option-card { background: #fff; border: 1px solid #e2e8f0; border-bottom: 4px solid #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.1s ease; user-select: none; }
-        .img-option-card:hover { border-color: var(--mms-red); background: #fff5f5; }
-        .img-option-card.selected { border-color: var(--mms-red); background: #fff5f5; border-bottom-width: 1px; transform: translateY(3px); }
-        .img-box { height: 65px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; color: #94a3b8; }
-        .img-label { font-weight: bold; color: #334155; font-size: 14px; }
-        
-        .btn-check { background: var(--mms-red); color: #fff; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 25px; text-transform: uppercase; letter-spacing: 0.8px; transition: background 0.2s; }
-        .btn-check:hover { background: var(--mms-red-hover); }
-
-        .dashboard-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .menu-card { display: flex; align-items: center; gap: 20px; padding: 18px; border: 1px solid #e2e8f0; border-bottom: 4px solid #cbd5e1; border-radius: 12px; cursor: pointer; text-align: left; transition: all 0.2s; background: #fff; }
-        .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
-
-        .btn-type-choice { padding: 10px 4px; background: #fff; border: 1px solid #cbd5e1; border-bottom: 3px solid #cbd5e1; border-radius: 6px; font-weight: bold; color: #475569; cursor: pointer; text-align: center; font-size: 12px; transition: all 0.1s; }
-        .btn-type-choice:hover { border-color: var(--mms-accent); background: #f0f9ff; }
-        .btn-type-choice:active { transform: translateY(2px); border-bottom-width: 1px; }
-
-        .btn-type-choice.mms-active-dasar { border-color: var(--mms-red); background: #fff5f5; color: var(--mms-red); }
-
-        .vocab-search-box { width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; }
-        .vocab-list-container { max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-right: 5px; }
-        .vocab-item { padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }
-
-        .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; font-weight: bold; margin-bottom: 8px; }
-        .rank-left { display: flex; align-items: center; gap: 12px; }
-        .mms-input-field { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; box-sizing: border-box; margin-bottom: 15px; text-align: center; background: #f8fafc; }
-        .mms-input-field:focus { outline: none; border-color: var(--mms-red); background: #fff; }
-        
-        .box-pre-wrap {
-            white-space: pre-wrap;
-            line-height: 1.5;
-        }
-
-        .mms-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.6); 
-            backdrop-filter: blur(4px);
-            z-index: 9999;
-            display: flex;
-            align-items: flex-start; 
-            justify-content: center;
-            padding: 150px 20px 20px 20px; 
-            box-sizing: border-box;
-            overflow-y: auto;
-        }
-        .mms-modal-content {
-            background: #fff;
-            width: 100%;
-            max-width: 550px;
-            border-radius: 16px;
-            padding: 24px;
-            box-sizing: border-box;
-            position: relative;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-            animation: modalFadeIn 0.23s ease-out;
-            margin-bottom: 40px;
-        }
-        .mms-modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #f1f5f9;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .mms-modal-close-btn:hover {
-            background: var(--mms-red);
-            color: #fff;
-        }
-        @keyframes modalFadeIn {
-            from { transform: scale(0.96); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .mms-vertical-layout-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        
-        .info-box-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 14px;
-            text-align: left;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .info-box-header {
-            font-weight: bold;
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .box-pre-wrap {
-            white-space: pre-wrap;
-            line-height: 1.6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 13.5px;
-            color: #1e293b;
-        }
-
-        .accent-box-header { color: var(--mms-accent); }
-        .green-box-header { color: var(--mms-green); }
-        .red-box-header { color: var(--mms-red); }
-
-        .mms-modal-visual-frame {
-            height: 180px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            background: #f8fafc; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 10px; 
-            overflow: hidden;
-            margin-bottom: 18px;
-        }
-        .mms-modal-visual-frame img { 
-            max-height: 100%; 
-            width: 100%; 
-            object-fit: cover; 
-            border-radius: 6px; 
-        }
-
-        .mms-toggle-trigger-btn {
-            width: 100%;
-            background: #fff;
-            border: 1px dashed var(--mms-green);
-            color: var(--mms-green);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.15s ease;
-        }
-        .mms-toggle-trigger-btn:hover {
-            background: #f0fdf4;
-            color: #15803d;
-            border-color: #15803d;
-        }
-        .mms-dropdown-content-panel {
-            display: none; 
-            margin-top: 10px;
-            background: #f0fdf4;
-            padding: 12px;
-            border-radius: 6px;
-            border-left: 3px solid var(--mms-green);
-            animation: slideDownIn 0.2s ease-out;
-        }
-        @keyframes slideDownIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .mms-glow-pulse-container {
-            width: 100%;
-            background: #fff;
-            border: 1px solid #cbd5e1;
-            padding: 18px 14px;
-            border-radius: 8px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .mms-txt-rumus-glow {
-            font-size: 14px;
-            font-weight: 700;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #cc0202; 
-            display: block;
-            width: 100%;
-            box-sizing: border-box;
-            white-space: normal; 
-            animation: mmsNeonPulse 2.5s infinite ease-in-out;
-        }
-
-        @keyframes mmsNeonPulse {
-            0%, 100% {
-                text-shadow: 0 0 6px rgba(204, 2, 2, 0.45), 0 0 12px rgba(204, 2, 2, 0.2);
-            }
-            50% {
-                text-shadow: 0 0 14px rgba(204, 2, 2, 0.85), 0 0 22px rgba(204, 2, 2, 0.45);
-                color: #ff1a1a;
-            }
-        }
-
-        .mms-tips-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 5px;
-            font-size: 12px;
-            background: #fff;
-        }
-        .mms-tips-table th, .mms-tips-table td {
-            border: 1px solid #cbd5e1;
-            padding: 6px 8px;
-            text-align: center;
-        }
-        .mms-tips-table th {
-            background: var(--mms-navy);
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .mms-rumpun-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background: #fff;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-        .mms-rumpun-header {
-            padding: 16px;
-            background: #fff;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 16px;
-            color: var(--mms-navy);
-            border-bottom: 1px solid #f1f5f9;
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .mms-rumpun-header:hover {
-            background: #f8fafc;
-        }
-        .mms-rumpun-content {
-            display: none;
-            flex-direction: column;
-            gap: 16px;
-            padding: 16px;
-            background: #fff;
-        }
-        .mms-sub-tense-container {
-            border: 1px solid #f1f5f9;
-            border-radius: 10px;
-            padding: 12px;
-            background: #fdfdfd;
-        }
-        .mms-sub-title {
-            font-weight: bold;
-            color: var(--mms-navy);
-            font-size: 14px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-
-        .materi-body-back-btn {
-            background: #64748b; 
-            transition: all 0.25s ease-in-out;
-        }
-        .materi-body-back-btn:hover {
-            background: #475569 !important; 
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-            transform: translateY(-1px); 
-        }
-        .materi-body-back-btn:active {
-            transform: translateY(1px); 
-        }
-    </style>
+    <link rel="stylesheet" href="lat-inggris.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body> 
     
@@ -477,14 +120,12 @@
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 4px;">
-                    
                     <div class="mms-rumpun-card">
                         <div class="mms-rumpun-header" onclick="toggleRumpunTense('mms-rumpun-present')">
                             <span><i class="fa-solid fa-calendar-day" style="color: var(--mms-accent); margin-right: 8px;"></i> 1. Present Tense (Waktu Sekarang)</span>
                             <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
                         </div>
                         <div id="mms-rumpun-present" class="mms-rumpun-content">
-                            
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: var(--mms-accent); margin-right: 6px;"></i> Simple Present Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -498,7 +139,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Present', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Present Continuous Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -507,7 +147,6 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Present Perfect Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -521,7 +160,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Present Perfect', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Present Perfect Continuous</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -530,7 +168,6 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -540,7 +177,6 @@
                             <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
                         </div>
                         <div id="mms-rumpun-past" class="mms-rumpun-content">
-                            
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: #6366f1; margin-right: 6px;"></i> Simple Past Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -554,7 +190,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Past', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Past Continuous Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -563,7 +198,6 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Past Perfect Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -577,7 +211,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Perfect', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Past Perfect Continuous</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -586,7 +219,6 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -596,7 +228,6 @@
                             <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
                         </div>
                         <div id="mms-rumpun-future" class="mms-rumpun-content">
-                            
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: #ec4899; margin-right: 6px;"></i> Simple Future Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -610,7 +241,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Simple Future', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Future Continuous Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -619,7 +249,6 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Future Perfect Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -633,7 +262,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Future Perfect', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Future Perfect Continuous</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -642,7 +270,6 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -652,7 +279,6 @@
                             <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
                         </div>
                         <div id="mms-rumpun-past-future" class="mms-rumpun-content">
-                            
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-star" style="color: #a855f7; margin-right: 6px;"></i> Simple Past Future Tense</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -666,7 +292,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-play" style="color: var(--mms-green); margin-right: 6px;"></i> Past Future Continuous</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -675,7 +300,6 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-circle-check" style="color: #eab308; margin-right: 6px;"></i> Past Future Perfect</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px;">
@@ -689,7 +313,6 @@
                                     <button class="btn-type-choice" style="color:#64748b;" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'tanya-nominal')">Nominal (?)</button>
                                 </div>
                             </div>
-
                             <div class="mms-sub-tense-container">
                                 <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Past Future Perfect Continuous</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -698,26 +321,23 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect Continuous', 'tanya-vbing')">Tanya [V-ing] (?)</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
 
                 <div id="materi-pembahasan-box" class="mms-modal-overlay" style="display: none;" onclick="tutupModalMateri(event)">
                     <div class="mms-modal-content" id="mms-modal-main-card" onclick="mmsToggleDinamisMediaMateri(event)">
                         <button class="mms-modal-close-btn" onclick="tutupModalMateri()"><i class="fa-solid fa-xmark"></i></button>
                         
-                     <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:12px; font-size: 16px; padding-right: 25px; user-select: none;">Materi</h4>
+                        <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:12px; font-size: 16px; padding-right: 25px; user-select: none;">Materi</h4>
                         
-                        <div id="mms-btn-buka-video" onclick="mmsToggleVideoSaja()" style="width: 100%; background: #eff6ff; border: 1px dashed var(--mms-accent); color: var(--mms-accent); padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; text-align: center; box-sizing: border-box; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; user-select: none; transition: all 0.15s ease;">
+                        <div id="mms-btn-buka-video" onclick="mmsToggleVideoSaja()" style="width: 100%; background: #eff6ff; border: 1px dashed #3b82f6; color: #3b82f6; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; text-align: center; box-sizing: border-box; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; user-select: none; transition: all 0.15s ease;">
                             <i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>
                         </div>
 
                         <div class="mms-modal-visual-frame" id="box-media-materi" style="display: none;"></div>
 
                         <div class="mms-vertical-layout-stack">
-                            
                             <div id="wrapper-box-silabus" class="info-box-item" style="border-left: 4px solid #3b82f6; background: #f0fdfa;">
                                 <div class="info-box-header" style="color: #3b82f6;"><i class="fa-solid fa-tags"></i> Kata Kunci / Silabus Penting:</div>
                                 <div id="box-txt-silabus" class="box-pre-wrap" style="color: #1e293b; font-weight: 600; font-size: 13px;">Memuat silabus...</div>
@@ -769,11 +389,9 @@
 
                             <div class="info-box-item" style="border-top: 3px solid var(--mms-accent);">
                                 <div class="info-box-header accent-box-header" style="font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-bolt"></i> KALIMAT AKTIF (ACTIVE VOICE)</div>
-                                
                                 <div class="mms-glow-pulse-container">
                                     <div id="box-txt-rumus-aktif" class="mms-txt-rumus-glow">S + V1...</div>
                                 </div>
-                                
                                 <button class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-aktif-contoh')">
                                     <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh Kalimat
                                 </button>
@@ -784,11 +402,9 @@
 
                             <div id="wrapper-box-pasif" class="info-box-item" style="border-top: 3px solid #6366f1;">
                                 <div class="info-box-header" style="color: #6366f1; font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-code-branch"></i> KALIMAT PASIF (PASSIVE VOICE)</div>
-                                
                                 <div class="mms-glow-pulse-container">
                                     <div id="box-txt-rumus-pasif" class="mms-txt-rumus-glow">O + To Be...</div>
                                 </div>
-                                
                                 <button id="btn-toggle-pasif" class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-pasif-contoh')">
                                     <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh Kalimat
                                 </button>
@@ -796,12 +412,11 @@
                                     <div id="box-txt-arti-pasif">Isi Pasif...</div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
 
-               <button id="mms-back-btn" class="btn-check mms-back-btn materi-body-back-btn" onclick="kembaliKeDashboard()" style="margin-top: 25px;">Kembali ke Menu</button>
+                <button id="mms-back-btn" class="btn-check mms-back-btn materi-body-back-btn" onclick="kembaliKeDashboard()" style="margin-top: 25px;">Kembali ke Menu</button>
             </div>
 
             <div id="vocab-body" style="display: none; padding: 5px 0;">
@@ -842,590 +457,7 @@
         </div>
     </footer>
     
-
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
-        const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
-
-        let userSession = null;
-        let bankSoal = [];
-        let bankMateri = []; 
-        let dataKamus = [];  
-        let indeksSoal = 0;
-        let jawabanTerpilih = "";
-        let nyawa = 5;
-
-        const kuisOffline = [
-            { tanya: "Which one is an administrative tool used to store residents' data?", opsi: ["Database", "Invoice", "Schedule", "Letterhead"], benar: "Database", visual: "fa-database" }
-        ];
-
-        function loginSistem() {
-            let email = document.getElementById("user-email").value.trim().toLowerCase();
-            if(!email) return alert("Email wajib diisi!");
-            
-            document.getElementById("login-panel").innerHTML = "<h3><i class='fa-solid fa-circle-notch fa-spin'></i> Menyinkronkan Akun...</h3>";
-            
-            fetch(`${API_URL}?aksi=login&email=${email}`)
-            .then(r => r.json()).then(res => {
-                userSession = res.data;
-                document.getElementById("login-panel").style.display = "none";
-                document.getElementById("main-panel").style.display = "block";
-                document.getElementById("lbl-nama").innerText = userSession.nama;
-                document.getElementById("lbl-xp").innerText = userSession.xp;
-                
-                resetTampilanDashboard();
-                ambilAsetDataWeb();
-                muatLeaderboard();
-            }).catch(() => {
-                alert("Membuka koneksi luring darurat!");
-                userSession = { email: email, nama: email.split("@")[0], xp: 0 };
-                document.getElementById("login-panel").style.display = "none";
-                document.getElementById("main-panel").style.display = "block";
-                
-                bankSoal = kuisOffline;
-                resetTampilanDashboard();
-            });
-        }
-
-        function ambilAsetDataWeb() {
-            let cacheBusterUrl = TSV_URL + "&_cb=" + new Date().getTime();
-
-            fetch(cacheBusterUrl)
-            .then(r => r.text())
-            .then(tsvText => {
-                bankMateri = parseTSVMateri(tsvText);
-                renderSubTombolKunciDasar();
-            }).catch(err => {
-                console.error("Gagal memuat materi TSV:", err);
-                renderSubTombolKunciDasar();
-            });
-
-            fetch(`${API_URL}?aksi=getMateriDanSoal`)
-            .then(r => r.json()).then(res => {
-                bankSoal = res.soal && res.soal.length > 0 ? res.soal : kuisOffline;
-                dataKamus = res.kamus ? res.kamus : [];
-                renderKamusKeHalaman();
-            }).catch(() => {
-                bankSoal = kuisOffline;
-            });
-        }
-
-        function parseTSVMateri(text) {
-            if (!text) return [];
-            let baris = text.split("\n");
-            let hasil = [];
-            for(let i = 1; i < baris.length; i++) {
-                if(!baris[i].trim()) continue;
-                let kolom = baris[i].split("\t");
-                
-                hasil.push({
-                    id: kolom[0] ? kolom[0].trim() : "",
-                    modals: kolom[1] ? kolom[1].trim() : "",
-                    namaMateri: kolom[2] ? kolom[2].trim() : "",
-                    tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
-                    rumus: kolom[4] ? kolom[4].trim() : "",
-                    pembahasan: kolom[5] ? kolom[5].trim() : "", 
-                    arti: kolom[6] ? kolom[6].trim() : "",
-                    visual: kolom[7] ? kolom[7].trim() : "",
-                    kolomI: kolom[8] ? kolom[8].trim() : "", 
-                    kolomJ: kolom[9] ? kolom[9].trim() : ""  
-                });
-            }
-            return hasil;
-        }
-
-        function renderSubTombolKunciDasar() {
-            let gridTombol = document.getElementById("mms-grid-sub-tombol");
-            if (!gridTombol) return;
-            gridTombol.innerHTML = "";
-
-            try {
-                if (!bankMateri || bankMateri.length === 0) {
-                    gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center; padding: 5px 0;">Menunggu koneksi data dari Sheets...</div>`;
-                    return;
-                }
-
-                let barisDasar = bankMateri.filter(m => {
-                    let cat = (m.namaMateri || "").toLowerCase().trim();
-                    return cat.includes("dasar");
-                });
-
-                if (barisDasar.length === 0) {
-                    gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center; padding: 5px 0;">Pastikan Kolom C di Sheets berisi kata 'Dasar'</div>`;
-                    return;
-                }
-
-                barisDasar.forEach((materi, index) => {
-                    let judulTombol = materi.kolomI || `Kata Kunci ${index + 1}`;
-                    let idUnik = materi.id || index;
-                    
-                    gridTombol.innerHTML += `
-                        <button class="btn-type-choice" id="mms-sub-btn-${idUnik}" 
-                            style="border-color: var(--mms-accent); color: var(--mms-accent);" 
-                            onclick="tampilkanParagrafDetailDasar('${idUnik}', this)">
-                            ${judulTombol}
-                        </button>
-                    `;
-                });
-            } catch (e) {
-                console.error("Error saat merender tombol dasar:", e);
-                gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:var(--mms-red); text-align:center;">Gagal memuat daftar kata kunci.</div>`;
-            }
-        }
-
-        function tampilkanParagrafDetailDasar(idMateri, btnElement) {
-            let panelPenjelasan = document.getElementById("mms-box-penjelasan-dasar");
-            let textParagrafJ = document.getElementById("mms-txt-paragraf-j");
-
-            if (btnElement.classList.contains("mms-active-dasar") && panelPenjelasan.style.display === "block") {
-                panelPenjelasan.style.display = "none";
-                btnElement.classList.remove("mms-active-dasar");
-                return;
-            }
-
-            document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
-
-            let cocok = bankMateri.find(m => m.id === idMateri);
-
-            if (!cocok || !cocok.kolomJ) {
-                textParagrafJ.innerText = "Teks penjelasan pada kolom J kosong.";
-                panelPenjelasan.style.display = "block";
-                btnElement.classList.add("mms-active-dasar");
-                return;
-            }
-
-            textParagrafJ.innerText = cocok.kolomJ;
-            panelPenjelasan.style.display = "block";
-            btnElement.classList.add("mms-active-dasar");
-        }
-
-        function toggleRumpunTense(panelId) {
-            let targetPanel = document.getElementById(panelId);
-            if (!targetPanel) return;
-
-            let icon = targetPanel.previousElementSibling.querySelector(".fa-chevron-down, .fa-chevron-up");
-
-            if (targetPanel.style.display === "flex") {
-                targetPanel.style.display = "none";
-                if (icon) {
-                    icon.classList.remove("fa-chevron-up");
-                    icon.classList.add("fa-chevron-down");
-                }
-            } else {
-                targetPanel.style.display = "flex";
-                if (icon) {
-                    icon.classList.remove("fa-chevron-down");
-                    icon.classList.add("fa-chevron-up");
-                }
-            }
-        }
-
-        function toggleAccordionBox(panelId) {
-            let panel = document.getElementById(panelId);
-            if (!panel) return;
-            if (panel.style.display === "block" || panel.style.display === "flex") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "flex";
-            }
-        }
-
-        function resetTampilanDashboard() {
-            document.getElementById("dashboard-menu").style.display = "block";
-            document.getElementById("materi-body").style.display = "none";
-            document.getElementById("vocab-body").style.display = "none";
-            document.getElementById("quiz-body-wrapper").style.display = "none";
-            
-            if (document.getElementById("mms-accordion-konten-dasar")) {
-                document.getElementById("mms-accordion-konten-dasar").style.display = "none";
-            }
-            if (document.getElementById("mms-box-penjelasan-dasar")) {
-                document.getElementById("mms-box-penjelasan-dasar").style.display = "none";
-            }
-            document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
-
-            document.querySelectorAll(".mms-rumpun-content").forEach(p => p.style.display = "none");
-            document.querySelectorAll(".mms-rumpun-header .fa-chevron-up").forEach(i => {
-                i.classList.remove("fa-chevron-up");
-                i.classList.add("fa-chevron-down");
-            });
-        }
-
-        function bukaMateriMenu() {
-            document.getElementById("dashboard-menu").style.display = "none";
-            document.getElementById("materi-body").style.display = "block";
-            document.getElementById("vocab-body").style.display = "none";
-            document.getElementById("quiz-body-wrapper").style.display = "none";
-            document.getElementById("materi-pembahasan-box").style.display = "none";
-        }
-
-        function bukaVocab() {
-            document.getElementById("dashboard-menu").style.display = "none";
-            document.getElementById("materi-body").style.display = "none";
-            document.getElementById("vocab-body").style.display = "block";
-            document.getElementById("quiz-body-wrapper").style.display = "none";
-            renderKamusKeHalaman();
-        }
-
-        function renderKamusKeHalaman(filterText = "") {
-            let container = document.getElementById("box-daftar-vocab");
-            if (!container) return;
-            container.innerHTML = "";
-            
-            let filtered = dataKamus.filter(item => {
-                let kata = (item.kata || item.Kata || "").toLowerCase();
-                let arti = (item.arti || item.Arti || "").toLowerCase();
-                return kata.includes(filterText) || arti.includes(filterText);
-            });
-
-            if(filtered.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Kosakata tidak ditemukan...</div>`;
-                return;
-            }
-
-            filtered.forEach(item => {
-                let c = item.contoh || item.Contoh || "Belum tersedia contoh kalimat.";
-                container.innerHTML += `
-                    <div class="vocab-item">
-                        <div style="font-weight: bold; color: var(--mms-navy); font-size: 14px;"><i class="fa-solid fa-language" style="color:var(--mms-green); margin-right:5px;"></i> ${item.kata || item.Kata}</div>
-                        <div style="color: #475569; font-size: 13px; margin-top:4px; padding-left:20px;"><b>Arti:</b> ${item.arti || item.Arti}</div>
-                        <div style="color: #64748b; font-size: 12px; margin-top:5px; padding:6px 10px; background:#fff; border-left:3px solid var(--mms-green); font-style:italic; padding-left:15px;"><b>Contoh:</b> ${c}</div>
-                    </div>`;
-            });
-        }
-
-        function filterKamusUser() {
-            let txt = document.getElementById("vocab-search").value.toLowerCase().trim();
-            renderKamusKeHalaman(txt);
-        }
-
-        function bukaQuiz() {
-            document.getElementById("dashboard-menu").style.display = "none";
-            document.getElementById("materi-body").style.display = "none";
-            document.getElementById("vocab-body").style.display = "none";
-            document.getElementById("quiz-body-wrapper").style.display = "block";
-            tampilkanSoalDinamis();
-        }
-
-        function tampilkanSoalDinamis() {
-            jawabanTerpilih = "";
-            let quizBody = document.getElementById("quiz-body");
-            if (!quizBody) return;
-
-            if (indeksSoal >= bankSoal.length) {
-                quizBody.innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu menyelesaikan kuis evaluasi hari ini!</div>`;
-                document.getElementById("quiz-progress").style.width = "100%";
-                return;
-            }
-
-            let pct = (indeksSoal / bankSoal.length) * 100;
-            let progressElement = document.getElementById("quiz-progress");
-            if (progressElement) progressElement.style.width = pct + "%";
-
-            let s = bankSoal[indeksSoal];
-            let lblPertanyaan = document.getElementById("lbl-pertanyaan");
-            if (lblPertanyaan) lblPertanyaan.innerText = s.tanya || s.Pertanyaan;
-            
-            let frame = document.getElementById("box-visual");
-            if (frame) {
-                let kodeVisual = s.visual || s.Kode_Visual || s.visual_code;
-                if(kodeVisual && kodeVisual.startsWith("fa-")) {
-                    frame.innerHTML = `<i class="fa-solid ${kodeVisual} fa-4x" style="color:var(--mms-accent)"></i>`;
-                } else if(kodeVisual) {
-                    frame.innerHTML = `<img src="${kodeVisual}" alt="visual">`;
-                } else {
-                    frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
-                }
-            }
-
-            let grid = document.getElementById("grid-opsi");
-            if (grid) {
-                grid.innerHTML = "";
-                let arrayOpsi = s.opsi || [s.Opsi_A, s.Opsi_B, s.Opsi_C, s.Opsi_D];
-                arrayOpsi.forEach(o => {
-                    if(o) {
-                        grid.innerHTML += `
-                            <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
-                                <div class="img-box"><i class="fa-solid fa-cube fa-xl"></i></div>
-                                <div class="img-label">${o}</div>
-                            </div>`;
-                    }
-                });
-            }
-        }
-
-        function pilihOpsiCard(el, teks) {
-            document.querySelectorAll(".img-option-card").forEach(c => c.classList.remove("selected"));
-            el.classList.add("selected");
-            jawabanTerpilih = teks;
-        }
-
-        function periksaJawabanUser() {
-            if(!jawabanTerpilih) return alert("Pilih salah satu opsi jawaban terlebih dahulu!");
-            let s = bankSoal[indeksSoal];
-            let jawabanBenar = s.benar || s.Jawaban_Benar;
-            
-            if (jawabanTerpilih === jawabanBenar) {
-                alert("🎉 Excellent! Jawabanmu Benar (+10 XP)");
-                indeksSoal++;
-                kirimPoinKeServer(10);
-            } else {
-                nyawa--;
-                let heartsElement = document.getElementById("lbl-hearts");
-                if (heartsElement) heartsElement.innerText = nyawa;
-                
-                let hb = document.getElementById("header-bar");
-                if (hb) {
-                    hb.className = "duo-header shake-effect";
-                    setTimeout(() => hb.className = "duo-header", 400);
-                }
-                
-                alert(`❌ Oops! Kurang tepat. Jawaban benar: ${jawabanBenar}`);
-                if(nyawa <= 0) {
-                    alert("⚔️ Game Over! Nyawa habis.");
-                    location.reload();
-                    return;
-                }
-                indeksSoal++;
-                tampilkanSoalDinamis();
-            }
-        }
-
-        function kirimPoinKeServer(poin) {
-            if (userSession) {
-                userSession.xp += poin;
-                let xpElement = document.getElementById("lbl-xp");
-                if (xpElement) xpElement.innerText = userSession.xp;
-            }
-            tampilkanSoalDinamis();
-            
-            if (userSession) {
-                fetch(API_URL, {
-                    method: "POST",
-                    body: JSON.stringify({ aksi: "updateXP", email: userSession.email, tambahanXP: poin })
-                }).then(() => muatLeaderboard());
-            }
-        }
-
-        function muatLeaderboard() {
-            fetch(`${API_URL}?aksi=getLeaderboard`)
-            .then(r => r.json()).then(data => {
-                let box = document.getElementById("list-leaderboard");
-                if (!box) return;
-                box.innerHTML = "";
-                
-                if(!data || !Array.isArray(data) || data.length === 0) {
-                    box.innerHTML = `<div style="text-align:center; padding:15px; color:#94a3b8; font-size:14px;">Belum ada data skor kompetisi.</div>`;
-                    return;
-                }
-
-                data.slice(0, 10).forEach((u, i) => {
-                    let medal = i === 0 ? "🥇" : (i === 1 ? "🥈" : (i === 2 ? "🥉" : `<span style='color:#64748b;'>#${i+1}</span>`));
-                    box.innerHTML += `
-                        <div class="rank-item" style="${i===0 ? 'border-color:var(--mms-red); background:#fff5f5;' : ''}">
-                            <div class="rank-left">
-                                <span>${medal}</span>
-                                <span style="color:#334155;">${u.nama}</span>
-                            </div>
-                            <span style="color:var(--mms-red); font-size:14px;">${u.xp} XP</span>
-                        </div>`;
-                });
-            }).catch(e => {
-                console.error("Gagal memuat leaderboard:", e);
-                let box = document.getElementById("list-leaderboard");
-                if(box) box.innerHTML = `<div style="text-align:center; padding:15px; color:var(--mms-red); font-size:14px;">Gagal memuat data kompetisi server.</div>`;
-            });
-        }
-
-        function kembaliKeDashboard() {
-            resetTampilanDashboard();
-        }
-
-        function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
-            let boxVisualMateri = document.getElementById("box-media-materi");
-            let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
-            let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
-            let boxArtiAktif = document.getElementById("box-txt-arti-aktif");
-            let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
-            let boxPembahasan = document.getElementById("box-txt-pembahasan");
-            let boxSilabus = document.getElementById("box-txt-silabus");
-
-            if (boxVisualMateri) boxVisualMateri.style.display = "none";
-
-            if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
-            if(document.getElementById('panel-pasif-contoh')) document.getElementById('panel-pasif-contoh').style.display = "none";
-            if(document.getElementById('panel-tips-tabel')) document.getElementById('panel-tips-tabel').style.display = "none"; 
-
-            let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
-            let judulTense = document.getElementById("lbl-judul-tense-aktif");
-            if (judulTense) judulTense.innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
-
-            let tipsPintar = document.getElementById("wrapper-box-tips-pintar");
-            if (tipsPintar) {
-                if (namaTense === 'Dasar') {
-                    tipsPintar.style.display = "none";
-                } else {
-                    tipsPintar.style.display = "block";
-                }
-            }
-
-            let dataCocok = bankMateri.find(m => {
-                let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
-                let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
-                return namaDiSheet.includes(namaTense.toLowerCase().trim()) && tipeDiSheet === tipeRumusGabungan.toLowerCase().trim();
-            });
-
-            if (!dataCocok) {
-                if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-                if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-                if(boxPembahasan) boxPembahasan.innerText = "Silakan isi baris materi ini di Google Sheets.";
-                if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
-                document.getElementById("materi-pembahasan-box").style.display = "flex";
-                return;
-            }
-
-            if(boxSilabus) boxSilabus.innerText = dataCocok.modals || "Tidak ada kata kunci khusus.";
-
-            let teksRumusGabungan = dataCocok.rumus || "";
-            let rumusAktif = "Tidak ada rumus aktif.";
-            let rumusPasif = "No Passive Form (Nominal/Dasar)."; 
-
-            if (teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
-                let pemisah = teksRumusGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
-                let bagianRumus = teksRumusGabungan.split(pemisah);
-                rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
-                rumusPasif = bagianRumus[1].trim();
-                if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block"; 
-            } else {
-                rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
-                if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none"; 
-            }
-            if(boxRumusAktif) boxRumusAktif.innerText = rumusAktif;
-            if(boxRumusPasif) boxRumusPasif.innerText = rumusPasif;
-
-            let kolomF = dataCocok.pembahasan || ""; 
-            let kolomG = dataCocok.arti || "";       
-
-            let inggrisAktif = "Belum ada contoh kalimat.", inggrisPasif = "No Passive Example.";
-            let artiAktif = "", artiPasif = "";
-
-            if (kolomF.includes("[Pasif]") || kolomF.includes("Pasif")) {
-                let pemisahF = kolomF.includes("[Pasif]") ? "[Pasif]" : "Pasif";
-                let bagianF = kolomF.split(pemisahF);
-                inggrisAktif = bagianF[0].replace("[Aktif]", "").replace("Aktif", "").trim();
-                inggrisPasif = bagianF[1].trim();
-            } else {
-                inggrisAktif = kolomF.replace("[Aktif]", "").replace("Aktif", "").trim();
-            }
-
-            if (kolomG.includes("[Pasif]") || kolomG.includes("Pasif")) {
-                let pemisahG = kolomG.includes("[Pasif]") ? "[Pasif]" : "Pasif";
-                let bagianG = kolomG.split(pemisahG);
-                artiAktif = bagianG[0].replace("[Aktif]", "").replace("Aktif", "").trim();
-                artiPasif = bagianG[1].trim();
-            } else {
-                artiAktif = kolomG.replace("[Aktif]", "").replace("Aktif", "").trim();
-            }
-
-            if(boxArtiAktif) {
-                boxArtiAktif.innerHTML = `
-                    <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisAktif}</div>
-                    <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
-                    <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiAktif || 'Belum ada terjemahan.'}</div>
-                `;
-            }
-
-            if(boxArtiPasif) {
-                boxArtiPasif.innerHTML = `
-                    <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisPasif}</div>
-                    <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
-                    <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiPasif || 'Belum ada terjemahan Pasif.'}</div>
-                `;
-            }
-
-            if(boxPembahasan) boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
-
-            if(boxVisualMateri) {
-                let visual = dataCocok.visual || "";
-                if (visual.startsWith("fa-")) {
-                    boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
-                } 
-                else if (visual && (visual.endsWith(".mp4") || visual.endsWith(".webm") || visual.includes("video/"))) {
-                    boxVisualMateri.innerHTML = `<video id="mms-media-video-lokal" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" controls>` +
-                                                    `<source src="${visual}" type="video/mp4">` +
-                                                    `Browser kamu tidak mendukung pemutar video.` +
-                                                 `</video>`;
-                } else if (visual && (visual.startsWith("http") || visual.startsWith("images/"))) {
-                    boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
-                } else {
-                    boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
-                }
-            }
-
-            document.getElementById("materi-pembahasan-box").style.display = "flex";
-        }
-
-        function tutupModalMateri(e) {
-            if (!e) {
-                document.getElementById("materi-pembahasan-box").style.display = "none";
-                return;
-            }
-            if (e.target.id === "materi-pembahasan-box") {
-                document.getElementById("materi-pembahasan-box").style.display = "none";
-            }
-        }
-
-               function mmsToggleVideoSaja() {
-            let boxVisual = document.getElementById("box-media-materi");
-            let btnVideo = document.getElementById("mms-btn-buka-video");
-            if (!boxVisual) return;
-
-            let videoLokal = document.getElementById("mms-media-video-lokal");
-
-            if (boxVisual.style.display === "flex") {
-                // KONDISI MENUTUP VIDEO
-                boxVisual.style.display = "none";
-                if (videoLokal) videoLokal.pause();
-                
-                // Kembalikan teks tombol ke awal
-                if (btnVideo) {
-                    btnVideo.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
-                    btnVideo.style.background = "#eff6ff";
-                    btnVideo.style.color = "var(--mms-accent)";
-                    btnVideo.style.borderColor = "var(--mms-accent)";
-                }
-            } else {
-                // KONDISI MEMBUKA VIDEO
-                boxVisual.style.display = "flex";
-                if (videoLokal) {
-                    videoLokal.currentTime = 0;
-                    videoLokal.play().catch(err => console.log("Autoplay ditolak browser:", err));
-                }
-                
-                // Ubah teks tombol menjadi instruksi tutup
-                if (btnVideo) {
-                    btnVideo.innerHTML = `<i class="fa-solid fa-circle-minus"></i> <span>Ketuk untuk Sembunyikan Video Materi</span>`;
-                    btnVideo.style.background = "#f1f5f9";
-                    btnVideo.style.color = "#64748b";
-                    btnVideo.style.borderColor = "#cbd5e1";
-                }
-            }
-        }
-
-        function mmsToggleDinamisMediaMateri(e) {
-            let boxVisual = document.getElementById("box-media-materi");
-            if (!boxVisual) return;
-
-            if (!boxVisual.contains(e.target) && e.target.id !== "lbl-judul-tense-aktif") {
-                boxVisual.style.display = "none";
-                
-                let videoLokal = document.getElementById("mms-media-video-lokal");
-                if (videoLokal) {
-                    videoLokal.pause();
-                }
-            }
-        }
-    </script>
+    <script src="lat-inggris.js"></script>
     <script src="online-tracker.js"></script>
     <script src="script.js?v=115"></script>
 </body>
