@@ -256,44 +256,41 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🆕 CSS UPGRADE SAKTI: PENGUNCI 1 BARIS MUTLAK & SINKRONISASI UKURAN FONT OTOMATIS */
+        /* 🆕 STYLING TERBARU: UKURAN AWAL ORIGINAL DENGAN SHADOW TEBAL GLOWING PULSE */
         .mms-glow-pulse-container {
             width: 100%;
             background: #fff;
             border: 1px solid #e2e8f0;
-            padding: 12px 10px;
-            border-radius: 6px;
+            padding: 14px 12px;
+            border-radius: 8px;
             box-sizing: border-box;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            overflow: hidden; /* Menghilangkan scrollbar sepenuhnya */
         }
 
         .mms-txt-rumus-glow {
-            font-weight: 800;
-            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            /* Dikembalikan ke ukuran awal yang aman agar penuh terlihat di layar HP */
+            font-size: 13.5px; 
+            font-weight: 700;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #cc0202; 
-            display: inline-block;
-            white-space: nowrap; /* Mengunci paksa agar teks HARUS 1 baris */
-            
-            /* Trik Clamp Responsif Baru: Menggunakan 2.7vw agar mengecil drastis di layar HP sempit */
-            font-size: clamp(10.5px, 2.7vw, 17px); 
-            
-            letter-spacing: -0.3px; /* Merapatkan sedikit spasi antar-huruf khusus di resolusi selular */
+            display: block;
             width: 100%;
             box-sizing: border-box;
-            animation: mmsNeonPulse 2s infinite ease-in-out;
+            white-space: normal; /* Normal word-wrap agar muat aman di kotak */
+            animation: mmsNeonPulse 2.5s infinite ease-in-out;
         }
 
         @keyframes mmsNeonPulse {
-            0%, 100__ {
-                text-shadow: 0 0 3px rgba(204, 2, 2, 0.15);
+            0%, 100% {
+                /* Pertebal pendaran bayangan di latar belakang (Glow Pejal) */
+                text-shadow: 0 0 6px rgba(204, 2, 2, 0.45), 0 0 12px rgba(204, 2, 2, 0.2);
             }
             50% {
-                text-shadow: 0 0 8px rgba(204, 2, 2, 0.4), 0 0 14px rgba(204, 2, 2, 0.15);
-                color: #ff3333;
+                text-shadow: 0 0 14px rgba(204, 2, 2, 0.85), 0 0 22px rgba(204, 2, 2, 0.45);
+                color: #ff1a1a;
             }
         }
     </style>
@@ -465,9 +462,8 @@
                             </div>
 
                             <div class="info-box-item" style="border-top: 3px solid var(--mms-accent);">
-                                <div class="info-box-header accent-box-header" style="font-size:13px;"><i class="fa-solid fa-bolt"></i> JALUR KALIMAT AKTIF (ACTIVE VOICE)</div>
+                                <div class="info-box-header accent-box-header" style="font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-bolt"></i> JALUR KALIMAT AKTIF (ACTIVE VOICE)</div>
                                 
-                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 4px;">STRUKTUR RUMUS MUTLAK:</div>
                                 <div class="mms-glow-pulse-container">
                                     <div id="box-txt-rumus-aktif" class="mms-txt-rumus-glow">S + V1...</div>
                                 </div>
@@ -481,9 +477,8 @@
                             </div>
 
                             <div id="wrapper-box-pasif" class="info-box-item" style="border-top: 3px solid #6366f1;">
-                                <div class="info-box-header" style="color: #6366f1; font-size:13px;"><i class="fa-solid fa-code-branch"></i> JALUR KALIMAT PASIF (PASSIVE VOICE)</div>
+                                <div class="info-box-header" style="color: #6366f1; font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-code-branch"></i> JALUR KALIMAT PASIF (PASSIVE VOICE)</div>
                                 
-                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 4px;">STRUKTUR RUMUS MUTLAK:</div>
                                 <div class="mms-glow-pulse-container">
                                     <div id="box-txt-rumus-pasif" class="mms-txt-rumus-glow">O + To Be...</div>
                                 </div>
@@ -599,7 +594,7 @@
             fetch(`${API_URL}?aksi=getMateriDanSoal`)
             .then(r => r.json()).then(res => {
                 bankSoal = res.soal && res.soal.length > 0 ? res.soal : kuisOffline;
-                dataKamus = res.kamus ? res.kamus : [];
+                dataKamus = res.kamus = res.kamus ? res.kamus : [];
                 tampilkanSoalDinamis();
                 renderKamusKeHalaman();
             }).catch(() => {
@@ -873,7 +868,7 @@
                 hb.className = "duo-header shake-effect";
                 setTimeout(() => hb.className = "duo-header", 400);
                 
-                alert(`❌ Oops! Kurang tepat. Jawaban winners: ${jawabanBenar}`);
+                alert(`❌ Oops! Kurang tepat. Jawaban benar: ${jawabanBenar}`);
                 if(nyawa <= 0) {
                     alert("⚔️ Game Over! Nyawa habis.");
                     location.reload();
