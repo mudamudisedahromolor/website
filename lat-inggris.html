@@ -109,6 +109,7 @@
             line-height: 1.5;
         }
 
+        /* 📜 FIX CSS LAYERING MODAL POP-UP PAS DI BAWAH NAVBAR */
         .mms-modal-overlay {
             position: fixed;
             top: 0;
@@ -219,7 +220,6 @@
             border-radius: 6px; 
         }
 
-        /* 🆕 STYLING TERBARU: AKORDION TOMBOL SLIDE TOGGLE */
         .mms-toggle-trigger-btn {
             width: 100%;
             background: #fff;
@@ -243,7 +243,7 @@
             border-color: #15803d;
         }
         .mms-dropdown-content-panel {
-            display: none; /* Default tertutup rapat */
+            display: none; 
             margin-top: 10px;
             background: #f0fdf4;
             padding: 12px;
@@ -254,6 +254,47 @@
         @keyframes slideDownIn {
             from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🆕 STYLING TERBARU: RED GLOW PULSE DENGAN PROTEKSI HORIZONTAL SCROLLBAR */
+        .mms-glow-pulse-container {
+            width: 100%;
+            overflow-x: auto; /* Memicu horizontal scroll murni agar tidak terpotong ke bawah */
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 10px 14px;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        
+        .mms-glow-pulse-container::-webkit-scrollbar {
+            height: 4px; /* Scrollbar super tipis estetis di HP */
+        }
+        .mms-glow-pulse-container::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .mms-txt-rumus-glow {
+            white-space: nowrap; /* Memaksa rumus tetap dalam 1 baris mutlak */
+            font-size: 17.5px; /* Font diperbesar signifikan dari elemen lain */
+            font-weight: 800;
+            font-family: 'Consolas', 'Courier New', Courier, monospace; /* Font monospace khusus kode rumus */
+            color: #e11d48; /* Warna dasar merah cerah */
+            display: inline-block;
+            animation: mmsNeonPulse 2s infinite ease-in-out; /* Memicu efek denyut neon lembut */
+        }
+
+        @keyframes mmsNeonPulse {
+            0%, 100% {
+                text-shadow: 0 0 4px rgba(225, 29, 72, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 0 0 12px rgba(225, 29, 72, 0.6), 0 0 20px rgba(225, 29, 72, 0.2);
+                transform: scale(1.015); /* Membesar sedikit saat berdenyut */
+                color: #ff4d6d;
+            }
         }
     </style>
 </head>
@@ -426,8 +467,10 @@
                             <div class="info-box-item" style="border-top: 3px solid var(--mms-accent);">
                                 <div class="info-box-header accent-box-header" style="font-size:13px;"><i class="fa-solid fa-bolt"></i> JALUR KALIMAT AKTIF (ACTIVE VOICE)</div>
                                 
-                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 2px;">STRUKTUR RUMUS MUTLAK:</div>
-                                <div id="box-txt-rumus-aktif" class="box-pre-wrap" style="color:#0ea5e9; font-weight: bold; font-size: 14px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">S + V1...</div>
+                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 4px;">STRUKTUR RUMUS MUTLAK:</div>
+                                <div class="mms-glow-pulse-container">
+                                    <div id="box-txt-rumus-aktif" class="mms-txt-rumus-glow">S + V1...</div>
+                                </div>
                                 
                                 <button class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-aktif-contoh')">
                                     <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh & Arti
@@ -440,8 +483,10 @@
                             <div id="wrapper-box-pasif" class="info-box-item" style="border-top: 3px solid #6366f1;">
                                 <div class="info-box-header" style="color: #6366f1; font-size:13px;"><i class="fa-solid fa-code-branch"></i> JALUR KALIMAT PASIF (PASSIVE VOICE)</div>
                                 
-                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 2px;">STRUKTUR RUMUS MUTLAK:</div>
-                                <div id="box-txt-rumus-pasif" class="box-pre-wrap" style="color:#6366f1; font-weight: bold; font-size: 14px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">O + To Be...</div>
+                                <div style="font-weight: bold; font-size: 11px; color: #64748b; margin-top:8px; margin-bottom: 4px;">STRUKTUR RUMUS MUTLAK:</div>
+                                <div class="mms-glow-pulse-container">
+                                    <div id="box-txt-rumus-pasif" class="mms-txt-rumus-glow">O + To Be...</div>
+                                </div>
                                 
                                 <button id="btn-toggle-pasif" class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-pasif-contoh')">
                                     <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh & Arti
@@ -499,7 +544,7 @@
 
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
-        const TSV_BASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
+        const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
         let userSession = null;
         let bankSoal = [];
@@ -543,8 +588,7 @@
         }
 
         function ambilAsetDataWeb() {
-            // 🆕 TRaggregation cache-buster: Menyisipkan parameter waktu agar Google Sheets TSV dipaksa melakukan update instan
-            let cacheBusterUrl = TSV_BASE_URL + "&_cb=" + new Date().getTime();
+            let cacheBusterUrl = TSV_URL + "&_cb=" + new Date().getTime();
 
             fetch(cacheBusterUrl)
             .then(r => r.text())
@@ -600,7 +644,6 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-        // 🆕 FUNGSI INTERAKTIF DROPDOWN ACCORDION TOGGLE KETUK BUKA-TUTUP
         function toggleAccordionBox(panelId) {
             let panel = document.getElementById(panelId);
             if (panel.style.display === "block") {
@@ -618,7 +661,6 @@
             let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
 
-            // Tutup semua panel dropdown accordion setiap kali warga membuka menu tenses baru
             document.getElementById('panel-aktif-contoh').style.display = "none";
             document.getElementById('panel-pasif-contoh').style.display = "none";
 
@@ -649,7 +691,6 @@
                 return;
             }
 
-            // 1. Ekstraksi Pemecah Jalur Rumus (Kolom E)
             let teksRumusGabungan = dataCocok.rumus || "";
             let rumusAktif = "Tidak ada rumus aktif.";
             let rumusPasif = "No Passive Form (Nominal/Dasar)."; 
@@ -659,15 +700,14 @@
                 let bagianRumus = teksRumusGabungan.split(pemisah);
                 rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
                 rumusPasif = bagianRumus[1].trim();
-                document.getElementById("wrapper-box-pasif").style.display = "block"; // Tampilkan kotak pasif
+                document.getElementById("wrapper-box-pasif").style.display = "block"; 
             } else {
                 rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
-                document.getElementById("wrapper-box-pasif").style.display = "none"; // Sembunyikan jika Nominal
+                document.getElementById("wrapper-box-pasif").style.display = "none"; 
             }
             boxRumusAktif.innerText = rumusAktif;
             boxRumusPasif.innerText = rumusPasif;
 
-            // 2. EKSTRAKSI GABUNGAN DATA KOLOM F (INGGRIS) & KOLOM G (ARTI)
             let kolomF = dataCocok.pembahasan || ""; 
             let kolomG = dataCocok.arti || "";       
 
@@ -692,7 +732,6 @@
                 artiAktif = kolomG.replace("[Aktif]", "").replace("Aktif", "").trim();
             }
 
-            // Render isi panel dropdown akordion
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisAktif}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
@@ -705,10 +744,8 @@
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiPasif || 'Belum ada terjemahan Pasif.'}</div>
             `;
 
-            // 3. Set Teks Keterangan Atas Penggunaan
             boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
 
-            // Render Media Visual / Player Video Youtube
             let visual = dataCocok.visual || "";
             if (visual.startsWith("fa-")) {
                 boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
@@ -729,7 +766,6 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-        // --- RENDER MENU 2: VOCABULARY / KAMUS ---
         function bukaVocab() {
             document.getElementById("dashboard-menu").style.display = "none";
             document.getElementById("materi-body").style.display = "none";
@@ -769,7 +805,6 @@
             renderKamusKeHalaman(txt);
         }
 
-        // --- RENDER MENU 3: EVALUASI QUIZ ---
         function bukaQuiz() {
             document.getElementById("dashboard-menu").style.display = "none";
             document.getElementById("materi-body").style.display = "none";
