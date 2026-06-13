@@ -709,6 +709,7 @@
                         <button class="mms-modal-close-btn" onclick="tutupModalMateri()"><i class="fa-solid fa-xmark"></i></button>
                         
                         <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:15px; font-size: 16px; padding-right: 25px; cursor: pointer; user-select: none;" onclick="mmsToggleVideoSaja()">Materi</h4>
+                        <div class="mms-modal-visual-frame" id="box-media-materi" style="display: none;"></div>
                         
                         <div class="mms-modal-visual-frame" id="box-media-materi"></div>
 
@@ -1237,7 +1238,7 @@
             resetTampilanDashboard();
         }
 
-        function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
+             function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxVisualMateri = document.getElementById("box-media-materi");
             let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
             let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
@@ -1246,7 +1247,7 @@
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
             let boxSilabus = document.getElementById("box-txt-silabus");
 
-            // 🛠️ LANGKAH 4: Pastikan video default disembunyikan tiap kali modul berganti agar tidak bocor
+            // Pastikan video default disembunyikan tiap kali modul berganti agar tidak bocor/langsung muncul
             if (boxVisualMateri) boxVisualMateri.style.display = "none";
 
             if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
@@ -1276,7 +1277,7 @@
                 if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
                 if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
                 if(boxPembahasan) boxPembahasan.innerText = "Silakan isi baris materi ini di Google Sheets.";
-                if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
+                if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
                 document.getElementById("materi-pembahasan-box").style.display = "flex";
                 return;
             }
@@ -1373,13 +1374,13 @@
         }
 
         // 🛠 nighttime-check: Mengamankan transisi file video manager hosting lokal (.mp4)
-        function mmsToggleVideoSaja() {
+           function mmsToggleVideoSaja() {
             let boxVisual = document.getElementById("box-media-materi");
             if (!boxVisual) return;
 
             let videoLokal = document.getElementById("mms-media-video-lokal");
 
-            if (boxVisual.style.display === "flex") {
+            if (boxVisual.style.display === "flex" || boxVisual.style.display === "block") {
                 boxVisual.style.display = "none";
                 if (videoLokal) {
                     videoLokal.pause();
@@ -1387,8 +1388,8 @@
             } else {
                 boxVisual.style.display = "flex";
                 if (videoLokal) {
-                    videoLokal.currentTime = 0; // Reset video mulai dari detik ke-0 saat dibuka
-                    videoLokal.play().catch(err => console.log("Autoplay ditolak sistem browser:", err));
+                    videoLokal.currentTime = 0; // Mengulang pemutaran video dari detik ke-0
+                    videoLokal.play().catch(err => console.log("Autoplay ditolak browser:", err));
                 }
             }
         }
