@@ -256,44 +256,41 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🆕 STYLING TERBARU: RED GLOW PULSE DENGAN PROTEKSI HORIZONTAL SCROLLBAR */
+        /* 🆕 STYLING TERBARU: SINKRONISASI UKURAN ADAPTIF KEBAl LUAPAN LAYAR HP */
         .mms-glow-pulse-container {
             width: 100%;
-            overflow-x: auto; /* Memicu horizontal scroll murni agar tidak terpotong ke bawah */
             background: #fff;
             border: 1px solid #e2e8f0;
-            padding: 10px 14px;
+            padding: 12px;
             border-radius: 6px;
             box-sizing: border-box;
-        }
-        
-        .mms-glow-pulse-container::-webkit-scrollbar {
-            height: 4px; /* Scrollbar super tipis estetis di HP */
-        }
-        .mms-glow-pulse-container::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .mms-txt-rumus-glow {
-            white-space: nowrap; /* Memaksa rumus tetap dalam 1 baris mutlak */
-            font-size: 17.5px; /* Font diperbesar signifikan dari elemen lain */
+            /* Menggunakan clamp() & vw agar font otomatis mengecil di HP kecil, tapi besar di layar lebar */
+            font-size: clamp(14px, 3.6vw, 17px); 
             font-weight: 800;
-            font-family: 'Consolas', 'Courier New', Courier, monospace; /* Font monospace khusus kode rumus */
-            color: #e11d48; /* Warna dasar merah cerah */
-            display: inline-block;
-            animation: mmsNeonPulse 2s infinite ease-in-out; /* Memicu efek denyut neon lembut */
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            color: #cc0202; 
+            display: block;
+            width: 100%;
+            word-wrap: break-word;
+            word-break: break-all; /* Pengaman jika ada kata tanpa spasi yang super panjang */
+            box-sizing: border-box;
+            animation: mmsNeonPulse 2s infinite ease-in-out;
         }
 
         @keyframes mmsNeonPulse {
             0%, 100% {
-                text-shadow: 0 0 4px rgba(225, 29, 72, 0.2);
-                transform: scale(1);
+                text-shadow: 0 0 4px rgba(204, 2, 2, 0.2);
             }
             50% {
-                text-shadow: 0 0 12px rgba(225, 29, 72, 0.6), 0 0 20px rgba(225, 29, 72, 0.2);
-                transform: scale(1.015); /* Membesar sedikit saat berdenyut */
-                color: #ff4d6d;
+                text-shadow: 0 0 10px rgba(204, 2, 2, 0.5), 0 0 16px rgba(204, 2, 2, 0.2);
+                color: #ff3333;
             }
         }
     </style>
