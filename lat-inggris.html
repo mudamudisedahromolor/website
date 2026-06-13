@@ -708,7 +708,12 @@
                     <div class="mms-modal-content" id="mms-modal-main-card" onclick="mmsToggleDinamisMediaMateri(event)">
                         <button class="mms-modal-close-btn" onclick="tutupModalMateri()"><i class="fa-solid fa-xmark"></i></button>
                         
-                        <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:15px; font-size: 16px; padding-right: 25px; cursor: pointer; user-select: none;" onclick="mmsToggleVideoSaja()">Materi</h4>
+                     <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:12px; font-size: 16px; padding-right: 25px; user-select: none;">Materi</h4>
+                        
+                        <div id="mms-btn-buka-video" onclick="mmsToggleVideoSaja()" style="width: 100%; background: #eff6ff; border: 1px dashed var(--mms-accent); color: var(--mms-accent); padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; text-align: center; box-sizing: border-box; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; user-select: none; transition: all 0.15s ease;">
+                            <i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>
+                        </div>
+
                         <div class="mms-modal-visual-frame" id="box-media-materi" style="display: none;"></div>
 
                         <div class="mms-vertical-layout-stack">
