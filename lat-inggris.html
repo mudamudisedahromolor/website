@@ -311,7 +311,6 @@
             font-weight: bold;
         }
 
-        /* 👑 STYLING KOTAK BESAR UNTUK RUMPUN KELOMPOK TENSES ACCORDION */
         .mms-rumpun-card {
             border: 1px solid #e2e8f0;
             border-radius: 12px;
@@ -359,22 +358,18 @@
             align-items: center;
         }
 
-
-        /* Efek hover khusus untuk tombol Kembali ke Menu */
         .materi-body-back-btn {
             background: #64748b; 
             transition: all 0.25s ease-in-out;
         }
         .materi-body-back-btn:hover {
-            background: #475569 !important; /* Mengubah warna abu-abu menjadi lebih gelap pekat */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Memberikan efek bayangan lembut */
-            transform: translateY(-1px); /* Memberikan efek sedikit terangkat naik */
+            background: #475569 !important; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            transform: translateY(-1px); 
         }
         .materi-body-back-btn:active {
-            transform: translateY(1px); /* Efek membal saat ditekan/klik */
+            transform: translateY(1px); 
         }
-
-        
     </style>
 </head>
 <body> 
@@ -584,7 +579,7 @@
                             </div>
 
                             <div class="mms-sub-tense-container">
-                                <div class="mms-sub-title"><i class="fa-solid Bellevue fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Past Perfect Continuous</div>
+                                <div class="mms-sub-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--mms-red); margin-right: 6px;"></i> Past Perfect Continuous</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect Continuous', 'positif-vbing')">Positif [V-ing] (+)</button>
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect Continuous', 'negatif-vbing')">Negatif [V-ing] (-)</button>
@@ -802,7 +797,7 @@
                     </div>
                 </div>
 
-               <button class="btn-check materi-body-back-btn" onclick="kembaliKeDashboard()" style="margin-top: 25px;">Kembali ke Menu</button>
+               <button class="btn-check mms-back-btn materi-body-back-btn" onclick="kembaliKeDashboard()" style="margin-top: 25px;">Kembali ke Menu</button>
             </div>
 
             <div id="vocab-body" style="display: none; padding: 5px 0;">
@@ -885,7 +880,6 @@
                 
                 bankSoal = kuisOffline;
                 resetTampilanDashboard();
-                tampilkanSoalDinamis();
             });
         }
 
@@ -906,11 +900,9 @@
             .then(r => r.json()).then(res => {
                 bankSoal = res.soal && res.soal.length > 0 ? res.soal : kuisOffline;
                 dataKamus = res.kamus ? res.kamus : [];
-                tampilkanSoalDinamis();
                 renderKamusKeHalaman();
             }).catch(() => {
                 bankSoal = kuisOffline;
-                tampilkanSoalDinamis();
             });
         }
 
@@ -977,19 +969,16 @@
             }
         }
 
-         function tampilkanParagrafDetailDasar(idMateri, btnElement) {
+        function tampilkanParagrafDetailDasar(idMateri, btnElement) {
             let panelPenjelasan = document.getElementById("mms-box-penjelasan-dasar");
             let textParagrafJ = document.getElementById("mms-txt-paragraf-j");
 
-            // 1. Cek apakah tombol yang diklik saat ini sudah aktif DAN panelnya sedang terbuka
             if (btnElement.classList.contains("mms-active-dasar") && panelPenjelasan.style.display === "block") {
-                // Jika iya, tutup panel penjelasan dan hilangkan status aktif tombol
                 panelPenjelasan.style.display = "none";
                 btnElement.classList.remove("mms-active-dasar");
-                return; // Berhenti di sini, tidak perlu lanjut eksekusi kode di bawah
+                return;
             }
 
-            // 2. Jika tombol lain yang diklik, reset dulu status aktif tombol-tombol sebelumnya
             document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
 
             let cocok = bankMateri.find(m => m.id === idMateri);
@@ -1001,13 +990,11 @@
                 return;
             }
 
-            // 3. Tampilkan data baru dan buka panel penjelasan
             textParagrafJ.innerText = cocok.kolomJ;
             panelPenjelasan.style.display = "block";
             btnElement.classList.add("mms-active-dasar");
         }
 
-        // 🆕 FUNGSI KHUSUS UNTUK TOGGLE BUKA/SEMBUNYI RUMPUN TENSES UTAMA
         function toggleRumpunTense(panelId) {
             let targetPanel = document.getElementById(panelId);
             if (!targetPanel) return;
@@ -1053,7 +1040,6 @@
             }
             document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
 
-            // Sembunyikan kembali semua konten kelompok tenses rumpun utama saat keluar halaman
             document.querySelectorAll(".mms-rumpun-content").forEach(p => p.style.display = "none");
             document.querySelectorAll(".mms-rumpun-header .fa-chevron-up").forEach(i => {
                 i.classList.remove("fa-chevron-up");
@@ -1114,6 +1100,7 @@
             document.getElementById("materi-body").style.display = "none";
             document.getElementById("vocab-body").style.display = "none";
             document.getElementById("quiz-body-wrapper").style.display = "block";
+            tampilkanSoalDinamis();
         }
 
         function tampilkanSoalDinamis() {
@@ -1222,6 +1209,13 @@
                 let box = document.getElementById("list-leaderboard");
                 if (!box) return;
                 box.innerHTML = "";
+                
+                // Safety catch jika data kosong / bukan array
+                if(!data || !Array.isArray(data) || data.length === 0) {
+                    box.innerHTML = `<div style="text-align:center; padding:15px; color:#94a3b8; font-size:14px;">Belum ada data skor kompetisi.</div>`;
+                    return;
+                }
+
                 data.slice(0, 10).forEach((u, i) => {
                     let medal = i === 0 ? "🥇" : (i === 1 ? "🥈" : (i === 2 ? "🥉" : `<span style='color:#64748b;'>#${i+1}</span>`));
                     box.innerHTML += `
@@ -1233,7 +1227,11 @@
                             <span style="color:var(--mms-red); font-size:14px;">${u.xp} XP</span>
                         </div>`;
                 });
-            }).catch(e => console.error("Gagal memuat leaderboard:", e));
+            }).catch(e => {
+                console.error("Gagal memuat leaderboard:", e);
+                let box = document.getElementById("list-leaderboard");
+                if(box) box.innerHTML = `<div style="text-align:center; padding:15px; color:var(--mms-red); font-size:14px;">Gagal memuat data kompetisi server.</div>`;
+            });
         }
 
         function kembaliKeDashboard() {
@@ -1360,15 +1358,11 @@
             document.getElementById("materi-pembahasan-box").style.display = "flex";
         }
 
-                function tutupModalMateri(e) {
-            // Jika fungsi dipanggil oleh tombol silang (tanpa e), langsung tutup
+        function tutupModalMateri(e) {
             if (!e) {
                 document.getElementById("materi-pembahasan-box").style.display = "none";
                 return;
             }
-            
-            // Masuk ke logika deteksi area luar:
-            // Jika target yang diklik (e.target) adalah area overlay itu sendiri (bukan konten putih)
             if (e.target.id === "materi-pembahasan-box") {
                 document.getElementById("materi-pembahasan-box").style.display = "none";
             }
