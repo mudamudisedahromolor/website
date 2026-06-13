@@ -109,6 +109,7 @@
             line-height: 1.5;
         }
 
+        /* 📜 FIX CSS LAYERING MODAL POP-UP PAS DI BAWAH NAVBAR */
         .mms-modal-overlay {
             position: fixed;
             top: 0;
@@ -119,23 +120,23 @@
             backdrop-filter: blur(4px);
             z-index: 9999;
             display: flex;
-            align-items: center;
+            align-items: flex-start; 
             justify-content: center;
-            padding: 20px;
+            padding: 150px 20px 20px 20px; 
             box-sizing: border-box;
+            overflow-y: auto;
         }
         .mms-modal-content {
             background: #fff;
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             border-radius: 16px;
             padding: 24px;
             box-sizing: border-box;
             position: relative;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
             animation: modalFadeIn 0.23s ease-out;
-            max-height: 85vh;
-            overflow-y: auto;
+            margin-bottom: 40px;
         }
         .mms-modal-close-btn {
             position: absolute;
@@ -163,12 +164,14 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* 🆕 STYLING KHUSUS UNTUK MEMECAH KOTAK "THE GRID" DAN STYLING RUMUS */
         .mms-info-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Default di HP: satu kolom memanjang ke bawah */
+            grid-template-columns: 1fr; 
             gap: 12px;
             margin-bottom: 18px;
+        }
+        @media(min-width: 480px) {
+            .mms-info-grid { grid-template-columns: 1fr 1fr; }
         }
         
         .info-box-item {
@@ -189,7 +192,6 @@
             gap: 5px;
         }
 
-        /* Styling Rumus Utama di Kotak Teks Langsung agar menarik */
         .box-pre-wrap {
             white-space: pre-wrap;
             line-height: 1.5;
@@ -202,7 +204,6 @@
         .green-box-header { color: var(--mms-green); }
         .red-box-header { color: var(--mms-red); }
 
-        /* Media Visual Box Styling */
         .mms-modal-visual-frame {
             height: 180px; 
             display: flex; 
@@ -220,7 +221,6 @@
             object-fit: cover; 
             border-radius: 6px; 
         }
-
     </style>
 </head>
 <body> 
@@ -383,27 +383,25 @@
                         <div class="mms-modal-visual-frame" id="box-media-materi"></div>
 
                         <div class="mms-info-grid">
-                            
                             <div class="info-box-item">
                                 <div class="info-box-header accent-box-header"><i class="fa-solid fa-bolt"></i> Rumus [Aktif]:</div>
-                                <div id="box-txt-rumus-aktif" class="box-pre-wrap" style="color:#0ea5e9;">S + V1...</div>
+                                <div id="box-txt-rumus-aktif" class="box-pre-wrap" style="color:#0ea5e9; font-weight: bold;">S + V1...</div>
                             </div>
 
                             <div class="info-box-item">
                                 <div class="info-box-header accent-box-header"><i class="fa-solid fa-code-branch"></i> Rumus [Pasif]:</div>
-                                <div id="box-txt-rumus-pasif" class="box-pre-wrap" style="color:#6366f1;">O + To Be...</div>
+                                <div id="box-txt-rumus-pasif" class="box-pre-wrap" style="color:#6366f1; font-weight: bold;">O + To Be...</div>
                             </div>
 
                             <div class="info-box-item">
-                                <div class="info-box-header green-box-header"><i class="fa-solid fa-microchip"></i> Penggunaan/Fungsi:</div>
-                                <div id="box-txt-pembahasan" class="box-pre-wrap" style="color: #475569; font-size: 12px; font-weight: bold;">Detail...</div>
+                                <div class="info-box-header green-box-header"><i class="fa-solid fa-circle-info"></i> Penggunaan / Fungsi:</div>
+                                <div id="box-txt-pembahasan" class="box-pre-wrap" style="color: #475569; font-size: 12px;">Detail...</div>
                             </div>
 
                             <div class="info-box-item">
                                 <div class="info-box-header red-box-header"><i class="fa-solid fa-language"></i> Contoh Kalimat & Arti:</div>
                                 <div id="box-txt-arti" class="box-pre-wrap" style="color: #cc0202; font-style: italic; font-size: 12px;">Contoh...</div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -435,7 +433,7 @@
         <div id="leaderboard-panel" class="duo-container" style="display: block;">
              <h3 style="margin-top:0; color:var(--mms-navy); border-bottom:2px solid #f1f5f9; padding-bottom:12px; font-size:16px;">
                 <i class="fa-solid fa-trophy" style="color:var(--mms-red); margin-right:6px;"></i> Liga Kompetisi Pemuda
-            </h3>
+             </h3>
             <div id="list-leaderboard">
                 <div style="text-align:center; padding:15px; color:#94a3b8; font-size:14px;"><i class="fa-solid fa-spinner fa-spin"></i> Membaca skor liga...</div>
             </div>
@@ -452,6 +450,8 @@
 
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
+        // 🆕 LINK TSV PUBLIK GOOGLE SHEETS UNTUK EKSTRAKSI DATA MATERI SUPER KENCANG
+        const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
         let userSession = null;
         let bankSoal = [];
@@ -494,11 +494,19 @@
             });
         }
 
+        // --- 🆕 INTEGRASI SISTEM HYBRID: PARSING TSV KENCANG DAN TARIK DATA BACKEND ---
         function ambilAsetDataWeb() {
+            // 1. Tarik Materi secara Hybrid dari Link TSV (Super Kilat < 50ms)
+            fetch(TSV_URL)
+            .then(r => r.text())
+            .then(tsvText => {
+                bankMateri = parseTSVMateri(tsvText);
+            }).catch(err => console.error("Gagal memuat materi TSV, menggunakan cadangan lokal:", err));
+
+            // 2. Kuis dan Kamus Tetap Memanggil Apps Script Server demi Sinkronisasi
             fetch(`${API_URL}?aksi=getMateriDanSoal`)
             .then(r => r.json()).then(res => {
                 bankSoal = res.soal && res.soal.length > 0 ? res.soal : kuisOffline;
-                bankMateri = res.materi ? res.materi : [];
                 dataKamus = res.kamus ? res.kamus : [];
                 tampilkanSoalDinamis();
                 renderKamusKeHalaman();
@@ -506,6 +514,29 @@
                 bankSoal = kuisOffline;
                 tampilkanSoalDinamis();
             });
+        }
+
+        // 🆕 FUNGSI PARSER UNTUK MEMECAH STRING TSV MENJADI OBJEK DATA JAVASCRIPT
+        function parseTSVMateri(text) {
+            let baris = text.split("\n");
+            let hasil = [];
+            // Kita skip baris indeks 0 (Header tabel)
+            for(let i = 1; i < baris.length; i++) {
+                if(!baris[i].trim()) continue;
+                let kolom = baris[i].split("\t");
+                if(kolom.length >= 6) {
+                    hasil.push({
+                        id: kolom[0] ? kolom[0].trim() : "",
+                        modals: kolom[1] ? kolom[1].trim() : "",
+                        namaMateri: kolom[2] ? kolom[2].trim() : "",
+                        tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
+                        rumus: kolom[4] ? kolom[4].trim() : "",
+                        pembahasan: kolom[5] ? kolom[5].trim() : "",
+                        visual: kolom[6] ? kolom[6].trim() : ""
+                    });
+                }
+            }
+            return hasil;
         }
 
         function resetTampilanDashboard() {
@@ -523,7 +554,7 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-                // --- 🔄 PERBAIKAN LOGIKA SINKRONISASI PENCARIAN & PEMECOHAN DATA RUMUS "THE GRID" ---
+        // --- 🔄 ENGINE MATCHING & PEMECOHAN KALIMAT [AKTIF] / [PASIF] UNTUK INFO-GRID ---
         function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxVisualMateri = document.getElementById("box-media-materi");
             let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -534,29 +565,22 @@
             let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
             document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
 
-            // Mencari data yang cocok dari Google Sheets (Mendukung huruf besar/kecil properti)
+            // Pemetaan scanning array dataCocok dari hasil ekstraksi TSV
             let dataCocok = bankMateri.find(m => {
-                let wSheet = (m.waktu || m.Waktu || "").toLowerCase().trim();
-                let bSheet = (m.bentuk || m.Bentuk || "").toLowerCase().trim();
-                let tSheet = (m.tipe || m.Tipe || "").toLowerCase().trim();
+                let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
+                let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
                 
-                let namaTenseGabung = (wSheet + " " + bSheet).trim();
-                let namaMurni = (m.nama || m.Nama || m.Nama_Materi || "").toLowerCase().trim();
+                let matchNama = namaDiSheet.includes(namaTense.toLowerCase().trim());
+                let matchTipe = tipeDiSheet === tipeRumusGabungan.toLowerCase().trim();
                 
-                let matchNama = namaTenseGabung.includes(namaTense.toLowerCase().trim()) || namaMurni === namaTense.toLowerCase().trim();
-                let matchTipe = tSheet === tipeRumusGabungan.toLowerCase().trim();
-                
+                // Kondisi penyeimbang khusus tombol Kunci Dasar
                 if (namaTense === 'Dasar') {
-                    matchNama = (m.modals || m.Modals || "").toLowerCase().trim().includes("present") || namaMurni.includes("dasar");
+                    matchNama = (m.modals || "").toLowerCase().trim().includes("present") || namaDiSheet.includes("dasar");
+                    matchTipe = tipeDiSheet.includes(tipeRumusGabungan.toLowerCase().trim());
                 }
                 
                 return matchNama && matchTipe;
             });
-
-            // Jika data tidak ditemukan, coba cari fallback hanya berdasarkan tipe jika tenses sangat spesifik
-            if (!dataCocok) {
-                dataCocok = bankMateri.find(m => (m.tipe || m.Tipe || "").toLowerCase().trim() === tipeRumusGabungan.toLowerCase().trim());
-            }
 
             if (!dataCocok) {
                 [boxRumusAktif, boxRumusPasif, boxPembahasan, boxArti].forEach(el => el.innerText = "Belum Ada Data");
@@ -565,42 +589,32 @@
                 return;
             }
 
-            // 📜 Ambil data teks rumus (Mendukung properti huruf besar/kecil dari Apps Script)
-            let teksRumusGabungan = dataCocok.rumus || dataCocok.Rumus || "";
+            // Ekstraksi pemecah string rumus [Aktif] dan [Pasif] vertikal vertikal
+            let teksRumusGabungan = dataCocok.rumus || "";
             let rumusAktif = "Tidak ada rumus aktif.";
             let rumusPasif = "Tidak ada bentuk pasif."; 
 
-            // Logika pemecah teks jika rumus digabung [Aktif] dan [Pasif] di satu sel spreadsheet
             if (teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
                 let pemisah = teksRumusGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
                 let bagianRumus = teksRumusGabungan.split(pemisah);
                 rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
                 rumusPasif = bagianRumus[1].trim();
             } else {
-                // Jika tidak ada kata pasif, masukkan seluruh teks ke kotak Aktif (misal untuk tipe Nominal)
                 rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
                 rumusPasif = "No Passive Form (Nominal/Dasar).";
             }
 
-            // Masukkan data hasil sinkronisasi ke innerText kotak masing-masing
             boxRumusAktif.innerText = rumusAktif || "Rumus Aktif Kosong";
             boxRumusPasif.innerText = rumusPasif;
-            
-            // Sinkronisasi kolom Pembahasan/Penjelasan dan Contoh Arti Kalimat
-            boxPembahasan.innerText = dataCocok.pembahasan || dataCocok.Pembahasan || dataCocok.penjelasan || dataCocok.Penjelasan || "Penjelasan Kosong";
-            boxArti.innerText = dataCocok.arti || dataCocok.Arti || dataCocok.contoh || dataCocok.Contoh || "Contoh Kosong";
+            boxPembahasan.innerText = dataCocok.pembahasan || "Penjelasan Kosong";
+            boxArti.innerText = dataCocok.arti || dataCocok.contoh || "Contoh Kosong";
 
-            // Detektor Media Visual/Video di atas grid
-            let visual = dataCocok.visual || dataCocok.Visual || dataCocok.Kode_Visual || "";
+            // Render Media Visual / Player Video Youtube
+            let visual = dataCocok.visual || "";
             if (visual.startsWith("fa-")) {
                 boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
             } else if (visual.includes("v=") || visual.includes("youtu.be")) {
-                let videoId = "";
-                if(visual.includes("v=")) {
-                    videoId = visual.split("v=")[1];
-                } else {
-                    videoId = visual.split("/").pop();
-                }
+                let videoId = visual.split("v=")[1] || visual.split("/").pop();
                 if(videoId.includes("&")) videoId = videoId.split("&")[0];
                 boxVisualMateri.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
             } else if (visual && (visual.startsWith("http") || visual.startsWith("images/"))) {
