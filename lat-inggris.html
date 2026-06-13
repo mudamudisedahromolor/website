@@ -401,12 +401,16 @@
                         <span><i class="fa-solid fa-key" style="color: var(--mms-accent); margin-right: 6px;"></i> Kunci Dasar & Kata Kunci Penting</span>
                         <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
                     </div>
-                    <p style="color: #475569; font-size: 12px; margin-top: 0; margin-bottom: 12px;">Ketuk judul di atas untuk membuka daftar kata kunci dasar (Auxiliary, Verb-ing, To Be, dll).</p>
+                    <p style="color: #475569; font-size: 12px; margin-top: 0; margin-bottom: 12px;">Ketuk judul di atas untuk melihat daftar kata kunci (Auxiliary, Verb-ing, To Be, dll).</p>
                     
-                    <div id="mms-accordion-konten-dasar" style="display: none; flex-direction: column; gap: 10px;">
-                        <div id="mms-grid-sub-tombol" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;"></div>
+                    <div id="mms-accordion-konten-dasar" style="display: none; flex-direction: column; gap: 10px; border-top: 1px dashed #cbd5e1; padding-top: 12px; margin-top: 5px;">
+                        
+                        <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);">
+                            <div style="font-size: 11px; font-weight: bold; color: var(--mms-accent); text-transform: uppercase; margin-bottom: 8px;"><i class="fa-solid fa-list-check"></i> Pilih Kata Kunci:</div>
+                            <div id="mms-grid-sub-tombol" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;"></div>
+                        </div>
 
-                        <div id="mms-box-penjelasan-dasar" style="display: none; background: #fff; border: 1px solid #cbd5e1; border-left: 4px solid var(--mms-green); border-radius: 8px; padding: 14px; margin-top: 6px;">
+                        <div id="mms-box-penjelasan-dasar" style="display: none; background: #fff; border: 1px solid #cbd5e1; border-left: 4px solid var(--mms-green); border-radius: 10px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
                             <div style="font-size: 11px; font-weight: bold; color: var(--mms-green); text-transform: uppercase; margin-bottom: 6px;"><i class="fa-solid fa-file-lines"></i> Penjelasan Detail Materi:</div>
                             <div id="mms-txt-paragraf-j" class="box-pre-wrap" style="font-size: 13px; color: #475569; line-height: 1.6;">-</div>
                         </div>
@@ -656,7 +660,6 @@
             .then(r => r.text())
             .then(tsvText => {
                 bankMateri = parseTSVMateri(tsvText);
-                // 🚀 PANGGIL SINKRONISASI TOMBOL KUNCI DASAR SETELAH TSV BERHASIL DI-LOAD
                 renderSubTombolKunciDasar();
             }).catch(err => console.error("Gagal memuat materi TSV:", err));
 
@@ -672,45 +675,45 @@
             });
         }
 
-        // PARSING KODE TSV DIPERPANJANG HINGGA JANGKAUAN INDEX KE-8 (KOLOM I) DAN KE-9 (KOLOM J)
         function parseTSVMateri(text) {
             let baris = text.split("\n");
             let hasil = [];
             for(let i = 1; i < baris.length; i++) {
                 if(!baris[i].trim()) continue;
                 let kolom = baris[i].split("\t");
-                if(kolom.length >= 6) {
-                    hasil.push({
-                        id: kolom[0] ? kolom[0].trim() : "",
-                        modals: kolom[1] ? kolom[1].trim() : "",
-                        namaMateri: kolom[2] ? kolom[2].trim() : "",
-                        tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
-                        rumus: kolom[4] ? kolom[4].trim() : "",
-                        pembahasan: kolom[5] ? kolom[5].trim() : "", 
-                        arti: kolom[6] ? kolom[6].trim() : "",
-                        visual: kolom[7] ? kolom[7].trim() : "",
-                        kolomI: kolom[8] ? kolom[8].trim() : "", // Judul Kata Kunci / Sub-Div Baru
-                        kolomJ: kolom[9] ? kolom[9].trim() : ""  // Paragraf Keterangan Isi Detail
-                    });
-                }
+                
+                hasil.push({
+                    id: kolom[0] ? kolom[0].trim() : "",
+                    modals: kolom[1] ? kolom[1].trim() : "",
+                    namaMateri: kolom[2] ? kolom[2].trim() : "",
+                    tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
+                    rumus: kolom[4] ? kolom[4].trim() : "",
+                    pembahasan: kolom[5] ? kolom[5].trim() : "", 
+                    arti: kolom[6] ? kolom[6].trim() : "",
+                    visual: kolom[7] ? kolom[7].trim() : "",
+                    kolomI: kolom[8] ? kolom[8].trim() : "", // Judul Kata Kunci
+                    kolomJ: kolom[9] ? kolom[9].trim() : ""  // Teks Penjelasan Paragraf
+                });
             }
             return hasil;
         }
 
-        // 🆕 JAVASCRIPT ENGINE UNTUK RENDERING DAFTAR SUB-DIV BERDASARKAN FILTER NAMA MATERI 'DASAR' DI SHEET
+        // 🛠️ FIX TOTAL: PENCARIAN STRIP SPASI DAN TOLERANSI VALUE PADA FILTER TSV
         function renderSubTombolKunciDasar() {
             let gridTombol = document.getElementById("mms-grid-sub-tombol");
             gridTombol.innerHTML = "";
 
-            // Ambil semua baris materi di Google Sheets yang namanya mengandung unsur 'Dasar'
-            let barisDasar = bankMateri.filter(m => (m.namaMateri || "").toLowerCase().includes("dasar"));
+            // Memperbaiki pencarian filter agar membaca baris dengan kategori 'dasar' di Kolom C secara tepat
+            let barisDasar = bankMateri.filter(m => {
+                let cat = (m.namaMateri || "").toLowerCase().trim();
+                return cat.includes("dasar");
+            });
 
             if (barisDasar.length === 0) {
-                gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center;">Belum ada baris materi Dasar di Sheets.</div>`;
+                gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center; padding: 5px 0;">Menunggu sync data kata kunci dari Sheets...</div>`;
                 return;
             }
 
-            // Loop untuk membuat baris tombol baru berdasarkan data Kolom I
             barisDasar.forEach((materi, index) => {
                 let judulTombol = materi.kolomI || `Kata Kunci ${index + 1}`;
                 let idUnik = materi.id || index;
@@ -725,31 +728,26 @@
             });
         }
 
-        // 🆕 KETIKA SUB-DIV DIKLIK, PARAGRAF DARI KOLOM J AKAN MUNCUL SECARA ACCORDION TEPAT DI BAWAHNYA
         function tampilkanParagrafDetailDasar(idMateri, btnElement) {
             let panelPenjelasan = document.getElementById("mms-box-penjelasan-dasar");
             let textParagrafJ = document.getElementById("mms-txt-paragraf-j");
 
-            // Matikan highlight aktif pada tombol sub-div lainnya
             document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
 
-            // Cari objek data yang ID-nya cocok
             let cocok = bankMateri.find(m => m.id === idMateri);
 
             if (!cocok || !cocok.kolomJ) {
-                textParagrafJ.innerText = "Belum ada teks penjelasan di kolom J untuk kata kunci ini.";
+                textParagrafJ.innerText = "Teks penjelasan pada kolom J kosong.";
                 panelPenjelasan.style.display = "block";
                 btnElement.classList.add("mms-active-dasar");
                 return;
             }
 
-            // Set isi paragraf dari kolom J ke dalam kontainer div keterangan
             textParagrafJ.innerText = cocok.kolomJ;
             panelPenjelasan.style.display = "block";
             btnElement.classList.add("mms-active-dasar");
         }
 
-        // MODIFIKASI FUNGSI ACCORDION BOX BAWAAN AGAR SUPPORT DISPLAY FLEX/BLOCK FLEXIBEL
         function toggleAccordionBox(panelId) {
             let panel = document.getElementById(panelId);
             if (panel.style.display === "block" || panel.style.display === "flex") {
@@ -765,7 +763,6 @@
             document.getElementById("vocab-body").style.display = "none";
             document.getElementById("quiz-body-wrapper").style.display = "none";
             
-            // Tutup semua panel dropdown kunci dasar saat kembali ke menu dashboard utama
             document.getElementById("mms-accordion-konten-dasar").style.display = "none";
             document.getElementById("mms-box-penjelasan-dasar").style.display = "none";
             document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
