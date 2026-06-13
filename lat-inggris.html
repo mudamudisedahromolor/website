@@ -164,14 +164,20 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        .mms-info-grid {
-            display: grid;
-            grid-template-columns: 1fr; 
+        /* 🆕 ARSITEKTUR STRUKTUR STRUKTUR CONTAINER LAYOUT GRID RUMUS BARU */
+        .mms-vertical-layout-stack {
+            display: flex;
+            flex-direction: column;
             gap: 12px;
-            margin-bottom: 18px;
+        }
+
+        .mms-twin-column-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default Selular: Satu kolom */
+            gap: 12px;
         }
         @media(min-width: 480px) {
-            .mms-info-grid { grid-template-columns: 1fr 1fr; }
+            .mms-twin-column-grid { grid-template-columns: 1fr 1fr; } /* Desktop/Tablet: Dua kolom sejajar */
         }
         
         .info-box-item {
@@ -180,6 +186,11 @@
             border-radius: 10px;
             padding: 12px 14px;
             text-align: left;
+        }
+        .sub-example-item {
+            margin-top: 8px;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 8px;
         }
 
         .info-box-header {
@@ -378,30 +389,43 @@
                     <div class="mms-modal-content">
                         <button class="mms-modal-close-btn" onclick="tutupModalMateri()"><i class="fa-solid fa-xmark"></i></button>
                         
-                        <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:20px; font-size: 16px; padding-right: 25px;">Materi</h4>
+                        <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:15px; font-size: 16px; padding-right: 25px;">Materi</h4>
                         
                         <div class="mms-modal-visual-frame" id="box-media-materi"></div>
 
-                        <div class="mms-info-grid">
+                        <div class="mms-vertical-layout-stack">
+                            
                             <div class="info-box-item">
-                                <div class="info-box-header accent-box-header"><i class="fa-solid fa-bolt"></i> Rumus [Aktif]:</div>
-                                <div id="box-txt-rumus-aktif" class="box-pre-wrap" style="color:#0ea5e9; font-weight: bold;">S + V1...</div>
+                                <div class="info-box-header green-box-header"><i class="fa-solid fa-circle-info"></i> Penggunaan / Fungsi Kalimat:</div>
+                                <div id="box-txt-pembahasan" class="box-pre-wrap" style="color: #475569; font-size: 12.5px;">Detail...</div>
                             </div>
 
-                            <div class="info-box-item">
-                                <div class="info-box-header accent-box-header"><i class="fa-solid fa-code-branch"></i> Rumus [Pasif]:</div>
-                                <div id="box-txt-rumus-pasif" class="box-pre-wrap" style="color:#6366f1; font-weight: bold;">O + To Be...</div>
+                            <div class="mms-twin-column-grid">
+                                
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div class="info-box-item" style="border-left: 4px solid var(--mms-accent);">
+                                        <div class="info-box-header class accent-box-header"><i class="fa-solid fa-bolt"></i> Rumus [Aktif]:</div>
+                                        <div id="box-txt-rumus-aktif" class="box-pre-wrap" style="color:#0ea5e9; font-weight: bold; font-size: 13px;">S + V1...</div>
+                                    </div>
+                                    <div class="info-box-item" style="border-left: 4px solid var(--mms-green);">
+                                        <div class="info-box-header green-box-header"><i class="fa-solid fa-language"></i> Contoh Aktif & Arti:</div>
+                                        <div id="box-txt-arti-aktif" class="box-pre-wrap" style="color:#10b981; font-size: 12px; font-style: italic;">Contoh Aktif...</div>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div class="info-box-item" style="border-left: 4px solid #6366f1;">
+                                        <div class="info-box-header style color: #6366f1;" style="color: #6366f1;"><i class="fa-solid fa-code-branch"></i> Rumus [Pasif]:</div>
+                                        <div id="box-txt-rumus-pasif" class="box-pre-wrap" style="color:#6366f1; font-weight: bold; font-size: 13px;">O + To Be...</div>
+                                    </div>
+                                    <div class="info-box-item" style="border-left: 4px solid var(--mms-red);">
+                                        <div class="info-box-header red-box-header"><i class="fa-solid fa-language"></i> Contoh Pasif & Arti:</div>
+                                        <div id="box-txt-arti-pasif" class="box-pre-wrap" style="color:var(--mms-red); font-size: 12px; font-style: italic;">Contoh Pasif...</div>
+                                    </div>
+                                </div>
+
                             </div>
 
-                            <div class="info-box-item">
-                                <div class="info-box-header green-box-header"><i class="fa-solid fa-circle-info"></i> Penggunaan / Fungsi:</div>
-                                <div id="box-txt-pembahasan" class="box-pre-wrap" style="color: #475569; font-size: 12px;">Detail...</div>
-                            </div>
-
-                            <div class="info-box-item">
-                                <div class="info-box-header red-box-header"><i class="fa-solid fa-language"></i> Contoh Kalimat & Arti:</div>
-                                <div id="box-txt-arti" class="box-pre-wrap" style="color: #cc0202; font-style: italic; font-size: 12px;">Contoh...</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -450,7 +474,6 @@
 
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
-        // 🆕 LINK TSV PUBLIK GOOGLE SHEETS UNTUK EKSTRAKSI DATA MATERI SUPER KENCANG
         const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
         let userSession = null;
@@ -494,16 +517,13 @@
             });
         }
 
-        // --- 🆕 INTEGRASI SISTEM HYBRID: PARSING TSV KENCANG DAN TARIK DATA BACKEND ---
         function ambilAsetDataWeb() {
-            // 1. Tarik Materi secara Hybrid dari Link TSV (Super Kilat < 50ms)
             fetch(TSV_URL)
             .then(r => r.text())
             .then(tsvText => {
                 bankMateri = parseTSVMateri(tsvText);
-            }).catch(err => console.error("Gagal memuat materi TSV, menggunakan cadangan lokal:", err));
+            }).catch(err => console.error("Gagal memuat materi TSV:", err));
 
-            // 2. Kuis dan Kamus Tetap Memanggil Apps Script Server demi Sinkronisasi
             fetch(`${API_URL}?aksi=getMateriDanSoal`)
             .then(r => r.json()).then(res => {
                 bankSoal = res.soal && res.soal.length > 0 ? res.soal : kuisOffline;
@@ -516,11 +536,9 @@
             });
         }
 
-        // 🆕 FUNGSI PARSER UNTUK MEMECAH STRING TSV MENJADI OBJEK DATA JAVASCRIPT
         function parseTSVMateri(text) {
             let baris = text.split("\n");
             let hasil = [];
-            // Kita skip baris indeks 0 (Header tabel)
             for(let i = 1; i < baris.length; i++) {
                 if(!baris[i].trim()) continue;
                 let kolom = baris[i].split("\t");
@@ -554,18 +572,18 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-        // --- 🔄 ENGINE MATCHING & PEMECOHAN KALIMAT [AKTIF] / [PASIF] UNTUK INFO-GRID ---
+        // --- 🔄 SINKRONISASI PEMECOHAN TOTAL DATA KOLOM SPREADSHEET BER-ENTER ---
         function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxVisualMateri = document.getElementById("box-media-materi");
             let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
             let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
+            let boxArtiAktif = document.getElementById("box-txt-arti-aktif");
+            let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
-            let boxArti = document.getElementById("box-txt-arti");
 
             let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
             document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
 
-            // Pemetaan scanning array dataCocok dari hasil ekstraksi TSV
             let dataCocok = bankMateri.find(m => {
                 let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
                 let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
@@ -573,7 +591,6 @@
                 let matchNama = namaDiSheet.includes(namaTense.toLowerCase().trim());
                 let matchTipe = tipeDiSheet === tipeRumusGabungan.toLowerCase().trim();
                 
-                // Kondisi penyeimbang khusus tombol Kunci Dasar
                 if (namaTense === 'Dasar') {
                     matchNama = (m.modals || "").toLowerCase().trim().includes("present") || namaDiSheet.includes("dasar");
                     matchTipe = tipeDiSheet.includes(tipeRumusGabungan.toLowerCase().trim());
@@ -583,16 +600,16 @@
             });
 
             if (!dataCocok) {
-                [boxRumusAktif, boxRumusPasif, boxPembahasan, boxArti].forEach(el => el.innerText = "Belum Ada Data");
+                [boxRumusAktif, boxRumusPasif, boxArtiAktif, boxArtiPasif, boxPembahasan].forEach(el => el.innerText = "Belum Ada Data");
                 boxVisualMateri.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
                 document.getElementById("materi-pembahasan-box").style.display = "flex";
                 return;
             }
 
-            // Ekstraksi pemecah string rumus [Aktif] dan [Pasif] vertikal vertikal
+            // 1. Ekstraksi Pemecah Kolom RUMUS (Kolom E)
             let teksRumusGabungan = dataCocok.rumus || "";
             let rumusAktif = "Tidak ada rumus aktif.";
-            let rumusPasif = "Tidak ada bentuk pasif."; 
+            let rumusPasif = "No Passive Form (Nominal/Dasar)."; 
 
             if (teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
                 let pemisah = teksRumusGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
@@ -601,13 +618,28 @@
                 rumusPasif = bagianRumus[1].trim();
             } else {
                 rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
-                rumusPasif = "No Passive Form (Nominal/Dasar).";
             }
-
-            boxRumusAktif.innerText = rumusAktif || "Rumus Aktif Kosong";
+            boxRumusAktif.innerText = rumusAktif;
             boxRumusPasif.innerText = rumusPasif;
-            boxPembahasan.innerText = dataCocok.pembahasan || "Penjelasan Kosong";
-            boxArti.innerText = dataCocok.arti || dataCocok.contoh || "Contoh Kosong";
+
+            // 2. ⚡ LOGIKA PEMECAH INDEPENDEN UNTUK CONTOH KALIMAT AKTIF & PASIF (KOLOM F SPREADSHEET)
+            let teksPembahasanGabungan = dataCocok.pembahasan || "";
+            let contohAktif = "Belum ada contoh aktif.";
+            let contohPasif = "No Passive Example.";
+
+            if (teksPembahasanGabungan.includes("[Pasif]") || teksPembahasanGabungan.includes("Pasif")) {
+                let pemisahContoh = teksPembahasanGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
+                let bagianContoh = teksPembahasanGabungan.split(pemisahContoh);
+                contohAktif = bagianContoh[0].replace("[Aktif]", "").replace("Aktif", "").trim();
+                contohPasif = bagianContoh[1].trim();
+            } else {
+                contohAktif = teksPembahasanGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
+            }
+            boxArtiAktif.innerText = contohAktif;
+            boxArtiPasif.innerText = contohPasif;
+
+            // 3. Set Teks Judul Penggunaan/Fungsi Kalimat Berdasarkan Tense
+            boxPembahasan.innerText = `Digunakan untuk mengekspresikan pola karakter tata bahasa dari rumpun materi ${namaTense}.`;
 
             // Render Media Visual / Player Video Youtube
             let visual = dataCocok.visual || "";
@@ -762,7 +794,7 @@
         }
 
         function muatLeaderboard() {
-            fetch(`${API_URL}?aksi=getLeaderboard`)
+            fetch(`${API_URL}?getLeaderboard`)
             .then(r => r.json()).then(data => {
                 let box = document.getElementById("list-leaderboard");
                 box.innerHTML = "";
