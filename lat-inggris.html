@@ -523,7 +523,7 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-        // --- 🆕 LOGIKA PERBAIKAN SINKRONISASI PENCARIAN & PEMECOHAN DATA RUMUS "THE GRID" ---
+                // --- 🔄 PERBAIKAN LOGIKA SINKRONISASI PENCARIAN & PEMECOHAN DATA RUMUS "THE GRID" ---
         function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxVisualMateri = document.getElementById("box-media-materi");
             let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -534,70 +534,81 @@
             let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
             document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
 
-            // Mencari data yang cocok berdasarkan parameter Kolom B/C (waktu/bentuk) dan D (tipe) dari GS
+            // Mencari data yang cocok dari Google Sheets (Mendukung huruf besar/kecil properti)
             let dataCocok = bankMateri.find(m => {
-                let wSheet = (m.waktu || "").toLowerCase().trim();
-                let bSheet = (m.bentuk || "").toLowerCase().trim();
-                let tSheet = (m.tipe || "").toLowerCase().trim();
+                let wSheet = (m.waktu || m.Waktu || "").toLowerCase().trim();
+                let bSheet = (m.bentuk || m.Bentuk || "").toLowerCase().trim();
+                let tSheet = (m.tipe || m.Tipe || "").toLowerCase().trim();
                 
-                // Mendukung pencarian dua arah (Nama tunggal seperti 'Simple Present' atau gabungan terpisah kolom B & C)
                 let namaTenseGabung = (wSheet + " " + bSheet).trim();
-                let matchNama = namaTenseGabung.includes(namaTense.toLowerCase().trim()) || (m.nama || m.Nama_Materi || "").toLowerCase().trim() === namaTense.toLowerCase().trim();
+                let namaMurni = (m.nama || m.Nama || m.Nama_Materi || "").toLowerCase().trim();
+                
+                let matchNama = namaTenseGabung.includes(namaTense.toLowerCase().trim()) || namaMurni === namaTense.toLowerCase().trim();
                 let matchTipe = tSheet === tipeRumusGabungan.toLowerCase().trim();
                 
-                // Kondisi khusus untuk tombol panduan Dasar (Auxiliary / Verb-ing)
                 if (namaTense === 'Dasar') {
-                    matchNama = (m.modals || m.Modals || "").toLowerCase().trim().includes("present");
-                    matchTipe = tipeDiSheet.includes(tipeRumusGabungan.toLowerCase().trim());
+                    matchNama = (m.modals || m.Modals || "").toLowerCase().trim().includes("present") || namaMurni.includes("dasar");
                 }
                 
                 return matchNama && matchTipe;
             });
 
+            // Jika data tidak ditemukan, coba cari fallback hanya berdasarkan tipe jika tenses sangat spesifik
             if (!dataCocok) {
-                // Tampilkan pesan kosong di modal grid
+                dataCocok = bankMateri.find(m => (m.tipe || m.Tipe || "").toLowerCase().trim() === tipeRumusGabungan.toLowerCase().trim());
+            }
+
+            if (!dataCocok) {
                 [boxRumusAktif, boxRumusPasif, boxPembahasan, boxArti].forEach(el => el.innerText = "Belum Ada Data");
                 boxVisualMateri.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
                 document.getElementById("materi-pembahasan-box").style.display = "flex";
                 return;
             }
 
-            // 🆕 MENGAMBIL DATA RUMUS GABUNGAN [AKTIF] & [PASIF] UNTUK DIPECOH
-            let teksRumusGabungan = dataCocok.rumus || "Rumus Kosong";
-            
-            // Logika pemecah teks [Aktif]... dan [Pasif]... dari satu sel spreadsheet
-            let rumusAktif = "";
-            let rumusPasif = "No Passive Form."; // Default jika tidak ada pasif (misal Nominal)
-            
-            if (teksRumusGabungan.includes("[Pasif]")) {
-                let bagianRumus = teksRumusGabungan.split("[Pasif]");
-                rumusAktif = bagianRumus[0].replace("[Aktif]", "").trim();
+            // 📜 Ambil data teks rumus (Mendukung properti huruf besar/kecil dari Apps Script)
+            let teksRumusGabungan = dataCocok.rumus || dataCocok.Rumus || "";
+            let rumusAktif = "Tidak ada rumus aktif.";
+            let rumusPasif = "Tidak ada bentuk pasif."; 
+
+            // Logika pemecah teks jika rumus digabung [Aktif] dan [Pasif] di satu sel spreadsheet
+            if (teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
+                let pemisah = teksRumusGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
+                let bagianRumus = teksRumusGabungan.split(pemisah);
+                rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
                 rumusPasif = bagianRumus[1].trim();
             } else {
-                rumusAktif = teksRumusGabungan.replace("[Aktif]", "").trim();
+                // Jika tidak ada kata pasif, masukkan seluruh teks ke kotak Aktif (misal untuk tipe Nominal)
+                rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
+                rumusPasif = "No Passive Form (Nominal/Dasar).";
             }
 
-            // Memasukkan data properti baru hasil olahan Code.gs 7 Kolom
-            boxRumusAktif.innerText = rumusAktif;
+            // Masukkan data hasil sinkronisasi ke innerText kotak masing-masing
+            boxRumusAktif.innerText = rumusAktif || "Rumus Aktif Kosong";
             boxRumusPasif.innerText = rumusPasif;
-            boxPembahasan.innerText = dataCocok.pembahasan || "Penjelasan Kosong";
-            boxArti.innerText = dataCocok.arti || "Kosong";
+            
+            // Sinkronisasi kolom Pembahasan/Penjelasan dan Contoh Arti Kalimat
+            boxPembahasan.innerText = dataCocok.pembahasan || dataCocok.Pembahasan || dataCocok.penjelasan || dataCocok.Penjelasan || "Penjelasan Kosong";
+            boxArti.innerText = dataCocok.arti || dataCocok.Arti || dataCocok.contoh || dataCocok.Contoh || "Contoh Kosong";
 
             // Detektor Media Visual/Video di atas grid
-            let visual = dataCocok.visual || "";
+            let visual = dataCocok.visual || dataCocok.Visual || dataCocok.Kode_Visual || "";
             if (visual.startsWith("fa-")) {
                 boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
             } else if (visual.includes("v=") || visual.includes("youtu.be")) {
-                let videoId = visual.split("v=")[1] || visual.split("/").pop();
+                let videoId = "";
+                if(visual.includes("v=")) {
+                    videoId = visual.split("v=")[1];
+                } else {
+                    videoId = visual.split("/").pop();
+                }
                 if(videoId.includes("&")) videoId = videoId.split("&")[0];
                 boxVisualMateri.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
-            } else if (visual) {
+            } else if (visual && (visual.startsWith("http") || visual.startsWith("images/"))) {
                 boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
             } else {
                 boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
             }
 
-            // Tampilkan modal top layer dengan display flex (bukan block) agar rata tengah
             document.getElementById("materi-pembahasan-box").style.display = "flex";
         }
 
