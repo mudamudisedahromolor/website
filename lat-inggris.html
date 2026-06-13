@@ -692,7 +692,7 @@
 
                 </div>
 
-                <div id="materi-pembahasan-box" class="mms-modal-overlay" style="display: none;">
+                <div id="materi-pembahasan-box" class="mms-modal-overlay" style="display: none;" onclick="tutupModalMateri(event)">
                     <div class="mms-modal-content">
                         <button class="mms-modal-close-btn" onclick="tutupModalMateri()"><i class="fa-solid fa-xmark"></i></button>
                         
@@ -1343,8 +1343,18 @@
             document.getElementById("materi-pembahasan-box").style.display = "flex";
         }
 
-        function tutupModalMateri() {
-            document.getElementById("materi-pembahasan-box").style.display = "none";
+                function tutupModalMateri(e) {
+            // Jika fungsi dipanggil oleh tombol silang (tanpa e), langsung tutup
+            if (!e) {
+                document.getElementById("materi-pembahasan-box").style.display = "none";
+                return;
+            }
+            
+            // Masuk ke logika deteksi area luar:
+            // Jika target yang diklik (e.target) adalah area overlay itu sendiri (bukan konten putih)
+            if (e.target.id === "materi-pembahasan-box") {
+                document.getElementById("materi-pembahasan-box").style.display = "none";
+            }
         }
     </script>
     <script src="online-tracker.js"></script>
