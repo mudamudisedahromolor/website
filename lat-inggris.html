@@ -1375,38 +1375,38 @@
             }
         }
 
-        // 🛠 nighttime-check: Mengamankan transisi file video manager hosting lokal (.mp4)
-           function mmsToggleVideoSaja() {
+        // 1. Fungsi klik judul untuk buka-tutup (Toggle) video lokal
+        function mmsToggleVideoSaja() {
             let boxVisual = document.getElementById("box-media-materi");
             if (!boxVisual) return;
 
             let videoLokal = document.getElementById("mms-media-video-lokal");
 
-            if (boxVisual.style.display === "flex" || boxVisual.style.display === "block") {
+            // Cek apakah video sedang tampil
+            if (boxVisual.style.display === "flex") {
                 boxVisual.style.display = "none";
-                if (videoLokal) {
-                    videoLokal.pause();
-                }
+                if (videoLokal) videoLokal.pause(); // Sembunyikan dan matikan suara
             } else {
                 boxVisual.style.display = "flex";
                 if (videoLokal) {
-                    videoLokal.currentTime = 0; // Mengulang pemutaran video dari detik ke-0
+                    videoLokal.currentTime = 0; // Reset video mulai dari awal
                     videoLokal.play().catch(err => console.log("Autoplay ditolak browser:", err));
                 }
             }
         }
 
+        // 2. Fungsi klik kotak lain/area luar untuk menyembunyikan video secara otomatis
         function mmsToggleDinamisMediaMateri(e) {
             let boxVisual = document.getElementById("box-media-materi");
             if (!boxVisual) return;
 
-            // Jika klik jatuh di luar area box video (misal klik box rumus atau silabus di bawah)
+            // Jika yang diklik bukan area video dan bukan tombol judul header tenses
             if (!boxVisual.contains(e.target) && e.target.id !== "lbl-judul-tense-aktif") {
                 boxVisual.style.display = "none";
                 
                 let videoLokal = document.getElementById("mms-media-video-lokal");
                 if (videoLokal) {
-                    videoLokal.pause();
+                    videoLokal.pause(); // Matikan suara jika user membaca bagian lain
                 }
             }
         }
