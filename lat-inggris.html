@@ -255,12 +255,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 👑 AREA RUMUS LEBIH BESAR & LEGA (PUDARAN SHADOW MERAH PEKAT) */
         .mms-glow-pulse-container {
             width: 100%;
             background: #fff;
             border: 1px solid #cbd5e1;
-            padding: 18px 14px; 
+            padding: 18px 14px;
             border-radius: 8px;
             box-sizing: border-box;
             display: flex;
@@ -271,8 +270,8 @@
         }
 
         .mms-txt-rumus-glow {
-            font-size: clamp(14.5px, 3.8vw, 18px); 
-            font-weight: 800; 
+            font-size: 14px;
+            font-weight: 700;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #cc0202; 
             display: block;
@@ -292,59 +291,22 @@
             }
         }
 
-        /* TABEL REFERENSI SUBJEK */
         .mms-tips-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 8px;
-            font-size: 11.5px;
+            margin-top: 5px;
+            font-size: 12px;
             background: #fff;
         }
         .mms-tips-table th, .mms-tips-table td {
             border: 1px solid #cbd5e1;
-            padding: 6px;
+            padding: 6px 8px;
             text-align: center;
         }
         .mms-tips-table th {
             background: var(--mms-navy);
             color: #fff;
             font-weight: bold;
-        }
-
-        /* SILABUS ACCORDION INTERNAL */
-        .syllabus-sub-btn {
-            width: 100%;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 8px 10px;
-            border-radius: 6px;
-            text-align: left;
-            font-size: 12px;
-            font-weight: 600;
-            color: #334155;
-            cursor: pointer;
-            margin-top: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .syllabus-sub-btn:hover {
-            background: #f1f5f9;
-        }
-        .syllabus-sub-panel {
-            display: none;
-            padding: 10px;
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-top: none;
-            border-radius: 0 0 6px 6px;
-            font-size: 12px;
-            color: #475569;
-            line-height: 1.5;
-        }
-        .syllabus-sub-panel ul {
-            margin: 0;
-            padding-left: 16px;
         }
     </style>
 </head>
@@ -509,14 +471,22 @@
 
                         <div class="mms-vertical-layout-stack">
                             
+                            <div id="wrapper-box-silabus" class="info-box-item" style="border-left: 4px solid #3b82f6; background: #f0fdfa;">
+                                <div class="info-box-header" style="color: #3b82f6;"><i class="fa-solid fa-tags"></i> Kata Kunci / Silabus Penting:</div>
+                                <div id="box-txt-silabus" class="box-pre-wrap" style="color: #1e293b; font-weight: 600; font-size: 13px;">Memuat silabus...</div>
+                            </div>
+
+                            <div class="info-box-item" style="border-left: 4px solid var(--mms-green);">
+                                <div class="info-box-header green-box-header"><i class="fa-solid fa-circle-info"></i> Penggunaan / Fungsi Kalimat:</div>
+                                <div id="box-txt-pembahasan" class="box-pre-wrap" style="color: #475569; font-size: 13px;">Detail...</div>
+                            </div>
+
                             <div id="wrapper-box-tips-pintar" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5;">
-                                <div class="info-box-header" style="color: #b45309;"><i class="fa-solid fa-lightbulb"></i> Silabus: Penting Untuk Diingat!</div>
-                                <p style="color: #64748b; font-size: 11px; margin: 2px 0 8px 0;">Ketuk topik di bawah untuk membuka rangkuman konsep dasar struktural:</p>
-                                
-                                <button class="syllabus-sub-btn" onclick="toggleAccordionBox('sub-silabus-tobe')">
-                                    <span>1. Pasangan Subjek, To Be & Auxiliary Verb 🔑</span> <i class="fa-solid fa-chevron-down"></i>
+                                <div class="info-box-header" style="color: #b45309;"><i class="fa-solid fa-lightbulb"></i> Tips Pasangan Subjek & Kata Bantu:</div>
+                                <button class="mms-toggle-trigger-btn" style="border-color: #eab308; color: #b45309; background: #fff; margin-top: 4px;" onclick="toggleAccordionBox('panel-tips-tabel')">
+                                    <i class="fa-solid fa-table"></i> Ketuk untuk Lihat Tabel Referensi Subjek
                                 </button>
-                                <div id="sub-silabus-tobe" class="syllabus-sub-panel">
+                                <div id="panel-tips-tabel" class="mms-dropdown-content-panel" style="background: #fffdf5; border-left-color: #eab308;">
                                     <table class="mms-tips-table">
                                         <thead>
                                             <tr>
@@ -548,47 +518,17 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <button class="syllabus-sub-btn" onclick="toggleAccordionBox('sub-silabus-elemen')">
-                                    <span>2. Arti & Karakter Elemen (S, O, Complement) 📝</span> <i class="fa-solid fa-chevron-down"></i>
-                                </button>
-                                <div id="sub-silabus-elemen" class="syllabus-sub-panel">
-                                    <ul>
-                                        <li><b>Subject (S):</b> Pelaku aksi (I, You, We, They, He, She, It, Nama Orang).</li>
-                                        <li><b>Object (O):</b> Penerima aksi. Hanya boleh diisi oleh rumpun kata benda (Noun) atau kata ganti (Pronoun).</li>
-                                        <li><b>Complement:</b> Pelengkap pada kalimat Nominal. Terdiri dari rumpun <b>ANA</b>: <i>Adjective</i> (Sifat), <i>Noun</i> (Benda), atau <i>Adverb</i> (Keterangan).</li>
-                                    </ul>
-                                </div>
-
-                                <button class="syllabus-sub-btn" onclick="toggleAccordionBox('sub-silabus-cirikhas')">
-                                    <span>3. Kenali Ciri Khas Bentuk (Perfect & Continuous) ⚡</span> <i class="fa-solid fa-chevron-down"></i>
-                                </button>
-                                <div id="sub-silabus-cirikhas" class="syllabus-sub-panel">
-                                    <ul>
-                                        <li><b>Aturan Verb-ing:</b> Hanya mutlak dipakai di rumpun yang mengandung kata <i>Continuous</i> (Kejadian sedang berlangsung).</li>
-                                        <li><b>Ciri Khas Continuous Pasif:</b> Wajib menyisipkan auxiliary kata bantu <b>"Being"</b> sebelum kata kerja Verb 3.</li>
-                                        <li><b>Ciri Khas Perfect:</b> Selalu ditandai dengan auxiliary kata bantu <b>"Have/Has"</b>. Khusus pada nominal perfect, wajib dipasangkan dengan kata bantu <b>"Been"</b>.</li>
-                                    </ul>
-                                </div>
-
-                                <button class="syllabus-sub-btn" style="border-color: var(--mms-green); color: var(--mms-green);" onclick="toggleAccordionBox('sub-silabus-fungsi')">
-                                    <span><i class="fa-solid fa-circle-info"></i> Penggunaan / Fungsi Tense Ini (Klik)</span> <i class="fa-solid fa-chevron-down"></i>
-                                </button>
-                                <div id="sub-silabus-fungsi" class="syllabus-sub-panel" style="border-left: 2px solid var(--mms-green); background: #f8fafc;">
-                                    <div id="box-txt-pembahasan">Memuat detail fungsi...</div>
-                                </div>
-
                             </div>
 
                             <div class="info-box-item" style="border-top: 3px solid var(--mms-accent);">
-                                <div class="info-box-header accent-box-header" style="font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-bolt"></i> JALUR KALIMAT AKTIF (ACTIVE VOICE)</div>
+                                <div class="info-box-header accent-box-header" style="font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-bolt"></i> KALIMAT AKTIF (ACTIVE VOICE)</div>
                                 
                                 <div class="mms-glow-pulse-container">
                                     <div id="box-txt-rumus-aktif" class="mms-txt-rumus-glow">S + V1...</div>
                                 </div>
                                 
                                 <button class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-aktif-contoh')">
-                                    <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh & Arti
+                                    <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh Kalimat
                                 </button>
                                 <div id="panel-aktif-contoh" class="mms-dropdown-content-panel">
                                     <div id="box-txt-arti-aktif">Isi Aktif...</div>
@@ -596,14 +536,14 @@
                             </div>
 
                             <div id="wrapper-box-pasif" class="info-box-item" style="border-top: 3px solid #6366f1;">
-                                <div class="info-box-header" style="color: #6366f1; font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-code-branch"></i> JALUR KALIMAT PASIF (PASSIVE VOICE)</div>
+                                <div class="info-box-header" style="color: #6366f1; font-size:13px; margin-bottom:12px;"><i class="fa-solid fa-code-branch"></i> KALIMAT PASIF (PASSIVE VOICE)</div>
                                 
                                 <div class="mms-glow-pulse-container">
                                     <div id="box-txt-rumus-pasif" class="mms-txt-rumus-glow">O + To Be...</div>
                                 </div>
                                 
                                 <button id="btn-toggle-pasif" class="mms-toggle-trigger-btn" onclick="toggleAccordionBox('panel-pasif-contoh')">
-                                    <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh & Arti
+                                    <i class="fa-solid fa-eye"></i> Ketuk untuk Lihat Contoh Kalimat
                                 </button>
                                 <div id="panel-pasif-contoh" class="mms-dropdown-content-panel">
                                     <div id="box-txt-arti-pasif">Isi Pasif...</div>
@@ -736,7 +676,8 @@
                         tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
                         rumus: kolom[4] ? kolom[4].trim() : "",
                         pembahasan: kolom[5] ? kolom[5].trim() : "", 
-                        arti: kolom[6] ? kolom[6].trim() : ""        
+                        arti: kolom[6] ? kolom[6].trim() : "",
+                        visual: kolom[7] ? kolom[7].trim() : "" // Kolom visual        
                     });
                 }
             }
@@ -758,6 +699,10 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
+        document.addEventListener("DOMContentLoaded", () => {
+            muatLeaderboard();
+        });
+
         function toggleAccordionBox(panelId) {
             let panel = document.getElementById(panelId);
             if (panel.style.display === "block") {
@@ -774,14 +719,11 @@
             let boxArtiAktif = document.getElementById("box-txt-arti-aktif");
             let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
+            let boxSilabus = document.getElementById("box-txt-silabus");
 
             document.getElementById('panel-aktif-contoh').style.display = "none";
             document.getElementById('panel-pasif-contoh').style.display = "none";
-            document.getElementById('panel-tips-tabel').style.display = "none";
-            document.getElementById('sub-silabus-tobe').style.display = "none";
-            document.getElementById('sub-silabus-elemen').style.display = "none";
-            document.getElementById('sub-silabus-cirikhas').style.display = "none";
-            document.getElementById('sub-silabus-fungsi').style.display = "none";
+            document.getElementById('panel-tips-tabel').style.display = "none"; 
 
             let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
             document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
@@ -792,6 +734,7 @@
                 document.getElementById("wrapper-box-tips-pintar").style.display = "block";
             }
 
+            // PENCARIAN DATA LEBIH AMAN DAN TOLERAN TERHADAP HURUF BESAR/KECIL
             let dataCocok = bankMateri.find(m => {
                 let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
                 let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
@@ -810,11 +753,15 @@
             if (!dataCocok) {
                 [boxRumusAktif, boxRumusPasif].forEach(el => el.innerText = "Belum Ada Data");
                 [boxArtiAktif, boxArtiPasif].forEach(el => el.innerHTML = "Belum Ada Data");
-                boxPembahasan.innerText = "Silakan isi baris materi ini.";
+                boxPembahasan.innerText = "Silakan isi baris materi ini di Google Sheets.";
+                boxSilabus.innerText = "-";
                 boxVisualMateri.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
                 document.getElementById("materi-pembahasan-box").style.display = "flex";
                 return;
             }
+
+            // TAMPILKAN KATA KUNCI/SILABUS SECARA DINAMIS DARI KOLOM B (MODALS)
+            boxSilabus.innerText = dataCocok.modals || "Tidak ada kata kunci khusus.";
 
             let teksRumusGabungan = dataCocok.rumus || "";
             let rumusAktif = "Tidak ada rumus aktif.";
@@ -869,14 +816,15 @@
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiPasif || 'Belum ada terjemahan Pasif.'}</div>
             `;
 
-            boxPembahasan.innerText = `Pola ini digunakan untuk mengekspresikan karakter tata bahasa dari materi ${namaTense} sesuai dengan fungsi gramatikal yang berlaku di dalam ekosistem literasi organisasi.`;
+            boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
 
+            // FIX PERBAIKAN EMBED EMBED MEDIA VISUAL YOUTUBE
             let visual = dataCocok.visual || "";
             if (visual.startsWith("fa-")) {
                 boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
-            } else if (visual.includes("v=") || visual.includes("youtu.be")) {
-                let videoId = visual.split("v=")[1] || visual.split("/").pop();
-                if(videoId.includes("&")) videoId = videoId.split("&")[0];
+            } else if (visual.includes("v=")) {
+                let videoId = visual.split("v=")[1];
+                if(videoId && videoId.includes("&")) videoId = videoId.split("&")[0];
                 boxVisualMateri.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
             } else if (visual && (visual.startsWith("http") || visual.startsWith("images/"))) {
                 boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
