@@ -1238,7 +1238,7 @@
             resetTampilanDashboard();
         }
 
-             function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
+                     function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
             let boxVisualMateri = document.getElementById("box-media-materi");
             let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
             let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
@@ -1247,7 +1247,7 @@
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
             let boxSilabus = document.getElementById("box-txt-silabus");
 
-            // Pastikan video default disembunyikan tiap kali modul berganti agar tidak bocor/langsung muncul
+            // Kondisi awal: sembunyikan kotak video tiap ganti materi agar rapi
             if (boxVisualMateri) boxVisualMateri.style.display = "none";
 
             if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
@@ -1267,6 +1267,7 @@
                 }
             }
 
+            // Mencari data yang cocok dari Google Sheets
             let dataCocok = bankMateri.find(m => {
                 let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
                 let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
@@ -1343,6 +1344,7 @@
 
             if(boxPembahasan) boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
 
+            // Mencetak tag <video> lokal berdasarkan link dari database Sheets
             if(boxVisualMateri) {
                 let visual = dataCocok.visual || "";
                 if (visual.startsWith("fa-")) {
