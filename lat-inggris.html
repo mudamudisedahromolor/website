@@ -109,24 +109,21 @@
             line-height: 1.5;
         }
 
-           /* 📜 PERBAIKAN POSISI MODAL POP-UP (TOP LAYER) */
         .mms-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.6); /* Backdrop semi transparan */
+            background: rgba(15, 23, 42, 0.6); 
             backdrop-filter: blur(4px);
             z-index: 9999;
             display: flex;
-            align-items: flex-start; /* 🔄 Diubah dari 'center' ke 'flex-start' agar posisi atas bisa dikontrol */
+            align-items: center;
             justify-content: center;
-            padding: 150px 20px 20px 20px; /* 🔄 Ditambah padding-top 150px agar otomatis turun di bawah nav bar */
+            padding: 20px;
             box-sizing: border-box;
-            overflow-y: auto; /* Memastikan modal bisa di-scroll jika layar HP pendek */
         }
-        
         .mms-modal-content {
             background: #fff;
             width: 100%;
@@ -137,7 +134,8 @@
             position: relative;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
             animation: modalFadeIn 0.23s ease-out;
-            margin-bottom: 40px; /* Jarak aman di bagian bawah */
+            max-height: 85vh;
+            overflow-y: auto;
         }
         .mms-modal-close-btn {
             position: absolute;
@@ -164,6 +162,65 @@
             from { transform: scale(0.96); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
+
+        /* 🆕 STYLING KHUSUS UNTUK MEMECAH KOTAK "THE GRID" DAN STYLING RUMUS */
+        .mms-info-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default di HP: satu kolom memanjang ke bawah */
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        
+        .info-box-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: left;
+        }
+
+        .info-box-header {
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Styling Rumus Utama di Kotak Teks Langsung agar menarik */
+        .box-pre-wrap {
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13px;
+            color: #1e293b;
+        }
+
+        .accent-box-header { color: var(--mms-accent); }
+        .green-box-header { color: var(--mms-green); }
+        .red-box-header { color: var(--mms-red); }
+
+        /* Media Visual Box Styling */
+        .mms-modal-visual-frame {
+            height: 180px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 10px; 
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+        .mms-modal-visual-frame img { 
+            max-height: 100%; 
+            width: 100%; 
+            object-fit: cover; 
+            border-radius: 6px; 
+        }
+
     </style>
 </head>
 <body> 
@@ -321,17 +378,32 @@
                     <div class="mms-modal-content">
                         <button class="mms-modal-close-btn" onclick="tutupModalMateri()"><i class="fa-solid fa-xmark"></i></button>
                         
-                        <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:18px; font-size: 16px; padding-right: 25px;">Materi</h4>
+                        <h4 id="lbl-judul-tense-aktif" style="color:var(--mms-navy); margin-top:0; margin-bottom:20px; font-size: 16px; padding-right: 25px;">Materi</h4>
                         
-                        <div style="text-align: left;">
-                            <div style="font-weight: bold; font-size: 12px; color: var(--mms-accent); text-transform: uppercase; margin-bottom: 5px;">Rumus Resmi:</div>
-                            <div id="box-txt-rumus" class="box-pre-wrap" style="font-family: monospace; font-size: 13px; font-weight: bold; background: #f8fafc; border-left: 4px solid var(--mms-accent); padding: 10px 12px; margin-bottom: 18px; border-radius: 0 6px 6px 0; border: 1px solid #e2e8f0; border-left-width: 4px;">S + V1...</div>
+                        <div class="mms-modal-visual-frame" id="box-media-materi"></div>
+
+                        <div class="mms-info-grid">
                             
-                            <div style="font-weight: bold; font-size: 12px; color: var(--mms-green); text-transform: uppercase; margin-bottom: 5px;">Kotak Pembahasan & Analisis:</div>
-                            <div id="box-txt-pembahasan" class="box-pre-wrap" style="font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 18px; background: #f8fafc; padding: 10px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">Detail...</div>
-                            
-                            <div style="font-weight: bold; font-size: 12px; color: var(--mms-red); text-transform: uppercase; margin-bottom: 8px;">Media Visual / Video Contoh:</div>
-                            <div class="visual-frame" id="box-media-materi" style="height: 180px; margin-bottom: 0; background: #f8fafc; border: 1px solid #e2e8f0;"></div>
+                            <div class="info-box-item">
+                                <div class="info-box-header accent-box-header"><i class="fa-solid fa-bolt"></i> Rumus [Aktif]:</div>
+                                <div id="box-txt-rumus-aktif" class="box-pre-wrap" style="color:#0ea5e9;">S + V1...</div>
+                            </div>
+
+                            <div class="info-box-item">
+                                <div class="info-box-header accent-box-header"><i class="fa-solid fa-code-branch"></i> Rumus [Pasif]:</div>
+                                <div id="box-txt-rumus-pasif" class="box-pre-wrap" style="color:#6366f1;">O + To Be...</div>
+                            </div>
+
+                            <div class="info-box-item">
+                                <div class="info-box-header green-box-header"><i class="fa-solid fa-microchip"></i> Penjelasan Karakter:</div>
+                                <div id="box-txt-pembahasan" class="box-pre-wrap" style="color: #475569; font-size: 12px; font-weight: bold;">Detail...</div>
+                            </div>
+
+                            <div class="info-box-item">
+                                <div class="info-box-header red-box-header"><i class="fa-solid fa-language"></i> Contoh Kalimat & Arti:</div>
+                                <div id="box-txt-arti" class="box-pre-wrap" style="color: #cc0202; font-style: italic; font-size: 12px;">Contoh...</div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -451,22 +523,27 @@
             document.getElementById("materi-pembahasan-box").style.display = "none";
         }
 
-        // --- 🆕 ENGINE PENCARIAN PENELUSUR BARIS KOMPATIBEL DENGAN 7 KOLOM BARU GS ---
+        // --- 🆕 LOGIKA PERBAIKAN SINKRONISASI PENCARIAN & PEMECOHAN DATA RUMUS "THE GRID" ---
         function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
-            let boxRumus = document.getElementById("box-txt-rumus");
+            let boxVisualMateri = document.getElementById("box-media-materi");
+            let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
+            let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
             let boxPembahasan = document.getElementById("box-txt-pembahasan");
-            let boxMedia = document.getElementById("box-media-materi");
+            let boxArti = document.getElementById("box-txt-arti");
 
             let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
             document.getElementById("lbl-judul-tense-aktif").innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
 
-            // Scanning teks baris fleksibel tanpa takut crash karena string dalam kurung spreadsheet
+            // Mencari data yang cocok berdasarkan parameter Kolom B/C (waktu/bentuk) dan D (tipe) dari GS
             let dataCocok = bankMateri.find(m => {
-                let namaDiSheet = (m.namaMateri || m.Nama_Materi || m.nama || "").toLowerCase().trim();
-                let tipeDiSheet = (m.tipeRumus || m.Tipe_Rumus || m.tipe || "").toLowerCase().trim();
+                let wSheet = (m.waktu || "").toLowerCase().trim();
+                let bSheet = (m.bentuk || "").toLowerCase().trim();
+                let tSheet = (m.tipe || "").toLowerCase().trim();
                 
-                let matchNama = namaDiSheet.includes(namaTense.toLowerCase().trim());
-                let matchTipe = tipeDiSheet === tipeRumusGabungan.toLowerCase().trim();
+                // Mendukung pencarian dua arah (Nama tunggal seperti 'Simple Present' atau gabungan terpisah kolom B & C)
+                let namaTenseGabung = (wSheet + " " + bSheet).trim();
+                let matchNama = namaTenseGabung.includes(namaTense.toLowerCase().trim()) || (m.nama || m.Nama_Materi || "").toLowerCase().trim() === namaTense.toLowerCase().trim();
+                let matchTipe = tSheet === tipeRumusGabungan.toLowerCase().trim();
                 
                 // Kondisi khusus untuk tombol panduan Dasar (Auxiliary / Verb-ing)
                 if (namaTense === 'Dasar') {
@@ -478,30 +555,49 @@
             });
 
             if (!dataCocok) {
-                boxRumus.innerText = "Belum Ada Data";
-                boxPembahasan.innerText = "Silakan isi baris rumus ini pada tab spreadsheet Bank_Materi kamu.";
-                boxMedia.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
+                // Tampilkan pesan kosong di modal grid
+                [boxRumusAktif, boxRumusPasif, boxPembahasan, boxArti].forEach(el => el.innerText = "Belum Ada Data");
+                boxVisualMateri.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
                 document.getElementById("materi-pembahasan-box").style.display = "flex";
                 return;
             }
 
-            // Memanggil properti baru hasil olahan Code.gs 7 Kolom
-            boxRumus.innerText = dataCocok.rumus || "Rumus Kosong";
-            boxPembahasan.innerText = dataCocok.pembahasan || "Penjelasan Kosong";
+            // 🆕 MENGAMBIL DATA RUMUS GABUNGAN [AKTIF] & [PASIF] UNTUK DIPECOH
+            let teksRumusGabungan = dataCocok.rumus || "Rumus Kosong";
+            
+            // Logika pemecah teks [Aktif]... dan [Pasif]... dari satu sel spreadsheet
+            let rumusAktif = "";
+            let rumusPasif = "No Passive Form."; // Default jika tidak ada pasif (misal Nominal)
+            
+            if (teksRumusGabungan.includes("[Pasif]")) {
+                let bagianRumus = teksRumusGabungan.split("[Pasif]");
+                rumusAktif = bagianRumus[0].replace("[Aktif]", "").trim();
+                rumusPasif = bagianRumus[1].trim();
+            } else {
+                rumusAktif = teksRumusGabungan.replace("[Aktif]", "").trim();
+            }
 
+            // Memasukkan data properti baru hasil olahan Code.gs 7 Kolom
+            boxRumusAktif.innerText = rumusAktif;
+            boxRumusPasif.innerText = rumusPasif;
+            boxPembahasan.innerText = dataCocok.pembahasan || "Penjelasan Kosong";
+            boxArti.innerText = dataCocok.arti || "Kosong";
+
+            // Detektor Media Visual/Video di atas grid
             let visual = dataCocok.visual || "";
             if (visual.startsWith("fa-")) {
-                boxMedia.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
+                boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
             } else if (visual.includes("v=") || visual.includes("youtu.be")) {
                 let videoId = visual.split("v=")[1] || visual.split("/").pop();
                 if(videoId.includes("&")) videoId = videoId.split("&")[0];
-                boxMedia.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+                boxVisualMateri.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
             } else if (visual) {
-                boxMedia.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
+                boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
             } else {
-                boxMedia.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+                boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
             }
 
+            // Tampilkan modal top layer dengan display flex (bukan block) agar rata tengah
             document.getElementById("materi-pembahasan-box").style.display = "flex";
         }
 
