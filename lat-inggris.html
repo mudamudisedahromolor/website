@@ -661,7 +661,10 @@
             .then(tsvText => {
                 bankMateri = parseTSVMateri(tsvText);
                 renderSubTombolKunciDasar();
-            }).catch(err => console.error("Gagal memuat materi TSV:", err));
+            }).catch(err => {
+                console.error("Gagal memuat materi TSV:", err);
+                renderSubTombolKunciDasar();
+            });
 
             fetch(`${API_URL}?aksi=getMateriDanSoal`)
             .then(r => r.json()).then(res => {
@@ -676,6 +679,7 @@
         }
 
         function parseTSVMateri(text) {
+            if (!text) return [];
             let baris = text.split("\n");
             let hasil = [];
             for(let i = 1; i < baris.length; i++) {
@@ -691,41 +695,51 @@
                     pembahasan: kolom[5] ? kolom[5].trim() : "", 
                     arti: kolom[6] ? kolom[6].trim() : "",
                     visual: kolom[7] ? kolom[7].trim() : "",
-                    kolomI: kolom[8] ? kolom[8].trim() : "", // Judul Kata Kunci
-                    kolomJ: kolom[9] ? kolom[9].trim() : ""  // Teks Penjelasan Paragraf
+                    kolomI: kolom[8] ? kolom[8].trim() : "", 
+                    kolomJ: kolom[9] ? kolom[9].trim() : ""  
                 });
             }
             return hasil;
         }
 
-        // 🛠️ FIX TOTAL: PENCARIAN STRIP SPASI DAN TOLERANSI VALUE PADA FILTER TSV
+        // 🛠️ FILTER AMAN ANTI-MACET: JIKA TSV KOSONG ATAU BELUM SELESAI SINKRON, TIDAK AKAN MERUSAK HOOK SCRIPT LAINNYA
         function renderSubTombolKunciDasar() {
             let gridTombol = document.getElementById("mms-grid-sub-tombol");
+            if (!gridTombol) return;
             gridTombol.innerHTML = "";
 
-            // Memperbaiki pencarian filter agar membaca baris dengan kategori 'dasar' di Kolom C secara tepat
-            let barisDasar = bankMateri.filter(m => {
-                let cat = (m.namaMateri || "").toLowerCase().trim();
-                return cat.includes("dasar");
-            });
+            try {
+                if (!bankMateri || bankMateri.length === 0) {
+                    gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center; padding: 5px 0;">Menunggu koneksi data dari Sheets...</div>`;
+                    return;
+                }
 
-            if (barisDasar.length === 0) {
-                gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center; padding: 5px 0;">Menunggu sync data kata kunci dari Sheets...</div>`;
-                return;
+                let barisDasar = bankMateri.filter(m => {
+                    let cat = (m.namaMateri || "").toLowerCase().trim();
+                    return cat.includes("dasar");
+                });
+
+                if (barisDasar.length === 0) {
+                    gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center; padding: 5px 0;">Pastikan Kolom C di Sheets berisi kata 'Dasar'</div>`;
+                    return;
+                }
+
+                barisDasar.forEach((materi, index) => {
+                    let judulTombol = materi.kolomI || `Kata Kunci ${index + 1}`;
+                    let idUnik = materi.id || index;
+                    
+                    gridTombol.innerHTML += `
+                        <button class="btn-type-choice" id="mms-sub-btn-${idUnik}" 
+                            style="border-color: var(--mms-accent); color: var(--mms-accent);" 
+                            onclick="tampilkanParagrafDetailDasar('${idUnik}', this)">
+                            ${judulTombol}
+                        </button>
+                    `;
+                });
+            } catch (e) {
+                console.error("Error saat merender tombol dasar:", e);
+                gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:var(--mms-red); text-align:center;">Gagal memuat daftar kata kunci.</div>`;
             }
-
-            barisDasar.forEach((materi, index) => {
-                let judulTombol = materi.kolomI || `Kata Kunci ${index + 1}`;
-                let idUnik = materi.id || index;
-                
-                gridTombol.innerHTML += `
-                    <button class="btn-type-choice" id="mms-sub-btn-${idUnik}" 
-                        style="border-color: var(--mms-accent); color: var(--mms-accent);" 
-                        onclick="tampilkanParagrafDetailDasar('${idUnik}', this)">
-                        ${judulTombol}
-                    </button>
-                `;
-            });
         }
 
         function tampilkanParagrafDetailDasar(idMateri, btnElement) {
@@ -750,6 +764,7 @@
 
         function toggleAccordionBox(panelId) {
             let panel = document.getElementById(panelId);
+            if (!panel) return;
             if (panel.style.display === "block" || panel.style.display === "flex") {
                 panel.style.display = "none";
             } else {
@@ -763,8 +778,12 @@
             document.getElementById("vocab-body").style.display = "none";
             document.getElementById("quiz-body-wrapper").style.display = "none";
             
-            document.getElementById("mms-accordion-konten-dasar").style.display = "none";
-            document.getElementById("mms-box-penjelasan-dasar").style.display = "none";
+            if (document.getElementById("mms-accordion-konten-dasar")) {
+                document.getElementById("mms-accordion-konten-dasar").style.display = "none";
+            }
+            if (document.getElementById("mms-box-penjelasan-dasar")) {
+                document.getElementById("mms-box-penjelasan-dasar").style.display = "none";
+            }
             document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
         }
 
@@ -786,6 +805,7 @@
 
         function renderKamusKeHalaman(filterText = "") {
             let container = document.getElementById("box-daftar-vocab");
+            if (!container) return;
             container.innerHTML = "";
             
             let filtered = dataKamus.filter(item => {
@@ -824,41 +844,49 @@
 
         function tampilkanSoalDinamis() {
             jawabanTerpilih = "";
+            let quizBody = document.getElementById("quiz-body");
+            if (!quizBody) return;
+
             if (indeksSoal >= bankSoal.length) {
-                document.getElementById("quiz-body").innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu menyelesaikan kuis evaluasi hari ini!</div>`;
+                quizBody.innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu menyelesaikan kuis evaluasi hari ini!</div>`;
                 document.getElementById("quiz-progress").style.width = "100%";
                 return;
             }
 
             let pct = (indeksSoal / bankSoal.length) * 100;
-            document.getElementById("quiz-progress").style.width = pct + "%";
+            let progressElement = document.getElementById("quiz-progress");
+            if (progressElement) progressElement.style.width = pct + "%";
 
             let s = bankSoal[indeksSoal];
-            document.getElementById("lbl-pertanyaan").innerText = s.tanya || s.Pertanyaan;
+            let lblPertanyaan = document.getElementById("lbl-pertanyaan");
+            if (lblPertanyaan) lblPertanyaan.innerText = s.tanya || s.Pertanyaan;
             
             let frame = document.getElementById("box-visual");
-            let kodeVisual = s.visual || s.Kode_Visual || s.visual_code;
-            if(kodeVisual && kodeVisual.startsWith("fa-")) {
-                frame.innerHTML = `<i class="fa-solid ${kodeVisual} fa-4x" style="color:var(--mms-accent)"></i>`;
-            } else if(kodeVisual) {
-                frame.innerHTML = `<img src="${kodeVisual}" alt="visual">`;
-            } else {
-                frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
+            if (frame) {
+                let kodeVisual = s.visual || s.Kode_Visual || s.visual_code;
+                if(kodeVisual && kodeVisual.startsWith("fa-")) {
+                    frame.innerHTML = `<i class="fa-solid ${kodeVisual} fa-4x" style="color:var(--mms-accent)"></i>`;
+                } else if(kodeVisual) {
+                    frame.innerHTML = `<img src="${kodeVisual}" alt="visual">`;
+                } else {
+                    frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
+                }
             }
 
             let grid = document.getElementById("grid-opsi");
-            grid.innerHTML = "";
-            
-            let arrayOpsi = s.opsi || [s.Opsi_A, s.Opsi_B, s.Opsi_C, s.Opsi_D];
-            arrayOpsi.forEach(o => {
-                if(o) {
-                    grid.innerHTML += `
-                        <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
-                            <div class="img-box"><i class="fa-solid fa-cube fa-xl"></i></div>
-                            <div class="img-label">${o}</div>
-                        </div>`;
-                }
-            });
+            if (grid) {
+                grid.innerHTML = "";
+                let arrayOpsi = s.opsi || [s.Opsi_A, s.Opsi_B, s.Opsi_C, s.Opsi_D];
+                arrayOpsi.forEach(o => {
+                    if(o) {
+                        grid.innerHTML += `
+                            <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
+                                <div class="img-box"><i class="fa-solid fa-cube fa-xl"></i></div>
+                                <div class="img-label">${o}</div>
+                            </div>`;
+                    }
+                });
+            }
         }
 
         function pilihOpsiCard(el, teks) {
@@ -878,10 +906,14 @@
                 kirimPoinKeServer(10);
             } else {
                 nyawa--;
-                document.getElementById("lbl-hearts").innerText = nyawa;
+                let heartsElement = document.getElementById("lbl-hearts");
+                if (heartsElement) heartsElement.innerText = nyawa;
+                
                 let hb = document.getElementById("header-bar");
-                hb.className = "duo-header shake-effect";
-                setTimeout(() => hb.className = "duo-header", 400);
+                if (hb) {
+                    hb.className = "duo-header shake-effect";
+                    setTimeout(() => hb.className = "duo-header", 400);
+                }
                 
                 alert(`❌ Oops! Kurang tepat. Jawaban benar: ${jawabanBenar}`);
                 if(nyawa <= 0) {
@@ -895,20 +927,26 @@
         }
 
         function kirimPoinKeServer(poin) {
-            userSession.xp += poin;
-            document.getElementById("lbl-xp").innerText = userSession.xp;
+            if (userSession) {
+                userSession.xp += poin;
+                let xpElement = document.getElementById("lbl-xp");
+                if (xpElement) xpElement.innerText = userSession.xp;
+            }
             tampilkanSoalDinamis();
             
-            fetch(API_URL, {
-                method: "POST",
-                body: JSON.stringify({ aksi: "updateXP", email: userSession.email, tambahanXP: poin })
-            }).then(() => muatLeaderboard());
+            if (userSession) {
+                fetch(API_URL, {
+                    method: "POST",
+                    body: JSON.stringify({ aksi: "updateXP", email: userSession.email, tambahanXP: poin })
+                }).then(() => muatLeaderboard());
+            }
         }
 
         function muatLeaderboard() {
             fetch(`${API_URL}?aksi=getLeaderboard`)
             .then(r => r.json()).then(data => {
                 let box = document.getElementById("list-leaderboard");
+                if (!box) return;
                 box.innerHTML = "";
                 data.slice(0, 10).forEach((u, i) => {
                     let medal = i === 0 ? "🥇" : (i === 1 ? "🥈" : (i === 2 ? "🥉" : `<span style='color:#64748b;'>#${i+1}</span>`));
@@ -921,11 +959,136 @@
                             <span style="color:var(--mms-red); font-size:14px;">${u.xp} XP</span>
                         </div>`;
                 });
-            });
+            }).catch(e => console.error("Gagal memuat leaderboard:", e));
         }
 
         function kembaliKeDashboard() {
             resetTampilanDashboard();
+        }
+
+        // 🛠️ FIX PARSING UTAMA: KETIKA DI-KLIK TOMBOL MATERI TENSES LAINNYA, POP-UP MODAL SEKARANG BERFUNGSI SEPERTI SEMULA
+        function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
+            let boxVisualMateri = document.getElementById("box-media-materi");
+            let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
+            let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
+            let boxArtiAktif = document.getElementById("box-txt-arti-aktif");
+            let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
+            let boxPembahasan = document.getElementById("box-txt-pembahasan");
+            let boxSilabus = document.getElementById("box-txt-silabus");
+
+            if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
+            if(document.getElementById('panel-pasif-contoh')) document.getElementById('panel-pasif-contoh').style.display = "none";
+            if(document.getElementById('panel-tips-tabel')) document.getElementById('panel-tips-tabel').style.display = "none"; 
+
+            let labelTipe = tipeRumusGabungan.replace("-", " [").toUpperCase() + "]";
+            let judulTense = document.getElementById("lbl-judul-tense-aktif");
+            if (judulTense) judulTense.innerHTML = `Modul: <b>${namaTense} ${labelTipe}</b>`;
+
+            let tipsPintar = document.getElementById("wrapper-box-tips-pintar");
+            if (tipsPintar) {
+                if (namaTense === 'Dasar') {
+                    tipsPintar.style.display = "none";
+                } else {
+                    tipsPintar.style.display = "block";
+                }
+            }
+
+            let dataCocok = bankMateri.find(m => {
+                let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
+                let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
+                return namaDiSheet.includes(namaTense.toLowerCase().trim()) && tipeDiSheet === tipeRumusGabungan.toLowerCase().trim();
+            });
+
+            if (!dataCocok) {
+                if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
+                if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
+                if(boxPembahasan) boxPembahasan.innerText = "Silakan isi baris materi ini di Google Sheets.";
+                if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-folder-open fa-2xl" style="color:#94a3b8"></i>`;
+                document.getElementById("materi-pembahasan-box").style.display = "flex";
+                return;
+            }
+
+            if(boxSilabus) boxSilabus.innerText = dataCocok.modals || "Tidak ada kata kunci khusus.";
+
+            let teksRumusGabungan = dataCocok.rumus || "";
+            let rumusAktif = "Tidak ada rumus aktif.";
+            let rumusPasif = "No Passive Form (Nominal/Dasar)."; 
+
+            if (teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
+                let pemisah = teksRumusGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
+                let bagianRumus = teksRumusGabungan.split(pemisah);
+                rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
+                rumusPasif = bagianRumus[1].trim();
+                if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block"; 
+            } else {
+                rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
+                if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none"; 
+            }
+            if(boxRumusAktif) boxRumusAktif.innerText = rumusAktif;
+            if(boxRumusPasif) boxRumusPasif.innerText = rumusPasif;
+
+            let kolomF = dataCocok.pembahasan || ""; 
+            let kolomG = dataCocok.arti || "";       
+
+            let inggrisAktif = "Belum ada contoh kalimat.", inggrisPasif = "No Passive Example.";
+            let artiAktif = "", artiPasif = "";
+
+            if (kolomF.includes("[Pasif]") || kolomF.includes("Pasif")) {
+                let pemisahF = kolomF.includes("[Pasif]") ? "[Pasif]" : "Pasif";
+                let bagianF = kolomF.split(pemisahF);
+                inggrisAktif = bagianF[0].replace("[Aktif]", "").replace("Aktif", "").trim();
+                inggrisPasif = bagianF[1].trim();
+            } else {
+                inggrisAktif = kolomF.replace("[Aktif]", "").replace("Aktif", "").trim();
+            }
+
+            if (kolomG.includes("[Pasif]") || kolomG.includes("Pasif")) {
+                let pemisahG = kolomG.includes("[Pasif]") ? "[Pasif]" : "Pasif";
+                let bagianG = kolomG.split(pemisahG);
+                artiAktif = bagianG[0].replace("[Aktif]", "").replace("Aktif", "").trim();
+                artiPasif = bagianG[1].trim();
+            } else {
+                artiAktif = kolomG.replace("[Aktif]", "").replace("Aktif", "").trim();
+            }
+
+            if(boxArtiAktif) {
+                boxArtiAktif.innerHTML = `
+                    <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisAktif}</div>
+                    <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                    <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiAktif || 'Belum ada terjemahan.'}</div>
+                `;
+            }
+
+            if(boxArtiPasif) {
+                boxArtiPasif.innerHTML = `
+                    <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisPasif}</div>
+                    <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                    <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiPasif || 'Belum ada terjemahan Pasif.'}</div>
+                `;
+            }
+
+            if(boxPembahasan) boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
+
+            if(boxVisualMateri) {
+                let visual = dataCocok.visual || "";
+                if (visual.startsWith("fa-")) {
+                    boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
+                } else if (visual.includes("v=")) {
+                    let videoId = visual.split("v=")[1];
+                    if(videoId && videoId.includes("&")) videoId = videoId.split("&")[0];
+                    boxVisualMateri.innerHTML = `<iframe style="width:100%; height:100%; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+                } else if (visual && (visual.startsWith("http") || visual.startsWith("images/"))) {
+                    boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
+                } else {
+                    boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+                }
+            }
+
+            document.getElementById("materi-pembahasan-box").style.display = "flex";
+        }
+
+        function tutupModalMateri() {
+            document.getElementById("materi-pembahasan-box").style.display = "none";
         }
     </script>
     <script src="online-tracker.js"></script>
