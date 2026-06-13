@@ -349,3 +349,13 @@ body {
 .materi-body-back-btn:active {
     transform: translateY(1px); 
 }
+
+/* ==========================================================
+   KODE PENYELARAS PANEL LIGA KOMPETISI PEMUDA agar CENTER
+   ========================================================== */
+#leaderboard-panel {
+    width: 100% !important;
+    max-width: 550px !important;      /* Mengunci lebar sama persis dengan menu utama */
+    margin: 0 auto 25px auto !important; /* Membuat kotak otomatis center total kanan-kiri */
+    box-sizing: border-box;
+}
