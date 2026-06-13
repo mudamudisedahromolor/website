@@ -95,6 +95,9 @@
         .btn-type-choice:hover { border-color: var(--mms-accent); background: #f0f9ff; }
         .btn-type-choice:active { transform: translateY(2px); border-bottom-width: 1px; }
 
+        /* Style bantuan untuk tombol Kunci Dasar yang sedang aktif diklik */
+        .btn-type-choice.mms-active-dasar { border-color: var(--mms-red); background: #fff5f5; color: var(--mms-red); }
+
         .vocab-search-box { width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; }
         .vocab-list-container { max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-right: 5px; }
         .vocab-item { padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }
@@ -399,9 +402,20 @@
                         <i class="fa-solid fa-key" style="color: var(--mms-accent); margin-right: 6px;"></i> Kunci Dasar: Auxiliary & Verb-ing
                     </div>
                     <p style="color: #475569; font-size: 12px; margin-top: 0; margin-bottom: 12px;">Pelajari apa itu kata kerja bantu dan aturan perubahan bentuk kata kerja sebelum masuk ke rumus tenses.</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <button class="btn-type-choice" style="border-color: var(--mms-accent); color: var(--mms-accent);" onclick="tampilkanMateriSpesifik('Dasar', 'auxiliary')">Auxiliary Verb 🔑</button>
-                        <button class="btn-type-choice" style="border-color: var(--mms-accent); color: var(--mms-accent);" onclick="tampilkanMateriSpesifik('Dasar', 'vbing-rules')">Aturan Verb-ing 📝</button>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+                        <button class="btn-type-choice" id="mms-btn-aux" style="border-color: var(--mms-accent); color: var(--mms-accent);" onclick="bacaKunciDasarDinamis('auxiliary', this)">Auxiliary Verb 🔑</button>
+                        <button class="btn-type-choice" id="mms-btn-vbing" style="border-color: var(--mms-accent); color: var(--mms-accent);" onclick="bacaKunciDasarDinamis('vbing-rules', this)">Aturan Verb-ing 📝</button>
+                    </div>
+
+                    <div id="mms-box-keterangan-dasar" style="display: none; flex-direction: column; gap: 10px; margin-top: 14px; border-top: 1px dashed #cbd5e1; padding-top: 12px;">
+                        <div style="background: #fff; border: 1px solid #cbd5e1; border-left: 4px solid var(--mms-accent); border-radius: 8px; padding: 12px;">
+                            <div style="font-size: 11px; font-weight: bold; color: var(--mms-accent); text-transform: uppercase; margin-bottom: 4px;"><i class="fa-solid fa-tags"></i> Kata Kunci (Kolom I)</div>
+                            <div id="mms-txt-kolom-i" class="box-pre-wrap" style="font-size: 13px; color: #1e293b; font-weight: 600;">-</div>
+                        </div>
+                        <div style="background: #fff; border: 1px solid #cbd5e1; border-left: 4px solid var(--mms-green); border-radius: 8px; padding: 12px;">
+                            <div style="font-size: 11px; font-weight: bold; color: var(--mms-green); text-transform: uppercase; margin-bottom: 4px;"><i class="fa-solid fa-file-lines"></i> Penjelasan Detail (Kolom J)</div>
+                            <div id="mms-txt-kolom-j" class="box-pre-wrap" style="font-size: 13px; color: #475569; line-height: 1.6;">-</div>
+                        </div>
                     </div>
                 </div>
 
@@ -662,26 +676,58 @@
             });
         }
 
+        // 🔄 DIPERLUAS AGAR HASIL PARSING MENANGKAP ELEMEN KOLOM I DAN J BERDASARKAN PEMBAGIAN BARIS TSV
         function parseTSVMateri(text) {
             let baris = text.split("\n");
             let hasil = [];
             for(let i = 1; i < baris.length; i++) {
                 if(!baris[i].trim()) continue;
                 let kolom = baris[i].split("\t");
-                if(kolom.length >= 6) {
-                    hasil.push({
-                        id: kolom[0] ? kolom[0].trim() : "",
-                        modals: kolom[1] ? kolom[1].trim() : "",
-                        namaMateri: kolom[2] ? kolom[2].trim() : "",
-                        tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
-                        rumus: kolom[4] ? kolom[4].trim() : "",
-                        pembahasan: kolom[5] ? kolom[5].trim() : "", 
-                        arti: kolom[6] ? kolom[6].trim() : "",
-                        visual: kolom[7] ? kolom[7].trim() : "" // Kolom visual        
-                    });
-                }
+                
+                hasil.push({
+                    id: kolom[0] ? kolom[0].trim() : "",
+                    modals: kolom[1] ? kolom[1].trim() : "",
+                    namaMateri: kolom[2] ? kolom[2].trim() : "",
+                    tipeRumus: kolom[3] ? kolom[3].toLowerCase().trim() : "",
+                    rumus: kolom[4] ? kolom[4].trim() : "",
+                    pembahasan: kolom[5] ? kolom[5].trim() : "", 
+                    arti: kolom[6] ? kolom[6].trim() : "",
+                    visual: kolom[7] ? kolom[7].trim() : "",
+                    kolomI: kolom[8] ? kolom[8].trim() : "", // Data Kolom I
+                    kolomJ: kolom[9] ? kolom[9].trim() : ""  // Data Kolom J
+                });
             }
             return hasil;
+        }
+
+        // 🆕 FUNGSI UTAMA BARU UNTUK KLIK 2 TOMBOL KUNCI DASAR TANPA MERUSAK POP-UP UTAMA
+        function bacaKunciDasarDinamis(tipeMateri, btnElement) {
+            let containerKeterangan = document.getElementById("materi-body");
+            let panelDinamis = document.getElementById("mms-box-keterangan-dasar");
+            let boxI = document.getElementById("mms-txt-kolom-i");
+            let boxJ = document.getElementById("mms-txt-kolom-j");
+
+            // Reset highlight style tombol lain di sekitarnya
+            document.getElementById("mms-btn-aux").classList.remove("mms-active-dasar");
+            document.getElementById("mms-btn-vbing").classList.remove("mms-active-dasar");
+
+            // Temukan data yang tipeRumus-nya cocok dengan 'auxiliary' atau 'vbing-rules'
+            let pencarian = bankMateri.find(m => m.tipeRumus === tipeMateri.toLowerCase().trim());
+
+            if (!pencarian) {
+                boxI.innerText = "Data Baris Kolom I Belum Tersedia";
+                boxJ.innerText = "Silakan isi data silabus / penjelasan pada baris tipe rumus ini di Google Sheets.";
+                panelDinamis.style.display = "flex";
+                btnElement.classList.add("mms-active-dasar");
+                return;
+            }
+
+            // Memasukkan output teks murni dari kolom I dan J tanpa memotong layout lainnya
+            boxI.innerText = pencarian.kolomI || "Tidak ada kata kunci.";
+            boxJ.innerText = pencarian.kolomJ || "Tidak ada penjelasan detail.";
+
+            panelDinamis.style.display = "flex";
+            btnElement.classList.add("mms-active-dasar");
         }
 
         function resetTampilanDashboard() {
@@ -689,6 +735,13 @@
             document.getElementById("materi-body").style.display = "none";
             document.getElementById("vocab-body").style.display = "none";
             document.getElementById("quiz-body-wrapper").style.display = "none";
+            
+            // Menyembunyikan kembali kotak keterangan kustom saat kembali ke menu utama
+            if (document.getElementById("mms-box-keterangan-dasar")) {
+                document.getElementById("mms-box-keterangan-dasar").style.display = "none";
+            }
+            document.getElementById("mms-btn-aux").classList.remove("mms-active-dasar");
+            document.getElementById("mms-btn-vbing").classList.remove("mms-active-dasar");
         }
 
         function bukaMateriMenu() {
@@ -734,7 +787,6 @@
                 document.getElementById("wrapper-box-tips-pintar").style.display = "block";
             }
 
-            // PENCARIAN DATA LEBIH AMAN DAN TOLERAN TERHADAP HURUF BESAR/KECIL
             let dataCocok = bankMateri.find(m => {
                 let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
                 let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
@@ -760,7 +812,6 @@
                 return;
             }
 
-            // TAMPILKAN KATA KUNCI/SILABUS SECARA DINAMIS DARI KOLOM B (MODALS)
             boxSilabus.innerText = dataCocok.modals || "Tidak ada kata kunci khusus.";
 
             let teksRumusGabungan = dataCocok.rumus || "";
@@ -818,7 +869,6 @@
 
             boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
 
-            // FIX PERBAIKAN EMBED EMBED MEDIA VISUAL YOUTUBE
             let visual = dataCocok.visual || "";
             if (visual.startsWith("fa-")) {
                 boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
