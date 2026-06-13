@@ -1375,20 +1375,39 @@
             }
         }
 
-        function mmsToggleVideoSaja() {
+               function mmsToggleVideoSaja() {
             let boxVisual = document.getElementById("box-media-materi");
+            let btnVideo = document.getElementById("mms-btn-buka-video");
             if (!boxVisual) return;
 
             let videoLokal = document.getElementById("mms-media-video-lokal");
 
             if (boxVisual.style.display === "flex") {
+                // KONDISI MENUTUP VIDEO
                 boxVisual.style.display = "none";
                 if (videoLokal) videoLokal.pause();
+                
+                // Kembalikan teks tombol ke awal
+                if (btnVideo) {
+                    btnVideo.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
+                    btnVideo.style.background = "#eff6ff";
+                    btnVideo.style.color = "var(--mms-accent)";
+                    btnVideo.style.borderColor = "var(--mms-accent)";
+                }
             } else {
+                // KONDISI MEMBUKA VIDEO
                 boxVisual.style.display = "flex";
                 if (videoLokal) {
                     videoLokal.currentTime = 0;
                     videoLokal.play().catch(err => console.log("Autoplay ditolak browser:", err));
+                }
+                
+                // Ubah teks tombol menjadi instruksi tutup
+                if (btnVideo) {
+                    btnVideo.innerHTML = `<i class="fa-solid fa-circle-minus"></i> <span>Ketuk untuk Sembunyikan Video Materi</span>`;
+                    btnVideo.style.background = "#f1f5f9";
+                    btnVideo.style.color = "#64748b";
+                    btnVideo.style.borderColor = "#cbd5e1";
                 }
             }
         }
