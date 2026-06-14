@@ -174,7 +174,6 @@ function toggleRumpunTense(panelId) {
     }
 }
 
-// 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Auto-Close & Reset Status Aktif)
 // 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Present, Past, Future, Past Future)
 function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
@@ -187,7 +186,6 @@ function toggleAccordionBox(panelId) {
         'pas-box-present', 'pas-box-past', 'pas-box-future', 'pas-box-pfuture'
     ];
     
-    // 🚀 PERBAIKAN: Hanya tutup kotak waktu LAIN. Jangan paksa tutup kotak yang sedang kita klik!
     semuaKotakWaktu.forEach(id => {
         if (id !== panelId) {
             let p = document.getElementById(id);
@@ -195,13 +193,11 @@ function toggleAccordionBox(panelId) {
         }
     });
 
-    // Sembunyikan semua sub-laci rumus level 4 dan bersihkan warnanya secara lokal
     document.querySelectorAll('.mms-sub-laci').forEach(laci => laci.style.display = "none");
-    document.querySelectorAll('.btn-type-choice').forEach(btn => {
+    document.querySelectorAll('.mms-rumpun-content .btn-type-choice').forEach(btn => {
         btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 
-    // Jalankan toggle 1 tingkat secara adil
     if (isOpening) {
         panel.style.display = "flex";
     } else {
@@ -215,15 +211,13 @@ function toggleSubLaci(idLaci) {
     if (!el) return;
     
     let isOpening = (el.style.display === "none" || el.style.display === "");
-    
-    // Mengamankan event pemicu agar tetap tertangkap secara presisi
     let pemicuKlik = event ? event.currentTarget : null; 
 
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
         if (laci.id !== idLaci) laci.style.display = "none";
     });
     
-    document.querySelectorAll('.btn-type-choice').forEach(btn => {
+    document.querySelectorAll('.mms-rumpun-content .btn-type-choice').forEach(btn => {
         if (btn !== pemicuKlik) btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 
@@ -237,6 +231,19 @@ function toggleSubLaci(idLaci) {
     } else {
         el.style.display = "none";
         if (pemicuKlik) pemicuKlik.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
+    }
+}
+
+// 🚀 FUNGSI BARU: Khusus mengatur laci contoh kalimat di dalam MODAL secara mandiri (Layer 5)
+// Berfungsi agar penutupan tertata rapi step-by-step tanpa merontokkan laci luar
+function toggleModalSubAccordion(subPanelId) {
+    let subPanel = document.getElementById(subPanelId);
+    if (!subPanel) return;
+
+    if (subPanel.style.display === "block" || subPanel.style.display === "flex") {
+        subPanel.style.display = "none";
+    } else {
+        subPanel.style.display = "block";
     }
 }
 
@@ -443,18 +450,15 @@ function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
     document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
-// PERBAIKAN AKURAT: Tutup modal secara mandiri tanpa merusak tumpukan laci di belakangnya
 function tutupModalMateri(e) {
     let modalBox = document.getElementById("materi-pembahasan-box");
     if (!modalBox) return;
 
     if (!e) {
-        // Pemicu dari tombol silang (X): MURNI sembunyikan modal saja! JANGAN panggil resetTampilanDashboard()
         modalBox.style.display = "none";
         return;
     }
     
-    // Pemicu dari klik area luar overlay gelap
     if (e.target.id === "materi-pembahasan-box") {
         modalBox.style.display = "none";
     }
@@ -515,7 +519,6 @@ function mmsToggleDinamisMediaMateri(e) {
     }
 }
 
-// 3. Fungsi Buka-Tutup Akordion Utama Bab (Dengan Sistem Highlight Merah Muda Mudi)
 function toggleRumpunSmart(idBab) {
     let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
     
@@ -536,7 +539,6 @@ function toggleRumpunSmart(idBab) {
                 el.style.display = "none";
                 if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
                 if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
-                // 🚀 RESET INTERNAL STATE: Sapu bersih laci interior saat bab ditutup manual
                 mmsResetSemuaLaciInterior();
             }
         } else {
@@ -547,7 +549,6 @@ function toggleRumpunSmart(idBab) {
     });
 }
 
-// 🚀 FUNGSI UTALITAS BARU: Khusus sapu bersih state interior tenses agar tidak menyimpan cache pembukaan lama
 function mmsResetSemuaLaciInterior() {
     let semuaKotakWaktu = [
         'act-box-present', 'act-box-past', 'act-box-future', 'act-box-pfuture',
@@ -560,18 +561,17 @@ function mmsResetSemuaLaciInterior() {
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
         laci.style.display = "none";
     });
-    document.querySelectorAll('#materi-body .btn-type-choice').forEach(btn => {
+    document.querySelectorAll('.btn-type-choice').forEach(btn => {
         btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 }
 
-// 5. PENYATUAN GLOBAL EVENT LISTENER: Auto Close & Cabut Warna Aktif Tanpa Blokir Form
 document.addEventListener('click', function(event) {
     if (event.target.closest('form') || event.target.id === 'user-email' || event.target.closest('#login-panel')) {
         return; 
     }
 
-    if (event.target.closest('.mms-rumpun-header') || event.target.closest('.mms-rumpun-content') || event.target.closest('button[onclick^="toggleSubLaci"]') || event.target.closest('.mms-sub-laci')) {
+    if (event.target.closest('.mms-rumpun-header') || event.target.closest('.mms-rumpun-content') || event.target.closest('button[onclick^="toggleSubLaci"]') || event.target.closest('.mms-sub-laci') || event.target.closest('#materi-pembahasan-box')) {
         return;
     }
     
@@ -588,11 +588,9 @@ document.addEventListener('click', function(event) {
         }
     });
 
-    // 🚀 RESET INTERNAL STATE: Panggil fungsi sapu bersih saat klik luar area accordion
     mmsResetSemuaLaciInterior();
 });
 
-// Pemicu otomatis agar data Sheets tetap tersinkron tanpa tombol login lama
 window.addEventListener('DOMContentLoaded', () => {
     ambilAsetDataWeb();
 });
