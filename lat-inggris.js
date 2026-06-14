@@ -645,30 +645,44 @@ document.addEventListener('click', function(event) {
 });
 
 
-// Fungsi Kontrol Laci Sub-Menu
-function toggleSubLaci(id) {
-    let el = document.getElementById(id);
+// ==========================================================
+// FUNGSI PENDUKUNG SUB-LACI PINTAR (1 KOLOM VERTIKAL)
+// ==========================================================
+
+// 1. Fungsi Kontrol Buka-Tutup Laci Kategori Vertikal
+function toggleSubLaci(idLaci) {
+    let el = document.getElementById(idLaci);
+    if (!el) return;
+    
     let isOpening = (el.style.display === "none" || el.style.display === "");
 
-    // 1. Tutup semua laci lain dulu agar tidak tumpang tindih
+    // Tutup semua sub-laci kategori lain yang sedang menganga
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
         laci.style.display = "none";
     });
 
-    // 2. Jika yang diklik tadi statusnya mau buka, maka buka
+    // Jika laci kategori yang diklik statusnya tertutup, buka lurus ke bawah
     if (isOpening) {
         el.style.display = "block";
     }
 }
 
-// Global Listener: Tutup laci otomatis jika klik di luar area menu
+// 2. Event Listener Global: Otomatis tutup laci jika klik di luar area menu
 document.addEventListener('click', function(event) {
-    // Jika yang diklik BUKAN tombol pemicu laci DAN BUKAN di dalam laci itu sendiri
-    if (!event.target.closest('button[onclick^="toggleSubLaci"]') && !event.target.closest('.mms-sub-laci')) {
-        document.querySelectorAll('.mms-sub-laci').forEach(laci => {
-            laci.style.display = "none";
-        });
+    // PENGAMAN: Jika user masih di halaman login awal, abaikan fungsi auto-close ini
+    if (event.target.closest('form') || event.target.id === 'btn-login' || event.target.closest('.login-container')) {
+        return; 
     }
+
+    // Jika yang diklik adalah tombol pemicu laci ATAU bagian dalam laci itu sendiri, abaikan saja
+    if (event.target.closest('button[onclick^="toggleSubLaci"]') || event.target.closest('.mms-sub-laci')) {
+        return;
+    }
+    
+    // Tutup semua laci otomatis jika pengguna mengetuk area kosong di luar bungkusan materi
+    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
+        laci.style.display = "none";
+    });
 });
 
 
