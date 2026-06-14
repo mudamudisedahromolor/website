@@ -64,7 +64,7 @@ function ambilAsetDataWeb() {
     });
 }
 
-// 🛠️ PEMBACAAN KOLOM SESUAI STRUKTUR BARU SHEET SESUAI URUTAN (A-H)
+// 🛠️ PEMBACAAN MAP KOLOM SHEET SESUAI PETAKAN (A - H)
 function parseTSVMateri(text) {
     if (!text) return [];
     let baris = text.split("\n");
@@ -75,13 +75,13 @@ function parseTSVMateri(text) {
         
         hasil.push({
             no: kolom[0] ? kolom[0].trim() : "",                // Kolom A
-            judulBab: kolom[1] ? kolom[1].trim() : "",          // Kolom B (Tenses, Aux, Adverb, dll)
-            materi: kolom[2] ? kolom[2].trim() : "",            // Kolom C (Present, Past, Dasar, dll)
-            subMateri: kolom[3] ? kolom[3].trim() : "",         // Kolom D (Verbal, Nominal, dll)
-            rumus: kolom[4] ? kolom[4].trim() : "",             // Kolom E
-            contohKalimat: kolom[5] ? kolom[5].trim() : "",     // Kolom F
-            arti: kolom[6] ? kolom[6].trim() : "",              // Kolom G
-            visual: kolom[7] ? kolom[7].trim() : ""             // Kolom H
+            judulBab: kolom[1] ? kolom[1].trim() : "",          // Kolom B (Tenses, Passive, dll)
+            materi: kolom[2] ? kolom[2].trim() : "",            // Kolom C (Simple Present, Past, dll)
+            subMateri: kolom[3] ? kolom[3].trim() : "",         // Kolom D (aktif-positif, negatif, dll)
+            rumus: kolom[4] ? kolom[4].trim() : "",             // Kolom E (Rumus Tunggal Spesifik)
+            contohKalimat: kolom[5] ? kolom[5].trim() : "",     // Kolom F (Contoh Tunggal)
+            arti: kolom[6] ? kolom[6].trim() : "",              // Kolom G (Arti Tunggal)
+            visual: kolom[7] ? kolom[7].trim() : ""             // Kolom H (Link Visual / FA Icon)
         });
     }
     return hasil;
@@ -98,64 +98,33 @@ function renderSubTombolKunciDasar() {
             return;
         }
 
-        // Memfilter materi yang kategorinya "Dasar" di Kolom C
         let barisDasar = bankMateri.filter(m => {
-            let cat = (m.materi || "").toLowerCase().trim();
-            return cat.includes("dasar");
+            let cat = (m.judulBab || "").toLowerCase().trim();
+            return cat.includes("dasar") || cat.includes("bab 1");
         });
 
         if (barisDasar.length === 0) {
-            gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:#94a3b8; text-align:center; padding: 5px 0;">Belum ada materi 'Dasar' di Kolom C</div>`;
             return;
         }
 
         barisDasar.forEach((itemMateri, index) => {
-            // Gunakan Sub Materi (Kolom D) atau Judul Bab jika kolom I lama kosong
-            let judulTombol = itemMateri.subMateri || `Kata Kunci ${index + 1}`;
+            let judulTombol = itemMateri.materi || `Kata Kunci ${index + 1}`;
             let idUnik = itemMateri.no || index;
             
             gridTombol.innerHTML += `
                 <button class="btn-type-choice" id="mms-sub-btn-${idUnik}" 
                     style="border-color: var(--mms-accent); color: var(--mms-accent);" 
-                    onclick="tampilkanParagrafDetailDasar('${idUnik}', this)">
+                    onclick="tampilkanMateriSpesifik('${itemMateri.materi}', '${itemMateri.subMateri}')">
                     ${judulTombol}
                 </button>
             `;
         });
     } catch (e) {
         console.error("Error saat merender tombol dasar:", e);
-        gridTombol.innerHTML = `<div style="grid-column: span 2; font-size:12px; color:var(--mms-red); text-align:center;">Gagal memuat daftar kata kunci.</div>`;
     }
 }
 
-function tampilkanParagrafDetailDasar(idNo, btnElement) {
-    let panelPenjelasan = document.getElementById("mms-box-penjelasan-dasar");
-    let textParagrafJ = document.getElementById("mms-txt-paragraf-j");
-
-    if (btnElement.classList.contains("mms-active-dasar") && panelPenjelasan.style.display === "block") {
-        panelPenjelasan.style.display = "none";
-        btnElement.classList.remove("mms-active-dasar");
-        return;
-    }
-
-    document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
-
-    let cocok = bankMateri.find(m => m.no === idNo);
-
-    // Sekarang penjelasan dasar membaca kolom Contoh Kalimat (Kolom F) atau Arti (Kolom G) jika Kolom J lama dihapus
-    if (!cocok || !cocok.contohKalimat) {
-        textParagrafJ.innerText = "Teks penjelasan materi kosong.";
-        panelPenjelasan.style.display = "block";
-        btnElement.classList.add("mms-active-dasar");
-        return;
-    }
-
-    textParagrafJ.innerText = cocok.contohKalimat;
-    panelPenjelasan.style.display = "block";
-    btnElement.classList.add("mms-active-dasar");
-}
-
-// 🚀 FUNGSI UTAMA PENAMPIL MATERI: MENYESUAIKAN KOLOM BARU SECARA DINAMIS
+// 🚀 FUNGSI UTAMA PENAMPIL: MENYELARASKAN TOTAL PETA PEMBACAAN DATA SHEET DENGAN TOMBOL HTML
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -181,7 +150,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // Mencari data di Sheet berdasarkan kecocokan Kolom C (Materi) dan Kolom D (Sub Materi)
+    // 1. Amankan Kunci Pencarian: Sangat presisi mencocokkan Kolom C dan Kolom D dari Sheet
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
@@ -189,82 +158,62 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     });
 
     if (!dataCocok) {
-        if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC} - ${subMateriKolomD}</b>`;
-        if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-        if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Silakan lengkapi baris ini di Google Sheets sampeyan.";
+        if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
+        if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data Rumus";
+        if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data Pasif";
+        if(boxPembahasan) boxPembahasan.innerText = "Silakan lengkapi baris ini di Google Sheets sesuai Kolom C & D.";
         if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
 
-    // Set judul modal berdasarkan nama Bab asli dari Sheet (Kolom B)
-    if (judulTense) judulTense.innerHTML = `Bab: <b>${dataCocok.judulBab} (${dataCocok.materi} - ${dataCocok.subMateri})</b>`;
-    if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab;
+    // Set judul modal berdasarkan teks dinamis dari data Sheet (Kolom B, C, D)
+    let labelTipe Teks = subMateriKolomD.replace("-", " ").toUpperCase();
+    if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC} (${labelTipeTeks})</b>`;
+    if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
 
-    // 🚀 PROSES SPLIT RUMUS GABUNGAN (KOLOM E)
-    let teksRumusGabungan = (dataCocok.rumus || "").replace(/\\n/g, "\n");
-    let rumusAktif = "Tidak ada rumus spesifik.";
-    let rumusPasif = "No Passive Form."; 
-
-    if (teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
-        let pemisah = teksRumusGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
-        let bagianRumus = teksRumusGabungan.split(pemisah);
-        rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
-        rumusPasif = bagianRumus[1].trim();
-        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block"; 
-    } else {
-        rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
-        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none"; 
-    }
+    // 2. AMBIL RUMUS (KOLOM E) - Terjemahkan \n tulisan dari Sheet menjadi break baris asli
+    let textRumus = (dataCocok.rumus || "").replace(/\\n/g, "\n");
     
-    if(boxRumusAktif) boxRumusAktif.innerText = rumusAktif;
-    if(boxRumusPasif) boxRumusPasif.innerText = rumusPasif;
+    // 3. AMBIL CONTOH (KOLOM F) & ARTI (KOLOM G)
+    let textContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
+    let textArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // 🚀 PROSES CONTOH KALIMAT (KOLOM F) & ARTI (KOLOM G)
-    let kolomF = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n"); 
-    let kolomG = (dataCocok.arti || "").replace(/\\n/g, "\n");       
-
-    let inggrisAktif = "Belum ada contoh.", inggrisPasif = "No Passive Example.";
-    let artiAktif = "", artiPasif = "";
-
-    if (kolomF.includes("[Pasif]") || kolomF.includes("Pasif")) {
-        let pemisahF = kolomF.includes("[Pasif]") ? "[Pasif]" : "Pasif";
-        let bagianF = kolomF.split(pemisahF);
-        inggrisAktif = bagianF[0].replace("[Aktif]", "").replace("Aktif", "").trim();
-        inggrisPasif = bagianF[1].trim();
+    // 🚀 ATUR KONDISI PEMBAGIAN LAYER MODAL (AKTIF VS PASIF VOICE)
+    // Jika tipe tombol/judul bab mengarah ke rumpun Passive Voice
+    if (subMateriKolomD.toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("passive")) {
+        // Tampilkan murni di Box Pasif, sembunyikan container Aktif
+        if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Terbuka.";
+        if(boxRumusPasif) boxRumusPasif.innerText = textRumus;
+        
+        if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka Modul Kalimat Pasif.</div>`;
+        if(boxArtiPasif) {
+            boxArtiPasif.innerHTML = `
+                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${textContoh}</div>
+                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${textArti || 'Belum ada terjemahan.'}</div>
+            `;
+        }
+        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block";
     } else {
-        inggrisAktif = kolomF.replace("[Aktif]", "").replace("Aktif", "").trim();
+        // Default: Tampilkan di Box Kalimat Aktif sesuai tombol (+), (-), atau (?) yang diklik
+        if(boxRumusAktif) boxRumusAktif.innerText = textRumus;
+        if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form di modul ini.";
+        
+        if(boxArtiAktif) {
+            boxArtiAktif.innerHTML = `
+                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${textContoh}</div>
+                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${textArti || 'Belum ada terjemahan.'}</div>
+            `;
+        }
+        if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih tombol rumpun bab 3 untuk melihat kalimat pasif.</div>`;
+        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none";
     }
 
-    if (kolomG.includes("[Pasif]") || kolomG.includes("Pasif")) {
-        let pemisahG = kolomG.includes("[Pasif]") ? "[Pasif]" : "Pasif";
-        let bagianG = kolomG.split(pemisahG);
-        artiAktif = bagianG[0].replace("[Aktif]", "").replace("Aktif", "").trim();
-        artiPasif = bagianG[1].trim();
-    } else {
-        artiAktif = kolomG.replace("[Aktif]", "").replace("Aktif", "").trim();
-    }
+    if(boxPembahasan) boxPembahasan.innerText = `Data ditarik secara dinamis dari baris nomor ${dataCocok.no || '-'}. Pola kalimat digunakan untuk mengekspresikan materi gramatikal organisasi.`;
 
-    if(boxArtiAktif) {
-        boxArtiAktif.innerHTML = `
-            <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisAktif}</div>
-            <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
-            <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${artiAktif || 'Belum ada terjemahan.'}</div>
-        `;
-    }
-
-    if(boxArtiPasif) {
-        boxArtiPasif.innerHTML = `
-            <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisPasif}</div>
-            <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
-            <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${artiPasif || 'Belum ada terjemahan Pasif.'}</div>
-        `;
-    }
-
-    if(boxPembahasan) boxPembahasan.innerText = `Materi ini membahas aturan tata bahasa pada rumpun "${dataCocok.judulBab}" untuk kategori "${dataCocok.materi}" dengan model "${dataCocok.subMateri}".`;
-
-    // 🚀 PROSES MEDIA VISUAL (KOLOM H)
+    // 4. AMBIL MEDIA VISUAL (KOLOM H)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
@@ -283,9 +232,9 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
-// ==========================================
-// SISANYA ADALAH FUNGSI NAVIGASI & UI BAWAAN
-// ==========================================
+// ==========================================================================
+// KELOMPOK FUNGSI OPERASIONAL NAVIGASI LAINNYA (DIPERTAHANKAN UTUH)
+// ==========================================================================
 function toggleRumpunTense(panelId) {
     let targetPanel = document.getElementById(panelId);
     if (!targetPanel) return;
@@ -423,4 +372,4 @@ document.addEventListener('click', function(event) {
     });
 });
 
-window.addEventListener('DOMContentLoaded', () => { ambilAsetDataWeb(); });
+window.addEventListener('DOMContentLoaded', () => { Lauren = ambilAsetDataWeb(); });
