@@ -124,9 +124,10 @@
                             <span><i class="fa-solid fa-clock" style="color: var(--mms-green); margin-right: 8px;"></i> BAB 2: Kalimat Aktif Berdasarkan Waktu (Active Tenses)</span>
                             <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
                         </div>
-                        <div id="mms-bab-active-tenses" class="mms-rumpun-content">
-                            <div class="mms-sub-tense-container" style="margin-bottom: 8px;">
-                                <div class="mms-sub-title" style="color: var(--mms-accent);"><i class="fa-solid fa-calendar-day" style="margin-right: 6px;"></i> Present Tense (Sekarang)</div>
+                          <div id="mms-bab-active-tenses" class="mms-rumpun-content">
+                            
+                            <div class="mms-sub-tense-container" style="margin-bottom: 12px; border-left: 3px solid var(--mms-accent);">
+                                <div class="mms-sub-title" style="color: var(--mms-accent);"><i class="fa-solid fa-calendar-day"></i>&nbsp;&nbsp;Present Tense (Sekarang)</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Present', 'aktif-verbal')">Simple Present</button>
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Continuous', 'aktif-vbing')">Present Continuous</button>
@@ -134,8 +135,9 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Present Perfect Continuous', 'aktif-vbing')">Present Perf. Cont.</button>
                                 </div>
                             </div>
-                            <div class="mms-sub-tense-container">
-                                <div class="mms-sub-title" style="color: #6366f1;"><i class="fa-solid fa-history" style="margin-right: 6px;"></i> Past Tense (Lampau)</div>
+                            
+                            <div class="mms-sub-tense-container" style="margin-bottom: 12px; border-left: 3px solid #6366f1;">
+                                <div class="mms-sub-title" style="color: #6366f1;"><i class="fa-solid fa-history"></i>&nbsp;&nbsp;Past Tense (Lampau)</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Past', 'aktif-verbal')">Simple Past</button>
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Continuous', 'aktif-vbing')">Past Continuous</button>
@@ -143,8 +145,28 @@
                                     <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Perfect Continuous', 'aktif-vbing')">Past Perf. Cont.</button>
                                 </div>
                             </div>
+
+                            <div class="mms-sub-tense-container" style="margin-bottom: 12px; border-left: 3px solid var(--mms-green);">
+                                <div class="mms-sub-title" style="color: var(--mms-green);"><i class="fa-solid fa-hourglass-half"></i>&nbsp;&nbsp;Future Tense (Masa Depan)</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Future', 'aktif-verbal')">Simple Future</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Continuous', 'aktif-vbing')">Future Continuous</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect', 'aktif-verbal')">Future Perfect</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Future Perfect Continuous', 'aktif-vbing')">Future Perf. Cont.</button>
+                                </div>
                             </div>
-                    </div>
+
+                            <div class="mms-sub-tense-container" style="border-left: 3px solid #a855f7;">
+                                <div class="mms-sub-title" style="color: #a855f7;"><i class="fa-solid fa-shuffle"></i>&nbsp;&nbsp;Past Future Tense (Pengandaian)</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Past Future', 'aktif-verbal')">Simple Past Future</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Continuous', 'aktif-vbing')">Past Fut. Continuous</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'aktif-verbal')">Past Fut. Perfect</button>
+                                    <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect Continuous', 'aktif-vbing')">Past Fut. Perf. Cont.</button>
+                                </div>
+                            </div>
+
+                        </div>
 
                     <div class="mms-rumpun-card">
                         <div class="mms-rumpun-header" onclick="toggleRumpunTense('mms-bab-passive-voice')">
