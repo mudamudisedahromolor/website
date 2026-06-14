@@ -199,9 +199,10 @@ function toggleAccordionBox(panelId) {
         }
     });
 
-    // Sekaligus amankan dan bersihkan laci-laci kecil di dalam agar ikut melipat rapi
-    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
-        laci.style.display = "none";
+ // 🚀 Sembunyikan semua laci dan cabut semua warna penanda aktif saat kotak waktu berpindah
+    document.querySelectorAll('.mms-sub-laci').forEach(laci => laci.style.display = "none");
+    document.querySelectorAll('.btn-type-choice').forEach(btn => {
+        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 
     // Jika kotak yang diklik tadi memang ingin dibuka, silakan jalankan sekarang
@@ -663,18 +664,32 @@ function toggleRumpunSmart(idBab) {
 }
 
 // 4. Fungsi Kontrol Buka-Tutup Sub-Laci Kategori Vertikal (1 Kolom)
+// Fungsi Mengatur Laci Paling Dalam (Tombol Kategori 1 Kolom Vertikal)
 function toggleSubLaci(idLaci) {
     let el = document.getElementById(idLaci);
     if (!el) return;
     
     let isOpening = (el.style.display === "none" || el.style.display === "");
+    let pemicuKlik = event.currentTarget; // Menangkap tombol yang sedang diklik user
 
+    // 🚀 1. Bersihkan status aktif dan tutup semua laci lain terlebih dahulu
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
         laci.style.display = "none";
     });
+    document.querySelectorAll('.btn-type-choice').forEach(btn => {
+        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
+    });
 
+    // 🚀 2. Jika statusnya membuka, aktifkan laci dan beri warna penanda pada tombolnya
     if (isOpening) {
         el.style.display = "block";
+        
+        // Cek apakah tombol yang diklik adalah tipe nominal atau verbal murni
+        if (pemicuKlik.classList.contains('btn-mms-nominal')) {
+            pemicuKlik.classList.add('mms-btn-active-laci-nominal');
+        } else {
+            pemicuKlik.classList.add('mms-btn-active-laci');
+        }
     }
 }
 
