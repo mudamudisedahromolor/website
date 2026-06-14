@@ -289,7 +289,7 @@ body {
     background-color: #ffe4e6 !important;       
     border-top: 1px solid #fca5a5 !important;
     padding: 16px !important;
-    display: flex !important; /* Paksa hanya laci aktif yang bermodel flex */
+    display: flex !important; 
 }
 
 /* ⬜ LAYER 3 (KOTAK TENSES): PAKSA WARNA DASAR PUTIH BERSIH SAAT DIAM */
@@ -353,6 +353,31 @@ body {
     font-weight: 600 !important;
 }
 
-.materi-body-back-btn { background: #64748b; transition: all 0.25s ease-in-out; }
-.materi-body-back-btn:hover { background: #475569 !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transform: translateY(-1px); }
-.materi-body-back-btn:active { transform: translateY(1px); }
+/* 🚀 4. STYLE TOMBOL KEMBALI KE MENU (DIJAMIN MUNCUL TEGAS & MEMBAL) */
+.materi-body-back-btn { 
+    display: block !important;
+    width: 100% !important;
+    background-color: var(--mms-red) !important; 
+    color: #ffffff !important;
+    border: none;
+    border-bottom: 4px solid var(--mms-red-hover) !important;
+    padding: 14px !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    margin-top: 25px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: all 0.15s ease-in-out;
+    box-sizing: border-box;
+}
+.materi-body-back-btn:hover { 
+    background-color: var(--mms-red-hover) !important; 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(204, 2, 2, 0.15);
+}
+.materi-body-back-btn:active { 
+    transform: translateY(2px); 
+    border-bottom-width: 1px !important; 
+}
