@@ -75,7 +75,7 @@ body {
 .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
 
-/* 🌟 TOMBOL ASLI (MENJAGA PADDING & HOVER ASLI BAB 1 & BAB 4 KEMBALI NORMAL) */
+/* 🌟 TOMBOL ASLI (MENJAGA PADDING & HOVER PUTIH ➡️ BLUE-SOFT MILIK BAB 1 & BAB 4) */
 .btn-type-choice { 
     padding: 10px 4px; 
     background: #fff; 
@@ -255,17 +255,17 @@ body {
 #leaderboard-panel { width: 100% !important; max-width: 550px !important; margin: 0 auto 25px auto !important; box-sizing: border-box; }
 
 /* ====================================================================
-   FIX TOTAL: WARNA KOTAK LAYER 2 MERAH SOFT & AKORDION LAYER 3 ANIMASI
+   FIX TOTAL: KUNCI SEMUA LEVEL 3 (BAB 2 & 3) BERWARNA PUTIH DIAM ➡️ HOVER BIRU
    ==================================================================== */
 
-/* 1. Kotak BAB Utama saat Aktif Terbuka */
+/* 1. Kontainer Utama Bab saat Terbuka */
 .mms-bab-active-card {
     border: 2px solid #f87171 !important;       
     box-shadow: 0 6px 20px rgba(204, 2, 2, 0.12);
     transition: all 0.25s ease-in-out;
 }
 
-/* Kotak Pilihan Judul Bab Atas: Berubah Merah Solid Muda Mudi */
+/* Judul Bab Atas: Tetap Berwarna Merah Khas Muda Mudi */
 .mms-bab-active-card .mms-rumpun-header {
     background-color: var(--mms-red) !important; 
     border-bottom: 2px solid #b30202 !important;
@@ -275,49 +275,62 @@ body {
     color: #ffffff !important;
 }
 
-/* 🟥 AMAN KUNCI: Layer 2 Content tetap MERAH SOFT PEKAT (Tidak Monoton Putih) */
+/* 🟥 LAYER 2 CONTENT: Background utama pembungkus luar tetap PINK/MERAH SOFT PEKAT */
 .mms-bab-active-card .mms-rumpun-content {
-    background-color: #ffe4e6 !important;       /* Terkunci warna pink/merah-soft solid bawaan */
+    background-color: #ffe4e6 !important;       
     border-top: 1px solid #fca5a5 !important;
     padding: 16px !important;
 }
 
-/* 🚀 2. SELEKTOR KHUSUS LAYER 3 (KOTAK PRESENT TENSE, PAST TENSE, DST) DI HOVER ANIMASI BIRU SOFT */
+/* ⬜ 2. SETTING LAYER 3 (KOTAK PRESENT, PAST, DST): PAKSA WARNA DASAR PUTIH BERSIH */
 #mms-bab-2-content .mms-nested-time-card,
 #mms-bab-3-content .mms-nested-time-card {
-    transition: all 0.23s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background-color: #ffffff !important;       /* Kunci warna dasar menjadi putih bersih bersalut abu-abu */
+    border: 1px solid #cbd5e1 !important;
+    border-bottom: 3px solid #cbd5e1 !important; /* Efek ketebalan border bawah khas duolingo */
+    border-radius: 8px !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Efek Sorot Kursor pada Accordion Level 2: Menyamakan Kenyamanan Bab 1 */
+/* Paksa warna header di dalam kotak level 3 bawaan menjadi text abu-abu gelap/navy saat diam */
+#mms-bab-2-content .mms-nested-time-card .mms-rumpun-header,
+#mms-bab-3-content .mms-nested-time-card .mms-rumpun-header {
+    background-color: transparent !important;
+    border-bottom: none !important;
+}
+#mms-bab-2-content .mms-nested-time-card .mms-rumpun-header span,
+#mms-bab-3-content .mms-nested-time-card .mms-rumpun-header span,
+#mms-bab-2-content .mms-nested-time-card .mms-rumpun-header i,
+#mms-bab-3-content .mms-nested-time-card .mms-rumpun-header i {
+    color: #475569 !important;                  /* Warna teks default abu-abu elegan */
+}
+
+/* 🚀 EFEK HOVER SERAGAM: Dari Putih berubah menjadi Biru Transparan Soft Membal */
 #mms-bab-2-content .mms-nested-time-card:hover,
 #mms-bab-3-content .mms-nested-time-card:hover {
-    background-color: #eff6ff !important;       /* Berubah jadi biru transparan soft */
+    background-color: #eff6ff !important;       /* Berubah jadi biru transparan soft (Identik Bab 1) */
     border-color: #bfdbfe !important;           
     transform: translateY(-1px);                
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
 }
 
-#mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header,
-#mms-bab-3-content .mms-nested-time-card:hover .mms-rumpun-header {
-    background-color: transparent !important;   
-}
-
+/* Teks dan Ikon otomatis menyala Biru Tajam Interaktif saat di-hover */
 #mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header span,
 #mms-bab-3-content .mms-nested-time-card:hover .mms-rumpun-header span,
 #mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header i,
 #mms-bab-3-content .mms-nested-time-card:hover .mms-rumpun-header i {
-    color: #2563eb !important;                  /* Teks & ikon judul tenses ikut berubah biru variatif */
+    color: #2563eb !important;                  
 }
 
-/* ⬜ 3. INTERIOR PALING DALAM: Mengubah laci pembungkus tombol rumus menjadi PUTIH BERSIH */
+/* ⬜ 3. LAYER 4 (LACI PALING DALAM): Interior laci rumus tetap putih bersih */
 .mms-sub-laci {
-    background-color: #ffffff !important;       /* Kunci putih bersih di dalam, kontras dengan luar */
+    background-color: #ffffff !important;       
     border: 1px dashed #cbd5e1 !important;
     border-radius: 8px;
     padding: 8px !important;
 }
 
-/* 🌟 KELAS LOCK WARNA SUB-MATERI AKTIF LAINNYA */
+/* KELAS LOCK WARNA SUB-MATERI AKTIF LAINNYA */
 .mms-btn-active-laci {
     background-color: var(--mms-accent) !important;
     color: #ffffff !important;
