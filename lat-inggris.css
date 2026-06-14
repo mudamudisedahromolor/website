@@ -75,11 +75,36 @@ body {
 .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
 
-.btn-type-choice { padding: 10px 4px; background: #fff; border: 1px solid #cbd5e1; border-bottom: 3px solid #cbd5e1; border-radius: 6px; font-weight: bold; color: #475569; cursor: pointer; text-align: center; font-size: 12px; transition: all 0.1s; }
-.btn-type-choice:hover { border-color: var(--mms-accent); background: #f0f9ff; }
+/* 🌟 UPGRADE EFEK HOVER MATERI KONTRAS TINGGI */
+.btn-type-choice { 
+    padding: 10px 4px; 
+    background: #fff; 
+    border: 1px solid #cbd5e1; 
+    border-bottom: 3px solid #cbd5e1; 
+    border-radius: 6px; 
+    font-weight: bold; 
+    color: #475569; 
+    cursor: pointer; 
+    text-align: center; 
+    font-size: 12px; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important; 
+}
+.btn-type-choice:hover { 
+    background-color: #cbd5e1 !important; 
+    color: #1e293b !important; 
+    border-color: #94a3b8 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
 .btn-type-choice:active { transform: translateY(2px); border-bottom-width: 1px; }
-
 .btn-type-choice.mms-active-dasar { border-color: var(--mms-red); background: #fff5f5; color: var(--mms-red); }
+
+/* Upgrade khusus hover untuk tombol rumpun nominal */
+.btn-mms-nominal:hover {
+    background-color: #475569 !important; 
+    color: #ffffff !important;
+    border-color: #334155 !important;
+}
 
 .vocab-search-box { width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; }
 .vocab-list-container { max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-right: 5px; }
@@ -144,31 +169,9 @@ body {
     to { transform: scale(1); opacity: 1; }
 }
 
-.mms-vertical-layout-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.info-box-item {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 14px;
-    text-align: left;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.info-box-header {
-    font-weight: bold;
-    font-size: 12px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
+.mms-vertical-layout-stack { display: flex; flex-direction: column; gap: 14px; }
+.info-box-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; text-align: left; width: 100%; box-sizing: border-box; }
+.info-box-header { font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
 
 .box-pre-wrap {
     white-space: pre-wrap;
@@ -182,23 +185,8 @@ body {
 .green-box-header { color: var(--mms-green); }
 .red-box-header { color: var(--mms-red); }
 
-.mms-modal-visual-frame {
-    height: 180px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    background: #f8fafc; 
-    border: 1px solid #e2e8f0; 
-    border-radius: 10px; 
-    overflow: hidden;
-    margin-bottom: 18px;
-}
-.mms-modal-visual-frame img { 
-    max-height: 100%; 
-    width: 100%; 
-    object-fit: cover; 
-    border-radius: 6px; 
-}
+.mms-modal-visual-frame { height: 180px; display: flex; align-items: center; justify-content: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+.mms-modal-visual-frame img { max-height: 100%; width: 100%; object-fit: cover; border-radius: 6px; }
 
 .mms-toggle-trigger-btn {
     width: 100%;
@@ -217,78 +205,21 @@ body {
     gap: 8px;
     transition: all 0.15s ease;
 }
-.mms-toggle-trigger-btn:hover {
-    background: #f0fdf4;
-    color: #15803d;
-    border-color: #15803d;
-}
-.mms-dropdown-content-panel {
-    display: none; 
-    margin-top: 10px;
-    background: #f0fdf4;
-    padding: 12px;
-    border-radius: 6px;
-    border-left: 3px solid var(--mms-green);
-    animation: slideDownIn 0.2s ease-out;
-}
-@keyframes slideDownIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+.mms-toggle-trigger-btn:hover { background: #f0fdf4; color: #15803d; border-color: #15803d; }
+.mms-dropdown-content-panel { display: none; margin-top: 10px; background: #f0fdf4; padding: 12px; border-radius: 6px; border-left: 3px solid var(--mms-green); animation: slideDownIn 0.2s ease-out; }
+@keyframes slideDownIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-.mms-glow-pulse-container {
-    width: 100%;
-    background: #fff;
-    border: 1px solid #cbd5e1;
-    padding: 18px 14px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-}
-
-.mms-txt-rumus-glow {
-    font-size: 14px;
-    font-weight: 700;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #cc0202; 
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    white-space: normal; 
-    animation: mmsNeonPulse 2.5s infinite ease-in-out;
-}
+.mms-glow-pulse-container { width: 100%; background: #fff; border: 1px solid #cbd5e1; padding: 18px 14px; border-radius: 8px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
+.mms-txt-rumus-glow { font-size: 14px; font-weight: 700; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #cc0202; display: block; width: 100%; box-sizing: border-box; white-space: normal; animation: mmsNeonPulse 2.5s infinite ease-in-out; }
 
 @keyframes mmsNeonPulse {
-    0%, 100% {
-        text-shadow: 0 0 6px rgba(204, 2, 2, 0.45), 0 0 12px rgba(204, 2, 2, 0.2);
-    }
-    50% {
-        text-shadow: 0 0 14px rgba(204, 2, 2, 0.85), 0 0 22px rgba(204, 2, 2, 0.45);
-        color: #ff1a1a;
-    }
+    0%, 100% { text-shadow: 0 0 6px rgba(204, 2, 2, 0.45), 0 0 12px rgba(204, 2, 2, 0.2); }
+    50% { text-shadow: 0 0 14px rgba(204, 2, 2, 0.85), 0 0 22px rgba(204, 2, 2, 0.45); color: #ff1a1a; }
 }
 
-.mms-tips-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 5px;
-    font-size: 12px;
-    background: #fff;
-}
-.mms-tips-table th, .mms-tips-table td {
-    border: 1px solid #cbd5e1;
-    padding: 6px 8px;
-    text-align: center;
-}
-.mms-tips-table th {
-    background: var(--mms-navy);
-    color: #fff;
-    font-weight: bold;
-}
+.mms-tips-table { width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 12px; background: #fff; }
+.mms-tips-table th, .mms-tips-table td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: center; }
+.mms-tips-table th { background: var(--mms-navy); color: #fff; font-weight: bold; }
 
 .mms-rumpun-card {
     border: 1px solid #e2e8f0;
@@ -297,6 +228,7 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
     overflow: hidden;
     margin-bottom: 12px;
+    transition: all 0.2s ease-in-out;
 }
 .mms-rumpun-header {
     padding: 16px;
@@ -312,93 +244,34 @@ body {
     transition: background 0.15s;
     user-select: none;
 }
-.mms-rumpun-header:hover {
-    background: #f8fafc;
-}
-.mms-rumpun-content {
-    display: none;
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-    background: #fff;
-}
-.mms-sub-tense-container {
-    border: 1px solid #f1f5f9;
-    border-radius: 10px;
-    padding: 12px;
-    background: #fdfdfd;
-}
-.mms-sub-title {
-    font-weight: bold;
-    color: var(--mms-navy);
-    font-size: 14px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-}
+.mms-rumpun-header:hover { background: #f8fafc; }
+.mms-rumpun-content { display: none; flex-direction: column; gap: 16px; padding: 16px; background: #fff; }
+.mms-sub-title { font-weight: bold; color: var(--mms-navy); font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; }
 
-.materi-body-back-btn {
-    background: #64748b; 
-    transition: all 0.25s ease-in-out;
+.materi-body-back-btn { background: #64748b; transition: all 0.25s ease-in-out; }
+.materi-body-back-btn:hover { background: #475569 !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transform: translateY(-1px); }
+.materi-body-back-btn:active { transform: translateY(1px); }
+
+#leaderboard-panel { width: 100% !important; max-width: 550px !important; margin: 0 auto 25px auto !important; box-sizing: border-box; }
+
+/* 🌟 KELAS HIGHLIGHT SPESIFIK KETIKA KOTAK BAB AKTIF TERBUKA (MERAH TERANG MUDA MUDI) */
+.mms-bab-active-card {
+    border: 2px solid #ef4444 !important; 
+    background-color: #fef2f2 !important; 
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.08);
 }
-.materi-body-back-btn:hover {
-    background: #475569 !important; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-    transform: translateY(-1px); 
-}
-.materi-body-back-btn:active {
-    transform: translateY(1px); 
-}
+.mms-bab-active-card .mms-rumpun-header span { color: #ef4444 !important; font-weight: 700 !important; }
+.mms-bab-active-card .mms-rumpun-header i { color: #ef4444 !important; }
 
-/* ==========================================================
-   KODE PENYELARAS PANEL LIGA KOMPETISI PEMUDA agar CENTER
-   ========================================================== */
-#leaderboard-panel {
-    width: 100% !important;
-    max-width: 550px !important;      /* Mengunci lebar sama persis dengan menu utama */
-    margin: 0 auto 25px auto !important; /* Membuat kotak otomatis center total kanan-kiri */
-    box-sizing: border-box;
-}
-
-
-
-
-/* ==========================================================
-   INTERAKTIVITAS TOMBOL: HOVER & STATUS AKTIF (MMS ACADEMY)
-   ========================================================== */
-
-/* 1. Upgrade Efek Hover untuk Semua Tombol Pilihan */
-.btn-type-choice {
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-.btn-type-choice:hover {
-    background-color: var(--mms-accent) !important;
-    color: #ffffff !important;
-    border-color: var(--mms-accent) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-}
-
-/* Upgrade khusus hover untuk tombol rumpun nominal */
-.btn-mms-nominal:hover {
-    background-color: #64748b !important; /* Abu-abu gelap elegan saat hover */
-    color: #ffffff !important;
-    border-color: #64748b !important;
-    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.15);
-}
-
-/* 2. Class Penanda Kotak yang Sedang Aktif Membuka Laci */
+/* 🌟 KELAS LOCK WARNA SUB-MATERI AKTIF DI DALAM LACI */
 .mms-btn-active-laci {
     background-color: var(--mms-accent) !important;
     color: #ffffff !important;
     border-color: var(--mms-accent) !important;
     font-weight: 600 !important;
 }
-
-/* Penanda khusus jika yang sedang aktif membuka adalah laci Nominal */
 .mms-btn-active-laci-nominal {
-    background-color: #475569 !important; /* Slate steel solid */
+    background-color: #475569 !important;
     color: #ffffff !important;
     border-color: #475569 !important;
     font-weight: 600 !important;
