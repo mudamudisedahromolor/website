@@ -256,12 +256,22 @@ body {
 
 /* 🌟 KELAS HIGHLIGHT SPESIFIK KETIKA KOTAK BAB AKTIF TERBUKA (MERAH TERANG MUDA MUDI) */
 .mms-bab-active-card {
-    border: 2px solid #ef4444 !important; 
-    background-color: #fef2f2 !important; 
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.08);
+    border: 1px solid #fca5a5 !important;       /* Garis tepi merah pastel soft */
+    background-color: #fee2e2 !important;       /* Background merah muda segar & penuh (tidak monoton putih) */
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.12);
+    transition: all 0.25s ease-in-out;
 }
-.mms-bab-active-card .mms-rumpun-header span { color: #ef4444 !important; font-weight: 700 !important; }
-.mms-bab-active-card .mms-rumpun-header i { color: #ef4444 !important; }
+.mms-bab-active-card .mms-rumpun-header span {
+    color: #0f172a !important;       /* Tetap Navy gelap bawaan agar mudah terbaca */
+    font-weight: 700 !important;     /* Dibuat lebih tebal sebagai penanda */
+}
+.mms-bab-active-card .mms-rumpun-header i {
+    color: #1e293b !important;
+}
+.mms-bab-active-card .mms-rumpun-content {
+    background-color: #ffffff !important; 
+    border-top: 1px solid #f3f4f6;
+}
 
 /* 🌟 KELAS LOCK WARNA SUB-MATERI AKTIF DI DALAM LACI */
 .mms-btn-active-laci {
