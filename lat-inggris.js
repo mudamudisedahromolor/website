@@ -670,3 +670,17 @@ document.addEventListener('click', function(event) {
         });
     }
 });
+
+
+/* Class khusus untuk membedakan tombol Nominal tanpa merusak animasi hover */
+.btn-mms-nominal {
+    background-color: #f1f5f9 !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Biar pas kursor nempel (hover), warnanya mau berubah ngikutin tombol verbal murni */
+.btn-mms-nominal:hover {
+    background-color: var(--mms-accent) !important; /* atau warna hover bawaan sampeyan */
+    color: #ffffff !important;
+    border-color: var(--mms-accent) !important;
+}
