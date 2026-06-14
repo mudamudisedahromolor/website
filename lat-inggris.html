@@ -49,21 +49,8 @@
     </header>
 
     <div class="mms-app-container">
-        
-        <div id="login-panel" class="duo-container" style="text-align: center; padding: 40px 30px;">
-            <i class="fa-solid fa-graduation-cap" style="font-size: 55px; color: var(--mms-red); margin-bottom: 20px;"></i>
-            <h2 style="color: var(--mms-navy); margin-top:0;">MMS English Academy</h2>
-            <p style="color:#64748b; font-size:13px; margin-bottom:25px; line-height:1.5;">Masukkan email terdaftar kamu untuk masuk ke Ruang Belajar Mandiri Pemuda.</p>
-            <input type="email" id="user-email" class="mms-input-field" placeholder="nama@email.com">
-            <button class="btn-check" onclick="loginSistem()" style="margin-top:10px;">Mulai Belajar</button>
-        </div>
 
-        <div id="main-panel" class="duo-container" style="display: none;">
-            <div class="duo-header" id="header-bar">
-                <div class="stat-item stat-xp"><i class="fa-solid fa-bolt"></i> <span id="lbl-xp">0</span> XP</div>
-                <div class="stat-item" style="color: #64748b; font-size:13px; font-weight:600;" id="lbl-nama">User</div>
-                <div class="stat-item stat-heart"><i class="fa-solid fa-heart"></i> <span id="lbl-hearts">5</span></div>
-            </div>
+        <div id="main-panel" class="duo-container" style="display: block;">
 
             <div id="dashboard-menu" style="display: block;">
                 <h3 style="color: var(--mms-navy); margin-top: 0; margin-bottom: 5px; text-align: center;">Menu Utama</h3>
@@ -85,21 +72,14 @@
                             <div style="color: #64748b; font-size: 12px; margin-top: 2px;">Pusat perbendaharaan kata organisasi lengkap dengan contoh kalimat.</div>
                         </div>
                     </div>
-
-                    <div class="menu-card" onclick="bukaQuiz()">
-                        <div class="menu-card-icon" style="background: var(--mms-red);"><i class="fa-solid fa-gamepad"></i></div>
-                        <div>
-                            <div style="font-weight: bold; color: var(--mms-navy); font-size: 15px;">Mulai Quiz Evaluasi</div>
-                            <div style="color: #64748b; font-size: 12px; margin-top: 2px;">Uji pemahamanmu seputar tenses & vocab untuk klaim XP.</div>
-                        </div>
+                    
                     </div>
-                </div>
             </div>
 
             <div id="materi-body" style="display: none; padding: 5px 0;">
                 <h3 style="color: var(--mms-navy); text-align: center; margin-top: 0; margin-bottom: 20px;"><i class="fa-solid fa-book-open"></i> Ruang Belajar Mandiri</h3>
 
-                                                              <div class="mms-rumpun-card">
+                <div class="mms-rumpun-card">
                     <div class="mms-rumpun-header" onclick="toggleRumpunSmart('mms-bab-1-content')">
                         <span><i class="fa-solid fa-key" style="color: var(--mms-accent); margin-right: 8px;"></i> BAB 1: Kunci Dasar &amp; Jenis Kata (Fundamental)</span>
                         <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
@@ -114,7 +94,7 @@
                     </div>
                 </div>
 
-                                                                                              <div class="mms-rumpun-card">
+                <div class="mms-rumpun-card">
                     <div class="mms-rumpun-header" onclick="toggleRumpunSmart('mms-bab-2-content')">
                         <span><i class="fa-solid fa-clock" style="color: var(--mms-navy); margin-right: 8px;"></i> BAB 2: Kalimat Aktif (Active Tenses)</span>
                         <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
@@ -284,13 +264,12 @@
                             </div>
                         </div>
 
-                                                <div class="mms-nested-time-card" style="border: 1px solid #e2e8f0; border-left: 4px solid #a855f7; border-radius: 8px; background: #ffffff; overflow: hidden;">
+                        <div class="mms-nested-time-card" style="border: 1px solid #e2e8f0; border-left: 4px solid #a855f7; border-radius: 8px; background: #ffffff; overflow: hidden;">
                             <div class="mms-rumpun-header" style="padding: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fff;" onclick="toggleAccordionBox('act-box-pfuture')">
                                 <span style="color: #a855f7; font-weight: bold; font-size: 14px;"><i class="fa-solid fa-shuffle"></i> &nbsp;&nbsp;Past Future Tense (Pengandaian)</span>
                                 <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #94a3b8;"></i>
                             </div>
                             <div id="act-box-pfuture" style="display: none; flex-direction: column; gap: 6px; padding: 0 10px 10px 10px;">
-                                
                                 <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-sim')">Simple Past Future (Verbal) <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
                                 <div id="act-pfut-sim" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
                                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
@@ -606,30 +585,9 @@
                 <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 0;">Kembali ke Menu</button>
             </div>
 
-            <div id="quiz-body-wrapper" style="display: none;">
-                <div class="progress-container"><div id="quiz-progress" class="progress-fill"></div></div>
-                <div id="quiz-body">
-                    <div class="question-box" id="lbl-pertanyaan">Memuat tantangan kuis...</div>
-                    <div class="visual-frame" id="box-visual">
-                        <i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>
-                    </div>
-                    <div class="image-grid-options" id="grid-opsi"></div>
-                    <button class="btn-check" onclick="periksaJawabanUser()">Periksa Jawaban</button>
-                </div>
-                <button class="btn-check" onclick="kembaliKeDashboard()" style="background: #64748b; margin-top: 15px;">Kembali ke Menu</button>
             </div>
-        </div>
 
-        <div id="leaderboard-panel" class="duo-container" style="display: block;">
-             <h3 style="margin-top:0; color:var(--mms-navy); border-bottom:2px solid #f1f5f9; padding-bottom:12px; font-size:16px;">
-                <i class="fa-solid fa-trophy" style="color:var(--mms-red); margin-right:6px;"></i> Liga Kompetisi Pemuda
-             </h3>
-            <div id="list-leaderboard">
-                <div style="text-align:center; padding:15px; color:#94a3b8; font-size:14px;"><i class="fa-solid fa-spinner fa-spin"></i> Membaca skor liga...</div>
-            </div>
         </div>
-
-    </div>
 
     <footer class="site-footer">
         <div class="footer-bottom">
