@@ -9,6 +9,103 @@ let indeksSoal = 0;
 let jawabanTerpilih = "";
 let nyawa = 5;
 
+// 🚀 DATA RUMUS LOKAL: Tempat pengisian rumus Active & Passive Voice bertingkat
+// Gunakan penulisan \n untuk enter baris baru agar tidak pecah/error di JavaScript
+const bankMateriLokal = {
+    "Simple Present": {
+        active: "🟢 (+) S + V1 (s/es) + O\n🔴 (-) S + do/does + not + V1 + O\n🔵 (?) Do/Does + S + V1 + O?",
+        passive: "🟢 (+) S + is/am/are + V3 + by + O\n🔴 (-) S + is/am/are + not + V3 + by + O\n🔵 (?) Is/Am/Are + S + V3 + by + O?"
+    },
+    "Simple Present Nominal": {
+        active: "🟢 (+) S + is/am/are + Nominal (ANAV)\n🔴 (-) S + is/am/are + not + Nominal\n🔵 (?) Is/Am/Are + S + Nominal?",
+        passive: "No Passive Form (Nominal/Dasar)."
+    },
+    "Present Continuous": {
+        active: "🟢 (+) S + am/is/are + V-ing + O\n🔴 (-) S + am/is/are + not + V-ing + O\n🔵 (?) Am/Is/Are + S + V-ing + O?",
+        passive: "🟢 (+) S + is/am/are + being + V3 + by + O\n🔴 (-) S + is/am/are + not + being + V3 + by + O\n🔵 (?) Is/Am/Are + S + being + V3 + by + O?"
+    },
+    "Present Perfect": {
+        active: "🟢 (+) S + have/has + V3 + O\n🔴 (-) S + have/has + not + V3 + O\n🔵 (?) Have/Has + S + V3 + O?",
+        passive: "🟢 (+) S + have/has + been + V3 + by + O\n🔴 (-) S + have/has + not + been + V3 + by + O\n🔵 (?) Have/Has + S + been + V3 + by + O?"
+    },
+    "Present Perfect Nominal": {
+        active: "🟢 (+) S + have/has + been + Nominal\n🔴 (-) S + have/has + not + been + Nominal\n🔵 (?) Have/Has + S + been + Nominal?",
+        passive: "No Passive Form (Nominal/Dasar)."
+    },
+    "Present Perfect Continuous": {
+        active: "🟢 (+) S + have/has + been + V-ing + O\n🔴 (-) S + have/has + not + been + V-ing + O\n🔵 (?) Have/Has + S + been + V-ing + O?",
+        passive: "🟢 (+) S + have/has + been + being + V3 + by + O"
+    },
+    "Simple Past": {
+        active: "🟢 (+) S + V2 + O\n🔴 (-) S + did + not + V1 + O\n🔵 (?) Did + S + V1 + O?",
+        passive: "🟢 (+) S + was/were + V3 + by + O\n🔴 (-) S + was/were + not + V3 + by + O\n🔵 (?) Was/Were + S + V3 + by + O?"
+    },
+    "Simple Past Nominal": {
+        active: "🟢 (+) S + was/were + Nominal\n🔴 (-) S + was/were + not + Nominal\n🔵 (?) Was/Were + S + Nominal?",
+        passive: "No Passive Form (Nominal/Dasar)."
+    },
+    "Past Continuous": {
+        active: "🟢 (+) S + was/were + V-ing + O\n🔴 (-) S + was/were + not + V-ing + O\n🔵 (?) Was/Were + S + V-ing + O?",
+        passive: "🟢 (+) S + was/were + being + V3 + by + O\n🔴 (-) S + was/were + not + being + V3 + by + O\n🔵 (?) Was/Were + S + being + V3 + by + O?"
+    },
+    "Past Perfect": {
+        active: "🟢 (+) S + had + V3 + O\n🔴 (-) S + had + not + V3 + O\n🔵 (?) Had + S + V3 + O?",
+        passive: "🟢 (+) S + had + been + V3 + by + O\n🔴 (-) S + had + not + been + V3 + by + O\n🔵 (?) Had + S + been + V3 + by + O?"
+    },
+    "Past Perfect Nominal": {
+        active: "🟢 (+) S + had + been + Nominal\n🔴 (-) S + had + not + been + Nominal\n🔵 (?) Had + S + been + Nominal?",
+        passive: "No Passive Form (Nominal/Dasar)."
+    },
+    "Past Perfect Continuous": {
+        active: "🟢 (+) S + had + been + V-ing + O\n🔴 (-) S + had + not + been + V-ing + O\n🔵 (?) Had + S + been + V-ing + O?",
+        passive: "🟢 (+) S + had + been + being + V3 + by + O"
+    },
+    "Simple Future": {
+        active: "🟢 (+) S + will + V1 + O\n🔴 (-) S + will + not + V1 + O\n🔵 (?) Will + S + V1 + O?",
+        passive: "🟢 (+) S + will + be + V3 + by + O\n🔴 (-) S + will + not + be + V3 + by + O\n🔵 (?) Will + S + be + V3 + by + O?"
+    },
+    "Simple Future Nominal": {
+        active: "🟢 (+) S + will + be + Nominal\n🔴 (-) S + will + not + be + Nominal\n🔵 (?) Will + S + be + Nominal?",
+        passive: "No Passive Form (Nominal/Dasar)."
+    },
+    "Future Continuous": {
+        active: "🟢 (+) S + will + be + V-ing + O\n🔴 (-) S + will + not + be + V-ing + O\n🔵 (?) Will + S + be + V-ing + O?",
+        passive: "🟢 (+) S + will + be + being + V3 + by + O"
+    },
+    "Future Perfect": {
+        active: "🟢 (+) S + will + have + V3 + O\n🔴 (-) S + will + have + not + V3 + O\n🔵 (?) Will + S + have + V3 + O?",
+        passive: "🟢 (+) S + will + have + been + V3 + by + O"
+    },
+    "Future Perfect Continuous": {
+        active: "🟢 (+) S + will + have + been + V-ing + O\n🔴 (-) S + will + have + not + been + V-ing + O\n🔵 (?) Will + S + have + been + V-ing + O?",
+        passive: "🟢 (+) S + will + have been + being + V3 + by + O"
+    },
+    "Simple Past Future": {
+        active: "🟢 (+) S + would + V1 + O\n🔴 (-) S + would + not + V1 + O\n🔵 (?) Would + S + V1 + O?",
+        passive: "🟢 (+) S + would + be + V3 + by + O"
+    },
+    "Simple Past Future Nominal": {
+        active: "🟢 (+) S + would + be + Nominal\n🔴 (-) S + would + not + be + Nominal\n🔵 (?) Would + S + be + Nominal?",
+        passive: "No Passive Form (Nominal/Dasar)."
+    },
+    "Past Future Continuous": {
+        active: "🟢 (+) S + would + be + V-ing + O\n🔴 (-) S + would + not + be + V-ing + O\n🔵 (?) Would + S + be + V-ing + O?",
+        passive: "🟢 (+) S + would + be + being + V3 + by + O"
+    },
+    "Past Future Perfect": {
+        active: "🟢 (+) S + would + have + V3 + O\n🔴 (-) S + would + have + not + V3 + O\n🔵 (?) Would + S + have + V3 + O?",
+        passive: "🟢 (+) S + would + have + been + V3 + by + O"
+    },
+    "Past Future Perfect Nominal": {
+        active: "🟢 (+) S + would + have + been + Nominal\n🔴 (-) S + would + not + been + Nominal\n🔵 (?) Would + S + have + been + Nominal?",
+        passive: "No Passive Form (Nominal/Dasar)."
+    },
+    "Past Future Perfect Continuous": {
+        active: "🟢 (+) S + would + have + been + V-ing + O\n🔴 (-) S + would + have + not + been + V-ing + O\n🔵 (?) Would + S + have + been + V-ing + O?",
+        passive: "🟢 (+) S + would + have + been + being + V3 + by + O"
+    }
+};
+
 const kuisOffline = [
     { tanya: "Which one is an administrative tool used to store residents' data?", opsi: ["Database", "Invoice", "Schedule", "Letterhead"], benar: "Database", visual: "fa-database" }
 ];
@@ -174,7 +271,6 @@ function toggleRumpunTense(panelId) {
     }
 }
 
-// 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Present, Past, Future, Past Future)
 function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
     if (!panel) return;
@@ -205,7 +301,6 @@ function toggleAccordionBox(panelId) {
     }
 }
 
-// 2. Fungsi Mengatur Laci Paling Dalam (Beri Warna Aksen pada Materi yang Dibuka)
 function toggleSubLaci(idLaci) {
     let el = document.getElementById(idLaci);
     if (!el) return;
@@ -234,8 +329,6 @@ function toggleSubLaci(idLaci) {
     }
 }
 
-// 🚀 FUNGSI BARU: Khusus mengatur laci contoh kalimat di dalam MODAL secara mandiri (Layer 5)
-// Berfungsi agar penutupan tertata rapi step-by-step tanpa merontokkan laci luar
 function toggleModalSubAccordion(subPanelId) {
     let subPanel = document.getElementById(subPanelId);
     if (!subPanel) return;
@@ -318,6 +411,7 @@ function kembaliKeDashboard() {
     resetTampilanDashboard();
 }
 
+// 🚀 UPGRADE FUNGSI PENAMPIL MATERI: Sinkronisasi Otomatis dengan Object Rumus Lokal Pemuda
 function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -354,42 +448,36 @@ function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
         }
     }
 
+    // 1. Ambil data silabus/pembahasan/visual dasar dari Google Sheets
     let dataCocok = bankMateri.find(m => {
         let namaDiSheet = (m.namaMateri || "").toLowerCase().trim();
         let tipeDiSheet = (m.tipeRumus || "").toLowerCase().trim();
         return namaDiSheet.includes(namaTense.toLowerCase().trim()) && tipeDiSheet === tipeRumusGabungan.toLowerCase().trim();
     });
 
-    if (!dataCocok) {
-        if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-        if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Silakan isi baris materi ini di Google Sheets.";
-        if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
-        document.getElementById("materi-pembahasan-box").style.display = "flex";
-        return;
-    }
+    if(boxSilabus) boxSilabus.innerText = dataCocok ? (dataCocok.modals || "Tidak ada kata kunci khusus.") : "Tidak ada kata kunci khusus.";
+    if(boxPembahasan) boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
 
-    if(boxSilabus) boxSilabus.innerText = dataCocok.modals || "Tidak ada kata kunci khusus.";
-
-    let teksRumusGabungan = dataCocok.rumus || "";
-    let rumusAktif = "Tidak ada rumus aktif.";
-    let rumusPasif = "No Passive Form (Nominal/Dasar)."; 
-
-    if (teksRumusGabungan.includes("[Pasif]") || teksRumusGabungan.includes("Pasif")) {
-        let pemisah = teksRumusGabungan.includes("[Pasif]") ? "[Pasif]" : "Pasif";
-        let bagianRumus = teksRumusGabungan.split(pemisah);
-        rumusAktif = bagianRumus[0].replace("[Aktif]", "").replace("Aktif", "").trim();
-        rumusPasif = bagianRumus[1].trim();
-        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block"; 
+    // 🚀 2. SINKRONISASI LOGIKA MANDIRI: Tarik rumus dari object lokal biar enter (\n) berfungsi 100%
+    let rumusLokal = bankMateriLokal[namaTense];
+    if (rumusLokal) {
+        if(boxRumusAktif) boxRumusAktif.innerText = rumusLokal.active;
+        if(boxRumusPasif) boxRumusPasif.innerText = rumusLokal.passive;
+        
+        // Memunculkan kontainer pembungkus pasif jika tenses tersebut memiliki bentuk pasif
+        if (rumusLokal.passive.toLowerCase().includes("no passive")) {
+            if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none";
+        } else {
+            if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block";
+        }
     } else {
-        rumusAktif = teksRumusGabungan.replace("[Aktif]", "").replace("Aktif", "").trim();
-        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none"; 
+        if(boxRumusAktif) boxRumusAktif.innerText = "Belum ada rumus aktif.";
+        if(boxRumusPasif) boxRumusPasif.innerText = "Belum ada rumus pasif.";
     }
-    if(boxRumusAktif) boxRumusAktif.innerText = rumusAktif;
-    if(boxRumusPasif) boxRumusPasif.innerText = rumusPasif;
 
-    let kolomF = dataCocok.pembahasan || ""; 
-    let kolomG = dataCocok.arti || "";       
+    // 3. Tarik data Contoh Kalimat & Arti dari Sheets (Kolom F & G)
+    let kolomF = dataCocok ? (dataCocok.pembahasan || "") : ""; 
+    let kolomG = dataCocok ? (dataCocok.arti || "") : "";       
 
     let inggrisAktif = "Belum ada contoh kalimat.", inggrisPasif = "No Passive Example.";
     let artiAktif = "", artiPasif = "";
@@ -414,7 +502,7 @@ function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
 
     if(boxArtiAktif) {
         boxArtiAktif.innerHTML = `
-            <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisAktif}</div>
+            <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${inggrisAktif || 'Belum ada contoh.'}</div>
             <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
             <div style="font-size: 12.5px; color: #475569; font-weight: 500;"><b>Artinya:</b> ${artiAktif || 'Belum ada terjemahan.'}</div>
         `;
@@ -428,10 +516,8 @@ function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
         `;
     }
 
-    if(boxPembahasan) boxPembahasan.innerText = `Pola karakter rumpun waktu ${namaTense} digunakan untuk mengekspresikan struktur tata bahasa sesuai dengan fungsi gramatikal yang berlaku.`;
-
     if(boxVisualMateri) {
-        let visual = dataCocok.visual || "";
+        let visual = dataCocok ? (dataCocok.visual || "") : "";
         if (visual.startsWith("fa-")) {
             boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
         } 
