@@ -75,7 +75,7 @@ body {
 .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
 
-/* 🌟 TOMBOL ASLI (MENJAGA PADDING & HOVER PUTIH ➡️ BLUE-SOFT MILIK BAB 1 & BAB 4) */
+/* 🌟 BASE STYLE TOMBOL LEVEL 3 (DIAM) */
 .btn-type-choice { 
     padding: 10px 4px; 
     background: #fff; 
@@ -89,12 +89,14 @@ body {
     font-size: 12px; 
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important; 
 }
+
+/* 🚀 FIX SINKRONISASI HOVER: Paksa tombol level 3 di BAB 1 & BAB 4 menyala BIRU SOFT VARIATIF (Bukan Abu-abu kaku lagi) */
 .btn-type-choice:hover { 
-    background-color: #cbd5e1 !important; 
-    color: #1e293b !important; 
-    border-color: #94a3b8 !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    background-color: #eff6ff !important;   /* Berubah menjadi biru transparan soft segar */
+    color: #2563eb !important;              /* Tulisan berganti menjadi biru tajam kontras tinggi */
+    border-color: #bfdbfe !important;       /* Border luar menajam sewarna biru pastel */
+    transform: translateY(-1px);            /* Animasi membal mengangkat halus ke atas */
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.06);
 }
 .btn-type-choice:active { transform: translateY(2px); border-bottom-width: 1px; }
 .btn-type-choice.mms-active-dasar { border-color: var(--mms-red); background: #fff5f5; color: var(--mms-red); }
@@ -255,17 +257,17 @@ body {
 #leaderboard-panel { width: 100% !important; max-width: 550px !important; margin: 0 auto 25px auto !important; box-sizing: border-box; }
 
 /* ====================================================================
-   FIX TOTAL: KUNCI SEMUA LEVEL 3 (BAB 2 & 3) BERWARNA PUTIH DIAM ➡️ HOVER BIRU
+   FIX INTERIOR ACCORDION: LAYER 2 MERAH SOFT ➡️ LAYER 3 PUTIH DIAM HOVER BIRU
    ==================================================================== */
 
-/* 1. Kontainer Utama Bab saat Terbuka */
+/* 1. Kotak BAB Utama saat Aktif Terbuka */
 .mms-bab-active-card {
     border: 2px solid #f87171 !important;       
     box-shadow: 0 6px 20px rgba(204, 2, 2, 0.12);
     transition: all 0.25s ease-in-out;
 }
 
-/* Judul Bab Atas: Tetap Berwarna Merah Khas Muda Mudi */
+/* Kotak Pilihan Judul Bab Atas: Berubah Merah Solid Muda Mudi */
 .mms-bab-active-card .mms-rumpun-header {
     background-color: var(--mms-red) !important; 
     border-bottom: 2px solid #b30202 !important;
@@ -282,7 +284,7 @@ body {
     padding: 16px !important;
 }
 
-/* ⬜ 2. SETTING LAYER 3 (KOTAK PRESENT, PAST, DST): PAKSA WARNA DASAR PUTIH BERSIH */
+/* ⬜ 2. SETTING LAYER 3 (KOTAK TENSES): PAKSA WARNA DASAR PUTIH BERSIH SAAT DIAM */
 #mms-bab-2-content .mms-nested-time-card,
 #mms-bab-3-content .mms-nested-time-card {
     background-color: #ffffff !important;       /* Kunci warna dasar menjadi putih bersih bersalut abu-abu */
@@ -305,10 +307,10 @@ body {
     color: #475569 !important;                  /* Warna teks default abu-abu elegan */
 }
 
-/* 🚀 EFEK HOVER SERAGAM: Dari Putih berubah menjadi Biru Transparan Soft Membal */
+/* 🚀 SINKRONISASI HOVER LEVEL 3 (BAB 2 & 3): Ikut menyala biru transparan membal mengikuti Bab 1 & 4 */
 #mms-bab-2-content .mms-nested-time-card:hover,
 #mms-bab-3-content .mms-nested-time-card:hover {
-    background-color: #eff6ff !important;       /* Berubah jadi biru transparan soft (Identik Bab 1) */
+    background-color: #eff6ff !important;       /* Berubah jadi biru transparan soft */
     border-color: #bfdbfe !important;           
     transform: translateY(-1px);                
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
