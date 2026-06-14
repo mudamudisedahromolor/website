@@ -90,7 +90,7 @@ body {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important; 
 }
 
-/* 🚀 FIX SINKRONISASI HOVER: Paksa tombol level 3 di BAB 1 & BAB 4 menyala BIRU SOFT VARIATIF (Bukan Abu-abu kaku lagi) */
+/* 🚀 FIX SINKRONISASI HOVER: Paksa tombol level 3 di BAB 1 & BAB 4 menyala BIRU SOFT VARIATIF */
 .btn-type-choice:hover { 
     background-color: #eff6ff !important;   /* Berubah menjadi biru transparan soft segar */
     color: #2563eb !important;              /* Tulisan berganti menjadi biru tajam kontras tinggi */
@@ -223,33 +223,6 @@ body {
 .mms-tips-table th, .mms-tips-table td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: center; }
 .mms-tips-table th { background: var(--mms-navy); color: #fff; font-weight: bold; }
 
-.mms-rumpun-card {
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-    overflow: hidden;
-    margin-bottom: 12px;
-    transition: all 0.2s ease-in-out;
-}
-.mms-rumpun-header {
-    padding: 16px;
-    background: #fff;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    font-size: 16px;
-    color: var(--mms-navy);
-    border-bottom: 1px solid #f1f5f9;
-    transition: background 0.15s;
-    user-select: none;
-}
-.mms-rumpun-header:hover { background: #f8fafc; }
-.mms-rumpun-content { display: none; flex-direction: column; gap: 16px; padding: 16px; background: #fff; }
-.mms-sub-title { font-weight: bold; color: var(--mms-navy); font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; }
-
 .materi-body-back-btn { background: #64748b; transition: all 0.25s ease-in-out; }
 .materi-body-back-btn:hover { background: #475569 !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transform: translateY(-1px); }
 .materi-body-back-btn:active { transform: translateY(1px); }
@@ -257,44 +230,73 @@ body {
 #leaderboard-panel { width: 100% !important; max-width: 550px !important; margin: 0 auto 25px auto !important; box-sizing: border-box; }
 
 /* ====================================================================
-   FIX INTERIOR ACCORDION: LAYER 2 MERAH SOFT ➡️ LAYER 3 PUTIH DIAM HOVER BIRU
+   UPGRADE UTAMA: LAYER 1 MERAH SOLID SEJAK AWAL (SANGAT KUAT & TEGAS)
    ==================================================================== */
 
-/* 1. Kotak BAB Utama saat Aktif Terbuka */
-.mms-bab-active-card {
-    border: 2px solid #f87171 !important;       
-    box-shadow: 0 6px 20px rgba(204, 2, 2, 0.12);
+/* Base Container Rumpun Kardus BAB */
+.mms-rumpun-card {
+    border: 2px solid var(--mms-red);           /* Bingkai luar merah menyala dari awal */
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(204, 2, 2, 0.04);
+    overflow: hidden;
+    margin-bottom: 14px;
     transition: all 0.25s ease-in-out;
 }
 
-/* Kotak Pilihan Judul Bab Atas: Berubah Merah Solid Muda Mudi */
-.mms-bab-active-card .mms-rumpun-header {
-    background-color: var(--mms-red) !important; 
-    border-bottom: 2px solid #b30202 !important;
-}
-.mms-bab-active-card .mms-rumpun-header span,
-.mms-bab-active-card .mms-rumpun-header i {
-    color: #ffffff !important;
+/* HEADER JUDUL BAB UTAMA (LAYER 1): Langsung dipaksa MERAH SOLID sejak awal */
+.mms-rumpun-header {
+    padding: 16px;
+    background-color: var(--mms-red) !important; /* Blok warna merah organisasi */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
 }
 
-/* 🟥 LAYER 2 CONTENT: Background utama pembungkus luar tetap PINK/MERAH SOFT PEKAT */
+/* Mengunci teks judul bab dan ikon di dalamnya menjadi PUTIH BERSIH kontras tinggi */
+.mms-rumpun-header span,
+.mms-rumpun-header span i,
+.mms-rumpun-header i {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* EFEK HOVER LAYER 1: Bergeser ke merah gelap secara interaktif */
+.mms-rumpun-header:hover {
+    background-color: var(--mms-red-hover) !important; /* Ke arah #b30202 */
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.08);   
+}
+
+/* Kondisi ketika Kardus BAB Aktif Terbuka Melipat */
+.mms-bab-active-card {
+    border: 2px solid var(--mms-red) !important;
+    box-shadow: 0 6px 20px rgba(204, 2, 2, 0.15) !important;
+}
+.mms-bab-active-card .mms-rumpun-header {
+    border-bottom: 2px solid var(--mms-red-hover) !important;
+}
+
+/* 🟥 LAYER 2 CONTENT: Background laci pembungkus tenses tetap PINK / ROSE SOFT */
 .mms-bab-active-card .mms-rumpun-content {
     background-color: #ffe4e6 !important;       
     border-top: 1px solid #fca5a5 !important;
     padding: 16px !important;
 }
 
-/* ⬜ 2. SETTING LAYER 3 (KOTAK TENSES): PAKSA WARNA DASAR PUTIH BERSIH SAAT DIAM */
+/* ⬜ LAYER 3 (KOTAK TENSES): PAKSA WARNA DASAR PUTIH BERSIH SAAT DIAM */
 #mms-bab-2-content .mms-nested-time-card,
 #mms-bab-3-content .mms-nested-time-card {
-    background-color: #ffffff !important;       /* Kunci warna dasar menjadi putih bersih bersalut abu-abu */
+    background-color: #ffffff !important;       
     border: 1px solid #cbd5e1 !important;
-    border-bottom: 3px solid #cbd5e1 !important; /* Efek ketebalan border bawah khas duolingo */
+    border-bottom: 3px solid #cbd5e1 !important; 
     border-radius: 8px !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Paksa warna header di dalam kotak level 3 bawaan menjadi text abu-abu gelap/navy saat diam */
+/* Warna internal header level 3 abu-abu default saat diam */
 #mms-bab-2-content .mms-nested-time-card .mms-rumpun-header,
 #mms-bab-3-content .mms-nested-time-card .mms-rumpun-header {
     background-color: transparent !important;
@@ -304,19 +306,17 @@ body {
 #mms-bab-3-content .mms-nested-time-card .mms-rumpun-header span,
 #mms-bab-2-content .mms-nested-time-card .mms-rumpun-header i,
 #mms-bab-3-content .mms-nested-time-card .mms-rumpun-header i {
-    color: #475569 !important;                  /* Warna teks default abu-abu elegan */
+    color: #475569 !important;                  
 }
 
-/* 🚀 SINKRONISASI HOVER LEVEL 3 (BAB 2 & 3): Ikut menyala biru transparan membal mengikuti Bab 1 & 4 */
+/* 🚀 SINKRONISASI HOVER LEVEL 3 (BAB 2 & 3): Berubah menyala biru transparan membal */
 #mms-bab-2-content .mms-nested-time-card:hover,
 #mms-bab-3-content .mms-nested-time-card:hover {
-    background-color: #eff6ff !important;       /* Berubah jadi biru transparan soft */
+    background-color: #eff6ff !important;       
     border-color: #bfdbfe !important;           
     transform: translateY(-1px);                
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
 }
-
-/* Teks dan Ikon otomatis menyala Biru Tajam Interaktif saat di-hover */
 #mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header span,
 #mms-bab-3-content .mms-nested-time-card:hover .mms-rumpun-header span,
 #mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header i,
@@ -324,7 +324,7 @@ body {
     color: #2563eb !important;                  
 }
 
-/* ⬜ 3. LAYER 4 (LACI PALING DALAM): Interior laci rumus tetap putih bersih */
+/* ⬜ LAYER 4 (LACI PALING DALAM): Interior laci rumus tetap putih bersih */
 .mms-sub-laci {
     background-color: #ffffff !important;       
     border: 1px dashed #cbd5e1 !important;
