@@ -443,13 +443,20 @@ function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
     document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
+// PERBAIKAN AKURAT: Tutup modal secara mandiri tanpa merusak tumpukan laci di belakangnya
 function tutupModalMateri(e) {
+    let modalBox = document.getElementById("materi-pembahasan-box");
+    if (!modalBox) return;
+
     if (!e) {
-        document.getElementById("materi-pembahasan-box").style.display = "none";
+        // Pemicu dari tombol silang (X): MURNI sembunyikan modal saja! JANGAN panggil resetTampilanDashboard()
+        modalBox.style.display = "none";
         return;
     }
+    
+    // Pemicu dari klik area luar overlay gelap
     if (e.target.id === "materi-pembahasan-box") {
-        document.getElementById("materi-pembahasan-box").style.display = "none";
+        modalBox.style.display = "none";
     }
 }
 
