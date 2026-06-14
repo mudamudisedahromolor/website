@@ -174,13 +174,57 @@ function toggleRumpunTense(panelId) {
     }
 }
 
+// ==========================================================
+// KONTROL AKORDION BERTINGKAT (AUTO CLOSE KOTAK LAIN)
+// ==========================================================
+
+// 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Present, Past, Future, Past Future)
 function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
     if (!panel) return;
-    if (panel.style.display === "block" || panel.style.display === "flex") {
-        panel.style.display = "none";
-    } else {
+    
+    // Cek apakah kotak yang diklik saat ini statusnya sedang menutup/tersembunyi
+    let isOpening = (panel.style.display === "none" || panel.style.display === "");
+
+    // 🚀 INI KUNCI PINTARNYA: Cari dan paksa tutup semua kotak rumpun waktu lain terlebih dahulu
+    let semuaKotakWaktu = [
+        'act-box-present', 'act-box-past', 'act-box-future', 'act-box-pfuture',
+        'pas-box-present', 'pas-box-past', 'pas-box-future', 'pas-box-pfuture'
+    ];
+    
+    semuaKotakWaktu.forEach(id => {
+        let p = document.getElementById(id);
+        if (p) {
+            p.style.display = "none"; // Tutup semua kotak
+        }
+    });
+
+    // Sekaligus amankan dan bersihkan laci-laci kecil di dalam agar ikut melipat rapi
+    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
+        laci.style.display = "none";
+    });
+
+    // Jika kotak yang diklik tadi memang ingin dibuka, silakan jalankan sekarang
+    if (isOpening) {
         panel.style.display = "flex";
+    }
+}
+
+// 2. Fungsi Mengatur Laci Paling Dalam (Tombol Materi Verbal/Nominal)
+function toggleSubLaci(idLaci) {
+    let el = document.getElementById(idLaci);
+    if (!el) return;
+    
+    let isOpening = (el.style.display === "none" || el.style.display === "");
+
+    // Tutup semua sub-laci kecil lain di rumpun yang sama agar tidak tumpang tindih
+    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
+        laci.style.display = "none";
+    });
+
+    // Buka laci kecil target lurus ke bawah
+    if (isOpening) {
+        el.style.display = "block";
     }
 }
 
