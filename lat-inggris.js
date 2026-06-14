@@ -407,7 +407,6 @@ function tampilkanMateriSpesifik(namaTense, tipeRumusGabungan) {
 
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
     
-    // Reset teks tombol video biru ke kondisi awal tiap ganti materi
     if (btnVideo) {
         btnVideo.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
         btnVideo.style.background = "#eff6ff";
@@ -593,22 +592,18 @@ function mmsToggleDinamisMediaMateri(e) {
     }
 }
 
-
-
-// 1. Fungsi Buka-Tutup Pintar Akordion Bab
+// 3. Fungsi Buka-Tutup Akordion Utama Bab (Bab 1 - 4)
 function toggleRumpunSmart(idBab) {
-    // Cari semua panel konten bab
     let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
     
     semuaBab.forEach(id => {
         let el = document.getElementById(id);
         if (!el) return;
         
-        let header = el.previousElementSibling; // Mengambil elemen header (tombol bab)
+        let header = el.previousElementSibling; 
         let icon = header ? header.querySelector('.fa-chevron-down, .fa-chevron-up') : null;
 
         if (id === idBab) {
-            // Jika bab ini yang diklik, balikkan kondisinya (Tutup jika buka, Buka jika tutup)
             if (el.style.display === "none" || el.style.display === "") {
                 el.style.display = "flex";
                 if (icon) { icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
@@ -617,21 +612,41 @@ function toggleRumpunSmart(idBab) {
                 if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
             }
         } else {
-            // Tutup semua bab lain secara otomatis agar layar bersih
             el.style.display = "none";
             if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
         }
     });
 }
 
-// 2. Global Event Listener: Deteksi klik di luar area untuk Auto-Close otomatis
+// 4. Fungsi Kontrol Buka-Tutup Sub-Laci Kategori Vertikal (1 Kolom)
+function toggleSubLaci(idLaci) {
+    let el = document.getElementById(idLaci);
+    if (!el) return;
+    
+    let isOpening = (el.style.display === "none" || el.style.display === "");
+
+    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
+        laci.style.display = "none";
+    });
+
+    if (isOpening) {
+        el.style.display = "block";
+    }
+}
+
+// 5. PENYATUAN GLOBAL EVENT LISTENER: Aman, Cerdas, Bebas Blokir Login
 document.addEventListener('click', function(event) {
-    // Jika yang diklik adalah bagian dari header bab atau isi konten bab, abaikan (jangan ditutup)
-    if (event.target.closest('.mms-rumpun-header') || event.target.closest('.mms-rumpun-content')) {
+    // PENGAMAN ABSOLUT: Jika user beraktivitas di form login/input email, matikan fungsi tutup luar!
+    if (event.target.closest('form') || event.target.id === 'user-email' || event.target.closest('#login-panel')) {
+        return; 
+    }
+
+    // Jika yang diklik area pemicu bab utama atau sub-laci, jangan ditutup otomatis
+    if (event.target.closest('.mms-rumpun-header') || event.target.closest('.mms-rumpun-content') || event.target.closest('button[onclick^="toggleSubLaci"]') || event.target.closest('.mms-sub-laci')) {
         return;
     }
     
-    // Jika ngetuk di luar area kartu bab mana pun, otomatis tutup semua bab yang sedang menganga
+    // Klik di area kosong luar: Tutup Akordion Bab Utama
     let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
     semuaBab.forEach(id => {
         let el = document.getElementById(id);
@@ -642,59 +657,9 @@ document.addEventListener('click', function(event) {
             if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
         }
     });
-});
 
-
-// ==========================================================
-// FUNGSI PENDUKUNG SUB-LACI PINTAR (1 KOLOM VERTIKAL)
-// ==========================================================
-
-// 1. Fungsi Kontrol Buka-Tutup Laci Kategori Vertikal
-function toggleSubLaci(idLaci) {
-    let el = document.getElementById(idLaci);
-    if (!el) return;
-    
-    let isOpening = (el.style.display === "none" || el.style.display === "");
-
-    // Tutup semua sub-laci kategori lain yang sedang menganga
-    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
-        laci.style.display = "none";
-    });
-
-    // Jika laci kategori yang diklik statusnya tertutup, buka lurus ke bawah
-    if (isOpening) {
-        el.style.display = "block";
-    }
-}
-
-// 2. Event Listener Global: Otomatis tutup laci jika klik di luar area menu
-document.addEventListener('click', function(event) {
-    // PENGAMAN: Jika user masih di halaman login awal, abaikan fungsi auto-close ini
-    if (event.target.closest('form') || event.target.id === 'btn-login' || event.target.closest('.login-container')) {
-        return; 
-    }
-
-    // Jika yang diklik adalah tombol pemicu laci ATAU bagian dalam laci itu sendiri, abaikan saja
-    if (event.target.closest('button[onclick^="toggleSubLaci"]') || event.target.closest('.mms-sub-laci')) {
-        return;
-    }
-    
-    // Tutup semua laci otomatis jika pengguna mengetuk area kosong di luar bungkusan materi
+    // Klik di area kosong luar: Tutup Laci-laci Kecil Vertikal
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
         laci.style.display = "none";
     });
 });
-
-
-/* Class khusus untuk membedakan tombol Nominal tanpa merusak animasi hover */
-.btn-mms-nominal {
-    background-color: #f1f5f9 !important;
-    border-color: #e2e8f0 !important;
-}
-
-/* Biar pas kursor nempel (hover), warnanya mau berubah ngikutin tombol verbal murni */
-.btn-mms-nominal:hover {
-    background-color: var(--mms-accent) !important; /* atau warna hover bawaan sampeyan */
-    color: #ffffff !important;
-    border-color: var(--mms-accent) !important;
-}
