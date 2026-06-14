@@ -345,3 +345,13 @@ body {
     border-color: #475569 !important;
     font-weight: 600 !important;
 }
+/* ====================================================================
+   PENGEMBALIAN FITUR: MEMUNCULKAN KEMBALI TOMBOL KEMBALI KE MENU
+   ==================================================================== */
+.mms-rumpun-content { 
+    display: none; 
+    flex-direction: column; 
+    gap: 16px; 
+    padding: 16px; 
+    background: #fff; 
+}
