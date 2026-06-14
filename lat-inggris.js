@@ -174,19 +174,13 @@ function toggleRumpunTense(panelId) {
     }
 }
 
-// ==========================================================
-// KONTROL AKORDION BERTINGKAT (AUTO CLOSE KOTAK LAIN)
-// ==========================================================
-
-// 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Present, Past, Future, Past Future)
+// 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Auto-Close & Reset Status Aktif)
 function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
     if (!panel) return;
     
-    // Cek apakah kotak yang diklik saat ini statusnya sedang menutup/tersembunyi
     let isOpening = (panel.style.display === "none" || panel.style.display === "");
 
-    // 🚀 INI KUNCI PINTARNYA: Cari dan paksa tutup semua kotak rumpun waktu lain terlebih dahulu
     let semuaKotakWaktu = [
         'act-box-present', 'act-box-past', 'act-box-future', 'act-box-pfuture',
         'pas-box-present', 'pas-box-past', 'pas-box-future', 'pas-box-pfuture'
@@ -194,38 +188,42 @@ function toggleAccordionBox(panelId) {
     
     semuaKotakWaktu.forEach(id => {
         let p = document.getElementById(id);
-        if (p) {
-            p.style.display = "none"; // Tutup semua kotak
-        }
+        if (p) p.style.display = "none";
     });
 
- // 🚀 Sembunyikan semua laci dan cabut semua warna penanda aktif saat kotak waktu berpindah
+    // Sembunyikan semua sub-laci dan bersihkan efek tombol aktif saat berganti rumpun waktu
     document.querySelectorAll('.mms-sub-laci').forEach(laci => laci.style.display = "none");
     document.querySelectorAll('.btn-type-choice').forEach(btn => {
         btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 
-    // Jika kotak yang diklik tadi memang ingin dibuka, silakan jalankan sekarang
     if (isOpening) {
         panel.style.display = "flex";
     }
 }
 
-// 2. Fungsi Mengatur Laci Paling Dalam (Tombol Materi Verbal/Nominal)
+// 2. Fungsi Mengatur Laci Paling Dalam (Beri Warna Aksen pada Materi yang Dibuka)
 function toggleSubLaci(idLaci) {
     let el = document.getElementById(idLaci);
     if (!el) return;
     
     let isOpening = (el.style.display === "none" || el.style.display === "");
+    let pemicuKlik = event.currentTarget; 
 
-    // Tutup semua sub-laci kecil lain di rumpun yang sama agar tidak tumpang tindih
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
         laci.style.display = "none";
     });
+    document.querySelectorAll('.btn-type-choice').forEach(btn => {
+        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
+    });
 
-    // Buka laci kecil target lurus ke bawah
     if (isOpening) {
         el.style.display = "block";
+        if (pemicuKlik && pemicuKlik.classList.contains('btn-mms-nominal')) {
+            pemicuKlik.classList.add('mms-btn-active-laci-nominal');
+        } else if (pemicuKlik) {
+            pemicuKlik.classList.add('mms-btn-active-laci');
+        }
     }
 }
 
@@ -233,7 +231,6 @@ function resetTampilanDashboard() {
     document.getElementById("dashboard-menu").style.display = "block";
     document.getElementById("materi-body").style.display = "none";
     document.getElementById("vocab-body").style.display = "none";
-    document.getElementById("quiz-body-wrapper").style.display = "none";
     
     if (document.getElementById("mms-accordion-konten-dasar")) {
         document.getElementById("mms-accordion-konten-dasar").style.display = "none";
@@ -243,6 +240,7 @@ function resetTampilanDashboard() {
     }
     document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
 
+    document.querySelectorAll('.mms-rumpun-card').forEach(card => card.classList.remove('mms-bab-active-card'));
     document.querySelectorAll(".mms-rumpun-content").forEach(p => p.style.display = "none");
     document.querySelectorAll(".mms-rumpun-header .fa-chevron-up").forEach(i => {
         i.classList.remove("fa-chevron-up");
@@ -254,7 +252,6 @@ function bukaMateriMenu() {
     document.getElementById("dashboard-menu").style.display = "none";
     document.getElementById("materi-body").style.display = "block";
     document.getElementById("vocab-body").style.display = "none";
-    document.getElementById("quiz-body-wrapper").style.display = "none";
     document.getElementById("materi-pembahasan-box").style.display = "none";
 }
 
@@ -262,7 +259,6 @@ function bukaVocab() {
     document.getElementById("dashboard-menu").style.display = "none";
     document.getElementById("materi-body").style.display = "none";
     document.getElementById("vocab-body").style.display = "block";
-    document.getElementById("quiz-body-wrapper").style.display = "none";
     renderKamusKeHalaman();
 }
 
@@ -296,144 +292,6 @@ function renderKamusKeHalaman(filterText = "") {
 function filterKamusUser() {
     let txt = document.getElementById("vocab-search").value.toLowerCase().trim();
     renderKamusKeHalaman(txt);
-}
-
-function bukaQuiz() {
-    document.getElementById("dashboard-menu").style.display = "none";
-    document.getElementById("materi-body").style.display = "none";
-    document.getElementById("vocab-body").style.display = "none";
-    document.getElementById("quiz-body-wrapper").style.display = "block";
-    tampilkanSoalDinamis();
-}
-
-function tampilkanSoalDinamis() {
-    jawabanTerpilih = "";
-    let quizBody = document.getElementById("quiz-body");
-    if (!quizBody) return;
-
-    if (indeksSoal >= bankSoal.length) {
-        quizBody.innerHTML = `<div class='question-box' style='color:var(--mms-red); padding:30px 0;'><i class='fa-solid fa-trophy fa-3xl' style='margin-bottom:15px; color:var(--mms-accent)'></i><br>CONGRATULATIONS!<br>Kamu menyelesaikan kuis evaluasi hari ini!</div>`;
-        document.getElementById("quiz-progress").style.width = "100%";
-        return;
-    }
-
-    let pct = (indeksSoal / bankSoal.length) * 100;
-    let progressElement = document.getElementById("quiz-progress");
-    if (progressElement) progressElement.style.width = pct + "%";
-
-    let s = bankSoal[indeksSoal];
-    let lblPertanyaan = document.getElementById("lbl-pertanyaan");
-    if (lblPertanyaan) lblPertanyaan.innerText = s.tanya || s.Pertanyaan;
-    
-    let frame = document.getElementById("box-visual");
-    if (frame) {
-        let kodeVisual = s.visual || s.Kode_Visual || s.visual_code;
-        if(kodeVisual && kodeVisual.startsWith("fa-")) {
-            frame.innerHTML = `<i class="fa-solid ${kodeVisual} fa-4x" style="color:var(--mms-accent)"></i>`;
-        } else if(kodeVisual) {
-            frame.innerHTML = `<img src="${kodeVisual}" alt="visual">`;
-        } else {
-            frame.innerHTML = `<i class="fa-solid fa-language fa-4x" style="color:#94a3b8"></i>`;
-        }
-    }
-
-    let grid = document.getElementById("grid-opsi");
-    if (grid) {
-        grid.innerHTML = "";
-        let arrayOpsi = s.opsi || [s.Opsi_A, s.Opsi_B, s.Opsi_C, s.Opsi_D];
-        arrayOpsi.forEach(o => {
-            if(o) {
-                grid.innerHTML += `
-                    <div class="img-option-card" onclick="pilihOpsiCard(this, '${o}')">
-                        <div class="img-box"><i class="fa-solid fa-cube fa-xl"></i></div>
-                        <div class="img-label">${o}</div>
-                    </div>`;
-            }
-        });
-    }
-}
-
-function pilihOpsiCard(el, teks) {
-    document.querySelectorAll(".img-option-card").forEach(c => c.classList.remove("selected"));
-    el.classList.add("selected");
-    jawabanTerpilih = teks;
-}
-
-function periksaJawabanUser() {
-    if(!jawabanTerpilih) return alert("Pilih salah satu opsi jawaban terlebih dahulu!");
-    let s = bankSoal[indeksSoal];
-    let jawabanBenar = s.benar || s.Jawaban_Benar;
-    
-    if (jawabanTerpilih === jawabanBenar) {
-        alert("🎉 Excellent! Jawabanmu Benar (+10 XP)");
-        indeksSoal++;
-        kirimPoinKeServer(10);
-    } else {
-        nyawa--;
-        let heartsElement = document.getElementById("lbl-hearts");
-        if (heartsElement) heartsElement.innerText = nyawa;
-        
-        let hb = document.getElementById("header-bar");
-        if (hb) {
-            hb.className = "duo-header shake-effect";
-            setTimeout(() => hb.className = "duo-header", 400);
-        }
-        
-        alert(`❌ Oops! Kurang tepat. Jawaban benar: ${jawabanBenar}`);
-        if(nyawa <= 0) {
-            alert("⚔️ Game Over! Nyawa habis.");
-            location.reload();
-            return;
-        }
-        indeksSoal++;
-        tampilkanSoalDinamis();
-    }
-}
-
-function kirimPoinKeServer(poin) {
-    if (userSession) {
-        userSession.xp += poin;
-        let xpElement = document.getElementById("lbl-xp");
-        if (xpElement) xpElement.innerText = userSession.xp;
-    }
-    tampilkanSoalDinamis();
-    
-    if (userSession) {
-        fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({ aksi: "updateXP", email: userSession.email, tambahanXP: poin })
-        }).then(() => muatLeaderboard());
-    }
-}
-
-function muatLeaderboard() {
-    fetch(`${API_URL}?aksi=getLeaderboard`)
-    .then(r => r.json()).then(data => {
-        let box = document.getElementById("list-leaderboard");
-        if (!box) return;
-        box.innerHTML = "";
-        
-        if(!data || !Array.isArray(data) || data.length === 0) {
-            box.innerHTML = `<div style="text-align:center; padding:15px; color:#94a3b8; font-size:14px;">Belum ada data skor kompetisi.</div>`;
-            return;
-        }
-
-        data.slice(0, 10).forEach((u, i) => {
-            let medal = i === 0 ? "🥇" : (i === 1 ? "🥈" : (i === 2 ? "🥉" : `<span style='color:#64748b;'>#${i+1}</span>`));
-            box.innerHTML += `
-                <div class="rank-item" style="${i===0 ? 'border-color:var(--mms-red); background:#fff5f5;' : ''}">
-                    <div class="rank-left">
-                        <span>${medal}</span>
-                        <span style="color:#334155;">${u.nama}</span>
-                    </div>
-                    <span style="color:var(--mms-red); font-size:14px;">${u.xp} XP</span>
-                </div>`;
-        });
-    }).catch(e => {
-        console.error("Gagal memuat leaderboard:", e);
-        let box = document.getElementById("list-leaderboard");
-        if(box) box.innerHTML = `<div style="text-align:center; padding:15px; color:var(--mms-red); font-size:14px;">Gagal memuat data kompetisi server.</div>`;
-    });
 }
 
 function kembaliKeDashboard() {
@@ -637,7 +495,7 @@ function mmsToggleDinamisMediaMateri(e) {
     }
 }
 
-// 3. Fungsi Buka-Tutup Akordion Utama Bab (Bab 1 - 4)
+// 3. Fungsi Buka-Tutup Akordion Utama Bab (Dengan Sistem Highlight Merah Muda Mudi)
 function toggleRumpunSmart(idBab) {
     let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
     
@@ -645,6 +503,7 @@ function toggleRumpunSmart(idBab) {
         let el = document.getElementById(id);
         if (!el) return;
         
+        let cardUtama = el.closest('.mms-rumpun-card'); 
         let header = el.previousElementSibling; 
         let icon = header ? header.querySelector('.fa-chevron-down, .fa-chevron-up') : null;
 
@@ -652,73 +511,52 @@ function toggleRumpunSmart(idBab) {
             if (el.style.display === "none" || el.style.display === "") {
                 el.style.display = "flex";
                 if (icon) { icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
+                if (cardUtama) cardUtama.classList.add('mms-bab-active-card');
             } else {
                 el.style.display = "none";
                 if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
+                if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
             }
         } else {
             el.style.display = "none";
             if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
+            if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
         }
     });
 }
 
-// 4. Fungsi Kontrol Buka-Tutup Sub-Laci Kategori Vertikal (1 Kolom)
-// Fungsi Mengatur Laci Paling Dalam (Tombol Kategori 1 Kolom Vertikal)
-function toggleSubLaci(idLaci) {
-    let el = document.getElementById(idLaci);
-    if (!el) return;
-    
-    let isOpening = (el.style.display === "none" || el.style.display === "");
-    let pemicuKlik = event.currentTarget; // Menangkap tombol yang sedang diklik user
-
-    // 🚀 1. Bersihkan status aktif dan tutup semua laci lain terlebih dahulu
-    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
-        laci.style.display = "none";
-    });
-    document.querySelectorAll('.btn-type-choice').forEach(btn => {
-        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
-    });
-
-    // 🚀 2. Jika statusnya membuka, aktifkan laci dan beri warna penanda pada tombolnya
-    if (isOpening) {
-        el.style.display = "block";
-        
-        // Cek apakah tombol yang diklik adalah tipe nominal atau verbal murni
-        if (pemicuKlik.classList.contains('btn-mms-nominal')) {
-            pemicuKlik.classList.add('mms-btn-active-laci-nominal');
-        } else {
-            pemicuKlik.classList.add('mms-btn-active-laci');
-        }
-    }
-}
-
-// 5. PENYATUAN GLOBAL EVENT LISTENER: Aman, Cerdas, Bebas Blokir Login
+// 5. PENYATUAN GLOBAL EVENT LISTENER: Auto Close & Cabut Warna Aktif Tanpa Blokir Form
 document.addEventListener('click', function(event) {
-    // PENGAMAN ABSOLUT: Jika user beraktivitas di form login/input email, matikan fungsi tutup luar!
     if (event.target.closest('form') || event.target.id === 'user-email' || event.target.closest('#login-panel')) {
         return; 
     }
 
-    // Jika yang diklik area pemicu bab utama atau sub-laci, jangan ditutup otomatis
     if (event.target.closest('.mms-rumpun-header') || event.target.closest('.mms-rumpun-content') || event.target.closest('button[onclick^="toggleSubLaci"]') || event.target.closest('.mms-sub-laci')) {
         return;
     }
     
-    // Klik di area kosong luar: Tutup Akordion Bab Utama
     let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
     semuaBab.forEach(id => {
         let el = document.getElementById(id);
         if (el && el.style.display === "flex") {
             el.style.display = "none";
+            let cardUtama = el.closest('.mms-rumpun-card');
+            if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
             let header = el.previousElementSibling;
             let icon = header ? header.querySelector('.fa-chevron-up') : null;
             if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
         }
     });
 
-    // Klik di area kosong luar: Tutup Laci-laci Kecil Vertikal
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
         laci.style.display = "none";
     });
+    document.querySelectorAll('.btn-type-choice').forEach(btn => {
+        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
+    });
+});
+
+// Pemicu otomatis agar data Sheets tetap tersinkron tanpa tombol login lama
+window.addEventListener('DOMContentLoaded', () => {
+    ambilAsetDataWeb();
 });
