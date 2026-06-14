@@ -75,7 +75,7 @@ body {
 .menu-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 .menu-card-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
 
-/* 🌟 TOMBOL ASLI (MENJAGA PADIDNG & HOVER ASLI BAB 1 & BAB 4 KEMBALI NORMAL) */
+/* 🌟 TOMBOL ASLI (MENJAGA PADDING & HOVER ASLI BAB 1 & BAB 4 KEMBALI NORMAL) */
 .btn-type-choice { 
     padding: 10px 4px; 
     background: #fff; 
@@ -255,12 +255,12 @@ body {
 #leaderboard-panel { width: 100% !important; max-width: 550px !important; margin: 0 auto 25px auto !important; box-sizing: border-box; }
 
 /* ====================================================================
-   PERBAIKAN STRUKTUR: PENANDA BAB 2 & 3 (KONTAINER PUTIH + HOVER ANIMASI)
+   FIX TOTAL: WARNA KOTAK LAYER 2 MERAH SOFT & AKORDION LAYER 3 ANIMASI
    ==================================================================== */
 
 /* 1. Kotak BAB Utama saat Aktif Terbuka */
 .mms-bab-active-card {
-    border: 2px solid #f87171 !important;       /* Garis tepi merah pastel tegas */
+    border: 2px solid #f87171 !important;       
     box-shadow: 0 6px 20px rgba(204, 2, 2, 0.12);
     transition: all 0.25s ease-in-out;
 }
@@ -275,41 +275,49 @@ body {
     color: #ffffff !important;
 }
 
-/* 🟢 SINKRONISASI DASAR: Mengembalikan lantai dalam Bab 2 & 3 menjadi PUTIH BERSIH agar kembar dengan Bab 1 */
+/* 🟥 AMAN KUNCI: Layer 2 Content tetap MERAH SOFT PEKAT (Tidak Monoton Putih) */
 .mms-bab-active-card .mms-rumpun-content {
-    background-color: #ffffff !important;       
-    border-top: 1px solid #e2e8f0 !important;
+    background-color: #ffe4e6 !important;       /* Terkunci warna pink/merah-soft solid bawaan */
+    border-top: 1px solid #fca5a5 !important;
     padding: 16px !important;
 }
 
-/* 🚀 2. KHUSUS ACCORDION LEVEL 2 (PRESENT TENSE, PAST TENSE, DST): EFEK HOVER ANIMASI BIRU SOFT */
-/* Hanya mengincar box tenses di dalam Bab 2 & Bab 3, sehingga tombol Bab 1 & 4 sama sekali tidak terganggu */
+/* 🚀 2. SELEKTOR KHUSUS LAYER 3 (KOTAK PRESENT TENSE, PAST TENSE, DST) DI HOVER ANIMASI BIRU SOFT */
 #mms-bab-2-content .mms-nested-time-card,
 #mms-bab-3-content .mms-nested-time-card {
     transition: all 0.23s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
+/* Efek Sorot Kursor pada Accordion Level 2: Menyamakan Kenyamanan Bab 1 */
 #mms-bab-2-content .mms-nested-time-card:hover,
 #mms-bab-3-content .mms-nested-time-card:hover {
-    background-color: #eff6ff !important;       /* Berubah jadi biru transparan soft (Identik Bab 1) */
-    border-color: #bfdbfe !important;           /* Garis tepi menajam biru pastel */
-    transform: translateY(-1px);                /* Efek animasi mengangkat */
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.06);
+    background-color: #eff6ff !important;       /* Berubah jadi biru transparan soft */
+    border-color: #bfdbfe !important;           
+    transform: translateY(-1px);                
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
 }
 
-/* Singkronisasi warna tulisan judul tenses saat disorot kursor */
 #mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header,
 #mms-bab-3-content .mms-nested-time-card:hover .mms-rumpun-header {
     background-color: transparent !important;   
 }
+
 #mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header span,
 #mms-bab-3-content .mms-nested-time-card:hover .mms-rumpun-header span,
 #mms-bab-2-content .mms-nested-time-card:hover .mms-rumpun-header i,
 #mms-bab-3-content .mms-nested-time-card:hover .mms-rumpun-header i {
-    color: #2563eb !important;                  /* Teks & ikon berubah menjadi biru variatif aktif */
+    color: #2563eb !important;                  /* Teks & ikon judul tenses ikut berubah biru variatif */
 }
 
-/* 🌟 KELAS LOCK STATUS AKTIF LAINNYA */
+/* ⬜ 3. INTERIOR PALING DALAM: Mengubah laci pembungkus tombol rumus menjadi PUTIH BERSIH */
+.mms-sub-laci {
+    background-color: #ffffff !important;       /* Kunci putih bersih di dalam, kontras dengan luar */
+    border: 1px dashed #cbd5e1 !important;
+    border-radius: 8px;
+    padding: 8px !important;
+}
+
+/* 🌟 KELAS LOCK WARNA SUB-MATERI AKTIF LAINNYA */
 .mms-btn-active-laci {
     background-color: var(--mms-accent) !important;
     color: #ffffff !important;
