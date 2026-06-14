@@ -643,3 +643,30 @@ document.addEventListener('click', function(event) {
         }
     });
 });
+
+
+// Fungsi Kontrol Laci Sub-Menu
+function toggleSubLaci(id) {
+    let el = document.getElementById(id);
+    let isOpening = (el.style.display === "none" || el.style.display === "");
+
+    // 1. Tutup semua laci lain dulu agar tidak tumpang tindih
+    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
+        laci.style.display = "none";
+    });
+
+    // 2. Jika yang diklik tadi statusnya mau buka, maka buka
+    if (isOpening) {
+        el.style.display = "block";
+    }
+}
+
+// Global Listener: Tutup laci otomatis jika klik di luar area menu
+document.addEventListener('click', function(event) {
+    // Jika yang diklik BUKAN tombol pemicu laci DAN BUKAN di dalam laci itu sendiri
+    if (!event.target.closest('button[onclick^="toggleSubLaci"]') && !event.target.closest('.mms-sub-laci')) {
+        document.querySelectorAll('.mms-sub-laci').forEach(laci => {
+            laci.style.display = "none";
+        });
+    }
+});
