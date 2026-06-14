@@ -516,12 +516,32 @@ function toggleRumpunSmart(idBab) {
                 el.style.display = "none";
                 if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
                 if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
+                // 🚀 RESET INTERNAL STATE: Sapu bersih laci interior saat bab ditutup manual
+                mmsResetSemuaLaciInterior();
             }
         } else {
             el.style.display = "none";
             if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
             if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
         }
+    });
+}
+
+// 🚀 FUNGSI UTALITAS BARU: Khusus sapu bersih state interior tenses agar tidak menyimpan cache pembukaan lama
+function mmsResetSemuaLaciInterior() {
+    let semuaKotakWaktu = [
+        'act-box-present', 'act-box-past', 'act-box-future', 'act-box-pfuture',
+        'pas-box-present', 'pas-box-past', 'pas-box-future', 'pas-box-pfuture'
+    ];
+    semuaKotakWaktu.forEach(id => {
+        let p = document.getElementById(id);
+        if (p) p.style.display = "none";
+    });
+    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
+        laci.style.display = "none";
+    });
+    document.querySelectorAll('#materi-body .btn-type-choice').forEach(btn => {
+        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 }
 
@@ -548,12 +568,8 @@ document.addEventListener('click', function(event) {
         }
     });
 
-    document.querySelectorAll('.mms-sub-laci').forEach(laci => {
-        laci.style.display = "none";
-    });
-    document.querySelectorAll('.btn-type-choice').forEach(btn => {
-        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
-    });
+    // 🚀 RESET INTERNAL STATE: Panggil fungsi sapu bersih saat klik luar area accordion
+    mmsResetSemuaLaciInterior();
 });
 
 // Pemicu otomatis agar data Sheets tetap tersinkron tanpa tombol login lama
