@@ -354,30 +354,39 @@ body {
 }
 
 /* 🚀 4. STYLE TOMBOL KEMBALI KE MENU (DIJAMIN MUNCUL TEGAS & MEMBAL) */
+/* ====================================================================
+   UPGRADE TOMBOL KEMBALI KE MENU: WARNA NAVY ELEGAN + ANIMASI HOVER MEMBAL
+   ==================================================================== */
 .materi-body-back-btn { 
     display: block !important;
     width: 100% !important;
-    background-color: var(--mms-red) !important; 
+    background-color: var(--mms-navy) !important;       /* Warna dasar Navy Gelap yang kokoh */
     color: #ffffff !important;
     border: none;
-    border-bottom: 4px solid var(--mms-red-hover) !important;
+    border-bottom: 4px solid #020617 !important;         /* Efek ketebalan border bawah khas Duolingo */
     padding: 14px !important;
     font-size: 15px !important;
     font-weight: bold !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     cursor: pointer !important;
-    margin-top: 25px !important;
+    margin-top: 30px !important;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    transition: all 0.15s ease-in-out;
+    letter-spacing: 1px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);   /* Transisi animasi halus */
     box-sizing: border-box;
 }
+
+/* 🚀 ANIMASI HOVER: Saat disorot kursor, tombol membal ke atas dan menyala terang */
 .materi-body-back-btn:hover { 
-    background-color: var(--mms-red-hover) !important; 
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(204, 2, 2, 0.15);
+    background-color: #1e293b !important;               /* Berubah menjadi Slate Navy yang lebih terang */
+    border-bottom: 4px solid #0f172a !important;
+    transform: translateY(-2px);                         /* Animasi mengangkat/membal halus ke atas */
+    box-shadow: 0 6px 15px rgba(15, 23, 42, 0.15);       /* Bayangan mengikuti pergerakan tombol */
 }
+
+/* 🚀 ANIMASI ACTIVE: Saat ditekan/diklik, tombol amblas ke bawah memberikan feedback mekanis */
 .materi-body-back-btn:active { 
-    transform: translateY(2px); 
-    border-bottom-width: 1px !important; 
+    transform: translateY(2px);                          /* Turun ke bawah saat ditekan */
+    border-bottom-width: 1px !important;                 /* Ketebalan border menipis seolah tertekan */
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
 }
