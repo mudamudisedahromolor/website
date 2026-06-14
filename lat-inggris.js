@@ -592,3 +592,54 @@ function mmsToggleDinamisMediaMateri(e) {
         }
     }
 }
+
+
+
+// 1. Fungsi Buka-Tutup Pintar Akordion Bab
+function toggleRumpunSmart(idBab) {
+    // Cari semua panel konten bab
+    let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
+    
+    semuaBab.forEach(id => {
+        let el = document.getElementById(id);
+        if (!el) return;
+        
+        let header = el.previousElementSibling; // Mengambil elemen header (tombol bab)
+        let icon = header ? header.querySelector('.fa-chevron-down, .fa-chevron-up') : null;
+
+        if (id === idBab) {
+            // Jika bab ini yang diklik, balikkan kondisinya (Tutup jika buka, Buka jika tutup)
+            if (el.style.display === "none" || el.style.display === "") {
+                el.style.display = "flex";
+                if (icon) { icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
+            } else {
+                el.style.display = "none";
+                if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
+            }
+        } else {
+            // Tutup semua bab lain secara otomatis agar layar bersih
+            el.style.display = "none";
+            if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
+        }
+    });
+}
+
+// 2. Global Event Listener: Deteksi klik di luar area untuk Auto-Close otomatis
+document.addEventListener('click', function(event) {
+    // Jika yang diklik adalah bagian dari header bab atau isi konten bab, abaikan (jangan ditutup)
+    if (event.target.closest('.mms-rumpun-header') || event.target.closest('.mms-rumpun-content')) {
+        return;
+    }
+    
+    // Jika ngetuk di luar area kartu bab mana pun, otomatis tutup semua bab yang sedang menganga
+    let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
+    semuaBab.forEach(id => {
+        let el = document.getElementById(id);
+        if (el && el.style.display === "flex") {
+            el.style.display = "none";
+            let header = el.previousElementSibling;
+            let icon = header ? header.querySelector('.fa-chevron-up') : null;
+            if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
+        }
+    });
+});
