@@ -359,3 +359,47 @@ body {
     margin: 0 auto 25px auto !important; /* Membuat kotak otomatis center total kanan-kiri */
     box-sizing: border-box;
 }
+
+
+
+
+/* ==========================================================
+   INTERAKTIVITAS TOMBOL: HOVER & STATUS AKTIF (MMS ACADEMY)
+   ========================================================== */
+
+/* 1. Upgrade Efek Hover untuk Semua Tombol Pilihan */
+.btn-type-choice {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-type-choice:hover {
+    background-color: var(--mms-accent) !important;
+    color: #ffffff !important;
+    border-color: var(--mms-accent) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+/* Upgrade khusus hover untuk tombol rumpun nominal */
+.btn-mms-nominal:hover {
+    background-color: #64748b !important; /* Abu-abu gelap elegan saat hover */
+    color: #ffffff !important;
+    border-color: #64748b !important;
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.15);
+}
+
+/* 2. Class Penanda Kotak yang Sedang Aktif Membuka Laci */
+.mms-btn-active-laci {
+    background-color: var(--mms-accent) !important;
+    color: #ffffff !important;
+    border-color: var(--mms-accent) !important;
+    font-weight: 600 !important;
+}
+
+/* Penanda khusus jika yang sedang aktif membuka adalah laci Nominal */
+.mms-btn-active-laci-nominal {
+    background-color: #475569 !important; /* Slate steel solid */
+    color: #ffffff !important;
+    border-color: #475569 !important;
+    font-weight: 600 !important;
+}
