@@ -217,7 +217,7 @@ function toggleSubLaci(idLaci) {
         btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 
-    if (isOpening) {
+   if (isOpening) {
         el.style.display = "block";
         if (pemicuKlik && pemicuKlik.classList.contains('btn-mms-nominal')) {
             pemicuKlik.classList.add('mms-btn-active-laci-nominal');
