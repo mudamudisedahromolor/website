@@ -175,6 +175,7 @@ function toggleRumpunTense(panelId) {
 }
 
 // 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Auto-Close & Reset Status Aktif)
+// 1. Fungsi Mengatur Kotak Rumpun Waktu Utama (Present, Past, Future, Past Future)
 function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
     if (!panel) return;
@@ -186,19 +187,25 @@ function toggleAccordionBox(panelId) {
         'pas-box-present', 'pas-box-past', 'pas-box-future', 'pas-box-pfuture'
     ];
     
+    // 🚀 PERBAIKAN: Hanya tutup kotak waktu LAIN. Jangan paksa tutup kotak yang sedang kita klik!
     semuaKotakWaktu.forEach(id => {
-        let p = document.getElementById(id);
-        if (p) p.style.display = "none";
+        if (id !== panelId) {
+            let p = document.getElementById(id);
+            if (p) p.style.display = "none";
+        }
     });
 
-    // Sembunyikan semua sub-laci dan bersihkan efek tombol aktif saat berganti rumpun waktu
+    // Sembunyikan semua sub-laci rumus level 4 dan bersihkan warnanya secara lokal
     document.querySelectorAll('.mms-sub-laci').forEach(laci => laci.style.display = "none");
     document.querySelectorAll('.btn-type-choice').forEach(btn => {
         btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 
+    // Jalankan toggle 1 tingkat secara adil
     if (isOpening) {
         panel.style.display = "flex";
+    } else {
+        panel.style.display = "none";
     }
 }
 
@@ -208,13 +215,16 @@ function toggleSubLaci(idLaci) {
     if (!el) return;
     
     let isOpening = (el.style.display === "none" || el.style.display === "");
-    let pemicuKlik = event.currentTarget; 
+    
+    // Mengamankan event pemicu agar tetap tertangkap secara presisi
+    let pemicuKlik = event ? event.currentTarget : null; 
 
     document.querySelectorAll('.mms-sub-laci').forEach(laci => {
-        laci.style.display = "none";
+        if (laci.id !== idLaci) laci.style.display = "none";
     });
+    
     document.querySelectorAll('.btn-type-choice').forEach(btn => {
-        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
+        if (btn !== pemicuKlik) btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
 
     if (isOpening) {
@@ -224,6 +234,9 @@ function toggleSubLaci(idLaci) {
         } else if (pemicuKlik) {
             pemicuKlik.classList.add('mms-btn-active-laci');
         }
+    } else {
+        el.style.display = "none";
+        if (pemicuKlik) pemicuKlik.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     }
 }
 
