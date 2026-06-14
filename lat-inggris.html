@@ -284,12 +284,13 @@
                             </div>
                         </div>
 
-                        <div class="mms-nested-time-card" style="border: 1px solid #e2e8f0; border-left: 4px solid #a855f7; border-radius: 8px; background: #ffffff; overflow: hidden;">
+                                                <div class="mms-nested-time-card" style="border: 1px solid #e2e8f0; border-left: 4px solid #a855f7; border-radius: 8px; background: #ffffff; overflow: hidden;">
                             <div class="mms-rumpun-header" style="padding: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fff;" onclick="toggleAccordionBox('act-box-pfuture')">
                                 <span style="color: #a855f7; font-weight: bold; font-size: 14px;"><i class="fa-solid fa-shuffle"></i> &nbsp;&nbsp;Past Future Tense (Pengandaian)</span>
                                 <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #94a3b8;"></i>
                             </div>
                             <div id="act-box-pfuture" style="display: none; flex-direction: column; gap: 6px; padding: 0 10px 10px 10px;">
+                                
                                 <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-sim')">Simple Past Future (Verbal) <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
                                 <div id="act-pfut-sim" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
                                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
@@ -298,6 +299,7 @@
                                         <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Simple Past Future', 'aktif-tanya')">(?) Verb</button>
                                     </div>
                                 </div>
+
                                 <button class="btn-type-choice btn-mms-nominal" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-sim-nom')">Simple Past Future (Nominal) <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
                                 <div id="act-pfut-sim-nom" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
                                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
@@ -306,6 +308,7 @@
                                         <button class="btn-type-choice" style="background:#fff;" onclick="tampilkanMateriSpesifik('Simple Past Future Nominal', 'aktif-tanya-nominal')">(?) Nom</button>
                                     </div>
                                 </div>
+
                                 <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-cont')">Past Future Continuous <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
                                 <div id="act-pfut-cont" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
                                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
@@ -314,7 +317,8 @@
                                         <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Continuous', 'aktif-tanya')">(?) Verb</button>
                                     </div>
                                 </div>
-                                <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-perf')">Past Future Perfect <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+
+                                <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-perf')">Past Future Perfect (Verbal) <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
                                 <div id="act-pfut-perf" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
                                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
                                         <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'aktif-positif')">(+) Verb</button>
@@ -322,6 +326,16 @@
                                         <button class="btn-type-choice" onclick="tampilkanMateriSpesifik('Past Future Perfect', 'aktif-tanya')">(?) Verb</button>
                                     </div>
                                 </div>
+
+                                <button class="btn-type-choice btn-mms-nominal" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-perf-nom')">Past Future Perfect (Nominal) <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+                                <div id="act-pfut-perf-nom" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
+                                        <button class="btn-type-choice" style="background:#fff;" onclick="tampilkanMateriSpesifik('Past Future Perfect Nominal', 'aktif-positif-nominal')">(+) Nom</button>
+                                        <button class="btn-type-choice" style="background:#fff;" onclick="tampilkanMateriSpesifik('Past Future Perfect Nominal', 'aktif-negatif-nominal')">(-) Nom</button>
+                                        <button class="btn-type-choice" style="background:#fff;" onclick="tampilkanMateriSpesifik('Past Future Perfect Nominal', 'aktif-tanya-nominal')">(?) Nom</button>
+                                    </div>
+                                </div>
+
                                 <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center;" onclick="toggleSubLaci('act-pfut-pfc')">Past Future Perfect Continuous <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
                                 <div id="act-pfut-pfc" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
                                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
@@ -332,7 +346,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
