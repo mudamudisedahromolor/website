@@ -64,7 +64,7 @@ function ambilAsetDataWeb() {
     });
 }
 
-// 🛠️ PEMBACAAN MAP KOLOM SHEET: MURNI DAN KOKOH (KOLOM A - H)
+// 🛠️ PEMBACAAN PETA KOLOM SHEET (KOLOM A - H)
 function parseTSVMateri(text) {
     if (!text) return [];
     let baris = text.split("\n");
@@ -93,9 +93,7 @@ function renderSubTombolKunciDasar() {
     gridTombol.innerHTML = "";
 
     try {
-        if (!bankMateri || bankMateri.length === 0) {
-            return;
-        }
+        if (!bankMateri || bankMateri.length === 0) return;
 
         let barisDasar = bankMateri.filter(m => {
             let cat = (m.judulBab || "").toLowerCase().trim();
@@ -119,7 +117,7 @@ function renderSubTombolKunciDasar() {
     }
 }
 
-// 🚀 SINKRONISASI TOTAL: MENGIKUTI STRUKTUR TOMBOL HTML DAN INPUT GOOGLE SHEETS
+// 🚀 FUNGSI UTAMA FIXED: SEKARANG AKURAT MEMBACA SINKRONISASI JALUR VERBAL DAN NOMINAL DARI SHEET
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -145,7 +143,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // Pencarian super presisi mencocokkan data baris Sheet berdasarkan parameter klik tombol HTML asli
+    // 🚀 AMAN SINKRON: Mencari data baris Sheet berdasarkan kecocokan Kolom C dan Kolom D secara literal sesuai tombol HTML asli
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
@@ -156,27 +154,26 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
         if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
         if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Silakan buat baris data baru di Google Sheets. Isikan Kolom C dengan '" + namaMateriKolomC + "' dan Kolom D dengan '" + subMateriKolomD + "'";
+        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan tambahkan baris baru di Google Sheets:\nKolom C (materi): " + namaMateriKolomC + "\nKolom D (subMateri): " + subMateriKolomD;
         if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
 
-    // Set header identitas modal dari Sheet
-    let labelTipeTeks = subMateriKolomD.replace("-", " ").toUpperCase();
+    // Set judul header modal
+    let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
     if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC} (${labelTipeTeks})</b>`;
     if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
 
-    // 🚀 ATUR RUMUS (KOLOM E), CONTOH (KOLOM F), DAN ARTI (KOLOM G) SECARA OTOMATIS
-    // Membersihkan dan mengubah simbol tulisan \n dari Sheet agar terbaca sebagai baris enter nyata
+    // Ubah text \n online menjadi break baris asli HTML DOM
     let isiRumus = (dataCocok.rumus || "").replace(/\\n/g, "\n");
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // Jika tombol HTML yang diklik mengarah ke rumpun Kalimat Pasif (Bab 3)
+    // Jika target adalah tombol rumpun Kalimat Pasif (BAB 3)
     if (subMateriKolomD.toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
         if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
-        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; // Tampilkan rumus di kotak pasif
+        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
         
         if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
         if(boxArtiPasif) {
@@ -188,8 +185,8 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
         if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block";
     } else {
-        // Default Kalimat Aktif (Bentuk positif, negatif, atau tanya)
-        if(boxRumusAktif) boxRumusAktif.innerText = isiRumus; // Tampilkan rumus di kotak aktif sesuai tombol yang diklik
+        // Jalur Kalimat Aktif (Membaca murni per tombol positif, negatif, tanya baik Verbal maupun Nominal!)
+        if(boxRumusAktif) boxRumusAktif.innerText = isiRumus; 
         if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
         
         if(boxArtiAktif) {
@@ -205,7 +202,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     if(boxPembahasan) boxPembahasan.innerText = `Materi dibaca dari baris data ke-${dataCocok.no || '-'}. Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
 
-    // 🚀 PROSES MEDIA VISUAL (KOLOM H)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
@@ -225,7 +221,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 }
 
 // ==========================================================================
-// FUNGSI LAIN-LAIN UNTUK NAVIGASI LACI DAN ACCORDION (TETAP AMAN DI TEMPAT)
+// FUNGSI OPERASIONAL SELEBIHNYA (TETAP AMAN TIDAK BERUBAH)
 // ==========================================================================
 function toggleRumpunTense(panelId) {
     let targetPanel = document.getElementById(panelId);
