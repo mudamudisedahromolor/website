@@ -307,3 +307,41 @@ body {
     border-color: #475569 !important;
     font-weight: 600 !important;
 }
+
+/* ==========================================================
+   KHUSUS PERBAIKAN VISUAL AKORDION TENSES BAB 2 & BAB 3
+   ========================================================== */
+
+/* 1. Efek Hover Tombol Tenses di Dalam Bab 2 & Bab 3 (Lebih Kontras & Jelas) */
+#mms-bab-2-content .btn-type-choice:hover,
+#mms-bab-3-content .btn-type-choice:hover {
+    background-color: #eff6ff !important;   /* Biru transparan soft */
+    color: #1d4ed8 !important;              /* Teks biru pekat kontras tinggi */
+    border-color: #bfdbfe !important;       /* Border pastel */
+}
+
+/* Hover khusus untuk tombol berjenis Nominal di Bab 2 & 3 */
+#mms-bab-2-content .btn-mms-nominal:hover,
+#mms-bab-3-content .btn-mms-nominal:hover {
+    background-color: #f1f5f9 !important;   /* Abu-abu terang kontras */
+    color: #0f172a !important;              /* Teks gelap tegas */
+    border-color: #cbd5e1 !important;
+}
+
+/* 2. Warna Saat Laci Aktif Terbuka (Lock State Penanda di Bab 2 & 3) */
+#mms-bab-2-content .mms-btn-active-laci,
+#mms-bab-3-content .mms-btn-active-laci {
+    background-color: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border-color: #3b82f6 !important;
+    font-weight: 700 !important;
+}
+
+/* Lock State khusus untuk Nominal di Bab 2 & 3 */
+#mms-bab-2-content .mms-btn-active-laci-nominal,
+#mms-bab-3-content .mms-btn-active-laci-nominal {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-color: #64748b !important;
+    font-weight: 700 !important;
+}
