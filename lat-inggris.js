@@ -118,7 +118,7 @@ function renderSubTombolKunciDasar() {
     }
 }
 
-// 🚀 FUNGSI UTAMA PENAMPIL MODAL MATERI DARI SHEET (SINKRONISASI BARU BAB 3 NOMINAL & PASIF)
+// 🚀 FUNGSI UTAMA PENAMPIL MODAL MATERI DARI SHEET (FIX SINKRONISASI TOTAL LOGIKA MAS ARDYAN)
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -128,6 +128,10 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxPembahasan = document.getElementById("box-txt-pembahasan");
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
+
+    // Tangkap elemen pembungkus utama box rumusan di layer 5 agar bisa dikontrol mutlak oleh JS
+    let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
+    let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
 
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
     
@@ -169,37 +173,53 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // 🛠️ LOGIKA BARU SINKRONISASI BAB 3: Mendeteksi kata kunci subMateri 'pasif-' yang dikirim dari HTML
-    if (subMateriKolomD.toLowerCase().startsWith("pasif-") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
-        if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
-        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; // Rumus pasif polos dari Sheet meluncur ke box pasif
+    // 🔲 EKSEKUSI ADIL STRUKTUR JAVASCRIPT SESUAI LOGIKA BARU MAS ARDYAN
+    if (subMateriKolomD.toLowerCase().startsWith("pasif-")) {
+        // JALUR 1: MURNI PASIF (BAB 3)
+        // 1. Hapus & Sembunyikan total logika beserta visual box kalimat aktif dari penampil browser
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         
-        if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
-        if(boxArtiPasif) {
+        // 2. Tampilkan mutlak box kalimat pasif ke browser
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
+        
+        // 3. Tembak isi data rumus polos dari Sheet eksklusif ke dalam wadah pasif
+        if (boxRumusPasif) boxRumusPasif.innerText = isiRumus;
+        if (boxRumusAktif) boxRumusAktif.innerText = ""; 
+
+        // 4. Render teks contoh kalimat beserta artinya ke laci dropdown pasif (Kolom F & G)
+        if (boxArtiPasif) {
             boxArtiPasif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block";
+        if (boxArtiAktif) boxArtiAktif.innerHTML = "";
+
     } else {
-        // Logika default Bab 2 Kalimat Aktif (baik positif, negatif, tanya maupun nominal)
-        if(boxRumusAktif) boxRumusAktif.innerText = isiRumus; 
-        if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
+        // JALUR 2: MURNI AKTIF (BAB 2)
+        // 1. Hapus & Sembunyikan total logika beserta visual box kalimat pasif dari penampil browser
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         
-        if(boxArtiAktif) {
+        // 2. Tampilkan mutlak box kalimat aktif ke browser
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
+        
+        // 3. Tembak isi data rumus polos dari Sheet eksklusif ke dalam wadah aktif
+        if (boxRumusAktif) boxRumusAktif.innerText = isiRumus;
+        if (boxRumusPasif) boxRumusPasif.innerText = "";
+
+        // 4. Render teks contoh kalimat beserta artinya ke laci dropdown aktif (Kolom F & G)
+        if (boxArtiAktif) {
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-        if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
-        if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none";
+        if (boxArtiPasif) boxArtiPasif.innerHTML = "";
     }
 
-    // Render bodi penjelasan fungsi kalimat (Kolom I)
+    // Render bodi penjelasan fungsi kalimat ke Kotak Hijau Penggunaan (Kolom I)
     if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
@@ -241,7 +261,7 @@ function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
     if (!panel) return;
     
-    // Jika panelId adalah contoh kalimat di dalam modal, buka/tutup secara independen tanpa mengganggu laci luar dashboard
+    // Jika panelId adalah contoh kalimat di dalam modal, buka/tutup secara indenpenden tanpa mengganggu laci luar dashboard
     if (panelId === 'panel-aktif-contoh' || panelId === 'panel-pasif-contoh' || panelId === 'panel-tips-tabel') {
         panel.style.display = (panel.style.display === "none" || panel.style.display === "") ? "block" : "none";
         return;
