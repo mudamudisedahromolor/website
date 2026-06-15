@@ -1,3 +1,6 @@
+// =========================================================================
+// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI AKUN
+// =========================================================================
 const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
@@ -41,6 +44,10 @@ function loginSistem() {
     });
 }
 
+
+// =========================================================================
+// 2. SISTEM INTI DATA PIPELINE: FETCHING, PARSING & CACHE BUSTER TSV SHEET
+// =========================================================================
 function ambilAsetDataWeb() {
     let cacheBusterUrl = TSV_URL + "&_cb=" + new Date().getTime();
 
@@ -88,6 +95,12 @@ function parseTSVMateri(text) {
     return hasil;
 }
 
+
+// =========================================================================
+// 3. LOGIKA TOMBOL & RENDER SPESIFIK TIAP-TIAP BAB MATERI
+// =========================================================================
+
+// --- [ LOGIKA BAB 1: FUNDAMENTAL / KUNCI DASAR ] ---
 function renderSubTombolKunciDasar() {
     let gridTombol = document.getElementById("mms-grid-sub-tombol");
     if (!gridTombol) return;
@@ -118,7 +131,7 @@ function renderSubTombolKunciDasar() {
     }
 }
 
-// 🚀 FUNGSI UTAMA PENAMPIL MODAL MATERI DARI SHEET (FIX SINKRONISASI TOTAL LOGIKA MAS ARDYAN)
+// --- [ LOGIKA INTELLIGENT ROUTER: PROSES DATA BAB 2 (AKTIF) & BAB 3 (PASIF) ] ---
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -129,7 +142,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
-    // Tangkap elemen pembungkus utama box rumusan di layer 5 agar bisa dikontrol mutlak oleh JS
+    // Identifikasi pembungkus utama box rumusan layer 5
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
 
@@ -142,7 +155,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         btnVideo.style.borderColor = "var(--mms-accent)";
     }
 
-    // Mengamankan kondisi awal penutupan internal laci modal agar tidak bug saat berganti materi
     if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
     if(document.getElementById('panel-pasif-contoh')) document.getElementById('panel-pasif-contoh').style.display = "none";
     if(document.getElementById('panel-tips-tabel')) document.getElementById('panel-tips-tabel').style.display = "none"; 
@@ -173,20 +185,14 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // 🔲 EKSEKUSI ADIL STRUKTUR JAVASCRIPT SESUAI LOGIKA BARU MAS ARDYAN
+    // 🔲 KONTROL INTERFACES LAYER 5 (KOLOM D DETEKSI BERBASIS AWALAN)
     if (subMateriKolomD.toLowerCase().startsWith("pasif-")) {
-        // JALUR 1: MURNI PASIF (BAB 3)
-        // 1. Hapus & Sembunyikan total logika beserta visual box kalimat aktif dari penampil browser
+        // [ ATURAN MAIN MUTLAK BAB 3: PASIF ]
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
-        
-        // 2. Tampilkan mutlak box kalimat pasif ke browser
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
-        
-        // 3. Tembak isi data rumus polos dari Sheet eksklusif ke dalam wadah pasif
         if (boxRumusPasif) boxRumusPasif.innerText = isiRumus;
         if (boxRumusAktif) boxRumusAktif.innerText = ""; 
 
-        // 4. Render teks contoh kalimat beserta artinya ke laci dropdown pasif (Kolom F & G)
         if (boxArtiPasif) {
             boxArtiPasif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
@@ -197,18 +203,12 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if (boxArtiAktif) boxArtiAktif.innerHTML = "";
 
     } else {
-        // JALUR 2: MURNI AKTIF (BAB 2)
-        // 1. Hapus & Sembunyikan total logika beserta visual box kalimat pasif dari penampil browser
+        // [ ATURAN MAIN MUTLAK BAB 2: AKTIF ]
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
-        
-        // 2. Tampilkan mutlak box kalimat aktif ke browser
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
-        
-        // 3. Tembak isi data rumus polos dari Sheet eksklusif ke dalam wadah aktif
         if (boxRumusAktif) boxRumusAktif.innerText = isiRumus;
         if (boxRumusPasif) boxRumusPasif.innerText = "";
 
-        // 4. Render teks contoh kalimat beserta artinya ke laci dropdown aktif (Kolom F & G)
         if (boxArtiAktif) {
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
@@ -243,6 +243,34 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
+
+// =========================================================================
+// 4. MODUL VOCABULARY & PUSAT KAMUS ISTILAH WARGA ORGANISASI
+// =========================================================================
+function renderKamusKeHalaman(filterText = "") {
+    let container = document.getElementById("box-daftar-vocab"); if (!container) return; container.innerHTML = "";
+    let filtered = dataKamus.filter(item => {
+        let kata = (item.kata || item.Kata || "").toLowerCase();
+        let arti = (item.arti || item.Arti || "").toLowerCase();
+        return kata.includes(filterText) || arti.includes(filterText);
+    });
+    if(filtered.length === 0) { container.innerHTML = `<div style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Kosakata tidak ditemukan...</div>`; return; }
+    filtered.forEach(item => {
+        let c = item.contoh || item.Contoh || "Belum tersedia contoh kalimat.";
+        container.innerHTML += `<div class="vocab-item">
+            <div style="font-weight: bold; color: var(--mms-navy); font-size: 14px;"><i class="fa-solid fa-language" style="color:var(--mms-green); margin-right:5px;"></i> ${item.kata || item.Kata}</div>
+            <div style="color: #475569; font-size: 13px; margin-top:4px; padding-left:20px;"><b>Arti:</b> ${item.arti || item.Arti}</div>
+            <div style="color: #64748b; font-size: 12px; margin-top:5px; padding:6px 10px; background:#fff; border-left:3px solid var(--mms-green); font-style:italic; padding-left:15px;"><b>Contoh:</b> ${c}</div>
+        </div>`;
+    });
+}
+
+function filterKamusUser() { renderKamusKeHalaman(document.getElementById("vocab-search").value.toLowerCase().trim()); }
+
+
+// =========================================================================
+// 5. ANIMASI NAVIGASI ANTARMUKA (ACCORDION, MODAL & VIDEO TOGGLE)
+// =========================================================================
 function toggleRumpunTense(panelId) {
     let targetPanel = document.getElementById(panelId);
     if (!targetPanel) return;
@@ -256,12 +284,10 @@ function toggleRumpunTense(panelId) {
     }
 }
 
-// 🚀 FIXED LOGIKA ACCORDION: Mengeluarkan 'panel-aktif-contoh' dan 'panel-pasif-contoh' agar tidak ditutup paksa secara global
 function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
     if (!panel) return;
     
-    // Jika panelId adalah contoh kalimat di dalam modal, buka/tutup secara indenpenden tanpa mengganggu laci luar dashboard
     if (panelId === 'panel-aktif-contoh' || panelId === 'panel-pasif-contoh' || panelId === 'panel-tips-tabel') {
         panel.style.display = (panel.style.display === "none" || panel.style.display === "") ? "block" : "none";
         return;
@@ -325,25 +351,6 @@ function bukaVocab() {
     renderKamusKeHalaman();
 }
 
-function renderKamusKeHalaman(filterText = "") {
-    let container = document.getElementById("box-daftar-vocab"); if (!container) return; container.innerHTML = "";
-    let filtered = dataKamus.filter(item => {
-        let kata = (item.kata || item.Kata || "").toLowerCase();
-        let arti = (item.arti || item.Arti || "").toLowerCase();
-        return kata.includes(filterText) || arti.includes(filterText);
-    });
-    if(filtered.length === 0) { container.innerHTML = `<div style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Kosakata tidak ditemukan...</div>`; return; }
-    filtered.forEach(item => {
-        let c = item.contoh || item.Contoh || "Belum tersedia contoh kalimat.";
-        container.innerHTML += `<div class="vocab-item">
-            <div style="font-weight: bold; color: var(--mms-navy); font-size: 14px;"><i class="fa-solid fa-language" style="color:var(--mms-green); margin-right:5px;"></i> ${item.kata || item.Kata}</div>
-            <div style="color: #475569; font-size: 13px; margin-top:4px; padding-left:20px;"><b>Arti:</b> ${item.arti || item.Arti}</div>
-            <div style="color: #64748b; font-size: 12px; margin-top:5px; padding:6px 10px; background:#fff; border-left:3px solid var(--mms-green); font-style:italic; padding-left:15px;"><b>Contoh:</b> ${c}</div>
-        </div>`;
-    });
-}
-
-function filterKamusUser() { renderKamusKeHalaman(document.getElementById("vocab-search").value.toLowerCase().trim()); }
 function kembaliKeDashboard() { resetTampilanDashboard(); }
 function tutupModalMateri(e) { let m = document.getElementById("materi-pembahasan-box"); if (m && (!e || e.target.id === "materi-pembahasan-box")) m.style.display = "none"; }
 
