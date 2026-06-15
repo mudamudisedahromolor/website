@@ -64,7 +64,7 @@ function ambilAsetDataWeb() {
     });
 }
 
-// 🛠️ SEKARANG MEMBACA SAMPAI KOLOM I (9 KOLOM)
+// 🛠️ FIX TOTAL: MEMBACA SAMPAI KOLOM I (9 KOLOM SECARA BERURUTAN)
 function parseTSVMateri(text) {
     if (!text) return [];
     let baris = text.split("\n");
@@ -88,7 +88,37 @@ function parseTSVMateri(text) {
     return hasil;
 }
 
-// 🚀 FUNGSI MENAMPILKAN MATERI DENGAN DUKUNGAN STRUKTUR KOLOM BARU
+function renderSubTombolKunciDasar() {
+    let gridTombol = document.getElementById("mms-grid-sub-tombol");
+    if (!gridTombol) return;
+    gridTombol.innerHTML = "";
+
+    try {
+        if (!bankMateri || bankMateri.length === 0) return;
+
+        let barisDasar = bankMateri.filter(m => {
+            let cat = (m.judulBab || "").toLowerCase().trim();
+            return cat.includes("dasar") || cat.includes("bab 1");
+        });
+
+        barisDasar.forEach((itemMateri, index) => {
+            let judulTombol = itemMateri.materi || `Kata Kunci ${index + 1}`;
+            let idUnik = itemMateri.no || index;
+            
+            gridTombol.innerHTML += `
+                <button class="btn-type-choice" id="mms-sub-btn-${idUnik}" 
+                    style="border-color: var(--mms-accent); color: var(--mms-accent);" 
+                    onclick="tampilkanMateriSpesifik('${itemMateri.materi}', '${itemMateri.subMateri}')">
+                    ${judulTombol}
+                </button>
+            `;
+        });
+    } catch (e) {
+        console.error("Error dasar:", e);
+    }
+}
+
+// 🚀 FIX TOTAL: SEKARANG MEMPROSES RUMUS, VIDEO (KOLOM H), DAN FUNGSI KALIMAT (KOLOM I) SECARA MANDIRI
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -124,7 +154,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
         if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
         if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan di Google Sheets.";
+        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan buat baris baru di Google Sheets:\nKolom C: " + namaMateriKolomC + "\nKolom D: " + subMateriKolomD;
         if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
@@ -166,22 +196,20 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none";
     }
 
-    // 🚀 MENAMPILKAN PENJELASAN FUNGSI (KOLOM I) KE BOX PEMBAHASAN BAWAH MODAL
+    // 🚀 MASUK KE BOX PEMBAHASAN: MEMBACA TEKS FUNGSI KALIMAT DARI KOLOM I
     if(boxPembahasan) {
         let isiFungsiKombinasi = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
         boxPembahasan.innerText = isiFungsiKombinasi;
     }
 
-    // 🚀 PROSES MEMBACA VIDEO ATAU MEDIA (KOLOM H)
+    // 🚀 MEDIA PLAYER: MEMBACA LINK URL VIDEO DARI KOLOM H
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
             boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
         } else if (visual && (visual.endsWith(".mp4") || visual.endsWith(".webm") || visual.includes("video/") || visual.startsWith("http"))) {
-            // Jika kolom H berisi link URL video (baik mp4 lokal maupun link video online/hosting)
             boxVisualMateri.innerHTML = `<video id="mms-media-video-lokal" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" controls>` +
                                             `<source src="${visual}" type="video/mp4">` +
-                                            `Browser sampeyan tidak mendukung pemutaran elemen video.` +
                                          `</video>`;
         } else if (visual && visual.startsWith("images/")) {
             boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
@@ -194,7 +222,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 }
 
 // ==========================================================================
-// FUNGSI OPERASIONAL SELEBIHNYA (TETAP AMAN TIDAK BERUBAH)
+// FUNGSI LAIN-LAIN UNTUK OPERASIONAL NAVIGASI (TETAP AMAN DI TEMPAT)
 // ==========================================================================
 function toggleRumpunTense(panelId) {
     let targetPanel = document.getElementById(panelId);
