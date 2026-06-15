@@ -118,7 +118,7 @@ function renderSubTombolKunciDasar() {
     }
 }
 
-// 🚀 FUNGSI UTAMA PENAMPIL MODAL MATERI DARI SHEET
+// 🚀 FUNGSI UTAMA PENAMPIL MODAL MATERI DARI SHEET (SINKRONISASI BARU BAB 3 NOMINAL & PASIF)
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -169,10 +169,10 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // Integrasi render box berdasarkan rumpun Aktif vs Pasif Voice
-    if (subMateriKolomD.toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
+    // 🛠️ LOGIKA BARU SINKRONISASI BAB 3: Mendeteksi kata kunci subMateri 'pasif-' yang dikirim dari HTML
+    if (subMateriKolomD.toLowerCase().startsWith("pasif-") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
         if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
-        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
+        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; // Rumus pasif polos dari Sheet meluncur ke box pasif
         
         if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
         if(boxArtiPasif) {
@@ -184,6 +184,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
         if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block";
     } else {
+        // Logika default Bab 2 Kalimat Aktif (baik positif, negatif, tanya maupun nominal)
         if(boxRumusAktif) boxRumusAktif.innerText = isiRumus; 
         if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
         
