@@ -64,7 +64,7 @@ function ambilAsetDataWeb() {
     });
 }
 
-// 🛠️ PEMBACAAN PETA KOLOM SHEET (KOLOM A - H)
+// 🛠️ SEKARANG MEMBACA SAMPAI KOLOM I (9 KOLOM)
 function parseTSVMateri(text) {
     if (!text) return [];
     let baris = text.split("\n");
@@ -75,49 +75,20 @@ function parseTSVMateri(text) {
         
         hasil.push({
             no: kolom[0] ? kolom[0].trim() : "",                // Kolom A
-            judulBab: kolom[1] ? kolom[1].trim() : "",          // Kolom B (Tenses, Passive, Aux, Adverb, dll)
-            materi: kolom[2] ? kolom[2].trim() : "",            // Kolom C (Simple Present, Parts of Speech, dll)
-            subMateri: kolom[3] ? kolom[3].trim() : "",         // Kolom D (aktif-positif, aktif-negatif, tanya, dll)
-            rumus: kolom[4] ? kolom[4].trim() : "",             // Kolom E (Isi Rumus)
-            contohKalimat: kolom[5] ? kolom[5].trim() : "",     // Kolom F (Isi Contoh)
-            arti: kolom[6] ? kolom[6].trim() : "",              // Kolom G (Isi Arti)
-            visual: kolom[7] ? kolom[7].trim() : ""             // Kolom H (Link Visual / FA Icon)
+            judulBab: kolom[1] ? kolom[1].trim() : "",          // Kolom B
+            materi: kolom[2] ? kolom[2].trim() : "",            // Kolom C
+            subMateri: kolom[3] ? kolom[3].trim() : "",         // Kolom D
+            rumus: kolom[4] ? kolom[4].trim() : "",             // Kolom E
+            contohKalimat: kolom[5] ? kolom[5].trim() : "",     // Kolom F
+            arti: kolom[6] ? kolom[6].trim() : "",              // Kolom G
+            visual: kolom[7] ? kolom[7].trim() : "",            // Kolom H (TEMPAT LINK VIDEO / MEDIA)
+            fungsi: kolom[8] ? kolom[8].trim() : ""             // Kolom I (TEMPAT PENJELASAN PENGGUNAAN)
         });
     }
     return hasil;
 }
 
-function renderSubTombolKunciDasar() {
-    let gridTombol = document.getElementById("mms-grid-sub-tombol");
-    if (!gridTombol) return;
-    gridTombol.innerHTML = "";
-
-    try {
-        if (!bankMateri || bankMateri.length === 0) return;
-
-        let barisDasar = bankMateri.filter(m => {
-            let cat = (m.judulBab || "").toLowerCase().trim();
-            return cat.includes("dasar") || cat.includes("bab 1");
-        });
-
-        barisDasar.forEach((itemMateri, index) => {
-            let judulTombol = itemMateri.materi || `Kata Kunci ${index + 1}`;
-            let idUnik = itemMateri.no || index;
-            
-            gridTombol.innerHTML += `
-                <button class="btn-type-choice" id="mms-sub-btn-${idUnik}" 
-                    style="border-color: var(--mms-accent); color: var(--mms-accent);" 
-                    onclick="tampilkanMateriSpesifik('${itemMateri.materi}', '${itemMateri.subMateri}')">
-                    ${judulTombol}
-                </button>
-            `;
-        });
-    } catch (e) {
-        console.error("Error dasar:", e);
-    }
-}
-
-// 🚀 FUNGSI UTAMA FIXED: SEKARANG AKURAT MEMBACA SINKRONISASI JALUR VERBAL DAN NOMINAL DARI SHEET
+// 🚀 FUNGSI MENAMPILKAN MATERI DENGAN DUKUNGAN STRUKTUR KOLOM BARU
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -143,7 +114,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🚀 AMAN SINKRON: Mencari data baris Sheet berdasarkan kecocokan Kolom C dan Kolom D secara literal sesuai tombol HTML asli
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
@@ -154,23 +124,20 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
         if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
         if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan tambahkan baris baru di Google Sheets:\nKolom C (materi): " + namaMateriKolomC + "\nKolom D (subMateri): " + subMateriKolomD;
+        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan di Google Sheets.";
         if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
 
-    // Set judul header modal
     let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
     if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC} (${labelTipeTeks})</b>`;
     if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
 
-    // Ubah text \n online menjadi break baris asli HTML DOM
     let isiRumus = (dataCocok.rumus || "").replace(/\\n/g, "\n");
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // Jika target adalah tombol rumpun Kalimat Pasif (BAB 3)
     if (subMateriKolomD.toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
         if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
         if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
@@ -185,7 +152,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
         if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "block";
     } else {
-        // Jalur Kalimat Aktif (Membaca murni per tombol positif, negatif, tanya baik Verbal maupun Nominal!)
         if(boxRumusAktif) boxRumusAktif.innerText = isiRumus; 
         if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
         
@@ -200,17 +166,24 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none";
     }
 
-    if(boxPembahasan) boxPembahasan.innerText = `Materi dibaca dari baris data ke-${dataCocok.no || '-'}. Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
+    // 🚀 MENAMPILKAN PENJELASAN FUNGSI (KOLOM I) KE BOX PEMBAHASAN BAWAH MODAL
+    if(boxPembahasan) {
+        let isiFungsiKombinasi = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
+        boxPembahasan.innerText = isiFungsiKombinasi;
+    }
 
+    // 🚀 PROSES MEMBACA VIDEO ATAU MEDIA (KOLOM H)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
             boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
-        } else if (visual && (visual.endsWith(".mp4") || visual.endsWith(".webm") || visual.includes("video/"))) {
+        } else if (visual && (visual.endsWith(".mp4") || visual.endsWith(".webm") || visual.includes("video/") || visual.startsWith("http"))) {
+            // Jika kolom H berisi link URL video (baik mp4 lokal maupun link video online/hosting)
             boxVisualMateri.innerHTML = `<video id="mms-media-video-lokal" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" controls>` +
                                             `<source src="${visual}" type="video/mp4">` +
+                                            `Browser sampeyan tidak mendukung pemutaran elemen video.` +
                                          `</video>`;
-        } else if (visual && (visual.startsWith("http") || visual.startsWith("images/"))) {
+        } else if (visual && visual.startsWith("images/")) {
             boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
         } else {
             boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
