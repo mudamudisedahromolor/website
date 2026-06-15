@@ -64,7 +64,7 @@ function ambilAsetDataWeb() {
     });
 }
 
-// 🛠️ FIX TOTAL: MEMBACA SAMPAI KOLOM I (9 KOLOM SECARA BERURUTAN)
+// 🛠️ PEMBACAAN DATA SHEET DINAMIS 9 KOLOM (KOLOM A SAMPAI I)
 function parseTSVMateri(text) {
     if (!text) return [];
     let baris = text.split("\n");
@@ -74,15 +74,15 @@ function parseTSVMateri(text) {
         let kolom = baris[i].split("\t");
         
         hasil.push({
-            no: kolom[0] ? kolom[0].trim() : "",                // Kolom A
-            judulBab: kolom[1] ? kolom[1].trim() : "",          // Kolom B
-            materi: kolom[2] ? kolom[2].trim() : "",            // Kolom C
-            subMateri: kolom[3] ? kolom[3].trim() : "",         // Kolom D
-            rumus: kolom[4] ? kolom[4].trim() : "",             // Kolom E
-            contohKalimat: kolom[5] ? kolom[5].trim() : "",     // Kolom F
-            arti: kolom[6] ? kolom[6].trim() : "",              // Kolom G
-            visual: kolom[7] ? kolom[7].trim() : "",            // Kolom H (TEMPAT LINK VIDEO / MEDIA)
-            fungsi: kolom[8] ? kolom[8].trim() : ""             // Kolom I (TEMPAT PENJELASAN PENGGUNAAN)
+            no: kolom[0] ? kolom[0].trim() : "",                
+            judulBab: kolom[1] ? kolom[1].trim() : "",          
+            materi: kolom[2] ? kolom[2].trim() : "",            
+            subMateri: kolom[3] ? kolom[3].trim() : "",         
+            rumus: kolom[4] ? kolom[4].trim() : "",             
+            contohKalimat: kolom[5] ? kolom[5].trim() : "",     
+            arti: kolom[6] ? kolom[6].trim() : "",              
+            visual: kolom[7] ? kolom[7].trim() : "",            // Kolom H: Link Video
+            fungsi: kolom[8] ? kolom[8].trim() : ""             // Kolom I: Teks Fungsi Kalimat
         });
     }
     return hasil;
@@ -118,7 +118,7 @@ function renderSubTombolKunciDasar() {
     }
 }
 
-// 🚀 FIX TOTAL: SEKARANG MEMPROSES RUMUS, VIDEO (KOLOM H), DAN FUNGSI KALIMAT (KOLOM I) SECARA MANDIRI
+// 🚀 FUNGSI UTAMA PENAMPIL MODAL MATERI DARI SHEET
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -138,6 +138,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         btnVideo.style.borderColor = "var(--mms-accent)";
     }
 
+    // Mengamankan kondisi awal penutupan internal laci modal agar tidak bug saat berganti materi
     if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
     if(document.getElementById('panel-pasif-contoh')) document.getElementById('panel-pasif-contoh').style.display = "none";
     if(document.getElementById('panel-tips-tabel')) document.getElementById('panel-tips-tabel').style.display = "none"; 
@@ -168,6 +169,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
+    // Integrasi render box berdasarkan rumpun Aktif vs Pasif Voice
     if (subMateriKolomD.toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
         if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
         if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
@@ -196,13 +198,12 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if(document.getElementById("wrapper-box-pasif")) document.getElementById("wrapper-box-pasif").style.display = "none";
     }
 
-    // 🚀 MASUK KE BOX PEMBAHASAN: MEMBACA TEKS FUNGSI KALIMAT DARI KOLOM I
+    // Render bodi penjelasan fungsi kalimat (Kolom I)
     if(boxPembahasan) {
-        let isiFungsiKombinasi = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
-        boxPembahasan.innerText = isiFungsiKombinasi;
+        boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    // 🚀 MEDIA PLAYER: MEMBACA LINK URL VIDEO DARI KOLOM H
+    // Render media player video penjelasan (Kolom H)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
@@ -221,9 +222,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
-// ==========================================================================
-// FUNGSI LAIN-LAIN UNTUK OPERASIONAL NAVIGASI (TETAP AMAN DI TEMPAT)
-// ==========================================================================
 function toggleRumpunTense(panelId) {
     let targetPanel = document.getElementById(panelId);
     if (!targetPanel) return;
@@ -237,18 +235,29 @@ function toggleRumpunTense(panelId) {
     }
 }
 
+// 🚀 FIXED LOGIKA ACCORDION: Mengeluarkan 'panel-aktif-contoh' dan 'panel-pasif-contoh' agar tidak ditutup paksa secara global
 function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId);
     if (!panel) return;
+    
+    // Jika panelId adalah contoh kalimat di dalam modal, buka/tutup secara independen tanpa mengganggu laci luar dashboard
+    if (panelId === 'panel-aktif-contoh' || panelId === 'panel-pasif-contoh' || panelId === 'panel-tips-tabel') {
+        panel.style.display = (panel.style.display === "none" || panel.style.display === "") ? "block" : "none";
+        return;
+    }
+
     let isOpening = (panel.style.display === "none" || panel.style.display === "");
     let semuaKotakWaktu = ['act-box-present', 'act-box-past', 'act-box-future', 'act-box-pfuture','pas-box-present', 'pas-box-past', 'pas-box-future', 'pas-box-pfuture'];
+    
     semuaKotakWaktu.forEach(id => {
         let p = document.getElementById(id); if (p) p.style.display = "none";
     });
+    
     document.querySelectorAll('.mms-sub-laci').forEach(laci => laci.style.display = "none");
     document.querySelectorAll('.mms-rumpun-content .btn-type-choice').forEach(btn => {
         btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
     });
+    
     if (isOpening) panel.style.display = "flex";
     else panel.style.display = "none";
 }
@@ -361,4 +370,4 @@ document.addEventListener('click', function(event) {
     });
 });
 
-window.addEventListener('DOMContentLoaded', () => { ambilAsetDataWeb(); });
+window.addEventListener('DOMContentLoaded', () => {  ambilAsetDataWeb(); });
