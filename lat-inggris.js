@@ -1,53 +1,11 @@
 // =========================================================================
-// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI AKUN
+// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV
 // =========================================================================
-const API_URL = "https://script.google.com/macros/s/AKfycbyVKLXjfulNsa7E_GaDoYv_TFz6ev2ZrM2TdEZJ3hRjPgXHfH8PWLlJ96wrJq1wrpib/exec";
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
-let userSession = null;
-let bankSoal = [];
 let bankMateri = []; 
-let dataKamus = [];  
-let indeksSoal = 0;
-let jawabanTerpilih = "";
-let nyawa = 5;
+let mmsKotakTerpilihSekarang = null; // Menampung ID icon aktif di dashboard depan
 
-const kuisOffline = [
-    { tanya: "Which one is an administrative tool used to store residents' data?", opsi: ["Database", "Invoice", "Schedule", "Letterhead"], benar: "Database", visual: "fa-database" }
-];
-
-function loginSistem() {
-    let email = document.getElementById("user-email").value.trim().toLowerCase();
-    if(!email) return alert("Email wajib diisi!");
-    
-    document.getElementById("login-panel").innerHTML = "<h3><i class='fa-solid fa-circle-notch fa-spin'></i> Menyinkronkan Akun...</h3>";
-    
-    fetch(`${API_URL}?aksi=login&email=${email}`)
-    .then(r => r.json()).then(res => {
-        userSession = res.data;
-        document.getElementById("login-panel").style.display = "none";
-        document.getElementById("main-panel").style.display = "block";
-        document.getElementById("lbl-nama").innerText = userSession.nama;
-        document.getElementById("lbl-xp").innerText = userSession.xp;
-        
-        resetTampilanDashboard();
-        ambilAsetDataWeb();
-        muatLeaderboard();
-    }).catch(() => {
-        alert("Membuka koneksi luring darurat!");
-        userSession = { email: email, nama: email.split("@")[0], xp: 0 };
-        document.getElementById("login-panel").style.display = "none";
-        document.getElementById("main-panel").style.display = "block";
-        
-        bankSoal = kuisOffline;
-        resetTampilanDashboard();
-    });
-}
-
-
-// =========================================================================
-// 2. SISTEM INTI DATA PIPELINE: FETCHING, PARSING & CACHE BUSTER TSV SHEET
-// =========================================================================
 function ambilAsetDataWeb() {
     let cacheBusterUrl = TSV_URL + "&_cb=" + new Date().getTime();
 
@@ -55,19 +13,9 @@ function ambilAsetDataWeb() {
     .then(r => r.text())
     .then(tsvText => {
         bankMateri = parseTSVMateri(tsvText);
-        renderSubTombolKunciDasar();
+        muatVideoPendahuluanOtomatis(); // Jalankan payung video pembuka di awal
     }).catch(err => {
-        console.error("Gagal memuat materi TSV:", err);
-        renderSubTombolKunciDasar();
-    });
-
-    fetch(`${API_URL}?aksi=getMateriDanSoal`)
-    .then(r => r.json()).then(res => {
-        bankSoal = res.soal && res.soal.length > 0 ? res.soal : kuisOffline;
-        dataKamus = res.kamus ? res.kamus : [];
-        renderKamusKeHalaman();
-    }).catch(() => {
-        bankSoal = kuisOffline;
+        console.error("Gagal sinkronisasi data TSV:", err);
     });
 }
 
@@ -97,42 +45,99 @@ function parseTSVMateri(text) {
 
 
 // =========================================================================
-// 3. LOGIKA TOMBOL & RENDER SPESIFIK TIAP-TIAP BAB MATERI
+// 2. LOGIKA DOUBLE-CLICK SELEKSI & ANIMASI MEMBAL DASHBOARD TRANSPARAN
 // =========================================================================
+function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
+    // Cegah efek klik tembus ke fungsi reset luar body
+    if (event) event.stopPropagation();
 
-// --- [ LOGIKA BAB 1: FUNDAMENTAL / KUNCI DASAR ] ---
-function renderSubTombolKunciDasar() {
-    let gridTombol = document.getElementById("mms-grid-sub-tombol");
-    if (!gridTombol) return;
-    gridTombol.innerHTML = "";
+    let gridContainer = document.getElementById("mms-container-grid-icon");
+    let wrapperIcon = document.getElementById(`mms-item-box-${idKotak}`);
 
-    try {
-        if (!bankMateri || bankMateri.length === 0) return;
+    // KLIK KE-2: Jika user mengetuk icon yang sudah dalam status membesar, eksekusi masuk
+    if (mmsKotakTerpilihSekarang === idKotak) {
+        if (namaMenu === 'materi') {
+            bukaMateriMenu();
+        } else {
+            // Kotak 2, 3, 4 tampilkan modal tanda dalam pengembangan
+            document.getElementById("mms-lbl-dev-title").innerText = "Modul " + namaMenu.toUpperCase();
+            document.getElementById("mms-modal-dev").style.display = "flex";
+        }
+        // Kembalikan ke visual normal setelah masuk
+        resetSeleksiDashboardEsensial();
+        return;
+    }
 
-        let barisDasar = bankMateri.filter(m => {
-            let cat = (m.judulBab || "").toLowerCase().trim();
-            return cat.includes("dasar") || cat.includes("bab 1");
-        });
+    // KLIK KE-1: Aktifkan visual seleksi membal (Scale Up + Reredup Lainnya)
+    mmsKotakTerpilihSekarang = idKotak;
+    
+    // Hapus kelas lama di semua item terlebih dahulu
+    document.querySelectorAll(".menu-icon-wrapper").forEach(el => el.classList.remove("mms-selected-bounce"));
+    
+    // Aktifkan efek elastis di icon terpilih & redupkan sisa icon lainnya
+    gridContainer.classList.add("has-selection");
+    wrapperIcon.classList.add("mms-selected-bounce");
+}
 
-        barisDasar.forEach((itemMateri, index) => {
-            let judulTombol = itemMateri.materi || `Kata Kunci ${index + 1}`;
-            let idUnik = itemMateri.no || index;
-            
-            gridTombol.innerHTML += `
-                <button class="btn-type-choice" id="mms-sub-btn-${idUnik}" 
-                    style="border-color: var(--mms-accent); color: var(--mms-accent);" 
-                    onclick="tampilkanMateriSpesifik('${itemMateri.materi}', '${itemMateri.subMateri}')">
-                    ${judulTombol}
-                </button>
-            `;
-        });
-    } catch (e) {
-        console.error("Error dasar:", e);
+function resetSeleksiDashboardEksternal(e) {
+    // Jika user mengetuk area blong di browser, kembalikan icon ke posisi transparan normal
+    if (!e.target.closest('.menu-icon-wrapper')) {
+        resetSeleksiDashboardEsensial();
     }
 }
 
-// --- [ LOGIKA INTELLIGENT ROUTER: PROSES DINAMIS BAB 1, 2, 3, & 4 ] ---
-function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
+function resetSeleksiDashboardEsensial() {
+    mmsKotakTerpilihSekarang = null;
+    let gridContainer = document.getElementById("mms-container-grid-icon");
+    if (gridContainer) gridContainer.classList.remove("has-selection");
+    document.querySelectorAll(".menu-icon-wrapper").forEach(el => el.classList.remove("mms-selected-bounce"));
+}
+
+
+// =========================================================================
+// 3. LOGIKA PAYUNG VIDEO PENDAHULUAN (KOLOM H - BARIS DATA KUSTOM)
+// =========================================================================
+function muatVideoPendahuluanOtomatis() {
+    let containerVideo = document.getElementById("box-media-video-pembuka");
+    let txtStatus = document.getElementById("mms-txt-status-video-pembuka");
+    
+    // Jembatan: Cari baris khusus di Sheet yang Kolom D (`subMateri`) nya berisi ID 'video-pembuka'
+    let dataVideoPencantar = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === "video-pembuka");
+    
+    if (dataVideoPencantar && dataVideoPencantar.visual) {
+        let linkVideo = dataVideoPencantar.visual.trim();
+        containerVideo.innerHTML = `<video style="width:100%; height:100%; object-fit:cover;" controls>` +
+                                        `<source src="${linkVideo}" type="video/mp4">` +
+                                     `</video>`;
+        txtStatus.style.display = "none";
+    } else {
+        if(txtStatus) txtStatus.innerText = "Buat baris di Sheet dengan Kolom D: 'video-pembuka' & Kolom H: Masukkan Link Video.";
+    }
+}
+
+function toggleLaciVideoPendahuluan() {
+    let laci = document.getElementById("mms-laci-video-pembuka");
+    let iconVideo = document.getElementById("mms-icon-chevron-video");
+    let vFrame = document.getElementById("box-media-video-pembuka");
+    let videoEl = laci.querySelector("video");
+
+    if (laci.style.display === "none" || laci.style.display === "") {
+        laci.style.display = "block";
+        if(vFrame.innerHTML !== "") vFrame.style.display = "flex";
+        if (iconVideo) { iconVideo.classList.remove("fa-chevron-down"); iconVideo.classList.add("fa-chevron-up"); }
+        if (videoEl) videoEl.play().catch(e => {});
+    } else {
+        laci.style.display = "none";
+        if (iconVideo) { iconVideo.classList.remove("fa-chevron-up"); iconVideo.classList.add("fa-chevron-down"); }
+        if (videoEl) videoEl.pause();
+    }
+}
+
+
+// =========================================================================
+// 4. ROUTER LAYER 5: DATA PEMANGGIL MURNI BERBASIS SINGLE PARAMETER (KOLOM D)
+// =========================================================================
+function tampilkanMateriSpesifik(idKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
     let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
@@ -142,18 +147,14 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
-    // Identifikasi pembungkus komponen utama di modal untuk disembunyikan/ditampilkan
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
 
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
-    
     if (btnVideo) {
         btnVideo.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
-        btnVideo.style.background = "#eff6ff";
-        btnVideo.style.color = "var(--mms-accent)";
-        btnVideo.style.borderColor = "var(--mms-accent)";
+        btnVideo.style.background = "#eff6ff"; btnVideo.style.color = "var(--mms-accent)";
     }
 
     if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
@@ -162,41 +163,33 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    let dataCocok = bankMateri.find(m => {
-        let matSheet = (m.materi || "").toLowerCase().trim();
-        let subSheet = (m.subMateri || "").toLowerCase().trim();
-        return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
-    });
+    // 🎯 STRATEGI UTAMA MAS ARDYAN: Pencarian murni dikunci tunggal hanya via ID di Kolom D (subMateri)
+    let dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === idKolomD.toLowerCase().trim());
 
     if (!dataCocok) {
-        if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
+        if (judulTense) judulTense.innerHTML = `Modul: <b>${idKolomD}</b>`;
         if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-        if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan buat baris baru di Google Sheets:\nKolom C: " + namaMateriKolomC + "\nKolom D: " + subMateriKolomD;
-        if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+        if(boxPembahasan) boxPembahasan.innerText = "Data ID '" + idKolomD + "' tidak ditemukan di Google Sheets Kolom D.";
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
 
-    let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
-    if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC} (${labelTipeTeks})</b>`;
-    if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
+    if (judulTense) judulTense.innerHTML = `Modul: <b>${dataCocok.materi || idKolomD}</b>`;
+    if (boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
 
     let isiRumus = (dataCocok.rumus || "").replace(/\\n/g, "\n");
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    let subLower = subMateriKolomD.toLowerCase();
+    let idLower = idKolomD.toLowerCase();
 
-    // 🔲 KONTROL LOGIKAL DAN INTERFACES LAYER 5 BERDASARKAN BAB MATERI
-    if (subLower.startsWith("pasif-")) {
-        // [ JALUR MUTLAK BAB 3: KALIMAT PASIF ]
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block"; // Munculkan box tips untuk tenses
+    if (idLower.startsWith("pasif-")) {
+        // [ JALUR MUTLAK BAB 3: PASIF ]
+        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
         if (boxRumusPasif) boxRumusPasif.innerText = isiRumus;
-        if (boxRumusAktif) boxRumusAktif.innerText = ""; 
-
+        
         if (boxArtiPasif) {
             boxArtiPasif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
@@ -204,20 +197,16 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-        if (boxArtiAktif) boxArtiAktif.innerHTML = "";
-
-    } else if (subLower.startsWith("aktif-")) {
-        // [ JALUR MUTLAK BAB 2: KALIMAT AKTIF ]
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block"; // Munculkan box tips untuk tenses
+    } else if (idLower.startsWith("aktif-")) {
+        // [ JALUR MUTLAK BAB 2: AKTIF ]
+        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
-        
         if (boxRumusAktif) {
             boxRumusAktif.classList.add("mms-txt-rumus-glow");
             boxRumusAktif.innerText = isiRumus;
         }
-        if (boxRumusPasif) boxRumusPasif.innerText = "";
-
+        
         if (boxArtiAktif) {
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
@@ -225,30 +214,20 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-        if (boxArtiPasif) boxArtiPasif.innerHTML = "";
-
     } else {
-        // [ JALUR MUTLAK MODIFIKASI: BAB 1 & BAB 4 (TEORI SPEFISIK) ]
-        // 1. Hancurkan/Sembunyikan total Box Tips Kata Bantu Subjek dari pandangan browser
+        // [ 💀 ATURAN MAIN MUTLAK BAB 1 & BAB 4: TEORI / DASAR ]
+        // Hilangkan/Bantai total visual box rumus aktif, rumus pasif, dan tips tabel kata bantu
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";
-        
-        // 2. Hancurkan/Sembunyikan total Box Rumusan Aktif (Layer 5) dan Box Pasif dari bodi modal
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
-
-        // 3. Kosongkan nilai string internalnya agar tidak menyisakan cache data
-        if (boxRumusAktif) boxRumusAktif.innerText = "";
-        if (boxRumusPasif) boxRumusPasif.innerText = "";
-        if (boxArtiAktif) boxArtiAktif.innerHTML = "";
-        if (boxArtiPasif) boxArtiPasif.innerHTML = "";
     }
 
-    // Render bodi penjelasan ke Kotak Hijau Universal (Memuat text teori full satu paragraf dari Kolom I Sheet)
+    // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
     if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    // Render media player video penjelasan (Kolom H) tetap dipertahankan aman utuh
+    // Render media player video penjelasan (Kolom H - visual)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
@@ -269,157 +248,73 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
 
 // =========================================================================
-// 4. MODUL VOCABULARY & PUSAT KAMUS ISTILAH WARGA ORGANISASI
+// 5. ANIMASI INTERFACES NAVIGASI (ACCORDION WINDOW MANAGEMENT)
 // =========================================================================
-function renderKamusKeHalaman(filterText = "") {
-    let container = document.getElementById("box-daftar-vocab"); if (!container) return; container.innerHTML = "";
-    let filtered = dataKamus.filter(item => {
-        let kata = (item.kata || item.Kata || "").toLowerCase();
-        let arti = (item.arti || item.Arti || "").toLowerCase();
-        return kata.includes(filterText) || arti.includes(filterText);
-    });
-    if(filtered.length === 0) { container.innerHTML = `<div style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Kosakata tidak ditemukan...</div>`; return; }
-    filtered.forEach(item => {
-        let c = item.contoh || item.Contoh || "Belum tersedia contoh kalimat.";
-        container.innerHTML += `<div class="vocab-item">
-            <div style="font-weight: bold; color: var(--mms-navy); font-size: 14px;"><i class="fa-solid fa-language" style="color:var(--mms-green); margin-right:5px;"></i> ${item.kata || item.Kata}</div>
-            <div style="color: #475569; font-size: 13px; margin-top:4px; padding-left:20px;"><b>Arti:</b> ${item.arti || item.Arti}</div>
-            <div style="color: #64748b; font-size: 12px; margin-top:5px; padding:6px 10px; background:#fff; border-left:3px solid var(--mms-green); font-style:italic; padding-left:15px;"><b>Contoh:</b> ${c}</div>
-        </div>`;
-    });
-}
-
-function filterKamusUser() { renderKamusKeHalaman(document.getElementById("vocab-search").value.toLowerCase().trim()); }
-
-
-// =========================================================================
-// 5. ANIMASI NAVIGASI ANTARMUKA (ACCORDION, MODAL & VIDEO TOGGLE)
-// =========================================================================
-function toggleRumpunTense(panelId) {
-    let targetPanel = document.getElementById(panelId);
-    if (!targetPanel) return;
-    let icon = targetPanel.previousElementSibling.querySelector(".fa-chevron-down, .fa-chevron-up");
-    if (targetPanel.style.display === "flex") {
-        targetPanel.style.display = "none";
-        if (icon) { icon.classList.remove("fa-chevron-up"); icon.classList.add("fa-chevron-down"); }
-    } else {
-        targetPanel.style.display = "flex";
-        if (icon) { icon.classList.remove("fa-chevron-down"); icon.classList.add("fa-chevron-up"); }
-    }
-}
-
 function toggleAccordionBox(panelId) {
-    let panel = document.getElementById(panelId);
-    if (!panel) return;
-    
+    let panel = document.getElementById(panelId); if (!panel) return;
     if (panelId === 'panel-aktif-contoh' || panelId === 'panel-pasif-contoh' || panelId === 'panel-tips-tabel') {
-        panel.style.display = (panel.style.display === "none" || panel.style.display === "") ? "block" : "none";
-        return;
+        panel.style.display = (panel.style.display === "none" || panel.style.display === "") ? "block" : "none"; return;
     }
-
     let isOpening = (panel.style.display === "none" || panel.style.display === "");
-    let semuaKotakWaktu = ['act-box-present', 'act-box-past', 'act-box-future', 'act-box-pfuture','pas-box-present', 'pas-box-past', 'pas-box-future', 'pas-box-pfuture'];
-    
-    semuaKotakWaktu.forEach(id => {
-        let p = document.getElementById(id); if (p) p.style.display = "none";
-    });
-    
+    let semuaKotakWaktu = ['act-box-present', 'pas-box-present'];
+    semuaKotakWaktu.forEach(id => { let p = document.getElementById(id); if (p) p.style.display = "none"; });
     document.querySelectorAll('.mms-sub-laci').forEach(laci => laci.style.display = "none");
-    document.querySelectorAll('.mms-rumpun-content .btn-type-choice').forEach(btn => {
-        btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
-    });
-    
     if (isOpening) panel.style.display = "flex";
     else panel.style.display = "none";
 }
 
 function toggleSubLaci(idLaci) {
-    let el = document.getElementById(idLaci);
-    if (!el) return;
+    let el = document.getElementById(idLaci); if (!el) return;
     let isOpening = (el.style.display === "none" || el.style.display === "");
-    let pemicuKlik = event ? event.currentTarget : null; 
     document.querySelectorAll('.mms-sub-laci').forEach(laci => { if (laci.id !== idLaci) laci.style.display = "none"; });
-    document.querySelectorAll('.mms-rumpun-content .btn-type-choice').forEach(btn => { if (btn !== pemicuKlik) btn.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal'); });
-    if (isOpening) {
-        el.style.display = "block";
-        if (pemicuKlik && pemicuKlik.classList.contains('btn-mms-nominal')) pemicuKlik.classList.add('mms-btn-active-laci-nominal');
-        else if (pemicuKlik) pemicuKlik.classList.add('mms-btn-active-laci');
-    } else {
-        el.style.display = "none";
-        if (pemicuKlik) pemicuKlik.classList.remove('mms-btn-active-laci', 'mms-btn-active-laci-nominal');
-    }
-}
-
-function resetTampilanDashboard() {
-    document.getElementById("dashboard-menu").style.display = "block";
-    document.getElementById("materi-body").style.display = "none";
-    document.getElementById("vocab-body").style.display = "none";
-    if (document.getElementById("mms-accordion-konten-dasar")) document.getElementById("mms-accordion-konten-dasar").style.display = "none";
-    if (document.getElementById("mms-box-penjelasan-dasar")) document.getElementById("mms-box-penjelasan-dasar").style.display = "none";
-    document.querySelectorAll("#mms-grid-sub-tombol .btn-type-choice").forEach(b => b.classList.remove("mms-active-dasar"));
-    document.querySelectorAll('.mms-rumpun-card').forEach(card => card.classList.remove('mms-bab-active-card'));
-    document.querySelectorAll(".mms-rumpun-content").forEach(p => p.style.display = "none");
-}
-
-function bukaMateriMenu() {
-    document.getElementById("dashboard-menu").style.display = "none";
-    document.getElementById("materi-body").style.display = "block";
-    document.getElementById("vocab-body").style.display = "none";
-    document.getElementById("materi-pembahasan-box").style.display = "none";
-}
-
-function bukaVocab() {
-    document.getElementById("dashboard-menu").style.display = "none";
-    document.getElementById("materi-body").style.display = "none";
-    document.getElementById("vocab-body").style.display = "block";
-    renderKamusKeHalaman();
-}
-
-function kembaliKeDashboard() { resetTampilanDashboard(); }
-function tutupModalMateri(e) { let m = document.getElementById("materi-pembahasan-box"); if (m && (!e || e.target.id === "materi-pembahasan-box")) m.style.display = "none"; }
-
-function mmsToggleVideoSaja() {
-    let bv = document.getElementById("box-media-materi"); let btn = document.getElementById("mms-btn-buka-video"); if (!bv) return;
-    let vid = document.getElementById("mms-media-video-lokal");
-    if (bv.style.display === "flex") {
-        bv.style.display = "none"; if (vid) vid.pause();
-        if (btn) { btn.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`; btn.style.background = "#eff6ff"; btn.style.color = "var(--mms-accent)"; }
-    } else {
-        bv.style.display = "flex"; if (vid) { vid.currentTime = 0; vid.play().catch(e => {}); }
-        if (btn) { btn.innerHTML = `<i class="fa-solid fa-circle-minus"></i> <span>Ketuk untuk Sembunyikan Video Materi</span>`; btn.style.background = "#f1f5f9"; btn.style.color = "#64748b"; }
-    }
+    if (isOpening) el.style.display = "block";
+    else el.style.display = "none";
 }
 
 function toggleRumpunSmart(idBab) {
     let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
     semuaBab.forEach(id => {
         let el = document.getElementById(id); if (!el) return;
-        let cardUtama = el.closest('.mms-rumpun-card'); let h = el.previousElementSibling; let icon = h ? h.querySelector('.fa-chevron-down, .fa-chevron-up') : null;
         if (id === idBab) {
-            if (el.style.display === "none" || el.style.display === "") {
-                el.style.display = "flex"; if (icon) { icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
-                if (cardUtama) cardUtama.classList.add('mms-bab-active-card');
-            } else {
-                el.style.display = "none"; if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
-                if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
-            }
+            el.style.display = (el.style.display === "none" || el.style.display === "") ? "flex" : "none";
         } else {
-            el.style.display = "none"; if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
-            if (cardUtama) cardUtama.classList.remove('mms-bab-active-card');
+            el.style.display = "none";
         }
     });
 }
 
-document.addEventListener('click', function(event) {
-    if (event.target.closest('form') || event.target.id === 'user-email' || event.target.closest('#login-panel') || event.target.closest('.mms-rumpun-header') || event.target.closest('.mms-rumpun-content') || event.target.closest('button[onclick^="toggleSubLaci"]') || event.target.closest('.mms-sub-laci') || event.target.closest('#materi-pembahasan-box')) return;
-    let semuaBab = ['mms-bab-1-content', 'mms-bab-2-content', 'mms-bab-3-content', 'mms-bab-4-content'];
-    semuaBab.forEach(id => {
-        let el = document.getElementById(id);
-        if (el && el.style.display === "flex") {
-            el.style.display = "none"; let cu = el.closest('.mms-rumpun-card'); if (cu) cu.classList.remove('mms-bab-active-card');
-            let h = el.previousElementSibling; let ic = h ? h.querySelector('.fa-chevron-up') : null; if (ic) { ic.classList.remove('fa-chevron-up'); ic.classList.add('fa-chevron-down'); }
-        }
-    });
-});
+function resetTampilanDashboard() {
+    document.getElementById("dashboard-menu").style.display = "block";
+    document.getElementById("materi-body").style.display = "none";
+    resetSeleksiDashboardEsensial();
+}
 
-window.addEventListener('DOMContentLoaded', () => {  ambilAsetDataWeb(); });
+function bukaMateriMenu() {
+    document.getElementById("dashboard-menu").style.display = "none";
+    document.getElementById("materi-body").style.display = "block";
+    document.getElementById("materi-pembahasan-box").style.display = "none";
+}
+
+function kembaliKeDashboard() { resetTampilanDashboard(); }
+function tutupModalMateri(e) { 
+    let m = document.getElementById("materi-pembahasan-box"); 
+    if (m && (!e || e.target.id === "materi-pembahasan-box")) {
+        m.style.display = "none";
+        let vidLokal = document.getElementById("mms-media-video-lokal");
+        if (vidLokal) vidLokal.pause();
+    } 
+}
+
+function mmsToggleVideoSaja() {
+    let bv = document.getElementById("box-media-materi"); let btn = document.getElementById("mms-btn-buka-video"); if (!bv) return;
+    let vid = document.getElementById("mms-media-video-lokal");
+    if (bv.style.display === "flex") {
+        bv.style.display = "none"; if (vid) vid.pause();
+        if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
+    } else {
+        bv.style.display = "flex"; if (vid) { vid.currentTime = 0; vid.play().catch(e => {}); }
+        if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-minus"></i> <span>Ketuk untuk Sembunyikan Video Materi</span>`;
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => { ambilAsetDataWeb(); });
