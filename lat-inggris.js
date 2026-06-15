@@ -131,7 +131,7 @@ function renderSubTombolKunciDasar() {
     }
 }
 
-// --- [ LOGIKA INTELLIGENT ROUTER: PROSES DATA BAB 2 (AKTIF) & BAB 3 (PASIF) ] ---
+// --- [ LOGIKA INTELLIGENT ROUTER: PROSES DINAMIS BAB 1, 2, 3, & 4 ] ---
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -142,9 +142,10 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
-    // Identifikasi pembungkus utama box rumusan layer 5
+    // Identifikasi pembungkus utama box rumusan layer 5 beserta element judul teksnya
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
+    let labelHeaderRumus = elementBoxAktifUtama ? elementBoxAktifUtama.querySelector('.info-box-title') : null;
 
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
     
@@ -185,9 +186,11 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // 🔲 KONTROL INTERFACES LAYER 5 (KOLOM D DETEKSI BERBASIS AWALAN)
-    if (subMateriKolomD.toLowerCase().startsWith("pasif-")) {
-        // [ ATURAN MAIN MUTLAK BAB 3: PASIF ]
+    let subLower = subMateriKolomD.toLowerCase();
+
+    // 🔲 KONTROL LOGIKAL DAN INTERFACES LAYER 5 BERDASARKAN BAB MATERI
+    if (subLower.startsWith("pasif-")) {
+        // [ JALUR MUTLAK BAB 3: KALIMAT PASIF ]
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
         if (boxRumusPasif) boxRumusPasif.innerText = isiRumus;
@@ -202,13 +205,42 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
         if (boxArtiAktif) boxArtiAktif.innerHTML = "";
 
-    } else {
-        // [ ATURAN MAIN MUTLAK BAB 2: AKTIF ]
+    } else if (subLower.startsWith("aktif-")) {
+        // [ JALUR MUTLAK BAB 2: KALIMAT AKTIF ]
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
-        if (boxRumusAktif) boxRumusAktif.innerText = isiRumus;
+        
+        // Kembalikan style normal tenses (Glow & Judul Rumus) jika sebelumnya habis membuka teori
+        if (boxRumusAktif) {
+            boxRumusAktif.classList.add("mms-txt-rumus-glow");
+            boxRumusAktif.innerText = isiRumus;
+        }
         if (boxRumusPasif) boxRumusPasif.innerText = "";
+        if (labelHeaderRumus) labelHeaderRumus.innerHTML = `<i class="fa-solid fa-bolt"></i> Rumus`;
 
+        if (boxArtiAktif) {
+            boxArtiAktif.innerHTML = `
+                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
+                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
+            `;
+        }
+        if (boxArtiPasif) boxArtiPasif.innerHTML = "";
+
+    } else {
+        // [ JALUR BARU MODIFIKASI: BAB 1 & BAB 4 (MATERI DASAR / TEORI SPEFISIK) ]
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
+
+        // Copot efek neon glow & manipulasi judul komponen secara dinamis lewat JS
+        if (boxRumusAktif) {
+            boxRumusAktif.classList.remove("mms-txt-rumus-glow");
+            boxRumusAktif.innerText = isiRumus; // Mengambil teks penjelasan spesifik dari Kolom E Sheets
+        }
+        if (boxRumusPasif) boxRumusPasif.innerText = "";
+        if (labelHeaderRumus) labelHeaderRumus.innerHTML = `<i class="fa-solid fa-book-open"></i> Penjelasan Spesifik`;
+
+        // Render konten visual text contoh kalimat & terjemahan dasar
         if (boxArtiAktif) {
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
@@ -224,7 +256,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    // Render media player video penjelasan (Kolom H)
+    // Render media player video penjelasan (Kolom H) tetap dipertahankan aman utuh
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
