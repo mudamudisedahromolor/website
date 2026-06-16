@@ -256,10 +256,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> someone, anyone, everyone, everything.
                                     </td>
                                 </tr>
-                                <tr style="background:#fefce8;">
-                                    <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
-                                    <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
