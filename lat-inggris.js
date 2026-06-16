@@ -148,6 +148,15 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
     let panelTipsTabel = document.getElementById('panel-tips-tabel');
 
+    let idLower = subMateriKolomD.toLowerCase().trim();
+
+    // 🎯 URUTAN PALING ATAS UTAMA: DETEKSI DAN MATIKAN KOTAK RUMUS JIKA BUKAN TENSES (BAB 1 & BAB 4)
+    if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // NONE RUMUS AKTIF
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // NONE RUMUS PASSIVE
+        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";   // NONE KATA BANTU TO BE
+    }
+
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
     
     if (btnVideo) {
@@ -189,19 +198,13 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    let idLower = subMateriKolomD.toLowerCase().trim();
-
     // Pembersih sisa render tabel lama agar tidak tumpang tindih
     let tabelCustomLama = document.getElementById("mms-tabel-contoh-bab14");
     if (tabelCustomLama) tabelCustomLama.remove();
 
-    // 🔲 KONTROL STRUKTUR MODAL LAYER 5 ADIL DAN PRESISI (BAB 1 & 4 DIANGKAT KE PALING ATAS UTAMA)
+    // 🔲 JALUR LOGIKA BAB 2 DAN BAB 3 TIDAK DISENTUH SATU BARIS PUN
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
-        // [ 💀 JALUR 1: BAB 1 & BAB 4 - HIDDEN TOTAL KOTAK RUMUS AKTIF, PASIF & TIPS KATA BANTU ]
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Sembunyikan Rumus Aktif
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // Sembunyikan Rumus Passive
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";   // Sembunyikan Tips Pasangan Subjek bawaan HTML
-
+        
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
