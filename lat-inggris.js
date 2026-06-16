@@ -128,6 +128,7 @@ function toggleLaciVideoPendahuluan() {
 // 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS GANDA (FIX RECOVERY MUTLAK)
 // =========================================================================
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
+    // Jembatan pengaman otomatis jika Bab 1 / Bab 4 memanggil hanya dengan single parameter ID kustom Kolom D
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
     }
@@ -141,6 +142,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
+    // Menargetkan komponen pembungkus bodi modal di HTML sampeyan
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
@@ -166,6 +168,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
+    // Jalur fallback cadangan murni untuk memproses single-parameter ID unik milik Bab 1 / Bab 4
     if (!dataCocok) {
         dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
@@ -192,23 +195,17 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let tabelCustomLama = document.getElementById("mms-tabel-contoh-bab14");
     if (tabelCustomLama) tabelCustomLama.remove();
 
-    // 🔲 KONTROL STRUKTUR UTAMA LAYER 5 (POSISI DIURUTKAN SECARA BENAR & LOGIS)
+    // 🔲 KONTROL STRUKTUR MODAL LAYER 5 ADIL DAN PRESISI (BAB 1 & 4 DIANGKAT KE PALING ATAS UTAMA)
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
-        // [ 💀 JALUR 1: BAB 1 & BAB 4 DIANGKAT KE ATAS UTAMA AGAR KOTAK RUMUS JALAN Perintah NONE ]
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Mati total tanpa bocor
-        
-        if (elementBoxTipsUtama) {
-            elementBoxTipsUtama.style.display = "block"; 
-            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
-            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
-            if(btnTriggerAsli) btnTriggerAsli.style.display = "none";
-            if(headerAsli) headerAsli.style.display = "none";
-        }
+        // [ 💀 JALUR 1: BAB 1 & BAB 4 - HIDDEN TOTAL KOTAK RUMUS AKTIF, PASIF & TIPS KATA BANTU ]
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Sembunyikan Rumus Aktif
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // Sembunyikan Rumus Passive
+        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";   // Sembunyikan Tips Pasangan Subjek bawaan HTML
 
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
+        // Suntikkan dan paksa cetak kerangka Tabel Contoh Kustom baru menggantikan tabel lama
         let htmlTabelContoh = `
             <div id="mms-tabel-contoh-bab14" class="info-box-item-tips" style="margin-top: 14px; border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; text-align: left;">
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
@@ -256,7 +253,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("pasif-")) {
-        // [ 🔒 JALUR 2: BAB 3 PASIF ]
+        // [ 🔒 JALUR 2: BAB 3 PASIF - UTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -280,7 +277,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("aktif-")) {
-        // [ 🔒 JALUR 3: BAB 2 AKTIF ]
+        // [ 🔒 JALUR 3: BAB 2 AKTIF - UTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
