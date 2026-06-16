@@ -148,7 +148,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let idLower = subMateriKolomD.toLowerCase().trim();
 
-    // 🎯 URUTAN PALING ATAS UTAMA JALUR BAB 1 & BAB 4: LENYAPKAN TOTAL KOTAK RUMUS AKTIF, PASIF & KATA BANTU
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  
@@ -194,17 +193,15 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // Pembersih sisa render tabel kustom lama agar tidak menumpuk saat ganti menu
     let tabelCustomLama = document.getElementById("mms-tabel-contoh-bab14");
     if (tabelCustomLama) tabelCustomLama.remove();
 
-    // 🔲 BLOK LOGIKA DISTRIBUSI RUMPUN MATERI
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         
-        let arrayContoh = isiContoh.split("\n");
-        let arrayArti = isiArti.split("\n");
+        // 🎯 UPDATE UTAMA MAS ARDYAN: Memecah baris data berdasarkan tanda koma (,)
+        let arrayContoh = isiContoh.split(",");
+        let arrayArti = isiArti.split(",");
 
-        // Suntikkan tabel baru dengan data yang ditarik dari Sheets, serta judul diubah menjadi "Contoh" saja
         let htmlTabelContoh = `
             <div id="mms-tabel-contoh-bab14" class="info-box-item-tips" style="margin-top: 14px; border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; text-align: left;">
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
@@ -252,7 +249,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("pasif-")) {
-        // [ 🔒 JALUR 2: BAB 3 PASIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -276,7 +272,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("aktif-")) {
-        // [ 🔒 JALUR 3: BAB 2 AKTIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -303,12 +298,10 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
     }
 
-    // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
     if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    // Render media player video penjelasan (Kolom H - visual)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
