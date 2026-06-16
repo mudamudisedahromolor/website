@@ -128,7 +128,7 @@ function toggleLaciVideoPendahuluan() {
 // 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS BAB 1, 2, 3, & 4
 // =========================================================================
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
-    // Jalur jembatan jika Bab 1/4 memanggil hanya dengan single parameter ID
+    // Jembatan jika Bab 1/4 memanggil hanya dengan single parameter ID murni
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
     }
@@ -160,14 +160,14 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🔒 RESTORASI LOCK LOGIKA SINKRONISASI: Mencari kombinasi mutlak Kolom C dan Kolom D
+    // 🔒 PROSES PENCARIAN UTAMA DATA SHEET (SINKRONISASI 2 PARAMETER ASLI BAB 2 & 3)
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
-    // Fallback khusus Bab 1 / Bab 4 murni tunggal
+    // Fallback cadangan khusus untuk single-parameter ID Bab 1 / Bab 4
     if (!dataCocok) {
         dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
@@ -175,7 +175,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     if (!dataCocok) {
         if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
         if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan di Sheets.";
+        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan periksa kembali Kolom D di Google Sheets.";
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
@@ -188,51 +188,60 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    let subLower = subMateriKolomD.toLowerCase();
+    // Ambil string Judul Bab dari Kolom B sebagai penentu murni rumpun halaman modal
+    let babLower = (dataCocok.judulBab || "").toLowerCase().trim();
 
-    // 🔲 KONTROL LOGIKA LAYER 5 SESUAI KETENTUAN TERBARU MAS ARDYAN
-    if (subLower.startsWith("pasif-") || subLower.includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
-        // [ JALUR MUTLAK UTUH BAB 3: KALIMAT PASIF ]
+    // 🔲 EKSEKUSI KONTROL INTERFACES BERDASARKAN VALIDASI JUDUL BAB (KOLOM B)
+    if (babLower.includes("bab 3") || babLower.includes("pasif") || babLower.includes("passive")) {
+        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF - TIDAK DIGANGGU ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
-        if (boxRumusPasif) boxRumusPasif.innerText = isiRumus;
         
-        if (boxArtiPasif) {
+        if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
+        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
+        
+        if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
+        if(boxArtiPasif) {
             boxArtiPasif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-    } else if (subLower.startsWith("aktif-") || subLower.includes("positif") || subLower.includes("negatif")) {
-        // [ JALUR MUTLAK UTUH BAB 2: KALIMAT AKTIF ]
+
+    } else if (babLower.includes("bab 2") || babLower.includes("aktif") || babLower.includes("active")) {
+        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - TIDAK DIGANGGU ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
-        if (boxRumusAktif) {
-            boxRumusAktif.classList.add("mms-txt-rumus-glow");
-            boxRumusAktif.innerText = isiRumus;
-        }
         
-        if (boxArtiAktif) {
+        if(boxRumusAktif) {
+            boxRumusAktif.classList.add("mms-txt-rumus-glow");
+            boxRumusAktif.innerText = isiRumus; 
+        }
+        if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
+        
+        if(boxArtiAktif) {
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-    } else {
-        // [ 💀 AMAN MUTLAK JALUR BAB 1 & BAB 4: HANYA 4 KOTAK BERSIH TANPA RUMUS ]
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block"; // Biarkan box kuning hidup untuk diisi tabel contoh
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Bantai Rumus Aktif Neon
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // Bantai Rumus Pasif Neon
+        if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
 
-        // Pecah string data dari Kolom F & G menggunakan pembatas baris baru (\n atau \b)
+    } else {
+        // [ 💀 JALUR FIX MUTLAK BAB 1 & BAB 4: HANYA 4 KOTAK BERSIH TOTAL TANPA RUMUS NEON ]
+        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block"; // Aktifkan bodi box untuk memuat tabel baru
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Lenyapkan total Rumus Aktif
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // Lenyapkan total Rumus Pasif
+
+        // Bersihkan string dan pecah baris data contoh kata dari Sheets (\n)
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
-        // Bangun visual Tabel Contoh mengikuti cetakan presisi Tabel To-Be asli
+        // Cetak struktur HTML Tabel Contoh baru secara paksa menggantikan struktur tabel To Be lama
         let htmlTabelContoh = `
             <div style="overflow-x:auto; margin-top:5px;">
                 <table style="width:100%; border-collapse:collapse; background:#fffdf4; font-size:13px; border-radius:6px; overflow:hidden;">
@@ -245,13 +254,12 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                     <tbody>
         `;
 
-        // Loop maksimal data 3 - 5 baris saja
+        // Atur batasan penampilan baris tabel contoh minimal 3 baris dan maksimal 5 baris
         let batasBaris = Math.min(Math.max(arrayContoh.length, 3), 5);
         for (let j = 0; j < batasBaris; j++) {
             let itemC = arrayContoh[j] ? arrayContoh[j].trim() : "";
             let itemA = arrayArti[j] ? arrayArti[j].trim() : "";
 
-            // Jika baris ada isinya, tampilkan. Jika kosong, biarkan blank string
             htmlTabelContoh += `
                 <tr style="border-bottom:1px solid #fef9c3;">
                     <td style="padding:9px 10px; color:var(--mms-navy); font-weight:500; font-style:italic;">${itemC}</td>
@@ -260,7 +268,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             `;
         }
 
-        // Tambahkan baris kosong penutup penanda penunjuk selengkapnya (etc.)
+        // Cetak baris kosong penutup penanda penunjuk selengkapnya (etc.) di bagian paling bawah tabel
         htmlTabelContoh += `
                         <tr style="background:#fefce8;">
                             <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600;">etc.</td>
@@ -271,19 +279,19 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             </div>
         `;
 
-        // Suntikkan tabel dinamis ini langsung ke dalam kontainer Box Tips yang sudah ada di HTML
+        // Suntikkan dan paksa buka tabel contoh baru ini langsung ke kontainer halaman modal
         if (panelTipsTabel) {
             panelTipsTabel.innerHTML = htmlTabelContoh;
-            panelTipsTabel.style.display = "block"; // Langsung buka otomatis tanpa trigger tombol laci lagi
+            panelTipsTabel.style.display = "block"; // Buka otomatis tanpa perlu user menekan tombol dropdown lagi
         }
     }
 
-    // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
+    // Render bodi penjelasan ke Kotak Hijau Universal (Kolom I - fungsi)
     if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    // Render media player video penjelasan (Kolom H)
+    // Render media player video penjelasan (Kolom H - visual)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
