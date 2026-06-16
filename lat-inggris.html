@@ -9,70 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=103">
     <link rel="stylesheet" href="lat-inggris.css">
-    
-    <style>
-        /* 🎨 STYLING ANIMASI MEMBAL & DASHBOARD TRANSPARAN MAS ARDYAN */
-        .mms-welcome-video-card {
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid #3b82f6;
-            border-radius: 8px;
-            background: #ffffff;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .dashboard-grid-transparan {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            padding: 15px 10px;
-            justify-items: center;
-        }
-        .menu-icon-wrapper {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            outline: none;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
-        }
-        /* Efek Membal Aktif saat Klik Pertama */
-        .menu-icon-wrapper.mms-selected-bounce {
-            transform: scale(1.35);
-            z-index: 10;
-        }
-        /* Efek Meredup untuk Icon Lain yang Tidak Terpilih */
-        .dashboard-grid-transparan.has-selection .menu-icon-wrapper:not(.mms-selected-bounce) {
-            opacity: 0.35;
-        }
-        .icon-circle-avatar {
-            width: 75px;
-            height: 75px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 28px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-        .icon-minimal-label {
-            margin-top: 8px;
-            font-weight: 700;
-            font-size: 13px;
-            color: var(--mms-navy);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
-        }
-        .menu-icon-wrapper.mms-selected-bounce .icon-minimal-label {
-            color: #3b82f6;
-        }
-    </style>
+  
 </head>
 <body onclick="resetSeleksiDashboardEksternal(event)"> 
     
