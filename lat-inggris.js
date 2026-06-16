@@ -141,7 +141,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
-    // Menargetkan komponen pembungkus bodi modal di HTML sampeyan
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
@@ -149,7 +148,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let idLower = subMateriKolomD.toLowerCase().trim();
 
-    // 🎯 URUTAN PALING ATAS UTAMA JALUR BAB 1 & BAB 4: LENYAPKAN TOTAL KOTAK RUMUS AKTIF, PASIF & KATA BANTU
+    // 🎯 URUTAN PALING ATAS UTAMA JALUR BAB 1 & BAB 4: LENYAPKAN TOTAL KOTAK RUMUS AKTIF, PASIF & KATA BANTU DEFAULT
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  
@@ -195,92 +194,89 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // Pembersih sisa render tabel kustom lama agar tidak menumpuk saat ganti menu
-    let tabelCustomLama = document.getElementById("mms-tabel-contoh-bab14");
-    if (tabelCustomLama) tabelCustomLama.remove();
+    // Pembersih sisa render laci kustom lama agar saat ganti modul tidak tumpat tindih
+    let laciCustomLama = document.getElementById("mms-laci-tutup-sembunyi-bab14");
+    if (laciCustomLama) laciCustomLama.remove();
 
     // 🔲 BLOK LOGIKA DISTRIBUSI RUMPUN MATERI
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         
-        let htmlTabelContoh = "";
+        let isiKontenLaci = "";
 
-        // 🎯 SEKAT LOGIKA MULTI-ID: Jika yang diklik bab1-pronouns ATAU pos-pronoun
+        // 🎯 JALUR 1-A: LOGIKA TABEL PRONOUNS TABLE / POS-PRONOUN (KUSTOM SEPERTI GAMBAR REFERENSI)
         if (idLower === "bab1-pronouns" || idLower === "pos-pronoun") {
-            htmlTabelContoh = `
-                <div id="mms-tabel-contoh-bab14" class="info-box-item-tips" style="margin-top: 14px; border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; text-align: left;">
-                    <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                        <i class="fa-solid fa-table"></i> Klasifikasi Jenis Pronoun
-                    </div>
-                    <div style="overflow-x:auto;">
-                        <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
-                            <thead>
-                                <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
-                                    <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Jenis Pronoun</th>
-                                    <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="border-bottom:1px solid #cbd5e1;">
-                                    <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Personal Pronouns</td>
-                                    <td style="padding:9px 10px; color:#475569; line-height:1.5;">
-                                        Kata ganti yang menggantikan orang, hewan, atau benda tertentu. Dibedakan menjadi subjek dan objek.<br>
-                                        <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh Subjek:</span> I, you, he, she, they, we, it.<br>
-                                        <span style="color:#16a34a; font-weight:600; font-style:italic;">Contoh Objek:</span> me, you, him, her, them, us, it.
-                                    </td>
-                                </tr>
-                                <tr style="border-bottom:1px solid #cbd5e1;">
-                                    <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Possessive Pronouns</td>
-                                    <td style="padding:9px 10px; color:#475569; line-height:1.5;">
-                                        Kata ganti untuk menunjukkan kepemilikan.<br>
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-table"></i> Klasifikasi Jenis Pronoun
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Jenis Pronoun</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Personal Pronouns</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata ganti yang menggantikan orang, hewan, atau benda tertentu. Dibedakan menjadi subjek dan objek.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh Subjek:</span> I, you, he, she, they, we, it.<br>
+                                    <span style="color:#16a34a; font-weight:600; font-style:italic;">Contoh Objek:</span> me, you, him, her, them, us, it.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Possessive Pronouns</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata ganti untuk menunjukkan kepemilikan.<br>
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> mine, yours, his, her, theirs, ours, its.
-                                    </td>
-                                </tr>
-                                <tr style="border-bottom:1px solid #cbd5e1;">
-                                    <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Demonstrative Pronouns</td>
-                                    <td style="padding:9px 10px; color:#475569; line-height:1.5;">
-                                        Kata ganti untuk menunjukkan lokasi, jarak, atau jumlah suatu benda.<br>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Demonstrative Pronouns</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata ganti untuk menunjukkan lokasi, jarak, atau jumlah suatu benda.<br>
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> this, that, these, those.
-                                    </td>
-                                </tr>
-                                <tr style="border-bottom:1px solid #cbd5e1;">
-                                    <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Reflexive Pronouns</td>
-                                    <td style="padding:9px 10px; color:#475569; line-height:1.5;">
-                                        Kata ganti yang digunakan ketika subjek dan objek dalam kalimat adalah orang yang sama.<br>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Reflexive Pronouns</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata ganti yang digunakan ketika subjek dan objek dalam kalimat adalah orang yang sama.<br>
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> myself, yourself, himself, themselves.
-                                    </td>
-                                </tr>
-                                <tr style="border-bottom:1px solid #cbd5e1;">
-                                    <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Indefinite Pronouns</td>
-                                    <td style="padding:9px 10px; color:#475569; line-height:1.5;">
-                                        Kata ganti untuk orang atau benda yang jumlah atau identitasnya tidak spesifik.<br>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Indefinite Pronouns</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata ganti untuk orang atau benda yang jumlah atau identitasnya tidak spesifik.<br>
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> someone, anyone, everyone, everything.
-                                    </td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>
-                    </div>
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
                 </div>
             `;
         } else {
-            // JALUR UNIVERSAL MATERI BAB 1 & 4 LAINNYA (DIPISAH DENGAN KOMA)
+            // 🎯 JALUR 1-B: UNIVERSAL MATERI BAB 1 & 4 LAINNYA (TABEL BIASA DENGAN PEMISAH KOMA)
             let arrayContoh = isiContoh.split(",");
             let arrayArti = isiArti.split(",");
 
-            htmlTabelContoh = `
-                <div id="mms-tabel-contoh-bab14" class="info-box-item-tips" style="margin-top: 14px; border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; text-align: left;">
-                    <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                        <i class="fa-solid fa-list"></i> Contoh Kata
-                    </div>
-                    <div style="overflow-x:auto;">
-                        <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
-                            <thead>
-                                <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
-                                    <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1;">Contoh Kalimat</th>
-                                    <th style="padding:10px; text-align:left; font-weight:700;">Arti / Terjemahan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-list"></i> Contoh ${idLower.startsWith('pos-') ? 'Kata' : 'Kalimat'}
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1;">Contoh Kalimat</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Arti / Terjemahan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
             `;
 
             let batasBaris = Math.min(Math.max(arrayContoh.length, 3), 5);
@@ -288,7 +284,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 let itemC = arrayContoh[j] ? arrayContoh[j].trim() : "";
                 let itemA = arrayArti[j] ? arrayArti[j].trim() : "";
                 if (itemC !== "" || itemA !== "") {
-                    htmlTabelContoh += `
+                    isiKontenLaci += `
                                 <tr style="border-bottom:1px solid #cbd5e1;">
                                     <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">${itemC}</td>
                                     <td style="padding:9px 10px; color:#475569;">${itemA}</td>
@@ -297,10 +293,10 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 }
             }
 
-            htmlTabelContoh += `
+            isiKontenLaci += `
                                 <tr style="background:#fefce8;">
                                     <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
-                                    <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                                    <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Dan lain-lain</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -309,12 +305,29 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             `;
         }
 
+        // 🎯 MERAKIT STRUKTUR UTUH LACI TUTUP-SEMBUNYI (ACCORDION WINDOW) UNTUK BAB 1 & 4
+        let htmlLaciSembunyi = `
+            <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
+                <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-lightbulb"></i> Referensi Data &amp; Contoh:
+                </div>
+                <button class="mms-toggle-trigger-btn" style="border-color: #eab308; color: #b45309; background: #fff; margin-top: 4px; width: 100%; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.15s ease;" onclick="toggleAccordionBox('panel-tips-tabel')">
+                    <i class="fa-solid fa-folder-open"></i> Ketuk untuk Buka / Sembunyikan Tabel
+                </button>
+                <div id="panel-tips-tabel" class="mms-dropdown-content-panel" style="display: none; margin-top: 10px; background: #fffdf5; padding: 12px; border-radius: 6px; border-left: 3px solid #eab308;">
+                    ${isiKontenLaci}
+                </div>
+            </div>
+        `;
+
+        // Suntikkan wadah laci dinamis ini ke susunan layout vertikal modal utama
         let pembungkusUtama = document.querySelector(".mms-vertical-layout-stack");
         if (pembungkusUtama) {
-            pembungkusUtama.insertAdjacentHTML('beforeend', htmlTabelContoh);
+            pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
         }
 
     } else if (idLower.startsWith("pasif-")) {
+        // [ 🔒 JALUR 2: BAB 3 PASIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -338,6 +351,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("aktif-")) {
+        // [ 🔒 JALUR 3: BAB 2 AKTIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
