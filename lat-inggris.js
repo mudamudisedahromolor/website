@@ -259,7 +259,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-verb") {
-            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI VERB
+            // 🎯 JALUR KUSTOM: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI VERB
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Kategori Utama Verb (Berdasarkan Makna)
@@ -339,8 +339,106 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                     </table>
                 </div>
             `;
+        } else if (idLower === "pos-adjective") {
+            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL 3 SEKAT KHUSUS MATERI ADJECTIVE SESUAI GAMBAR REFERENSI
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bookmark"></i> 1. Fungsi Utama dalam Kalimat
+                </div>
+                <div style="overflow-x:auto; margin-bottom: 18px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Posisi Adjective</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Attributive Adjective</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Diletakkan tepat <span style="font-weight:700;">sebelum</span> kata benda (noun).<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> "She wore a <span style="color:#cc0202; font-weight:700;">red</span> dress." (Dia memakai gaun merah).
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Predicative Adjective</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Diletakkan <span style="font-weight:700;">setelah</span> linking verb (seperti is, am, are, was, were, become, feel, look).<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> "The sky is <span style="color:#3b82f6; font-weight:700;">blue</span>." (Langit itu biru).
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-star"></i> 2. Jenis-Jenis Adjective (Kategori Umum)
+                </div>
+                <div style="overflow-x:auto; margin-bottom: 18px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Kategori</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Penjelasan &amp; Contoh Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Descriptive Adjective</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menjelaskan sifat atau keadaan fisik/karakter.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> beautiful, tall, lazy, smart.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Quantitative Adjective</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menjelaskan jumlah benda.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> many, some, little, enough.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Demonstrative Adjective</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menunjuk benda secara spesifik.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> this, that, these, those.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Possessive Adjective</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menunjukkan kepemilikan.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> my, your, his, her, their.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Numeral Adjective</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menunjukkan angka atau urutan/tingkat.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> two, first, double.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-down-short-wide"></i> 3. Posisi Berurutan (Adjective Order)
+                </div>
+                <div style="background:#fff; border: 1px solid #cbd5e1; padding: 12px; border-radius: 6px; box-sizing: border-box; line-height: 1.6;">
+                    <div style="font-size: 12.5px; color:#475569; margin-bottom: 8px;">Jika ada lebih dari satu kata sifat untuk menjelaskan satu kata benda, gunakan urutan penempatan standar internasional berikut:</div>
+                    <div style="overflow-x:auto; background: var(--mms-blue-light, #eef2ff); padding: 10px; border-radius: 6px; font-weight: bold; color: var(--mms-navy); font-size: 12px; text-align: center; white-space: nowrap; border: 1px solid #bfdbfe;">
+                        Quantity ➔ Quality ➔ Size ➔ Age ➔ Shape ➔ Color ➔ Origin ➔ Material ➔ Purpose
+                    </div>
+                    <div style="margin-top: 10px; font-size: 13px; color: #0f172a; line-height: 1.5;">
+                        <span style="color:#cc0202; font-weight:700; font-style:italic;">🔹 Contoh Gabungan Kalimat:</span><br>
+                        "A <span style="font-weight:600; color:#2563eb;">beautiful</span>, <span style="font-weight:600; color:#2563eb;">small</span>, <span style="font-weight:600; color:#2563eb;">old</span>, <span style="font-weight:600; color:#2563eb;">round</span>, <span style="font-weight:600; color:#2563eb;">red</span>, <span style="font-weight:600; color:#2563eb;">Italian</span>, <span style="font-weight:600; color:#2563eb;">wooden</span> table."
+                    </div>
+                </div>
+            `;
         } else if (idLower === "pos-adverb") {
-            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI ADVERB (KATA KETERANGAN)
+            // 🎯 JALUR KUSTOM: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI ADVERB (KATA KETERANGAN)
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> Jenis-Jenis Adverb yang Paling Umum
@@ -389,7 +487,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                     <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> very, extremely, quite, too, enough, almost.
                                 </td>
                             </tr>
-                           
                         </tbody>
                     </table>
                 </div>
