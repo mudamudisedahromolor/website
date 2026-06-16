@@ -234,7 +234,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                 </td>
                             </tr>
                             <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Possessive Pronouns</td>
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Demonstrative Pronouns</td>
                                 <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                     Kata ganti untuk menunjukkan lokasi, jarak, atau jumlah suatu benda.<br>
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> this, that, these, those.
