@@ -234,7 +234,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                 </td>
                             </tr>
                             <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Demonstrative Pronouns</td>
                                 <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                     Kata ganti untuk menunjukkan lokasi, jarak, atau jumlah suatu benda.<br>
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> this, that, these, those.
@@ -569,7 +568,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-preposition" || idLower === "bab1-preposition") {
-            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI PREPOSITION
+            // [ 🔒 JALUR UTUH MATERI PREPOSITION - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Preposition Utama
@@ -634,11 +633,93 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                 </td>
                             </tr>
                              <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">She was born <span style="color:#2563eb; font-weight:700; font-style:normal;">in</span> London <span style="color:#2563eb; font-weight:700; font-style:normal;">in</span>1997</td>
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">She was born <span style="color:#2563eb; font-weight:700; font-style:normal;">in</span> London <span style="color:#2563eb; font-weight:700; font-style:normal;">in</span> 1997.</td>
                                 <td style="padding:9px 10px; color:#475569; line-height:1.5;">
-                                    Dia lahir <span style="font-weight:700; color:#0f172a;">di </span> london <span style="font-weight:700; color:#0f172a;">pada </span>tahun 1997.<br> 
-                                    <span style="font-size:12px; color:#71717a;">*2 Kata <b>in</b> berbeda arti <br>  - satu untuk menjelaskan lokasi (london). <br> - satu untuk menjelaskan waktu (1997).</span>
+                                    Dia lahir <span style="font-weight:700; color:#0f172a;">di</span> London <span style="font-weight:700; color:#0f172a;">pada</span> tahun 1997.<br> 
+                                    <span style="font-size:12px; color:#71717a;">*Dua kata <b>in</b> memiliki fungsi berbeda: satu untuk lokasi (London), satu untuk waktu (1997).</span>
                                 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        } else if (idLower === "pos-conjunction" || idLower === "bab1-conjunction") {
+            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI CONJUNCTION (KATA HUBUNG)
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Conjunction Utama
+                </div>
+                <div style="overflow-x:auto; margin-bottom: 18px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Tipe Conjunction</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Coordinating Conjunction</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menghubungkan kata, frasa, atau klausa yang setara secara tata bahasa.<br>
+                                    💡 <span style="font-weight:600; color:#b45309;">Metode Jembatan Keledai:</span> <b>FANBOYS</b><br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">For, And, Nor, But, Or, Yet, So</span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Subordinating Conjunction</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menghubungkan anak kalimat (dependent clause) ke induk kalimatnya (independent clause).<br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">Contoh Kata:</span> Because, although, since, until, if, while, after.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Correlative Conjunction</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata hubung yang selalu digunakan berpasangan untuk menghubungkan elemen kalimat yang setara.<br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">Contoh Pasangan:</span> Either...or, Neither...nor, Both...and, Not only...but also.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-star"></i> 2. Contoh Penggunaan dalam Kalimat
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Jenis Hubungan</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Contoh Kalimat &amp; Arti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Setara (Coordinating)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    "I wanted to go, <span style="color:#2563eb; font-weight:700;">but</span> it started to rain."<br>
+                                    <span style="font-size:12.5px; color:#71717a;"><i>Artinya: Saya ingin pergi, <b>tetapi</b> hujan mulai turun.</i></span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Sebab-Akibat (Subordinating)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    "He stayed home <span style="color:#2563eb; font-weight:700;">because</span> he was sick."<br>
+                                    <span style="font-size:12.5px; color:#71717a;"><i>Artinya: Dia tinggal di rumah <b>karena</b> dia sakit.</i></span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Berpasangan (Correlative)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    "She is <span style="color:#2563eb; font-weight:700;">not only</span> smart, <span style="color:#2563eb; font-weight:700;">but also</span> kind."<br>
+                                    <span style="font-size:12.5px; color:#71717a;"><i>Artinya: Dia <b>tidak hanya</b> pintar, <b>tetapi juga</b> baik hati.</i></span>
+                                </td>
+                            </tr>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
+                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
                             </tr>
                         </tbody>
                     </table>
@@ -845,7 +926,7 @@ function tutupModalMateri(e) {
 }
 
 function mmsToggleVideoSaja() {
-    let bv = document.getElementById("box-media-materi"); let btn = document.getElementById("mms-btn-buka-video"); if (!bv) return;
+    let bv = document.getElementById("box-media-materi"); let btn = document.getElementById("mms-btn-buka-video"); if (!bv; return;
     let vid = document.getElementById("mms-media-video-lokal");
     if (bv.style.display === "flex") {
         bv.style.display = "none"; if (vid) vid.pause();
