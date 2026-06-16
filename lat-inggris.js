@@ -128,7 +128,6 @@ function toggleLaciVideoPendahuluan() {
 // 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS GANDA (FIX RECOVERY MUTLAK)
 // =========================================================================
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
-    // Jembatan pengaman otomatis jika Bab 1 / Bab 4 memanggil hanya dengan single parameter ID kustom Kolom D
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
     }
@@ -142,7 +141,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
-    // Menargetkan komponen pembungkus bodi modal di HTML sampeyan
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
@@ -150,11 +148,11 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let idLower = subMateriKolomD.toLowerCase().trim();
 
-    // 🎯 URUTAN PALING ATAS UTAMA: DETEKSI DAN MATIKAN KOTAK RUMUS JIKA BUKAN TENSES (BAB 1 & BAB 4)
+    // 🎯 URUTAN PALING ATAS UTAMA JALUR BAB 1 & BAB 4: LENYAPKAN TOTAL KOTAK RUMUS AKTIF, PASIF & KATA BANTU
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // NONE RUMUS AKTIF
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // NONE RUMUS PASSIVE
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";   // NONE KATA BANTU TO BE
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  
+        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";   
     }
 
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
@@ -170,14 +168,12 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🔒 RESTORASI 100% AMAN: Menghidupkan kembali pencarian 2 parameter asli tenses milik Bab 2 & 3
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
-    // Jalur fallback cadangan murni untuk memproses single-parameter ID unik milik Bab 1 / Bab 4
     if (!dataCocok) {
         dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
@@ -198,21 +194,21 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // Pembersih sisa render tabel lama agar tidak tumpang tindih
+    // Pembersih sisa render tabel kustom lama agar tidak menumpuk saat ganti menu
     let tabelCustomLama = document.getElementById("mms-tabel-contoh-bab14");
     if (tabelCustomLama) tabelCustomLama.remove();
 
-    // 🔲 JALUR LOGIKA BAB 2 DAN BAB 3 TIDAK DISENTUH SATU BARIS PUN
+    // 🔲 BLOK LOGIKA DISTRIBUSI RUMPUN MATERI
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
-        // Suntikkan dan paksa cetak kerangka Tabel Contoh Kustom baru menggantikan tabel lama
+        // Suntikkan tabel baru dengan data yang ditarik dari Sheets, serta judul diubah menjadi "Contoh" saja
         let htmlTabelContoh = `
             <div id="mms-tabel-contoh-bab14" class="info-box-item-tips" style="margin-top: 14px; border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; text-align: left;">
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                    <i class="fa-solid fa-list"></i> Contoh Kata / Kalimat
+                    <i class="fa-solid fa-list"></i> Contoh
                 </div>
                 <div style="overflow-x:auto;">
                     <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
@@ -256,7 +252,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("pasif-")) {
-        // [ 🔒 JALUR 2: BAB 3 PASIF - UTUH ]
+        // [ 🔒 JALUR 2: BAB 3 PASIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -280,7 +276,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("aktif-")) {
-        // [ 🔒 JALUR 3: BAB 2 AKTIF - UTUH ]
+        // [ 🔒 JALUR 3: BAB 2 AKTIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
