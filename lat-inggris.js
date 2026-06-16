@@ -244,9 +244,9 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
 
     } else {
-        // [ 💀 JALUR FIX MUTLAK BAB 1 & BAB 4: HANYA 2 BOX SAJA DI BAWAH SILABUS ]
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // LENYAPKAN TOTAL BOX RUMUS NEON AKTIF
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // LENYAPKAN TOTAL BOX RUMUS NEON PASIF
+        // [ 💀 JALUR FIX MUTLAK BAB 1 & BAB 4: HANYA TAMPIL 2 KOTAK SAJA DI BAWAH SILABUS ]
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // 🎯 EKSEKUSI MANDAT MAS ARDYAN: MATI TOTAL DISINI
         
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block"; 
@@ -307,7 +307,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
     if(boxPembahasan) {
-        boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
+        boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesification gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
     // Render media player video penjelasan (Kolom H - visual)
