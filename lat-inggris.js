@@ -1,5 +1,5 @@
 // =========================================================================
-// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV
+// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV LURING
 // =========================================================================
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
@@ -48,39 +48,32 @@ function parseTSVMateri(text) {
 // 2. LOGIKA DOUBLE-CLICK SELEKSI & ANIMASI MEMBAL DASHBOARD TRANSPARAN
 // =========================================================================
 function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
-    // Cegah efek klik tembus ke fungsi reset luar body
     if (event) event.stopPropagation();
 
     let gridContainer = document.getElementById("mms-container-grid-icon");
     let wrapperIcon = document.getElementById(`mms-item-box-${idKotak}`);
 
-    // KLIK KE-2: Jika user mengetuk icon yang sudah dalam status membesar, eksekusi masuk
+    // KLIK KE-2: Jika user mengetuk icon yang sudah aktif membesar, eksekusi masuk menu
     if (mmsKotakTerpilihSekarang === idKotak) {
         if (namaMenu === 'materi') {
             bukaMateriMenu();
         } else {
-            // Kotak 2, 3, 4 tampilkan modal tanda dalam pengembangan
             document.getElementById("mms-lbl-dev-title").innerText = "Modul " + namaMenu.toUpperCase();
             document.getElementById("mms-modal-dev").style.display = "flex";
         }
-        // Kembalikan ke visual normal setelah masuk
         resetSeleksiDashboardEsensial();
         return;
     }
 
     // KLIK KE-1: Aktifkan visual seleksi membal (Scale Up + Reredup Lainnya)
     mmsKotakTerpilihSekarang = idKotak;
-    
-    // Hapus kelas lama di semua item terlebih dahulu
     document.querySelectorAll(".menu-icon-wrapper").forEach(el => el.classList.remove("mms-selected-bounce"));
     
-    // Aktifkan efek elastis di icon terpilih & redupkan sisa icon lainnya
-    gridContainer.classList.add("has-selection");
-    wrapperIcon.classList.add("mms-selected-bounce");
+    if (gridContainer) gridContainer.classList.add("has-selection");
+    if (wrapperIcon) wrapperIcon.classList.add("mms-selected-bounce");
 }
 
 function resetSeleksiDashboardEksternal(e) {
-    // Jika user mengetuk area blong di browser, kembalikan icon ke posisi transparan normal
     if (!e.target.closest('.menu-icon-wrapper')) {
         resetSeleksiDashboardEsensial();
     }
@@ -101,7 +94,6 @@ function muatVideoPendahuluanOtomatis() {
     let containerVideo = document.getElementById("box-media-video-pembuka");
     let txtStatus = document.getElementById("mms-txt-status-video-pembuka");
     
-    // Jembatan: Cari baris khusus di Sheet yang Kolom D (`subMateri`) nya berisi ID 'video-pembuka'
     let dataVideoPencantar = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === "video-pembuka");
     
     if (dataVideoPencantar && dataVideoPencantar.visual) {
@@ -135,9 +127,14 @@ function toggleLaciVideoPendahuluan() {
 
 
 // =========================================================================
-// 4. ROUTER LAYER 5: DATA PEMANGGIL MURNI BERBASIS SINGLE PARAMETER (KOLOM D)
+// 4. ROUTER LAYER 5: PROSES DINAMIS UNIVERSAL (KUNCI ASLI BAB 2 & 3 DIKEMBALIKAN)
 // =========================================================================
-function tampilkanMateriSpesifik(idKolomD) {
+function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
+    // 🛠️ RECOVERY LOGIKA: Jika parameter ke-2 kosong, otomatis salin nilai parameter ke-1 ke kolom D (Untuk memelihara pemanggilan single ID Bab 1)
+    if (subMateriKolomD === undefined) {
+        subMateriKolomD = namaMateriKolomC;
+    }
+
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
     let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
@@ -152,9 +149,12 @@ function tampilkanMateriSpesifik(idKolomD) {
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
 
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
+    
     if (btnVideo) {
         btnVideo.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
-        btnVideo.style.background = "#eff6ff"; btnVideo.style.color = "var(--mms-accent)";
+        btnVideo.style.background = "#eff6ff";
+        btnVideo.style.color = "var(--mms-accent)";
+        btnVideo.style.borderColor = "var(--mms-accent)";
     }
 
     if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
@@ -163,71 +163,96 @@ function tampilkanMateriSpesifik(idKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🎯 STRATEGI UTAMA MAS ARDYAN: Pencarian murni dikunci tunggal hanya via ID di Kolom D (subMateri)
-    let dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === idKolomD.toLowerCase().trim());
+    // 🔒 RESTORASI FULL LOGIKA ASLI SINKRONISASI: Mencari kecocokan mutlak kombinasi Kolom C dan Kolom D
+    let dataCocok = bankMateri.find(m => {
+        let matSheet = (m.materi || "").toLowerCase().trim();
+        let subSheet = (m.subMateri || "").toLowerCase().trim();
+        return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
+    });
+
+    // Jalur cadangan darurat (Fallback) khusus jika dipanggil oleh single-parameter ID murni Bab 1 / Bab 4
+    if (!dataCocok) {
+        dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
+    }
 
     if (!dataCocok) {
-        if (judulTense) judulTense.innerHTML = `Modul: <b>${idKolomD}</b>`;
+        if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
         if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Data ID '" + idKolomD + "' tidak ditemukan di Google Sheets Kolom D.";
+        if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
+        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan buat baris baru di Google Sheets:\nKolom C: " + namaMateriKolomC + "\nKolom D: " + subMateriKolomD;
+        if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
 
-    if (judulTense) judulTense.innerHTML = `Modul: <b>${dataCocok.materi || idKolomD}</b>`;
-    if (boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
+    let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
+    if (judulTense) judulTense.innerHTML = `Modul: <b>${dataCocok.materi || namaMateriKolomC} (${labelTipeTeks})</b>`;
+    if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
 
     let isiRumus = (dataCocok.rumus || "").replace(/\\n/g, "\n");
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    let idLower = idKolomD.toLowerCase();
+    let subLower = subMateriKolomD.toLowerCase();
 
-    if (idLower.startsWith("pasif-")) {
-        // [ JALUR MUTLAK BAB 3: PASIF ]
+    // 🔲 KONTROL INTERFACES LURUS KEMBALI SEPERTI SEMULA TANPA INTERUPSI
+    if (subLower.startsWith("pasif-") || subLower.includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
+        // [ 🔒 JALUR UTAH ASLI BAB 3 PASIF - DIKEMBALIKAN UTUH ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
-        if (boxRumusPasif) boxRumusPasif.innerText = isiRumus;
         
-        if (boxArtiPasif) {
+        if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
+        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
+        
+        if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
+        if(boxArtiPasif) {
             boxArtiPasif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-    } else if (idLower.startsWith("aktif-")) {
-        // [ JALUR MUTLAK BAB 2: AKTIF ]
+
+    } else if (subLower.startsWith("aktif-") || subLower.includes("positif") || subLower.includes("negatif") || subLower.includes("tanya")) {
+        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - DIKEMBALIKAN UTUH ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
-        if (boxRumusAktif) {
-            boxRumusAktif.classList.add("mms-txt-rumus-glow");
-            boxRumusAktif.innerText = isiRumus;
-        }
         
-        if (boxArtiAktif) {
+        if(boxRumusAktif) {
+            boxRumusAktif.classList.add("mms-txt-rumus-glow");
+            boxRumusAktif.innerText = isiRumus; 
+        }
+        if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
+        
+        if(boxArtiAktif) {
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
+        if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
+
     } else {
-        // [ 💀 ATURAN MAIN MUTLAK BAB 1 & BAB 4: TEORI / DASAR ]
-        // Hilangkan/Bantai total visual box rumus aktif, rumus pasif, dan tips tabel kata bantu
+        // [ 💀 ATURAN PENYEMBUNYIAN TOTAL KOTAK RUMUS KHUSUS BAB 1 & BAB 4 ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
+        
+        if (boxRumusAktif) boxRumusAktif.innerText = "";
+        if (boxRumusPasif) boxRumusPasif.innerText = "";
+        if (boxArtiAktif) boxArtiAktif.innerHTML = "";
+        if (boxArtiPasif) boxArtiPasif.innerHTML = "";
     }
 
-    // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
+    // Render bodi penjelasan ke Kotak Hijau Universal (Memuat text penjelasan full satu paragraf dari Kolom I Sheet)
     if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    // Render media player video penjelasan (Kolom H - visual)
+    // Render media player video penjelasan (Kolom H) tetap dipertahankan aman utuh
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
