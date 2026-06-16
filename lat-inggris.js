@@ -330,10 +330,68 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                 </td>
                             </tr>
                             <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Transitive &amp; Reguler & Irreguler Verbs</td>
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Regular &amp; Irregular Verbs</td>
                                 <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                      Regular berubah bentuk dengan menambah -d/-ed di akhir kata, sedangkan Irregular berubah bentuk secara tidak beraturan.
                                 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        } else if (idLower === "pos-adverb") {
+            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI ADVERB (KATA KETERANGAN)
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bookmark"></i> Jenis-Jenis Adverb yang Paling Umum
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Jenis Adverb</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Adverb of Manner</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menjelaskan bagaimana suatu tindakan atau peristiwa dilakukan.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> quickly, slowly, happily, beautifully, well, hard.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Adverb of Place</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menunjukkan lokasi atau tempat terjadinya suatu tindakan.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> here, there, everywhere, nearby, inside, outside.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Adverb of Time</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menunjukkan kapan suatu tindakan atau peristiwa terjadi.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> now, yesterday, tomorrow, soon, late, already.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Adverb of Frequency</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menunjukkan seberapa sering suatu tindakan dilakukan.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> always, usually, often, sometimes, rarely, never.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Adverb of Degree</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Menjelaskan tingkat, intensitas, atau sejauh mana suatu sifat atau tindakan berlaku.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> very, extremely, quite, too, enough, almost.
+                                </td>
+                            </tr>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
+                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
                             </tr>
                         </tbody>
                     </table>
