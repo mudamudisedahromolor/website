@@ -125,9 +125,10 @@ function toggleLaciVideoPendahuluan() {
 
 
 // =========================================================================
-// 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS BAB 1, 2, 3, & 4
+// 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS GANDA (FIX RECOVERY MUTLAK)
 // =========================================================================
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
+    // Jembatan pengaman otomatis jika Bab 1 / Bab 4 memanggil hanya dengan single parameter ID kustom Kolom D
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
     }
@@ -141,7 +142,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
-    // Tangkap bodi luar pembungkus kotak rumus dan kotak tips subjek secara mutlak
+    // Menargetkan komponen pembungkus bodi modal di HTML sampeyan
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
@@ -160,14 +161,14 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🔒 LOGIKA PENCARIAN 2 PARAMETER ASLI BAB 2 & 3
+    // 🔒 RESTORASI 100% AMAN: Menghidupkan kembali pencarian 2 parameter asli tenses milik Bab 2 & 3
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
-    // Fallback cadangan khusus untuk pemanggilan single-parameter ID Bab 1 / Bab 4
+    // Jalur fallback cadangan murni untuk memproses single-parameter ID unik milik Bab 1 / Bab 4
     if (!dataCocok) {
         dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
@@ -190,18 +191,18 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let idLower = subMateriKolomD.toLowerCase().trim();
 
-    // 🔲 KONTROL INTERFACES SANGAT KETAT BERDASARKAN ID PARAMETER TOMBOL
+    // 🔲 KONTROL STRUKTUR MODAL LAYER 5 ADIL DAN PRESISI
     if (idLower.startsWith("pasif-")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF ]
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
+        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF - DIAMANKAN ]
+        if (elementBoxTipsUtama) {
+            elementBoxTipsUtama.style.display = "block";
+            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "flex";
+            if(headerAsli) headerAsli.style.display = "flex";
+        }
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
-        
-        // Kembalikan isi bawaan tombol dropdown tabel To Be asli bawaan HTML
-        if (elementBoxTipsUtama) {
-            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
-            if(btnTriggerAsli) btnTriggerAsli.style.display = "block";
-        }
         
         if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
         if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
@@ -216,17 +217,17 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("aktif-")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF ]
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
+        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - DIAMANKAN ]
+        if (elementBoxTipsUtama) {
+            elementBoxTipsUtama.style.display = "block";
+            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "flex";
+            if(headerAsli) headerAsli.style.display = "flex";
+        }
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
         
-        // Kembalikan isi bawaan tombol dropdown tabel To Be asli bawaan HTML
-        if (elementBoxTipsUtama) {
-            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
-            if(btnTriggerAsli) btnTriggerAsli.style.display = "block";
-        }
-
         if(boxRumusAktif) {
             boxRumusAktif.classList.add("mms-txt-rumus-glow");
             boxRumusAktif.innerText = isiRumus; 
@@ -243,64 +244,64 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
 
     } else {
-        // [ 💀 JALUR FIX BAB 1 & BAB 4: TOTAL HANYA 2 BOX SAJA DI BAWAH SILABUS ]
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // MATI TOTAL RUMUS NEON AKTIF
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // MATI TOTAL RUMUS NEON PASIF
+        // [ 💀 JALUR FIX MUTLAK BAB 1 & BAB 4: HANYA 2 BOX SAJA DI BAWAH SILABUS ]
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // LENYAPKAN TOTAL BOX RUMUS NEON AKTIF
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // LENYAPKAN TOTAL BOX RUMUS NEON PASIF
         
         if (elementBoxTipsUtama) {
-            elementBoxTipsUtama.style.display = "block"; // Biarkan box pembungkus luar hidup untuk wadah tabel contoh
+            elementBoxTipsUtama.style.display = "block"; 
             
-            // 🎯 KUNCI UTAMA: Sembunyikan/Hapus paksa tombol pemicu tulisan "Ketuk untuk Lihat Tabel Referensi Subjek" agar judul To Be hilang total
+            // Hapus/Sembunyikan paksa teks judul "Tips Pasangan Subjek" dan tombol laci bawaan HTML biar bersih total
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
             if(btnTriggerAsli) btnTriggerAsli.style.display = "none";
+            if(headerAsli) headerAsli.style.display = "none";
         }
 
-        // Pecah baris data string contoh kalimat (\n)
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
-        // Cetak struktur tabel baru buatan kita untuk disuntikkan secara dinamis
+        // Suntikkan dan paksa cetak kerangka Tabel Contoh Kustom baru menggantikan tabel lama
         let htmlTabelContoh = `
-            <div style="overflow-x:auto; margin-top:-5px;">
-                <table style="width:100%; border-collapse:collapse; background:#fffdf4; font-size:13px; border-radius:6px; overflow:hidden;">
+            <div class="mms-container-tabel-kustom-pos">
+                <table class="mms-tabel-teori-pos">
                     <thead>
-                        <tr style="background:#fef08a; color:var(--mms-navy); border-bottom:2px solid #fde047;">
-                            <th style="padding:10px; text-align:left; font-weight:700;">Contoh ${dataCocok.materi || 'Kata'}</th>
-                            <th style="padding:10px; text-align:left; font-weight:700;">Arti / Terjemahan</th>
+                        <tr>
+                            <th>Contoh ${dataCocok.materi || 'Kata'}</th>
+                            <th>Arti / Terjemahan</th>
                         </tr>
                     </thead>
                     <tbody>
         `;
 
-        // Loop data baris 3 sampai maksimal 5 baris
+        // Mengunci loop baris tabel 3 hingga maksimal 5 baris
         let batasBaris = Math.min(Math.max(arrayContoh.length, 3), 5);
         for (let j = 0; j < batasBaris; j++) {
             let itemC = arrayContoh[j] ? arrayContoh[j].trim() : "";
             let itemA = arrayArti[j] ? arrayArti[j].trim() : "";
 
             htmlTabelContoh += `
-                <tr style="border-bottom:1px solid #fef9c3;">
-                    <td style="padding:9px 10px; color:var(--mms-navy); font-weight:500; font-style:italic;">${itemC}</td>
-                    <td style="padding:9px 10px; color:#475569;">${itemA}</td>
+                <tr>
+                    <td class="mms-td-bold-italic-pos">${itemC}</td>
+                    <td class="mms-td-arti-pos">${itemA}</td>
                 </tr>
             `;
         }
 
-        // Cetak baris kosong penutup (etc.) di area bawah tabel kustom
+        // Sematkan baris penutup kustom "etc." di bagian bawah baris
         htmlTabelContoh += `
-                        <tr style="background:#fefce8;">
-                            <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600;">etc.</td>
-                            <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                        <tr class="mms-tr-footer-pos">
+                            <td>etc.</td>
+                            <td>Selengkapnya lihat pada menu Ensiklopedia</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         `;
 
-        // Timpa total isi panel dropdown laci lama dengan tabel contoh baru kita dan langsung paksa buka di layar
         if (panelTipsTabel) {
             panelTipsTabel.innerHTML = htmlTabelContoh;
-            panelTipsTabel.style.display = "block"; 
+            panelTipsTabel.style.display = "block"; // Dipaksa buka otomatis sejak awal membuka modal teori
         }
     }
 
@@ -345,6 +346,7 @@ function toggleAccordionBox(panelId) {
     else panel.style.display = "none";
 }
 
+// RESTORASI: Sinkronisasi pemulihan laci penutup tabel To Be di Bab 2 & 3 agar tidak bug saat dibuka-tutup
 function toggleSubLaci(idLaci) {
     let el = document.getElementById(idLaci); if (!el) return;
     let isOpening = (el.style.display === "none" || el.style.display === "");
