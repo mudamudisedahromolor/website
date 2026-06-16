@@ -128,7 +128,6 @@ function toggleLaciVideoPendahuluan() {
 // 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS GANDA (FIX RECOVERY MUTLAK)
 // =========================================================================
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
-    // Jembatan pengaman otomatis jika Bab 1 / Bab 4 memanggil hanya dengan single parameter ID kustom Kolom D
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
     }
@@ -142,7 +141,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
-    // Menargetkan komponen pembungkus bodi modal di HTML sampeyan
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
@@ -168,7 +166,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
-    // Jalur fallback cadangan murni untuk memproses single-parameter ID unik milik Bab 1 / Bab 4
     if (!dataCocok) {
         dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
@@ -191,74 +188,24 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let idLower = subMateriKolomD.toLowerCase().trim();
 
-    // TAMBAHAN 1 BARIS PEMBERSIH: Agar tabel Bab 1 & 4 tidak nyangkut saat membuka Bab 2/3
+    // Pembersih sisa render tabel lama agar tidak tumpang tindih
     let tabelCustomLama = document.getElementById("mms-tabel-contoh-bab14");
     if (tabelCustomLama) tabelCustomLama.remove();
 
-    // 🔲 KONTROL STRUKTUR MODAL LAYER 5 ADIL DAN PRESISI
-    if (idLower.startsWith("pasif-")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF - DIAMANKAN TANPA DISENTUH ]
+    // 🔲 KONTROL STRUKTUR UTAMA LAYER 5 (POSISI DIURUTKAN SECARA BENAR & LOGIS)
+    if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
+        // [ 💀 JALUR 1: BAB 1 & BAB 4 DIANGKAT KE ATAS UTAMA AGAR KOTAK RUMUS JALAN Perintah NONE ]
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Mati total tanpa bocor
+        
         if (elementBoxTipsUtama) {
-            elementBoxTipsUtama.style.display = "block";
+            elementBoxTipsUtama.style.display = "block"; 
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
             let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
-            if(btnTriggerAsli) btnTriggerAsli.style.display = "flex";
-            if(headerAsli) headerAsli.style.display = "flex";
-        }
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
-        
-        if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
-        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
-        
-        if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
-        if(boxArtiPasif) {
-            boxArtiPasif.innerHTML = `
-                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
-                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
-                <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
-            `;
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "none";
+            if(headerAsli) headerAsli.style.display = "none";
         }
 
-    } else if (idLower.startsWith("aktif-")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - DIAMANKAN TANPA DISENTUH ]
-        if (elementBoxTipsUtama) {
-            elementBoxTipsUtama.style.display = "block";
-            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
-            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
-            if(btnTriggerAsli) btnTriggerAsli.style.display = "flex";
-            if(headerAsli) headerAsli.style.display = "flex";
-        }
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
-        
-        if(boxRumusAktif) {
-            boxRumusAktif.classList.add("mms-txt-rumus-glow");
-            boxRumusAktif.innerText = isiRumus; 
-        }
-        if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
-        
-        if(boxArtiAktif) {
-            boxArtiAktif.innerHTML = `
-                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
-                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
-                <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
-            `;
-        }
-        if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
-
-    } else {
-        // [ 💀 JALUR FIX MUTLAK BAB 1 & BAB 4: HANYA TAMPIL 2 KOTAK SAJA DI BAWAH SILABUS ]
-        // 1. Eksekusi Hapus Mutlak (Menggunakan getElementById langsung agar anti gagal)
-        let boxAktif = document.getElementById("wrapper-box-aktif");
-        let boxPasif = document.getElementById("wrapper-box-pasif");
-        let boxTips = document.getElementById("wrapper-box-tips-pintar");
-
-        if (boxAktif) boxAktif.style.display = "none";
-        if (boxPasif) boxPasif.style.display = "none";
-        if (boxTips) boxTips.style.display = "none";
-
-        // 2. Buat Kotak Tabel Contoh Kustom Baru
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
@@ -303,11 +250,61 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             </div>
         `;
 
-        // Suntikkan tabel ke bagian terbawah container vertical modal
         let pembungkusUtama = document.querySelector(".mms-vertical-layout-stack");
         if (pembungkusUtama) {
             pembungkusUtama.insertAdjacentHTML('beforeend', htmlTabelContoh);
         }
+
+    } else if (idLower.startsWith("pasif-")) {
+        // [ 🔒 JALUR 2: BAB 3 PASIF ]
+        if (elementBoxTipsUtama) {
+            elementBoxTipsUtama.style.display = "block";
+            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "flex";
+            if(headerAsli) headerAsli.style.display = "flex";
+        }
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
+        
+        if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
+        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
+        
+        if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
+        if(boxArtiPasif) {
+            boxArtiPasif.innerHTML = `
+                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
+                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
+            `;
+        }
+
+    } else if (idLower.startsWith("aktif-")) {
+        // [ 🔒 JALUR 3: BAB 2 AKTIF ]
+        if (elementBoxTipsUtama) {
+            elementBoxTipsUtama.style.display = "block";
+            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "flex";
+            if(headerAsli) headerAsli.style.display = "flex";
+        }
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
+        
+        if(boxRumusAktif) {
+            boxRumusAktif.classList.add("mms-txt-rumus-glow");
+            boxRumusAktif.innerText = isiRumus; 
+        }
+        if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
+        
+        if(boxArtiAktif) {
+            boxArtiAktif.innerHTML = `
+                <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
+                <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
+                <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
+            `;
+        }
+        if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
     }
 
     // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
@@ -351,7 +348,6 @@ function toggleAccordionBox(panelId) {
     else panel.style.display = "none";
 }
 
-// RESTORASI: Sinkronisasi pemulihan laci penutup tabel To Be di Bab 2 & 3 agar tidak bug saat dibuka-tutup
 function toggleSubLaci(idLaci) {
     let el = document.getElementById(idLaci); if (!el) return;
     let isOpening = (el.style.display === "none" || el.style.display === "");
