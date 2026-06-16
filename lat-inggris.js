@@ -637,7 +637,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                 <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">She was born <span style="color:#2563eb; font-weight:700; font-style:normal;">in</span> London <span style="color:#2563eb; font-weight:700; font-style:normal;">in</span>1997</td>
                                 <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                     Dia lahir <span style="font-weight:700; color:#0f172a;">di </span> london <span style="font-weight:700; color:#0f172a;">pada </span>tahun 1997.<br> 
-                                    <span style="font-size:12px; color:#71717a;">2 Kata <b>in</b> berbeda arti <br>  satu untuk menjelaskan lokasi. <br> satu untuk menjelaskan waktu.</span>
+                                    <span style="font-size:12px; color:#71717a;">*2 Kata <b>in</b> berbeda arti <br>  - satu untuk menjelaskan lokasi. <br> - satu untuk menjelaskan waktu.</span>
                                 </td>
                             </tr>
                         </tbody>
