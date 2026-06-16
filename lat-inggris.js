@@ -258,6 +258,85 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                     </table>
                 </div>
             `;
+        } else if (idLower === "pos-verb") {
+            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI VERB
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bookmark"></i> 1. Kategori Utama Verb (Berdasarkan Makna)
+                </div>
+                <div style="overflow-x:auto; margin-bottom: 18px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Bentuk Dasar</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Tindakan (Action)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata kerja yang menunjukkan aktivitas fisik atau mental.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> Run (lari), read (membaca), think (berpikir), write (menulis).
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Keadaan (State)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata kerja yang tidak menggambarkan suatu aktivitas, melainkan kondisi atau keberadaan.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> Seem (tampak), exist (ada), be (adalah).
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Kejadian (Occurrence)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata kerja yang menunjukkan suatu proses atau peristiwa yang terjadi.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> Die (meninggal), grow (tumbuh), happen (terjadi).
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-star"></i> 2. Jenis-Jenis Umum Verb (Dalam Penggunaan)
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Jenis Verb</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Action Verbs</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata kerja yang secara langsung menyatakan tindakan aksi.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Auxiliary Verbs (Helping Verbs)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata kerja bantu yang mendampingi kata kerja utama.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> is, am, are, do, have, will, can.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Transitive &amp; Intransitive Verbs</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Transitive membutuhkan objek langsung untuk melengkapi makna, sedangkan Intransitive tidak memerlukan objek langsung.
+                                </td>
+                            </tr>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
+                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
         } else {
             // 🎯 JALUR 1-B: UNIVERSAL MATERI BAB 1 & 4 LAINNYA (TABEL BIASA DENGAN PEMISAH KOMA)
             let arrayContoh = isiContoh.split(",");
@@ -304,7 +383,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             `;
         }
 
-        // 🎯 FIX INSTAN: Menggunakan ID kustom #mms-panel-laci-bab14 dan pemanggil fungsi anonim lokal agar anti-bentrok
+        // 🎯 MERAKIT STRUKTUR UTUH LACI TUTUP-SEMBUNYI (ACCORDION WINDOW) UNTUK BAB 1 & 4
         let htmlLaciSembunyi = `
             <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
                 <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
@@ -390,7 +469,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                             `<source src="${visual}" type="video/mp4">` +
                                          `</video>`;
         } else if (visual && visual.startsWith("images/")) {
-            boxVisualMateri.innerHTML = `<img src="${visual}" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
+            boxVisualMateri.innerHTML = `<img src="images/verb-categories-classification.png" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
         } else {
             boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
         }
