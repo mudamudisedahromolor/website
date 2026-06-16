@@ -211,8 +211,8 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                     <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
                         <thead>
                             <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
-                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1;">Contoh Kalimat</th>
-                                <th style="padding:10px; text-align:left; font-weight:700;">Arti / Terjemahan</th>
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1;">Contoh Kata</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Arti</th>
                             </tr>
                         </thead>
                         <tbody>
