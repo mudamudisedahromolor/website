@@ -1,8 +1,7 @@
 // =========================================================================
-// /lat-inggris/main.js - ENTRY POINT UTAMA & LOGIKA TAMPILAN AWAL
+// /lat-inggris/main.js - ENTRY POINT UTAMA (BERSIH DARI GLOBAL NAV/HEADER)
 // =========================================================================
 
-// Import fungsi kontrol dashboard dan menu materi dari subfolder /menu
 import { 
     bukaMateriMenu, 
     kembaliKeDashboard, 
@@ -12,11 +11,9 @@ import {
 
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
-// State Global yang diexport agar bisa dibaca secara real-time oleh modul menu dan bab
 export let bankMateri = []; 
-export let mmsKotakTerpilihSekarang = { id: null }; // Dibungkus objek agar modifikasi nilainya tersinkronisasi antar-file
+export let mmsKotakTerpilihSekarang = { id: null }; 
 
-// Fungsi Sinkronisasi Data TSV Utama
 function ambilAsetDataWeb() {
     let cacheBusterUrl = TSV_URL + "&_cb=" + new Date().getTime();
 
@@ -30,7 +27,6 @@ function ambilAsetDataWeb() {
     });
 }
 
-// Pembacaan Data Sheet Dinamis 9 Kolom
 function parseTSVMateri(text) {
     if (!text) return [];
     let baris = text.split("\n");
@@ -54,7 +50,6 @@ function parseTSVMateri(text) {
     return hasil;
 }
 
-// Logika Payung Video Pendahuluan (Dashboard Depan)
 function muatVideoPendahuluanOtomatis() {
     let containerVideo = document.getElementById("box-media-video-pembuka");
     let txtStatus = document.getElementById("mms-txt-status-video-pembuka");
@@ -90,14 +85,17 @@ function toggleLaciVideoPendahuluan() {
     }
 }
 
-// Inisialisasi Event Listener dan Pemasangan ke Scope Window Global
+// Terisolasi penuh dari window / document root luar
 window.addEventListener('DOMContentLoaded', () => { 
     ambilAsetDataWeb(); 
 
-    // Diexport ke window agar elemen HTML (seperti atribut onclick="") tetap bisa mengenali fungsi ini
     window.eksekusiKlikDoubleBounce = eksekusiKlikDoubleBounce;
     window.toggleLaciVideoPendahuluan = toggleLaciVideoPendahuluan;
     window.kembaliKeDashboard = kembaliKeDashboard;
     
-    document.addEventListener('click', resetSeleksiDashboardEksternal);
+    // Handler klik eksternal dipasang hanya pada root container aplikasi
+    const appRoot = document.getElementById("mms-app-root");
+    if (appRoot) {
+        appRoot.addEventListener('click', resetSeleksiDashboardEksternal);
+    }
 });
