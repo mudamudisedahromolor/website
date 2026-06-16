@@ -203,7 +203,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         
         let isiKontenLaci = "";
 
-        // 🎯 JALUR 1-A: LOGIKA TABEL PRONOUNS TABLE / POS-PRONOUN (KUSTOM SEPERTI GAMBAR REFERENSI)
+        // 1. LOGIKA TABEL PRONOUNS TABLE / POS-PRONOUN
         if (idLower === "bab1-pronowns" || idLower === "bab1-pronouns" || idLower === "pos-pronoun") {
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
@@ -258,7 +258,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-noun" || idLower === "bab1-noun") {
-            // [ 🔒 JALUR UTUH MATERI NOUN - TIDAK DISENTUH ]
+            // 2. LOGIKA MATERI NOUN
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Noun (Kata Benda)
@@ -335,7 +335,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-verb") {
-            // [ 🔒 JALUR UTUH MATERI VERB - TIDAK DISENTUH ]
+            // 3. LOGIKA MATERI VERB
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Kategori Utama Verb (Berdasarkan Makna)
@@ -416,7 +416,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-adjective") {
-            // [ 🔒 JALUR UTUH MATERI ADJECTIVE - TIDAK DISENTUH ]
+            // 4. LOGIKA MATERI ADJECTIVE
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Fungsi Utama dalam Kalimat
@@ -514,7 +514,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-adverb") {
-            // [ 🔒 JALUR UTUH MATERI ADVERB - TIDAK DISENTUH ]
+            // 5. LOGIKA MATERI ADVERB
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> Jenis-Jenis Adverb yang Paling Umum
@@ -568,7 +568,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-preposition" || idLower === "bab1-preposition") {
-            // [ 🔒 JALUR UTUH MATERI PREPOSITION - TIDAK DISENTUH ]
+            // 6. LOGIKA MATERI PREPOSITION
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Preposition Utama
@@ -644,7 +644,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-conjunction" || idLower === "bab1-conjunction") {
-            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI CONJUNCTION (KATA HUBUNG)
+            // 7. LOGIKA MATERI CONJUNCTION
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Conjunction Utama
@@ -883,6 +883,7 @@ function toggleAccordionBox(panelId) {
     else panel.style.display = "none";
 }
 
+// 🎯 KELAS INTERNAL AMAN: Fungsi lokal anonim di bawah ini sudah diperbaiki kurung & titik komanya
 function toggleSubLaci(idLaci) {
     let el = document.getElementById(idLaci); if (!el) return;
     let isOpening = (el.style.display === "none" || el.style.display === "");
@@ -926,13 +927,15 @@ function tutupModalMateri(e) {
 }
 
 function mmsToggleVideoSaja() {
-    let bv = document.getElementById("box-media-materi"); let btn = document.getElementById("mms-btn-buka-video"); if (!bv; return;
+    let bv = document.getElementById("box-media-materi"); let btn = document.getElementById("mms-btn-buka-video"); if (!bv) return;
     let vid = document.getElementById("mms-media-video-lokal");
     if (bv.style.display === "flex") {
-        bv.style.display = "none"; if (vid) vid.pause();
+        bv.style.display = "none"; 
+        if (vid) vid.pause();
         if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
     } else {
-        bv.style.display = "flex"; if (vid) { vid.currentTime = 0; vid.play().catch(e => {}); }
+        bv.style.display = "flex"; 
+        if (vid) { vid.currentTime = 0; vid.play().catch(e => {}); }
         if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-minus"></i> <span>Ketuk untuk Sembunyikan Video Materi</span>`;
     }
 }
