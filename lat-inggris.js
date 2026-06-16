@@ -203,8 +203,99 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         
         let isiKontenLaci = "";
 
-        // 1. LOGIKA TABEL PRONOUNS TABLE / POS-PRONOUN
-        if (idLower === "bab1-pronowns" || idLower === "bab1-pronouns" || idLower === "pos-pronoun") {
+        // 1. LOGIKA UTAMA: MATRIKS TABEL LENGKAP PRONOUNS TABLE (ID: bab1-pronouns)
+        if (idLower === "bab1-pronouns") {
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-table"></i> Complete Pronouns Reference Matrix Table
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1; text-align:center;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047; font-weight:700;">
+                                <th style="padding:10px 6px; border-right:1px solid #cbd5e1; text-align:left;">Person / Number</th>
+                                <th style="padding:10px 6px; border-right:1px solid #cbd5e1;">Subject Pronouns</th>
+                                <th style="padding:10px 6px; border-right:1px solid #cbd5e1;">Object Pronouns</th>
+                                <th style="padding:10px 6px; border-right:1px solid #cbd5e1;">Possessive Adjectives</th>
+                                <th style="padding:10px 6px; border-right:1px solid #cbd5e1;">Possessive Pronouns</th>
+                                <th style="padding:10px 6px;">Reflexive Pronouns</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">1st person singular</td>
+                                <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">I</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Me</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">My</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Mine</td>
+                                <td style="padding:9px 6px; color:#475569;">Myself</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">2nd person singular</td>
+                                <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">You</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">You</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Your</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Yours</td>
+                                <td style="padding:9px 6px; color:#475569;">Yourself</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person singular (male)</td>
+                                <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">He</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Him</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">His</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">His</td>
+                                <td style="padding:9px 6px; color:#475569;">Himself</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person singular (female)</td>
+                                <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">She</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Her</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Her</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Hers</td>
+                                <td style="padding:9px 6px; color:#475569;">Herself</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person singular</td>
+                                <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">It</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">It</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Its</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Its</td>
+                                <td style="padding:9px 6px; color:#475569;">Itself</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">1st person plural</td>
+                                <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">We</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Us</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Our</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Ours</td>
+                                <td style="padding:9px 6px; color:#475569;">Ourselves</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">2nd person plural</td>
+                                <td style="padding:9px 10px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">You</td>
+                                <td style="padding:9px 10px; color:#475569; border-right:1px solid #cbd5e1;">You</td>
+                                <td style="padding:9px 10px; color:#475569; border-right:1px solid #cbd5e1;">Your</td>
+                                <td style="padding:9px 10px; color:#475569; border-right:1px solid #cbd5e1;">Yours</td>
+                                <td style="padding:9px 10px; color:#475569;">Yourselves</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person plural</td>
+                                <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">They</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Them</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Their</td>
+                                <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Theirs</td>
+                                <td style="padding:9px 6px; color:#475569;">Themselves</td>
+                            </tr>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1; text-align:left;">etc.</td>
+                                <td colspan="5" style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic; text-align:left;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        } else if (idLower === "pos-pronoun") {
+            // 2. LOGIKA MATERI KATEGORI PRONOUN (TIDAK DISENTUH BARISNYA)
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-table"></i> Klasifikasi Jenis Pronoun
@@ -234,7 +325,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                 </td>
                             </tr>
                             <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Demonstrative Pronouns</td>
                                 <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                     Kata ganti untuk menunjukkan lokasi, jarak, atau jumlah suatu benda.<br>
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> this, that, these, those.
@@ -259,7 +349,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-noun" || idLower === "bab1-noun") {
-            // 2. LOGIKA MATERI NOUN
+            // 3. LOGIKA MATERI NOUN
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Noun (Kata Benda)
@@ -336,7 +426,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-verb") {
-            // 3. LOGIKA MATERI VERB
+            // 4. LOGIKA MATERI VERB
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Kategori Utama Verb (Berdasarkan Makna)
@@ -417,7 +507,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-adjective") {
-            // 4. LOGIKA MATERI ADJECTIVE
+            // 5. LOGIKA MATERI ADJECTIVE
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Fungsi Utama dalam Kalimat
@@ -515,7 +605,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-adverb") {
-            // [ 🔒 JALUR UTUH MATERI ADVERB - TIDAK DISENTUH ]
+            // 6. LOGIKA MATERI ADVERB
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> Jenis-Jenis Adverb yang Paling Umum
@@ -569,7 +659,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-preposition" || idLower === "bab1-preposition") {
-            // [ 🔒 JALUR UTUH MATERI PREPOSITION - TIDAK DISENTUH ]
+            // 7. LOGIKA MATERI PREPOSITION
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Preposition Utama
@@ -645,7 +735,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-conjunction" || idLower === "bab1-conjunction") {
-            // [ 🔒 JALUR UTUH MATERI CONJUNCTION - TIDAK DISENTUH ]
+            // 8. LOGIKA MATERI CONJUNCTION
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Conjunction Utama
@@ -723,7 +813,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-interjection" || idLower === "bab1-interjection") {
-            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI INTERJECTION (KATA SERU)
+            // 9. LOGIKA MATERI INTERJECTION
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Karakteristik Utama Interjection
@@ -795,7 +885,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                     <span style="color:#2563eb; font-weight:600;">Erm...</span>, <span style="color:#2563eb; font-weight:600;">Well...</span>, <span style="color:#2563eb; font-weight:600;">Hmm...</span>
                                 </td>
                             </tr>
-                            
                         </tbody>
                     </table>
                 </div>
