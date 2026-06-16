@@ -204,7 +204,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         let isiKontenLaci = "";
 
         // 🎯 JALUR 1-A: LOGIKA TABEL PRONOUNS TABLE / POS-PRONOUN (KUSTOM SEPERTI GAMBAR REFERENSI)
-        if (idLower === "bab1-pronouns" || idLower === "pos-pronoun") {
+        if (idLower === "bab1-pronowns" || idLower === "bab1-pronouns" || idLower === "pos-pronoun") {
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-table"></i> Klasifikasi Jenis Pronoun
@@ -258,8 +258,89 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                     </table>
                 </div>
             `;
+        } else if (idLower === "pos-noun" || idLower === "bab1-noun") {
+            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI NOUN
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Noun (Kata Benda)
+                </div>
+                <div style="overflow-x:auto; margin-bottom: 18px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Kelompok Noun</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Perbandingan &amp; Contoh Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Proper vs Common Noun</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    <span style="font-weight:600; color:#0f172a;">Proper (Spesifik &amp; Huruf Kapital):</span> London, Budi.<br>
+                                    <span style="font-weight:600; color:#0f172a;">Common (Umum):</span> city, book.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Countable vs Uncountable</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    <span style="font-weight:600; color:#0f172a;">Countable (Bisa Dihitung Pasti):</span> an apple, three chairs.<br>
+                                    <span style="font-weight:600; color:#0f172a;">Uncountable (Tidak Bisa Dihitung Satuan):</span> water, money.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Concrete vs Abstract Noun</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    <span style="font-weight:600; color:#0f172a;">Concrete (Berwujud &amp; Bisa Disentuh):</span> laptop, table.<br>
+                                    <span style="font-weight:600; color:#0f172a;">Abstract (Konsep, Ide, Perasaan):</span> happiness, courage.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-star"></i> 2. Fungsi Utama dalam Kalimat
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Peran Noun</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Pengertian &amp; Contoh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Subjek</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Pelaku dari sebuah tindakan atau aktivitas.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> "<span style="color:#0f172a; font-weight:700;">The cat</span> sleeps."
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Objek Langsung</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Pihak atau benda yang dikenai tindakan langsung oleh kata kerja.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> "I ate <span style="color:#0f172a; font-weight:700;">an apple</span>."
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Objek Preposisi</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Kata benda yang mengikuti kata depan atau preposisi.<br>
+                                    <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> "She is studying in <span style="color:#0f172a; font-weight:700;">the library</span>."
+                                </td>
+                            </tr>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
+                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
         } else if (idLower === "pos-verb") {
-            // 🎯 JALUR KUSTOM: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI VERB
+            // [ 🔒 JALUR UTUH MATERI VERB - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Kategori Utama Verb (Berdasarkan Makna)
@@ -340,7 +421,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-adjective") {
-            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL 3 SEKAT KHUSUS MATERI ADJECTIVE SESUAI GAMBAR REFERENSI
+            // [ 🔒 JALUR UTUH MATERI ADJECTIVE - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Fungsi Utama dalam Kalimat
@@ -438,7 +519,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-adverb") {
-            // 🎯 JALUR KUSTOM: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI ADVERB (KATA KETERANGAN)
+            // [ 🔒 JALUR UTUH MATERI ADVERB - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> Jenis-Jenis Adverb yang Paling Umum
