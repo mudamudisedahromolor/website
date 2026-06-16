@@ -204,8 +204,8 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         
         let htmlTabelContoh = "";
 
-        // 🎯 LOGIKA KHUSUS TOMBOL PRONOUNS TABLE BAB 1
-        if (idLower === "bab1-pronouns") {
+        // 🎯 SEKAT LOGIKA MULTI-ID: Jika yang diklik bab1-pronouns ATAU pos-pronoun
+        if (idLower === "bab1-pronouns" || idLower === "pos-pronoun") {
             htmlTabelContoh = `
                 <div id="mms-tabel-contoh-bab14" class="info-box-item-tips" style="margin-top: 14px; border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; text-align: left;">
                     <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
