@@ -794,10 +794,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                     <span style="color:#2563eb; font-weight:600;">Erm...</span>, <span style="color:#2563eb; font-weight:600;">Well...</span>, <span style="color:#2563eb; font-weight:600;">Hmm...</span>
                                 </td>
                             </tr>
-                            <tr style="background:#fefce8;">
-                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
-                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
