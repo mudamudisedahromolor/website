@@ -329,9 +329,11 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                     Transitive membutuhkan objek langsung untuk melengkapi makna, sedangkan Intransitive tidak memerlukan objek langsung.
                                 </td>
                             </tr>
-                            <tr style="background:#fefce8;">
-                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
-                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Transitive &amp; Reguler & Irreguler Verbs</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                     Regular berubah bentuk dengan menambah -d/-ed di akhir kata, sedangkan Irregular berubah bentuk secara tidak beraturan.
+                                </td>
                             </tr>
                         </tbody>
                     </table>
