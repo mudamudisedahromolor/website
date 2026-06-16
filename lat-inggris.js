@@ -514,7 +514,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-adverb") {
-            // 5. LOGIKA MATERI ADVERB
+            // [ 🔒 JALUR UTUH MATERI ADVERB - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> Jenis-Jenis Adverb yang Paling Umum
@@ -568,7 +568,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-preposition" || idLower === "bab1-preposition") {
-            // 6. LOGIKA MATERI PREPOSITION
+            // [ 🔒 JALUR UTUH MATERI PREPOSITION - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Preposition Utama
@@ -644,7 +644,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-conjunction" || idLower === "bab1-conjunction") {
-            // 7. LOGIKA MATERI CONJUNCTION
+            // [ 🔒 JALUR UTUH MATERI CONJUNCTION - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Conjunction Utama
@@ -717,7 +717,87 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                     <span style="font-size:12.5px; color:#71717a;"><i>Artinya: Dia <b>tidak hanya</b> pintar, <b>tetapi juga</b> baik hati.</i></span>
                                 </td>
                             </tr>
-                            
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        } else if (idLower === "pos-interjection" || idLower === "bab1-interjection") {
+            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI INTERJECTION (KATA SERU)
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bookmark"></i> 1. Karakteristik Utama Interjection
+                </div>
+                <div style="overflow-x:auto; margin-bottom: 18px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Karakteristik</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Penjelasan Sifat Penggunaan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Spontan</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Diucapkan secara tiba-tiba untuk merespons sesuatu kejadian atau perasaan.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Ekspresif</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Mewakili berbagai macam emosi manusia seperti senang, marah, terkejut, sedih, atau rasa sakit.
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Mandiri</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Meskipun berdiri sendiri tanpa kalimat panjang, pendengar bisa langsung memahami emosi yang disampaikan.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-star"></i> 2. Jenis &amp; Contoh Kata (Dalam Bahasa Inggris)
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Ekspresi Emosi</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Contoh Kata Seru &amp; Arti Konteks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Keterkejutan (Surprise)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    <span style="color:#2563eb; font-weight:600;">Wow!</span> (Wah!), <span style="color:#2563eb; font-weight:600;">Oh!</span> (Oh!), <span style="color:#2563eb; font-weight:600;">Really?</span> (Benarkah?)
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Kegembiraan (Joy)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    <span style="color:#2563eb; font-weight:600;">Hurrah!</span> (Hore!), <span style="color:#2563eb; font-weight:600;">Yay!</span> (Yey!)
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Kekecewaan / Rasa Sakit</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    <span style="color:#2563eb; font-weight:600;">Ouch!</span> (Aduh!), <span style="color:#2563eb; font-weight:600;">Oops!</span> (Aduh/Ups!), <span style="color:#2563eb; font-weight:600;">Oh no!</span> (Gawat!)
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Keraguan / Penundaan</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    <span style="color:#2563eb; font-weight:600;">Erm...</span>, <span style="color:#2563eb; font-weight:600;">Well...</span>, <span style="color:#2563eb; font-weight:600;">Hmm...</span>
+                                </td>
+                            </tr>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
+                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -880,7 +960,6 @@ function toggleAccordionBox(panelId) {
     else panel.style.display = "none";
 }
 
-// 🎯 KELAS INTERNAL AMAN: Fungsi lokal anonim di bawah ini sudah diperbaiki kurung & titik komanya
 function toggleSubLaci(idLaci) {
     let el = document.getElementById(idLaci); if (!el) return;
     let isOpening = (el.style.display === "none" || el.style.display === "");
