@@ -1,5 +1,5 @@
 // =========================================================================
-// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV LURING
+// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV
 // =========================================================================
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
@@ -53,7 +53,6 @@ function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
     let gridContainer = document.getElementById("mms-container-grid-icon");
     let wrapperIcon = document.getElementById(`mms-item-box-${idKotak}`);
 
-    // KLIK KE-2: Jika user mengetuk icon yang sudah aktif membesar, eksekusi masuk menu
     if (mmsKotakTerpilihSekarang === idKotak) {
         if (namaMenu === 'materi') {
             bukaMateriMenu();
@@ -65,7 +64,6 @@ function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
         return;
     }
 
-    // KLIK KE-1: Aktifkan visual seleksi membal (Scale Up + Reredup Lainnya)
     mmsKotakTerpilihSekarang = idKotak;
     document.querySelectorAll(".menu-icon-wrapper").forEach(el => el.classList.remove("mms-selected-bounce"));
     
@@ -127,10 +125,10 @@ function toggleLaciVideoPendahuluan() {
 
 
 // =========================================================================
-// 4. ROUTER LAYER 5: PROSES DINAMIS UNIVERSAL (KUNCI ASLI BAB 2 & 3 DIKEMBALIKAN)
+// 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS BAB 1, 2, 3, & 4
 // =========================================================================
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
-    // 🛠️ RECOVERY LOGIKA: Jika parameter ke-2 kosong, otomatis salin nilai parameter ke-1 ke kolom D (Untuk memelihara pemanggilan single ID Bab 1)
+    // Jalur jembatan jika Bab 1/4 memanggil hanya dengan single parameter ID
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
     }
@@ -147,30 +145,29 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
+    let panelTipsTabel = document.getElementById('panel-tips-tabel');
 
     if (boxVisualMateri) boxVisualMateri.style.display = "none";
     
     if (btnVideo) {
         btnVideo.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>Ketuk untuk Lihat Penjelasan Video</span>`;
-        btnVideo.style.background = "#eff6ff";
-        btnVideo.style.color = "var(--mms-accent)";
-        btnVideo.style.borderColor = "var(--mms-accent)";
+        btnVideo.style.background = "#eff6ff"; btnVideo.style.color = "var(--mms-accent)"; btnVideo.style.borderColor = "var(--mms-accent)";
     }
 
     if(document.getElementById('panel-aktif-contoh')) document.getElementById('panel-aktif-contoh').style.display = "none";
     if(document.getElementById('panel-pasif-contoh')) document.getElementById('panel-pasif-contoh').style.display = "none";
-    if(document.getElementById('panel-tips-tabel')) document.getElementById('panel-tips-tabel').style.display = "none"; 
+    if(panelTipsTabel) panelTipsTabel.style.display = "none"; 
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🔒 RESTORASI FULL LOGIKA ASLI SINKRONISASI: Mencari kecocokan mutlak kombinasi Kolom C dan Kolom D
+    // 🔒 RESTORASI LOCK LOGIKA SINKRONISASI: Mencari kombinasi mutlak Kolom C dan Kolom D
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
-    // Jalur cadangan darurat (Fallback) khusus jika dipanggil oleh single-parameter ID murni Bab 1 / Bab 4
+    // Fallback khusus Bab 1 / Bab 4 murni tunggal
     if (!dataCocok) {
         dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
@@ -178,9 +175,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     if (!dataCocok) {
         if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
         if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-        if(boxRumusPasif) boxRumusPasif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan buat baris baru di Google Sheets:\nKolom C: " + namaMateriKolomC + "\nKolom D: " + subMateriKolomD;
-        if(boxVisualMateri) boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan di Sheets.";
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
@@ -195,64 +190,100 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let subLower = subMateriKolomD.toLowerCase();
 
-    // 🔲 KONTROL INTERFACES LURUS KEMBALI SEPERTI SEMULA TANPA INTERUPSI
-    if (subLower.startsWith("pasif-") || subLower.includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
-        // [ 🔒 JALUR UTAH ASLI BAB 3 PASIF - DIKEMBALIKAN UTUH ]
+    // 🔲 KONTROL LOGIKA LAYER 5 SESUAI KETENTUAN TERBARU MAS ARDYAN
+    if (subLower.startsWith("pasif-") || subLower.includes("passive") || (dataCocok.judulBab || "").toLowerCase().includes("pasif")) {
+        // [ JALUR MUTLAK UTUH BAB 3: KALIMAT PASIF ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
+        if (boxRumusPasif) boxRumusPasif.innerText = isiRumus;
         
-        if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
-        if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
-        
-        if(boxArtiAktif) boxArtiAktif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Membuka lembar materi kalimat pasif.</div>`;
-        if(boxArtiPasif) {
+        if (boxArtiPasif) {
             boxArtiPasif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-
-    } else if (subLower.startsWith("aktif-") || subLower.includes("positif") || subLower.includes("negatif") || subLower.includes("tanya")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - DIKEMBALIKAN UTUH ]
+    } else if (subLower.startsWith("aktif-") || subLower.includes("positif") || subLower.includes("negatif")) {
+        // [ JALUR MUTLAK UTUH BAB 2: KALIMAT AKTIF ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
-        
-        if(boxRumusAktif) {
+        if (boxRumusAktif) {
             boxRumusAktif.classList.add("mms-txt-rumus-glow");
-            boxRumusAktif.innerText = isiRumus; 
+            boxRumusAktif.innerText = isiRumus;
         }
-        if(boxRumusPasif) boxRumusPasif.innerText = "No Passive Form untuk tipe data ini.";
         
-        if(boxArtiAktif) {
+        if (boxArtiAktif) {
             boxArtiAktif.innerHTML = `
                 <div style="font-style: italic; font-weight: 600; color: var(--mms-navy); margin-bottom: 5px; white-space: pre-line;"><i class="fa-solid fa-quote-left" style="font-size:10px; opacity:0.5; margin-right:4px;"></i>${isiContoh}</div>
                 <div style="border-bottom: 1px dashed #cbd5e1; margin-bottom: 5px; width: 100%;"></div>
                 <div style="font-size: 12.5px; color: #475569; font-weight: 500; white-space: pre-line;"><b>Artinya:</b> ${isiArti || 'Belum ada terjemahan.'}</div>
             `;
         }
-        if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
-
     } else {
-        // [ 💀 ATURAN PENYEMBUNYIAN TOTAL KOTAK RUMUS KHUSUS BAB 1 & BAB 4 ]
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "none";
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
-        
-        if (boxRumusAktif) boxRumusAktif.innerText = "";
-        if (boxRumusPasif) boxRumusPasif.innerText = "";
-        if (boxArtiAktif) boxArtiAktif.innerHTML = "";
-        if (boxArtiPasif) boxArtiPasif.innerHTML = "";
+        // [ 💀 AMAN MUTLAK JALUR BAB 1 & BAB 4: HANYA 4 KOTAK BERSIH TANPA RUMUS ]
+        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block"; // Biarkan box kuning hidup untuk diisi tabel contoh
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Bantai Rumus Aktif Neon
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // Bantai Rumus Pasif Neon
+
+        // Pecah string data dari Kolom F & G menggunakan pembatas baris baru (\n atau \b)
+        let arrayContoh = isiContoh.split("\n");
+        let arrayArti = isiArti.split("\n");
+
+        // Bangun visual Tabel Contoh mengikuti cetakan presisi Tabel To-Be asli
+        let htmlTabelContoh = `
+            <div style="overflow-x:auto; margin-top:5px;">
+                <table style="width:100%; border-collapse:collapse; background:#fffdf4; font-size:13px; border-radius:6px; overflow:hidden;">
+                    <thead>
+                        <tr style="background:#fef08a; color:var(--mms-navy); border-bottom:2px solid #fde047;">
+                            <th style="padding:10px; text-align:left; font-weight:700;">Contoh ${dataCocok.materi || 'Kata'}</th>
+                            <th style="padding:10px; text-align:left; font-weight:700;">Arti / Terjemahan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        // Loop maksimal data 3 - 5 baris saja
+        let batasBaris = Math.min(Math.max(arrayContoh.length, 3), 5);
+        for (let j = 0; j < batasBaris; j++) {
+            let itemC = arrayContoh[j] ? arrayContoh[j].trim() : "";
+            let itemA = arrayArti[j] ? arrayArti[j].trim() : "";
+
+            // Jika baris ada isinya, tampilkan. Jika kosong, biarkan blank string
+            htmlTabelContoh += `
+                <tr style="border-bottom:1px solid #fef9c3;">
+                    <td style="padding:9px 10px; color:var(--mms-navy); font-weight:500; font-style:italic;">${itemC}</td>
+                    <td style="padding:9px 10px; color:#475569;">${itemA}</td>
+                </tr>
+            `;
+        }
+
+        // Tambahkan baris kosong penutup penanda penunjuk selengkapnya (etc.)
+        htmlTabelContoh += `
+                        <tr style="background:#fefce8;">
+                            <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600;">etc.</td>
+                            <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        // Suntikkan tabel dinamis ini langsung ke dalam kontainer Box Tips yang sudah ada di HTML
+        if (panelTipsTabel) {
+            panelTipsTabel.innerHTML = htmlTabelContoh;
+            panelTipsTabel.style.display = "block"; // Langsung buka otomatis tanpa trigger tombol laci lagi
+        }
     }
 
-    // Render bodi penjelasan ke Kotak Hijau Universal (Memuat text penjelasan full satu paragraf dari Kolom I Sheet)
+    // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
     if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    // Render media player video penjelasan (Kolom H) tetap dipertahankan aman utuh
+    // Render media player video penjelasan (Kolom H)
     if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
