@@ -128,7 +128,6 @@ function toggleLaciVideoPendahuluan() {
 // 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS BAB 1, 2, 3, & 4
 // =========================================================================
 function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
-    // Jembatan jika Bab 1/4 memanggil hanya dengan single parameter ID murni
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
     }
@@ -142,6 +141,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
+    // Tangkap bodi luar pembungkus kotak rumus dan kotak tips subjek secara mutlak
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
     let elementBoxPasifUtama = document.getElementById("wrapper-box-pasif");
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
@@ -160,14 +160,14 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🔒 PROSES PENCARIAN UTAMA DATA SHEET (SINKRONISASI 2 PARAMETER ASLI BAB 2 & 3)
+    // 🔒 LOGIKA PENCARIAN 2 PARAMETER ASLI BAB 2 & 3
     let dataCocok = bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
-    // Fallback cadangan khusus untuk single-parameter ID Bab 1 / Bab 4
+    // Fallback cadangan khusus untuk pemanggilan single-parameter ID Bab 1 / Bab 4
     if (!dataCocok) {
         dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
@@ -188,15 +188,20 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
-    // Ambil string Judul Bab dari Kolom B sebagai penentu murni rumpun halaman modal
-    let babLower = (dataCocok.judulBab || "").toLowerCase().trim();
+    let idLower = subMateriKolomD.toLowerCase().trim();
 
-    // 🔲 EKSEKUSI KONTROL INTERFACES BERDASARKAN VALIDASI JUDUL BAB (KOLOM B)
-    if (babLower.includes("bab 3") || babLower.includes("pasif") || babLower.includes("passive")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF - TIDAK DIGANGGU ]
+    // 🔲 KONTROL INTERFACES SANGAT KETAT BERDASARKAN ID PARAMETER TOMBOL
+    if (idLower.startsWith("pasif-")) {
+        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "block";
+        
+        // Kembalikan isi bawaan tombol dropdown tabel To Be asli bawaan HTML
+        if (elementBoxTipsUtama) {
+            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "block";
+        }
         
         if(boxRumusAktif) boxRumusAktif.innerText = "Sistem Kalimat Pasif Aktif.";
         if(boxRumusPasif) boxRumusPasif.innerText = isiRumus; 
@@ -210,12 +215,18 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             `;
         }
 
-    } else if (babLower.includes("bab 2") || babLower.includes("aktif") || babLower.includes("active")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - TIDAK DIGANGGU ]
+    } else if (idLower.startsWith("aktif-")) {
+        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF ]
         if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block";
         if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "block";
         
+        // Kembalikan isi bawaan tombol dropdown tabel To Be asli bawaan HTML
+        if (elementBoxTipsUtama) {
+            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "block";
+        }
+
         if(boxRumusAktif) {
             boxRumusAktif.classList.add("mms-txt-rumus-glow");
             boxRumusAktif.innerText = isiRumus; 
@@ -232,18 +243,25 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         if(boxArtiPasif) boxArtiPasif.innerHTML = `<div style='color:#94a3b8; font-style:italic;'>Pilih menu Bab 3 untuk membuka struktur pasif.</div>`;
 
     } else {
-        // [ 💀 JALUR FIX MUTLAK BAB 1 & BAB 4: HANYA 4 KOTAK BERSIH TOTAL TANPA RUMUS NEON ]
-        if (elementBoxTipsUtama) elementBoxTipsUtama.style.display = "block"; // Aktifkan bodi box untuk memuat tabel baru
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // Lenyapkan total Rumus Aktif
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // Lenyapkan total Rumus Pasif
+        // [ 💀 JALUR FIX BAB 1 & BAB 4: TOTAL HANYA 2 BOX SAJA DI BAWAH SILABUS ]
+        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // MATI TOTAL RUMUS NEON AKTIF
+        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  // MATI TOTAL RUMUS NEON PASIF
+        
+        if (elementBoxTipsUtama) {
+            elementBoxTipsUtama.style.display = "block"; // Biarkan box pembungkus luar hidup untuk wadah tabel contoh
+            
+            // 🎯 KUNCI UTAMA: Sembunyikan/Hapus paksa tombol pemicu tulisan "Ketuk untuk Lihat Tabel Referensi Subjek" agar judul To Be hilang total
+            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
+            if(btnTriggerAsli) btnTriggerAsli.style.display = "none";
+        }
 
-        // Bersihkan string dan pecah baris data contoh kata dari Sheets (\n)
+        // Pecah baris data string contoh kalimat (\n)
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
-        // Cetak struktur HTML Tabel Contoh baru secara paksa menggantikan struktur tabel To Be lama
+        // Cetak struktur tabel baru buatan kita untuk disuntikkan secara dinamis
         let htmlTabelContoh = `
-            <div style="overflow-x:auto; margin-top:5px;">
+            <div style="overflow-x:auto; margin-top:-5px;">
                 <table style="width:100%; border-collapse:collapse; background:#fffdf4; font-size:13px; border-radius:6px; overflow:hidden;">
                     <thead>
                         <tr style="background:#fef08a; color:var(--mms-navy); border-bottom:2px solid #fde047;">
@@ -254,7 +272,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                     <tbody>
         `;
 
-        // Atur batasan penampilan baris tabel contoh minimal 3 baris dan maksimal 5 baris
+        // Loop data baris 3 sampai maksimal 5 baris
         let batasBaris = Math.min(Math.max(arrayContoh.length, 3), 5);
         for (let j = 0; j < batasBaris; j++) {
             let itemC = arrayContoh[j] ? arrayContoh[j].trim() : "";
@@ -268,7 +286,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             `;
         }
 
-        // Cetak baris kosong penutup penanda penunjuk selengkapnya (etc.) di bagian paling bawah tabel
+        // Cetak baris kosong penutup (etc.) di area bawah tabel kustom
         htmlTabelContoh += `
                         <tr style="background:#fefce8;">
                             <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600;">etc.</td>
@@ -279,14 +297,14 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             </div>
         `;
 
-        // Suntikkan dan paksa buka tabel contoh baru ini langsung ke kontainer halaman modal
+        // Timpa total isi panel dropdown laci lama dengan tabel contoh baru kita dan langsung paksa buka di layar
         if (panelTipsTabel) {
             panelTipsTabel.innerHTML = htmlTabelContoh;
-            panelTipsTabel.style.display = "block"; // Buka otomatis tanpa perlu user menekan tombol dropdown lagi
+            panelTipsTabel.style.display = "block"; 
         }
     }
 
-    // Render bodi penjelasan ke Kotak Hijau Universal (Kolom I - fungsi)
+    // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
     if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
