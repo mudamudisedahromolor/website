@@ -259,7 +259,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                 </div>
             `;
         } else if (idLower === "pos-noun" || idLower === "bab1-noun") {
-            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI NOUN
+            // [ 🔒 JALUR UTUH MATERI NOUN - TIDAK DISENTUH ]
             isiKontenLaci = `
                 <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Noun (Kata Benda)
@@ -331,7 +331,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                     <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> "She is studying in <span style="color:#0f172a; font-weight:700;">the library</span>."
                                 </td>
                             </tr>
-                            
                         </tbody>
                     </table>
                 </div>
@@ -564,6 +563,79 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                     Menjelaskan tingkat, intensitas, atau sejauh mana suatu sifat atau tindakan berlaku.<br>
                                     <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> very, extremely, quite, too, enough, almost.
                                 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        } else if (idLower === "pos-preposition" || idLower === "bab1-preposition") {
+            // 🎯 JALUR KUSTOM BARU MAS ARDYAN: RENDER STRUKTUR TABEL SEKAT GANDA KHUSUS MATERI PREPOSITION
+            isiKontenLaci = `
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-bookmark"></i> 1. Jenis-Jenis Preposition Utama
+                </div>
+                <div style="overflow-x:auto; margin-bottom: 18px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Kategori Preposition</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Penggunaan &amp; Contoh Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Preposition of Time (Waktu)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Digunakan untuk menunjukkan kapan suatu kejadian berlangsung.<br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">In</span> (bulan/tahun): <i>in May, in 2026</i><br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">On</span> (hari/tanggal): <i>on Monday, on October 1st</i><br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">At</span> (jam/waktu spesifik): <i>at 09:00 AM, at night</i>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Preposition of Place (Tempat/Posisi)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Digunakan untuk menunjukkan letak atau lokasi suatu objek.<br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">In</span> (di dalam ruang tertutup): <i>in the box</i><br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">On</span> (di atas permukaan): <i>on the table</i><br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">At</span> (di titik tertentu): <i>at the bus stop</i>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Preposition of Direction (Arah)</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Digunakan untuk menunjukkan pergerakan atau ke mana suatu objek mengarah.<br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">To</span> (menuju): <i>I go to school</i><br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">Into</span> (ke dalam): <i>He jumps into the pool</i><br>
+                                    🔹 <span style="font-weight:600; color:#0f172a;">From</span> (dari): <i>He came from London</i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-star"></i> 2. Contoh Penggunaan dalam Kalimat
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1; width:35%;">Kalimat Contoh</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Arti &amp; Hubungan Kata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">The book is <span style="color:#2563eb; font-weight:700; font-style:normal;">on</span> the table.</td>
+                                <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                                    Buku itu ada <span style="font-weight:700; color:#0f172a;">di atas</span> meja.<br>
+                                    <span style="font-size:12px; color:#71717a;">*Kata <b>on</b> menghubungkan posisi buku (book) dengan meja (table).</span>
+                                </td>
+                            </tr>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
+                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
                             </tr>
                         </tbody>
                     </table>
