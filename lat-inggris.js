@@ -254,7 +254,6 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
                                         <span style="color:#b45309; font-weight:600; font-style:italic;">Contoh:</span> someone, anyone, everyone, everything.
                                 </td>
                             </tr>
-                           
                         </tbody>
                     </table>
                 </div>
@@ -305,22 +304,22 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
             `;
         }
 
-        // 🎯 MERAKIT STRUKTUR UTUH LACI TUTUP-SEMBUNYI (ACCORDION WINDOW) UNTUK BAB 1 & 4
+        // 🎯 FIX INSTAN: Menggunakan ID kustom #mms-panel-laci-bab14 dan pemanggil fungsi anonim lokal agar anti-bentrok
         let htmlLaciSembunyi = `
             <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
                 <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-lightbulb"></i> Referensi Data &amp; Contoh:
                 </div>
-                <button class="mms-toggle-trigger-btn" style="border-color: #eab308; color: #b45309; background: #fff; margin-top: 4px; width: 100%; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.15s ease;" onclick="toggleAccordionBox('panel-tips-tabel')">
+                <button class="mms-toggle-trigger-btn" style="border-color: #eab308; color: #b45309; background: #fff; margin-top: 4px; width: 100%; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.15s ease;" 
+                    onclick="let laci = document.getElementById('mms-panel-laci-bab14'); laci.style.display = (laci.style.display === 'none' || laci.style.display === '') ? 'block' : 'none';">
                     <i class="fa-solid fa-folder-open"></i> Ketuk untuk Buka / Sembunyikan Tabel
                 </button>
-                <div id="panel-tips-tabel" class="mms-dropdown-content-panel" style="display: none; margin-top: 10px; background: #fffdf5; padding: 12px; border-radius: 6px; border-left: 3px solid #eab308;">
+                <div id="mms-panel-laci-bab14" style="display: none; margin-top: 10px; background: #fffdf5; padding: 4px; border-radius: 6px;">
                     ${isiKontenLaci}
                 </div>
             </div>
         `;
 
-        // Suntikkan wadah laci dinamis ini ke susunan layout vertikal modal utama
         let pembungkusUtama = document.querySelector(".mms-vertical-layout-stack");
         if (pembungkusUtama) {
             pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
