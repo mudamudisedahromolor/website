@@ -191,9 +191,13 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let idLower = subMateriKolomD.toLowerCase().trim();
 
+    // TAMBAHAN 1 BARIS PEMBERSIH: Agar tabel Bab 1 & 4 tidak nyangkut saat membuka Bab 2/3
+    let tabelCustomLama = document.getElementById("mms-tabel-contoh-bab14");
+    if (tabelCustomLama) tabelCustomLama.remove();
+
     // 🔲 KONTROL STRUKTUR MODAL LAYER 5 ADIL DAN PRESISI
     if (idLower.startsWith("pasif-")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF - DIAMANKAN ]
+        // [ 🔒 JALUR UTUH ASLI BAB 3 PASIF - DIAMANKAN TANPA DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -217,7 +221,7 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
         }
 
     } else if (idLower.startsWith("aktif-")) {
-        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - DIAMANKAN ]
+        // [ 🔒 JALUR UTUH ASLI BAB 2 AKTIF - DIAMANKAN TANPA DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -245,69 +249,70 @@ function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     } else {
         // [ 💀 JALUR FIX MUTLAK BAB 1 & BAB 4: HANYA TAMPIL 2 KOTAK SAJA DI BAWAH SILABUS ]
-        if (elementBoxPasifUtama) elementBoxPasifUtama.style.display = "none";  
-        if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  // 🎯 EKSEKUSI MANDAT MAS ARDYAN: MATI TOTAL DISINI
-        
-        if (elementBoxTipsUtama) {
-            elementBoxTipsUtama.style.display = "block"; 
-            
-            // Hapus/Sembunyikan paksa teks judul "Tips Pasangan Subjek" dan tombol laci bawaan HTML biar bersih total
-            let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
-            let headerAsli = elementBoxTipsUtama.querySelector('.info-box-header');
-            if(btnTriggerAsli) btnTriggerAsli.style.display = "none";
-            if(headerAsli) headerAsli.style.display = "none";
-        }
+        // 1. Eksekusi Hapus Mutlak (Menggunakan getElementById langsung agar anti gagal)
+        let boxAktif = document.getElementById("wrapper-box-aktif");
+        let boxPasif = document.getElementById("wrapper-box-pasif");
+        let boxTips = document.getElementById("wrapper-box-tips-pintar");
 
+        if (boxAktif) boxAktif.style.display = "none";
+        if (boxPasif) boxPasif.style.display = "none";
+        if (boxTips) boxTips.style.display = "none";
+
+        // 2. Buat Kotak Tabel Contoh Kustom Baru
         let arrayContoh = isiContoh.split("\n");
         let arrayArti = isiArti.split("\n");
 
-        // Suntikkan dan paksa cetak kerangka Tabel Contoh Kustom baru menggantikan tabel lama
         let htmlTabelContoh = `
-            <div class="mms-container-tabel-kustom-pos">
-                <table class="mms-tabel-teori-pos">
-                    <thead>
-                        <tr>
-                            <th>Contoh ${dataCocok.materi || 'Kata'}</th>
-                            <th>Arti / Terjemahan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div id="mms-tabel-contoh-bab14" class="info-box-item-tips" style="margin-top: 14px; border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; text-align: left;">
+                <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-list"></i> Contoh Kata / Kalimat
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                                <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1;">Contoh Kalimat</th>
+                                <th style="padding:10px; text-align:left; font-weight:700;">Arti / Terjemahan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
         `;
 
-        // Mengunci loop baris tabel 3 hingga maksimal 5 baris
         let batasBaris = Math.min(Math.max(arrayContoh.length, 3), 5);
         for (let j = 0; j < batasBaris; j++) {
             let itemC = arrayContoh[j] ? arrayContoh[j].trim() : "";
             let itemA = arrayArti[j] ? arrayArti[j].trim() : "";
-
-            htmlTabelContoh += `
-                <tr>
-                    <td class="mms-td-bold-italic-pos">${itemC}</td>
-                    <td class="mms-td-arti-pos">${itemA}</td>
-                </tr>
-            `;
+            if (itemC !== "" || itemA !== "") {
+                htmlTabelContoh += `
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">${itemC}</td>
+                                <td style="padding:9px 10px; color:#475569;">${itemA}</td>
+                            </tr>
+                `;
+            }
         }
 
-        // Sematkan baris penutup kustom "etc." di bagian bawah baris
         htmlTabelContoh += `
-                        <tr class="mms-tr-footer-pos">
-                            <td>etc.</td>
-                            <td>Selengkapnya lihat pada menu Ensiklopedia</td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tr style="background:#fefce8;">
+                                <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1;">etc.</td>
+                                <td style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         `;
 
-        if (panelTipsTabel) {
-            panelTipsTabel.innerHTML = htmlTabelContoh;
-            panelTipsTabel.style.display = "block"; // Dipaksa buka otomatis sejak awal membuka modal teori
+        // Suntikkan tabel ke bagian terbawah container vertical modal
+        let pembungkusUtama = document.querySelector(".mms-vertical-layout-stack");
+        if (pembungkusUtama) {
+            pembungkusUtama.insertAdjacentHTML('beforeend', htmlTabelContoh);
         }
     }
 
     // Mengisi satu paragraf penjelasan murni ke Kotak Hijau Universal (Kolom I - fungsi)
     if(boxPembahasan) {
-        boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesification gramatikal rumpun ${dataCocok.judulBab}.`;
+        boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
     // Render media player video penjelasan (Kolom H - visual)
