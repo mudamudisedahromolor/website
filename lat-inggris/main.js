@@ -50,31 +50,32 @@ function muatVideoPendahuluanOtomatis() {
         containerVideo.innerHTML = `<video style="width:100%; height:100%; object-fit:cover;" controls>` +
                                         `<source src="${linkVideo}" type="video/mp4">` +
                                      `</video>`;
-        if(txtStatus) txtStatus.style.display = "none";
+        txtStatus.style.display = "none";
     } else {
         if(txtStatus) txtStatus.innerText = "Buat baris di Sheet dengan Kolom D: 'video-pembuka' & Kolom H: Masukkan Link Video.";
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => { 
-    ambilAsetDataWeb(); 
-    window.eksekusiKlikDoubleBounce = eksekusiKlikDoubleBounce;
-    window.resetSeleksiDashboardEksternal = resetSeleksiDashboardEksternal;
-    window.toggleLaciVideoPendahuluan = () => {
-        let laci = document.getElementById("mms-laci-video-pembuka");
-        let iconVideo = document.getElementById("mms-icon-chevron-video");
-        let vFrame = document.getElementById("box-media-video-pembuka");
-        let videoEl = laci.querySelector("video");
+function toggleLaciVideoPendahuluan() {
+    let laci = document.getElementById("mms-laci-video-pembuka");
+    let iconVideo = document.getElementById("mms-icon-chevron-video");
+    let vFrame = document.getElementById("box-media-video-pembuka");
+    let videoEl = laci.querySelector("video");
 
-        if (laci.style.display === "none" || laci.style.display === "") {
-            laci.style.display = "block";
-            if(vFrame && vFrame.innerHTML !== "") vFrame.style.display = "flex";
-            if (iconVideo) { iconVideo.classList.remove("fa-chevron-down"); iconVideo.classList.add("fa-chevron-up"); }
-            if (videoEl) videoEl.play().catch(e => {});
-        } else {
-            laci.style.display = "none";
-            if (iconVideo) { iconVideo.classList.remove("fa-chevron-up"); iconVideo.classList.add("fa-chevron-down"); }
-            if (videoEl) videoEl.pause();
-        }
-    };
-});
+    if (laci.style.display === "none" || laci.style.display === "") {
+        laci.style.display = "block";
+        if(vFrame.innerHTML !== "") vFrame.style.display = "flex";
+        if (iconVideo) { iconVideo.classList.remove("fa-chevron-down"); iconVideo.classList.add("fa-chevron-up"); }
+        if (videoEl) videoEl.play().catch(e => {});
+    } else {
+        laci.style.display = "none";
+        if (iconVideo) { iconVideo.classList.remove("fa-chevron-up"); iconVideo.classList.add("fa-chevron-down"); }
+        if (videoEl) videoEl.pause();
+    }
+}
+
+// Inisialisasi pengikatan global
+ambilAsetDataWeb();
+window.eksekusiKlikDoubleBounce = eksekusiKlikDoubleBounce;
+window.toggleLaciVideoPendahuluan = toggleLaciVideoPendahuluan;
+window.resetSeleksiDashboardEksternal = resetSeleksiDashboardEksternal;
