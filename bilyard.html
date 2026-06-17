@@ -11,231 +11,774 @@
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     html,
     body {
       margin: 0;
       width: 100%;
-      min-height: 100%;
+      height: 100%;
+      overflow: hidden;
       background: #111;
-      color: #ffffff;
+      color: #fff;
       font-family: Arial, Helvetica, sans-serif;
+      overscroll-behavior: none;
     }
 
     body {
-      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .page {
+    .game-page {
       width: 100%;
-      min-height: 100vh;
-      padding: 14px;
+      height: 100%;
+      max-width: 1200px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
 
     .topbar {
-      width: 100%;
-      max-width: 1180px;
-      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 8px;
     }
 
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
+      color: #fff;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 700;
+      background: rgba(255,255,255,.12);
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: bold;
       white-space: nowrap;
     }
 
-    .back-link:active {
-      transform: scale(0.97);
-    }
-
-    .title-wrap {
+    .title {
       text-align: center;
       flex: 1;
     }
 
     h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 20px;
       line-height: 1.2;
     }
 
     .subtitle {
-      margin: 4px 0 0;
+      margin-top: 3px;
+      font-size: 12px;
+      opacity: .75;
+    }
+
+    .spacer {
+      width: 82px;
+    }
+
+    .info {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
       font-size: 13px;
-      opacity: 0.78;
     }
 
-    .game-shell {
-      width: 100%;
-      max-width: 1180px;
-      height: calc(100vh - 112px);
-      min-height: 520px;
-      margin: 0 auto;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-      position: relative;
+    .table-wrap {
+      flex: 1;
+      min-height: 260px;
+      background: #3b1f0e;
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.55);
     }
 
-    iframe {
+    canvas {
       width: 100%;
       height: 100%;
-      border: 0;
       display: block;
-      background: #000;
+      background: #087a3b;
+      border-radius: 13px;
+      touch-action: none;
     }
 
-    .mobile-note {
+    .controls {
+      background: rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 10px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .power-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input[type="range"] {
       width: 100%;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(245, 197, 66, 0.12);
-      color: #f5d76e;
-      font-size: 13px;
-      line-height: 1.45;
-      text-align: center;
+      height: 34px;
+      accent-color: #f5c542;
     }
 
-    .fullscreen-btn {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      z-index: 5;
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    button {
       border: 0;
-      border-radius: 10px;
-      padding: 10px 12px;
-      background: rgba(245, 197, 66, 0.95);
+      border-radius: 12px;
+      padding: 13px 10px;
+      background: #f5c542;
       color: #111;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 800;
       cursor: pointer;
     }
 
-    .fullscreen-btn:active {
-      transform: scale(0.97);
+    button:active,
+    .back-link:active {
+      transform: scale(.97);
     }
 
-    @media (max-width: 768px) {
-      .page {
-        padding: 8px;
-        gap: 8px;
-      }
+    .hint {
+      text-align: center;
+      font-size: 12px;
+      opacity: .75;
+      line-height: 1.4;
+    }
 
-      .topbar {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .back-link {
-        align-self: flex-start;
-        font-size: 13px;
-        padding: 9px 12px;
+    @media (max-width: 600px) {
+      .game-page {
+        padding: 7px;
+        gap: 7px;
       }
 
       h1 {
-        font-size: 20px;
+        font-size: 17px;
       }
 
       .subtitle {
-        font-size: 12px;
+        display: none;
       }
 
-      .game-shell {
-        height: calc(100vh - 150px);
-        min-height: 470px;
-        border-radius: 12px;
-      }
-
-      .mobile-note {
+      .back-link {
         font-size: 12px;
         padding: 8px 10px;
       }
 
-      .fullscreen-btn {
-        right: 8px;
-        bottom: 8px;
-        padding: 9px 10px;
+      .spacer {
+        width: 70px;
+      }
+
+      .info {
         font-size: 12px;
+        gap: 7px;
+      }
+
+      .table-wrap {
+        padding: 8px;
+        border-radius: 13px;
+      }
+
+      .button-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      button {
+        font-size: 13px;
+        padding: 12px 8px;
       }
     }
 
     @media (orientation: landscape) and (max-height: 520px) {
-      .page {
+      .game-page {
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        grid-template-rows: auto 1fr;
+        gap: 6px;
         padding: 6px;
       }
 
       .topbar,
-      .mobile-note {
+      .info {
+        grid-column: 1 / 3;
+      }
+
+      .title h1 {
+        font-size: 16px;
+      }
+
+      .subtitle {
         display: none;
       }
 
-      .game-shell {
-        width: 100%;
-        height: calc(100vh - 12px);
+      .table-wrap {
         min-height: 0;
-        border-radius: 10px;
+        padding: 7px;
+      }
+
+      .controls {
+        align-self: stretch;
+      }
+
+      .button-row {
+        grid-template-columns: 1fr;
+      }
+
+      .hint {
+        font-size: 11px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
+  <main class="game-page" id="gamePage">
     <header class="topbar">
       <a class="back-link" href="index.html">← Kembali</a>
 
-      <div class="title-wrap">
+      <div class="title">
         <h1>Game Bilyard</h1>
-        <p class="subtitle">Mainkan langsung dari browser</p>
+        <div class="subtitle">Mainkan langsung dari browser</div>
       </div>
 
-      <div style="width: 86px;"></div>
+      <div class="spacer"></div>
     </header>
 
-    <section class="game-shell" id="gameShell">
-      <iframe
-        id="gameFrame"
-        src="bilyard/"
-        title="Game Bilyard"
-        allow="fullscreen; autoplay; gamepad"
-        allowfullscreen>
-      </iframe>
-
-      <button class="fullscreen-btn" type="button" onclick="openFullscreen()">
-        Fullscreen
-      </button>
+    <section class="info">
+      <div>Power: <span id="powerText">45</span>%</div>
+      <div>Bola masuk: <span id="scoreText">0</span></div>
+      <div>Status: <span id="statusText">Tarik dari bola putih</span></div>
     </section>
 
-    <div class="mobile-note">
-      Jika game terasa kecil di HP, putar layar ke mode landscape atau tekan tombol Fullscreen.
-    </div>
+    <section class="table-wrap">
+      <canvas id="gameCanvas"></canvas>
+    </section>
+
+    <section class="controls">
+      <div class="power-row">
+        <span>Power</span>
+        <input id="powerSlider" type="range" min="10" max="100" value="45" />
+      </div>
+
+      <div class="button-row">
+        <button id="shootBtn" type="button">Shoot</button>
+        <button id="resetBtn" type="button">Reset</button>
+        <button id="fullBtn" type="button">Fullscreen</button>
+      </div>
+
+      <div class="hint">
+        HP: sentuh bola putih, geser arah tembakan, lalu tekan Shoot.<br>
+        Desktop: klik/drag arah tembakan, lalu tekan Shoot.
+      </div>
+    </section>
   </main>
 
   <script>
-    function openFullscreen() {
-      const shell = document.getElementById("gameShell");
-      const iframe = document.getElementById("gameFrame");
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
 
-      const target = shell || iframe;
+    const gamePage = document.getElementById("gamePage");
+    const powerText = document.getElementById("powerText");
+    const scoreText = document.getElementById("scoreText");
+    const statusText = document.getElementById("statusText");
+    const powerSlider = document.getElementById("powerSlider");
+    const shootBtn = document.getElementById("shootBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const fullBtn = document.getElementById("fullBtn");
+
+    let W = 1000;
+    let H = 560;
+
+    let balls = [];
+    let pockets = [];
+
+    let power = 45;
+    let score = 0;
+
+    let aimPoint = { x: 0, y: 0 };
+    let isAiming = false;
+    let hasAim = false;
+
+    const friction = 0.985;
+    const minSpeed = 0.04;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const ratio = window.devicePixelRatio || 1;
+
+      canvas.width = rect.width * ratio;
+      canvas.height = rect.height * ratio;
+
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      W = rect.width;
+      H = rect.height;
+
+      setupPockets();
+
+      if (balls.length) {
+        keepBallsInside();
+      }
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("orientationchange", function () {
+      setTimeout(resizeCanvas, 300);
+    });
+
+    class Ball {
+      constructor(x, y, color, number = "", isCue = false) {
+        this.x = x;
+        this.y = y;
+        this.vx = 0;
+        this.vy = 0;
+        this.r = getBallRadius();
+        this.color = color;
+        this.number = number;
+        this.isCue = isCue;
+        this.inPocket = false;
+      }
+
+      draw() {
+        if (this.inPocket) return;
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+
+        ctx.strokeStyle = "rgba(0,0,0,.45)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(this.x - this.r * 0.35, this.y - this.r * 0.35, this.r * 0.22, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,.35)";
+        ctx.fill();
+
+        if (this.number) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r * 0.55, 0, Math.PI * 2);
+          ctx.fillStyle = "#fff";
+          ctx.fill();
+
+          ctx.fillStyle = "#111";
+          ctx.font = `${this.r * 0.72}px Arial`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(this.number, this.x, this.y + 1);
+        }
+      }
+
+      update() {
+        if (this.inPocket) return;
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        this.vx *= friction;
+        this.vy *= friction;
+
+        if (Math.abs(this.vx) < minSpeed) this.vx = 0;
+        if (Math.abs(this.vy) < minSpeed) this.vy = 0;
+
+        if (this.x - this.r < 0) {
+          this.x = this.r;
+          this.vx *= -0.9;
+        }
+
+        if (this.x + this.r > W) {
+          this.x = W - this.r;
+          this.vx *= -0.9;
+        }
+
+        if (this.y - this.r < 0) {
+          this.y = this.r;
+          this.vy *= -0.9;
+        }
+
+        if (this.y + this.r > H) {
+          this.y = H - this.r;
+          this.vy *= -0.9;
+        }
+
+        checkPocket(this);
+      }
+
+      speed() {
+        return Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+      }
+    }
+
+    function getBallRadius() {
+      return Math.max(8, Math.min(W, H) * 0.03);
+    }
+
+    function setupPockets() {
+      const pr = Math.max(18, Math.min(W, H) * 0.065);
+
+      pockets = [
+        { x: 0, y: 0, r: pr },
+        { x: W / 2, y: 0, r: pr },
+        { x: W, y: 0, r: pr },
+        { x: 0, y: H, r: pr },
+        { x: W / 2, y: H, r: pr },
+        { x: W, y: H, r: pr }
+      ];
+    }
+
+    function resetGame() {
+      score = 0;
+      hasAim = false;
+      isAiming = false;
+
+      const cueX = W * 0.25;
+      const cueY = H * 0.5;
+
+      balls = [
+        new Ball(cueX, cueY, "#ffffff", "", true)
+      ];
+
+      const colors = [
+        "#f4d03f",
+        "#3498db",
+        "#e74c3c",
+        "#8e44ad",
+        "#e67e22",
+        "#27ae60",
+        "#c0392b",
+        "#111111",
+        "#f1c40f",
+        "#2ecc71"
+      ];
+
+      const startX = W * 0.66;
+      const startY = H * 0.5;
+      const gap = getBallRadius() * 2.15;
+
+      let n = 1;
+
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col <= row; col++) {
+          const x = startX + row * gap;
+          const y = startY + (col - row / 2) * gap;
+
+          balls.push(new Ball(x, y, colors[(n - 1) % colors.length], String(n), false));
+          n++;
+        }
+      }
+
+      updateUI();
+      statusText.textContent = "Tarik dari bola putih";
+    }
+
+    function updateUI() {
+      powerText.textContent = power;
+      scoreText.textContent = score;
+      powerSlider.value = power;
+    }
+
+    function drawTable() {
+      ctx.clearRect(0, 0, W, H);
+
+      const gradient = ctx.createLinearGradient(0, 0, W, H);
+      gradient.addColorStop(0, "#0a8f46");
+      gradient.addColorStop(1, "#056530");
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.strokeStyle = "rgba(255,255,255,.18)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(18, 18, W - 36, H - 36);
+
+      ctx.strokeStyle = "rgba(255,255,255,.12)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.25, 18);
+      ctx.lineTo(W * 0.25, H - 18);
+      ctx.stroke();
+
+      pockets.forEach(function (p) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#030303";
+        ctx.fill();
+
+        ctx.strokeStyle = "rgba(255,255,255,.12)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      });
+    }
+
+    function drawAimLine() {
+      const cue = getCueBall();
+
+      if (!cue || ballsMoving() || !hasAim) return;
+
+      const dx = aimPoint.x - cue.x;
+      const dy = aimPoint.y - cue.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 8) return;
+
+      const angle = Math.atan2(dy, dx);
+
+      ctx.save();
+
+      ctx.setLineDash([8, 8]);
+      ctx.strokeStyle = "rgba(255,255,255,.85)";
+      ctx.lineWidth = 2;
+
+      ctx.beginPath();
+      ctx.moveTo(cue.x, cue.y);
+      ctx.lineTo(
+        cue.x + Math.cos(angle) * Math.min(240, W * 0.35),
+        cue.y + Math.sin(angle) * Math.min(240, W * 0.35)
+      );
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+
+      ctx.strokeStyle = "#d6a15d";
+      ctx.lineWidth = Math.max(4, cue.r * 0.45);
+
+      ctx.beginPath();
+      ctx.moveTo(
+        cue.x - Math.cos(angle) * 35,
+        cue.y - Math.sin(angle) * 35
+      );
+      ctx.lineTo(
+        cue.x - Math.cos(angle) * 185,
+        cue.y - Math.sin(angle) * 185
+      );
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function getCueBall() {
+      return balls.find(function (b) {
+        return b.isCue && !b.inPocket;
+      });
+    }
+
+    function ballsMoving() {
+      return balls.some(function (b) {
+        return !b.inPocket && b.speed() > 0;
+      });
+    }
+
+    function handleBallCollisions() {
+      for (let i = 0; i < balls.length; i++) {
+        for (let j = i + 1; j < balls.length; j++) {
+          const a = balls[i];
+          const b = balls[j];
+
+          if (a.inPocket || b.inPocket) continue;
+
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const minDist = a.r + b.r;
+
+          if (dist < minDist && dist > 0) {
+            const nx = dx / dist;
+            const ny = dy / dist;
+
+            const overlap = minDist - dist;
+
+            a.x -= nx * overlap / 2;
+            a.y -= ny * overlap / 2;
+            b.x += nx * overlap / 2;
+            b.y += ny * overlap / 2;
+
+            const tx = -ny;
+            const ty = nx;
+
+            const dpTanA = a.vx * tx + a.vy * ty;
+            const dpTanB = b.vx * tx + b.vy * ty;
+
+            const dpNormA = a.vx * nx + a.vy * ny;
+            const dpNormB = b.vx * nx + b.vy * ny;
+
+            a.vx = tx * dpTanA + nx * dpNormB;
+            a.vy = ty * dpTanA + ny * dpNormB;
+            b.vx = tx * dpTanB + nx * dpNormA;
+            b.vy = ty * dpTanB + ny * dpNormA;
+          }
+        }
+      }
+    }
+
+    function checkPocket(ball) {
+      for (const p of pockets) {
+        const dx = ball.x - p.x;
+        const dy = ball.y - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < p.r * 0.72) {
+          if (ball.isCue) {
+            ball.x = W * 0.25;
+            ball.y = H * 0.5;
+            ball.vx = 0;
+            ball.vy = 0;
+            hasAim = false;
+            statusText.textContent = "Bola putih masuk, dikembalikan";
+          } else {
+            ball.inPocket = true;
+            ball.vx = 0;
+            ball.vy = 0;
+            score++;
+            statusText.textContent = "Bola masuk!";
+            updateUI();
+          }
+        }
+      }
+    }
+
+    function shoot() {
+      const cue = getCueBall();
+
+      if (!cue) return;
+
+      if (ballsMoving()) {
+        statusText.textContent = "Tunggu bola berhenti";
+        return;
+      }
+
+      if (!hasAim) {
+        statusText.textContent = "Arahkan dulu tembakan";
+        return;
+      }
+
+      const dx = aimPoint.x - cue.x;
+      const dy = aimPoint.y - cue.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 10) {
+        statusText.textContent = "Arah terlalu dekat";
+        return;
+      }
+
+      const force = power / 8;
+
+      cue.vx = (dx / dist) * force;
+      cue.vy = (dy / dist) * force;
+
+      hasAim = false;
+      isAiming = false;
+      statusText.textContent = "Tembakan!";
+    }
+
+    function getCanvasPosition(event) {
+      const rect = canvas.getBoundingClientRect();
+
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
+    }
+
+    function isNearCueBall(pos) {
+      const cue = getCueBall();
+      if (!cue) return false;
+
+      const dx = pos.x - cue.x;
+      const dy = pos.y - cue.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      return dist <= cue.r * 3.5;
+    }
+
+    function keepBallsInside() {
+      const r = getBallRadius();
+
+      balls.forEach(function (ball) {
+        ball.r = r;
+
+        if (ball.x < ball.r) ball.x = ball.r;
+        if (ball.x > W - ball.r) ball.x = W - ball.r;
+        if (ball.y < ball.r) ball.y = ball.r;
+        if (ball.y > H - ball.r) ball.y = H - ball.r;
+      });
+    }
+
+    canvas.addEventListener("pointerdown", function (event) {
+      event.preventDefault();
+
+      if (ballsMoving()) {
+        statusText.textContent = "Tunggu bola berhenti";
+        return;
+      }
+
+      const pos = getCanvasPosition(event);
+
+      isAiming = true;
+      hasAim = true;
+      aimPoint = pos;
+
+      if (canvas.setPointerCapture) {
+        canvas.setPointerCapture(event.pointerId);
+      }
+
+      if (isNearCueBall(pos)) {
+        statusText.textContent = "Geser untuk arah tembakan";
+      } else {
+        statusText.textContent = "Arah siap, tekan Shoot";
+      }
+    });
+
+    canvas.addEventListener("pointermove", function (event) {
+      event.preventDefault();
+
+      if (!isAiming) return;
+
+      aimPoint = getCanvasPosition(event);
+      hasAim = true;
+    });
+
+    canvas.addEventListener("pointerup", function (event) {
+      event.preventDefault();
+
+      if (isAiming) {
+        aimPoint = getCanvasPosition(event);
+        hasAim = true;
+        isAiming = false;
+        statusText.textContent = "Arah siap, tekan Shoot";
+      }
+    });
+
+    canvas.addEventListener("pointercancel", function () {
+      isAiming = false;
+    });
+
+    powerSlider.addEventListener("input", function () {
+      power = Number(powerSlider.value);
+      updateUI();
+    });
+
+    shootBtn.addEventListener("click", shoot);
+
+    resetBtn.addEventListener("click", function () {
+      resizeCanvas();
+      resetGame();
+    });
+
+    fullBtn.addEventListener("click", function () {
+      const target = gamePage;
 
       if (target.requestFullscreen) {
         target.requestFullscreen();
@@ -244,19 +787,45 @@
       } else if (target.msRequestFullscreen) {
         target.msRequestFullscreen();
       }
-    }
-
-    window.addEventListener("message", function (event) {
-      // Disiapkan jika nanti game di dalam iframe perlu komunikasi dengan halaman ini.
     });
 
     document.addEventListener("touchmove", function (event) {
-      const gameShell = document.getElementById("gameShell");
-
-      if (gameShell && gameShell.contains(event.target)) {
+      if (event.target === canvas) {
         event.preventDefault();
       }
     }, { passive: false });
+
+    function gameLoop() {
+      drawTable();
+
+      balls.forEach(function (ball) {
+        ball.update();
+      });
+
+      handleBallCollisions();
+
+      balls.forEach(function (ball) {
+        ball.draw();
+      });
+
+      drawAimLine();
+
+      if (!ballsMoving() && score >= balls.length - 1) {
+        statusText.textContent = "Semua bola masuk! Tekan Reset";
+      } else if (!ballsMoving() && statusText.textContent === "Tembakan!") {
+        statusText.textContent = "Tarik dari bola putih";
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function startGame() {
+      resizeCanvas();
+      resetGame();
+      gameLoop();
+    }
+
+    startGame();
   </script>
 </body>
 </html>
