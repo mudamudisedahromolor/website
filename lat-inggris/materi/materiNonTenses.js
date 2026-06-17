@@ -1,18 +1,15 @@
-// =========================================================================
-// 4. SUB-ROUTER A: JALUR KHUSUS BAB 1 & BAB 4 (NON-TENSES)
-// =========================================================================
 export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxPembahasan = document.getElementById("box-txt-pembahasan");
     let boxSilabus = document.getElementById("box-txt-silabus");
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
+    let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
+    let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
+
     let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
     if (judulTense) judulTense.innerHTML = `Modul: <b>${dataCocok.materi || namaMateriKolomC} (${labelTipeTeks})</b>`;
     if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
-
-    let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
-    let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
     let isiKontenLaci = "";
 
