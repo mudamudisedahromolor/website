@@ -1,3 +1,8 @@
+// =========================================================================
+// 4. SUB-ROUTER B: JALUR KHUSUS BAB 2 & BAB 3 (TENSES) - CODESYNC FIX
+// =========================================================================
+import { state } from '../state.js'; // Mengambil data state universal
+
 export function prosesMateriTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
@@ -21,6 +26,7 @@ export function prosesMateriTenses(namaMateriKolomC, subMateriKolomD, idLower, d
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
     if (idLower.startsWith("pasif-")) {
+        // [ 🔒 JALUR 2: BAB 3 PASIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
@@ -44,6 +50,7 @@ export function prosesMateriTenses(namaMateriKolomC, subMateriKolomD, idLower, d
         }
 
     } else if (idLower.startsWith("aktif-")) {
+        // [ 🔒 JALUR 3: BAB 2 AKTIF - UTUH SAMA SEKALI TIDAK DISENTUH ]
         if (elementBoxTipsUtama) {
             elementBoxTipsUtama.style.display = "block";
             let btnTriggerAsli = elementBoxTipsUtama.querySelector('.mms-toggle-trigger-btn');
