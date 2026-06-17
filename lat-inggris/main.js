@@ -1,12 +1,7 @@
-// =========================================================================
-// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV
-// =========================================================================
+import { state } from '/lat-inggris/state.js';
 import { eksekusiKlikDoubleBounce, resetSeleksiDashboardEksternal } from '/lat-inggris/menu/menuMateri.js';
 
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
-
-export let bankMateri = []; 
-export let mmsKotakTerpilihSekarang = { id: null }; // Dibungkus objek agar passing by reference antar-modul stabil real-time
 
 function ambilAsetDataWeb() {
     let cacheBusterUrl = TSV_URL + "&_cb=" + new Date().getTime();
@@ -14,7 +9,7 @@ function ambilAsetDataWeb() {
     fetch(cacheBusterUrl)
     .then(r => r.text())
     .then(tsvText => {
-        bankMateri = parseTSVMateri(tsvText);
+        state.bankMateri = parseTSVMateri(tsvText);
         muatVideoPendahuluanOtomatis(); 
     }).catch(err => {
         console.error("Gagal sinkronisasi data TSV:", err);
@@ -44,48 +39,42 @@ function parseTSVMateri(text) {
     return hasil;
 }
 
-// =========================================================================
-// 3. LOGIKA PAYUNG VIDEO PENDAHULUAN (KOLOM H - BARIS DATA KUSTOM)
-// =========================================================================
 function muatVideoPendahuluanOtomatis() {
     let containerVideo = document.getElementById("box-media-video-pembuka");
     let txtStatus = document.getElementById("mms-txt-status-video-pembuka");
     
-    let dataVideoPencantar = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === "video-pembuka");
+    let dataVideoPencantar = state.bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === "video-pembuka");
     
     if (dataVideoPencantar && dataVideoPencantar.visual) {
         let linkVideo = dataVideoPencantar.visual.trim();
         containerVideo.innerHTML = `<video style="width:100%; height:100%; object-fit:cover;" controls>` +
                                         `<source src="${linkVideo}" type="video/mp4">` +
                                      `</video>`;
-        txtStatus.style.display = "none";
+        if(txtStatus) txtStatus.style.display = "none";
     } else {
         if(txtStatus) txtStatus.innerText = "Buat baris di Sheet dengan Kolom D: 'video-pembuka' & Kolom H: Masukkan Link Video.";
     }
 }
 
-function toggleLaciVideoPendahuluan() {
-    let laci = document.getElementById("mms-laci-video-pembuka");
-    let iconVideo = document.getElementById("mms-icon-chevron-video");
-    let vFrame = document.getElementById("box-media-video-pembuka");
-    let videoEl = laci.querySelector("video");
-
-    if (laci.style.display === "none" || laci.style.display === "") {
-        laci.style.display = "block";
-        if(vFrame.innerHTML !== "") vFrame.style.display = "flex";
-        if (iconVideo) { iconVideo.classList.remove("fa-chevron-down"); iconVideo.classList.add("fa-chevron-up"); }
-        if (videoEl) videoEl.play().catch(e => {});
-    } else {
-        laci.style.display = "none";
-        if (iconVideo) { iconVideo.classList.remove("fa-chevron-up"); iconVideo.classList.add("fa-chevron-down"); }
-        if (videoEl) videoEl.pause();
-    }
-}
-
-// MENYEMBUHKAN CRASH NAVIGASI: Mengikat fungsi ke window global agar dikenali atribut onclick HTML Anda
 window.addEventListener('DOMContentLoaded', () => { 
     ambilAsetDataWeb(); 
     window.eksekusiKlikDoubleBounce = eksekusiKlikDoubleBounce;
-    window.toggleLaciVideoPendahuluan = toggleLaciVideoPendahuluan;
     window.resetSeleksiDashboardEksternal = resetSeleksiDashboardEksternal;
+    window.toggleLaciVideoPendahuluan = () => {
+        let laci = document.getElementById("mms-laci-video-pembuka");
+        let iconVideo = document.getElementById("mms-icon-chevron-video");
+        let vFrame = document.getElementById("box-media-video-pembuka");
+        let videoEl = laci.querySelector("video");
+
+        if (laci.style.display === "none" || laci.style.display === "") {
+            laci.style.display = "block";
+            if(vFrame && vFrame.innerHTML !== "") vFrame.style.display = "flex";
+            if (iconVideo) { iconVideo.classList.remove("fa-chevron-down"); iconVideo.classList.add("fa-chevron-up"); }
+            if (videoEl) videoEl.play().catch(e => {});
+        } else {
+            laci.style.display = "none";
+            if (iconVideo) { iconVideo.classList.remove("fa-chevron-up"); iconVideo.classList.add("fa-chevron-down"); }
+            if (videoEl) videoEl.pause();
+        }
+    };
 });
