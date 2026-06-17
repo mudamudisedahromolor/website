@@ -1,3 +1,5 @@
+"use strict";
+
 function Menu(){
     
 }
@@ -15,23 +17,34 @@ Menu.prototype.init = function
     this.sound = sound ? sound : undefined;
 
     this.active = false;
-}
+};
 
 Menu.prototype.load = function(){
-    this.sound.currentTime = 0;
-    this.active = true;
+    if (this.sound) {
+        this.sound.currentTime = 0;
 
-    requestAnimationFrame(this.menuLoop.bind(this));
-    if(SOUND_ON){
-        this.sound.volume = 0.8;
+        if(SOUND_ON){
+            this.sound.volume = 0.8;
+        }
+
+        // Di mobile, autoplay audio kadang diblokir.
+        // Jadi kita tangkap error agar game tidak berhenti.
+        var playPromise = this.sound.play();
+
+        if (playPromise && playPromise.catch) {
+            playPromise.catch(function(){});
+        }
     }
 
-    this.sound.play();
-}
+    this.active = true;
+    requestAnimationFrame(this.menuLoop.bind(this));
+};
 
 Menu.prototype.draw = function(){
 
-    Canvas2D._canvas.style.cursor = "auto"; 
+    if (Canvas2D && Canvas2D._canvas) {
+        Canvas2D._canvas.style.cursor = "auto"; 
+    }
 
     Canvas2D.drawImage(
         this.background, 
@@ -41,7 +54,6 @@ Menu.prototype.draw = function(){
         Vector2.zero
     );
 
-
     for(let i = 0 ; i < this.labels.length ; i++){
         this.labels[i].draw();
     }
@@ -49,24 +61,24 @@ Menu.prototype.draw = function(){
     for(let i = 0 ; i < this.buttons.length ; i++){
         this.buttons[i].draw();
     }
-}
+};
 
 Menu.prototype.handleInput = function(){
-
     for(let i = 0 ; i < this.buttons.length ; i++){
         this.buttons[i].handleInput();
     }
-}
+};
 
 Menu.prototype.menuLoop = function(){
-
     if(this.active){
         this.handleInput();
         Canvas2D.clear();
         this.draw();
+
+        // Reset hanya status pressed.
+        // Status down tetap dikontrol oleh Mouse.js lewat pointerup/touchend.
         Mouse.reset();
+
         requestAnimationFrame(this.menuLoop.bind(this));
     }
-
-}
-
+};
