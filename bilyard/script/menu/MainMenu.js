@@ -1,3 +1,13 @@
+function clearMobileTap(){
+    if (typeof Mouse !== "undefined") {
+        Mouse.reset();
+
+        if (Mouse.left) {
+            Mouse.left.down = false;
+            Mouse.left.pressed = false;
+        }
+    }
+}
 
 function generateMainMenuLabels(headerText){
 
@@ -23,14 +33,11 @@ function generateMainMenuLabels(headerText){
         )
     ];
 
-
     return labels;
 }
 
 
 function generateMainMenuButtons(inGame){
-
-
 
     let buttons = [];
 
@@ -45,6 +52,7 @@ function generateMainMenuButtons(inGame){
                     sprites.continueButton, 
                     new Vector2(200,200),
                     function(){
+                        clearMobileTap();
                         Game.mainMenu.active = false;
                         GAME_STOPPED = false;
                         setTimeout(Game.continueGame,200);
@@ -52,7 +60,7 @@ function generateMainMenuButtons(inGame){
                     },
                     sprites.continueButtonHover
                 )
-        )
+        );
     }
 
     let muteSprite = sprites.muteButton;
@@ -63,13 +71,14 @@ function generateMainMenuButtons(inGame){
         muteSpriteHover = sprites.muteButtonPressedHover;
     }
 
-
     let muteButton = new Button
     (
         // MUTE BUTTON
         muteSprite, 
         new Vector2(1430,10),
         function(){
+            clearMobileTap();
+
             if(Game.mainMenu.sound.volume == 0){
                 SOUND_ON = true;
                 Game.mainMenu.sound.volume = 0.8;
@@ -92,6 +101,7 @@ function generateMainMenuButtons(inGame){
         sprites.backButton, 
         new Vector2(100,150),
         function(){
+            clearMobileTap();
             Game.mainMenu.labels = generateMainMenuLabels("Classic 8-Ball");
             Game.mainMenu.buttons = generateMainMenuButtons(inGame);
         },
@@ -105,6 +115,7 @@ function generateMainMenuButtons(inGame){
             sprites.twoPlayersButton, 
             new Vector2(200,dev+200),
             function(){
+                clearMobileTap();
                 AI_ON = false;
                 Game.mainMenu.active = false;
                 GAME_STOPPED = false;
@@ -119,9 +130,10 @@ function generateMainMenuButtons(inGame){
             sprites.onePlayersButton, 
             new Vector2(200,dev+400),
             function(){
+                clearMobileTap();
+
                 Game.mainMenu.labels = generateMainMenuLabels("Choose Difficulty");
 
-                Mouse.reset();
                 Game.mainMenu.buttons = [
                     new Button
                     (
@@ -129,6 +141,7 @@ function generateMainMenuButtons(inGame){
                         sprites.easyButton, 
                         new Vector2(200,150),
                         function(){
+                            clearMobileTap();
                             AI_PLAYER_NUM = 1;
                             AI_ON = true;
                             TRAIN_ITER = 30;
@@ -145,6 +158,7 @@ function generateMainMenuButtons(inGame){
                         sprites.mediumButton, 
                         new Vector2(200,300),
                         function(){
+                            clearMobileTap();
                             AI_PLAYER_NUM = 1;
                             AI_ON = true;
                             TRAIN_ITER = 50;
@@ -161,6 +175,7 @@ function generateMainMenuButtons(inGame){
                         sprites.hardButton, 
                         new Vector2(200,450),
                         function(){
+                            clearMobileTap();
                             AI_PLAYER_NUM = 1;
                             AI_ON = true;
                             TRAIN_ITER = 100;
@@ -177,6 +192,7 @@ function generateMainMenuButtons(inGame){
                         sprites.insaneButton, 
                         new Vector2(200,600),
                         function(){
+                            clearMobileTap();
                             AI_PLAYER_NUM = 0;
                             AI_ON = true;
                             TRAIN_ITER = 700;
@@ -189,7 +205,6 @@ function generateMainMenuButtons(inGame){
                     ),
                     muteButton,
                     backButton
-
                 ];
             },
             sprites.onePlayersButtonHover
