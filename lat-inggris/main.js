@@ -1,18 +1,12 @@
 // =========================================================================
-// /lat-inggris/main.js - ENTRY POINT UTAMA (BERSIH DARI GLOBAL NAV/HEADER)
+// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV
 // =========================================================================
-
-import { 
-    bukaMateriMenu, 
-    kembaliKeDashboard, 
-    resetSeleksiDashboardEksternal, 
-    eksekusiKlikDoubleBounce 
-} from '/lat-inggris/menu/menuMateri.js';
+import { eksekusiKlikDoubleBounce, resetSeleksiDashboardEksternal } from '/lat-inggris/menu/menuMateri.js';
 
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
 export let bankMateri = []; 
-export let mmsKotakTerpilihSekarang = { id: null }; 
+export let mmsKotakTerpilihSekarang = { id: null }; // Dibungkus objek agar passing by reference antar-modul stabil real-time
 
 function ambilAsetDataWeb() {
     let cacheBusterUrl = TSV_URL + "&_cb=" + new Date().getTime();
@@ -50,6 +44,9 @@ function parseTSVMateri(text) {
     return hasil;
 }
 
+// =========================================================================
+// 3. LOGIKA PAYUNG VIDEO PENDAHULUAN (KOLOM H - BARIS DATA KUSTOM)
+// =========================================================================
 function muatVideoPendahuluanOtomatis() {
     let containerVideo = document.getElementById("box-media-video-pembuka");
     let txtStatus = document.getElementById("mms-txt-status-video-pembuka");
@@ -61,7 +58,7 @@ function muatVideoPendahuluanOtomatis() {
         containerVideo.innerHTML = `<video style="width:100%; height:100%; object-fit:cover;" controls>` +
                                         `<source src="${linkVideo}" type="video/mp4">` +
                                      `</video>`;
-        if(txtStatus) txtStatus.style.display = "none";
+        txtStatus.style.display = "none";
     } else {
         if(txtStatus) txtStatus.innerText = "Buat baris di Sheet dengan Kolom D: 'video-pembuka' & Kolom H: Masukkan Link Video.";
     }
@@ -85,17 +82,10 @@ function toggleLaciVideoPendahuluan() {
     }
 }
 
-// Terisolasi penuh dari window / document root luar
+// MENYEMBUHKAN CRASH NAVIGASI: Mengikat fungsi ke window global agar dikenali atribut onclick HTML Anda
 window.addEventListener('DOMContentLoaded', () => { 
     ambilAsetDataWeb(); 
-
     window.eksekusiKlikDoubleBounce = eksekusiKlikDoubleBounce;
     window.toggleLaciVideoPendahuluan = toggleLaciVideoPendahuluan;
-    window.kembaliKeDashboard = kembaliKeDashboard;
-    
-    // Handler klik eksternal dipasang hanya pada root container aplikasi
-    const appRoot = document.getElementById("mms-app-root");
-    if (appRoot) {
-        appRoot.addEventListener('click', resetSeleksiDashboardEksternal);
-    }
+    window.resetSeleksiDashboardEksternal = resetSeleksiDashboardEksternal;
 });
