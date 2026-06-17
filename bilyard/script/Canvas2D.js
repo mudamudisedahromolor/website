@@ -4,6 +4,7 @@ function Canvas2D_Singleton() {
     this._canvas = null;
     this._canvasContext = null;
     this._canvasOffset = Vector2.zero;
+    this._div = null;
 }
 
 Object.defineProperty(Canvas2D_Singleton.prototype, "offset",
@@ -31,7 +32,25 @@ Canvas2D_Singleton.prototype.initialize = function (divName, canvasName) {
         alert('Your browser is not HTML5 compatible.!');
         return;
     }
-    window.onresize = Canvas2D_Singleton.prototype.resize;
+
+    // Penting untuk HP: cegah browser melakukan scroll/zoom saat area game disentuh.
+    this._canvas.style.touchAction = "none";
+    this._div.style.touchAction = "none";
+    this._canvas.style.msTouchAction = "none";
+    this._div.style.msTouchAction = "none";
+
+    var self = this;
+
+    window.onresize = function () {
+        self.resize();
+    };
+
+    window.addEventListener("orientationchange", function () {
+        setTimeout(function () {
+            self.resize();
+        }, 300);
+    });
+
     this.resize();
 };
 
@@ -42,9 +61,17 @@ Canvas2D_Singleton.prototype.clear = function () {
 Canvas2D_Singleton.prototype.resize = function () {
     var gameCanvas = Canvas2D._canvas;
     var gameArea = Canvas2D._div;
+
+    if (!gameCanvas || !gameArea) return;
+
     var widthToHeight = Game.size.x / Game.size.y;
-    var newWidth = window.innerWidth;
-    var newHeight = window.innerHeight;
+
+    // Lebih aman untuk mobile/iframe.
+    var availableWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var availableHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    var newWidth = availableWidth;
+    var newHeight = availableHeight;
     var newWidthToHeight = newWidth / newHeight;
 
     if (newWidthToHeight > widthToHeight) {
@@ -52,25 +79,31 @@ Canvas2D_Singleton.prototype.resize = function () {
     } else {
         newHeight = newWidth / widthToHeight;
     }
+
     gameArea.style.width = newWidth + 'px';
     gameArea.style.height = newHeight + 'px';
 
-    gameArea.style.marginTop = (window.innerHeight - newHeight) / 2 + 'px';
-    gameArea.style.marginLeft = (window.innerWidth - newWidth) / 2 + 'px';
-    gameArea.style.marginBottom = (window.innerHeight - newHeight) / 2 + 'px';
-    gameArea.style.marginRight = (window.innerWidth - newWidth) / 2 + 'px';
+    gameArea.style.marginTop = Math.max(0, (availableHeight - newHeight) / 2) + 'px';
+    gameArea.style.marginLeft = Math.max(0, (availableWidth - newWidth) / 2) + 'px';
+    gameArea.style.marginBottom = Math.max(0, (availableHeight - newHeight) / 2) + 'px';
+    gameArea.style.marginRight = Math.max(0, (availableWidth - newWidth) / 2) + 'px';
 
     gameCanvas.width = newWidth;
     gameCanvas.height = newHeight;
 
-    var offset = Vector2.zero;
-    if (gameCanvas.offsetParent) {
-        do {
-            offset.x += gameCanvas.offsetLeft;
-            offset.y += gameCanvas.offsetTop;
-        } while ((gameCanvas = gameCanvas.offsetParent));
-    }
-    Canvas2D._canvasOffset = offset;
+    Canvas2D.updateOffset();
+};
+
+Canvas2D_Singleton.prototype.updateOffset = function () {
+    if (!this._canvas) return;
+
+    // getBoundingClientRect lebih akurat di mobile, iframe, dan fullscreen.
+    var rect = this._canvas.getBoundingClientRect();
+
+    this._canvasOffset = new Vector2(
+        rect.left + (window.pageXOffset || document.documentElement.scrollLeft || 0),
+        rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0)
+    );
 };
 
 Canvas2D_Singleton.prototype.drawImage = function (sprite, position, rotation, scale, origin) {
@@ -114,4 +147,3 @@ Canvas2D_Singleton.prototype.drawText = function (text, position, origin, color,
 };
 
 var Canvas2D = new Canvas2D_Singleton();
-
