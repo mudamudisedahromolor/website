@@ -1,7 +1,4 @@
-// =========================================================================
-// 2. LOGIKA DOUBLE-CLICK SELEKSI & ANIMASI MEMBAL DASHBOARD TRANSPARAN
-// =========================================================================
-import { bankMateri, mmsKotakTerpilihSekarang } from '/lat-inggris/main.js';
+import { state } from '/lat-inggris/state.js';
 import { prosesMateriNonTenses } from '/lat-inggris/materi/materiNonTenses.js';
 import { prosesMateriTenses } from '/lat-inggris/materi/materiTenses.js';
 
@@ -11,7 +8,7 @@ export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
     let gridContainer = document.getElementById("mms-container-grid-icon");
     let wrapperIcon = document.getElementById(`mms-item-box-${idKotak}`);
 
-    if (mmsKotakTerpilihSekarang.id === idKotak) {
+    if (state.mmsKotakTerpilihSekarang === idKotak) {
         if (namaMenu === 'materi') {
             bukaMateriMenu();
         } else {
@@ -22,7 +19,7 @@ export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
         return;
     }
 
-    mmsKotakTerpilihSekarang.id = idKotak;
+    state.mmsKotakTerpilihSekarang = idKotak;
     document.querySelectorAll(".menu-icon-wrapper").forEach(el => el.classList.remove("mms-selected-bounce"));
     
     if (gridContainer) gridContainer.classList.add("has-selection");
@@ -36,15 +33,12 @@ export function resetSeleksiDashboardEksternal(e) {
 }
 
 export function resetSeleksiDashboardEsensial() {
-    mmsKotakTerpilihSekarang.id = null;
+    state.mmsKotakTerpilihSekarang = null;
     let gridContainer = document.getElementById("mms-container-grid-icon");
     if (gridContainer) gridContainer.classList.remove("has-selection");
     document.querySelectorAll(".menu-icon-wrapper").forEach(el => el.classList.remove("mms-selected-bounce"));
 }
 
-// =========================================================================
-// 4. ROUTER LAYER 5: PROSES SINKRONISASI DINAMIS GANDA (FIX RECOVERY MUTLAK)
-// =========================================================================
 export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     if (subMateriKolomD === undefined) {
         subMateriKolomD = namaMateriKolomC;
@@ -53,7 +47,10 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
     let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
+    let boxArtiAktif = document.getElementById("box-txt-arti-aktif");
+    let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
     let boxPembahasan = document.getElementById("box-txt-pembahasan");
+    let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
@@ -82,14 +79,14 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    let dataCocok = bankMateri.find(m => {
+    let dataCocok = state.bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
     if (!dataCocok) {
-        dataCocok = bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
+        dataCocok = state.bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
     }
 
     if (!dataCocok) {
@@ -103,18 +100,13 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let laciCustomLama = document.getElementById("mms-laci-tutup-sembunyi-bab14");
     if (laciCustomLama) laciCustomLama.remove();
 
-    // DISTRIBUSI MODULAR MANDAL: Mengarahkan data ke sub-bab tenses / non-tenses
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok);
     } else {
         prosesMateriTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok);
     }
-    document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
-// =========================================================================
-// 5. ANIMASI INTERFACES NAVIGASI (ACCORDION WINDOW MANAGEMENT)
-// =========================================================================
 export function toggleAccordionBox(panelId) {
     let panel = document.getElementById(panelId); if (!panel) return;
     if (panelId === 'panel-aktif-contoh' || panelId === 'panel-pasif-contoh' || panelId === 'panel-tips-tabel') {
@@ -161,7 +153,6 @@ export function bukaMateriMenu() {
 }
 
 export function kembaliKeDashboard() { resetTampilanDashboard(); }
-
 export function tutupModalMateri(e) { 
     let m = document.getElementById("materi-pembahasan-box"); 
     if (m && (!e || e.target.id === "materi-pembahasan-box")) {
@@ -185,7 +176,7 @@ export function mmsToggleVideoSaja() {
     }
 }
 
-// GLOBAL WINDOW LINKING SINKRON: Menjamin interaksi elemen onclick bawaan HTML tidak putus
+// BINDING ULANG MENU KE GLOBAL WINDOW SCOPE
 window.toggleAccordionBox = toggleAccordionBox;
 window.toggleSubLaci = toggleSubLaci;
 window.toggleRumpunSmart = toggleRumpunSmart;
