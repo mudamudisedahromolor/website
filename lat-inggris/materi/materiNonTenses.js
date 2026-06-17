@@ -1,9 +1,6 @@
 // =========================================================================
-// /lat-inggris/materi/materiNonTenses.js - LOGIKA KHUSUS BAB 1 & BAB 4
+// 4. SUB-ROUTER A: JALUR KHUSUS BAB 1 & BAB 4 (NON-TENSES)
 // =========================================================================
-
-import { bankMateri } from '/lat-inggris/main.js';
-
 export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxPembahasan = document.getElementById("box-txt-pembahasan");
@@ -12,14 +9,13 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
 
     let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
     if (judulTense) judulTense.innerHTML = `Modul: <b>${dataCocok.materi || namaMateriKolomC} (${labelTipeTeks})</b>`;
-    if (boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
+    if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
 
     let isiContoh = (dataCocok.contohKalimat || "").replace(/\\n/g, "\n");
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
     let isiKontenLaci = "";
 
-    // 1. LOGIKA MATRIKS TABEL PRONOUNS (ID: bab1-pronouns)
     if (idLower === "bab1-pronouns") {
         isiKontenLaci = `
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
@@ -181,26 +177,27 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Proper vs Common Noun</td>
                             <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                 <span style="font-weight:600; color:#0f172a;">Proper (Spesifik &amp; Huruf Kapital):</span> London, Budi.<br>
-                                    <span style="font-weight:600; color:#0f172a;">Common (Umum):</span> city, book.
+                                <span style="font-weight:600; color:#0f172a;">Common (Umum):</span> city, book.
                             </td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
                             <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Countable vs Uncountable</td>
                             <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                 <span style="font-weight:600; color:#0f172a;">Countable (Bisa Dihitung Pasti):</span> an apple, three chairs.<br>
-                                    <span style="font-weight:600; color:#0f172a;">Uncountable (Tidak Bisa Dihitung Satuan):</span> water, money.
+                                <span style="font-weight:600; color:#0f172a;">Uncountable (Tidak Bisa Dihitung Satuan):</span> water, money.
                             </td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
                             <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Concrete vs Abstract Noun</td>
                             <td style="padding:9px 10px; color:#475569; line-height:1.5;">
                                 <span style="font-weight:600; color:#0f172a;">Concrete (Berwujud &amp; Bisa Disentuh):</span> laptop, table.<br>
-                                    <span style="font-weight:600; color:#0f172a;">Abstract (Konsep, Ide, Perasaan):</span> happiness, courage.
+                                <span style="font-weight:600; color:#0f172a;">Abstract (Konsep, Ide, Perasaan):</span> happiness, courage.
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-star"></i> 2. Fungsi Utama dalam Kalimat
             </div>
@@ -276,6 +273,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </tbody>
                 </table>
             </div>
+
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-star"></i> 2. Jenis-Jenis Umum Verb (Dalam Penggunaan)
             </div>
@@ -348,6 +346,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </tbody>
                 </table>
             </div>
+
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-star"></i> 2. Jenis-Jenis Adjective (Kategori Umum)
             </div>
@@ -398,6 +397,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </tbody>
                 </table>
             </div>
+
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-arrow-down-short-wide"></i> 3. Posisi Berurutan (Adjective Order)
             </div>
@@ -509,6 +509,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </tbody>
                 </table>
             </div>
+
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-star"></i> 2. Contoh Penggunaan dalam Kalimat
             </div>
@@ -578,6 +579,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </tbody>
                 </table>
             </div>
+
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-star"></i> 2. Contoh Penggunaan dalam Kalimat
             </div>
@@ -650,6 +652,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </tbody>
                 </table>
             </div>
+
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-star"></i> 2. Jenis &amp; Contoh Kata (Dalam Bahasa Inggris)
             </div>
@@ -691,7 +694,6 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             </div>
         `;
     } else {
-        // UNIVERSAL MATERI NON-TENSES LAINNYA
         let arrayContoh = isiContoh.split(",");
         let arrayArti = isiArti.split(",");
 
@@ -716,10 +718,10 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             let itemA = arrayArti[j] ? arrayArti[j].trim() : "";
             if (itemC !== "" || itemA !== "") {
                 isiKontenLaci += `
-                    <tr style="border-bottom:1px solid #cbd5e1;">
-                        <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">${itemC}</td>
-                        <td style="padding:9px 10px; color:#475569;">${itemA}</td>
-                    </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 10px; color:#0f172a; font-weight:600; font-style:italic; border-right:1px solid #cbd5e1;">${itemC}</td>
+                                <td style="padding:9px 10px; color:#475569;">${itemA}</td>
+                            </tr>
                 `;
             }
         }
@@ -736,7 +738,6 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
         `;
     }
 
-    // MERAKIT STRUKTUR ACCORDION WINDOW LACI UNTUK BAB 1 & 4
     let htmlLaciSembunyi = `
         <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
             <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
@@ -757,11 +758,11 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
         pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
     }
 
-    if (boxPembahasan) {
+    if(boxPembahasan) {
         boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
     }
 
-    if (boxVisualMateri) {
+    if(boxVisualMateri) {
         let visual = dataCocok.visual || "";
         if (visual.startsWith("fa-")) {
             boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
