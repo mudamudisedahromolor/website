@@ -99,18 +99,27 @@ GameWorld.prototype.ballInHand = function(){
 
     KEYBOARD_INPUT_ON = false;
     this.stick.visible = false;
-    if(!Mouse.left.down){
-        this.whiteBall.position = Mouse.position;
-    }
-    else{
-        let ballsOverlap = this.whiteBallOverlapsBalls();
 
+    // Update posisi bola putih mengikuti mouse/touch.
+    this.whiteBall.position = Mouse.position;
+
+    let ballsOverlap = this.whiteBallOverlapsBalls();
+
+    // Desktop: klik mouse untuk menaruh bola.
+    // Mobile: tap layar untuk menaruh bola.
+    if(Mouse.left.down){
         if(!Game.policy.isOutsideBorder(Mouse.position,this.whiteBall.origin) &&
             !Game.policy.isInsideHole(Mouse.position) &&
             !ballsOverlap){
+
             KEYBOARD_INPUT_ON = true;
-            Keyboard.reset();
+
+            if (typeof Keyboard !== "undefined" && Keyboard.reset) {
+                Keyboard.reset();
+            }
+
             Mouse.reset();
+
             this.whiteBall.position = Mouse.position;
             this.whiteBall.inHole = false;
             Game.policy.foul = false;
@@ -118,9 +127,7 @@ GameWorld.prototype.ballInHand = function(){
             this.stick.visible = true;
         }
     }
-
 }
-
 GameWorld.prototype.whiteBallOverlapsBalls = function(){
 
     let ballsOverlap = false;
