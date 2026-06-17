@@ -562,15 +562,23 @@ window.tutupFoto = function() { const modal = document.getElementById('modal-fot
     /* ==========================================================================
        LOGIKA TAMBAHAN: AUTH CHECK EMAIL LANGSUNG BERDASARKAN TSV DATABASE ANGGOTA
        ========================================================================== */
-    window.addEventListener('DOMContentLoaded', () => {
-        const emailTersimpan = localStorage.getItem("mms_auth_email");
-        if (emailTersimpan) {
+   window.addEventListener('DOMContentLoaded', () => {
+    // FIX SINKRONISASI: Cek apakah halaman ini memiliki frame auth anggota sebelum mengeksekusi
+    const authFrame = document.getElementById("auth-frame-anggota");
+    const dataFrame = document.getElementById("data-frame-anggota");
+
+    const emailTersimpan = localStorage.getItem("mms_auth_email");
+    if (emailTersimpan) {
+        // Hanya jalankan jika fungsi dan elemen tujuan eksis di halaman ini
+        if (typeof bukaAksesHalaman === "function" && dataFrame) {
             bukaAksesHalaman(emailTersimpan);
-        } else {
-            document.getElementById("auth-frame-anggota").style.display = "block";
-            document.getElementById("data-frame-anggota").style.display = "none";
         }
-    });
+    } else {
+        // Jika elemen tidak ditemukan di HTML ini (seperti di lat-inggris.html), abaikan dan jangan bikin crash!
+        if (authFrame) authFrame.style.display = "block";
+        if (dataFrame) dataFrame.style.display = "none";
+    }
+});
 
     function callToast(msg, type="info") {
         const toast = document.getElementById("auth-toast");
