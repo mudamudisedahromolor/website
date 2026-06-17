@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#111111" />
+
+  <title>Game Bilyard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #111;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .topbar {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .back-link:active {
+      transform: scale(0.97);
+    }
+
+    .title-wrap {
+      text-align: center;
+      flex: 1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin: 4px 0 0;
+      font-size: 13px;
+      opacity: 0.78;
+    }
+
+    .game-shell {
+      width: 100%;
+      max-width: 1180px;
+      height: calc(100vh - 112px);
+      min-height: 520px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #000;
+    }
+
+    .mobile-note {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(245, 197, 66, 0.12);
+      color: #f5d76e;
+      font-size: 13px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .fullscreen-btn {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 5;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: rgba(245, 197, 66, 0.95);
+      color: #111;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .fullscreen-btn:active {
+      transform: scale(0.97);
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 8px;
+        gap: 8px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .back-link {
+        align-self: flex-start;
+        font-size: 13px;
+        padding: 9px 12px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+      }
+
+      .game-shell {
+        height: calc(100vh - 150px);
+        min-height: 470px;
+        border-radius: 12px;
+      }
+
+      .mobile-note {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      .fullscreen-btn {
+        right: 8px;
+        bottom: 8px;
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      .page {
+        padding: 6px;
+      }
+
+      .topbar,
+      .mobile-note {
+        display: none;
+      }
+
+      .game-shell {
+        width: 100%;
+        height: calc(100vh - 12px);
+        min-height: 0;
+        border-radius: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="back-link" href="index.html">← Kembali</a>
+
+      <div class="title-wrap">
+        <h1>Game Bilyard</h1>
+        <p class="subtitle">Mainkan langsung dari browser</p>
+      </div>
+
+      <div style="width: 86px;"></div>
+    </header>
+
+    <section class="game-shell" id="gameShell">
+      <iframe
+        id="gameFrame"
+        src="bilyard/"
+        title="Game Bilyard"
+        allow="fullscreen; autoplay; gamepad"
+        allowfullscreen>
+      </iframe>
+
+      <button class="fullscreen-btn" type="button" onclick="openFullscreen()">
+        Fullscreen
+      </button>
+    </section>
+
+    <div class="mobile-note">
+      Jika game terasa kecil di HP, putar layar ke mode landscape atau tekan tombol Fullscreen.
+    </div>
+  </main>
+
+  <script>
+    function openFullscreen() {
+      const shell = document.getElementById("gameShell");
+      const iframe = document.getElementById("gameFrame");
+
+      const target = shell || iframe;
+
+      if (target.requestFullscreen) {
+        target.requestFullscreen();
+      } else if (target.webkitRequestFullscreen) {
+        target.webkitRequestFullscreen();
+      } else if (target.msRequestFullscreen) {
+        target.msRequestFullscreen();
+      }
+    }
+
+    window.addEventListener("message", function (event) {
+      // Disiapkan jika nanti game di dalam iframe perlu komunikasi dengan halaman ini.
+    });
+
+    document.addEventListener("touchmove", function (event) {
+      const gameShell = document.getElementById("gameShell");
+
+      if (gameShell && gameShell.contains(event.target)) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+  </script>
+</body>
+</html>
