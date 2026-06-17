@@ -1,6 +1,10 @@
-import { state } from '/lat-inggris/state.js';
-import { prosesMateriNonTenses } from '/lat-inggris/materi/materiNonTenses.js';
-import { prosesMateriTenses } from '/lat-inggris/materi/materiTenses.js';
+// =========================================================================
+// /lat-inggris/menu/menuMateri.js - ROUTER MANAGEMENT WITH FALLBACK SAFETY
+// =========================================================================
+
+import { state } from '../state.js';
+import { prosesMateriNonTenses } from '../materi/materiNonTenses.js';
+import { prosesMateriTenses } from '../materi/materiTenses.js';
 
 export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
     if (window.event) window.event.stopPropagation();
@@ -27,7 +31,6 @@ export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
 }
 
 export function resetSeleksiDashboardEksternal(e) {
-    // Diproteksi agar reset seleksi tidak mematikan fungsi interaksi elemen navbar luar website Anda
     const appContainer = e.target.closest('.mms-app-container');
     if (!appContainer) return; 
 
@@ -80,32 +83,44 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
+    // 🎯 RECOVERY JALUR SEARCH 1: Pencarian string ketat (Materi & Sub-Materi)
     let dataCocok = state.bankMateri.find(m => {
         let matSheet = (m.materi || "").toLowerCase().trim();
         let subSheet = (m.subMateri || "").toLowerCase().trim();
         return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
     });
 
+    // 🎯 RECOVERY JALUR SEARCH 2: Pencarian longgar (Hanya Sub-Materi murni)
     if (!dataCocok) {
-        dataCocok = state.bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === subMateriKolomD.toLowerCase().trim());
+        dataCocok = state.bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === idLower);
     }
 
+    // 🎯 RECOVERY JALUR SEARCH 3: Pencarian toleran (Menggunakan pencarian kata kunci parsial / includes)
     if (!dataCocok) {
-        if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
-        if(boxRumusAktif) boxRumusAktif.innerText = "Belum Ada Data";
-        if(boxPembahasan) boxPembahasan.innerText = "Data tidak ditemukan. Silakan periksa kembali Kolom D di Google Sheets.";
-        document.getElementById("materi-pembahasan-box").style.display = "flex";
-        return;
+        dataCocok = state.bankMateri.find(m => (m.subMateri || "").toLowerCase().trim().includes(idLower) || idLower.includes((m.subMateri || "").toLowerCase().trim()));
     }
 
     let laciCustomLama = document.getElementById("mms-laci-tutup-sembunyi-bab14");
     if (laciCustomLama) laciCustomLama.remove();
 
+    // JARING PENGAMAN MUTLAK: Jika data dari Sheets benar-benar tidak ditemukan, paksa modal terbuka dan beri pesan informasi
+    if (!dataCocok) {
+        if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
+        if (boxRumusAktif) boxRumusAktif.innerText = "Data Kosong / Belum Sinkron";
+        if (boxPembahasan) boxPembahasan.innerText = `Pencarian kata kunci '${subMateriKolomD}' gagal. Silakan pastikan data baris di Google Sheets Anda pada Kolom D (Sub-Materi) sudah diketik dengan benar dan sesuai.`;
+        document.getElementById("materi-pembahasan-box").style.display = "flex";
+        return;
+    }
+
+    // Alihkan ke penanganan sub-modul materi masing-masing jika data sukses ditemukan
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok);
     } else {
         prosesMateriTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok);
     }
+    
+    // GARANSI: Pastikan modal card pembungkus utama selalu diubah menjadi flex agar tampil ke user
+    document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
 export function toggleAccordionBox(panelId) {
@@ -178,7 +193,6 @@ export function mmsToggleVideoSaja() {
     }
 }
 
-// Window scope injection menjamin elemen HTML dapat mengeksekusi fungsi modul
 window.toggleAccordionBox = toggleAccordionBox;
 window.toggleSubLaci = toggleSubLaci;
 window.toggleRumpunSmart = toggleRumpunSmart;
