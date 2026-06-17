@@ -63,11 +63,11 @@ Game_Singleton.prototype.loadSprite = function (imageName) {
 };
 
 Game_Singleton.prototype.assetLoadingLoop = function () {
-    if (this.spritesStillLoading > 0) {
-        requestAnimationFrame(Game.assetLoadingLoop);
+    if (Game.spritesStillLoading > 0) {
+        requestAnimationFrame(Game.assetLoadingLoop.bind(Game));
     } else {
         Game.initialize();
-        requestAnimationFrame(this.mainMenu.load.bind(this.mainMenu));
+        requestAnimationFrame(Game.mainMenu.load.bind(Game.mainMenu));
     }
 };
 
