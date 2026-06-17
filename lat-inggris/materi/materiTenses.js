@@ -1,6 +1,3 @@
-// =========================================================================
-// 4. SUB-ROUTER B: JALUR KHUSUS BAB 2 & BAB 3 (TENSES)
-// =========================================================================
 export function prosesMateriTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
