@@ -1,5 +1,8 @@
-import { state } from '/lat-inggris/state.js';
-import { eksekusiKlikDoubleBounce, resetSeleksiDashboardEksternal } from '/lat-inggris/menu/menuMateri.js';
+// =========================================================================
+// 1. KONFIGURASI UTAMA, VARIABEL GLOBAL & SINKRONISASI DATA TSV
+// =========================================================================
+import { state } from './state.js';
+import { eksekusiKlikDoubleBounce, resetSeleksiDashboardEksternal } from './menu/menuMateri.js';
 
 const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=976866681&single=true&output=tsv";
 
@@ -39,6 +42,9 @@ function parseTSVMateri(text) {
     return hasil;
 }
 
+// =========================================================================
+// 3. LOGIKA PAYUNG VIDEO PENDAHULUAN (KOLOM H - BARIS DATA KUSTOM)
+// =========================================================================
 function muatVideoPendahuluanOtomatis() {
     let containerVideo = document.getElementById("box-media-video-pembuka");
     let txtStatus = document.getElementById("mms-txt-status-video-pembuka");
@@ -74,7 +80,7 @@ function toggleLaciVideoPendahuluan() {
     }
 }
 
-// Inisialisasi pengikatan global
+// Inisialisasi pengikatan global ke window
 ambilAsetDataWeb();
 window.eksekusiKlikDoubleBounce = eksekusiKlikDoubleBounce;
 window.toggleLaciVideoPendahuluan = toggleLaciVideoPendahuluan;
