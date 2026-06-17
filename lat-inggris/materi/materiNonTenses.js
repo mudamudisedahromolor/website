@@ -1,3 +1,8 @@
+// =========================================================================
+// 4. SUB-ROUTER A: JALUR KHUSUS BAB 1 & BAB 4 (NON-TENSES) - CODESYNC FIX
+// =========================================================================
+import { state } from '../state.js';
+
 export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxPembahasan = document.getElementById("box-txt-pembahasan");
@@ -13,7 +18,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
 
     let isiKontenLaci = "";
 
-    if (idLower === "bab1-pronouns") {
+    if (idLower === "bab1-pronowns" || idLower === "bab1-pronouns") {
         isiKontenLaci = `
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i class="fa-solid fa-table"></i> Complete Pronouns Reference Matrix Table
@@ -32,7 +37,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </thead>
                     <tbody>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">1st person singular</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;"> Orang Pertama</td>
                             <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">I</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Me</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">My</td>
@@ -40,7 +45,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 6px; color:#475569;">Myself</td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">2nd person singular</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;"> Orang Kedua</td>
                             <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">You</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">You</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Your</td>
@@ -48,7 +53,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 6px; color:#475569;">Yourself</td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person singular (male)</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">Orang Ketiga (male)</td>
                             <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">He</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Him</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">His</td>
@@ -56,7 +61,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 6px; color:#475569;">Himself</td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person singular (female)</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">Orang Ketiga (female)</td>
                             <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">She</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Her</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Her</td>
@@ -64,7 +69,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 6px; color:#475569;">Herself</td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person singular</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">Orang Ketiga (non-living)</td>
                             <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">It</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">It</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Its</td>
@@ -72,7 +77,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 6px; color:#475569;">Itself</td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">1st person plural</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">Orang Pertama (Jamak)</td>
                             <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">We</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Us</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Our</td>
@@ -80,7 +85,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 6px; color:#475569;">Ourselves</td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">2nd person plural</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">Orang Kedua (Jamak)</td>
                             <td style="padding:9px 10px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">You</td>
                             <td style="padding:9px 10px; color:#475569; border-right:1px solid #cbd5e1;">You</td>
                             <td style="padding:9px 10px; color:#475569; border-right:1px solid #cbd5e1;">Your</td>
@@ -88,16 +93,87 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             <td style="padding:9px 10px; color:#475569;">Yourselves</td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">3rd person plural</td>
+                            <td style="padding:9px 6px; text-align:left; font-weight:600; background:#fffdf5; border-right:1px solid #cbd5e1;">Orang Ketiga (Jamak)</td>
                             <td style="padding:9px 6px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">They</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Them</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Their</td>
                             <td style="padding:9px 6px; color:#475569; border-right:1px solid #cbd5e1;">Theirs</td>
                             <td style="padding:9px 6px; color:#475569;">Themselves</td>
                         </tr>
-                        <tr style="background:#fefce8;">
-                            <td style="padding:10px; color:#a1a1aa; font-style:italic; font-weight:600; border-right:1px solid #cbd5e1; text-align:left;">etc.</td>
-                            <td colspan="5" style="padding:10px; color:#a1a1aa; font-size:12px; font-style:italic; text-align:left;">Selengkapnya lihat pada menu Ensiklopedia</td>
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } else if (idLower === "subject-verb-agreement" || idLower === "subject-verb-aggreement") {
+        // 🎯 LOGIKA ADD-ON: BLOK KHUSUS UNTUK MATERI SUBJECT-VERB AGREEMENT
+        isiKontenLaci = `
+            <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-table-list"></i> Complete 11 Subject - Verb Agreement Rules Matrix Table
+            </div>
+            <div style="overflow-x:auto;">
+                <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                    <thead>
+                        <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047; font-weight:700;">
+                            <th style="padding:10px 8px; border-right:1px solid #cbd5e1; text-align:left; width:15%;">Aturan Pembuat</th>
+                            <th style="padding:10px 8px; border-right:1px solid #cbd5e1; text-align:left; width:45%;">Pedoman Keterangan Rules</th>
+                            <th style="padding:10px 8px; text-align:left; width:40%;">Contoh Konteks Penggunaan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 1</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Singular subject diiringi singular verb (+s/-es). Plural subject diiringi plural verb (tanpa -s/-es).</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Dara <b>runs</b> to the train station.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 2</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Jika noun phrase mengandung "of", kata kerja patuh pada noun <b>sebelum</b> kata "of".</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">The secrets of Nina <b>need</b> to be revealed immediately.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 3</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Singular subject yang dihubungkan dengan <i>or, either/or, neither/nor</i> wajib menggunakan singular verb.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Maybe Nanda or Ali <b>is</b> the one who did this.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 4</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Jika subjek berbeda (singular/plural) berpenghubung <i>or/nor</i>, verb mengikuti subjek terdekat.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Neither the children nor the keeper <b>enters</b> the zoo.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 5</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Dua subject tunggal yang dihubungkan oleh kata <i>and</i> wajib menggunakan plural verb.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">My girlfriend and I <b>are going</b> to marry.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 6</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Phrase tambahan (<i>along with, as well as, besides</i>) pemisah subjek tidak dihitung dalam agreement.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Mr. Mark, along with his children, <b>goes</b> to the beach.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 7</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Dalam konstruksi kalimat awalan <i>there</i> atau <i>here</i>, verb mengikuti subjek asli di belakangnya.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Here <b>is</b> a candy for you. / There <b>are</b> seven kids.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 8</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Plural subject (seperti nominal uang/jarak/waktu) dianggap singular jika konteksnya adalah satu kesatuan.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Five thousand dollars per month <b>is</b> considered high.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 9</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Jika menggunakan determiner (<i>a lot of, all, some</i>), bentuk verb patuh pada kata benda sesudahnya.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">A lot of students <b>are coming</b>.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 10</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Kata benda kelompok / collective noun (<i>team, family, population</i>) boleh menggunakan plural atau singular verb.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">A third of population in the world <b>is</b> (atau <b>are</b>) male.</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 11</td>
+                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">To be "were" mutlak digunakan dalam kalimat pengandaian/kontras imajinatif untuk semua bentuk subjek.</td>
+                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">I wish you <b>were</b> here with me, Dad.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -385,8 +461,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                             </td>
                         </tr>
                         <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 10px; color:#0f172a; font-weight:700; border-right:1px solid #cbd5e1; background:#f8fafc;">Numeral Adjective</td>
-                            <td style="padding:9px 10px; color:#475569; line-height:1.5;">
+                            <td style="padding:9px 10px; font-weight:700; color:#0f172a; border-right:1px solid #cbd5e1;">
                                 Menunjukkan angka atau urutan/tingkat.<br>
                                 <span style="color:#2563eb; font-weight:600; font-style:italic;">Contoh:</span> two, first, double.
                             </td>
@@ -735,42 +810,96 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
         `;
     }
 
-    let htmlLaciSembunyi = `
-        <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
-            <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-lightbulb"></i> Referensi Data &amp; Contoh:
-            </div>
-            <button class="mms-toggle-trigger-btn" style="border-color: #eab308; color: #b45309; background: #fff; margin-top: 4px; width: 100%; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.15s ease;" 
-                onclick="let laci = document.getElementById('mms-panel-laci-bab14'); laci.style.display = (laci.style.display === 'none' || laci.style.display === '') ? 'block' : 'none';">
-                <i class="fa-solid fa-folder-open"></i> Ketuk untuk Buka / Sembunyikan Tabel
-            </button>
-            <div id="mms-panel-laci-bab14" style="display: none; margin-top: 10px; background: #fffdf5; padding: 4px; border-radius: 6px;">
-                ${isiKontenLaci}
-            </div>
-        </div>
-    `;
+    // PENYELARASAN PROSES INJEKSI DOM MODAL AGAR TIDAK FREEZE DI VS CODE & GITHUB
+    setTimeout(() => {
+        // --- PROSES MODIFIKASI TARGET INTERCEPT PROUDLY BUILT ---
+        let statusLaciAwal = "none";
+        let teksTombolKustom = `<i class="fa-solid fa-folder-open"></i> Ketuk untuk Buka / Sembunyikan Tabel`;
+        let headerLabelLaci = `Referensi Data &amp; Contoh:`;
+        
+        if (idLower === "bab1-pronowns" || idLower === "bab1-pronouns") {
+            statusLaciAwal = "block"; // Maksa laci langsung mekar dari lahir
+            headerLabelLaci = `Tabel Pronouns &amp; Contoh :`;
+            teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Tabel Referensi Pronouns`;
+            
+            // 1. Sembunyikan Kotak Hijau (Penjelasan Fungsi Materi)
+            let infoBoxItemHijau = boxPembahasan ? boxPembahasan.closest('.info-box-item') : null;
+            if (infoBoxItemHijau) {
+                infoBoxItemHijau.style.display = "none";
+            }
 
-    let pembungkusUtama = document.querySelector(".mms-vertical-layout-stack");
-    if (pembungkusUtama) {
-        pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
-    }
+            // 2. Sembunyikan Kotak Biru (Nama Materi Utama)
+            let infoBoxItemBiru = boxSilabus ? boxSilabus.closest('.info-box-item') : null;
+            if (infoBoxItemBiru) {
+                infoBoxItemBiru.style.display = "none";
+            }
+        } else if (idLower === "subject-verb-agreement" || idLower === "subject-verb-aggreement") {
+            // 🎯 BARU: PROSES AUTOMATION INTERCEPT KHUSUS SUBJECT-VERB AGREEMENT
+            statusLaciAwal = "block"; // Langsung mekar saat di-load
+            teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Tabel 11 Rules SVA`;
+            headerLabelLaci = `Tabel Kesesuaian Matriks SVA:`;
 
-    if(boxPembahasan) {
-        boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
-    }
+            // Sembunyikan Kotak Hijau & Biru demi visual bersih menyisakan tabel murni
+            let infoBoxItemHijau = boxPembahasan ? boxPembahasan.closest('.info-box-item') : null;
+            if (infoBoxItemHijau) {
+                infoBoxItemHijau.style.display = "none";
+            }
 
-    if(boxVisualMateri) {
-        let visual = dataCocok.visual || "";
-        if (visual.startsWith("fa-")) {
-            boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
-        } else if (visual && (visual.endsWith(".mp4") || visual.endsWith(".webm") || visual.includes("video/") || visual.startsWith("http"))) {
-            boxVisualMateri.innerHTML = `<video id="mms-media-video-lokal" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" controls>` +
-                                            `<source src="${visual}" type="video/mp4">` +
-                                         `</video>`;
-        } else if (visual && visual.startsWith("images/")) {
-            boxVisualMateri.innerHTML = `<img src="images/verb-categories-classification.png" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
+            let infoBoxItemBiru = boxSilabus ? boxSilabus.closest('.info-box-item') : null;
+            if (infoBoxItemBiru) {
+                infoBoxItemBiru.style.display = "none";
+            }
         } else {
-            boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+            // Kembalikan ke keadaan block (muncul) untuk modul bab selain pronouns dan agreement table
+            let infoBoxItemHijau = boxPembahasan ? boxPembahasan.closest('.info-box-item') : null;
+            if (infoBoxItemHijau) {
+                infoBoxItemHijau.style.display = "block";
+            }
+
+            let infoBoxItemBiru = boxSilabus ? boxSilabus.closest('.info-box-item') : null;
+            if (infoBoxItemBiru) {
+                infoBoxItemBiru.style.display = "block";
+            }
         }
-    }
+        // --- END OF INTERCEPT MODIFICATION ---
+
+        let htmlLaciSembunyi = `
+            <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
+                <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-lightbulb"></i> ${headerLabelLaci}
+                </div>
+                <button class="mms-toggle-trigger-btn" style="border-color: #eab308; color: #b45309; background: #fff; margin-top: 4px; width: 100%; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.15s ease;" 
+                    onclick="let laci = document.getElementById('mms-panel-laci-bab14'); laci.style.display = (laci.style.display === 'none' || laci.style.display === '') ? 'block' : 'none';">
+                    ${teksTombolKustom}
+                </button>
+                <div id="mms-panel-laci-bab14" style="display: ${statusLaciAwal}; margin-top: 10px; background: #fffdf5; padding: 4px; border-radius: 6px;">
+                    ${isiKontenLaci}
+                </div>
+            </div>
+        `;
+
+        let pembungkusUtama = document.querySelector(".mms-vertical-layout-stack");
+        if (pembungkusUtama) {
+            pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
+        }
+
+        if(boxPembahasan) {
+            boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
+        }
+
+        if(boxVisualMateri) {
+            let visual = dataCocok.visual || "";
+            if (visual.startsWith("fa-")) {
+                boxVisualMateri.innerHTML = `<i class="fa-solid ${visual}" style="color:var(--mms-accent); font-size: 3em;"></i>`;
+            } else if (visual && (visual.endsWith(".mp4") || visual.endsWith(".webm") || visual.includes("video/") || visual.startsWith("http"))) {
+                boxVisualMateri.innerHTML = `<video id="mms-media-video-lokal" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" controls>` +
+                                                `<source src="${visual}" type="video/mp4">` +
+                                             `</video>`;
+            } else if (visual && visual.startsWith("images/")) {
+                boxVisualMateri.innerHTML = `<img src="images/verb-categories-classification.png" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
+            } else {
+                boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+            }
+        }
+    }, 0);
 }
