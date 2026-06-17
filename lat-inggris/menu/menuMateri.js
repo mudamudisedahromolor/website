@@ -27,6 +27,10 @@ export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
 }
 
 export function resetSeleksiDashboardEksternal(e) {
+    // Diproteksi agar reset seleksi tidak mematikan fungsi interaksi elemen navbar luar website Anda
+    const appContainer = e.target.closest('.mms-app-container');
+    if (!appContainer) return; 
+
     if (!e.target.closest('.menu-icon-wrapper')) {
         resetSeleksiDashboardEsensial();
     }
@@ -47,10 +51,7 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
     let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
-    let boxArtiAktif = document.getElementById("box-txt-arti-aktif");
-    let boxArtiPasif = document.getElementById("box-txt-arti-pasif");
     let boxPembahasan = document.getElementById("box-txt-pembahasan");
-    let boxSilabus = document.getElementById("box-txt-silabus");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
     let elementBoxAktifUtama = document.getElementById("box-txt-rumus-aktif") ? document.getElementById("box-txt-rumus-aktif").closest('.info-box-item') : null;
@@ -153,6 +154,7 @@ export function bukaMateriMenu() {
 }
 
 export function kembaliKeDashboard() { resetTampilanDashboard(); }
+
 export function tutupModalMateri(e) { 
     let m = document.getElementById("materi-pembahasan-box"); 
     if (m && (!e || e.target.id === "materi-pembahasan-box")) {
@@ -176,7 +178,7 @@ export function mmsToggleVideoSaja() {
     }
 }
 
-// BINDING ULANG MENU KE GLOBAL WINDOW SCOPE
+// Window scope injection menjamin elemen HTML dapat mengeksekusi fungsi modul
 window.toggleAccordionBox = toggleAccordionBox;
 window.toggleSubLaci = toggleSubLaci;
 window.toggleRumpunSmart = toggleRumpunSmart;
