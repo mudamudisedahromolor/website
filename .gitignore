@@ -1,0 +1,12 @@
+
+# Pocket Clash sensitive config
+billiard/api/db.php
+
+# Backups and test files
+billiard/*backup*.html
+billiard/test_*.html
+
+# Archives / env / database dumps
+*.zip
+*.sql
+.env
