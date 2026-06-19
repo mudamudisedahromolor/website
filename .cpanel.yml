@@ -5,10 +5,10 @@ deployment:
     - export TARGET=/home/mudamudi/public_html
 
     - /bin/cp -a $SOURCE/*.html $TARGET/
-    - /bin/cp -a $SOURCE/style.css $TARGET/ 2>/dev/null || true
-    - /bin/cp -a $SOURCE/script.js $TARGET/ 2>/dev/null || true
-    - /bin/cp -a $SOURCE/images $TARGET/ 2>/dev/null || true
-    - /bin/cp -a $SOURCE/gambar\&animasi $TARGET/ 2>/dev/null || true
+    - if [ -f "$SOURCE/style.css" ]; then /bin/cp -a "$SOURCE/style.css" "$TARGET/"; fi
+    - if [ -f "$SOURCE/script.js" ]; then /bin/cp -a "$SOURCE/script.js" "$TARGET/"; fi
+    - if [ -d "$SOURCE/images" ]; then /bin/cp -a "$SOURCE/images" "$TARGET/"; fi
+    - if [ -d "$SOURCE/gambar&animasi" ]; then /bin/cp -a "$SOURCE/gambar&animasi" "$TARGET/"; fi
 
     - /bin/mkdir -p $TARGET/billiard
     - /bin/cp -a $SOURCE/billiard/index.html $TARGET/billiard/
