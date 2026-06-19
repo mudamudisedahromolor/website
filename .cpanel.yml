@@ -1,5 +1,21 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/mudamudi/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - export SOURCE=/home/mudamudi/public.html
+    - export TARGET=/home/mudamudi/public_html
+
+    - /bin/cp -a $SOURCE/*.html $TARGET/
+    - /bin/cp -a $SOURCE/style.css $TARGET/ 2>/dev/null || true
+    - /bin/cp -a $SOURCE/script.js $TARGET/ 2>/dev/null || true
+    - /bin/cp -a $SOURCE/images $TARGET/ 2>/dev/null || true
+    - /bin/cp -a $SOURCE/gambar\&animasi $TARGET/ 2>/dev/null || true
+
+    - /bin/mkdir -p $TARGET/billiard
+    - /bin/cp -a $SOURCE/billiard/index.html $TARGET/billiard/
+    - /bin/cp -a $SOURCE/billiard/lobby.html $TARGET/billiard/
+    - /bin/cp -a $SOURCE/billiard/room.html $TARGET/billiard/
+    - /bin/cp -a $SOURCE/billiard/game.html $TARGET/billiard/
+    - /bin/cp -a $SOURCE/billiard/assets $TARGET/billiard/
+
+    - /bin/mkdir -p $TARGET/billiard/api
+    - /bin/cp -a $SOURCE/billiard/api/*.php $TARGET/billiard/api/
