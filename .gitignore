@@ -10,3 +10,4 @@ billiard/test_*.html
 *.zip
 *.sql
 .env
+deploy.php
