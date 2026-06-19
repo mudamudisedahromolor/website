@@ -4,12 +4,14 @@ deployment:
     - export SOURCE=/home/mudamudi/public.html
     - export TARGET=/home/mudamudi/public_html
 
+    # Website utama
     - /bin/cp -a $SOURCE/*.html $TARGET/
     - if [ -f "$SOURCE/style.css" ]; then /bin/cp -a "$SOURCE/style.css" "$TARGET/"; fi
     - if [ -f "$SOURCE/script.js" ]; then /bin/cp -a "$SOURCE/script.js" "$TARGET/"; fi
     - if [ -d "$SOURCE/images" ]; then /bin/cp -a "$SOURCE/images" "$TARGET/"; fi
     - if [ -d "$SOURCE/gambar&animasi" ]; then /bin/cp -a "$SOURCE/gambar&animasi" "$TARGET/"; fi
 
+    # Pocket Clash Billiard
     - /bin/mkdir -p $TARGET/billiard
     - /bin/cp -a $SOURCE/billiard/index.html $TARGET/billiard/
     - /bin/cp -a $SOURCE/billiard/lobby.html $TARGET/billiard/
@@ -17,5 +19,6 @@ deployment:
     - /bin/cp -a $SOURCE/billiard/game.html $TARGET/billiard/
     - /bin/cp -a $SOURCE/billiard/assets $TARGET/billiard/
 
+    # API billiard, db.php live tetap aman karena tidak ada di GitHub
     - /bin/mkdir -p $TARGET/billiard/api
     - /bin/cp -a $SOURCE/billiard/api/*.php $TARGET/billiard/api/
