@@ -4755,6 +4755,21 @@ async function createRematchNow() {
   draw();
 }
 
+  function onAimMove(event) {
+  const point = getCanvasPoint(event);
+
+  // Mode ball in hand drag.
+  if (ballInHandDragging) {
+    event.preventDefault();
+
+    placeCueBallForBallInHand(point);
+
+    updateUI();
+    draw();
+
+    return;
+  }
+
   // Mode standby: belum klik/tahan, stick bebas bergerak ikut pointer.
   if (!isAiming && canShowStandbyStick()) {
     standbyAimPoint = point;
@@ -4813,43 +4828,6 @@ async function createRematchNow() {
   sendRealtimeAim();
   draw();
 }
-
-async function submitBallInHandPosition() {
-  const playerKey = getPlayerKey();
-  const roomCode = getRoomCode();
-  const cueBall = getCueBall();
-
-  if (!playerKey || !roomCode || !cueBall) return;
-
-  try {
-    const response = await fetch("api/update_ball_in_hand.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        player_key: playerKey,
-        room_code: roomCode,
-        cue_x: Number(Number(cueBall.x).toFixed(2)),
-        cue_y: Number(Number(cueBall.y).toFixed(2))
-      })
-    });
-
-    const result = await response.json();
-
-    if (!result.success) {
-      console.warn("update ball in hand failed", result);
-      return;
-    }
-
-    setTimeout(() => {
-      loadMatch();
-    }, 250);
-  } catch (err) {
-    console.error("submit ball in hand position error", err);
-  }
-}
-
 
     function onAimEnd(event) {
   if (event) {
