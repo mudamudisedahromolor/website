@@ -995,8 +995,8 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </div>
                 </div>
             `;
-            } else if (idLower.includes("artic")) {
-        // 🎯 FIX UTAMA: Toleransi Multi ID String (Sanggup membaca 'articles', 'adv-articles', 'bab4-articles')
+               } else if (idLower.includes("artic") || subMateriKolomD.includes("artic")) {
+        // 🎯 FIX UTAMA: Mengubah dari '=== "articles"' menjadi '.includes("artic")' agar toleran terhadap ID 'adv-articles'
         isiKontenLaci = `
             <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
                 <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
@@ -1032,48 +1032,48 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                 </div>
             </div>
         `;
-        } else {
-            isiKontenLaci = `
-                <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
-                    <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Core Modals Auxiliaries Reference Matrix
-                    </div>
-                    <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
-                        <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
-                            <thead>
-                                <tr style="background:#f8fafc; border-bottom:1px solid #cbd5e1; font-weight:700; color:#475569;">
-                                    <th style="padding:8px 10px; text-align:left; width:20%;">Modal Verb</th>
-                                    <th style="padding:8px 10px; text-align:left; width:40%;">Fungsi &amp; Penggunaan Utama</th>
-                                    <th style="padding:8px 10px; text-align:left; width:40%;">Contoh Konteks Kalimat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="border-bottom:1px solid #f1f5f9;">
-                                    <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Can / Could</td>
-                                    <td style="padding:8px 10px; color:#475569;">Kemampuan (Ability) &amp; Permohonan Izin Sopan</td>
-                                    <td style="padding:8px 10px; font-style:italic;">I can speak English fluently. / Could I use your laptop?</td>
-                                </tr>
-                                <tr style="border-bottom:1px solid #f1f5f9;">
-                                    <td style="padding:8px 10px; font-weight:700; color:#2563eb;">May / Might</td>
-                                    <td style="padding:8px 10px; color:#475569;">Kemungkinan (Possibility) &amp; Izin Formal</td>
-                                    <td style="padding:8px 10px; font-style:italic;">It may rain this afternoon. / May I come in, sir?</td>
-                                </tr>
-                                <tr style="border-bottom:1px solid #f1f5f9;">
-                                    <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Must / Have to</td>
-                                    <td style="padding:8px 10px; color:#475569;">Keharusan Mutlak (Obligation) &amp; Kewajiban</td>
-                                    <td style="padding:8px 10px; font-style:italic;">You must wear a helmet while riding a motorcycle.</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Should / Ought to</td>
-                                    <td style="padding:8px 10px; color:#475569;">Saran / Rekomendasi (Advice)</td>
-                                    <td style="padding:8px 10px; font-style:italic;">You should study grammar systematically before client meetings.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    } else {
+        isiKontenLaci = `
+            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
+                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Core Modals Auxiliaries Reference Matrix
                 </div>
-            `;
-        }
+                <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
+                        <thead>
+                            <tr style="background:#f8fafc; border-bottom:1px solid #cbd5e1; font-weight:700; color:#475569;">
+                                <th style="padding:8px 10px; text-align:left; width:20%;">Modal Verb</th>
+                                <th style="padding:8px 10px; text-align:left; width:40%;">Fungsi &amp; Penggunaan Utama</th>
+                                <th style="padding:8px 10px; text-align:left; width:40%;">Contoh Konteks Kalimat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Can / Could</td>
+                                <td style="padding:8px 10px; color:#475569;">Kemampuan (Ability) &amp; Permohonan Izin Sopan</td>
+                                <td style="padding:8px 10px; font-style:italic;">I can speak English fluently. / Could I use your laptop?</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">May / Might</td>
+                                <td style="padding:8px 10px; color:#475569;">Kemungkinan (Possibility) &amp; Izin Formal</td>
+                                <td style="padding:8px 10px; font-style:italic;">It may rain this afternoon. / May I come in, sir?</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Must / Have to</td>
+                                <td style="padding:8px 10px; color:#475569;">Keharusan Mutlak (Obligation) &amp; Kewajiban</td>
+                                <td style="padding:8px 10px; font-style:italic;">You must wear a helmet while riding a motorcycle.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Should / Ought to</td>
+                                <td style="padding:8px 10px; color:#475569;">Saran / Rekomendasi (Advice)</td>
+                                <td style="padding:8px 10px; font-style:italic;">You should study grammar systematically before client meetings.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+    }
 
     } else {
         let arrayContoh = isiContoh.split(",");
@@ -1120,7 +1120,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
         `;
     }
 
-            // PENYELARASAN PROSES INJEKSI DOM MODAL AGAR TIDAK FREEZE DI VS CODE & GITHUB
+    // PENYELARASAN PROSES INJEKSI DOM MODAL AGAR TIDAK FREEZE DI VS CODE & GITHUB
     setTimeout(() => {
         // --- PROSES MODIFIKASI TARGET INTERCEPT PROUDLY BUILT ---
         let statusLaciAwal = "none";
@@ -1182,15 +1182,15 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             if (infoBoxItemBiru) {
                 infoBoxItemBiru.style.display = "none";
             }
-        } else if (idLower === "conditional-sentences" || idLower === "gerunds-infinitives" || idLower === "adv-modals" || idLower === "modals-auxiliaries" || idLower === "articles") {
-            // 🎯 INTERCEPT SINKRONISASI VISUAL: MENATA LAYOUT ADVANCED GRAMMAR BAB 4 SEJAJAR DENGAN TENSES LAIN
+        } else if (idLower === "conditional-sentences" || idLower === "gerunds-infinitives" || idLower === "adv-modals" || idLower === "modals-auxiliaries" || idLower.includes("artic") || subMateriKolomD.includes("artic")) {
+            // 🎯 FIX UTAMA: Mengubah dari '=== "articles"' menjadi '.includes("artic")' di dalam rumpun penata visual setTimeout
             statusLaciAwal = "block"; 
             headerLabelLaci = `Tabel Formula &amp; Framework Advanced Bab 4:`;
             
             if (idLower === "conditional-sentences") teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Rumus Conditionals`;
             if (idLower === "gerunds-infinitives") teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Komparasi Gerunds`;
             if (idLower === "adv-modals" || idLower === "modals-auxiliaries") teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Framework Modals`;
-            if (idLower === "articles") teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Matriks Articles`;
+            if (idLower.includes("artic") || subMateriKolomD.includes("artic")) teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Matriks Articles`;
 
             let panelContohKuning = document.getElementById('panel-aktif-contoh');
             if (panelContohKuning) {
@@ -1219,7 +1219,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             }
         }
         // --- END OF INTERCEPT MODIFICATION ---
-
+        
         // 🎯 FIX DUPLIKASI: Sekarang deklarasi htmlLaciSembunyi murni hanya ditulis 1 kali saja secara bersih
         let htmlLaciSembunyi = `
             <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
