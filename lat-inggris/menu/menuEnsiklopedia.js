@@ -25,15 +25,18 @@ export async function loadEncyclopediaFromSheets(urlSpreadsheet) {
         rows.forEach(row => {
             const cells = row.c;
             
+            // Jaring pengaman: Jika baris kosong atau tidak memiliki array cells, langsung lewati
+            if (!cells) return;
+
             // 📝 Mapping Jalur Tab Kamus (Vocab)
             // Asumsi Kolom: A = Word, B = Part of Speech, C = Meaning, D = Example Context
-            if (cells[0] && cells[1] && cells[2]) {
+            if (cells[0] && cells[1] && cells[2] && cells[0].v !== "Word") {
                 const word = cells[0].v || "";
                 const pos = cells[1].v || "Noun";
                 const meaning = cells[2].v || "";
                 const context = cells[3] ? cells[3].v : "-";
 
-                // Menentukan warna badge badge Part of Speech demi keindahan visual
+                // Menentukan warna badge Part of Speech demi keindahan visual
                 let badgeColor = "background: #e0f2fe; color: #0369a1;"; // Default Verb
                 if (pos.toLowerCase().includes("adj")) badgeColor = "background: #fef9c3; color: #854d0e;";
                 if (pos.toLowerCase().includes("noun")) badgeColor = "background: #f0fdf4; color: #166534;";
@@ -53,7 +56,7 @@ export async function loadEncyclopediaFromSheets(urlSpreadsheet) {
 
             // 👟 Mapping Jalur Tab Matriks Verb (V1, V2, V3, V-ing)
             // Asumsi Kolom: E = V1, F = V2, G = V3, H = V-ing, I = Type, J = Indonesian Meaning
-            if (cells[4] && cells[5] && cells[6]) {
+            if (cells[4] && cells[5] && cells[6] && cells[4].v !== "Infinitive (V1)") {
                 const v1 = cells[4].v || "";
                 const v2 = cells[5].v || "";
                 const v3 = cells[6].v || "";
@@ -98,14 +101,14 @@ export function switchEncyclopediaTab(targetTab) {
     if (searchInput) searchInput.value = "";
 
     if (targetTab === "dictionary") {
-        tabDictionary.classList.add("active");
-        tabVerbs.classList.remove("active");
+        if (tabDictionary) tabDictionary.classList.add("active");
+        if (tabVerbs) tabVerbs.remove("active");
         if (panelDictionary) panelDictionary.style.display = "block";
         if (panelVerbs) panelVerbs.style.display = "none";
         if (searchInput) searchInput.placeholder = "Cari kata benda, sifat, adverb, atau arti kosakata...";
     } else if (targetTab === "verbs") {
-        tabVerbs.classList.add("active");
-        tabDictionary.classList.remove("active");
+        if (tabVerbs) tabVerbs.classList.add("active");
+        if (tabDictionary) tabDictionary.classList.remove("active");
         if (panelVerbs) panelVerbs.style.display = "block";
         if (panelDictionary) panelDictionary.style.display = "none";
         if (searchInput) searchInput.placeholder = "Cari berdasarkan bentuk V1, V2, V3, V-ing, atau arti kata kerja...";
