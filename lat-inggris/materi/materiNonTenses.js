@@ -13,6 +13,17 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
     let isiArti = (dataCocok.arti || "").replace(/\\n/g, "\n");
 
     let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
+
+    let idNormal = `${idLower} ${namaMateriKolomC || ""} ${subMateriKolomD || ""} ${dataCocok.materi || ""}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+let isRegularIrregularVerb =
+    idNormal.includes("regular") &&
+    idNormal.includes("irregular") &&
+    idNormal.includes("verb");
+
     if (judulTense) judulTense.innerHTML = `Modul: <b>${dataCocok.materi || namaMateriKolomC} (${labelTipeTeks})</b>`;
     if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
 
@@ -201,7 +212,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             </div>
         `;
 
-        } else if (idLower.includes("reg") && idLower.includes("irreg")) {
+        } else if (isRegularIrregularVerb) {
         // 🎯 FIX UTAMA: Mengunci konten agar tidak bocor jatuh ke area "else" default
         isiKontenLaci = `
             <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
@@ -931,7 +942,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             if (infoBoxItemBiru) {
                 infoBoxItemBiru.style.display = "none";
             }
-        } else if (idLower.includes("reg") && idLower.includes("irreg")) {
+      } else if (isRegularIrregularVerb) {
             // 🎯 INTERCEPT BARU: MENJINAKKAN LAYOUT REGULAR & IRREGULAR VERBS
             statusLaciAwal = "block"; // Langsung mekar otomatis saat di-load
             teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Tabel Perbandingan Verb`;
