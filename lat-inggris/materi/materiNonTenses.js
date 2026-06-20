@@ -992,85 +992,8 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             </div>
         `;
 
-    } else if (idLower === "conditional-sentences") {
-        isiKontenLaci = `
-            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
-                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
-                    <i class="fa-solid fa-diagram-project"></i> Conditional Sentences Matrix (Type 0, 1, 2, 3)
-                </div>
-                <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
-                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
-                        <thead>
-                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047; font-weight:700;">
-                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; text-align:left; width:15%;">Tipe</th>
-                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:20%;">Fungsi Konsep</th>
-                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:35%;">Struktur Rumus Baku</th>
-                                <th style="padding:10px 8px; width:30%;">Contoh Kalimat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1;">Type 0</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Fakta Umum / Kebenaran Ilmiah</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">If + Simple Present, Simple Present</td>
-                                <td style="padding:9px 8px; font-style:italic;">If you freeze water, it turns into ice.</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1;">Type 1</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Kemungkinan di Masa Depan</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">If + Simple Present, S + Will + V1</td>
-                                <td style="padding:9px 8px; font-style:italic;">If I study hard, I will pass the exam.</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1;">Type 2</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Khayalan Masa Sekarang</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">If + Simple Past, S + Would + V1</td>
-                                <td style="padding:9px 8px; font-style:italic;">If I were a king, I would buy a palace.</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1;">Type 3</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Penyesalan Masa Lalu</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">If + Past Perfect, S + Would Have + V3</td>
-                                <td style="padding:9px 8px; font-style:italic;">If you had called me, I would have come.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        `;
-        
-    } else if (idLower === "gerunds-infinitives") {
-        isiKontenLaci = `
-            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
-                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
-                    <i class="fa-solid fa-font-awesome"></i> Perbandingan Gerund (V-ing) vs Infinitive (To + V1)
-                </div>
-                <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
-                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
-                        <thead>
-                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047; font-weight:700;">
-                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:25%;">Bentuk</th>
-                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:40%;">Kata Kerja Pemicu Utama</th>
-                                <th style="padding:10px 8px; width:35%;">Contoh Aplikasi Kalimat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom:1px solid #cbd5e1;">
-                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1;">Gerund (Verb + ing)</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Enjoy, avoid, mind, postpone, practice, finish, keep</td>
-                                <td style="padding:9px 8px; font-style:italic;">I enjoy <b>reading</b> novels in the library.</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1;">Infinitive (To + V1)</td>
-                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Want, decide, hope, agree, refuse, promise, offer</td>
-                                <td style="padding:9px 8px; font-style:italic;">They decided <b>to build</b> a web portal.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        `;
 
+        
         let pembungkusUtama = document.querySelector(".mms-vertical-layout-stack");
         if (pembungkusUtama) {
             pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
