@@ -892,7 +892,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
         `;
     }
 
-    // PENYELARASAN PROSES INJEKSI DOM MODAL AGAR TIDAK FREEZE DI VS CODE & GITHUB
+       // PENYELARASAN PROSES INJEKSI DOM MODAL AGAR TIDAK FREEZE DI VS CODE & GITHUB
     setTimeout(() => {
         // --- PROSES MODIFIKASI TARGET INTERCEPT PROUDLY BUILT ---
         let statusLaciAwal = "none";
@@ -931,6 +931,30 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             if (infoBoxItemBiru) {
                 infoBoxItemBiru.style.display = "none";
             }
+        } else if (idLower.includes("reg") && idLower.includes("irreg")) {
+            // 🎯 INTERCEPT BARU: MENJINAKKAN LAYOUT REGULAR & IRREGULAR VERBS
+            statusLaciAwal = "block"; // Langsung mekar otomatis saat di-load
+            teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Tabel Perbandingan Verb`;
+            headerLabelLaci = `Tabel Matriks Perubahan Kata Kerja (Verbs):`;
+
+            // 1. Sembunyikan kotak kuning contoh bawaan HTML agar tabel buatan kita tidak terdorong kebawah
+            let panelContohKuning = document.getElementById('panel-aktif-contoh');
+            if (panelContohKuning) {
+                panelContohKuning.style.display = "none";
+            }
+
+            // 2. Kotak penjelasan hijau HARUS TETAP block (MUNCUL) agar data dari Kolom I bisa dicetak
+            let infoBoxItemHijau = boxPembahasan ? boxPembahasan.closest('.info-box-item') : null;
+            if (infoBoxItemHijau) {
+                infoBoxItemHijau.style.display = "block";
+            }
+
+            // 3. Sembunyikan kotak biru judul silabus utama demi kerapian visual
+            let infoBoxItemBiru = boxSilabus ? boxSilabus.closest('.info-box-item') : null;
+            if (infoBoxItemBiru) {
+                infoBoxItemBiru.style.display = "none";
+            }
+            
         } else {
             // Kembalikan ke keadaan block (muncul) untuk modul bab selain pronouns dan agreement table
             let infoBoxItemHijau = boxPembahasan ? boxPembahasan.closest('.info-box-item') : null;
@@ -965,8 +989,13 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
         }
 
+        // 🎯 FIX MUTLAK PENGISIAN TEKS: Mengamankan isi naskah panjang Gemini di kotak hijau agar tidak dioverwrite data kosong
         if(boxPembahasan) {
-            boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
+            if (idLower.includes("reg") && idLower.includes("irreg")) {
+                boxPembahasan.innerHTML = `Regular dan irregular verb adalah dua jenis kata kerja (verb) dalam bahasa Inggris yang dibedakan berdasarkan cara perubahannya saat digunakan dalam bentuk lampau <i>(past tense atau verb 2)</i> dan bentuk partisipel <i>(past participle atau verb 3)</i>.<br><br>Pahami perbedaan keduanya di bawah ini:`;
+            } else {
+                boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
+            }
         }
 
         if(boxVisualMateri) {
