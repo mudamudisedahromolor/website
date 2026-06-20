@@ -1053,6 +1053,42 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
 
     }
 
+
+    } else if (idLower.includes("gerund") || subMateriKolomD.includes("gerund")) {
+        // 🎯 OVERRIDE SPECIFIC BAB 4: Mengunci Komparasi Gerunds & Infinitives tepat di atas blok "else" default
+        isiKontenLaci = `
+            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
+                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
+                    <i class="fa-solid fa-font-awesome"></i> Perbandingan Gerund (V-ing) vs Infinitive (To + V1)
+                </div>
+                <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047; font-weight:700;">
+                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:25%;">Bentuk</th>
+                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:40%;">Kata Kerja Pemicu Utama (Verbs Followed by...)</th>
+                                <th style="padding:10px 8px; width:35%;">Contoh Aplikasi Kalimat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">Gerund (Verb + ing)</td>
+                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Enjoy, avoid, mind, postpone, practice, finish, keep, consider</td>
+                                <td style="padding:9px 8px; font-style:italic;">I enjoy <b>editing</b> client video projects on my MacBook.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">Infinitive (To + V1)</td>
+                                <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Want, decide, hope, agree, refuse, promise, offer, plan</td>
+                                <td style="padding:9px 8px; font-style:italic;">They decided <b>to develop</b> an automated community portal.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+
+
     } else {
         let arrayContoh = isiContoh.split(",");
         let arrayArti = isiArti.split(",");
@@ -1242,6 +1278,24 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                 boxVisualMateri.innerHTML = `<img src="images/verb-categories-classification.png" alt="visual-materi" style="max-height:100%; width:100%; object-fit:cover; border-radius:6px;">`;
             } else {
                 boxVisualMateri.innerHTML = `<i class="fa-solid fa-photo-film fa-2xl" style="color:#94a3b8"></i>`;
+            }
+        }
+                // 🎯 FIX MUTLAK TEKS KOTAK HIJAU: Jaring pengaman otomatis jika database Sheets bernilai null
+        if(boxPembahasan) {
+            if (idLower.includes("artic") || subMateriKolomD.includes("artic")) {
+                boxPembahasan.innerText = (dataCocok && dataCocok.fungsi)
+                    ? dataCocok.fungsi.replace(/\\n/g, "\n") 
+                    : "Articles (kata sandang) adalah kata yang digunakan untuk membatasi atau memodifikasi makna sebuah kata benda (noun)...";
+            } else if (idLower.includes("gerund") || subMateriKolomD.includes("gerund")) {
+                boxPembahasan.innerText = (dataCocok && dataCocok.fungsi)
+                    ? dataCocok.fungsi.replace(/\\n/g, "\n")
+                    : "Gerund adalah kata kerja yang diubah menjadi kata benda dengan menambahkan akhiran -ing, sedangkan Infinitive adalah bentuk dasar kata kerja yang diawali kata 'to'. Keduanya sering membingungkan karena penentuannya mutlak bergantung pada kata kerja pemicu sebelumnya.";
+            } else if (isRegularIrregularVerb) {
+                boxPembahasan.innerHTML = (dataCocok && dataCocok.fungsi)
+                    ? dataCocok.fungsi.replace(/\\n/g, "<br>")
+                    : `Regular dan irregular verb adalah dua jenis kata kerja...`;
+            } else {
+                boxPembahasan.innerText = dataCocok?.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok?.judulBab || ""}.`;
             }
         }
     }, 0);
