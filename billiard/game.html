@@ -4702,51 +4702,39 @@ async function createRematchNow() {
   event.preventDefault();
   getAudioContext();
 
-  // lanjut kode lama di bawah sini...
-
-
   const point = getCanvasPoint(event);
-  if (isPointInsideGameOverRematch(point)) {
-  voteRematch();
-  return;
-}
   const cueBall = getCueBall();
-  
-    if (animationRunning || isSubmittingShot) return;
-    if (gameOverLocal) return;
-  
 
-if (isBallInHandModeForMe() && !ballInHandLocalPlaced) {
-  const touchingCueBall = cueBall && isPointNearBall(point, cueBall);
-
-  if (touchingCueBall) {
-    ballInHandDragging = true;
-    placeCueBallForBallInHand(point);
-    draw();
+  if (isPointInsideGameOverRematch(point)) {
+    voteRematch();
     return;
   }
 
-  if (!ballInHandLocalPlaced) {
-    lastShotResult = {
-      success: false,
-      message: "Sentuh bola putih dulu untuk memindahkan bola."
-    };
-    updateUI();
-    draw();
-    return;
-  }
+  if (animationRunning || isSubmittingShot) return;
+  if (gameOverLocal) return;
 
-  // Kalau ball in hand sudah diletakkan dan user mulai dari area lain,
-  // lanjut ke mode pukul normal.
-}
+  if (isBallInHandModeForMe()) {
+    const touchingCueBall = cueBall && isPointNearBall(point, cueBall);
 
-  if (!isMyTurn()) {
-    lastShotResult = {
-      success: false,
-      message: "Belum giliran kamu"
-    };
-    updateUI();
-    return;
+    /*
+      Ball in hand:
+      - belum placed = taruh/pindah bola putih
+      - sudah placed + sentuh area kosong = pindah bola putih
+      - sudah placed + sentuh bola putih = lanjut ke logic pukul
+    */
+    if (!(ballInHandLocalPlaced && touchingCueBall)) {
+      ballInHandDragging = true;
+
+      const placed = placeCueBallForBallInHand(point);
+
+      if (placed) {
+        ballInHandLocalPlaced = true;
+        updateUI();
+        draw();
+      }
+
+      return;
+    }
   }
 
   if (!cueBall) return;
@@ -4767,16 +4755,6 @@ if (isBallInHandModeForMe() && !ballInHandLocalPlaced) {
   draw();
 }
 
-    function onAimMove(event) {
-  const point = getCanvasPoint(event);
-
-  // Mode ball in hand drag.
-  if (ballInHandDragging) {
-    event.preventDefault();
-    placeCueBallForBallInHand(point);
-    return;
-  }
-
   // Mode standby: belum klik/tahan, stick bebas bergerak ikut pointer.
   if (!isAiming && canShowStandbyStick()) {
     standbyAimPoint = point;
@@ -4792,8 +4770,6 @@ if (isBallInHandModeForMe() && !ballInHandLocalPlaced) {
 
   if (!cueBall) return;
 
-  // Saat sudah klik/tahan, arah stick dikunci.
-  // Pointer sekarang hanya untuk power tarik mundur/maju sepanjang arah stick.
   const lockedPoint = standbyAimPoint || aimCurrent || point;
 
   const dx = lockedPoint.x - cueBall.x;
@@ -4807,38 +4783,73 @@ if (isBallInHandModeForMe() && !ballInHandLocalPlaced) {
 
   const start = aimStart || point;
 
-const dragX = point.x - start.x;
-const dragY = point.y - start.y;
+  const dragX = point.x - start.x;
+  const dragY = point.y - start.y;
 
-// Power dihitung dari jarak drag sejak awal klik/tahan,
-// bukan dari jarak pointer ke bola putih.
-const pullBack = Math.max(0, dragX * dirX + dragY * dirY);
+  const pullBack = Math.max(0, dragX * dirX + dragY * dirY);
 
-const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+  const isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-const minPull = isPortrait ? 6 : 12;
-const maxPull = isPortrait ? 95 : 240;
+  const minPull = isPortrait ? 6 : 12;
+  const maxPull = isPortrait ? 95 : 240;
 
-const rawPower = Math.max(
-  0,
-  Math.min((pullBack - minPull) / maxPull, 1)
-);
+  const rawPower = Math.max(
+    0,
+    Math.min((pullBack - minPull) / maxPull, 1)
+  );
 
-power = Math.pow(rawPower, isPortrait ? 1.15 : 1.45);
+  power = Math.pow(rawPower, isPortrait ? 1.15 : 1.45);
 
   const visualPull = Math.min(
-  pullBack,
-  isPortrait ? 120 : 260
-);
+    pullBack,
+    isPortrait ? 120 : 260
+  );
 
-aimCurrent = {
-  x: cueBall.x + dirX * Math.max(20, visualPull),
-  y: cueBall.y + dirY * Math.max(20, visualPull)
-};
+  aimCurrent = {
+    x: cueBall.x + dirX * Math.max(20, visualPull),
+    y: cueBall.y + dirY * Math.max(20, visualPull)
+  };
 
   sendRealtimeAim();
   draw();
 }
+
+async function submitBallInHandPosition() {
+  const playerKey = getPlayerKey();
+  const roomCode = getRoomCode();
+  const cueBall = getCueBall();
+
+  if (!playerKey || !roomCode || !cueBall) return;
+
+  try {
+    const response = await fetch("api/update_ball_in_hand.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        player_key: playerKey,
+        room_code: roomCode,
+        cue_x: Number(Number(cueBall.x).toFixed(2)),
+        cue_y: Number(Number(cueBall.y).toFixed(2))
+      })
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      console.warn("update ball in hand failed", result);
+      return;
+    }
+
+    setTimeout(() => {
+      loadMatch();
+    }, 250);
+  } catch (err) {
+    console.error("submit ball in hand position error", err);
+  }
+}
+
 
     function onAimEnd(event) {
   if (event) {
@@ -4846,9 +4857,18 @@ aimCurrent = {
   }
 
   if (ballInHandDragging) {
+    const point = getCanvasPoint(event);
+
+    placeCueBallForBallInHand(point);
+
     ballInHandDragging = false;
+    ballInHandLocalPlaced = true;
+
     updateUI();
     draw();
+
+    submitBallInHandPosition();
+
     return;
   }
 
@@ -5486,15 +5506,15 @@ function onTouchAimStart(event) {
     return;
   }
 
-if (!isMyTurn()) {
-  isAiming = false;
-  power = 0;
-  aimStart = null;
-  aimCurrent = null;
-  updateUI();
-  draw();
-  return;
-}
+  if (!isMyTurn()) {
+    isAiming = false;
+    power = 0;
+    aimStart = null;
+    aimCurrent = null;
+    updateUI();
+    draw();
+    return;
+  }
 
   if (shouldIgnoreTouchAim(event)) {
     return;
@@ -5513,27 +5533,29 @@ if (!isMyTurn()) {
   clearTouchPowerTimer();
 
   const bihActiveForMe =
-  typeof isBallInHandActiveForMe === "function" && isBallInHandActiveForMe();
+    typeof isBallInHandActiveForMe === "function" && isBallInHandActiveForMe();
 
-// Ball in hand belum diletakkan:
-// sentuhan dipakai untuk taruh/drag bola putih
-if (bihActiveForMe && !ballInHandLocalPlaced) {
-  touchBallInHandMode = true;
-  onAimStart(event);
-  return;
-}
+  const touchingCueBall = isTouchOnCueBall(point);
 
-// Ball in hand sudah diletakkan:
-// sentuh bola putih = power / pukul
-if (isTouchOnCueBall(point)) {
-  touchPowerArmed = true;
-  onAimStart(event);
-  return;
-}
+  // Ball in hand:
+  // 1. belum placed = taruh/pindah bola putih
+  // 2. sudah placed + sentuh area kosong = pindah bola putih, tetap realtime
+  // 3. sudah placed + sentuh bola putih = pukul
+  if (bihActiveForMe && (!ballInHandLocalPlaced || !touchingCueBall)) {
+    touchBallInHandMode = true;
+    onAimStart(event);
+    return;
+  }
 
-// Ball in hand sudah diletakkan atau kondisi normal:
-// sentuh area lain = aim arah saja
-startMobileAimPreview(point);
+  // Sentuh bola putih = power / pukul
+  if (touchingCueBall) {
+    touchPowerArmed = true;
+    onAimStart(event);
+    return;
+  }
+
+  // Sentuh area lain = aim arah saja
+  startMobileAimPreview(point);
 }
 
 function onTouchAimMove(event) {
