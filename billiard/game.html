@@ -1303,6 +1303,8 @@ let ballInHandLocalPlaced = false;
 let ballInHandLastOwnerId = null;
 let ballInHandDragging = false;
 
+let lastBallInHandSyncAt = 0;
+
 // Foul tracking
 let cueHitObjectBall = false;
 let anyBallHitRail = false;
@@ -4758,17 +4760,18 @@ async function createRematchNow() {
   function onAimMove(event) {
   const point = getCanvasPoint(event);
 
-  // Mode ball in hand drag.
-  if (ballInHandDragging) {
-    event.preventDefault();
+ if (ballInHandDragging) {
+  event.preventDefault();
 
-    placeCueBallForBallInHand(point);
+  placeCueBallForBallInHand(point);
 
-    updateUI();
-    draw();
+  updateUI();
+  draw();
 
-    return;
-  }
+  submitBallInHandPositionThrottled();
+
+  return;
+}
 
   // Mode standby: belum klik/tahan, stick bebas bergerak ikut pointer.
   if (!isAiming && canShowStandbyStick()) {
@@ -4828,6 +4831,62 @@ async function createRematchNow() {
   sendRealtimeAim();
   draw();
 }
+
+
+async function submitBallInHandPosition(options = {}) {
+  const playerKey = getPlayerKey();
+  const roomCode = getRoomCode();
+  const cueBall = getCueBall();
+
+  const reloadAfter = options.reloadAfter !== false;
+
+  if (!playerKey || !roomCode || !cueBall) return;
+
+  try {
+    const response = await fetch("api/update_ball_in_hand.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        player_key: playerKey,
+        room_code: roomCode,
+        cue_x: Number(Number(cueBall.x).toFixed(2)),
+        cue_y: Number(Number(cueBall.y).toFixed(2))
+      })
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      console.warn("update ball in hand failed", result);
+      return;
+    }
+
+    if (reloadAfter) {
+      setTimeout(() => {
+        loadMatch();
+      }, 250);
+    }
+  } catch (err) {
+    console.error("submit ball in hand position error", err);
+  }
+}
+
+function submitBallInHandPositionThrottled() {
+  const now = Date.now();
+
+  if (now - lastBallInHandSyncAt < 120) {
+    return;
+  }
+
+  lastBallInHandSyncAt = now;
+
+  submitBallInHandPosition({
+    reloadAfter: false
+  });
+}
+
 
     function onAimEnd(event) {
   if (event) {
