@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Billyard - MMS.05</title>
 
@@ -1017,6 +1017,34 @@
   }
 }
 
+
+@media (orientation: landscape) and (pointer: coarse) {
+  .desktopHud,
+  .desktopPanel,
+  .leftPanel,
+  .rightPanel,
+  .sidePanel,
+  .gameLog,
+  .matchLog,
+  .logPanel,
+  .playerListPanel {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .mobileCornerPlayer,
+  .mobileBottomActions,
+  .pocketRailHud {
+    display: flex !important;
+    visibility: visible !important;
+  }
+
+  .mobileCornerPlayer {
+    transform: rotate(90deg) !important;
+    transform-origin: center center !important;
+  }
+}
 
 </style>
 
@@ -5402,7 +5430,10 @@ function shouldIgnoreTouchAim(event) {
 }
 
 function onTouchAimStart(event) {
-
+if (event.touches && event.touches.length > 1) {
+  resetTouchState();
+  return;
+}
   if (shouldIgnoreTouchAim(event)) {
 
     return;
@@ -5440,7 +5471,10 @@ function onTouchAimStart(event) {
 }
 
 function onTouchAimMove(event) {
-
+if (event.touches && event.touches.length > 1) {
+  resetTouchState();
+  return;
+}
   if (shouldIgnoreTouchAim(event)) {
 
     return;
@@ -5470,7 +5504,9 @@ function onTouchAimMove(event) {
 }
 
 function onTouchAimEnd(event) {
-
+if (event.touches && event.touches.length > 0) {
+  return;
+}
   if (shouldIgnoreTouchAim(event)) {
 
     return;
