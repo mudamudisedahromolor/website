@@ -611,221 +611,238 @@
     text-align: right;
   }
 
-  @media (orientation: portrait) {
-    #rotateOverlay {
-      display: none;
-    }
+  
 
-    body {
-      overflow: hidden;
-      background: #0b101b;
-    }
-
-    #app {
-      display: block;
-      width: 100vw;
-      height: 100vh;
-      padding: 0;
-      position: relative;
-      background: #0b101b;
-    }
-
-    .panel {
-      display: none;
-    }
-
-    .tableWrap {
-      position: fixed;
-      left: 0;
-      top: 88px;
-      z-index: 10;
-      width: 100vw;
-      height: calc(100vh - 150px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: visible;
-    }
-
-    .tableFrame {
-      position: relative;
-      overflow: visible;
-      width: min(84vh, 168vw);
-      max-width: none;
-      aspect-ratio: 16 / 9;
-      padding: 0;
-      background: transparent;
-      border-radius: 26px;
-      transform: rotate(90deg) scale(1.08);
-      transform-origin: center center;
-      box-shadow: 0 18px 42px rgba(0,0,0,.65);
-    }
-
-    canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      border-radius: 26px;
-    }
-
-    .mobileHudLayer {
-      display: block;
-    }
-
-    .mobileBottomActions {
-      display: flex;
-    }
-
-    .pocketRailHud {
-      display: flex;
-      top: 128px;
-      width: min(620px, 74vw);
-      z-index: 900;
-    }
-
-    .gameOverCard {
-      width: min(340px, 78vw);
-      padding: 20px 16px;
-    }
-
-    .gameOverTitle {
-      font-size: 26px;
-    }
-
-    .gameOverWinnerText {
-      font-size: 19px;
-    }
-
-    .htmlCueStick {
-      z-index: 80;
-    }
+  /* ===============================
+   MOBILE PORTRAIT
+================================ */
+@media (orientation: portrait) {
+  #rotateOverlay {
+    display: none;
   }
 
-  @media (orientation: landscape) {
-    .mobileHudLayer {
-      display: none;
-    }
-
-    .mobileBottomActions {
-      display: none;
-    }
-
-    #app {
-      display: grid;
-      grid-template-columns: 210px 1fr 210px;
-      gap: 10px;
-      padding: 10px;
-    }
-
-    .panel {
-      display: block;
-    }
-
-    .tableWrap {
-      position: static;
-      z-index: 10;
-      width: auto;
-      height: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: visible;
-    }
-
-    .tableFrame {
-      position: relative;
-      overflow: visible;
-      width: 100%;
-      max-width: 980px;
-      aspect-ratio: 16 / 9;
-      padding: 0;
-      background: transparent;
-      border-radius: 30px;
-      transform: none;
-    }
-
-    canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      border-radius: 30px;
-    }
-
-    .pocketRailHud {
-      display: flex;
-      position: fixed;
-      left: 50%;
-      top: 96px;
-      z-index: 900;
-      transform: translateX(-50%);
-      width: min(560px, 42vw);
-    }
-
-    .htmlCueStick {
-      z-index: 80;
-    }
+  body {
+    overflow: hidden;
+    background: #0b101b;
   }
 
-  #gameOverHtmlOverlay,
-  .gameOverHtmlOverlay {
-    pointer-events: auto !important;
-    z-index: 3000 !important;
-  }
-
-  #gameOverHtmlOverlay.hidden,
-  .gameOverHtmlOverlay.hidden {
-    display: none !important;
-    pointer-events: none !important;
-  }
-
-  .gameOverCard,
-  .gameOverRematchBtn,
-  .gameOverPrimaryBtn,
-  .gameOverSecondaryBtn {
-    pointer-events: auto !important;
-    touch-action: manipulation;
+  #app {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
     position: relative;
-    z-index: 3001 !important;
+    background: #0b101b;
   }
 
-  #htmlCueStick,
-  .htmlCueStick {
-    pointer-events: none !important;
+  .panel {
+    display: none;
+  }
+
+  .tableWrap {
+    position: fixed;
+    left: 0;
+    top: 88px;
+    z-index: 10;
+    width: 100vw;
+    height: calc(100vh - 150px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .tableFrame {
+    position: relative;
+    overflow: visible;
+    width: min(84vh, 168vw);
+    max-width: none;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    background: transparent;
+    border-radius: 26px;
+    transform: rotate(90deg) scale(1.08);
+    transform-origin: center center;
+    box-shadow: 0 18px 42px rgba(0,0,0,.65);
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 26px;
+  }
+
+  .mobileHudLayer {
+    display: block;
   }
 
   .mobileBottomActions {
-    pointer-events: auto !important;
-    z-index: 2600 !important;
+    display: flex;
   }
 
-  .mobileActionBtn,
-  #mobileMenuToggleBtn,
-  #mobileBackBtn {
-    pointer-events: auto !important;
-    touch-action: manipulation;
+  .pocketRailHud {
+    display: flex;
+    top: 128px;
+    width: min(620px, 74vw);
+    z-index: 900;
+  }
+
+  .gameOverCard {
+    width: min(340px, 78vw);
+    padding: 20px 16px;
+  }
+
+  .gameOverTitle {
+    font-size: 26px;
+  }
+
+  .gameOverWinnerText {
+    font-size: 19px;
+  }
+
+  .htmlCueStick {
+    z-index: 80;
+  }
+}
+
+
+/* ===============================
+   DESKTOP / LAPTOP LANDSCAPE
+================================ */
+@media (orientation: landscape) {
+  .mobileHudLayer {
+    display: none;
+  }
+
+  .mobileBottomActions {
+    display: none;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 210px 1fr 210px;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .panel {
+    display: block;
+  }
+
+  .tableWrap {
+    position: static;
+    z-index: 10;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .tableFrame {
     position: relative;
-    z-index: 2601 !important;
+    overflow: visible;
+    width: 100%;
+    max-width: 980px;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    background: transparent;
+    border-radius: 30px;
+    transform: none;
   }
 
-  #mobileMenuOverlay,
-  .mobileMenuOverlay {
-    pointer-events: auto !important;
-    z-index: 2800 !important;
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 30px;
   }
 
-  #mobileMenuOverlay.hidden,
-  .mobileMenuOverlay.hidden {
-    display: none !important;
-    pointer-events: none !important;
+  .pocketRailHud {
+    display: flex;
+    position: fixed;
+    left: 50%;
+    top: 96px;
+    z-index: 900;
+    transform: translateX(-50%);
+    width: min(560px, 42vw);
   }
 
-  .mobileMenuCard {
-    pointer-events: auto !important;
-    position: relative;
-    z-index: 2801 !important;
+  .htmlCueStick {
+    z-index: 80;
   }
+}
 
- @media (orientation: portrait) and (pointer: coarse) {
+
+/* ===============================
+   GLOBAL OVERLAY / BUTTON FIX
+================================ */
+#gameOverHtmlOverlay,
+.gameOverHtmlOverlay {
+  pointer-events: auto !important;
+  z-index: 3000 !important;
+}
+
+#gameOverHtmlOverlay.hidden,
+.gameOverHtmlOverlay.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.gameOverCard,
+.gameOverRematchBtn,
+.gameOverPrimaryBtn,
+.gameOverSecondaryBtn {
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 3001 !important;
+}
+
+#htmlCueStick,
+.htmlCueStick {
+  pointer-events: none !important;
+}
+
+.mobileBottomActions {
+  pointer-events: auto !important;
+  z-index: 2600 !important;
+}
+
+.mobileActionBtn,
+#mobileMenuToggleBtn,
+#mobileBackBtn {
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 2601 !important;
+}
+
+#mobileMenuOverlay,
+.mobileMenuOverlay {
+  pointer-events: auto !important;
+  z-index: 2800 !important;
+}
+
+#mobileMenuOverlay.hidden,
+.mobileMenuOverlay.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.mobileMenuCard {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 2801 !important;
+}
+
+
+/* ===============================
+   REAL MOBILE PORTRAIT
+================================ */
+@media (orientation: portrait) and (pointer: coarse) {
   .tableWrap {
     top: 104px !important;
     height: calc(100vh - 190px) !important;
@@ -918,43 +935,75 @@
 }
 
 
+/* ===============================
+   REAL MOBILE LANDSCAPE
+================================ */
 @media (orientation: landscape) and (pointer: coarse) {
   html,
   body {
     width: 100vw !important;
     height: 100dvh !important;
     overflow: hidden !important;
+    background: #07120f !important;
   }
 
-  .gameShell,
-  .gameScreen {
+  #app {
+    display: block !important;
     width: 100vw !important;
     height: 100dvh !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     overflow: hidden !important;
+    background: #07120f !important;
   }
 
+  aside.panel,
+  .panel {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .mobileHudLayer {
+    display: block !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+    z-index: 1200 !important;
+  }
+
+  main.tableWrap,
   .tableWrap {
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    height: 100dvh !important;
+    position: fixed !important;
+    inset: 0 !important;
     width: 100vw !important;
+    height: 100dvh !important;
+    margin: 0 !important;
     padding: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     overflow: hidden !important;
+    z-index: 10 !important;
   }
 
   .tableFrame {
-    width: min(96vw, 178vh) !important;
+    width: min(100vw, 178vh) !important;
     max-width: none !important;
+    aspect-ratio: 16 / 9 !important;
+    border-radius: 26px !important;
     transform: scale(1.08) !important;
     transform-origin: center center !important;
   }
 
+  canvas {
+    border-radius: 26px !important;
+    touch-action: pinch-zoom !important;
+  }
+
   .pocketRailHud {
+    display: flex !important;
+    visibility: visible !important;
     top: 8px !important;
     width: min(620px, 70vw) !important;
     height: 32px !important;
@@ -962,6 +1011,8 @@
   }
 
   .mobileCornerPlayer {
+    display: flex !important;
+    visibility: visible !important;
     width: 66px !important;
     min-height: 58px !important;
     padding: 5px 4px !important;
@@ -969,6 +1020,7 @@
     font-size: 9px !important;
     transform: rotate(90deg) !important;
     transform-origin: center center !important;
+    z-index: 1700 !important;
   }
 
   .mobileCornerAvatar {
@@ -987,26 +1039,28 @@
   }
 
   .mobileTopLeft {
-    left: 14px !important;
-    top: 72px !important;
+    left: 18px !important;
+    top: 76px !important;
   }
 
   .mobileBottomLeft {
-    left: 14px !important;
-    bottom: 72px !important;
+    left: 18px !important;
+    bottom: 76px !important;
   }
 
   .mobileTopRight {
-    right: 14px !important;
-    top: 72px !important;
+    right: 18px !important;
+    top: 76px !important;
   }
 
   .mobileBottomRight {
-    right: 14px !important;
-    bottom: 72px !important;
+    right: 18px !important;
+    bottom: 76px !important;
   }
 
   .mobileBottomActions {
+    display: flex !important;
+    visibility: visible !important;
     bottom: calc(env(safe-area-inset-bottom) + 10px) !important;
     z-index: 2600 !important;
   }
@@ -1014,35 +1068,6 @@
   .mobileActionBtn {
     width: 40px !important;
     height: 36px !important;
-  }
-}
-
-
-@media (orientation: landscape) and (pointer: coarse) {
-  .desktopHud,
-  .desktopPanel,
-  .leftPanel,
-  .rightPanel,
-  .sidePanel,
-  .gameLog,
-  .matchLog,
-  .logPanel,
-  .playerListPanel {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
-  .mobileCornerPlayer,
-  .mobileBottomActions,
-  .pocketRailHud {
-    display: flex !important;
-    visibility: visible !important;
-  }
-
-  .mobileCornerPlayer {
-    transform: rotate(90deg) !important;
-    transform-origin: center center !important;
   }
 }
 
@@ -5430,14 +5455,18 @@ function shouldIgnoreTouchAim(event) {
 }
 
 function onTouchAimStart(event) {
-if (event.touches && event.touches.length > 1) {
-  resetTouchState();
-  return;
-}
-  if (shouldIgnoreTouchAim(event)) {
-
+  // Izinkan pinch / zoom 2 jari
+  if (event.touches && event.touches.length > 1) {
+    resetTouchState();
+    isAiming = false;
+    power = 0;
+    updateUI();
+    draw();
     return;
+  }
 
+  if (shouldIgnoreTouchAim(event)) {
+    return;
   }
 
   event.preventDefault();
@@ -5471,14 +5500,18 @@ if (event.touches && event.touches.length > 1) {
 }
 
 function onTouchAimMove(event) {
-if (event.touches && event.touches.length > 1) {
-  resetTouchState();
-  return;
-}
-  if (shouldIgnoreTouchAim(event)) {
-
+  // Izinkan pinch / zoom 2 jari
+  if (event.touches && event.touches.length > 1) {
+    resetTouchState();
+    isAiming = false;
+    power = 0;
+    updateUI();
+    draw();
     return;
+  }
 
+  if (shouldIgnoreTouchAim(event)) {
+    return;
   }
 
   event.preventDefault();
@@ -5504,13 +5537,13 @@ if (event.touches && event.touches.length > 1) {
 }
 
 function onTouchAimEnd(event) {
-if (event.touches && event.touches.length > 0) {
-  return;
-}
-  if (shouldIgnoreTouchAim(event)) {
-
+  // Kalau masih ada jari lain di layar, jangan proses shot
+  if (event.touches && event.touches.length > 0) {
     return;
+  }
 
+  if (shouldIgnoreTouchAim(event)) {
+    return;
   }
 
   event.preventDefault();
@@ -5530,6 +5563,7 @@ if (event.touches && event.touches.length > 0) {
   }
 
   // Kalau cuma aim arah, lepas jangan shot
+  isAiming = false;
   power = 0;
 
   updateUI();
