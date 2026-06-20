@@ -4670,18 +4670,39 @@ async function createRematchNow() {
   }
 }
 
+    
     function onAimStart(event) {
-    event.preventDefault();
-    getAudioContext();
+  if (
+    event.target &&
+    event.target.closest &&
+    (
+      event.target.closest(".mobileActionBtn") ||
+      event.target.closest("button") ||
+      event.target.closest("a") ||
+      event.target.closest("input") ||
+      event.target.closest("#mobileMenuOverlay") ||
+      event.target.closest(".mobileMenuOverlay") ||
+      event.target.closest("#gameOverHtmlOverlay") ||
+      event.target.closest(".gameOverHtmlOverlay")
+    )
+  ) {
+    return;
+  }
 
-     if (
-       event.target.closest(".mobileActionBtn") ||
-       event.target.closest("button") ||
-       event.target.closest("a") ||
-       event.target.closest("input")
-    ) {
-       return;
-    }
+  if (!isMyTurn()) {
+    isAiming = false;
+    power = 0;
+    aimStart = null;
+    aimCurrent = null;
+    updateUI();
+    draw();
+    return;
+  }
+
+  event.preventDefault();
+  getAudioContext();
+
+  // lanjut kode lama di bawah sini...
 
 
   const point = getCanvasPoint(event);
@@ -5465,6 +5486,16 @@ function onTouchAimStart(event) {
     return;
   }
 
+if (!isMyTurn()) {
+  isAiming = false;
+  power = 0;
+  aimStart = null;
+  aimCurrent = null;
+  updateUI();
+  draw();
+  return;
+}
+
   if (shouldIgnoreTouchAim(event)) {
     return;
   }
@@ -5509,6 +5540,17 @@ function onTouchAimMove(event) {
     draw();
     return;
   }
+
+  if (!isMyTurn()) {
+  isAiming = false;
+  power = 0;
+  aimStart = null;
+  aimCurrent = null;
+  resetTouchState();
+  updateUI();
+  draw();
+  return;
+}
 
   if (shouldIgnoreTouchAim(event)) {
     return;
