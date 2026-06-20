@@ -997,10 +997,12 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             pembungkusUtama.insertAdjacentHTML('beforeend', htmlLaciSembunyi);
         }
 
-        // 🎯 FIX MUTLAK PENGISIAN TEKS: Mengamankan isi naskah panjang Gemini di kotak hijau agar tidak dioverwrite data kosong
+        // 🎯 FIX MUTLAK PENGISIAN TEKS: Mengamankan isi kotak hijau agar Regular/Irregular membaca Kolom I
         if(boxPembahasan) {
-            if (idLower.includes("reg") && idLower.includes("irreg")) {
-                boxPembahasan.innerHTML = `Regular dan irregular verb adalah dua jenis kata kerja (verb) dalam bahasa Inggris yang dibedakan berdasarkan cara perubahannya saat digunakan dalam bentuk lampau <i>(past tense atau verb 2)</i> dan bentuk partisipel <i>(past participle atau verb 3)</i>.<br><br>Pahami perbedaan keduanya di bawah ini:`;
+            if (isRegularIrregularVerb) {
+                boxPembahasan.innerHTML = dataCocok.fungsi
+                    ? dataCocok.fungsi.replace(/\\n/g, "<br>")
+                    : `Regular dan irregular verb adalah dua jenis kata kerja (verb) dalam bahasa Inggris yang dibedakan berdasarkan cara perubahannya saat digunakan dalam bentuk lampau <i>(past tense atau verb 2)</i> dan bentuk partisipel <i>(past participle atau verb 3)</i>.<br><br>Pahami perbedaan keduanya di bawah ini:`;
             } else {
                 boxPembahasan.innerText = dataCocok.fungsi ? dataCocok.fungsi.replace(/\\n/g, "\n") : `Menampilkan spesifikasi gramatikal rumpun ${dataCocok.judulBab}.`;
             }
