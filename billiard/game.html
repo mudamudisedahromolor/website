@@ -2014,11 +2014,11 @@ if (isMatchFinished) {
 } else if (animationRunning) {
   noticeText = "Bola sedang bergerak...";
 } else if (bih.active && isBallInHandActiveForMe()) {
-  if (ballInHandLocalPlaced) {
-    noticeText = "Ball in hand: bola putih sudah diletakkan. Drag lagi untuk pindah, atau tarik dari bola putih untuk memukul.";
-  } else {
-    noticeText = "Ball in hand: klik/drag area meja kosong untuk menaruh bola putih.";
-  }
+ if (ballInHandLocalPlaced) {
+  noticeText = "Ball in hand: bola putih sudah diletakkan. Tarik dari bola putih untuk memukul, atau tap area kosong untuk pindah posisi.";
+} else {
+  noticeText = "Ball in hand: tap/drag area meja kosong untuk menaruh bola putih.";
+}
 } else if (bih.active && !isBallInHandActiveForMe()) {
   noticeText = "Lawan mendapat ball in hand.";
 } else if (isMyTurn()) {
@@ -4716,7 +4716,7 @@ async function createRematchNow() {
     if (gameOverLocal) return;
   
 
-  if (isBallInHandModeForMe()) {
+if (isBallInHandModeForMe() && !ballInHandLocalPlaced) {
   const touchingCueBall = cueBall && isPointNearBall(point, cueBall);
 
   if (touchingCueBall) {
@@ -5512,22 +5512,28 @@ if (!isMyTurn()) {
 
   clearTouchPowerTimer();
 
-  // Ball in hand: sentuh bola putih tetap untuk pindahin bola, bukan power
-  if (isMobileBallInHandActive()) {
-    touchBallInHandMode = true;
-    onAimStart(event);
-    return;
-  }
+  const bihActiveForMe =
+  typeof isBallInHandActiveForMe === "function" && isBallInHandActiveForMe();
 
-  // Kalau sentuh bola putih: masuk mode power
-  if (isTouchOnCueBall(point)) {
-    touchPowerArmed = true;
-    onAimStart(event);
-    return;
-  }
+// Ball in hand belum diletakkan:
+// sentuhan dipakai untuk taruh/drag bola putih
+if (bihActiveForMe && !ballInHandLocalPlaced) {
+  touchBallInHandMode = true;
+  onAimStart(event);
+  return;
+}
 
-  // Kalau sentuh area lain: aim arah stick saja
-  startMobileAimPreview(point);
+// Ball in hand sudah diletakkan:
+// sentuh bola putih = power / pukul
+if (isTouchOnCueBall(point)) {
+  touchPowerArmed = true;
+  onAimStart(event);
+  return;
+}
+
+// Ball in hand sudah diletakkan atau kondisi normal:
+// sentuh area lain = aim arah saja
+startMobileAimPreview(point);
 }
 
 function onTouchAimMove(event) {
