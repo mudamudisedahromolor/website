@@ -995,42 +995,43 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </div>
                 </div>
             `;
-        } else if (idLower === "articles") {
-            isiKontenLaci = `
-                <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
-                    <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
-                        <i class="fa-solid fa-shapes"></i> Definite vs Indefinite Articles Matrix Table
-                    </div>
-                    <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
-                        <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
-                            <thead>
-                                <tr style="background:#f8fafc; border-bottom:1px solid #cbd5e1; font-weight:700; color:#475569;">
-                                    <th style="padding:8px 10px; text-align:left; width:20%;">Jenis Article</th>
-                                    <th style="padding:8px 10px; text-align:left; width:45%;">Aturan Aturan Penggunaan</th>
-                                    <th style="padding:8px 10px; text-align:left; width:35%;">Contoh Aplikasi Kalimat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="border-bottom:1px solid #f1f5f9;">
-                                    <td style="padding:8px 10px; font-weight:700; color:#2563eb;">A (Indefinite)</td>
-                                    <td style="padding:8px 10px; color:#475569;">Digunakan sebelum kata benda tunggal yang berbunyi **konsonan** (huruf mati) dan sifatnya umum/belum spesifik.</td>
-                                    <td style="padding:8px 10px; font-style:italic;">I bought <b>a</b> professional camera setup yesterday.</td>
-                                </tr>
-                                <tr style="border-bottom:1px solid #f1f5f9;">
-                                    <td style="padding:8px 10px; font-weight:700; color:#2563eb;">An (Indefinite)</td>
-                                    <td style="padding:8px 10px; color:#475569;">Digunakan sebelum kata benda tunggal yang berbunyi **vokal** (A, E, I, O, U) secara pelafalan suara.</td>
-                                    <td style="padding:8px 10px; font-style:italic;">He is <b>an</b> honorable guest from the community portal group.</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding:8px 10px; font-weight:700; color:#16a34a;">The (Definite)</td>
-                                    <td style="padding:8px 10px; color:#475569;">Digunakan untuk kata benda tunggal/jamak yang **sudah jelas dan spesifik** (baik pembicara maupun pendengar sama-sama tahu benda mana yang dimaksud).</td>
-                                    <td style="padding:8px 10px; font-style:italic;"><b>The</b> laptop on your table has a minimalist starlight finish.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            } else if (idLower.includes("artic")) {
+        // 🎯 FIX UTAMA: Toleransi Multi ID String (Sanggup membaca 'articles', 'adv-articles', 'bab4-articles')
+        isiKontenLaci = `
+            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
+                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
+                    <i class="fa-solid fa-shapes"></i> Definite vs Indefinite Articles Matrix Table
                 </div>
-            `;
+                <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
+                        <thead>
+                            <tr style="background:#f8fafc; border-bottom:1px solid #cbd5e1; font-weight:700; color:#475569;">
+                                <th style="padding:8px 10px; text-align:left; width:20%;">Jenis Article</th>
+                                <th style="padding:8px 10px; text-align:left; width:45%;">Aturan Aturan Penggunaan</th>
+                                <th style="padding:8px 10px; text-align:left; width:35%;">Contoh Aplikasi Kalimat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">A (Indefinite)</td>
+                                <td style="padding:8px 10px; color:#475569;">Digunakan sebelum kata benda tunggal yang berbunyi <b>konsonan</b> (huruf mati) dan sifatnya umum/belum spesifik.</td>
+                                <td style="padding:8px 10px; font-style:italic;">I bought <b>a</b> professional camera setup yesterday.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">An (Indefinite)</td>
+                                <td style="padding:8px 10px; color:#475569;">Digunakan sebelum kata benda tunggal yang berbunyi <b>vokal</b> (A, E, I, O, U) secara pelafalan suara.</td>
+                                <td style="padding:8px 10px; font-style:italic;">He is <b>an</b> honorable guest from the community portal group.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px 10px; font-weight:700; color:#16a34a;">The (Definite)</td>
+                                <td style="padding:8px 10px; color:#475569;">Digunakan untuk kata benda tunggal/jamak yang <b>sudah jelas dan spesifik</b> (baik pembicara maupun pendengar sama-sama tahu benda mana yang dimaksud).</td>
+                                <td style="padding:8px 10px; font-style:italic;"><b>The</b> laptop on your table has a minimalist starlight finish.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
         } else {
             isiKontenLaci = `
                 <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
