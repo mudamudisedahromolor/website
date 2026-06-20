@@ -2178,6 +2178,38 @@ if (isMatchFinished) {
         return;
       }
 
+      if (data.type === "ball_in_hand_move") {
+  if (localPlayer && Number(data.player_id) === Number(localPlayer.id)) return;
+
+  let cueBall = localBalls.find(ball => Number(ball.number) === 0);
+
+  if (!cueBall) {
+    cueBall = {
+      id: 0,
+      number: 0,
+      type: "cue",
+      color: "#ffffff",
+      x: Number(data.x || 220),
+      y: Number(data.y || 250),
+      vx: 0,
+      vy: 0,
+      pocketed: false
+    };
+
+    localBalls.unshift(cueBall);
+  }
+
+  cueBall.x = Number(Number(data.x).toFixed(2));
+  cueBall.y = Number(Number(data.y).toFixed(2));
+  cueBall.vx = 0;
+  cueBall.vy = 0;
+  cueBall.pocketed = false;
+
+  draw();
+  updateUI();
+  return;
+}
+
       if (data.type === "shot_start") {
         if (localPlayer && Number(data.player_id) === Number(localPlayer.id)) return;
 
@@ -2270,6 +2302,19 @@ if (isMatchFinished) {
         balls: cleanBallsForSubmit()
       });
     }
+
+    function sendRealtimeBallInHandMove() {
+  const cueBall = getCueBall();
+
+  if (!cueBall) return;
+  if (!isBallInHandModeForMe()) return;
+
+  sendRealtime({
+    type: "ball_in_hand_move",
+    x: Number(Number(cueBall.x).toFixed(2)),
+    y: Number(Number(cueBall.y).toFixed(2))
+  });
+}
 
 function canShowStandbyStick() {
     if (gameOverLocal) return false;
@@ -4768,6 +4813,7 @@ async function createRematchNow() {
   updateUI();
   draw();
 
+  sendRealtimeBallInHandMove();
   submitBallInHandPositionThrottled();
 
   return;
@@ -4894,20 +4940,21 @@ function submitBallInHandPositionThrottled() {
   }
 
   if (ballInHandDragging) {
-    const point = getCanvasPoint(event);
+  const point = getCanvasPoint(event);
 
-    placeCueBallForBallInHand(point);
+  placeCueBallForBallInHand(point);
 
-    ballInHandDragging = false;
-    ballInHandLocalPlaced = true;
+  ballInHandDragging = false;
+  ballInHandLocalPlaced = true;
 
-    updateUI();
-    draw();
+  updateUI();
+  draw();
 
-    submitBallInHandPosition();
+  sendRealtimeBallInHandMove();
+  submitBallInHandPosition();
 
-    return;
-  }
+  return;
+}
 
   if (!isAiming) return;
 
