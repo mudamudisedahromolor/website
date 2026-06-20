@@ -200,6 +200,67 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                 </div>
             </div>
         `;
+
+    } else if (idLower.includes("reg") && idLower.includes("irreg")) {
+        // 🎯 BLOK REPLACEMENT: LOGIKA KHUSUS KONTEN REGULAR & IRREGULAR VERBS
+        isiKontenLaci = `
+            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
+                
+                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
+                    <i class="fa-solid fa-arrow-right-to-city"></i> 1. Regular Verbs (Kata Kerja Beraturan)
+                </div>
+                <p style="margin: 0 0 10px 0;">Kata kerja jenis ini berubah secara teratur dengan menambahkan akhiran <b>-d</b> atau <b>-ed</b> pada kata kerja dasar (infinitive/verb 1). Bentuk <i>verb 2</i> dan <i>verb 3</i> selalu sama.</p>
+                
+                <div style="overflow-x:auto; margin-bottom: 16px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
+                        <thead>
+                            <tr style="background:#f8fafc; border-bottom:1px solid #cbd5e1; font-weight:700; color:#475569;">
+                                <th style="padding:6px 10px; text-align:left;">Verb 1 (Base)</th>
+                                <th style="padding:6px 10px; text-align:left;">Verb 2 (Past)</th>
+                                <th style="padding:6px 10px; text-align:left;">Verb 3 (Participle)</th>
+                                <th style="padding:6px 10px; text-align:left;">Arti Indonesia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 10px; font-weight:600; color:#0f172a;">Play</td>
+                                <td style="padding:6px 10px; color:#2563eb; font-weight:600;">Played</td>
+                                <td style="padding:6px 10px; color:#16a34a; font-weight:600;">Played</td>
+                                <td style="padding:6px 10px; color:#64748b;">Bermain</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 10px; font-weight:600; color:#0f172a;">Watch</td>
+                                <td style="padding:6px 10px; color:#2563eb; font-weight:600;">Watched</td>
+                                <td style="padding:6px 10px; color:#16a34a; font-weight:600;">Watched</td>
+                                <td style="padding:6px 10px; color:#64748b;">Menonton</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 10px; font-weight:600; color:#0f172a;">Live</td>
+                                <td style="padding:6px 10px; color:#2563eb; font-weight:600;">Lived</td>
+                                <td style="padding:6px 10px; color:#16a34a; font-weight:600;">Lived</td>
+                                <td style="padding:6px 10px; color:#64748b;">Tinggal</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:6px 10px; font-weight:600; color:#0f172a;">Study</td>
+                                <td style="padding:6px 10px; color:#2563eb; font-weight:600;">Studied</td>
+                                <td style="padding:6px 10px; color:#16a34a; font-weight:600;">Studied</td>
+                                <td style="padding:6px 10px; color:#64748b;">Belajar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
+                    <i class="fa-solid fa-shuffle"></i> 2. Irregular Verbs (Kata Kerja Tidak Beraturan)
+                </div>
+                <p style="margin: 0 0 10px 0;">Kata kerja jenis ini tidak mengikuti pola penambahan <i>-d</i> atau <i>-ed</i>. Perubahannya tidak bisa ditebak secara rumus instan, sehingga bentuk <i>verb 2</i> dan <i>verb 3</i> nya harus dihafalkan secara mandiri.</p>
+                
+                <div style="background: #fffdf5; border-left: 3px solid #fbbf24; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; color: #b45309; font-weight: 500;">
+                    <i class="fa-solid fa-circle-info"></i> Daftar kosakata perubahan Irregular lengkap dapat Anda akses secara komprehensif pada menu Ensiklopedia utama.
+                </div>
+            </div>
+        `;
+
     } else if (idLower === "pos-pronoun") {
         isiKontenLaci = `
             <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
