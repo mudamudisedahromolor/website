@@ -104,79 +104,110 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                 </table>
             </div>
         `;
-    } else if (idLower === "subject-verb-agreement" || idLower === "subject-verb-aggreement") {
-        // 🎯 LOGIKA ADD-ON: BLOK KHUSUS UNTUK MATERI SUBJECT-VERB AGREEMENT
+    } else if (idLower === "subject-verb-agreement" || idLower === "subject-verb-aggreement" || idLower === "bab1-subject-verb") {
+        // 🎯 FIX SINKRONISASI: Menambahkan jaring pengaman "bab1-subject-verb" sesuai pemanggil di HTML Anda
         isiKontenLaci = `
-            <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-table-list"></i> Complete 11 Subject - Verb Agreement Rules Matrix Table
-            </div>
-            <div style="overflow-x:auto;">
-                <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
-                    <thead>
-                        <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047; font-weight:700;">
-                            <th style="padding:10px 8px; border-right:1px solid #cbd5e1; text-align:left; width:15%;">Aturan Pembuat</th>
-                            <th style="padding:10px 8px; border-right:1px solid #cbd5e1; text-align:left; width:45%;">Pedoman Keterangan Rules</th>
-                            <th style="padding:10px 8px; text-align:left; width:40%;">Contoh Konteks Penggunaan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 1</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Singular subject diiringi singular verb (+s/-es). Plural subject diiringi plural verb (tanpa -s/-es).</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Dara <b>runs</b> to the train station.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 2</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Jika noun phrase mengandung "of", kata kerja patuh pada noun <b>sebelum</b> kata "of".</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">The secrets of Nina <b>need</b> to be revealed immediately.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 3</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Singular subject yang dihubungkan dengan <i>or, either/or, neither/nor</i> wajib menggunakan singular verb.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Maybe Nanda or Ali <b>is</b> the one who did this.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 4</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Jika subjek berbeda (singular/plural) berpenghubung <i>or/nor</i>, verb mengikuti subjek terdekat.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Neither the children nor the keeper <b>enters</b> the zoo.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 5</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Dua subject tunggal yang dihubungkan oleh kata <i>and</i> wajib menggunakan plural verb.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">My girlfriend and I <b>are going</b> to marry.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 6</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Phrase tambahan (<i>along with, as well as, besides</i>) pemisah subjek tidak dihitung dalam agreement.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Mr. Mark, along with his children, <b>goes</b> to the beach.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 7</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Dalam konstruksi kalimat awalan <i>there</i> atau <i>here</i>, verb mengikuti subjek asli di belakangnya.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Here <b>is</b> a candy for you. / There <b>are</b> seven kids.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 8</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Plural subject (seperti nominal uang/jarak/waktu) dianggap singular jika konteksnya adalah satu kesatuan.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">Five thousand dollars per month <b>is</b> considered high.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 9</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Jika menggunakan determiner (<i>a lot of, all, some</i>), bentuk verb patuh pada kata benda sesudahnya.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">A lot of students <b>are coming</b>.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 10</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">Kata benda kelompok / collective noun (<i>team, family, population</i>) boleh menggunakan plural atau singular verb.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">A third of population in the world <b>is</b> (atau <b>are</b>) male.</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #cbd5e1;">
-                            <td style="padding:9px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a;">RULES 11</td>
-                            <td style="padding:9px 8px; border-right:1px solid #cbd5e1; color:#475569;">To be "were" mutlak digunakan dalam kalimat pengandaian/kontras imajinatif untuk semua bentuk subjek.</td>
-                            <td style="padding:9px 8px; font-style:italic; color:#0f172a;">I wish you <b>were</b> here with me, Dad.</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
+                
+                <h3 style="color: #b45309; font-size: 15px; font-weight: 700; margin: 0 0 8px 0;">Pengertian Subject – Verb Agreement</h3>
+                <p style="margin: 0 0 12px 0;">Kamu baru belajar bahasa Inggris di topik grammar? Udah pernah dengar yang namanya <b>subject – verb agreement</b>? Kalo belum, duduk yang manis ya, dan perhatikan pelajaran dari admin Kampung Inggris LC satu ini!</p>
+                
+                <p style="margin: 0 0 12px 0;">Saat belajar grammar, yang penting bukan cuma part of speech, part of sentence, atau parallel structure aja. <b>Subject – verb agreement</b> juga sama pentingnya saat kamu ingin mengasah kemampuanmu membuat kalimat. Jadi pastikan kamu mencatat materi satu ini dengan lengkap ya, LCers!</p>
+                
+                <p style="margin: 0 0 12px 0;"><b>Subject – verb agreement</b> adalah peraturan umum grammar yang membuat subject and verb kalimat harus saling menyesuaikan. Penyesuaian ini tidak terbatas pada penyesuaian noun/pronoun dan verb aja, tapi juga number/quantifiers dan verb.</p>
+                
+                <p style="margin: 0 0 8px 0; font-style: italic; color: #475569;">Bingung dengan definisi itu? Okedah, LCers, supaya jelas coba perhatikan contoh berikut.</p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 10px 14px; border-radius: 6px; margin: 0 0 12px 0;">
+                    <span style="font-weight: 700; color: #1d4ed8; text-transform: uppercase; font-size: 11px; display:block; margin-bottom:6px;">Example:</span>
+                    <ul style="margin: 0; padding-left: 18px; list-style-type: square;">
+                        <li style="margin-bottom: 4px;">Dara <b>runs</b> to the train station</li>
+                        <li style="margin-bottom: 4px;">My brother and I <b>are</b> best friends, we always played together when we were younger</li>
+                        <li style="margin-bottom: 0;">That child <b>chooses</b> to play alone, while the other children <b>choose</b> to play together</li>
+                    </ul>
+                </div>
+                
+                <p style="margin: 0 0 16px 0;">Sekarang coba perhatikan kata-kata yang dibold pada setiap contoh, itulah inti dari subject – verb agreement. Misalnya pada contoh pertama, subjectnya adalah Dara. Dikarenakan Dara adalah third person pronoun (setara dengan he, she, dan it), maka verb yang mengikutinya harus diberi akhiran –s, dari “run” menjadi “runs”.</p>
+                
+                <h3 style="color: #b45309; font-size: 15px; font-weight: 700; margin: 0 0 4px 0;">Subject – Verb Agreement Rules</h3>
+                <p style="margin: 0 0 12px 0;">Dalam topik subject – verb agreement, ada aturan-aturan yang bisa dijadikan pedoman menentukan bentuk subject dan verb. Aturan – aturan tersebut disebut dengan istilah <b>“Subject – verb agreement rules”</b>.</p>
+                
+                <p style="margin: 0 0 14px 0;">Sejauh ini, ada setidaknya 11 subject – verb agreement rules yang harus dipahami para pembelajar bahasa Inggris (termasuk kamu). Daftar sekaligus keterangannya ada di bawah ini:</p>
+                
+                <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
+                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px; text-align:left;">
+                        <thead>
+                            <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047; font-weight:700;">
+                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:15%;">Aturan</th>
+                                <th style="padding:10px 8px; border-right:1px solid #cbd5e1; width:45%;">Pedoman Keterangan Rules</th>
+                                <th style="padding:10px 8px; width:40%;">Contoh Konteks Penggunaan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 1</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">
+                                    Singular subject harus diiringi oleh singular verb, plural subject harus diiringi oleh plural verb.<br>
+                                    • <b>Singular subject:</b> nama orang, he, she, it, etc.<br>
+                                    • <b>Singular verb:</b> diiringi dengan akhiran –s/-es<br>
+                                    • <b>Plural subject:</b> we, they, you<br>
+                                    • <b>Plural verb:</b> tanpa diiringi akhiran –s/-es
+                                </td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Dara <b>runs</b> to the train station.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 2</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Jika ada noun phrase yang mengandung “of”, yang diakui menjadi subject dan diikuti bentuknya oleh verb adalah noun sebelum of.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">The secrets of Nina <b>need</b> to be revealed immediately, yang diakui sebagai subject dan harus diikuti oleh verb “need” adalah “the secrets”.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 3</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Singular subject yang dihubungkan dengan or, either/or, dan neither/nor menggunakan singular verb.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Maybe Nanda or Ali <b>is</b> the one who did this, but we can’t conclude the result if there isn’t any proof.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 4</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Jika dua subject yang ada di kalimat sifatnya berbeda (singular/plural), verb dalam kalimat yang memiliki or, either/or, dan neither/nor mengikuti subject terdekat.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">neither the children nor the keeper <b>enters</b> the zoo, verb “the children” adalah plural verb, dan “the keeper” adalah singular. Karena “the keeper” letaknya lebih dekat, maka verb-nya mengikuti singular verb tersebut.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 5</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Dua subject yang dihubungkan dengan and menggunakan plural verb (kecuali jika subject tersebut adalah compound noun)</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Sebagai contoh, My girlfriend and I <b>are going</b> to marry in the next month, so please come to our party.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 6</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Jika ada phrases tambahan (along with…, as well as…, besides…, not…, etc) yang memisahkan subject and verb, maka phrases tersebut tidak dianggap dalam agreement.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Mr. Mark, along with his children, <b>goes</b> to the beach now, meski pada kenyataannya Mr. Mark pergi ke pantai bersama anak-anaknya, dalam kalimat tersebut phrase “along with his children” tidak dihitung.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 7</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Dalam kalimat yang menggunakan there atau here, subject biasanya ada di belakang verb, dan bentuk verb tetap harus mengikuti subject-nya.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Here <b>is</b> a candy for you, atau There <b>are</b> seven kids waiting for you.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 8</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Singular verb bisa digunakan untuk plural subject, asal plural subject tersebut dianggap sebagai singular dalam konteks kalimat.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Contohnya begini, Five thousand dollars per month <b>is</b> considered high for a fresh graduate. Dalam konteks kalimat tersebut, “Five thousand dollars per month” adalah noun phrase yang diperlakukan sebagai singular subject.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 9</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Dalam kalimat yang menggunakan determiner a lot of, all, some, etc, verb mengikuti bentuk subject yang mendahuluinya.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Contoh kalimatnya seperti ini: a lot of student <b>is</b> coming dan a lot of students <b>are</b> coming sama benarnya.</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #cbd5e1;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fffdf5; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 10</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Dalam kalimat yang menggunakan collective noun (family, team, population, etc), bisa menggunakan plural atau singular verb.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Contoh, a third of population in the world <b>is</b> male sama benarnya dengan a third of population in the world <b>are</b> male.</td>
+                            </tr>
+                            <tr style="background:#fafafa;">
+                                <td style="padding:10px 8px; font-weight:700; background:#fefce8; border-right:1px solid #cbd5e1; color:#0f172a; vertical-align:top;">RULES 11</td>
+                                <td style="padding:10px 8px; border-right:1px solid #cbd5e1; color:#475569; vertical-align:top;">Verb to be “were” bisa digunakan dalam kalimat apa pun untuk menunjukkan kondisi kontras/pengandaian, tidak peduli subjectnya singular atau plural.</td>
+                                <td style="padding:10px 8px; font-style:italic; color:#0f172a; vertical-align:top;">Contoh, I wish you <b>were</b> here with me, Dad atau I hope today <b>were</b> Saturday, really.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         `;
     } else if (idLower === "pos-pronoun") {

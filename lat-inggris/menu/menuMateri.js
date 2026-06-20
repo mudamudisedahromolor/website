@@ -53,7 +53,6 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let boxVisualMateri = document.getElementById("box-media-materi");
     let boxRumusAktif = document.getElementById("box-txt-rumus-aktif");
-    let boxRumusPasif = document.getElementById("box-txt-rumus-pasif");
     let boxPembahasan = document.getElementById("box-txt-pembahasan");
     let btnVideo = document.getElementById("mms-btn-buka-video");
 
@@ -62,7 +61,9 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
     let elementBoxTipsUtama = document.getElementById("wrapper-box-tips-pintar");
     let panelTipsTabel = document.getElementById('panel-tips-tabel');
 
+    // Bersihkan string parameter untuk pencarian longgar
     let idLower = subMateriKolomD.toLowerCase().trim();
+    let idLowerClean = idLower.replace(/[^a-z0-9]/g, ""); // Menghilangkan tanda strip (-) agar toleran
 
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         if (elementBoxAktifUtama) elementBoxAktifUtama.style.display = "none";  
@@ -83,43 +84,41 @@ export function tampilkanMateriSpesifik(namaMateriKolomC, subMateriKolomD) {
 
     let judulTense = document.getElementById("lbl-judul-tense-aktif");
 
-    // 🎯 RECOVERY JALUR SEARCH 1: Pencarian string ketat (Materi & Sub-Materi)
+    // 🎯 PERBAIKAN SEARCH ENGINE MAPPING (GARANSI ANTI-FREEZE)
+    // Jalur 1: Cari langsung berdasarkan kecocokan mutlak Kolom D (Sub-Materi) tanpa peduli spasi/strip
     let dataCocok = state.bankMateri.find(m => {
-        let matSheet = (m.materi || "").toLowerCase().trim();
-        let subSheet = (m.subMateri || "").toLowerCase().trim();
-        return matSheet === namaMateriKolomC.toLowerCase().trim() && subSheet === subMateriKolomD.toLowerCase().trim();
+        let subSheetClean = (m.subMateri || "").toLowerCase().trim().replace(/[^a-z0-9]/g, "");
+        return subSheetClean === idLowerClean;
     });
 
-    // 🎯 RECOVERY JALUR SEARCH 2: Pencarian longgar (Hanya Sub-Materi murni)
+    // Jalur 2: Fallback jika jalur 1 tidak ketemu, cari kecocokan berbasis kata kunci di Kolom C
     if (!dataCocok) {
-        dataCocok = state.bankMateri.find(m => (m.subMateri || "").toLowerCase().trim() === idLower);
-    }
-
-    // 🎯 RECOVERY JALUR SEARCH 3: Pencarian toleran (Menggunakan pencarian kata kunci parsial / includes)
-    if (!dataCocok) {
-        dataCocok = state.bankMateri.find(m => (m.subMateri || "").toLowerCase().trim().includes(idLower) || idLower.includes((m.subMateri || "").toLowerCase().trim()));
+        dataCocok = state.bankMateri.find(m => {
+            let matSheet = (m.materi || "").toLowerCase().trim();
+            return matSheet === namaMateriKolomC.toLowerCase().trim();
+        });
     }
 
     let laciCustomLama = document.getElementById("mms-laci-tutup-sembunyi-bab14");
     if (laciCustomLama) laciCustomLama.remove();
 
-    // JARING PENGAMAN MUTLAK: Jika data dari Sheets benar-benar tidak ditemukan, paksa modal terbuka dan beri pesan informasi
+    // Jaring pengaman darurat jika data di Sheets benar-benar tidak sinkron
     if (!dataCocok) {
         if (judulTense) judulTense.innerHTML = `Modul: <b>${namaMateriKolomC}</b>`;
-        if (boxRumusAktif) boxRumusAktif.innerText = "Data Kosong / Belum Sinkron";
-        if (boxPembahasan) boxPembahasan.innerText = `Pencarian kata kunci '${subMateriKolomD}' gagal. Silakan pastikan data baris di Google Sheets Anda pada Kolom D (Sub-Materi) sudah diketik dengan benar dan sesuai.`;
+        if (boxRumusAktif) boxRumusAktif.innerText = "Data Belum Sinkron";
+        if (boxPembahasan) boxPembahasan.innerText = `Pencarian modul '${subMateriKolomD}' gagal. Hubungan mapping Google Sheets terputus.`;
         document.getElementById("materi-pembahasan-box").style.display = "flex";
         return;
     }
 
-    // Alihkan ke penanganan sub-modul materi masing-masing jika data sukses ditemukan
+    // Alihkan penanganan ke file materi masing-masing
     if (!idLower.startsWith("pasif-") && !idLower.startsWith("aktif-")) {
         prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok);
     } else {
         prosesMateriTenses(namaMateriKolomC, subMateriKolomD, idLower, dataCocok);
     }
     
-    // GARANSI: Pastikan modal card pembungkus utama selalu diubah menjadi flex agar tampil ke user
+    // Pastikan jendela popup modal Layer 5 dipaksa terbuka ke layar
     document.getElementById("materi-pembahasan-box").style.display = "flex";
 }
 
