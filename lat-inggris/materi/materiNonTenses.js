@@ -107,16 +107,6 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
     } else if (idLower === "subject verb agreement" || idLower === "subject-verb-aggreement" || idLower === "bab1-subject-verb") {
         // 🎯 FIX SINKRONISASI: Menambahkan jaring pengaman "bab1-subject-verb" sesuai pemanggil di HTML Anda
         isiKontenLaci = `
-            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
-                
-                <h3 style="color: #b45309; font-size: 15px; font-weight: 700; margin: 0 0 8px 0;">Pengertian Subject – Verb Agreement</h3>
-                <p style="margin: 0 0 12px 0;">Kamu baru belajar bahasa Inggris di topik grammar? Udah pernah dengar yang namanya <b>subject – verb agreement</b>? Kalo belum, duduk yang manis ya, dan perhatikan pelajaran dari admin Kampung Inggris LC satu ini!</p>
-                
-                <p style="margin: 0 0 12px 0;">Saat belajar grammar, yang penting bukan cuma part of speech, part of sentence, atau parallel structure aja. <b>Subject – verb agreement</b> juga sama pentingnya saat kamu ingin mengasah kemampuanmu membuat kalimat. Jadi pastikan kamu mencatat materi satu ini dengan lengkap ya, LCers!</p>
-                
-                <p style="margin: 0 0 12px 0;"><b>Subject – verb agreement</b> adalah peraturan umum grammar yang membuat subject and verb kalimat harus saling menyesuaikan. Penyesuaian ini tidak terbatas pada penyesuaian noun/pronoun dan verb aja, tapi juga number/quantifiers dan verb.</p>
-                
-                <p style="margin: 0 0 8px 0; font-style: italic; color: #475569;">Bingung dengan definisi itu? Okedah, LCers, supaya jelas coba perhatikan contoh berikut.</p>
                 
                 <div style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 10px 14px; border-radius: 6px; margin: 0 0 12px 0;">
                     <span style="font-weight: 700; color: #1d4ed8; text-transform: uppercase; font-size: 11px; display:block; margin-bottom:6px;">Example:</span>
