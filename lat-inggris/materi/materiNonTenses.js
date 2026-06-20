@@ -947,7 +947,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             `;
         }
 
-            } else if (idLower === "conditional-sentences" || idLower === "adv-modals" || idLower === "modals-auxiliaries" || idLower === "articles") {
+            } else if (idLower === "conditional-sentences" || idLower === "adv-modals" || idLower === "modals-auxiliaries" || idLower === "articles" || idLower === "adv-articles" || idLower.includes("artic") || subMateriKolomD.toLowerCase().includes("artic")) {
         // 🎯 ADD-ON KONTEN: CONDITIONAL SENTENCES, MODALS, & ARTICLES
         if (idLower === "conditional-sentences") {
             isiKontenLaci = `
