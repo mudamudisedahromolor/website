@@ -977,6 +977,40 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
         }
         // --- END OF INTERCEPT MODIFICATION ---
 
+if (idLower === "conditional-sentences" || idLower === "gerunds-infinitives") {
+            statusLaciAwal = "block"; 
+            headerLabelLaci = `Tabel Formula &amp; Framework Advanced Bab 4:`;
+            
+            if (idLower === "conditional-sentences") teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Rumus Conditionals`;
+            if (idLower === "gerunds-infinitives") teksTombolKustom = `<i class="fa-solid fa-eye-slash"></i> Sembunyikan Komparasi Gerunds`;
+
+            let panelContohKuning = document.getElementById('panel-aktif-contoh');
+            if (panelContohKuning) panelContohKuning.style.display = "none";
+
+            let infoBoxItemHijau = boxPembahasan ? boxPembahasan.closest('.info-box-item') : null;
+            if (infoBoxItemHijau) infoBoxItemHijau.style.display = "block";
+
+            let infoBoxItemBiru = boxSilabus ? boxSilabus.closest('.info-box-item') : null;
+            if (infoBoxItemBiru) infoBoxItemBiru.style.display = "none";
+        }
+
+
+        let htmlLaciSembunyi = `
+            <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
+                <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-lightbulb"></i> ${headerLabelLaci}
+                </div>
+                <button class="mms-toggle-trigger-btn" style="border-color: #eab308; color: #b45309; background: #fff; margin-top: 4px; width: 100%; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.15s ease;" 
+                    onclick="let laci = document.getElementById('mms-panel-laci-bab14'); laci.style.display = (laci.style.display === 'none' || laci.style.display === '') ? 'block' : 'none';">
+                    ${teksTombolKustom}
+                </button>
+                <div id="mms-panel-laci-bab14" style="display: ${statusLaciAwal}; margin-top: 10px; background: #fffdf5; padding: 4px; border-radius: 6px;">
+                    ${isiKontenLaci}
+                </div>
+            </div>
+        `;
+
+
         let htmlLaciSembunyi = `
             <div id="mms-laci-tutup-sembunyi-bab14" class="info-box-item" style="border-left: 4px solid #eab308; background: #fffdf5; padding: 14px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-top: 14px;">
                 <div class="info-box-header" style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
