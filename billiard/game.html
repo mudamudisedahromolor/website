@@ -2163,6 +2163,52 @@ if (isMatchFinished) {
       if (data.type === "aim_update") {
         if (localPlayer && Number(data.player_id) === Number(localPlayer.id)) return;
 
+        if (data.aim && data.aim.ball_in_hand_move) {
+          let cueBall = localBalls.find(ball => Number(ball.number) === 0);
+
+          if (!cueBall) {
+            cueBall = {
+              id: 0,
+              number: 0,
+              type: "cue",
+              color: "#ffffff",
+              x: Number(data.aim.cue_x || 220),
+              y: Number(data.aim.cue_y || 250),
+              vx: 0,
+              vy: 0,
+              pocketed: false
+            };
+
+            localBalls.unshift(cueBall);
+          }
+
+          cueBall.x = Number(Number(data.aim.cue_x).toFixed(2));
+          cueBall.y = Number(Number(data.aim.cue_y).toFixed(2));
+          cueBall.vx = 0;
+          cueBall.vy = 0;
+          cueBall.pocketed = false;
+
+          // Supaya polling loadMatch berikutnya tidak langsung mengembalikan
+          // bola putih ke posisi lama sebelum DB selesai tersinkron.
+          if (matchData && matchData.state && Array.isArray(matchData.state.balls)) {
+            const stateCueBall = matchData.state.balls.find(ball => Number(ball.number) === 0);
+
+            if (stateCueBall) {
+              stateCueBall.x = cueBall.x;
+              stateCueBall.y = cueBall.y;
+              stateCueBall.vx = 0;
+              stateCueBall.vy = 0;
+              stateCueBall.pocketed = false;
+            }
+          }
+
+          remoteAim = null;
+
+          draw();
+          updateUI();
+          return;
+        }
+
         remoteAim = data;
         draw();
         updateUI();
@@ -2309,10 +2355,24 @@ if (isMatchFinished) {
   if (!cueBall) return;
   if (!isBallInHandModeForMe()) return;
 
+  const now = Date.now();
+
+  // Pakai jalur aim_update karena type ini sudah pasti dibroadcast
+  // oleh realtime server yang dipakai game.
+  if (now - lastAimSendAt < 45) return;
+
+  lastAimSendAt = now;
+
   sendRealtime({
-    type: "ball_in_hand_move",
-    x: Number(Number(cueBall.x).toFixed(2)),
-    y: Number(Number(cueBall.y).toFixed(2))
+    type: "aim_update",
+    aim: {
+      ball_in_hand_move: true,
+      cue_x: Number(Number(cueBall.x).toFixed(2)),
+      cue_y: Number(Number(cueBall.y).toFixed(2)),
+      pointer_x: Number(Number(cueBall.x).toFixed(2)),
+      pointer_y: Number(Number(cueBall.y).toFixed(2))
+    },
+    power: 0
   });
 }
 
