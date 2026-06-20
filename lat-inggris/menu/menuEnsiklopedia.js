@@ -4,6 +4,632 @@
  * 📚 FUNGSI 1: MEMUAT DATA ENSIKLOPEDIA LANGSUNG DARI GOOGLE SHEETS
  * Silakan panggil fungsi ini saat inisialisasi halaman ensiklopedia dibuka.
  */
+const URL_KAMUS =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=1105081437&single=true&output=tsv";
+const URL_VERB =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTZdYtu7UisJXOIJIuQm8HzN1j-4aRCBzJ2BqTmRkXvzg42QV4jLVpj0tQkQIZmv5l7BsLl4QtXGJKr/pub?gid=2080922932&single=true&output=tsv";
+
+export function bukaEnsiklopediaMenu() {
+    let modal = document.getElementById("mms-modal-ensiklopedia");
+
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "mms-modal-ensiklopedia";
+        modal.style.cssText = "position:fixed; inset:0; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); z-index:9999; display:none; align-items:center; justify-content:center; padding:22px; box-sizing:border-box;";
+       
+      if (!document.getElementById("mms-ensiklopedia-anim-style")) {
+    const style = document.createElement("style");
+    style.id = "mms-ensiklopedia-anim-style";
+    style.innerHTML = `
+        @keyframes mmsPopBounce {
+            0% { transform: scale(0.94); opacity: 0; }
+            55% { transform: scale(1.04); opacity: 1; }
+            75% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+
+        .mms-ensiklopedia-card-anim {
+            animation: mmsPopBounce 0.42s cubic-bezier(.2,.9,.25,1.25);
+        }
+
+        .mms-ensiklopedia-choice {
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+        }
+
+        .mms-ensiklopedia-choice:hover {
+            transform: translateY(-3px) scale(1.015);
+            filter: brightness(1.02);
+        }
+
+        .mms-ensiklopedia-choice:active {
+            transform: scale(0.96);
+        }
+    `;
+    document.head.appendChild(style);
+}
+      
+        modal.innerHTML = `
+    <div class="mms-ensiklopedia-card-anim" style="width:min(520px, 100%); background:#ffffff; border-radius:22px; padding:24px; box-shadow:0 18px 45px rgba(15,23,42,0.28); box-sizing:border-box; position:relative;">
+        <button onclick="tutupEnsiklopediaMenu()" style="position:absolute; top:16px; right:16px; width:42px; height:42px; border:none; border-radius:50%; background:#f1f5f9; color:#64748b; font-size:20px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px; padding-right:48px;">
+            <div style="width:64px; height:64px; border-radius:50%; background:#10b981; color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:28px; box-shadow:0 12px 24px rgba(16,185,129,0.24);">
+                <i class="fa-solid fa-book-atlas"></i>
+            </div>
+            <div>
+                <div style="font-size:22px; font-weight:900; color:#0f172a;">Ensiklopedia</div>
+                <div style="font-size:13px; font-weight:700; color:#64748b;">Pilih database referensi bahasa Inggris</div>
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr; gap:12px;">
+            <button class="mms-ensiklopedia-choice" onclick="mmsBukaFiturEnsiklopedia('kamus')" style="width:100%; border:2px solid #10b981; background:linear-gradient(135deg,#d1fae5,#ecfdf5); color:#047857; border-radius:16px; padding:16px; cursor:pointer; text-align:left; display:flex; align-items:center; gap:14px; box-sizing:border-box; box-shadow:0 10px 22px rgba(16,185,129,0.18);">
+                <div style="width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#10b981,#059669); color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:20px;">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div>
+                    <div style="font-size:16px; font-weight:900; color:#0f172a;">Kamus / Vocabulary</div>
+                    <div style="font-size:12.5px; font-weight:600; color:#475569;">Daftar kosakata, arti, dan contoh konteks.</div>
+                </div>
+            </button>
+
+            <button class="mms-ensiklopedia-choice" onclick="mmsBukaFiturEnsiklopedia('verb')" style="width:100%; border:2px solid #fed7aa; background:#fff7ed; border-radius:16px; padding:16px; cursor:pointer; text-align:left; display:flex; align-items:center; gap:14px;">
+                <div style="width:44px; height:44px; border-radius:12px; background:#ffedd5; color:#c2410c; display:flex; align-items:center; justify-content:center; font-size:20px;">
+                    <i class="fa-solid fa-shuffle"></i>
+                </div>
+                <div>
+                    <div style="font-size:16px; font-weight:900; color:#0f172a;">Bentuk Verb</div>
+                    <div style="font-size:12.5px; font-weight:600; color:#475569;">Referensi Verb 1, Verb 2, Verb 3, V-ing, dan arti.</div>
+                </div>
+            </button>
+        </div>
+    </div>
+`;
+        document.body.appendChild(modal);
+    }
+
+    modal.style.display = "flex";
+}
+
+export function tutupEnsiklopediaMenu() {
+    const modal = document.getElementById("mms-modal-ensiklopedia");
+    if (modal) modal.style.display = "none";
+}
+
+export function mmsBukaFiturEnsiklopedia(tipe) {
+    tutupEnsiklopediaMenu();
+
+    if (tipe === "kamus") {
+        bukaModalKamus();
+        return;
+    }
+
+    if (tipe === "verb") {
+        bukaModalVerb();
+        return;
+    }
+
+    let judul = "ENSIKLOPEDIA";
+    let modalDev = document.getElementById("mms-modal-dev");
+    let labelDev = document.getElementById("mms-lbl-dev-title");
+
+    if (labelDev) labelDev.innerText = judul;
+    if (modalDev) modalDev.style.display = "flex";
+}
+
+export async function bukaModalKamus() {
+    let modal = document.getElementById("mms-modal-kamus");
+
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "mms-modal-kamus";
+        modal.style.cssText = "position:fixed; inset:0; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); z-index:10000; display:none; align-items:center; justify-content:center; padding:18px; box-sizing:border-box;";
+
+        
+        modal.innerHTML = `
+            <div style="width:min(900px, 100%); max-height:88vh; background:#ffffff; border-radius:22px; box-shadow:0 18px 45px rgba(15,23,42,0.28); overflow:hidden; display:flex; flex-direction:column;">
+               <div style="padding:18px 20px; border-bottom:1px solid #d1fae5; background:#ecfdf5; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:44px; height:44px; border-radius:14px; color:#10b981; color:#059669; display:flex; align-items:center; justify-content:center; font-size:20px;">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+                        <div>
+                            <div style="font-size:20px; font-weight:900; color:#0f172a;">Kamus / Vocabulary</div>
+                            <div style="font-size:12.5px; font-weight:600; color:#64748b;">Data kosakata dari Google Sheet</div>
+                        </div>
+                    </div>
+
+                    <button onclick="tutupModalKamus()" style="width:40px; height:40px; border:none; border-radius:50%; background:#f1f5f9; color:#64748b; font-size:18px; cursor:pointer;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div style="padding:14px 20px; border-bottom:1px solid #e2e8f0;">
+    <input id="mms-search-kamus" oninput="filterKamusData()" placeholder="Cari kata, arti, pengucapan, atau abjad..." style="width:100%; padding:12px 14px; border:1px solid #cbd5e1; border-radius:12px; font-size:13px; box-sizing:border-box; outline:none; margin-bottom:10px;">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <select id="mms-filter-kategori" onchange="filterKamusData()" style="width:100%; padding:12px 10px; border:1px solid #cbd5e1; border-radius:12px; font-size:13px; box-sizing:border-box; outline:none; background:#fff;">
+            <option value="">Semua Kategori</option>
+        </select>
+
+        <select id="mms-filter-level" onchange="filterKamusData()" style="width:100%; padding:12px 10px; border:1px solid #cbd5e1; border-radius:12px; font-size:13px; box-sizing:border-box; outline:none; background:#fff;">
+            <option value="">Semua Level</option>
+        </select>
+    </div>
+</div>
+
+<div style="font-size:11px; color:#64748b; padding:8px 20px 0 20px; display:flex; align-items:center; gap:6px;">
+
+    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+
+    <span>Geser tabel untuk melihat kolom lain.</span>
+
+</div>
+
+                <div style="overflow:auto; padding:0 12px 20px 12px;">
+                    <table style="width:100%; border-collapse:collapse; font-size:13px; min-width:900px;">
+                        <thead>
+                            <tr style="background:#ecfdf5; color:#0f172a; border-bottom:2px solid #a7f3d0;">
+                            <th style="padding:12px 10px; text-align:left; width:70px;">Abjad</th>
+                            <th style="padding:12px 10px; text-align:left; width:170px;">Indonesia</th>
+                            <th style="padding:12px 10px; text-align:left; width:170px;">Inggris</th>
+                            <th style="padding:12px 10px; text-align:left; width:180px;">Pengucapan</th>
+                            <th style="padding:12px 10px; text-align:center; width:90px;">Audio</th>
+                            <th style="padding:12px 10px; text-align:center; width:120px;">Kategori</th>
+                            <th style="padding:12px 10px; text-align:center; width:120px;">Level</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-kamus-data">
+                            <tr>
+                                <td colspan="7" style="padding:18px; text-align:center; color:#64748b;">Memuat data kamus...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+    }
+
+    modal.style.display = "flex";
+    await loadKamusFromTSV();
+}
+
+
+
+export function tutupModalKamus() {
+    const modal = document.getElementById("mms-modal-kamus");
+    if (modal) modal.style.display = "none";
+}
+
+export async function loadKamusFromTSV() {
+    const tbody = document.getElementById("tbody-kamus-data");
+    if (!tbody) return;
+
+    try {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" style="padding:18px; text-align:center; color:#64748b;">Memuat data kamus...</td>
+            </tr>
+        `;
+
+        const response = await fetch(URL_KAMUS);
+        const text = await response.text();
+
+        const rows = text
+            .trim()
+            .split("\n")
+            .map(row => row.split("\t"));
+
+        const dataRows = rows.slice(1);
+
+        if (!dataRows.length) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="padding:18px; text-align:center; color:#64748b;">Data kamus masih kosong.</td>
+                </tr>
+            `;
+            return;
+        }
+
+        let abjadTerakhir = "";
+
+tbody.innerHTML = dataRows.map(cols => {
+    const abjadRaw = cols[0] || "";
+    const abjad = escapeHTML(abjadRaw);
+    const indonesia = escapeHTML(cols[1] || "");
+    const inggris = escapeHTML(cols[2] || "");
+    const pengucapan = escapeHTML(cols[3] || "");
+    const kategori = escapeHTML(cols[4] || "");
+    const level = escapeHTML(cols[5] || "");
+
+    const tampilAbjad = abjadRaw !== abjadTerakhir ? abjad : "";
+    abjadTerakhir = abjadRaw;
+
+    return `
+        <tr class="mms-row-kamus" data-kategori="${kategori.toLowerCase()}" data-level="${level.toLowerCase()}" style="border-bottom:1px solid #e2e8f0;">
+            <td style="padding:11px 10px; font-weight:900; color:#1d4ed8;">${tampilAbjad}</td>
+            <td style="padding:11px 10px; color:#334155;">${indonesia}</td>
+            <td style="padding:11px 10px; font-weight:800; color:#0f172a;">${inggris}</td>
+            <td style="padding:11px 10px; color:#475569; font-style:italic;">${pengucapan}</td>
+            <td style="padding:11px 10px; text-align:center;">
+                <button onclick="mmsPlayPronunciation('${escapeAttr(cols[2] || "")}')" style="width:34px; height:34px; border:none; border-radius:10px; background:#ecfdf5; color:#059669; cursor:pointer;">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            </td>
+            <td style="padding:11px 10px;"><span style="background:#f1f5f9; color:#475569; padding:4px 8px; border-radius:8px; font-size:11px; font-weight:700;">${kategori}</span></td>
+            <td style="padding:11px 10px;"><span style="background:#ecfeff; color:#0f766e; padding:4px 8px; border-radius:8px; font-size:11px; font-weight:700;">${level}</span></td>
+        </tr>
+    `;
+}).join("");
+
+isiFilterKamus();
+
+    } catch (error) {
+        console.error("Gagal memuat data Kamus:", error);
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" style="padding:18px; text-align:center; color:#dc2626;">Gagal memuat data kamus.</td>
+            </tr>
+        `;
+    }
+}
+
+export async function bukaModalVerb() {
+    let modal = document.getElementById("mms-modal-verb");
+
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "mms-modal-verb";
+        modal.style.cssText = "position:fixed; inset:0; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); z-index:10000; display:none; align-items:center; justify-content:center; padding:18px; box-sizing:border-box;";
+
+        modal.innerHTML = `
+            <div style="width:min(1100px, 100%); max-height:88vh; background:#ffffff; border-radius:22px; box-shadow:0 18px 45px rgba(15,23,42,0.28); overflow:hidden; display:flex; flex-direction:column;">
+                <div style="padding:18px 20px; border-bottom:1px solid #fed7aa; background:linear-gradient(135deg,#fff7ed,#fffbeb); display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:52px; height:52px; border-radius:16px; background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px;">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </div>
+                        <div>
+                            <div style="font-size:20px; font-weight:900; color:#0f172a;">Bentuk Verb</div>
+                            <div style="font-size:12.5px; font-weight:600; color:#92400e;">Referensi perubahan kata kerja</div>
+                        </div>
+                    </div>
+
+                    <button onclick="tutupModalVerb()" style="width:40px; height:40px; border:none; border-radius:50%; background:#fff7ed; color:#92400e; font-size:18px; cursor:pointer;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div style="padding:14px 20px; border-bottom:1px solid #e2e8f0;">
+                    <input id="mms-search-verb" oninput="filterVerbData()" placeholder="Cari V1, V2, V3, V-ing, arti, tipe, atau level..." style="width:100%; padding:12px 14px; border:1px solid #cbd5e1; border-radius:12px; font-size:13px; box-sizing:border-box; outline:none; margin-bottom:10px;">
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <select id="mms-filter-verb-tipe" onchange="filterVerbData()" style="width:100%; padding:12px 10px; border:1px solid #cbd5e1; border-radius:12px; font-size:13px; box-sizing:border-box; outline:none; background:#fff;">
+                            <option value="">Semua Tipe</option>
+                        </select>
+
+                        <select id="mms-filter-verb-level" onchange="filterVerbData()" style="width:100%; padding:12px 10px; border:1px solid #cbd5e1; border-radius:12px; font-size:13px; box-sizing:border-box; outline:none; background:#fff;">
+                            <option value="">Semua Level</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="font-size:11px; color:#64748b; padding:8px 20px 0 20px; display:flex; align-items:center; gap:6px;">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    <span>Geser tabel untuk melihat kolom lain.</span>
+                </div>
+
+                <div style="overflow:auto; padding:0 12px 20px 12px;">
+                    <table style="width:100%; border-collapse:collapse; font-size:13px; min-width:700px;">
+                        <thead>
+                            <tr style="background:#fff7ed; color:#0f172a; border-bottom:2px solid #fed7aa;">
+                                <th style="padding:12px 10px; text-align:left;">V1</th>
+                                <th style="padding:12px 10px; text-align:left;">V2</th>
+                                <th style="padding:12px 10px; text-align:left;">V3</th>
+                                <th style="padding:12px 10px; text-align:left;">V-ing</th>
+                                <th style="padding:12px 10px; text-align:left;">Arti</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-verb-data">
+                            <tr>
+                                <td colspan="5" style="padding:18px; text-align:center; color:#64748b;">Memuat data verb...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+    }
+
+    modal.style.display = "flex";
+    await loadVerbFromTSV();
+}
+
+export function tutupModalVerb() {
+    const modal = document.getElementById("mms-modal-verb");
+    if (modal) modal.style.display = "none";
+}
+
+export async function loadVerbFromTSV() {
+    const tbody = document.getElementById("tbody-verb-data");
+    if (!tbody) return;
+
+    try {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" style="padding:18px; text-align:center; color:#64748b;">Memuat data verb...</td>
+            </tr>
+        `;
+
+        const response = await fetch(URL_VERB);
+        const text = await response.text();
+
+        const rows = text
+            .trim()
+            .split("\n")
+            .map(row => row.split("\t"));
+
+        const dataRows = rows.slice(1);
+
+        if (!dataRows.length) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="padding:18px; text-align:center; color:#64748b;">Data verb masih kosong.</td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = dataRows.map(cols => {
+            const v1 = escapeHTML(cols[0] || "");
+            const v2 = escapeHTML(cols[1] || "");
+            const v3 = escapeHTML(cols[2] || "");
+            const ving = escapeHTML(cols[3] || "");
+            const arti = escapeHTML(cols[4] || "");
+            const tipe = escapeHTML(cols[5] || "");
+            const level = escapeHTML(cols[6] || "");
+
+            const tipeLower = (cols[5] || "").toLowerCase();
+            const tipeStyle = tipeLower.includes("irregular")
+                ? "background:#fff1f2; color:#991b1b;"
+                : "background:#ecfdf5; color:#047857;";
+
+            return `
+                <tr
+    class="mms-row-verb"
+    data-v1="${v1}"
+    data-v2="${v2}"
+    data-v3="${v3}"
+    data-ving="${ving}"
+    data-arti="${arti}"
+    data-tipe="${tipe.toLowerCase()}"
+    data-tipe-label="${tipe}"
+    data-level="${level.toLowerCase()}"
+    data-level-label="${level}"
+    onclick="bukaDetailVerb(this)"
+    style="border-bottom:1px solid #e2e8f0; cursor:pointer;"
+>
+    <td style="padding:11px 10px; font-weight:900; color:#2563eb;">${v1}</td>
+    <td style="padding:11px 10px; font-weight:800; color:#ea580c;">${v2}</td>
+    <td style="padding:11px 10px; font-weight:800; color:#16a34a;">${v3}</td>
+    <td style="padding:11px 10px; font-weight:800; color:#7c3aed;">${ving}</td>
+    <td style="padding:11px 10px; color:#334155;">${arti}</td>
+</tr>
+            `;
+        }).join("");
+
+        isiFilterVerb();
+
+    } catch (error) {
+        console.error("Gagal memuat data Verb:", error);
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" style="padding:18px; text-align:center; color:#dc2626;">Gagal memuat data verb.</td>
+            </tr>
+        `;
+    }
+}
+
+
+export function filterVerbData() {
+    const input = document.getElementById("mms-search-verb");
+    const filterTipe = document.getElementById("mms-filter-verb-tipe");
+    const filterLevel = document.getElementById("mms-filter-verb-level");
+
+    const keyword = (input?.value || "").toLowerCase().trim();
+    const tipeDipilih = (filterTipe?.value || "").toLowerCase().trim();
+    const levelDipilih = (filterLevel?.value || "").toLowerCase().trim();
+
+    document.querySelectorAll(".mms-row-verb").forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const tipe = row.dataset.tipe || "";
+        const level = row.dataset.level || "";
+
+        const cocokKeyword = text.includes(keyword);
+        const cocokTipe = !tipeDipilih || tipe === tipeDipilih;
+        const cocokLevel = !levelDipilih || level === levelDipilih;
+
+        row.style.display = cocokKeyword && cocokTipe && cocokLevel ? "" : "none";
+    });
+}
+
+export function isiFilterVerb() {
+    const tipeSelect = document.getElementById("mms-filter-verb-tipe");
+    const levelSelect = document.getElementById("mms-filter-verb-level");
+
+    if (!tipeSelect || !levelSelect) return;
+
+    const tipeSet = new Set();
+    const levelSet = new Set();
+
+    document.querySelectorAll(".mms-row-verb").forEach(row => {
+        if (row.dataset.tipe) tipeSet.add(row.dataset.tipe);
+        if (row.dataset.level) levelSet.add(row.dataset.level);
+    });
+
+    tipeSelect.innerHTML = `<option value="">Semua Tipe</option>`;
+    levelSelect.innerHTML = `<option value="">Semua Level</option>`;
+
+    [...tipeSet].sort().forEach(tipe => {
+        tipeSelect.innerHTML += `<option value="${tipe}">${kapitalAwal(tipe)}</option>`;
+    });
+
+    [...levelSet].sort().forEach(level => {
+        levelSelect.innerHTML += `<option value="${level}">${kapitalAwal(level)}</option>`;
+    });
+}
+
+
+export function bukaDetailVerb(row) {
+    const v1 = row.dataset.v1 || "-";
+    const v2 = row.dataset.v2 || "-";
+    const v3 = row.dataset.v3 || "-";
+    const ving = row.dataset.ving || "-";
+    const arti = row.dataset.arti || "-";
+    const tipe = row.dataset.tipeLabel || "-";
+    const level = row.dataset.levelLabel || "-";
+
+    bukaModalDetailVerb(v1, v2, v3, ving, arti, tipe, level);
+}
+
+export function bukaModalDetailVerb(v1, v2, v3, ving, arti, tipe, level) {
+    let modal = document.getElementById("mms-modal-detail-verb");
+
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "mms-modal-detail-verb";
+        modal.style.cssText = "position:fixed; inset:0; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); z-index:11000; display:none; align-items:center; justify-content:center; padding:18px; box-sizing:border-box;";
+        document.body.appendChild(modal);
+    }
+
+    modal.innerHTML = `
+        <div style="width:min(420px,100%); background:#ffffff; border-radius:22px; overflow:hidden; box-shadow:0 18px 45px rgba(15,23,42,0.28);">
+            <div style="padding:18px 20px; background:linear-gradient(135deg,#fff7ed,#fffbeb); border-bottom:1px solid #fed7aa; display:flex; align-items:center; justify-content:space-between;">
+                <div>
+                    <div style="font-size:20px; font-weight:900; color:#0f172a;">Detail Verb</div>
+                    <div style="font-size:13px; font-weight:700; color:#92400e;">${v1} / ${v2} / ${v3}</div>
+                </div>
+                <button onclick="tutupModalDetailVerb()" style="width:38px; height:38px; border:none; border-radius:50%; background:#fff7ed; color:#92400e; font-size:18px; cursor:pointer;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div style="padding:18px 20px; display:grid; gap:10px; font-size:14px;">
+                <div><b style="color:#2563eb;">V1</b> : ${v1}</div>
+                <div><b style="color:#ea580c;">V2</b> : ${v2}</div>
+                <div><b style="color:#16a34a;">V3</b> : ${v3}</div>
+                <div><b style="color:#7c3aed;">V-ing</b> : ${ving}</div>
+
+                <div style="height:1px; background:#e2e8f0; margin:4px 0;"></div>
+
+                <div><b>Arti</b> : ${arti}</div>
+                <div><b>Tipe</b> : ${tipe}</div>
+                <div><b>Level</b> : ${level}</div>
+            </div>
+        </div>
+    `;
+
+    modal.style.display = "flex";
+}
+
+export function tutupModalDetailVerb() {
+    const modal = document.getElementById("mms-modal-detail-verb");
+    if (modal) modal.style.display = "none";
+}
+
+export function filterKamusData() {
+    const input = document.getElementById("mms-search-kamus");
+    const filterKategori = document.getElementById("mms-filter-kategori");
+    const filterLevel = document.getElementById("mms-filter-level");
+
+    const keyword = (input?.value || "").toLowerCase().trim();
+    const kategoriDipilih = (filterKategori?.value || "").toLowerCase().trim();
+    const levelDipilih = (filterLevel?.value || "").toLowerCase().trim();
+
+    document.querySelectorAll(".mms-row-kamus").forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const kategori = row.dataset.kategori || "";
+        const level = row.dataset.level || "";
+
+        const cocokKeyword = text.includes(keyword);
+        const cocokKategori = !kategoriDipilih || kategori === kategoriDipilih;
+        const cocokLevel = !levelDipilih || level === levelDipilih;
+
+        row.style.display = cocokKeyword && cocokKategori && cocokLevel ? "" : "none";
+    });
+}
+
+export function isiFilterKamus() {
+    const kategoriSelect = document.getElementById("mms-filter-kategori");
+    const levelSelect = document.getElementById("mms-filter-level");
+
+    if (!kategoriSelect || !levelSelect) return;
+
+    const kategoriSet = new Set();
+    const levelSet = new Set();
+
+    document.querySelectorAll(".mms-row-kamus").forEach(row => {
+        if (row.dataset.kategori) kategoriSet.add(row.dataset.kategori);
+        if (row.dataset.level) levelSet.add(row.dataset.level);
+    });
+
+    kategoriSelect.innerHTML = `<option value="">Semua Kategori</option>`;
+    levelSelect.innerHTML = `<option value="">Semua Level</option>`;
+
+    [...kategoriSet].sort().forEach(kategori => {
+        kategoriSelect.innerHTML += `<option value="${kategori}">${kapitalAwal(kategori)}</option>`;
+    });
+
+    [...levelSet].sort().forEach(level => {
+        levelSelect.innerHTML += `<option value="${level}">${kapitalAwal(level)}</option>`;
+    });
+}
+
+function kapitalAwal(text) {
+    return String(text)
+        .split(" ")
+        .map(kata => kata.charAt(0).toUpperCase() + kata.slice(1))
+        .join(" ");
+}
+
+export function mmsPlayPronunciation(word) {
+    if (!word) return;
+
+    if (!window.speechSynthesis) {
+        alert("Browser tidak mendukung audio pronunciation.");
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-US";
+    utterance.rate = 0.85;
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+}
+
+function escapeHTML(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function escapeAttr(value) {
+    return String(value)
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'")
+        .replaceAll('"', "&quot;");
+}
+
 export async function loadEncyclopediaFromSheets(urlSpreadsheet) {
     try {
         const response = await fetch(urlSpreadsheet);
@@ -102,7 +728,7 @@ export function switchEncyclopediaTab(targetTab) {
 
     if (targetTab === "dictionary") {
         if (tabDictionary) tabDictionary.classList.add("active");
-        if (tabVerbs) tabVerbs.remove("active");
+        if (tabVerbs) tabVerbs.classList.remove("active");
         if (panelDictionary) panelDictionary.style.display = "block";
         if (panelVerbs) panelVerbs.style.display = "none";
         if (searchInput) searchInput.placeholder = "Cari kata benda, sifat, adverb, atau arti kosakata...";
