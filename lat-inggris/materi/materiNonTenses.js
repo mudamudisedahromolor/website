@@ -104,7 +104,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                 </table>
             </div>
         `;
-    } else if (idLower === "subject-verb-agreement" || idLower === "subject-verb-aggreement" || idLower === "bab1-subject-verb") {
+    } else if (idLower === "subject verb agreement" || idLower === "subject-verb-aggreement" || idLower === "bab1-subject-verb") {
         // 🎯 FIX SINKRONISASI: Menambahkan jaring pengaman "bab1-subject-verb" sesuai pemanggil di HTML Anda
         isiKontenLaci = `
             <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
