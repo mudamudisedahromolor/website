@@ -201,8 +201,8 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             </div>
         `;
 
-    } else if (idLower.includes("reg") && idLower.includes("irreg")) {
-        // 🎯 BLOK REPLACEMENT: LOGIKA KHUSUS KONTEN REGULAR & IRREGULAR VERBS
+        } else if (idLower.includes("reg") && idLower.includes("irreg")) {
+        // 🎯 FIX UTAMA: Mengunci konten agar tidak bocor jatuh ke area "else" default
         isiKontenLaci = `
             <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
                 
@@ -215,10 +215,10 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
                         <thead>
                             <tr style="background:#f8fafc; border-bottom:1px solid #cbd5e1; font-weight:700; color:#475569;">
-                                <th style="padding:6px 10px; text-align:left;">Verb 1 (Base)</th>
-                                <th style="padding:6px 10px; text-align:left;">Verb 2 (Past)</th>
-                                <th style="padding:6px 10px; text-align:left;">Verb 3 (Participle)</th>
-                                <th style="padding:6px 10px; text-align:left;">Arti Indonesia</th>
+                                <th style="padding:8px 10px; text-align:left;">Verb 1 (Base)</th>
+                                <th style="padding:8px 10px; text-align:left;">Verb 2 (Past)</th>
+                                <th style="padding:8px 10px; text-align:left;">Verb 3 (Participle)</th>
+                                <th style="padding:8px 10px; text-align:left;">Arti Indonesia</th>
                             </tr>
                         </thead>
                         <tbody>
