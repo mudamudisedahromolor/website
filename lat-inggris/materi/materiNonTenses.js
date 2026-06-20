@@ -15,14 +15,11 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
     let labelTipeTeks = subMateriKolomD.replace(/-/g, " ").toUpperCase();
 
     let idNormal = `${idLower} ${namaMateriKolomC || ""} ${subMateriKolomD || ""} ${dataCocok.materi || ""}`
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
 
-let isRegularIrregularVerb =
-    idNormal.includes("regular") &&
-    idNormal.includes("irregular") &&
-    idNormal.includes("verb");
+    let isRegularIrregularVerb = idLower === "bab1-regular-verbs";
 
     if (judulTense) judulTense.innerHTML = `Modul: <b>${dataCocok.materi || namaMateriKolomC} (${labelTipeTeks})</b>`;
     if(boxSilabus) boxSilabus.innerText = dataCocok.judulBab || "MMS Ruang Literasi";
