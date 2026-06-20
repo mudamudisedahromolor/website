@@ -5562,13 +5562,20 @@ function onTouchAimEnd(event) {
     return;
   }
 
-  // Kalau cuma aim arah, lepas jangan shot
-  isAiming = false;
-  power = 0;
+  // Kalau cuma drag area meja untuk aim arah:
+  // jangan shot, jangan reset aim, biarkan garis arah tetap stay
+  if (touchIsDraggingAim) {
+    power = 0;
+    updateUI();
+    draw();
+    resetTouchState();
+    return;
+  }
 
+  // Kalau cuma tap biasa tanpa drag
+  power = 0;
   updateUI();
   draw();
-
   resetTouchState();
 }
 
