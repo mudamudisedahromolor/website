@@ -995,8 +995,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </div>
                 </div>
             `;
-               } else if (idLower.includes("artic") || subMateriKolomD.includes("artic")) {
-        // 🎯 FIX UTAMA: Mengubah dari '=== "articles"' menjadi '.includes("artic")' agar toleran terhadap ID 'adv-articles'
+                 } else if (idLower.includes("artic") || subMateriKolomD.includes("artic")) {
         isiKontenLaci = `
             <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
                 <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
@@ -1033,46 +1032,25 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
             </div>
         `;
     } else {
+        // --- BLOK DEFAULT: KOTAK KUNING HANYA DIKASIHKAN JIKA TIDAK ADA COCOK MANAPUN ---
+        let arrayContoh = isiContoh.split(",");
+        let arrayArti = isiArti.split(",");
+
         isiKontenLaci = `
-            <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
-                <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Core Modals Auxiliaries Reference Matrix
-                </div>
-                <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 10px;">
-                    <table style="width:100%; border-collapse:collapse; background:#fff; font-size:12px;">
-                        <thead>
-                            <tr style="background:#f8fafc; border-bottom:1px solid #cbd5e1; font-weight:700; color:#475569;">
-                                <th style="padding:8px 10px; text-align:left; width:20%;">Modal Verb</th>
-                                <th style="padding:8px 10px; text-align:left; width:40%;">Fungsi &amp; Penggunaan Utama</th>
-                                <th style="padding:8px 10px; text-align:left; width:40%;">Contoh Konteks Kalimat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Can / Could</td>
-                                <td style="padding:8px 10px; color:#475569;">Kemampuan (Ability) &amp; Permohonan Izin Sopan</td>
-                                <td style="padding:8px 10px; font-style:italic;">I can speak English fluently. / Could I use your laptop?</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">May / Might</td>
-                                <td style="padding:8px 10px; color:#475569;">Kemungkinan (Possibility) &amp; Izin Formal</td>
-                                <td style="padding:8px 10px; font-style:italic;">It may rain this afternoon. / May I come in, sir?</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Must / Have to</td>
-                                <td style="padding:8px 10px; color:#475569;">Keharusan Mutlak (Obligation) &amp; Kewajiban</td>
-                                <td style="padding:8px 10px; font-style:italic;">You must wear a helmet while riding a motorcycle.</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:8px 10px; font-weight:700; color:#2563eb;">Should / Ought to</td>
-                                <td style="padding:8px 10px; color:#475569;">Saran / Rekomendasi (Advice)</td>
-                                <td style="padding:8px 10px; font-style:italic;">You should study grammar systematically before client meetings.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div style="color: #b45309; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-list"></i> Contoh ${idLower.startsWith('pos-') ? 'Kata' : 'Kalimat'}
             </div>
+            <div style="overflow-x:auto;">
+                <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px; border-radius:6px; overflow:hidden; border: 1px solid #cbd5e1;">
+                    <thead>
+                        <tr style="background:#fef08a; color:#0f172a; border-bottom:2px solid #fde047;">
+                            <th style="padding:10px; text-align:left; font-weight:700; border-right:1px solid #cbd5e1;">Contoh Kalimat</th>
+                            <th style="padding:10px; text-align:left; font-weight:700;">Arti / Terjemahan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
         `;
+        
     }
 
     } else {
