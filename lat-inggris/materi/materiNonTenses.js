@@ -995,7 +995,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </div>
                 </div>
             `;
-                 } else if (idLower.includes("artic") || subMateriKolomD.includes("artic")) {
+                 } else if (idLower.includes("artic") || subMateriKolomD.toLowerCase().includes("artic")) {
         isiKontenLaci = `
             <div style="font-family: inherit; color: #1e293b; line-height: 1.6; font-size: 13px; text-align: left;">
                 <div style="color: #b45309; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; border-bottom: 1px solid #fed7aa; padding-bottom: 2px;">
@@ -1050,7 +1050,7 @@ export function prosesMateriNonTenses(namaMateriKolomC, subMateriKolomD, idLower
                     </thead>
                     <tbody>
         `;
-        
+
     }
 
     } else {
