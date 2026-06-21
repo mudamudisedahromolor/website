@@ -38,8 +38,46 @@ import {
     filterEncyclopediaData 
 } from './menu/menuEnsiklopedia.js';
 
+
+import {
+    bukaLatihanMenu,
+    mulaiLatihan,
+    tutupLatihanMenu,
+    cekJawabanLatihan,
+    renderSoalLatihan,
+    tampilkanErrorLatihanKoneksi,
+    keluarLatihanDenganKonfirmasi,
+    tampilkanKonfirmasiKeluarLatihan,
+    tutupKonfirmasiKeluarLatihan,
+    konfirmasiKeluarLatihanYa,
+    lanjutSoalLatihan
+} from './menu/menuLatihan.js';
+
+
 export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
     if (window.event) window.event.stopPropagation();
+
+
+    if (namaMenu === "latihan") {
+    const gridContainer = document.getElementById("mms-container-grid-icon");
+    const wrapperIcon = document.getElementById(`mms-item-box-${idKotak}`);
+
+    if (state.mmsKotakTerpilihSekarang === idKotak) {
+        bukaLatihanMenu();
+        resetSeleksiDashboardEsensial();
+        return;
+    }
+
+    state.mmsKotakTerpilihSekarang = idKotak;
+
+    document.querySelectorAll(".menu-icon-wrapper")
+        .forEach(el => el.classList.remove("mms-selected-bounce"));
+
+    if (gridContainer) gridContainer.classList.add("has-selection");
+    if (wrapperIcon) wrapperIcon.classList.add("mms-selected-bounce");
+
+    return;
+}
 
     if (namaMenu !== 'ensiklopedia') {
         eksekusiKlikDoubleBounceMateri(idKotak, namaMenu);
@@ -54,6 +92,7 @@ export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {
         resetSeleksiDashboardEsensial();
         return;
     }
+
 
     state.mmsKotakTerpilihSekarang = idKotak;
     document.querySelectorAll('.menu-icon-wrapper').forEach(el => el.classList.remove('mms-selected-bounce'));
@@ -94,3 +133,14 @@ window.isiFilterVerb = isiFilterVerb;
 window.bukaDetailVerb = bukaDetailVerb;
 window.bukaModalDetailVerb = bukaModalDetailVerb;
 window.tutupModalDetailVerb = tutupModalDetailVerb;
+window.bukaLatihanMenu = bukaLatihanMenu;
+window.mulaiLatihan = mulaiLatihan;
+window.tutupLatihanMenu = tutupLatihanMenu;
+window.renderSoalLatihan = renderSoalLatihan;
+window.cekJawabanLatihan = cekJawabanLatihan;
+window.tampilkanErrorLatihanKoneksi = tampilkanErrorLatihanKoneksi;
+window.lanjutSoalLatihan = lanjutSoalLatihan;
+window.keluarLatihanDenganKonfirmasi = keluarLatihanDenganKonfirmasi;
+window.tampilkanKonfirmasiKeluarLatihan = tampilkanKonfirmasiKeluarLatihan;
+window.tutupKonfirmasiKeluarLatihan = tutupKonfirmasiKeluarLatihan;
+window.konfirmasiKeluarLatihanYa = konfirmasiKeluarLatihanYa;

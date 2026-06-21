@@ -453,3 +453,49 @@ body {
     border-bottom-width: 1px !important;                 
     box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
 }
+
+
+.mms-learning-card{
+    background:#fff;
+    border-radius:22px;
+    padding:18px;
+    margin-bottom:14px;
+    border:2px solid #e2e8f0;
+    box-shadow:0 8px 22px rgba(15,23,42,.06);
+}
+
+.mms-learning-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.mms-learning-icon{
+    width:54px;
+    height:54px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.mms-learning-info{
+    flex:1;
+    min-width:0;
+}
+
+.mms-learning-title{
+    font-size:19px;
+    font-weight:900;
+    color:#0f172a;
+    line-height:1.2;
+}
+
+.mms-learning-subtitle{
+    margin-top:5px;
+    font-size:13px;
+    font-weight:700;
+    color:#64748b;
+}

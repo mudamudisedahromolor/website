@@ -151,16 +151,27 @@
             <div id="materi-body" style="display: none; padding: 5px 0;">
                 <h3 style="color: var(--mms-navy); text-align: center; margin-top: 0; margin-bottom: 20px;"><i class="fa-solid fa-book-open"></i> Ruang Belajar Mandiri</h3>
 
+            <div id="mms-learning-path">
+
                 <div class="mms-rumpun-card">
-                    <div class="mms-rumpun-header" onclick="toggleRumpunSmart('mms-bab-1-content')">
-                        <span><i class="fa-solid fa-key" style="color: var(--mms-accent); margin-right: 8px;"></i> BAB 1: Kunci Dasar &amp; Jenis Kata (Fundamental)</span>
-                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
-                    </div>
-                    <div id="mms-bab-1-content" class="mms-rumpun-content" style="display: none; flex-direction: column; gap: 8px; padding: 10px;">
-                        
-                        <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center; background:#fff;" onclick="toggleSubLaci('laci-nested-pos')">
-                            Parts of Speech <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
-                        </button>
+    <div class="mms-rumpun-header" onclick="toggleRumpunSmart('mms-bab-1-content')">
+        <span style="display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-key" style="color: var(--mms-accent);"></i>
+            <span class="mms-badge-open">
+    Fundamental
+</span>
+
+        <span style="display:flex; align-items:center; gap:8px;">
+            <span class="mms-badge-open">🔓 Terbuka</span>
+            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #64748b;"></i>
+        </span>
+    </div>
+
+    <div id="mms-bab-1-content" class="mms-rumpun-content" style="display: none; flex-direction: column; gap: 8px; padding: 10px;">
+        
+        <button class="btn-type-choice" style="text-align: left; justify-content: space-between; display: flex; align-items: center; background:#fff;" onclick="toggleSubLaci('laci-nested-pos')">
+            Parts of Speech <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+        </button>
                         <div id="laci-nested-pos" class="mms-sub-laci" style="display:none; padding:6px; background:#f8fafc; border-radius:8px; border:1px dashed #3b82f6;">
                             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
                                 <button class="btn-type-choice" style="background:#fff;" onclick="tampilkanMateriSpesifik('pos-noun')">Noun</button>
@@ -577,6 +588,7 @@
                         </div>
                     </div>
                 </div>
+</div>
 
                 <button class="materi-body-back-btn" onclick="kembaliKeDashboard()">Kembali ke Menu</button>
             </div>

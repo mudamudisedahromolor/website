@@ -165,6 +165,50 @@ export function bukaMateriMenu() {
     document.getElementById("dashboard-menu").style.display = "none";
     document.getElementById("materi-body").style.display = "block";
     document.getElementById("materi-pembahasan-box").style.display = "none";
+
+    pasangHeaderProgressMateri();
+}
+
+function pasangHeaderProgressMateri() {
+    const materiBody = document.getElementById("materi-body");
+    if (!materiBody) return;
+
+    let oldHeader = document.getElementById("mms-materi-progress-header");
+    if (oldHeader) oldHeader.remove();
+
+    const totalMateri = document.querySelectorAll("#materi-body button[onclick*='tampilkanMateriSpesifik']").length;
+    const selesai = Object.keys(localStorage)
+        .filter(key => key.startsWith("mms_materi_selesai_"))
+        .length;
+
+    const persen = totalMateri ? Math.round((selesai / totalMateri) * 100) : 0;
+
+    const header = document.createElement("div");
+    header.id = "mms-materi-progress-header";
+    header.innerHTML = `
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:18px; padding:16px; margin-bottom:16px; box-shadow:0 8px 20px rgba(15,23,42,0.06);">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;">
+                <div>
+                    <div style="font-size:18px; font-weight:900; color:#0f172a;">
+                        📚 Progress Materi
+                    </div>
+                    <div style="font-size:12px; font-weight:700; color:#64748b; margin-top:3px;">
+                        ${selesai}/${totalMateri} materi dipelajari
+                    </div>
+                </div>
+
+                <div style="font-size:18px; font-weight:900; color:#3b82f6;">
+                    ${persen}%
+                </div>
+            </div>
+
+            <div style="height:9px; background:#f1f5f9; border-radius:999px; overflow:hidden;">
+                <div style="height:100%; width:${persen}%; background:#3b82f6;"></div>
+            </div>
+        </div>
+    `;
+
+    materiBody.prepend(header);
 }
 
 export function kembaliKeDashboard() { resetTampilanDashboard(); }
