@@ -21,8 +21,8 @@ export const MATERI_BAB_CONFIG = [
                 { label: "Simple Present", id: "simple-present" },
                 { label: "Present Continuous", id: "present-continuous" },
                 { label: "Present Perfect", id: "present-perfect" }
-]
-    },
+            ],
+         },
     {
         id: "bab3",
         icon: "fa-code-branch",
