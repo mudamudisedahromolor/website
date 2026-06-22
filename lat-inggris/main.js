@@ -1,5 +1,8 @@
 import { state } from './state.js';
 
+window.state = state;
+console.log("MAIN.JS LOADED", window.state);
+
 import {
     eksekusiKlikDoubleBounce as eksekusiKlikDoubleBounceMateri,
     resetSeleksiDashboardEsensial,

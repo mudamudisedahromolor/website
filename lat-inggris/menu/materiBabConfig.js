@@ -1,34 +1,50 @@
-const MATERI_BAB = [
+export const MATERI_BAB_CONFIG = [
     {
         id: "bab1",
         icon: "fa-key",
-        title: "BAB 1",
+        title: "BAB 1: Kunci Dasar & Jenis Kata",
         level: "Beginner",
-        totalMateri: 34,
-        color: "#22c55e"
+        color: "#ef4444",
+        items: [
+                { label: "Parts of Speech", id: "pos" },
+                { label: "Noun", id: "noun" },
+                { label: "Pronoun", id: "pronoun" }
+]
     },
     {
         id: "bab2",
         icon: "fa-clock",
-        title: "BAB 2",
+        title: "BAB 2: Kalimat Aktif",
         level: "Intermediate",
-        totalMateri: 42,
-        color: "#3b82f6"
+        color: "#f59e0b",
+        items: [
+                { label: "Simple Present", id: "simple-present" },
+                { label: "Present Continuous", id: "present-continuous" },
+                { label: "Present Perfect", id: "present-perfect" }
+]
     },
     {
         id: "bab3",
         icon: "fa-code-branch",
-        title: "BAB 3",
+        title: "BAB 3: Passive Voice",
         level: "Upper Intermediate",
-        totalMateri: 18,
-        color: "#8b5cf6"
+        color: "#8b5cf6",
+        items: [
+                { label: "Passive Voice Basic", id: "passive-voice-basic" },
+                { label: "Passive Modal", id: "passive-modal" },
+                { label: "Passive Perfect", id: "passive-perfect" }
+]
     },
     {
         id: "bab4",
         icon: "fa-graduation-cap",
-        title: "Advanced Grammar",
+        title: "BAB 4: Advanced Grammar",
         level: "Advanced",
-        totalMateri: 25,
-        color: "#f59e0b"
+        color: "#22c55e",
+        items: [
+                { label: "Modals", id: "modals" },
+                { label: "Gerund & Infinitive", id: "gerund-infinitive" },
+                { label: "Articles", id: "articles" }
+        ]
     }
 ];

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="lat-inggris.css">
     <link rel="manifest" href="manifest.json">
   
+    
 </head>
 <body>
     
@@ -105,17 +106,43 @@
         </nav>
 </header>
 
+<div id="dashboard-menu" class="mms-academy-dashboard" style="display:block;">
+    <div class="mms-dashboard-fixed">
+        <div class="mms-dashboard-hero">
+             <h1>English Academy</h1>
+             <p>Ruang Literasi • Belajar Bahasa Inggris Jadi Lebih Mudah</p>
+        </div>
+    </div>
+    <div class="mms-dashboard-scroll">
+         <div class="mms-lumia-grid">
+            <button class="mms-lumia-tile tile-materi" onclick="bukaMateriMenu()">
+                 <i class="fa-solid fa-book-open"></i>
+                 <strong>Materi</strong>
+                    <span>Belajar grammar dan kosakata dari dasar</span>
+                </button>
 
+            <button class="mms-lumia-tile tile-ensiklopedia" onclick="bukaEnsiklopediaMenu()">
+                <i class="fa-solid fa-book-atlas"></i>
+                <strong>Ensiklopedia</strong>
+                  <span>Kamus, verb, idiom, dan referensi cepat</span>
+            </button>
 
-<div id="materi-body" style="display:none; padding:5px 0;">
-    <div id="mms-materi-dynamic-menu"></div>
+            <button class="mms-lumia-tile tile-latihan" onclick="bukaLatihanMenu()">
+                <i class="fa-solid fa-file-signature"></i>
+                 <strong>Latihan</strong>
+                     <span>Kerjakan soal dan tingkatkan kemampuan</span>
+             </button>
 
-    <button class="materi-body-back-btn" onclick="kembaliKeDashboard()">
-        <i class="fa-solid fa-arrow-left"></i>
-        Kembali ke Dashboard
-    </button>
+            <button class="mms-lumia-tile tile-toefl" onclick="alert('Menu TOEFL belum tersedia')">
+                 <i class="fa-solid fa-graduation-cap"></i>
+                <strong>TOEFL</strong>
+                    <span>Persiapan listening, structure, dan reading</span>
+             </button>
+    </div>
+</div>
 </div>
 
+<div id="materi-body" style="display:none;"></div>
 
 
         <footer class="site-footer">
@@ -161,8 +188,9 @@
     </footer>
     
     <script type="module" src="lat-inggris/main.js"></script>
+    <script type="module" src="./lat-inggris/menu/menuMateriDinamis.js"></script>
 <script src="script.js?v=1.1"></script>
-<script type="module" src="./lat-inggris/menu/menuMateriDinamis.js"></script>
+
     
 </body>
 </html>
