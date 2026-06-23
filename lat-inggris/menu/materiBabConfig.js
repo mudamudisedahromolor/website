@@ -1,4 +1,9 @@
+
+
+
+
 export const MATERI_BAB_CONFIG = [
+   
     {
         id: "bab1",
         icon: "fa-key",
@@ -22,6 +27,9 @@ export const MATERI_BAB_CONFIG = [
                 { label: "Present Continuous", id: "present-continuous" },
                 { label: "Present Perfect", id: "present-perfect" }
             ],
+        video: [
+             { type: "embed", url: "https://www.youtube.com/embed/xxxx" },
+              ]
          },
     {
         id: "bab3",
@@ -48,3 +56,5 @@ export const MATERI_BAB_CONFIG = [
         ]
     }
 ];
+
+

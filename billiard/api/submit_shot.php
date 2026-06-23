@@ -35,15 +35,21 @@ $playerKey = trim($data["player_key"] ?? "");
 $roomCode = strtoupper(trim($data["room_code"] ?? ""));
 $newBalls = $data["balls"] ?? null;
 
-// Default true agar request lama tidak otomatis dianggap foul.
 $cueHitObjectBall = array_key_exists("cue_hit_object_ball", $data)
     ? !empty($data["cue_hit_object_ball"])
     : true;
-    
-    // Default true agar request lama tidak otomatis dianggap rail foul.
+
 $anyBallHitRail = array_key_exists("any_ball_hit_rail", $data)
     ? !empty($data["any_ball_hit_rail"])
     : true;
+
+/*
+  Optional untuk patch berikutnya di game.html.
+  Kalau belum dikirim, backend tetap jalan, tapi belum bisa validasi first-hit rule secara penuh.
+*/
+$firstHitBallNumber = array_key_exists("first_hit_ball_number", $data)
+    ? (is_null($data["first_hit_ball_number"]) ? null : (int)$data["first_hit_ball_number"])
+    : null;
 
 if ($playerKey === "" || $roomCode === "" || !is_array($newBalls)) {
     echo json_encode([
@@ -88,6 +94,50 @@ function pc_find_ball_by_number($balls, $number) {
     return null;
 }
 
+function pc_ball_group($number) {
+    $number = (int)$number;
+
+    if ($number >= 1 && $number <= 7) return "solid";
+    if ($number >= 9 && $number <= 15) return "stripe";
+    if ($number === 8) return "eight";
+    if ($number === 0) return "cue";
+
+    return "object";
+}
+
+function pc_opposite_group($group) {
+    if ($group === "solid") return "stripe";
+    if ($group === "stripe") return "solid";
+    return null;
+}
+
+function pc_count_unpocketed_group($balls, $group) {
+    $count = 0;
+
+    foreach ($balls as $ball) {
+        $number = (int)($ball["number"] ?? -1);
+
+        if (pc_ball_group($number) !== $group) continue;
+        if (!empty($ball["pocketed"])) continue;
+
+        $count++;
+    }
+
+    return $count;
+}
+
+function pc_count_pocketed_group_numbers($numbers, $group) {
+    $count = 0;
+
+    foreach ($numbers as $number) {
+        if (pc_ball_group((int)$number) === $group) {
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
 function pc_get_next_turn_player_id($pdo, $roomId, $currentPlayerId) {
     $stmt = $pdo->prepare("
         SELECT 
@@ -116,6 +166,67 @@ function pc_get_next_turn_player_id($pdo, $roomId, $currentPlayerId) {
     $nextIndex = ($currentIndex + 1) % count($players);
 
     return (int)$players[$nextIndex]["player_id"];
+}
+
+function pc_get_room_player_ids($pdo, $roomId) {
+    $stmt = $pdo->prepare("
+        SELECT player_id
+        FROM room_players
+        WHERE room_id = ?
+        ORDER BY turn_order ASC, id ASC
+    ");
+    $stmt->execute([$roomId]);
+
+    return array_map("intval", $stmt->fetchAll(PDO::FETCH_COLUMN));
+}
+
+function pc_get_8ball_rules($state) {
+    if (!isset($state["rules"]) || !is_array($state["rules"])) {
+        $state["rules"] = [];
+    }
+
+    if (!isset($state["rules"]["eight_ball"]) || !is_array($state["rules"]["eight_ball"])) {
+        $state["rules"]["eight_ball"] = [
+            "table_open" => true,
+            "player_groups" => []
+        ];
+    }
+
+    if (!isset($state["rules"]["eight_ball"]["player_groups"]) || !is_array($state["rules"]["eight_ball"]["player_groups"])) {
+        $state["rules"]["eight_ball"]["player_groups"] = [];
+    }
+
+    if (!array_key_exists("table_open", $state["rules"]["eight_ball"])) {
+        $state["rules"]["eight_ball"]["table_open"] = true;
+    }
+
+    return $state["rules"]["eight_ball"];
+}
+
+function pc_set_8ball_rules(&$state, $rules) {
+    if (!isset($state["rules"]) || !is_array($state["rules"])) {
+        $state["rules"] = [];
+    }
+
+    $state["rules"]["eight_ball"] = $rules;
+}
+
+function pc_finish_match($pdo, $matchId, $roomId, $winnerPlayerId) {
+    $stmt = $pdo->prepare("
+        UPDATE matches
+        SET status = 'finished',
+            winner_player_id = ?,
+            ended_at = NOW()
+        WHERE id = ?
+    ");
+    $stmt->execute([$winnerPlayerId, $matchId]);
+
+    $stmt = $pdo->prepare("
+        UPDATE rooms
+        SET status = 'finished'
+        WHERE id = ?
+    ");
+    $stmt->execute([$roomId]);
 }
 
 try {
@@ -174,6 +285,7 @@ try {
     }
 
     $roomId = (int)$room["id"];
+    $mode = $room["mode"] ?? "";
 
     if ($room["status"] !== "playing") {
         $pdo->rollBack();
@@ -213,6 +325,7 @@ try {
 
     $matchId = (int)$match["id"];
     $currentTurnPlayerId = (int)$match["current_turn_player_id"];
+    $matchMode = $match["mode"] ?? $mode;
 
     if ($playerId !== $currentTurnPlayerId) {
         $pdo->rollBack();
@@ -275,55 +388,144 @@ try {
     }
 
     $pocketedCount = count($newPocketedObjectBalls);
-$scoreAdded = 0;
-$foulAdded = 0;
+    $scoreAdded = 0;
+    $foulAdded = 0;
 
-$noContactFoul = !$cueHitObjectBall;
-$railFoul = false;
+    $noContactFoul = !$cueHitObjectBall;
+    $railFoul = false;
 
-if ($cueHitObjectBall && $pocketedCount === 0 && !$anyBallHitRail) {
-    $railFoul = true;
-}
-
-$hasFoul = $cueBallFoul || $noContactFoul || $railFoul;
-
-$foulReason = null;
-
-if ($cueBallFoul) {
-    $foulReason = "cue_ball_pocketed";
-} elseif ($noContactFoul) {
-    $foulReason = "cue_ball_no_contact";
-} elseif ($railFoul) {
-    $foulReason = "no_ball_hit_rail_after_contact";
-}
-
-if ($hasFoul) {
-    $foulAdded = 1;
-
-    if ($cueBallFoul) {
-        foreach ($cleanNewBalls as &$ball) {
-            if ((int)$ball["number"] === 0) {
-                $ball["pocketed"] = false;
-                $ball["x"] = 220;
-                $ball["y"] = 250;
-                $ball["vx"] = 0;
-                $ball["vy"] = 0;
-                break;
-            }
-        }
-        unset($ball);
+    if ($cueHitObjectBall && $pocketedCount === 0 && !$anyBallHitRail) {
+        $railFoul = true;
     }
 
-    $scoreAdded = 0;
-} else {
-    $scoreAdded = $pocketedCount;
-}
+    $hasFoul = $cueBallFoul || $noContactFoul || $railFoul;
 
-$shouldKeepTurn = false;
+    $foulReason = null;
 
-if (!$hasFoul && $pocketedCount > 0) {
-    $shouldKeepTurn = true;
-}
+    if ($cueBallFoul) {
+        $foulReason = "cue_ball_pocketed";
+    } elseif ($noContactFoul) {
+        $foulReason = "cue_ball_no_contact";
+    } elseif ($railFoul) {
+        $foulReason = "no_ball_hit_rail_after_contact";
+    }
+
+    $gameFinished = false;
+    $winnerPlayerId = null;
+    $eightBallRules = null;
+    $playerGroup = null;
+    $assignedGroupThisShot = null;
+
+    /*
+      8 Ball Classic basic rules.
+      Catatan: validasi first-hit penuh butuh game.html mengirim first_hit_ball_number.
+    */
+    if ($matchMode === "8ball_classic" || $matchMode === "8ball_party") {
+        $eightBallRules = pc_get_8ball_rules($oldState);
+        $playerGroups = $eightBallRules["player_groups"];
+        $playerGroup = $playerGroups[(string)$playerId] ?? null;
+        $tableOpen = !empty($eightBallRules["table_open"]);
+
+        $eightPocketed = in_array(8, $newPocketedObjectBalls, true);
+        $solidPocketed = pc_count_pocketed_group_numbers($newPocketedObjectBalls, "solid");
+        $stripePocketed = pc_count_pocketed_group_numbers($newPocketedObjectBalls, "stripe");
+
+        if (!$hasFoul && $firstHitBallNumber !== null && !$tableOpen && $playerGroup) {
+            $firstGroup = pc_ball_group($firstHitBallNumber);
+            $ownRemainingBeforeShot = pc_count_unpocketed_group($oldBalls, $playerGroup);
+
+            if ($firstGroup === "eight" && $ownRemainingBeforeShot > 0) {
+                $hasFoul = true;
+                $foulReason = "wrong_first_hit_8";
+            } elseif ($firstGroup !== "eight" && $firstGroup !== $playerGroup) {
+                $hasFoul = true;
+                $foulReason = "wrong_first_hit_group";
+            }
+        }
+
+        if ($eightPocketed) {
+            $ownRemainingBeforeShot = $playerGroup
+                ? pc_count_unpocketed_group($oldBalls, $playerGroup)
+                : 999;
+
+            $legalEight = !$hasFoul && $playerGroup && $ownRemainingBeforeShot === 0;
+
+            if ($legalEight) {
+                $gameFinished = true;
+                $winnerPlayerId = $playerId;
+            } else {
+                $gameFinished = true;
+                $winnerPlayerId = pc_get_next_turn_player_id($pdo, $roomId, $playerId);
+                $hasFoul = true;
+
+                if (!$foulReason) {
+                    $foulReason = "eight_ball_illegal";
+                }
+            }
+
+            $scoreAdded = 0;
+        } else {
+            if (!$hasFoul && $tableOpen) {
+                if ($solidPocketed > 0 || $stripePocketed > 0) {
+                    $assignedGroupThisShot = $solidPocketed >= $stripePocketed ? "solid" : "stripe";
+                    $playerGroup = $assignedGroupThisShot;
+
+                    $eightBallRules["table_open"] = false;
+                    $eightBallRules["player_groups"][(string)$playerId] = $assignedGroupThisShot;
+
+                    $opposite = pc_opposite_group($assignedGroupThisShot);
+                    $playerIds = pc_get_room_player_ids($pdo, $roomId);
+
+                    foreach ($playerIds as $roomPlayerId) {
+                        if ((int)$roomPlayerId !== (int)$playerId && $opposite) {
+                            $eightBallRules["player_groups"][(string)$roomPlayerId] = $opposite;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!$hasFoul && $playerGroup) {
+                $scoreAdded = pc_count_pocketed_group_numbers($newPocketedObjectBalls, $playerGroup);
+            } else {
+                $scoreAdded = 0;
+            }
+        }
+
+        pc_set_8ball_rules($oldState, $eightBallRules);
+    } else {
+        if ($hasFoul) {
+            $scoreAdded = 0;
+        } else {
+            $scoreAdded = $pocketedCount;
+        }
+    }
+
+    if ($hasFoul) {
+        $foulAdded = 1;
+
+        if ($cueBallFoul) {
+            foreach ($cleanNewBalls as &$ball) {
+                if ((int)$ball["number"] === 0) {
+                    $ball["pocketed"] = false;
+                    $ball["x"] = 220;
+                    $ball["y"] = 250;
+                    $ball["vx"] = 0;
+                    $ball["vy"] = 0;
+                    break;
+                }
+            }
+            unset($ball);
+        }
+
+        $scoreAdded = 0;
+    }
+
+    $shouldKeepTurn = false;
+
+    if (!$gameFinished && !$hasFoul && $scoreAdded > 0) {
+        $shouldKeepTurn = true;
+    }
 
     $nextTurnPlayerId = $shouldKeepTurn
         ? $playerId
@@ -350,35 +552,42 @@ if (!$hasFoul && $pocketedCount > 0) {
     }
 
     $ballInHand = [
-    "active" => false,
-    "player_id" => null,
-    "reason" => null
-];
-
-if ($hasFoul) {
-    $ballInHand = [
-        "active" => true,
-        "player_id" => $nextTurnPlayerId,
-        "reason" => $foulReason
+        "active" => false,
+        "player_id" => null,
+        "reason" => null
     ];
-}
+
+    if ($hasFoul && !$gameFinished) {
+        $ballInHand = [
+            "active" => true,
+            "player_id" => $nextTurnPlayerId,
+            "reason" => $foulReason
+        ];
+    }
 
     $oldState["balls"] = $cleanNewBalls;
     $oldState["ball_in_hand"] = $ballInHand;
     $oldState["last_shot"] = [
         "player_id" => $playerId,
         "username" => $player["username"],
+        "mode" => $matchMode,
         "pocketed_balls" => $newPocketedObjectBalls,
         "pocketed_count" => $pocketedCount,
         "score_added" => $scoreAdded,
         "foul" => $hasFoul,
-"foul_reason" => $foulReason,
-"cue_hit_object_ball" => $cueHitObjectBall,
-"any_ball_hit_rail" => $anyBallHitRail,
-"rail_foul" => $railFoul,
+        "foul_reason" => $foulReason,
+        "cue_hit_object_ball" => $cueHitObjectBall,
+        "any_ball_hit_rail" => $anyBallHitRail,
+        "first_hit_ball_number" => $firstHitBallNumber,
+        "rail_foul" => $railFoul,
         "keep_turn" => $shouldKeepTurn,
         "next_turn_player_id" => $nextTurnPlayerId,
         "ball_in_hand" => $ballInHand,
+        "eight_ball_rules" => $eightBallRules,
+        "player_group" => $playerGroup,
+        "assigned_group_this_shot" => $assignedGroupThisShot,
+        "game_finished" => $gameFinished,
+        "winner_player_id" => $winnerPlayerId,
         "created_at" => date("Y-m-d H:i:s")
     ];
 
@@ -392,12 +601,16 @@ if ($hasFoul) {
     ");
     $stmt->execute([$newStateJson, $matchId]);
 
-    $stmt = $pdo->prepare("
-        UPDATE matches
-        SET current_turn_player_id = ?
-        WHERE id = ?
-    ");
-    $stmt->execute([$nextTurnPlayerId, $matchId]);
+    if ($gameFinished && $winnerPlayerId) {
+        pc_finish_match($pdo, $matchId, $roomId, $winnerPlayerId);
+    } else {
+        $stmt = $pdo->prepare("
+            UPDATE matches
+            SET current_turn_player_id = ?
+            WHERE id = ?
+        ");
+        $stmt->execute([$nextTurnPlayerId, $matchId]);
+    }
 
     $pdo->commit();
 
@@ -407,22 +620,29 @@ if ($hasFoul) {
 
     echo json_encode([
         "success" => true,
-        "message" => "Shot tersimpan",
+        "message" => $gameFinished ? "Game selesai" : "Shot tersimpan",
         "match_id" => $matchId,
         "room_code" => $roomCode,
+        "mode" => $matchMode,
         "player_id" => $playerId,
         "pocketed_balls" => $newPocketedObjectBalls,
         "pocketed_count" => $pocketedCount,
         "score_added" => $scoreAdded,
         "foul" => $hasFoul,
-"foul_reason" => $foulReason,
-"cue_hit_object_ball" => $cueHitObjectBall,
-"any_ball_hit_rail" => $anyBallHitRail,
-"rail_foul" => $railFoul,
-"foul_added" => $foulAdded,
-"keep_turn" => $shouldKeepTurn,
-"next_turn_player_id" => $nextTurnPlayerId,
-"ball_in_hand" => $ballInHand
+        "foul_reason" => $foulReason,
+        "cue_hit_object_ball" => $cueHitObjectBall,
+        "any_ball_hit_rail" => $anyBallHitRail,
+        "first_hit_ball_number" => $firstHitBallNumber,
+        "rail_foul" => $railFoul,
+        "foul_added" => $foulAdded,
+        "keep_turn" => $shouldKeepTurn,
+        "next_turn_player_id" => $nextTurnPlayerId,
+        "ball_in_hand" => $ballInHand,
+        "eight_ball_rules" => $eightBallRules,
+        "player_group" => $playerGroup,
+        "assigned_group_this_shot" => $assignedGroupThisShot,
+        "game_finished" => $gameFinished,
+        "winner_player_id" => $winnerPlayerId
     ]);
 } catch (Throwable $e) {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {

@@ -11,14 +11,6 @@ deployment:
     - if [ -d "$SOURCE/images" ]; then /bin/cp -a "$SOURCE/images" "$TARGET/"; fi
     - if [ -d "$SOURCE/gambar&animasi" ]; then /bin/cp -a "$SOURCE/gambar&animasi" "$TARGET/"; fi
 
-    # Pocket Clash Billiard
-    - /bin/mkdir -p $TARGET/billiard
-    - /bin/cp -a $SOURCE/billiard/index.html $TARGET/billiard/
-    - /bin/cp -a $SOURCE/billiard/lobby.html $TARGET/billiard/
-    - /bin/cp -a $SOURCE/billiard/room.html $TARGET/billiard/
-    - /bin/cp -a $SOURCE/billiard/game.html $TARGET/billiard/
-    - /bin/cp -a $SOURCE/billiard/assets $TARGET/billiard/
-
-    # API billiard, db.php live tetap aman karena tidak ada di GitHub
-    - /bin/mkdir -p $TARGET/billiard/api
-    - /bin/cp -a $SOURCE/billiard/api/*.php $TARGET/billiard/api/
+    # Pocket Clash Billiard tidak dideploy dari GitHub.
+    # Folder live berikut tidak akan disentuh:
+    # /home/mudamudi/public_html/billiard

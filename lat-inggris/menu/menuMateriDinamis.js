@@ -1,9 +1,46 @@
 import { MATERI_BAB_CONFIG } from "./materiBabConfig.js";
 import { MATERI_CONTENT } from "../materi/materiContentConfig.js";
 
+function getTotalLearningProgress() {
+    const allItems = MATERI_BAB_CONFIG.flatMap(bab => bab.items || []);
+    const total = allItems.length;
+
+    const selesai = allItems.filter(item => {
+        const id = typeof item === "string" ? item : item.id;
+        return localStorage.getItem(`mms_materi_quiz_${id}`);
+    }).length;
+
+    return {
+        total,
+        selesai,
+        percent: total ? Math.round((selesai / total) * 100) : 0
+    };
+}
+
 export function renderMenuMateriDinamis() {
     const materiBody = document.getElementById("materi-body");
     if (!materiBody) return;
+
+    const totalProgress = getTotalLearningProgress();
+    const resumeBab = getCurrentBabToResume();
+    const resumeProgress = getBabProgress(resumeBab);
+    const achievements = getAchievements();
+    const levelData = getUserLevel();
+    const streakData = getStudyStreak();
+    const dailyMission = getDailyMission();
+
+    const resumeCardHtml = hasStartedLearning() ? `
+    <div class="mms-resume-card" onclick="bukaResumeMateri()">
+        <div class="mms-resume-info">
+            <span>Lanjut Belajar</span>
+            <h3>${resumeBab.title}</h3>
+            <p>${resumeProgress.selesai}/${resumeProgress.total} materi selesai</p>
+        </div>
+
+        <i class="fa-solid fa-play"></i>
+    </div>
+` : "";
+
 
     materiBody.innerHTML = `
         <div class="mms-materi-page">
@@ -18,23 +55,111 @@ export function renderMenuMateriDinamis() {
                 </div>
             </div>
 
+
+${resumeCardHtml}
+
+<div class="mms-learning-flow">
+
+    <div class="mms-learning-summary-card">
+    <div class="mms-summary-top">
+
+    <div>
+        <div class="mms-summary-label">Level Belajar</div>
+        <h3>Level ${levelData.level}</h3>
+        <p>${levelData.current}/${levelData.target} XP menuju level berikutnya</p>
+    </div>
+
+   <div class="mms-summary-badges">
+    <div class="mms-level-streak-text">
+        🔥 ${streakData.streak} Hari
+    </div>
+
+    ${
+    dailyMission.claimed
+        ? `<div class="mms-level-mission-text claimed">✅ Selesai</div>`
+        : dailyMission.completed
+            ? `<div class="mms-level-mission-text ready" onclick="claimDailyMissionReward()">🎁 Klaim +25 XP</div>`
+            : `<div class="mms-level-mission-text">🎯 0/1</div>`
+}
+</div>
+
+</div>
+
+
+
+    <div class="mms-summary-xp">
+        ${levelData.xp} XP
+    </div>
+
+    <div class="mms-level-progress">
+        <div style="width:${levelData.current}%"></div>
+    </div>
+
+    <div class="mms-summary-divider"></div>
+
+    <div class="mms-summary-bottom">
+        <strong>${totalProgress.percent}%</strong>
+
+        <span></span>
+
+        <div>
+            <h3>Progress Belajar</h3>
+            <p>${totalProgress.selesai}/${totalProgress.total} materi selesai</p>
+        </div>
+    </div>
+
+
+    <div class="mms-total-progress-bar">
+        <div style="width:${totalProgress.percent}%"></div>
+    </div>
+</div>
+
+
+
             <div id="mms-materi-dynamic-menu"></div>
+</div>
+
 
             <button class="materi-body-back-btn" onclick="kembaliKeDashboard()">
                 <i class="fa-solid fa-arrow-left"></i>
                 Kembali ke Dashboard
             </button>
         </div>
+
+<button class="mms-achievement-float-btn" onclick="openAchievementOverlay()">
+    🏆
+</button>
+
     `;
 
     const target = document.getElementById("mms-materi-dynamic-menu");
 
-    target.innerHTML = MATERI_BAB_CONFIG.map(bab => `
-        <div class="mms-learning-card">
-            <div class="mms-learning-header" onclick="toggleBabMateri('${bab.id}')">
-                <div class="mms-learning-icon" style="background:${bab.color}20; color:${bab.color};">
-                    <i class="fa-solid ${bab.icon}"></i>
-                </div>
+
+   target.innerHTML = MATERI_BAB_CONFIG.map((bab, babIndex) => {
+    const babUnlocked = isBabUnlocked(babIndex);
+        
+    const progress = getBabProgress(bab);
+    const statusText =
+    progress.percent === 100
+        ? "Selesai"
+        : progress.percent > 0
+            ? "Sedang Belajar"
+            : "Belum Mulai";
+
+    const statusClass =
+    progress.percent === 100
+        ? "complete"
+        : progress.percent > 0
+            ? "progress"
+            : "empty";
+    return `
+       <div class="mms-learning-card ${!babUnlocked ? "mms-bab-locked" : ""}">
+    <div class="mms-learning-header"
+        ${babUnlocked
+            ? `onclick="toggleBabMateri('${bab.id}')"`
+            : `onclick="showLockedBabNotice()"`
+        }
+    >
 
                 <div class="mms-learning-info">
                     <div class="mms-learning-title">
@@ -42,37 +167,95 @@ export function renderMenuMateriDinamis() {
                     </div>
 
                     <div class="mms-learning-subtitle">
-                        ${bab.level} • ${(bab.items || []).length} Materi
+                        ${bab.level} • ${progress.selesai}/${progress.total} Selesai
                     </div>
+
+                    <div class="mms-bab-progress-row">
+    <div class="mms-bab-progress">
+        <div style="width:${progress.percent}%"></div>
+    </div>
+
+    <span class="mms-bab-percent">
+        ${progress.percent}%
+    </span>
+</div>
+
+
+
                 </div>
 
-                <i class="fa-solid fa-chevron-down" style="color:#94a3b8;"></i>
+                ${babUnlocked ? `
+    <i class="fa-solid fa-chevron-down" style="color:#94a3b8;"></i>
+` : `
+    <div class="mms-bab-lock-badge">
+        <i class="fa-solid fa-lock"></i>
+        Terkunci
+    </div>
+`}
             </div>
 
             <div id="content-${bab.id}" class="mms-bab-content" style="display:none;">
-               ${(bab.items || []).map(item => {
-    const label = typeof item === "string" ? item : item.label;
-    const id = typeof item === "string" ? item : item.id;
+                ${(bab.items || []).map((item, index) => {
+                    const label = typeof item === "string" ? item : item.label;
+                    const id = typeof item === "string" ? item : item.id;
+                    const itemProgress = JSON.parse(localStorage.getItem(`mms_materi_quiz_${id}`) || "null");
 
-    const progress = JSON.parse(localStorage.getItem(`mms_materi_quiz_${id}`) || "null");
+                    const unlocked = babUnlocked && isMateriUnlocked(bab, index);
 
 return `
-    <button class="mms-materi-item" onclick="bukaDetailMateriDinamis('${encodeURIComponent(id)}', '${encodeURIComponent(label)}')">
-        <span>${label}</span>
+    <button
+        class="mms-materi-item ${!unlocked ? "locked" : ""}"
+        ${unlocked
+            ? `onclick="bukaDetailMateriDinamis('${encodeURIComponent(id)}', '${encodeURIComponent(label)}')"`
+            : ""}
+    >
+                            <span>${label}</span>
 
-        ${progress ? `
-            <span class="mms-item-progress">
-                <i class="fa-solid fa-circle-check"></i>
-                ${progress.percent}%
-            </span>
-        ` : ""}
-    </button>
-`;
-}).join("")}
+
+    ${itemProgress ? `
+    <span class="mms-item-progress">
+        <i class="fa-solid fa-circle-check"></i>
+        ${itemProgress.percent}%
+    </span>
+` : unlocked ? `
+    <span class="mms-item-next">
+        Lanjut
+    </span>
+` : `
+    <span class="mms-item-lock">
+        <i class="fa-solid fa-lock"></i>
+    </span>
+`}
+                        </button>
+                    `;
+                }).join("")}
             </div>
         </div>
-    `).join("");
+    `;
+}).join("");
+
+setTimeout(() => {
+    autoOpenActiveBab();
+}, 80);
+
 }
+
+
+function getBabProgress(bab) {
+    const total = (bab.items || []).length;
+
+    const selesai = (bab.items || []).filter(item => {
+        const id = typeof item === "string" ? item : item.id;
+        return localStorage.getItem(`mms_materi_quiz_${id}`);
+    }).length;
+
+    return {
+        total,
+        selesai,
+        percent: total ? Math.round((selesai / total) * 100) : 0
+    };
+}
+
 
 window.renderMenuMateriDinamis = renderMenuMateriDinamis;
 
@@ -142,11 +325,20 @@ window.bukaDetailMateriDinamis = function (idMateri, judulMateri) {
 
     window.mmsMateriAktifId = idMateri;
 
+    localStorage.setItem("mms_last_opened_materi", idMateri);
+
     const materiBody = document.getElementById("materi-body");
 
     if (!materiBody) return;
 
     const materi = MATERI_CONTENT[idMateri];
+
+
+    const materiProgress = JSON.parse(
+    localStorage.getItem(`mms_materi_quiz_${idMateri}`) || "null"
+);
+
+const isMateriDone = materiProgress && materiProgress.percent >= 100;
 
 materiBody.innerHTML = `
     <div class="mms-detail-loading">
@@ -169,9 +361,16 @@ setTimeout(() => {
                 </div>
             </div>
 
+            
             <div class="mms-materi-detail-card">
                 <h3>${materi?.title || judulMateri}</h3>
-                <p>${materi?.description || "Konten materi belum tersedia."}</p>
+                <div class="mms-lesson-intro">
+    <div class="mms-lesson-intro-icon">
+        <i class="fa-solid fa-lightbulb"></i>
+    </div>
+
+    <p>${materi?.description || "Konten materi belum tersedia."}</p>
+</div>
 
                 ${materi?.video?.url ? `
                     <div class="mms-video-trigger" onclick="bukaVideoMateri('${encodeURIComponent(materi.video.url)}', '${materi.video.type}')">
@@ -246,6 +445,8 @@ setTimeout(() => {
                     </div>
                 ` : ""}
 
+
+
                 ${materi?.quiz?.length ? `
                     <div class="mms-mini-quiz">
                         <div class="mms-mini-quiz-head" onclick="toggleMiniQuiz()">
@@ -269,26 +470,53 @@ setTimeout(() => {
 </div>
 
 
-                        <div id="mms-mini-quiz-content" class="mms-mini-quiz-content" style="display:none;">
-                            ${materi.quiz.map((q, index) => `
-                                <div class="mms-quiz-card">
-                                    <div class="mms-quiz-type">
-                                        <i class="fa-solid ${q.type === "Verbal" ? "fa-pen" : "fa-user"}"></i>
-                                        ${q.type}
-                                    </div>
+<div id="mms-mini-quiz-content" class="mms-mini-quiz-content" style="display:none;">
 
-                                    <div class="mms-quiz-question">
-                                        <div class="mms-quiz-number">${index + 1}</div>
-                                        <span>${q.question}</span>
-                                    </div>
+    ${materi.quiz.map((q, index) => `
 
-                                    <div class="mms-quiz-options">
-                                        ${q.options.map(opt => `
-                                            <button onclick="cekMiniQuiz(this, '${opt}', '${q.answer}', '${q.explanation}')">
-                                                ${opt}
-                                            </button>
-                                        `).join("")}
-                                    </div>
+        <div class="mms-quiz-card">
+
+            ${q.type ? `
+
+                <div class="mms-quiz-type">
+
+                    <i class="fa-solid ${q.type === "Verbal" ? "fa-pen" : "fa-user"}"></i>
+
+                    ${q.type}
+
+                </div>
+
+            ` : ""}
+
+            <div class="mms-quiz-question">
+
+                <div class="mms-quiz-number">${index + 1}</div>
+
+                <span>${q.question}</span>
+
+            </div>
+
+            <div class="mms-quiz-options">
+
+                ${q.options.map(opt => `
+
+                    <button
+
+    data-answer="${String(q.answer).replace(/"/g, "&quot;")}"
+
+    data-explanation="${String(q.explanation || "").replace(/"/g, "&quot;")}"
+
+    onclick="cekMiniQuiz(this)"
+
+>
+
+                        ${opt}
+
+                    </button>
+
+                `).join("")}
+
+            </div>
 
                                     <div class="mms-quiz-explanation" style="display:none;"></div>
                                 </div>
@@ -298,6 +526,12 @@ setTimeout(() => {
                         </div>
                     </div>
                 ` : ""}
+
+
+
+
+
+
             </div>
         </div>
     `;
@@ -374,37 +608,97 @@ window.toggleMiniQuiz = function () {
     }
 };
 
-window.cekMiniQuiz = function (btn, pilihan, jawaban, explanation) {
-    const card = btn.closest(".mms-quiz-card");
-    const parent = btn.closest(".mms-quiz-options");
-    const explainBox = card.querySelector(".mms-quiz-explanation");
 
-    parent.querySelectorAll("button").forEach(b => {
+window.mmsQuizSession = 0;
+
+window.mmsQuizOverlayTimer = null;
+
+
+window.cekMiniQuiz = function (btn) {
+
+    const card = btn.closest(".mms-quiz-card");
+
+    if (!card) return;
+
+    const selected = btn.textContent.trim();
+
+    const answer = btn.dataset.answer;
+
+    const explanation = btn.dataset.explanation || "";
+
+    const buttons = card.querySelectorAll(".mms-quiz-options button");
+
+    buttons.forEach(b => {
+
         b.disabled = true;
 
-        if (b.textContent.trim() === jawaban) {
-            b.classList.add("mms-quiz-correct");
-        }
     });
 
-    if (pilihan !== jawaban) {
-    btn.classList.add("mms-quiz-wrong");
-    explainBox.className = "mms-quiz-explanation mms-quiz-explanation-wrong";
-    explainBox.innerHTML = `<strong>Belum tepat.</strong><span>${explanation}</span>`;
-} else {
-    explainBox.className = "mms-quiz-explanation mms-quiz-explanation-correct";
-    explainBox.innerHTML = `<strong>Benar.</strong><span>${explanation}</span>`;
-}
-
-    explainBox.style.display = "block";
     card.classList.add("mms-quiz-answered");
 
-if (pilihan === jawaban) {
-    card.classList.add("mms-quiz-correct-card");
+    if (selected === answer) {
+
+        btn.classList.add("correct");
+
+        card.classList.add("mms-quiz-correct-card");
+
+    } else {
+
+        btn.classList.add("wrong");
+
+        buttons.forEach(b => {
+
+            if (b.textContent.trim() === answer) {
+
+                b.classList.add("correct");
+
+            }
+
+        });
+
+    }
+
+    const explainBox = card.querySelector(".mms-quiz-explanation");
+
+    if (explainBox) {
+
+        explainBox.style.display = "block";
+
+        explainBox.innerHTML = `
+
+            <strong>${selected === answer ? "Benar." : "Belum tepat."}</strong>
+
+            <span>${explanation}</span>
+
+        `;
+
+    }
+
+    updateMiniQuizProgress();
+
+    updateMiniQuizScore();
+
+    const totalCards = document.querySelectorAll(".mms-quiz-card").length;
+
+    const answeredCards = document.querySelectorAll(".mms-quiz-card.mms-quiz-answered").length;
+
+    if (answeredCards === totalCards) {
+    const sessionAtAnswer = window.mmsQuizSession;
+
+    clearTimeout(window.mmsQuizOverlayTimer);
+
+    window.mmsQuizOverlayTimer = setTimeout(() => {
+        if (sessionAtAnswer !== window.mmsQuizSession) return;
+
+        const stillAnswered = document.querySelectorAll(".mms-quiz-card.mms-quiz-answered").length;
+        const stillTotal = document.querySelectorAll(".mms-quiz-card").length;
+
+        if (stillAnswered === stillTotal && stillTotal > 0) {
+            tampilkanOverlayHasilQuiz();
+        }
+    }, 2000);
 }
 
-updateMiniQuizProgress();
-updateMiniQuizScore();
 simpanProgressMateriQuiz();
 
 
@@ -483,61 +777,105 @@ window.updateMiniQuizScore = function () {
 };
 
 window.resetMiniQuiz = function () {
+
+window.mmsQuizSession++;
+clearTimeout(window.mmsQuizOverlayTimer);
+window.mmsQuizOverlayTimer = null;
+tutupQuizOverlay();
+
     document.querySelectorAll(".mms-quiz-card").forEach(card => {
-        card.classList.remove("mms-quiz-answered", "mms-quiz-correct-card");
+        card.classList.remove(
+            "mms-quiz-answered",
+            "mms-quiz-correct-card"
+        );
 
         card.querySelectorAll(".mms-quiz-options button").forEach(btn => {
             btn.disabled = false;
-            btn.classList.remove("mms-quiz-correct", "mms-quiz-wrong");
+            btn.classList.remove("correct", "wrong");
         });
 
-        const explainBox = card.querySelector(".mms-quiz-explanation");
-        if (explainBox) {
-            explainBox.style.display = "none";
-            explainBox.innerHTML = "";
-            explainBox.className = "mms-quiz-explanation";
+        const explanation = card.querySelector(".mms-quiz-explanation");
+        if (explanation) {
+            explanation.style.display = "none";
+            explanation.innerHTML = "";
         }
     });
 
     const scoreBox = document.getElementById("mms-mini-quiz-score");
-if (scoreBox) {
-    scoreBox.style.display = "none";
-    scoreBox.innerHTML = "";
-}
-
-updateMiniQuizProgress();
-
-const firstCard = document.querySelector(".mms-quiz-card");
-if (firstCard) {
-    setTimeout(() => {
-        firstCard.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-    }, 120);
-}
-};
-
-window.bukaMateriBerikutnya = function (idMateriSekarang) {
-    const semuaMateri = MATERI_BAB_CONFIG.flatMap(bab => bab.items || []);
-    const indexSekarang = semuaMateri.findIndex(item => item.id === idMateriSekarang);
-
-    if (indexSekarang === -1) {
-        renderMenuMateriDinamis();
-        return;
+    if (scoreBox) {
+        scoreBox.style.display = "none";
+        scoreBox.innerHTML = "";
     }
 
-    const materiBerikutnya = semuaMateri[indexSekarang + 1];
+    updateMiniQuizProgress();
 
-    if (!materiBerikutnya) {
+    const firstCard = document.querySelector(".mms-quiz-card");
+    if (firstCard) {
+        firstCard.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+};
+
+window.bukaMateriBerikutnya = function () {
+
+    const currentId = window.mmsMateriAktifId;
+
+    if (!currentId) {
+
         renderMenuMateriDinamis();
+
         return;
+
+    }
+
+    const allItems = MATERI_BAB_CONFIG.flatMap(bab => bab.items || []);
+
+    const currentIndex = allItems.findIndex(item => item.id === currentId);
+
+    if (currentIndex === -1) {
+
+        renderMenuMateriDinamis();
+
+        return;
+
+    }
+
+    const nextItem = allItems[currentIndex + 1];
+
+    if (!nextItem) {
+
+        renderMenuMateriDinamis();
+
+        return;
+
     }
 
     bukaDetailMateriDinamis(
-        encodeURIComponent(materiBerikutnya.id),
-        encodeURIComponent(materiBerikutnya.label)
+
+        encodeURIComponent(nextItem.id),
+
+        encodeURIComponent(nextItem.label)
+
     );
+
+    setTimeout(() => {
+
+        const materiBody = document.getElementById("materi-body");
+
+        if (materiBody) {
+
+            materiBody.scrollTo({ top: 0, behavior: "smooth" });
+
+        } else {
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+
+        }
+
+    }, 250);
+
 };
 
 window.updateMiniQuizProgress = function () {
@@ -591,12 +929,770 @@ window.simpanProgressMateriQuiz = function () {
     if (answered !== total) return;
 
     const data = {
-        materiId,
-        total,
-        correct,
-        percent: Math.round((correct / total) * 100),
-        finishedAt: new Date().toISOString()
+    materiId,
+    total,
+    correct,
+    percent: Math.round((correct / total) * 100),
+    finishedAt: new Date().toISOString()
+};
+
+localStorage.setItem(`mms_materi_quiz_${materiId}`, JSON.stringify(data));
+
+checkAchievements();
+addXPFromQuiz(data.percent);
+updateStudyStreak();
+updateDailyMission();
+
+
+
+};
+
+
+
+function isMateriUnlocked(bab, index) {
+
+    if (index === 0) return true;
+
+    const prevItem = bab.items[index - 1];
+    const prevId = typeof prevItem === "string"
+        ? prevItem
+        : prevItem.id;
+
+    const progress = JSON.parse(
+        localStorage.getItem(`mms_materi_quiz_${prevId}`) || "null"
+    );
+
+    return progress && progress.percent >= 70;
+}
+
+
+window.autoOpenActiveBab = function () {
+    const selectedBab = MATERI_BAB_CONFIG.find(bab => {
+        const progress = getBabProgress(bab);
+        return progress.percent < 100;
+    });
+
+    if (selectedBab) {
+        toggleBabMateri(selectedBab.id);
+    }
+};
+
+function getCurrentBabToResume() {
+    return MATERI_BAB_CONFIG.find(bab => {
+        const progress = getBabProgress(bab);
+        return progress.percent < 100;
+    }) || MATERI_BAB_CONFIG[0];
+}
+
+function getNextMateriToResume(bab) {
+    return (bab.items || []).find((item, index) => {
+        const id = typeof item === "string" ? item : item.id;
+        const progress = localStorage.getItem(`mms_materi_quiz_${id}`);
+
+        return !progress && isMateriUnlocked(bab, index);
+    });
+}
+
+window.bukaResumeMateri = function () {
+    const lastId = localStorage.getItem("mms_last_opened_materi");
+
+    if (lastId) {
+        const semuaMateri = MATERI_BAB_CONFIG.flatMap(bab => bab.items || []);
+        const item = semuaMateri.find(item => {
+            const id = typeof item === "string" ? item : item.id;
+            return id === lastId;
+        });
+
+        if (item) {
+            const id = typeof item === "string" ? item : item.id;
+            const label = typeof item === "string" ? item : item.label;
+
+            bukaDetailMateriDinamis(
+                encodeURIComponent(id),
+                encodeURIComponent(label)
+            );
+            return;
+        }
+    }
+
+    const bab = getCurrentBabToResume();
+    const item = getNextMateriToResume(bab);
+
+    if (!item) {
+        toggleBabMateri(bab.id);
+        return;
+    }
+
+    const id = typeof item === "string" ? item : item.id;
+    const label = typeof item === "string" ? item : item.label;
+
+    bukaDetailMateriDinamis(
+        encodeURIComponent(id),
+        encodeURIComponent(label)
+    );
+};
+
+window.getAchievements = function () {
+    return JSON.parse(
+        localStorage.getItem("mms_achievements") || "{}"
+    );
+};
+
+window.saveAchievements = function (data) {
+    localStorage.setItem(
+        "mms_achievements",
+        JSON.stringify(data)
+    );
+};
+
+window.getTotalCompletedMateri = function () {
+    let total = 0;
+
+    MATERI_BAB_CONFIG.forEach(bab => {
+        (bab.items || []).forEach(item => {
+            const id = typeof item === "string" ? item : item.id;
+
+            if (localStorage.getItem(`mms_materi_quiz_${id}`)) {
+                total++;
+            }
+        });
+    });
+
+    return total;
+};
+
+window.checkAchievements = function () {
+    const achievements = getAchievements();
+    const newlyUnlocked = [];
+
+    const completedMateri = getTotalCompletedMateri();
+    const totalProgress = getTotalLearningProgress();
+    const hasOpened = localStorage.getItem("mms_last_opened_materi") !== null;
+
+    if ((completedMateri >= 1 || hasOpened) && !achievements.firstStep) {
+        achievements.firstStep = true;
+        newlyUnlocked.push("🌱 First Step");
+        giveAchievementReward("firstStep", 25);
+    }
+
+    const currentXP = getUserLevel().xp;
+
+if (currentXP >= 100 && !achievements.onFire) {
+    achievements.onFire = true;
+    newlyUnlocked.push("🔥 On Fire");
+    giveAchievementReward("onFire", 50);
+}
+
+    if (completedMateri >= 3 && !achievements.explorer) {
+        achievements.explorer = true;
+        newlyUnlocked.push("📚 Grammar Explorer");
+        giveAchievementReward("explorer", 100);
+    }
+
+    if (totalProgress.percent === 100 && !achievements.master) {
+        achievements.master = true;
+        newlyUnlocked.push("🏆 English Master");
+        giveAchievementReward("master", 500);
+    }
+
+    saveAchievements(achievements);
+
+    newlyUnlocked.forEach((name, index) => {
+        setTimeout(() => {
+            showAchievementToast(name, "Achievement Unlocked", "🏆");
+        }, index * 500);
+    });
+};
+
+window.getUserXP = function () {
+    return Number(localStorage.getItem("mms_user_xp") || 0);
+};
+
+window.saveUserXP = function (xp) {
+    localStorage.setItem("mms_user_xp", String(xp));
+};
+
+window.getUserLevel = function () {
+    const xp = getUserXP();
+
+    return {
+        xp,
+        level: Math.floor(xp / 100) + 1,
+        current: xp % 100,
+        target: 100
+    };
+};
+
+window.addXPFromQuiz = function (percent) {
+    const materiId = window.mmsMateriAktifId;
+    const xpKey = `mms_xp_claimed_${materiId}`;
+
+    if (localStorage.getItem(xpKey)) return;
+
+    let gainedXP = 20;
+
+    if (percent === 100) {
+        gainedXP = 50;
+    } else if (percent >= 70) {
+        gainedXP = 35;
+    }
+
+    const oldXP = getUserXP();
+    const oldLevel = Math.floor(oldXP / 100) + 1;
+
+    const newXP = oldXP + gainedXP;
+    const newLevel = Math.floor(newXP / 100) + 1;
+
+    saveUserXP(newXP);
+    localStorage.setItem(xpKey, "true");
+
+    showAchievementToast(`+${gainedXP} XP`, "XP Bertambah", "⭐");
+
+    if (newLevel > oldLevel) {
+        setTimeout(() => {
+            showAchievementToast(
+                `Kamu naik ke Level ${newLevel}`,
+                "Level Up!",
+                "🚀"
+            );
+        }, 900);
+    }
+};
+
+function hasStartedLearning() {
+    return localStorage.getItem("mms_last_opened_materi") !== null
+        || getTotalLearningProgress().selesai > 0;
+}
+
+
+function isBabUnlocked(babIndex) {
+    if (babIndex === 0) return true;
+
+    const prevBab = MATERI_BAB_CONFIG[babIndex - 1];
+    const prevProgress = getBabProgress(prevBab);
+
+    return prevProgress.percent === 100;
+}
+
+window.showLockedBabNotice = function () {
+    showAchievementToast(
+        "Selesaikan BAB sebelumnya dulu",
+        "Materi Terkunci",
+        "🔒"
+    );
+};
+
+window.getStudyStreak = function () {
+    const data = JSON.parse(
+        localStorage.getItem("mms_study_streak") || JSON.stringify({
+            streak: 0,
+            lastStudyDate: null
+        })
+    );
+
+    if (!data.lastStudyDate) return data;
+
+    const today = getTodayKey();
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayKey = yesterday.toISOString().slice(0, 10);
+
+    if (data.lastStudyDate !== today && data.lastStudyDate !== yesterdayKey) {
+        data.streak = 0;
+        saveStudyStreak(data);
+    }
+
+    return data;
+};
+
+window.saveStudyStreak = function (data) {
+    localStorage.setItem("mms_study_streak", JSON.stringify(data));
+};
+
+window.getTodayKey = function () {
+    return new Date().toISOString().slice(0, 10);
+};
+
+window.updateStudyStreak = function () {
+    const data = getStudyStreak();
+    const today = getTodayKey();
+
+    if (data.lastStudyDate === today) return;
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayKey = yesterday.toISOString().slice(0, 10);
+
+    if (data.lastStudyDate === yesterdayKey) {
+        data.streak += 1;
+    } else {
+        data.streak = 1;
+    }
+
+    data.lastStudyDate = today;
+    saveStudyStreak(data);
+
+    showAchievementToast(
+        `${data.streak} hari berturut-turut`,
+        "Streak Belajar",
+        "🔥"
+    );
+};
+
+window.openAchievementOverlay = function () {
+    const achievements = getAchievements();
+    const totalCompleted = getTotalCompletedMateri();
+    const totalProgress = getTotalLearningProgress();
+    const levelData = getUserLevel();
+
+    const overlay = document.createElement("div");
+    overlay.className = "mms-achievement-panel-overlay";
+
+    overlay.innerHTML = `
+        <div class="mms-achievement-panel">
+            <div class="mms-achievement-panel-head">
+                <h3>🏆 Achievement</h3>
+                <button onclick="this.closest('.mms-achievement-panel-overlay').remove()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="mms-achievement-row ${achievements.firstStep ? "unlocked" : "locked"}" onclick="focusAchievementItem(this)">
+                <div class="mms-achievement-row-icon">🌱</div>
+                <div class="mms-achievement-row-info">
+                    <strong>First Step</strong>
+                    <span>Selesaikan 1 materi</span>
+                </div>
+                <div class="mms-achievement-status">
+                    ${achievements.firstStep ? "✓ Selesai" : "🔒 Terkunci"}
+                </div>
+            </div>
+
+            <div class="mms-achievement-row ${achievements.onFire ? "unlocked" : "locked"}" onclick="focusAchievementItem(this)">
+                <div class="mms-achievement-row-icon">🔥</div>
+                <div class="mms-achievement-row-info">
+                    <strong>On Fire</strong>
+                    <span>Dapatkan minimal 100 XP</span>
+                    <div class="mms-achievement-mini-progress">
+                        <div style="width:${Math.min(levelData.xp, 100)}%"></div>
+                    </div>
+                    <small>${Math.min(levelData.xp, 100)}/100 XP</small>
+                </div>
+                <div class="mms-achievement-status">
+                    ${achievements.onFire ? "✓ Selesai" : "🔒 Terkunci"}
+                </div>
+            </div>
+
+            <div class="mms-achievement-row ${achievements.explorer ? "unlocked" : "locked"}" onclick="focusAchievementItem(this)">
+                <div class="mms-achievement-row-icon">📚</div>
+                <div class="mms-achievement-row-info">
+                    <strong>Grammar Explorer</strong>
+                    <span>Selesaikan 3 materi</span>
+                    <div class="mms-achievement-mini-progress">
+                        <div style="width:${Math.min((totalCompleted / 3) * 100, 100)}%"></div>
+                    </div>
+                    <small>${Math.min(totalCompleted, 3)}/3 materi</small>
+                </div>
+                <div class="mms-achievement-status">
+                    ${achievements.explorer ? "✓ Selesai" : "🔒 Terkunci"}
+                </div>
+            </div>
+
+            <div class="mms-achievement-row ${achievements.master ? "unlocked" : "locked"}" onclick="focusAchievementItem(this)">
+                <div class="mms-achievement-row-icon">🏆</div>
+                <div class="mms-achievement-row-info">
+                    <strong>English Master</strong>
+                    <span>Selesaikan semua materi</span>
+                    <div class="mms-achievement-mini-progress">
+                        <div style="width:${totalProgress.percent}%"></div>
+                    </div>
+                    <small>${totalProgress.selesai}/${totalProgress.total} materi</small>
+                </div>
+                <div class="mms-achievement-status">
+                    ${achievements.master ? "✓ Selesai" : "🔒 Terkunci"}
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    setTimeout(() => {
+        overlay.classList.add("show");
+    }, 30);
+};
+
+window.focusAchievementItem = function (item) {
+    const panel = item.closest(".mms-achievement-panel");
+
+    panel.querySelectorAll(".mms-achievement-row").forEach(row => {
+        row.classList.remove("focused");
+        row.classList.add("blurred");
+    });
+
+    item.classList.remove("blurred");
+    item.classList.add("focused");
+
+    setTimeout(() => {
+        panel.querySelectorAll(".mms-achievement-row").forEach(row => {
+            row.classList.remove("blurred", "focused");
+        });
+    }, 1400);
+};
+
+window.getDailyMission = function () {
+    const today = getTodayKey();
+    const key = `mms_daily_mission_${today}`;
+
+    return JSON.parse(
+        localStorage.getItem(key) || JSON.stringify({
+            completed: false,
+            claimed: false
+        })
+    );
+};
+
+window.saveDailyMission = function (data) {
+    const today = getTodayKey();
+    const key = `mms_daily_mission_${today}`;
+
+    localStorage.setItem(key, JSON.stringify(data));
+};
+
+window.updateDailyMission = function () {
+    const mission = getDailyMission();
+
+    if (mission.completed) return;
+
+    mission.completed = true;
+    saveDailyMission(mission);
+
+    showAchievementToast(
+        "Selesaikan 1 materi hari ini",
+        "Misi Harian Selesai",
+        "🎯"
+    );
+};
+
+window.claimDailyMissionReward = function () {
+    const mission = getDailyMission();
+
+    if (!mission.completed || mission.claimed) return;
+
+    const oldXP = getUserXP();
+    const oldLevel = Math.floor(oldXP / 100) + 1;
+
+    mission.claimed = true;
+    saveDailyMission(mission);
+
+    const newXP = oldXP + 25;
+    const newLevel = Math.floor(newXP / 100) + 1;
+
+    saveUserXP(newXP);
+
+    checkAchievements();
+
+    window.showAchievementToast("+25 XP", "Reward Misi Harian", "🎁");
+
+    if (newLevel > oldLevel) {
+        setTimeout(() => {
+            window.showAchievementToast(
+                `Kamu naik ke Level ${newLevel}`,
+                "Level Up!",
+                "🚀"
+            );
+        }, 900);
+    }
+
+    renderMenuMateriDinamis();
+};
+
+window.showAchievementToast = function (name, title = "Achievement Unlocked", icon = "🏆") {
+    const overlay = document.createElement("div");
+    overlay.className = "mms-achievement-overlay";
+
+    const toast = document.createElement("div");
+    toast.className = "mms-achievement-toast";
+
+    toast.innerHTML = `
+        <div class="mms-achievement-toast-icon">${icon}</div>
+        <div>
+            <strong>${title}</strong>
+            <span>${name}</span>
+        </div>
+    `;
+
+    overlay.appendChild(toast);
+    document.body.appendChild(overlay);
+
+    setTimeout(() => overlay.classList.add("show"), 30);
+
+    setTimeout(() => {
+        overlay.classList.remove("show");
+        setTimeout(() => overlay.remove(), 300);
+    }, 3000);
+};
+
+
+window.resetMMSLearningDev = function () {
+    Object.keys(localStorage)
+        .filter(key => key.startsWith("mms_"))
+        .forEach(key => localStorage.removeItem(key));
+
+    renderMenuMateriDinamis();
+
+    console.log("MMS learning data reset.");
+};
+
+window.completeMateriManual = function () {
+    const materiId = window.mmsMateriAktifId;
+
+    if (!materiId) return;
+
+    const key = `mms_materi_quiz_${materiId}`;
+
+    const oldData = JSON.parse(localStorage.getItem(key) || "null");
+
+    if (oldData && oldData.percent >= 100) {
+        window.showAchievementToast("Materi ini sudah selesai", "Info", "✅");
+        return;
+    }
+
+    const data = {
+        materiId: materiId,
+        total: 1,
+        correct: 1,
+        percent: 100,
+        finishedAt: new Date().toISOString(),
+        completedManually: true
     };
 
-    localStorage.setItem(`mms_materi_quiz_${materiId}`, JSON.stringify(data));
+    localStorage.setItem(key, JSON.stringify(data));
+
+    addXPFromQuiz(100);
+    updateStudyStreak();
+    updateDailyMission();
+
+    setTimeout(() => {
+    checkAchievements();
+}, 80);
+
+window.showAchievementToast("Materi selesai", "Progress Tersimpan", "✅");
+
+   setTimeout(() => {
+    const materiId = window.mmsMateriAktifId;
+    const materi = MATERI_CONTENT[materiId];
+    const title = materi?.title || materiId;
+
+    bukaDetailMateriDinamis(
+        encodeURIComponent(materiId),
+        encodeURIComponent(title)
+    );
+}, 900);
+};
+
+window.giveAchievementReward = function (achievementKey, xpReward) {
+    const rewardKey = `mms_achievement_reward_${achievementKey}`;
+
+    if (localStorage.getItem(rewardKey)) return false;
+
+    const oldXP = getUserXP();
+    saveUserXP(oldXP + xpReward);
+
+    localStorage.setItem(rewardKey, "true");
+
+    return true;
+};
+
+
+
+
+window.tampilkanOverlayHasilQuiz = function () {
+    const cards = document.querySelectorAll(".mms-quiz-card");
+    const total = cards.length;
+    const correct = document.querySelectorAll(".mms-quiz-card.mms-quiz-correct-card").length;
+    const percent = Math.round((correct / total) * 100);
+    simpanBestScoreQuiz(correct, total, percent);
+    let icon = "📚";
+    let title = "Perlu Belajar Lagi";
+    let subtitle = "Coba baca ulang materi dan kerjakan quiz sekali lagi.";
+
+    if (percent >= 100) {
+        icon = "🎯";
+        title = "Perfect Score";
+        subtitle = "Luar biasa! Semua jawaban benar.";
+    } else if (percent >= 80) {
+        icon = "🏆";
+        title = "Good Job";
+        subtitle = "Bagus. Kamu sudah memahami sebagian besar materi.";
+    } else if (percent >= 60) {
+        icon = "👍";
+        title = "Cukup Baik";
+        subtitle = "Kamu sudah lulus, tetapi masih ada beberapa konsep yang perlu diperkuat.";
+    }
+
+    const lulus = percent >= 60;
+
+    const oldOverlay = document.getElementById("quizResultOverlay");
+    if (oldOverlay) oldOverlay.remove();
+
+    document.body.insertAdjacentHTML("beforeend", `
+        <div id="quizResultOverlay" class="mms-quiz-overlay">
+            <div class="mms-quiz-result-card">
+                <div class="mms-quiz-result-icon">${icon}</div>
+
+                <div class="mms-quiz-result-title">${title}</div>
+
+                <div class="mms-quiz-result-score">${correct}/${total}</div>
+
+                <div class="mms-quiz-result-subtitle">${subtitle}</div>
+
+                ${
+                    lulus ? `
+                        <div class="mms-quiz-result-question">
+                            Apakah kamu sudah memahami materi ini?
+                        </div>
+
+                        <div class="mms-quiz-result-actions three">
+                            <button onclick="tutupQuizOverlay()">
+                                Belum
+                            </button>
+
+                            <button onclick="resetMiniQuiz(); tutupQuizOverlay();">
+                                Ulangi Quiz
+                            </button>
+
+                            <button class="primary" onclick="selesaikanMateriDariQuiz()">
+                                Sudah, Lanjut
+                            </button>
+                        </div>
+                    ` : `
+                        <div class="mms-quiz-result-actions">
+                            <button onclick="scrollKeAtasMateri(); tutupQuizOverlay();">
+                                Baca Ulang Materi
+                            </button>
+
+                            <button class="primary" onclick="resetMiniQuiz(); tutupQuizOverlay();">
+                                Ulangi Quiz
+                            </button>
+                        </div>
+                    `
+                }
+            </div>
+        </div>
+    `);
+};
+
+
+window.tutupQuizOverlay = function () {
+    const el = document.getElementById("quizResultOverlay");
+    if (el) el.remove();
+};
+
+window.scrollKeAtasMateri = function () {
+    const target = document.querySelector(".mms-materi-detail-card");
+    if (target) {
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+};
+
+window.selesaikanMateriDariQuiz = function () {
+    const materiId = window.mmsMateriAktifId;
+    if (!materiId) return;
+
+    const cards = document.querySelectorAll(".mms-quiz-card");
+    const total = cards.length;
+    const correct = document.querySelectorAll(".mms-quiz-card.mms-quiz-correct-card").length;
+    const percent = Math.round((correct / total) * 100);
+
+    const key = `mms_materi_quiz_${materiId}`;
+    const oldData = JSON.parse(localStorage.getItem(key) || "null");
+            localStorage.setItem(key, JSON.stringify({
+
+            ...(oldData || {}),
+
+            materiId,
+
+            percent: 100,
+
+            completedByQuiz: true,
+
+            finishedAt: new Date().toISOString()
+
+}));
+const oldBestScore = oldData?.bestScore || oldData?.quizScore || 0;
+const newScore = percent;
+const bestScore = Math.max(oldBestScore, newScore);
+
+localStorage.setItem(key, JSON.stringify({
+    materiId,
+    total,
+    correct,
+    percent: 100,
+    quizScore: newScore,
+    bestScore: bestScore,
+    bestCorrect: bestScore === newScore ? correct : oldData?.bestCorrect,
+    bestTotal: bestScore === newScore ? total : oldData?.bestTotal,
+    finishedAt: new Date().toISOString(),
+    completedByQuiz: true
+}));
+    
+
+    addXPFromQuiz(percent);
+    updateStudyStreak();
+    updateDailyMission();
+    checkAchievements();
+
+    tutupQuizOverlay();
+
+window.showAchievementToast("Materi selesai", "Progress Tersimpan", "✅");
+
+setTimeout(() => {
+    bukaMateriBerikutnya();
+
+    setTimeout(() => {
+        const materiPage = document.querySelector(".mms-materi-page");
+
+        if (materiPage) {
+            materiPage.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        } else {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+    }, 350);
+}, 700);
+};
+
+window.simpanBestScoreQuiz = function (correct, total, percent) {
+    const materiId = window.mmsMateriAktifId;
+    if (!materiId) return;
+
+    const key = `mms_materi_quiz_${materiId}`;
+    const oldData = JSON.parse(localStorage.getItem(key) || "null");
+
+    const oldBestScore = Number(oldData?.bestScore || 0);
+    const newScore = Number(percent || 0);
+
+    if (newScore > oldBestScore) {
+        localStorage.setItem(key, JSON.stringify({
+            ...(oldData || {}),
+            materiId,
+            total,
+            correct,
+            quizScore: newScore,
+            bestScore: newScore,
+            bestCorrect: correct,
+            bestTotal: total,
+            bestUpdatedAt: new Date().toISOString()
+        }));
+    }
 };
