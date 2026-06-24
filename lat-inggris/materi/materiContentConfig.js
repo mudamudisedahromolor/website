@@ -5284,6 +5284,6665 @@ interjection: {
             explanation: "Must menunjukkan kewajiban kuat."
         }
     ]
+},
+
+"gerund": {
+    title: "Gerund",
+    description: "Gerund adalah bentuk verb yang ditambah -ing tetapi berfungsi sebagai noun. Gerund dapat menjadi subject, object, complement, atau muncul setelah preposition.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Gerund = Verb + ing sebagai noun<br>
+        swimming, reading, studying, writing
+    `,
+
+    notes: [
+        "Gerund berbentuk V-ing.",
+        "Gerund berfungsi seperti noun.",
+        "Gerund dapat menjadi subject kalimat.",
+        "Gerund dapat menjadi object setelah verb tertentu.",
+        "Gerund dapat muncul setelah preposition.",
+        "Gerund berbeda dari Present Continuous karena gerund berfungsi sebagai noun."
+    ],
+
+    patterns: [
+        {
+            group: "Function",
+            items: [
+                {
+                    label: "Subject",
+                    formula: "Gerund + Verb + Complement",
+                    examples: [
+                        "Swimming is fun.",
+                        "Reading improves vocabulary.",
+                        "Studying English takes time."
+                    ]
+                },
+                {
+                    label: "Object",
+                    formula: "Subject + Verb + Gerund",
+                    examples: [
+                        "I enjoy reading.",
+                        "She likes swimming.",
+                        "They avoid smoking."
+                    ]
+                },
+                {
+                    label: "After Preposition",
+                    formula: "Preposition + Gerund",
+                    examples: [
+                        "She is good at singing.",
+                        "I am interested in learning English.",
+                        "He left without saying goodbye."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Gerund Verbs",
+            items: [
+                {
+                    label: "Enjoy / Avoid / Finish",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "I enjoy cooking.",
+                        "She avoids eating junk food.",
+                        "They finished working."
+                    ]
+                },
+                {
+                    label: "Mind / Keep / Practice",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "Do you mind waiting?",
+                        "He keeps trying.",
+                        "We practice speaking English."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Gerund is formed by...",
+            options: ["V1", "V2", "V3", "Verb + ing"],
+            answer: "Verb + ing",
+            explanation: "Gerund berbentuk verb + ing dan berfungsi sebagai noun."
+        },
+        {
+            type: "Function",
+            question: "In 'Swimming is fun', 'Swimming' is...",
+            options: ["Gerund", "Adjective", "Conjunction", "Preposition"],
+            answer: "Gerund",
+            explanation: "Swimming berbentuk V-ing dan berfungsi sebagai subject."
+        },
+        {
+            type: "Subject",
+            question: "Which sentence uses a gerund as subject?",
+            options: [
+                "Reading is useful.",
+                "She is reading.",
+                "They read books.",
+                "The book is red."
+            ],
+            answer: "Reading is useful.",
+            explanation: "Reading menjadi subject kalimat."
+        },
+        {
+            type: "Object",
+            question: "I enjoy ___.",
+            options: ["read", "reads", "reading", "to reading"],
+            answer: "reading",
+            explanation: "Enjoy diikuti gerund."
+        },
+        {
+            type: "Object",
+            question: "She avoids ___ junk food.",
+            options: ["eat", "eats", "eating", "to eat"],
+            answer: "eating",
+            explanation: "Avoid diikuti gerund."
+        },
+        {
+            type: "After Preposition",
+            question: "She is good at ___.",
+            options: ["sing", "sings", "singing", "to sing"],
+            answer: "singing",
+            explanation: "Setelah preposition at, gunakan gerund."
+        },
+        {
+            type: "After Preposition",
+            question: "I am interested in ___ English.",
+            options: ["learn", "learns", "learning", "to learn"],
+            answer: "learning",
+            explanation: "Setelah preposition in, gunakan gerund."
+        },
+        {
+            type: "Compare",
+            question: "Which sentence contains a gerund, not Present Continuous?",
+            options: [
+                "She is studying.",
+                "Studying is important.",
+                "They are playing.",
+                "I am reading."
+            ],
+            answer: "Studying is important.",
+            explanation: "Studying berfungsi sebagai subject, jadi itu gerund."
+        },
+        {
+            type: "Verb Pattern",
+            question: "They finished ___.",
+            options: ["work", "works", "working", "to working"],
+            answer: "working",
+            explanation: "Finish diikuti gerund."
+        },
+        {
+            type: "Verb Pattern",
+            question: "We practice ___ English.",
+            options: ["speak", "speaks", "speaking", "to speak"],
+            answer: "speaking",
+            explanation: "Practice diikuti gerund."
+        }
+    ]
+},
+
+"infinitive": {
+    title: "Infinitive",
+    description: "Infinitive adalah bentuk dasar verb yang biasanya diawali dengan 'to'. Infinitive dapat berfungsi sebagai noun, adjective, atau adverb dalam kalimat.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Infinitive = to + V1<br>
+        to study, to read, to swim
+    `,
+
+    notes: [
+        "Infinitive berbentuk to + V1.",
+        "Infinitive dapat menjadi subject kalimat.",
+        "Infinitive dapat menjadi object setelah verb tertentu.",
+        "Infinitive digunakan untuk menunjukkan tujuan (purpose).",
+        "Infinitive juga dapat menjelaskan noun atau adjective.",
+        "Jangan bingung dengan modal verbs karena modal memakai V1 tanpa 'to'."
+    ],
+
+    patterns: [
+        {
+            group: "Function",
+            items: [
+                {
+                    label: "Subject",
+                    formula: "To + V1 + Verb",
+                    examples: [
+                        "To travel is exciting.",
+                        "To study every day is important.",
+                        "To exercise is healthy."
+                    ]
+                },
+                {
+                    label: "Object",
+                    formula: "Subject + Verb + to + V1",
+                    examples: [
+                        "I want to sleep.",
+                        "She hopes to pass the exam.",
+                        "They decided to leave."
+                    ]
+                },
+                {
+                    label: "Purpose",
+                    formula: "Subject + Verb + to + V1",
+                    examples: [
+                        "I study to get good grades.",
+                        "She works to earn money.",
+                        "He exercises to stay healthy."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Infinitive Verbs",
+            items: [
+                {
+                    label: "Want / Hope / Decide",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "I want to eat.",
+                        "She hopes to win.",
+                        "They decided to stay."
+                    ]
+                },
+                {
+                    label: "Plan / Promise / Learn",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "We plan to travel.",
+                        "He promised to help.",
+                        "She learned to drive."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "What is an infinitive?",
+            options: [
+                "Verb + ing",
+                "to + V1",
+                "V2",
+                "V3"
+            ],
+            answer: "to + V1",
+            explanation: "Infinitive berbentuk to + V1."
+        },
+        {
+            type: "Subject",
+            question: "Which sentence uses an infinitive as the subject?",
+            options: [
+                "To travel is exciting.",
+                "She is traveling.",
+                "They travel often.",
+                "Traveling is exciting."
+            ],
+            answer: "To travel is exciting.",
+            explanation: "To travel menjadi subject kalimat."
+        },
+        {
+            type: "Object",
+            question: "I want ___ English.",
+            options: [
+                "study",
+                "studying",
+                "to study",
+                "studied"
+            ],
+            answer: "to study",
+            explanation: "Want diikuti infinitive."
+        },
+        {
+            type: "Object",
+            question: "She decided ___ home.",
+            options: [
+                "go",
+                "going",
+                "to go",
+                "gone"
+            ],
+            answer: "to go",
+            explanation: "Decide diikuti infinitive."
+        },
+        {
+            type: "Purpose",
+            question: "I exercise ___ healthy.",
+            options: [
+                "stay",
+                "staying",
+                "to stay",
+                "stayed"
+            ],
+            answer: "to stay",
+            explanation: "Infinitive dapat menunjukkan tujuan."
+        },
+        {
+            type: "Verb Pattern",
+            question: "They hope ___ the competition.",
+            options: [
+                "win",
+                "winning",
+                "to win",
+                "won"
+            ],
+            answer: "to win",
+            explanation: "Hope diikuti infinitive."
+        },
+        {
+            type: "Verb Pattern",
+            question: "We plan ___ abroad.",
+            options: [
+                "travel",
+                "traveling",
+                "to travel",
+                "traveled"
+            ],
+            answer: "to travel",
+            explanation: "Plan diikuti infinitive."
+        },
+        {
+            type: "Compare",
+            question: "Which sentence contains an infinitive?",
+            options: [
+                "She enjoys reading.",
+                "To learn English is useful.",
+                "Swimming is fun.",
+                "He is running."
+            ],
+            answer: "To learn English is useful.",
+            explanation: "To learn adalah infinitive."
+        },
+        {
+            type: "Concept",
+            question: "After 'want', we usually use...",
+            options: [
+                "Gerund",
+                "Infinitive",
+                "V2",
+                "V3"
+            ],
+            answer: "Infinitive",
+            explanation: "Want hampir selalu diikuti infinitive."
+        },
+        {
+            type: "Concept",
+            question: "Which verb below is commonly followed by an infinitive?",
+            options: [
+                "Enjoy",
+                "Avoid",
+                "Want",
+                "Keep"
+            ],
+            answer: "Want",
+            explanation: "Want termasuk kelompok verb yang diikuti infinitive."
+        }
+    ]
+},
+
+"gerund-vs-infinitive": {
+    title: "Gerund vs Infinitive",
+    description: "Gerund dan infinitive sama-sama berasal dari verb, tetapi penggunaannya berbeda. Beberapa verb hanya diikuti gerund, beberapa hanya infinitive, dan beberapa dapat menggunakan keduanya dengan atau tanpa perubahan makna.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Gerund = Verb + ing<br>
+        Infinitive = to + Verb (V1)
+    `,
+
+    notes: [
+        "Gerund berfungsi sebagai noun dalam bentuk Verb + ing.",
+        "Infinitive berbentuk to + V1.",
+        "Beberapa verb hanya diikuti gerund.",
+        "Beberapa verb hanya diikuti infinitive.",
+        "Ada verb yang bisa memakai keduanya.",
+        "Sebagian verb berubah makna jika memakai gerund atau infinitive."
+    ],
+
+    patterns: [
+        {
+            group: "Gerund Only",
+            items: [
+                {
+                    label: "Enjoy / Finish / Avoid",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "I enjoy reading.",
+                        "She finished cooking.",
+                        "They avoid smoking."
+                    ]
+                },
+                {
+                    label: "Mind / Keep / Practice",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "Do you mind waiting?",
+                        "He keeps talking.",
+                        "We practice speaking English."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Infinitive Only",
+            items: [
+                {
+                    label: "Want / Decide / Hope",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "I want to sleep.",
+                        "She decided to leave.",
+                        "They hope to win."
+                    ]
+                },
+                {
+                    label: "Plan / Promise / Learn",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "We plan to travel.",
+                        "He promised to help.",
+                        "She learned to drive."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Both",
+            items: [
+                {
+                    label: "Like / Love / Hate",
+                    formula: "Verb + Gerund / Infinitive",
+                    examples: [
+                        "I like swimming.",
+                        "I like to swim.",
+                        "Both are generally acceptable."
+                    ]
+                },
+                {
+                    label: "Begin / Start / Continue",
+                    formula: "Verb + Gerund / Infinitive",
+                    examples: [
+                        "She started reading.",
+                        "She started to read.",
+                        "Both forms are correct."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Gerund",
+            question: "I enjoy ___.",
+            options: ["read", "reading", "to read", "reads"],
+            answer: "reading",
+            explanation: "Enjoy selalu diikuti gerund."
+        },
+        {
+            type: "Gerund",
+            question: "They avoid ___.",
+            options: ["drive", "driving", "to drive", "drove"],
+            answer: "driving",
+            explanation: "Avoid selalu diikuti gerund."
+        },
+        {
+            type: "Infinitive",
+            question: "She wants ___ abroad.",
+            options: ["travel", "traveling", "to travel", "traveled"],
+            answer: "to travel",
+            explanation: "Want diikuti infinitive."
+        },
+        {
+            type: "Infinitive",
+            question: "We decided ___ early.",
+            options: ["leave", "leaving", "to leave", "left"],
+            answer: "to leave",
+            explanation: "Decide diikuti infinitive."
+        },
+        {
+            type: "Both",
+            question: "Which verb can be followed by both gerund and infinitive?",
+            options: ["Like", "Enjoy", "Avoid", "Finish"],
+            answer: "Like",
+            explanation: "Like dapat diikuti gerund maupun infinitive."
+        },
+        {
+            type: "Both",
+            question: "She started ___ English yesterday.",
+            options: ["study", "studying", "to study", "Both B and C"],
+            answer: "Both B and C",
+            explanation: "Start dapat diikuti gerund maupun infinitive."
+        },
+        {
+            type: "Concept",
+            question: "Gerund is...",
+            options: [
+                "Verb + ing",
+                "to + V1",
+                "V2",
+                "V3"
+            ],
+            answer: "Verb + ing",
+            explanation: "Gerund berbentuk verb + ing."
+        },
+        {
+            type: "Concept",
+            question: "Infinitive is...",
+            options: [
+                "Verb + ing",
+                "to + V1",
+                "V2",
+                "V3"
+            ],
+            answer: "to + V1",
+            explanation: "Infinitive berbentuk to + V1."
+        },
+        {
+            type: "Comparison",
+            question: "Which sentence is correct?",
+            options: [
+                "I enjoy to swim.",
+                "I enjoy swimming.",
+                "I enjoy swim.",
+                "I enjoy swam."
+            ],
+            answer: "I enjoy swimming.",
+            explanation: "Enjoy hanya diikuti gerund."
+        },
+        {
+            type: "Comparison",
+            question: "Which sentence is correct?",
+            options: [
+                "She wants going home.",
+                "She wants to go home.",
+                "She wants go home.",
+                "She wants went home."
+            ],
+            answer: "She wants to go home.",
+            explanation: "Want hanya diikuti infinitive."
+        }
+    ]
+},
+
+"verb-gerund": {
+    title: "Verb + Gerund",
+    description: "Beberapa verb dalam Bahasa Inggris harus selalu diikuti oleh gerund (Verb + ing). Menggunakan infinitive setelah verb-verb ini akan menyebabkan kalimat menjadi tidak gramatikal.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Subject + Verb + Gerund (V-ing)
+    `,
+
+    notes: [
+        "Setelah verb tertentu wajib menggunakan gerund.",
+        "Jangan gunakan 'to + V1' setelah verb-verb ini.",
+        "Gerund tetap berfungsi sebagai noun.",
+        "Kelompok verb ini sangat sering muncul pada soal TOEFL dan TOEIC.",
+        "Cara terbaik menguasainya adalah menghafal daftar verb-nya."
+    ],
+
+    patterns: [
+        {
+            group: "Preference",
+            items: [
+                {
+                    label: "Enjoy / Love / Like / Prefer",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "I enjoy reading books.",
+                        "She loves cooking.",
+                        "They prefer walking to school."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Finish Activity",
+            items: [
+                {
+                    label: "Finish / Stop / Quit",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "She finished writing.",
+                        "He quit smoking.",
+                        "They stopped arguing."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Avoidance",
+            items: [
+                {
+                    label: "Avoid / Escape / Miss",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "I avoid driving at night.",
+                        "She missed meeting us.",
+                        "He escaped being caught."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Mental Activity",
+            items: [
+                {
+                    label: "Consider / Imagine / Suggest",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "We considered moving.",
+                        "She suggested eating outside.",
+                        "Imagine living in Japan."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Continuation",
+            items: [
+                {
+                    label: "Keep / Continue / Practice",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "Keep smiling.",
+                        "Continue studying.",
+                        "Practice speaking English."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Tolerance",
+            items: [
+                {
+                    label: "Mind / Can't Stand",
+                    formula: "Verb + Gerund",
+                    examples: [
+                        "Do you mind waiting?",
+                        "I can't stand lying.",
+                        "She doesn't mind helping."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type:"Preference",
+            question:"I enjoy ____ books.",
+            options:["read","reading","to read","reads"],
+            answer:"reading",
+            explanation:"Enjoy selalu diikuti gerund."
+        },
+        {
+            type:"Preference",
+            question:"She loves ____.",
+            options:["cook","cooking","to cook","cooked"],
+            answer:"cooking",
+            explanation:"Love dapat diikuti gerund."
+        },
+        {
+            type:"Finish",
+            question:"He finished ___.",
+            options:["write","writing","to write","written"],
+            answer:"writing",
+            explanation:"Finish selalu diikuti gerund."
+        },
+        {
+            type:"Finish",
+            question:"They quit ___.",
+            options:["smoke","smoking","to smoke","smoked"],
+            answer:"smoking",
+            explanation:"Quit selalu diikuti gerund."
+        },
+        {
+            type:"Avoidance",
+            question:"I avoid ___ at night.",
+            options:["drive","driving","to drive","drove"],
+            answer:"driving",
+            explanation:"Avoid selalu diikuti gerund."
+        },
+        {
+            type:"Mental",
+            question:"She suggested ___ outside.",
+            options:["eat","eating","to eat","ate"],
+            answer:"eating",
+            explanation:"Suggest diikuti gerund."
+        },
+        {
+            type:"Mental",
+            question:"Imagine ___ on the moon.",
+            options:["live","living","to live","lived"],
+            answer:"living",
+            explanation:"Imagine diikuti gerund."
+        },
+        {
+            type:"Continuation",
+            question:"Keep ___.",
+            options:["try","trying","to try","tried"],
+            answer:"trying",
+            explanation:"Keep diikuti gerund."
+        },
+        {
+            type:"Continuation",
+            question:"We practice ___ English.",
+            options:["speak","speaking","to speak","spoken"],
+            answer:"speaking",
+            explanation:"Practice diikuti gerund."
+        },
+        {
+            type:"Tolerance",
+            question:"Do you mind ___?",
+            options:["wait","waiting","to wait","waited"],
+            answer:"waiting",
+            explanation:"Mind diikuti gerund."
+        },
+        {
+            type:"Tolerance",
+            question:"I can't stand ___.",
+            options:["lie","lying","to lie","lied"],
+            answer:"lying",
+            explanation:"Can't stand selalu diikuti gerund."
+        },
+        {
+            type:"Concept",
+            question:"Which verb below is always followed by a gerund?",
+            options:["Enjoy","Want","Decide","Hope"],
+            answer:"Enjoy",
+            explanation:"Enjoy termasuk verb yang wajib diikuti gerund."
+        },
+        {
+            type:"Concept",
+            question:"Which sentence is correct?",
+            options:[
+                "She enjoys to swim.",
+                "She enjoys swimming.",
+                "She enjoys swim.",
+                "She enjoys swam."
+            ],
+            answer:"She enjoys swimming.",
+            explanation:"Enjoy + Gerund."
+        },
+        {
+            type:"Concept",
+            question:"Which sentence is correct?",
+            options:[
+                "He suggested eating outside.",
+                "He suggested to eat outside.",
+                "He suggested eat outside.",
+                "He suggested ate outside."
+            ],
+            answer:"He suggested eating outside.",
+            explanation:"Suggest diikuti gerund."
+        },
+        {
+            type:"Concept",
+            question:"After 'practice', use...",
+            options:["Gerund","Infinitive","V2","V3"],
+            answer:"Gerund",
+            explanation:"Practice selalu diikuti gerund."
+        },
+        {
+            type:"Concept",
+            question:"After 'avoid', use...",
+            options:["Gerund","Infinitive","V2","V3"],
+            answer:"Gerund",
+            explanation:"Avoid selalu diikuti gerund."
+        },
+        {
+            type:"Concept",
+            question:"After 'keep', use...",
+            options:["Gerund","Infinitive","V2","V3"],
+            answer:"Gerund",
+            explanation:"Keep diikuti gerund."
+        },
+        {
+            type:"Concept",
+            question:"After 'mind', use...",
+            options:["Gerund","Infinitive","V2","V3"],
+            answer:"Gerund",
+            explanation:"Mind diikuti gerund."
+        },
+        {
+            type:"Review",
+            question:"Which sentence is grammatically correct?",
+            options:[
+                "They avoided talking.",
+                "They avoided to talk.",
+                "They avoided talk.",
+                "They avoided talked."
+            ],
+            answer:"They avoided talking.",
+            explanation:"Avoid + Gerund."
+        },
+        {
+            type:"Review",
+            question:"Verb + Gerund means...",
+            options:[
+                "Verb diikuti V-ing",
+                "Verb diikuti to + V1",
+                "Verb diikuti V2",
+                "Verb diikuti V3"
+            ],
+            answer:"Verb diikuti V-ing",
+            explanation:"Kelompok verb ini selalu diikuti gerund."
+        }
+    ]
+},
+
+"verb-infinitive": {
+    title: "Verb + Infinitive",
+    description: "Beberapa verb dalam Bahasa Inggris harus diikuti oleh infinitive (to + Verb). Menggunakan gerund setelah verb-verb ini akan membuat kalimat menjadi tidak tepat secara grammar.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Subject + Verb + to + V1
+    `,
+
+    notes: [
+        "Infinitive berbentuk to + V1.",
+        "Verb tertentu selalu diikuti infinitive.",
+        "Jangan gunakan gerund setelah verb-verb ini.",
+        "Kelompok verb ini sering muncul pada TOEFL, IELTS, TOEIC, dan ujian grammar.",
+        "Cara terbaik menguasainya adalah menghafal daftar verb yang umum."
+    ],
+
+    patterns: [
+        {
+            group: "Desire",
+            items: [
+                {
+                    label: "Want / Wish / Hope",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "I want to sleep.",
+                        "She hopes to win.",
+                        "They wish to travel abroad."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Decision",
+            items: [
+                {
+                    label: "Decide / Choose / Plan",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "We decided to leave.",
+                        "She chose to stay.",
+                        "They plan to study overseas."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Agreement",
+            items: [
+                {
+                    label: "Agree / Promise / Refuse",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "He agreed to help.",
+                        "She promised to come.",
+                        "They refused to answer."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Learning",
+            items: [
+                {
+                    label: "Learn / Manage / Fail",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "She learned to drive.",
+                        "He managed to escape.",
+                        "They failed to finish."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Attempt",
+            items: [
+                {
+                    label: "Try / Attempt / Offer",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "I tried to call you.",
+                        "She attempted to climb the mountain.",
+                        "They offered to help."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Expectation",
+            items: [
+                {
+                    label: "Expect / Seem / Pretend",
+                    formula: "Verb + to + V1",
+                    examples: [
+                        "We expect to arrive early.",
+                        "He seems to understand.",
+                        "She pretended to sleep."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Desire",
+            question: "I want ___ early.",
+            options: ["leave", "leaving", "to leave", "left"],
+            answer: "to leave",
+            explanation: "Want selalu diikuti infinitive."
+        },
+        {
+            type: "Desire",
+            question: "She hopes ___ the competition.",
+            options: ["win", "winning", "to win", "won"],
+            answer: "to win",
+            explanation: "Hope diikuti infinitive."
+        },
+        {
+            type: "Decision",
+            question: "We decided ___ home.",
+            options: ["go", "going", "to go", "gone"],
+            answer: "to go",
+            explanation: "Decide selalu diikuti infinitive."
+        },
+        {
+            type: "Decision",
+            question: "They plan ___ abroad.",
+            options: ["study", "studying", "to study", "studied"],
+            answer: "to study",
+            explanation: "Plan diikuti infinitive."
+        },
+        {
+            type: "Agreement",
+            question: "He promised ___ me.",
+            options: ["help", "helping", "to help", "helped"],
+            answer: "to help",
+            explanation: "Promise diikuti infinitive."
+        },
+        {
+            type: "Agreement",
+            question: "She refused ___.",
+            options: ["answer", "answering", "to answer", "answered"],
+            answer: "to answer",
+            explanation: "Refuse selalu diikuti infinitive."
+        },
+        {
+            type: "Learning",
+            question: "She learned ___ a car.",
+            options: ["drive", "driving", "to drive", "drove"],
+            answer: "to drive",
+            explanation: "Learn diikuti infinitive."
+        },
+        {
+            type: "Learning",
+            question: "They managed ___ on time.",
+            options: ["arrive", "arriving", "to arrive", "arrived"],
+            answer: "to arrive",
+            explanation: "Manage diikuti infinitive."
+        },
+        {
+            type: "Attempt",
+            question: "I tried ___ him yesterday.",
+            options: ["call", "calling", "to call", "called"],
+            answer: "to call",
+            explanation: "Try (attempt) diikuti infinitive."
+        },
+        {
+            type: "Attempt",
+            question: "They offered ___ us.",
+            options: ["help", "helping", "to help", "helped"],
+            answer: "to help",
+            explanation: "Offer diikuti infinitive."
+        },
+        {
+            type: "Expectation",
+            question: "We expect ___ tomorrow.",
+            options: ["arrive", "arriving", "to arrive", "arrived"],
+            answer: "to arrive",
+            explanation: "Expect diikuti infinitive."
+        },
+        {
+            type: "Expectation",
+            question: "He seems ___ tired.",
+            options: ["be", "being", "to be", "been"],
+            answer: "to be",
+            explanation: "Seem diikuti infinitive."
+        },
+        {
+            type: "Concept",
+            question: "Which verb is always followed by an infinitive?",
+            options: ["Want", "Enjoy", "Avoid", "Keep"],
+            answer: "Want",
+            explanation: "Want termasuk kelompok verb + infinitive."
+        },
+        {
+            type: "Concept",
+            question: "Which sentence is correct?",
+            options: [
+                "I want sleeping.",
+                "I want to sleep.",
+                "I want sleep.",
+                "I want slept."
+            ],
+            answer: "I want to sleep.",
+            explanation: "Want + infinitive."
+        },
+        {
+            type: "Concept",
+            question: "Which sentence is correct?",
+            options: [
+                "She promised helping.",
+                "She promised help.",
+                "She promised to help.",
+                "She promised helped."
+            ],
+            answer: "She promised to help.",
+            explanation: "Promise diikuti infinitive."
+        },
+        {
+            type: "Concept",
+            question: "After 'decide', use...",
+            options: ["Infinitive", "Gerund", "V2", "V3"],
+            answer: "Infinitive",
+            explanation: "Decide selalu diikuti infinitive."
+        },
+        {
+            type: "Concept",
+            question: "After 'plan', use...",
+            options: ["Infinitive", "Gerund", "V2", "V3"],
+            answer: "Infinitive",
+            explanation: "Plan diikuti infinitive."
+        },
+        {
+            type: "Concept",
+            question: "After 'expect', use...",
+            options: ["Infinitive", "Gerund", "V2", "V3"],
+            answer: "Infinitive",
+            explanation: "Expect diikuti infinitive."
+        },
+        {
+            type: "Review",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "They agreed to help.",
+                "They agreed helping.",
+                "They agreed help.",
+                "They agreed helped."
+            ],
+            answer: "They agreed to help.",
+            explanation: "Agree selalu diikuti infinitive."
+        },
+        {
+            type: "Review",
+            question: "Verb + Infinitive means...",
+            options: [
+                "Verb + to + V1",
+                "Verb + V-ing",
+                "Verb + V2",
+                "Verb + V3"
+            ],
+            answer: "Verb + to + V1",
+            explanation: "Kelompok verb ini selalu diikuti infinitive."
+        }
+    ]
+},
+
+"verb-both": {
+    title: "Verb + Gerund / Infinitive",
+    description: "Beberapa verb dapat diikuti gerund maupun infinitive. Namun, pada verb tertentu perubahan tersebut menyebabkan perubahan makna kalimat.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb + Gerund ≠ Verb + Infinitive
+    `,
+
+    notes: [
+        "Tidak semua verb yang bisa memakai gerund dan infinitive memiliki arti yang sama.",
+        "Remember, forget, regret, stop, try, mean, go on merupakan verb yang paling sering diuji.",
+        "Pelajari makna, bukan hanya rumus.",
+        "Topik ini sangat sering muncul di TOEFL dan IELTS."
+    ],
+
+    patterns: [
+
+        {
+            group: "Remember",
+            items: [
+                {
+                    label: "remember + gerund",
+                    formula: "remember + V-ing = mengingat sesuatu yang sudah dilakukan",
+                    examples: [
+                        "I remember meeting her.",
+                        "She remembers locking the door.",
+                        "We remember visiting Bali."
+                    ]
+                },
+                {
+                    label: "remember + infinitive",
+                    formula: "remember + to V1 = ingat untuk melakukan",
+                    examples: [
+                        "Remember to lock the door.",
+                        "Remember to call your mother.",
+                        "Please remember to study."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Forget",
+            items: [
+                {
+                    label: "forget + gerund",
+                    formula: "forget + V-ing = lupa pernah melakukan",
+                    examples: [
+                        "I forgot meeting him.",
+                        "She forgot paying the bill.",
+                        "He forgot seeing that movie."
+                    ]
+                },
+                {
+                    label: "forget + infinitive",
+                    formula: "forget + to V1 = lupa melakukan",
+                    examples: [
+                        "I forgot to lock the door.",
+                        "She forgot to call me.",
+                        "He forgot to bring his book."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Stop",
+            items: [
+                {
+                    label: "stop + gerund",
+                    formula: "berhenti melakukan aktivitas",
+                    examples: [
+                        "He stopped smoking.",
+                        "They stopped arguing.",
+                        "She stopped talking."
+                    ]
+                },
+                {
+                    label: "stop + infinitive",
+                    formula: "berhenti untuk melakukan sesuatu",
+                    examples: [
+                        "He stopped to smoke.",
+                        "She stopped to buy coffee.",
+                        "They stopped to rest."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Try",
+            items: [
+                {
+                    label: "try + gerund",
+                    formula: "mencoba sebagai eksperimen",
+                    examples: [
+                        "Try restarting your computer.",
+                        "Try adding more salt.",
+                        "Try exercising daily."
+                    ]
+                },
+                {
+                    label: "try + infinitive",
+                    formula: "berusaha melakukan",
+                    examples: [
+                        "I tried to lift the box.",
+                        "She tried to win.",
+                        "They tried to escape."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Regret",
+            items: [
+                {
+                    label: "regret + gerund",
+                    formula: "menyesali sesuatu yang telah terjadi",
+                    examples: [
+                        "I regret saying that.",
+                        "She regrets leaving early.",
+                        "They regret selling the house."
+                    ]
+                },
+                {
+                    label: "regret + infinitive",
+                    formula: "menyesal harus menyampaikan sesuatu",
+                    examples: [
+                        "We regret to inform you...",
+                        "I regret to tell you...",
+                        "She regrets to announce..."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Mean",
+            items: [
+                {
+                    label: "mean + gerund",
+                    formula: "berarti / mengakibatkan",
+                    examples: [
+                        "Being rich means working hard.",
+                        "Winning means practicing.",
+                        "Success means sacrificing."
+                    ]
+                },
+                {
+                    label: "mean + infinitive",
+                    formula: "bermaksud",
+                    examples: [
+                        "I meant to call you.",
+                        "She meant to help.",
+                        "They meant to arrive early."
+                    ]
+                }
+            ]
+        },
+
+        {
+            group: "Go On",
+            items: [
+                {
+                    label: "go on + gerund",
+                    formula: "melanjutkan aktivitas yang sama",
+                    examples: [
+                        "He went on talking.",
+                        "She went on reading.",
+                        "They went on working."
+                    ]
+                },
+                {
+                    label: "go on + infinitive",
+                    formula: "melanjutkan ke aktivitas berikutnya",
+                    examples: [
+                        "He went on to explain.",
+                        "She went on to become a doctor.",
+                        "They went on to win."
+                    ]
+                }
+            ]
+        }
+
+    ],
+
+    quiz: [
+
+        {
+            type:"Remember",
+            question:"Remember ___ the lights before leaving.",
+            options:["turning off","to turn off","turned","turn"],
+            answer:"to turn off",
+            explanation:"Remember to + V1 berarti ingat untuk melakukan."
+        },
+
+        {
+            type:"Remember",
+            question:"I remember ___ him years ago.",
+            options:["meet","meeting","to meet","met"],
+            answer:"meeting",
+            explanation:"Remember + gerund berarti mengingat kejadian masa lalu."
+        },
+
+        {
+            type:"Forget",
+            question:"She forgot ___ me yesterday.",
+            options:["call","calling","to call","called"],
+            answer:"to call",
+            explanation:"Forget to + V1 berarti lupa melakukan."
+        },
+
+        {
+            type:"Stop",
+            question:"He stopped ___ because it was unhealthy.",
+            options:["smoke","smoking","to smoke","smoked"],
+            answer:"smoking",
+            explanation:"Stop + gerund berarti berhenti melakukan kebiasaan."
+        },
+
+        {
+            type:"Stop",
+            question:"We stopped ___ some coffee.",
+            options:["buy","buying","to buy","bought"],
+            answer:"to buy",
+            explanation:"Stop to + V1 berarti berhenti untuk melakukan aktivitas lain."
+        },
+
+        {
+            type:"Try",
+            question:"Try ___ the computer again.",
+            options:["restart","restarting","to restarting","restarted"],
+            answer:"restarting",
+            explanation:"Try + gerund berarti mencoba sebagai eksperimen."
+        },
+
+        {
+            type:"Try",
+            question:"She tried ___ the heavy box.",
+            options:["lift","lifting","to lift","lifted"],
+            answer:"to lift",
+            explanation:"Try to + V1 berarti berusaha melakukan."
+        },
+
+        {
+            type:"Regret",
+            question:"We regret ___ that your application was unsuccessful.",
+            options:["informing","to inform","informed","inform"],
+            answer:"to inform",
+            explanation:"Regret to + V1 umum dipakai pada pengumuman resmi."
+        },
+
+        {
+            type:"Regret",
+            question:"I regret ___ those words.",
+            options:["say","saying","to say","said"],
+            answer:"saying",
+            explanation:"Regret + gerund berarti menyesali sesuatu yang telah dilakukan."
+        },
+
+        {
+            type:"Mean",
+            question:"Success means ___ hard.",
+            options:["work","working","to work","worked"],
+            answer:"working",
+            explanation:"Mean + gerund berarti 'berarti'."
+        },
+
+        {
+            type:"Mean",
+            question:"I meant ___ you yesterday.",
+            options:["call","calling","to call","called"],
+            answer:"to call",
+            explanation:"Mean to + V1 berarti bermaksud."
+        },
+
+        {
+            type:"Go On",
+            question:"She went on ___ after lunch.",
+            options:["explain","explaining","to explain","explained"],
+            answer:"to explain",
+            explanation:"Go on to + V1 berarti lanjut ke aktivitas berikutnya."
+        },
+
+        {
+            type:"Go On",
+            question:"He went on ___ although nobody listened.",
+            options:["talk","talking","to talk","talked"],
+            answer:"talking",
+            explanation:"Go on + gerund berarti melanjutkan aktivitas yang sama."
+        },
+
+        {
+            type:"Concept",
+            question:"Which verb changes meaning when followed by a gerund or an infinitive?",
+            options:["Remember","Enjoy","Avoid","Finish"],
+            answer:"Remember",
+            explanation:"Remember adalah salah satu verb yang berubah makna tergantung pola yang digunakan."
+        },
+
+        {
+            type:"Concept",
+            question:"Which pair has different meanings?",
+            options:[
+                "remember meeting / remember to meet",
+                "enjoy reading / enjoy reading",
+                "avoid smoking / avoid smoking",
+                "finish working / finish working"
+            ],
+            answer:"remember meeting / remember to meet",
+            explanation:"Remember + gerund dan remember + infinitive memiliki makna yang berbeda."
+        }
+
+    ]
+},
+
+"gerund-review": {
+    title: "Gerund & Infinitive Review",
+    description: "Review ini menguji seluruh materi BAB 5, mulai dari Gerund, Infinitive, Verb + Gerund, Verb + Infinitive, hingga Verb yang dapat menggunakan keduanya dengan perubahan makna.",
+
+    formula: `
+        <strong>Ringkasan BAB 5</strong><br>
+        Gerund = Verb + ing<br>
+        Infinitive = to + Verb (V1)<br>
+        Beberapa verb hanya memakai Gerund, sebagian hanya Infinitive, dan sebagian dapat memakai keduanya dengan makna berbeda.
+    `,
+
+    notes: [
+        "Gerund = Verb + ing.",
+        "Infinitive = to + V1.",
+        "Enjoy, avoid, finish, suggest → Gerund.",
+        "Want, decide, promise, hope → Infinitive.",
+        "Remember, forget, stop, try, regret, mean → Makna berubah tergantung pola."
+    ],
+
+    patterns: [
+        {
+            group: "Ringkasan",
+            items: [
+                {
+                    label: "Gerund",
+                    formula: "Verb + ing",
+                    examples: [
+                        "I enjoy reading.",
+                        "Swimming is fun.",
+                        "She avoids driving."
+                    ]
+                },
+                {
+                    label: "Infinitive",
+                    formula: "to + Verb",
+                    examples: [
+                        "I want to study.",
+                        "She decided to leave.",
+                        "They hope to win."
+                    ]
+                },
+                {
+                    label: "Meaning Changes",
+                    formula: "Gerund ≠ Infinitive",
+                    examples: [
+                        "Remember meeting him.",
+                        "Remember to meet him.",
+                        "Stop smoking / Stop to smoke."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+
+        {
+            type:"Gerund",
+            question:"I enjoy ___ books.",
+            options:["read","reading","to read","reads"],
+            answer:"reading",
+            explanation:"Enjoy selalu diikuti gerund."
+        },
+
+        {
+            type:"Gerund",
+            question:"She avoids ___ late.",
+            options:["arrive","arriving","to arrive","arrived"],
+            answer:"arriving",
+            explanation:"Avoid diikuti gerund."
+        },
+
+        {
+            type:"Infinitive",
+            question:"We decided ___ home.",
+            options:["go","going","to go","gone"],
+            answer:"to go",
+            explanation:"Decide diikuti infinitive."
+        },
+
+        {
+            type:"Infinitive",
+            question:"He promised ___ us.",
+            options:["help","helping","to help","helped"],
+            answer:"to help",
+            explanation:"Promise diikuti infinitive."
+        },
+
+        {
+            type:"Infinitive",
+            question:"She hopes ___ the exam.",
+            options:["pass","passing","to pass","passed"],
+            answer:"to pass",
+            explanation:"Hope diikuti infinitive."
+        },
+
+        {
+            type:"Comparison",
+            question:"Which verb is followed by a gerund?",
+            options:["Enjoy","Want","Hope","Promise"],
+            answer:"Enjoy",
+            explanation:"Enjoy termasuk Verb + Gerund."
+        },
+
+        {
+            type:"Comparison",
+            question:"Which verb is followed by an infinitive?",
+            options:["Avoid","Finish","Want","Keep"],
+            answer:"Want",
+            explanation:"Want termasuk Verb + Infinitive."
+        },
+
+        {
+            type:"Remember",
+            question:"Remember ___ the lights before leaving.",
+            options:["turning off","to turn off","turn","turned"],
+            answer:"to turn off",
+            explanation:"Remember to berarti ingat untuk melakukan."
+        },
+
+        {
+            type:"Remember",
+            question:"I remember ___ him before.",
+            options:["meet","meeting","to meet","met"],
+            answer:"meeting",
+            explanation:"Remember + gerund berarti mengingat pengalaman."
+        },
+
+        {
+            type:"Forget",
+            question:"She forgot ___ me.",
+            options:["call","calling","to call","called"],
+            answer:"to call",
+            explanation:"Forget to berarti lupa melakukan."
+        },
+
+        {
+            type:"Stop",
+            question:"He stopped ___ because it was unhealthy.",
+            options:["smoke","smoking","to smoke","smoked"],
+            answer:"smoking",
+            explanation:"Stop + gerund berarti berhenti dari kebiasaan."
+        },
+
+        {
+            type:"Stop",
+            question:"We stopped ___ lunch.",
+            options:["eat","eating","to eat","ate"],
+            answer:"to eat",
+            explanation:"Stop + infinitive berarti berhenti untuk melakukan sesuatu."
+        },
+
+        {
+            type:"Try",
+            question:"Try ___ your computer.",
+            options:["restart","restarting","to restart","restarted"],
+            answer:"restarting",
+            explanation:"Try + gerund berarti mencoba sebagai eksperimen."
+        },
+
+        {
+            type:"Try",
+            question:"I tried ___ the heavy box.",
+            options:["lift","lifting","to lift","lifted"],
+            answer:"to lift",
+            explanation:"Try + infinitive berarti berusaha."
+        },
+
+        {
+            type:"Regret",
+            question:"We regret ___ you that your application was unsuccessful.",
+            options:["informing","to inform","inform","informed"],
+            answer:"to inform",
+            explanation:"Regret to + infinitive digunakan pada pengumuman formal."
+        },
+
+        {
+            type:"Regret",
+            question:"She regrets ___ school.",
+            options:["leave","leaving","to leave","left"],
+            answer:"leaving",
+            explanation:"Regret + gerund berarti menyesali sesuatu."
+        },
+
+        {
+            type:"Mean",
+            question:"Success means ___ hard.",
+            options:["work","working","to work","worked"],
+            answer:"working",
+            explanation:"Mean + gerund berarti 'berarti'."
+        },
+
+        {
+            type:"Mean",
+            question:"I meant ___ you yesterday.",
+            options:["call","calling","to call","called"],
+            answer:"to call",
+            explanation:"Mean to berarti bermaksud."
+        },
+
+        {
+            type:"Go On",
+            question:"She went on ___ after the break.",
+            options:["explain","explaining","to explain","explained"],
+            answer:"to explain",
+            explanation:"Go on to berarti lanjut ke aktivitas berikutnya."
+        },
+
+        {
+            type:"Go On",
+            question:"He went on ___ although nobody listened.",
+            options:["talk","talking","to talk","talked"],
+            answer:"talking",
+            explanation:"Go on + gerund berarti melanjutkan aktivitas yang sama."
+        },
+
+        {
+            type:"Concept",
+            question:"Gerund is formed by...",
+            options:["Verb + ing","to + Verb","Verb 2","Verb 3"],
+            answer:"Verb + ing",
+            explanation:"Gerund adalah Verb + ing."
+        },
+
+        {
+            type:"Concept",
+            question:"Infinitive is formed by...",
+            options:["Verb + ing","to + Verb","Verb 2","Verb 3"],
+            answer:"to + Verb",
+            explanation:"Infinitive adalah to + V1."
+        },
+
+        {
+            type:"Concept",
+            question:"Which sentence is correct?",
+            options:[
+                "I enjoy to swim.",
+                "I enjoy swimming.",
+                "I enjoy swim.",
+                "I enjoy swam."
+            ],
+            answer:"I enjoy swimming.",
+            explanation:"Enjoy selalu diikuti gerund."
+        },
+
+        {
+            type:"Concept",
+            question:"Which sentence is correct?",
+            options:[
+                "She wants going home.",
+                "She wants to go home.",
+                "She wants go home.",
+                "She wants gone home."
+            ],
+            answer:"She wants to go home.",
+            explanation:"Want selalu diikuti infinitive."
+        },
+
+        {
+            type:"Review",
+            question:"After modal verbs we use...",
+            options:["Verb 1","Gerund","Infinitive","Verb 3"],
+            answer:"Verb 1",
+            explanation:"Modal verb diikuti V1 tanpa 'to'."
+        },
+
+        {
+            type:"Review",
+            question:"Which pair changes meaning?",
+            options:[
+                "remember",
+                "enjoy",
+                "avoid",
+                "finish"
+            ],
+            answer:"remember",
+            explanation:"Remember + gerund dan remember + infinitive memiliki makna berbeda."
+        },
+
+        {
+            type:"Review",
+            question:"Which pair changes meaning?",
+            options:[
+                "stop",
+                "practice",
+                "mind",
+                "avoid"
+            ],
+            answer:"stop",
+            explanation:"Stop smoking ≠ Stop to smoke."
+        },
+
+        {
+            type:"Review",
+            question:"Which sentence is grammatically correct?",
+            options:[
+                "They avoided talking.",
+                "They avoided to talk.",
+                "They avoided talk.",
+                "They avoided talked."
+            ],
+            answer:"They avoided talking.",
+            explanation:"Avoid selalu diikuti gerund."
+        },
+
+        {
+            type:"Review",
+            question:"Which sentence is grammatically correct?",
+            options:[
+                "We decided leaving.",
+                "We decided to leave.",
+                "We decided leave.",
+                "We decided left."
+            ],
+            answer:"We decided to leave.",
+            explanation:"Decide selalu diikuti infinitive."
+        },
+
+        {
+            type:"Final",
+            question:"Which statement is TRUE?",
+            options:[
+                "All verbs can use gerund and infinitive interchangeably.",
+                "Some verbs change meaning depending on gerund or infinitive.",
+                "Gerund and infinitive are always interchangeable.",
+                "Gerund is always incorrect after verbs."
+            ],
+            answer:"Some verbs change meaning depending on gerund or infinitive.",
+            explanation:"Verb seperti remember, stop, regret, try, mean, dan go on berubah makna sesuai pola yang digunakan."
+        }
+    ]
+},
+
+"articles": {
+    title: "Articles",
+    description: "Articles adalah kata kecil yang diletakkan sebelum noun. Dalam Bahasa Inggris, articles utama adalah a, an, dan the. Articles membantu menjelaskan apakah noun bersifat umum, satu, atau sudah spesifik.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        a / an + singular countable noun<br>
+        the + specific noun
+    `,
+
+    notes: [
+        "A digunakan sebelum singular countable noun yang bunyinya konsonan.",
+        "An digunakan sebelum singular countable noun yang bunyinya vokal.",
+        "The digunakan untuk noun yang sudah spesifik atau sudah diketahui.",
+        "A dan an tidak digunakan untuk plural noun.",
+        "A dan an tidak digunakan untuk uncountable noun.",
+        "Articles selalu berkaitan dengan noun."
+    ],
+
+    patterns: [
+        {
+            group: "A / An",
+            items: [
+                {
+                    label: "A",
+                    formula: "a + singular countable noun",
+                    examples: [
+                        "a book",
+                        "a student",
+                        "a university"
+                    ]
+                },
+                {
+                    label: "An",
+                    formula: "an + vowel sound",
+                    examples: [
+                        "an apple",
+                        "an egg",
+                        "an hour"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "The",
+            items: [
+                {
+                    label: "Specific Noun",
+                    formula: "the + specific noun",
+                    examples: [
+                        "The book on the table is mine.",
+                        "I saw a cat. The cat was black.",
+                        "The sun is bright."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "No Article",
+            items: [
+                {
+                    label: "General / Plural / Uncountable",
+                    formula: "No article before general plural or uncountable noun",
+                    examples: [
+                        "Cats are cute.",
+                        "Water is important.",
+                        "Students need practice."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "A/An",
+            question: "I have ___ book.",
+            options: ["a", "an", "the", "no article"],
+            answer: "a",
+            explanation: "Book diawali bunyi konsonan, jadi gunakan a."
+        },
+        {
+            type: "A/An",
+            question: "She eats ___ apple.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an",
+            explanation: "Apple diawali bunyi vokal, jadi gunakan an."
+        },
+        {
+            type: "A/An",
+            question: "He is ___ honest man.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an",
+            explanation: "Honest diawali bunyi vokal karena h tidak dibaca."
+        },
+        {
+            type: "A/An",
+            question: "She studies at ___ university.",
+            options: ["a", "an", "the", "no article"],
+            answer: "a",
+            explanation: "University diawali bunyi /yu/, yaitu bunyi konsonan, jadi gunakan a."
+        },
+        {
+            type: "The",
+            question: "I saw a dog. ___ dog was black.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "Dog sudah disebut sebelumnya, jadi menjadi spesifik."
+        },
+        {
+            type: "The",
+            question: "___ sun rises in the east.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "The sun unik dan spesifik."
+        },
+        {
+            type: "No Article",
+            question: "___ water is important.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Water sebagai uncountable noun umum tidak memakai article."
+        },
+        {
+            type: "No Article",
+            question: "___ cats are cute.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Plural noun umum tidak memakai article."
+        },
+        {
+            type: "Concept",
+            question: "A and an are used before...",
+            options: [
+                "singular countable nouns",
+                "plural nouns only",
+                "uncountable nouns only",
+                "verbs"
+            ],
+            answer: "singular countable nouns",
+            explanation: "A/an dipakai sebelum singular countable noun."
+        },
+        {
+            type: "Concept",
+            question: "The is used for...",
+            options: [
+                "specific nouns",
+                "verbs",
+                "adverbs only",
+                "unknown general nouns only"
+            ],
+            answer: "specific nouns",
+            explanation: "The digunakan untuk noun yang spesifik."
+        }
+    ]
+},
+
+"a-vs-an": {
+    title: "A vs An",
+    description: "A dan an digunakan sebelum singular countable noun. Pilihannya bukan berdasarkan huruf pertama, tetapi berdasarkan bunyi awal kata.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        a + consonant sound<br>
+        an + vowel sound
+    `,
+
+    notes: [
+        "Gunakan a sebelum bunyi konsonan.",
+        "Gunakan an sebelum bunyi vokal.",
+        "Yang menentukan adalah bunyi, bukan huruf.",
+        "University memakai a karena berbunyi /yu/.",
+        "Hour memakai an karena h tidak dibaca.",
+        "A/an hanya untuk singular countable noun."
+    ],
+
+    patterns: [
+        {
+            group: "A",
+            items: [
+                {
+                    label: "Consonant Sound",
+                    formula: "a + consonant sound",
+                    examples: [
+                        "a book",
+                        "a student",
+                        "a car",
+                        "a university",
+                        "a European country"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "An",
+            items: [
+                {
+                    label: "Vowel Sound",
+                    formula: "an + vowel sound",
+                    examples: [
+                        "an apple",
+                        "an egg",
+                        "an hour",
+                        "an honest man",
+                        "an umbrella"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "A",
+            question: "I have ___ book.",
+            options: ["a", "an", "the", "no article"],
+            answer: "a",
+            explanation: "Book diawali bunyi konsonan /b/, jadi gunakan a."
+        },
+        {
+            type: "An",
+            question: "She eats ___ orange.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an",
+            explanation: "Orange diawali bunyi vokal, jadi gunakan an."
+        },
+        {
+            type: "A",
+            question: "He studies at ___ university.",
+            options: ["a", "an", "the", "no article"],
+            answer: "a",
+            explanation: "University berbunyi /yu/, jadi memakai a."
+        },
+        {
+            type: "An",
+            question: "It takes ___ hour.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an",
+            explanation: "Hour diawali bunyi vokal karena h tidak dibaca."
+        },
+        {
+            type: "An",
+            question: "He is ___ honest person.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an",
+            explanation: "Honest diawali bunyi vokal karena h tidak dibaca."
+        },
+        {
+            type: "A",
+            question: "She is ___ European student.",
+            options: ["a", "an", "the", "no article"],
+            answer: "a",
+            explanation: "European berbunyi /yu/, jadi memakai a."
+        },
+        {
+            type: "Concept",
+            question: "A/an is chosen based on...",
+            options: ["sound", "spelling only", "plural form", "verb tense"],
+            answer: "sound",
+            explanation: "A/an dipilih berdasarkan bunyi awal kata."
+        },
+        {
+            type: "Concept",
+            question: "A/an is used before...",
+            options: [
+                "singular countable noun",
+                "plural noun",
+                "uncountable noun only",
+                "verb"
+            ],
+            answer: "singular countable noun",
+            explanation: "A/an digunakan untuk singular countable noun."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is correct?",
+            options: ["a apple", "an apple", "a apples", "an books"],
+            answer: "an apple",
+            explanation: "Apple diawali bunyi vokal dan singular countable."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is correct?",
+            options: ["a hour", "an hour", "a honest man", "an university"],
+            answer: "an hour",
+            explanation: "Hour memakai an karena h tidak dibaca."
+        }
+    ]
+},
+
+"the-article": {
+    title: "The",
+    description: "The adalah definite article. The digunakan ketika noun sudah spesifik, sudah diketahui oleh pembicara dan pendengar, unik, atau sudah disebut sebelumnya.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        the + specific noun
+    `,
+
+    notes: [
+        "The digunakan untuk noun yang spesifik.",
+        "The digunakan jika noun sudah disebut sebelumnya.",
+        "The digunakan untuk benda yang unik, seperti the sun dan the moon.",
+        "The dapat digunakan sebelum singular, plural, dan uncountable noun.",
+        "The tidak selalu berarti 'ini' atau 'itu', tetapi menunjukkan noun yang sudah jelas."
+    ],
+
+    patterns: [
+        {
+            group: "Specific Noun",
+            items: [
+                {
+                    label: "Known Object",
+                    formula: "the + noun yang sudah jelas",
+                    examples: [
+                        "The book on the table is mine.",
+                        "The teacher in this class is kind.",
+                        "The car outside is expensive."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Second Mention",
+            items: [
+                {
+                    label: "A → The",
+                    formula: "First mention: a/an, second mention: the",
+                    examples: [
+                        "I saw a cat. The cat was black.",
+                        "She bought a book. The book was expensive.",
+                        "He met a man. The man was friendly."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Unique Object",
+            items: [
+                {
+                    label: "Only One",
+                    formula: "the + unique noun",
+                    examples: [
+                        "The sun is bright.",
+                        "The moon looks beautiful.",
+                        "The sky is blue."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Specific",
+            question: "___ book on the table is mine.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "Book sudah spesifik karena ada keterangan on the table."
+        },
+        {
+            type: "Second Mention",
+            question: "I saw a dog. ___ dog was black.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "Dog sudah disebut sebelumnya, jadi gunakan the."
+        },
+        {
+            type: "Unique",
+            question: "___ sun rises in the east.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "The sun unik dan spesifik."
+        },
+        {
+            type: "Unique",
+            question: "___ moon is beautiful tonight.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "The moon adalah benda unik."
+        },
+        {
+            type: "Specific",
+            question: "Please close ___ door.",
+            options: ["a", "an", "the", "no article"],
+            answer: "the",
+            explanation: "Door yang dimaksud sudah jelas dalam konteks."
+        },
+        {
+            type: "Second Mention",
+            question: "She bought a dress. ___ dress was red.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "Dress sudah disebut sebelumnya."
+        },
+        {
+            type: "Concept",
+            question: "The is used for...",
+            options: [
+                "specific nouns",
+                "unknown singular nouns only",
+                "verbs",
+                "adverbs"
+            ],
+            answer: "specific nouns",
+            explanation: "The digunakan untuk noun yang spesifik atau sudah diketahui."
+        },
+        {
+            type: "Concept",
+            question: "The can be used before...",
+            options: [
+                "singular, plural, and uncountable nouns",
+                "verbs only",
+                "adjectives only",
+                "adverbs only"
+            ],
+            answer: "singular, plural, and uncountable nouns",
+            explanation: "The bisa dipakai sebelum singular, plural, dan uncountable noun."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "I saw a cat. A cat was black.",
+                "I saw a cat. The cat was black.",
+                "I saw an cat. The cat was black.",
+                "I saw cat. A cat was black."
+            ],
+            answer: "I saw a cat. The cat was black.",
+            explanation: "Penyebutan pertama memakai a, penyebutan kedua memakai the."
+        },
+        {
+            type: "Meaning",
+            question: "In 'the book on the table', the book is...",
+            options: ["specific", "general", "plural", "verb"],
+            answer: "specific",
+            explanation: "Keterangan on the table membuat book menjadi spesifik."
+        }
+    ]
+},
+
+"zero-article": {
+    title: "Zero Article",
+    description: "Zero Article berarti tidak menggunakan article (a, an, atau the). Umumnya digunakan untuk plural noun dan uncountable noun yang bersifat umum, serta nama orang, negara, bahasa, mata pelajaran, dan sebagian besar nama tempat.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Ø + plural noun (general)<br>
+        Ø + uncountable noun (general)<br>
+        Ø + proper noun
+    `,
+
+    notes: [
+        "Plural noun yang bersifat umum tidak memakai article.",
+        "Uncountable noun yang bersifat umum tidak memakai article.",
+        "Nama orang biasanya tidak memakai article.",
+        "Nama negara umumnya tidak memakai article (Indonesia, Japan, France).",
+        "Nama bahasa dan mata pelajaran tidak memakai article.",
+        "Jika noun menjadi spesifik, gunakan the."
+    ],
+
+    patterns: [
+        {
+            group: "Plural Nouns",
+            items: [
+                {
+                    label: "General Plural",
+                    formula: "Ø + plural noun",
+                    examples: [
+                        "Cats are cute.",
+                        "Students need practice.",
+                        "Computers are useful."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Uncountable Nouns",
+            items: [
+                {
+                    label: "General Uncountable",
+                    formula: "Ø + uncountable noun",
+                    examples: [
+                        "Water is important.",
+                        "Milk is healthy.",
+                        "Information is valuable."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Proper Nouns",
+            items: [
+                {
+                    label: "Names",
+                    formula: "Ø + proper noun",
+                    examples: [
+                        "Rina is my friend.",
+                        "Indonesia is beautiful.",
+                        "English is easy."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Plural",
+            question: "___ dogs are loyal animals.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Plural noun yang bersifat umum tidak memakai article."
+        },
+        {
+            type: "Plural",
+            question: "___ students should study hard.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Students digunakan secara umum."
+        },
+        {
+            type: "Uncountable",
+            question: "___ water is essential for life.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Water sebagai uncountable noun umum tidak memakai article."
+        },
+        {
+            type: "Uncountable",
+            question: "___ information is useful.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Information adalah uncountable noun."
+        },
+        {
+            type: "Proper Noun",
+            question: "___ Indonesia is a beautiful country.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Nama negara umumnya tidak memakai article."
+        },
+        {
+            type: "Proper Noun",
+            question: "She speaks ___ English well.",
+            options: ["a", "an", "the", "no article"],
+            answer: "no article",
+            explanation: "Nama bahasa tidak memakai article."
+        },
+        {
+            type: "Concept",
+            question: "Zero article is commonly used before...",
+            options: [
+                "general plural nouns",
+                "singular countable nouns",
+                "verbs",
+                "adjectives"
+            ],
+            answer: "general plural nouns",
+            explanation: "Plural noun yang bersifat umum memakai zero article."
+        },
+        {
+            type: "Concept",
+            question: "Which noun usually uses zero article?",
+            options: [
+                "Indonesia",
+                "the book on the table",
+                "an apple",
+                "the sun"
+            ],
+            answer: "Indonesia",
+            explanation: "Nama negara umumnya tidak memakai article."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The cats are friendly. (all cats in general)",
+                "Cats are friendly.",
+                "A cats are friendly.",
+                "An cats are friendly."
+            ],
+            answer: "Cats are friendly.",
+            explanation: "Plural noun umum menggunakan zero article."
+        },
+        {
+            type: "Comparison",
+            question: "Which sentence refers to something specific?",
+            options: [
+                "Books are expensive.",
+                "The books on the desk are mine.",
+                "Water is important.",
+                "English is easy."
+            ],
+            answer: "The books on the desk are mine.",
+            explanation: "Keterangan 'on the desk' membuat noun menjadi spesifik sehingga menggunakan 'the'."
+        }
+    ]
+},
+
+"determiners": {
+    title: "Determiners",
+    description: "Determiners adalah kata yang diletakkan sebelum noun untuk memberikan informasi tentang jumlah, kepemilikan, jarak, atau identitas noun tersebut. Articles (a, an, the) juga termasuk determiner.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Determiner + Noun
+    `,
+
+    notes: [
+        "Determiner selalu berada sebelum noun.",
+        "Article (a, an, the) termasuk determiner.",
+        "Possessive determiner menunjukkan kepemilikan.",
+        "Demonstrative determiner menunjukkan jarak.",
+        "Distributive determiner menunjukkan anggota dalam kelompok.",
+        "Biasanya hanya satu determiner utama digunakan sebelum noun."
+    ],
+
+    patterns: [
+        {
+            group: "Articles",
+            items: [
+                {
+                    label: "Articles",
+                    formula: "a / an / the + noun",
+                    examples: [
+                        "a book",
+                        "an apple",
+                        "the car"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Possessive Determiners",
+            items: [
+                {
+                    label: "Possessive",
+                    formula: "my, your, his, her, our, their + noun",
+                    examples: [
+                        "my house",
+                        "your car",
+                        "their school"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Demonstratives",
+            items: [
+                {
+                    label: "This / That / These / Those",
+                    formula: "demonstrative + noun",
+                    examples: [
+                        "this book",
+                        "that car",
+                        "these students",
+                        "those houses"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Distributives",
+            items: [
+                {
+                    label: "Each / Every / Either / Neither",
+                    formula: "distributive + noun",
+                    examples: [
+                        "Each student passed.",
+                        "Every child smiled.",
+                        "Either answer is correct.",
+                        "Neither option works."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Possessive",
+            question: "___ book is on the table.",
+            options: ["My", "Mine", "Me", "I"],
+            answer: "My",
+            explanation: "Possessive determiner digunakan sebelum noun."
+        },
+        {
+            type: "Demonstrative",
+            question: "___ apples are fresh.",
+            options: ["This", "That", "These", "It"],
+            answer: "These",
+            explanation: "These digunakan untuk benda jamak yang dekat."
+        },
+        {
+            type: "Demonstrative",
+            question: "___ car over there is expensive.",
+            options: ["This", "These", "That", "Those"],
+            answer: "That",
+            explanation: "That digunakan untuk benda tunggal yang jauh."
+        },
+        {
+            type: "Distributive",
+            question: "___ student received a certificate.",
+            options: ["Every", "Many", "Several", "Few"],
+            answer: "Every",
+            explanation: "Every digunakan untuk setiap anggota kelompok."
+        },
+        {
+            type: "Distributive",
+            question: "___ of the answers is correct.",
+            options: ["Either", "Many", "Several", "Both"],
+            answer: "Either",
+            explanation: "Either berarti salah satu dari dua."
+        },
+        {
+            type: "Concept",
+            question: "Determiners usually come...",
+            options: [
+                "before a noun",
+                "after a noun",
+                "after a verb",
+                "before a verb"
+            ],
+            answer: "before a noun",
+            explanation: "Determiner selalu berada sebelum noun."
+        },
+        {
+            type: "Concept",
+            question: "Which word is a determiner?",
+            options: [
+                "my",
+                "run",
+                "quickly",
+                "beautiful"
+            ],
+            answer: "my",
+            explanation: "My adalah possessive determiner."
+        },
+        {
+            type: "Concept",
+            question: "Which is NOT a determiner?",
+            options: [
+                "this",
+                "their",
+                "quickly",
+                "every"
+            ],
+            answer: "quickly",
+            explanation: "Quickly adalah adverb."
+        },
+        {
+            type: "Usage",
+            question: "Choose the correct phrase.",
+            options: [
+                "these books",
+                "this books",
+                "those book",
+                "these book"
+            ],
+            answer: "these books",
+            explanation: "These digunakan untuk plural noun."
+        },
+        {
+            type: "Usage",
+            question: "Choose the correct sentence.",
+            options: [
+                "Every students passed.",
+                "Every student passed.",
+                "Every student pass.",
+                "Every students pass."
+            ],
+            answer: "Every student passed.",
+            explanation: "Every selalu diikuti singular noun."
+        }
+    ]
+},
+
+"quantifiers": {
+    title: "Quantifiers",
+    description: "Quantifiers adalah kata yang menunjukkan jumlah atau kuantitas suatu noun. Penggunaannya bergantung pada apakah noun tersebut countable atau uncountable.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Quantifier + Noun
+    `,
+
+    notes: [
+        "Many digunakan untuk countable noun.",
+        "Much digunakan untuk uncountable noun.",
+        "Few berarti sedikit (countable).",
+        "Little berarti sedikit (uncountable).",
+        "A few berarti beberapa (masih bernilai positif).",
+        "A little berarti sedikit tetapi cukup.",
+        "Some digunakan pada kalimat positif.",
+        "Any umumnya digunakan pada kalimat negatif dan pertanyaan.",
+        "A lot of dapat digunakan untuk countable maupun uncountable noun."
+    ],
+
+    patterns: [
+        {
+            group: "Countable",
+            items: [
+                {
+                    label: "Many / Few / A Few",
+                    formula: "Quantifier + Countable Noun",
+                    examples: [
+                        "Many students attended.",
+                        "Few people agreed.",
+                        "A few books are missing."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Uncountable",
+            items: [
+                {
+                    label: "Much / Little / A Little",
+                    formula: "Quantifier + Uncountable Noun",
+                    examples: [
+                        "Much money was spent.",
+                        "Little water remained.",
+                        "A little sugar is enough."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Both Types",
+            items: [
+                {
+                    label: "Some / Any / A lot of",
+                    formula: "Quantifier + Noun",
+                    examples: [
+                        "Some students are here.",
+                        "Do you have any questions?",
+                        "A lot of people came."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Countable",
+            question: "How ___ books do you have?",
+            options: ["many", "much", "little", "a little"],
+            answer: "many",
+            explanation: "Books adalah countable noun."
+        },
+        {
+            type: "Uncountable",
+            question: "How ___ water do you drink?",
+            options: ["many", "few", "much", "a few"],
+            answer: "much",
+            explanation: "Water adalah uncountable noun."
+        },
+        {
+            type: "Few",
+            question: "There are only ___ students in the class.",
+            options: ["few", "little", "much", "many"],
+            answer: "few",
+            explanation: "Students adalah countable noun."
+        },
+        {
+            type: "Little",
+            question: "There is very ___ milk left.",
+            options: ["few", "little", "many", "a few"],
+            answer: "little",
+            explanation: "Milk adalah uncountable noun."
+        },
+        {
+            type: "Positive",
+            question: "I have ___ friends in London.",
+            options: ["a few", "little", "much", "any"],
+            answer: "a few",
+            explanation: "A few berarti beberapa dan digunakan untuk countable noun."
+        },
+        {
+            type: "Positive",
+            question: "Add ___ salt.",
+            options: ["a little", "few", "many", "a few"],
+            answer: "a little",
+            explanation: "Salt adalah uncountable noun."
+        },
+        {
+            type: "Some/Any",
+            question: "Do you have ___ questions?",
+            options: ["some", "any", "many", "few"],
+            answer: "any",
+            explanation: "Any umum digunakan pada pertanyaan."
+        },
+        {
+            type: "Some/Any",
+            question: "She bought ___ apples.",
+            options: ["any", "some", "few", "little"],
+            answer: "some",
+            explanation: "Some umum digunakan pada kalimat positif."
+        },
+        {
+            type: "A lot of",
+            question: "___ people joined the event.",
+            options: ["A lot of", "Much", "Little", "Few"],
+            answer: "A lot of",
+            explanation: "A lot of dapat digunakan untuk countable noun."
+        },
+        {
+            type: "Concept",
+            question: "Which quantifier can be used for both countable and uncountable nouns?",
+            options: [
+                "A lot of",
+                "Many",
+                "Much",
+                "Few"
+            ],
+            answer: "A lot of",
+            explanation: "A lot of dapat digunakan pada kedua jenis noun."
+        }
+    ]
+},
+
+"articles-review": {
+    title: "Articles & Determiners Review",
+    description: "Review ini menguji seluruh materi BAB 6: articles, a vs an, the, zero article, determiners, dan quantifiers.",
+
+    formula: `
+        <strong>Ringkasan BAB 6:</strong><br>
+        a/an = singular countable noun<br>
+        the = specific noun<br>
+        zero article = general plural / uncountable / proper noun<br>
+        determiner = kata sebelum noun<br>
+        quantifier = jumlah noun
+    `,
+
+    notes: [
+        "A digunakan sebelum bunyi konsonan.",
+        "An digunakan sebelum bunyi vokal.",
+        "The digunakan untuk noun yang spesifik.",
+        "Zero article digunakan untuk plural noun umum dan uncountable noun umum.",
+        "Determiners meliputi article, possessive, demonstrative, dan distributive.",
+        "Many untuk countable noun.",
+        "Much untuk uncountable noun.",
+        "A lot of bisa digunakan untuk countable dan uncountable noun."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Articles",
+                    formula: "a / an / the / zero article",
+                    examples: [
+                        "a book",
+                        "an apple",
+                        "the book on the table",
+                        "Water is important."
+                    ]
+                },
+                {
+                    label: "Determiners",
+                    formula: "determiner + noun",
+                    examples: [
+                        "my book",
+                        "this car",
+                        "every student"
+                    ]
+                },
+                {
+                    label: "Quantifiers",
+                    formula: "quantifier + noun",
+                    examples: [
+                        "many books",
+                        "much water",
+                        "a lot of people"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "A/An",
+            question: "She has ___ apple.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an",
+            explanation: "Apple diawali bunyi vokal."
+        },
+        {
+            type: "A/An",
+            question: "He is ___ honest man.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an",
+            explanation: "Honest diawali bunyi vokal karena h tidak dibaca."
+        },
+        {
+            type: "A/An",
+            question: "She studies at ___ university.",
+            options: ["a", "an", "the", "no article"],
+            answer: "a",
+            explanation: "University berbunyi /yu/, jadi memakai a."
+        },
+        {
+            type: "The",
+            question: "I saw a bird. ___ bird was beautiful.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "Bird sudah disebut sebelumnya."
+        },
+        {
+            type: "The",
+            question: "___ sun is bright today.",
+            options: ["A", "An", "The", "No article"],
+            answer: "The",
+            explanation: "Sun adalah benda unik."
+        },
+        {
+            type: "Zero Article",
+            question: "___ water is important.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Water sebagai uncountable noun umum tidak memakai article."
+        },
+        {
+            type: "Zero Article",
+            question: "___ cats are friendly.",
+            options: ["A", "An", "The", "No article"],
+            answer: "No article",
+            explanation: "Plural noun umum memakai zero article."
+        },
+        {
+            type: "Zero Article",
+            question: "She speaks ___ English.",
+            options: ["a", "an", "the", "no article"],
+            answer: "no article",
+            explanation: "Nama bahasa tidak memakai article."
+        },
+        {
+            type: "Determiner",
+            question: "___ book is on the table.",
+            options: ["My", "Mine", "Me", "I"],
+            answer: "My",
+            explanation: "My adalah possessive determiner sebelum noun."
+        },
+        {
+            type: "Determiner",
+            question: "___ students are waiting outside.",
+            options: ["This", "That", "These", "It"],
+            answer: "These",
+            explanation: "These digunakan untuk plural noun yang dekat."
+        },
+        {
+            type: "Determiner",
+            question: "___ student must submit the task.",
+            options: ["Every", "Many", "Few", "Several"],
+            answer: "Every",
+            explanation: "Every diikuti singular noun."
+        },
+        {
+            type: "Quantifier",
+            question: "How ___ books do you have?",
+            options: ["many", "much", "little", "a little"],
+            answer: "many",
+            explanation: "Books adalah countable noun."
+        },
+        {
+            type: "Quantifier",
+            question: "How ___ water do you drink?",
+            options: ["many", "much", "few", "a few"],
+            answer: "much",
+            explanation: "Water adalah uncountable noun."
+        },
+        {
+            type: "Quantifier",
+            question: "There are ___ students in the class.",
+            options: ["many", "much", "little", "a little"],
+            answer: "many",
+            explanation: "Students adalah countable noun."
+        },
+        {
+            type: "Quantifier",
+            question: "There is ___ milk left.",
+            options: ["few", "little", "many", "a few"],
+            answer: "little",
+            explanation: "Milk adalah uncountable noun."
+        },
+        {
+            type: "Quantifier",
+            question: "She bought ___ apples.",
+            options: ["some", "much", "little", "a little"],
+            answer: "some",
+            explanation: "Some dapat digunakan untuk plural countable noun."
+        },
+        {
+            type: "Quantifier",
+            question: "Do you have ___ questions?",
+            options: ["some", "any", "much", "little"],
+            answer: "any",
+            explanation: "Any umum dipakai pada pertanyaan."
+        },
+        {
+            type: "Quantifier",
+            question: "___ people joined the meeting.",
+            options: ["A lot of", "Much", "Little", "A little"],
+            answer: "A lot of",
+            explanation: "A lot of bisa digunakan untuk countable noun."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is correct?",
+            options: ["a apple", "an apple", "a apples", "an books"],
+            answer: "an apple",
+            explanation: "Apple diawali bunyi vokal dan singular countable."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is correct?",
+            options: ["this books", "these books", "those book", "these book"],
+            answer: "these books",
+            explanation: "These digunakan untuk plural noun."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Every students passed.",
+                "Every student passed.",
+                "Every student pass.",
+                "Every students pass."
+            ],
+            answer: "Every student passed.",
+            explanation: "Every diikuti singular noun."
+        },
+        {
+            type: "Concept",
+            question: "A and an are used before...",
+            options: [
+                "singular countable nouns",
+                "plural nouns only",
+                "uncountable nouns only",
+                "verbs"
+            ],
+            answer: "singular countable nouns",
+            explanation: "A/an digunakan sebelum singular countable noun."
+        },
+        {
+            type: "Concept",
+            question: "The is used for...",
+            options: ["specific nouns", "unknown verbs", "adverbs", "general plural nouns only"],
+            answer: "specific nouns",
+            explanation: "The digunakan untuk noun yang spesifik."
+        },
+        {
+            type: "Concept",
+            question: "Zero article is commonly used for...",
+            options: [
+                "general plural nouns",
+                "specific singular nouns only",
+                "verbs",
+                "modal verbs"
+            ],
+            answer: "general plural nouns",
+            explanation: "Plural noun umum biasanya tidak memakai article."
+        },
+        {
+            type: "Concept",
+            question: "Which word is a determiner?",
+            options: ["their", "quickly", "run", "beautiful"],
+            answer: "their",
+            explanation: "Their adalah possessive determiner."
+        },
+        {
+            type: "Concept",
+            question: "Which word is a quantifier?",
+            options: ["many", "beautiful", "quickly", "under"],
+            answer: "many",
+            explanation: "Many menunjukkan jumlah."
+        },
+        {
+            type: "Comparison",
+            question: "Which sentence is specific?",
+            options: [
+                "Books are useful.",
+                "The books on the shelf are useful.",
+                "Water is important.",
+                "Cats are cute."
+            ],
+            answer: "The books on the shelf are useful.",
+            explanation: "On the shelf membuat books menjadi spesifik."
+        },
+        {
+            type: "Comparison",
+            question: "Which noun is uncountable?",
+            options: ["water", "book", "student", "apple"],
+            answer: "water",
+            explanation: "Water adalah uncountable noun."
+        },
+        {
+            type: "Comparison",
+            question: "Which noun is countable?",
+            options: ["information", "milk", "rice", "chair"],
+            answer: "chair",
+            explanation: "Chair bisa dihitung."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is correct?",
+            options: [
+                "I need an information.",
+                "I need a information.",
+                "I need information.",
+                "I need informations."
+            ],
+            answer: "I need information.",
+            explanation: "Information adalah uncountable noun, jadi tidak memakai a/an dan tidak dibuat plural."
+        }
+    ]
+},
+
+"conditionals": {
+    title: "Introduction to Conditionals",
+    description: "Conditional Sentence adalah kalimat pengandaian yang menunjukkan hubungan antara syarat dan hasil. Kalimat ini biasanya memakai if untuk menjelaskan apa yang terjadi jika suatu kondisi terpenuhi.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        If + Condition, Result<br>
+        Result + if + Condition
+    `,
+
+    notes: [
+        "Conditional sentence terdiri dari condition dan result.",
+        "Condition adalah syarat.",
+        "Result adalah hasil dari syarat tersebut.",
+        "If biasanya digunakan untuk memperkenalkan syarat.",
+        "Jika if-clause berada di awal kalimat, biasanya gunakan koma.",
+        "Conditional sentence memiliki beberapa jenis: Zero, First, Second, Third, dan Mixed Conditional."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Structure",
+            items: [
+                {
+                    label: "If Clause First",
+                    formula: "If + condition, result",
+                    examples: [
+                        "If it rains, I stay at home.",
+                        "If you study, you understand better.",
+                        "If she calls, I answer."
+                    ]
+                },
+                {
+                    label: "Result First",
+                    formula: "Result + if + condition",
+                    examples: [
+                        "I stay at home if it rains.",
+                        "You understand better if you study.",
+                        "I answer if she calls."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Types",
+            items: [
+                {
+                    label: "Real Conditions",
+                    formula: "Real / possible situations",
+                    examples: [
+                        "If water reaches 100°C, it boils.",
+                        "If I have time, I will call you."
+                    ]
+                },
+                {
+                    label: "Unreal Conditions",
+                    formula: "Imaginary / impossible / past unreal situations",
+                    examples: [
+                        "If I had more money, I would travel.",
+                        "If she had studied, she would have passed."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Conditional sentence usually shows...",
+            options: ["condition and result", "noun and adjective", "subject only", "article only"],
+            answer: "condition and result",
+            explanation: "Conditional sentence menunjukkan hubungan antara syarat dan hasil."
+        },
+        {
+            type: "Concept",
+            question: "Which word is commonly used in conditional sentences?",
+            options: ["if", "wow", "the", "quickly"],
+            answer: "if",
+            explanation: "If digunakan untuk memperkenalkan condition."
+        },
+        {
+            type: "Structure",
+            question: "In 'If it rains, I stay home', 'If it rains' is...",
+            options: ["condition", "result", "object", "article"],
+            answer: "condition",
+            explanation: "If it rains adalah syarat atau condition."
+        },
+        {
+            type: "Structure",
+            question: "In 'If it rains, I stay home', 'I stay home' is...",
+            options: ["condition", "result", "preposition", "determiner"],
+            answer: "result",
+            explanation: "I stay home adalah hasil dari condition."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence uses comma correctly?",
+            options: [
+                "If it rains, I stay home.",
+                "If it rains I, stay home.",
+                "I stay, home if it rains.",
+                "If, it rains I stay home."
+            ],
+            answer: "If it rains, I stay home.",
+            explanation: "Jika if-clause berada di awal, gunakan koma setelah clause tersebut."
+        },
+        {
+            type: "Order",
+            question: "Which sentence is also correct?",
+            options: [
+                "I stay home if it rains.",
+                "I if it rains stay home.",
+                "If stay home it rains.",
+                "It rains if stay home."
+            ],
+            answer: "I stay home if it rains.",
+            explanation: "Result bisa muncul di awal tanpa koma sebelum if-clause."
+        },
+        {
+            type: "Type",
+            question: "Which conditional is used for general facts?",
+            options: ["Zero Conditional", "Third Conditional", "Mixed Conditional", "Reported Speech"],
+            answer: "Zero Conditional",
+            explanation: "Zero Conditional digunakan untuk fakta umum atau kebiasaan."
+        },
+        {
+            type: "Type",
+            question: "Which conditional is used for possible future situations?",
+            options: ["First Conditional", "Zero Conditional only", "Third Conditional", "Passive Voice"],
+            answer: "First Conditional",
+            explanation: "First Conditional digunakan untuk kemungkinan nyata di masa depan."
+        },
+        {
+            type: "Type",
+            question: "Which conditional is used for unreal present situations?",
+            options: ["Second Conditional", "Zero Conditional", "Simple Present", "Article"],
+            answer: "Second Conditional",
+            explanation: "Second Conditional digunakan untuk situasi imajinatif atau tidak nyata sekarang."
+        },
+        {
+            type: "Type",
+            question: "Which conditional is used for unreal past situations?",
+            options: ["Third Conditional", "First Conditional", "Zero Conditional", "Determiner"],
+            answer: "Third Conditional",
+            explanation: "Third Conditional digunakan untuk pengandaian masa lampau yang tidak terjadi."
+        }
+    ]
+},
+
+"zero-conditional": {
+    title: "Zero Conditional",
+    description: "Zero Conditional digunakan untuk fakta umum, kebenaran ilmiah, aturan, atau kebiasaan yang selalu benar jika syaratnya terpenuhi.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        If + Simple Present, Simple Present
+    `,
+
+    notes: [
+        "Zero Conditional digunakan untuk fakta umum.",
+        "Kedua clause memakai Simple Present.",
+        "If dapat diganti dengan when jika maknanya selalu terjadi.",
+        "Jika if-clause berada di awal, gunakan koma.",
+        "Zero Conditional tidak memakai will."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Form",
+            items: [
+                {
+                    label: "If First",
+                    formula: "If + Simple Present, Simple Present",
+                    examples: [
+                        "If water reaches 100°C, it boils.",
+                        "If you heat ice, it melts.",
+                        "If people eat too much, they gain weight."
+                    ]
+                },
+                {
+                    label: "Result First",
+                    formula: "Simple Present + if + Simple Present",
+                    examples: [
+                        "Water boils if it reaches 100°C.",
+                        "Ice melts if you heat it.",
+                        "People gain weight if they eat too much."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "When",
+            items: [
+                {
+                    label: "If / When",
+                    formula: "When + Simple Present, Simple Present",
+                    examples: [
+                        "When it rains, the ground gets wet.",
+                        "When the sun sets, it gets dark.",
+                        "When students practice, they improve."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Formula",
+            question: "Zero Conditional uses...",
+            options: [
+                "If + Simple Present, Simple Present",
+                "If + Simple Present, will + V1",
+                "If + Simple Past, would + V1",
+                "If + Past Perfect, would have + V3"
+            ],
+            answer: "If + Simple Present, Simple Present",
+            explanation: "Zero Conditional memakai Simple Present di kedua clause."
+        },
+        {
+            type: "Fact",
+            question: "If water reaches 100°C, it ___.",
+            options: ["boil", "boils", "will boil", "boiled"],
+            answer: "boils",
+            explanation: "Zero Conditional memakai Simple Present."
+        },
+        {
+            type: "Fact",
+            question: "If you heat ice, it ___.",
+            options: ["melts", "will melt", "melted", "would melt"],
+            answer: "melts",
+            explanation: "Ini fakta umum, jadi gunakan Simple Present."
+        },
+        {
+            type: "Fact",
+            question: "If people eat too much, they ___ weight.",
+            options: ["gain", "gains", "will gain", "gained"],
+            answer: "gain",
+            explanation: "Subject they memakai V1 biasa."
+        },
+        {
+            type: "When",
+            question: "___ it rains, the ground gets wet.",
+            options: ["When", "Would", "Had", "Will"],
+            answer: "When",
+            explanation: "When bisa digunakan untuk kejadian yang selalu benar."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If water reaches 100°C, it will boil.",
+                "If water reaches 100°C, it boils.",
+                "If water reached 100°C, it boils.",
+                "If water has reached 100°C, it would boil."
+            ],
+            answer: "If water reaches 100°C, it boils.",
+            explanation: "Zero Conditional tidak memakai will pada result clause."
+        },
+        {
+            type: "Concept",
+            question: "Zero Conditional is used for...",
+            options: [
+                "general facts",
+                "unreal past situations",
+                "imaginary present situations",
+                "reported speech"
+            ],
+            answer: "general facts",
+            explanation: "Zero Conditional digunakan untuk fakta umum atau aturan yang selalu benar."
+        },
+        {
+            type: "Comma",
+            question: "Which punctuation is correct?",
+            options: [
+                "If you heat ice, it melts.",
+                "If you heat, ice it melts.",
+                "If, you heat ice it melts.",
+                "If you heat ice it, melts."
+            ],
+            answer: "If you heat ice, it melts.",
+            explanation: "Jika if-clause di awal, gunakan koma setelah clause."
+        },
+        {
+            type: "Order",
+            question: "Which sentence is correct?",
+            options: [
+                "Ice melts if you heat it.",
+                "Ice if you heat it melts.",
+                "If ice melts you heat it.",
+                "Melts ice if you heat it."
+            ],
+            answer: "Ice melts if you heat it.",
+            explanation: "Result clause bisa diletakkan sebelum if-clause."
+        },
+        {
+            type: "Concept",
+            question: "In Zero Conditional, 'if' can often be replaced by...",
+            options: ["when", "would", "must", "although"],
+            answer: "when",
+            explanation: "Untuk kejadian yang selalu benar, if sering bisa diganti dengan when."
+        }
+    ]
+},
+
+"first-conditional": {
+    title: "First Conditional",
+    description: "First Conditional digunakan untuk kemungkinan nyata di masa depan. Kalimat ini menunjukkan bahwa suatu hasil kemungkinan akan terjadi jika syaratnya terpenuhi.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        If + Simple Present, Subject + will + V1
+    `,
+
+    notes: [
+        "First Conditional digunakan untuk situasi masa depan yang mungkin terjadi.",
+        "If-clause memakai Simple Present.",
+        "Result clause memakai will + V1.",
+        "Jangan gunakan will di dalam if-clause.",
+        "Jika if-clause berada di awal, gunakan koma."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Form",
+            items: [
+                {
+                    label: "If First",
+                    formula: "If + Simple Present, will + V1",
+                    examples: [
+                        "If it rains, I will stay at home.",
+                        "If you study, you will pass the exam.",
+                        "If she calls, I will answer."
+                    ]
+                },
+                {
+                    label: "Result First",
+                    formula: "Will + V1 + if + Simple Present",
+                    examples: [
+                        "I will stay at home if it rains.",
+                        "You will pass the exam if you study.",
+                        "I will answer if she calls."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Formula",
+            question: "First Conditional uses...",
+            options: [
+                "If + Simple Present, will + V1",
+                "If + Simple Past, would + V1",
+                "If + Past Perfect, would have + V3",
+                "If + Simple Present, Simple Present"
+            ],
+            answer: "If + Simple Present, will + V1",
+            explanation: "First Conditional memakai If + Simple Present, will + V1."
+        },
+        {
+            type: "Future Possibility",
+            question: "If it rains, I ___ stay at home.",
+            options: ["will", "would", "was", "had"],
+            answer: "will",
+            explanation: "Result clause First Conditional memakai will + V1."
+        },
+        {
+            type: "Future Possibility",
+            question: "If you study hard, you ___ pass the exam.",
+            options: ["will", "would", "had", "were"],
+            answer: "will",
+            explanation: "First Conditional menunjukkan kemungkinan nyata di masa depan."
+        },
+        {
+            type: "If Clause",
+            question: "If she ___ me, I will answer.",
+            options: ["call", "calls", "called", "will call"],
+            answer: "calls",
+            explanation: "If-clause memakai Simple Present. Subject she memakai calls."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If it will rain, I will stay home.",
+                "If it rains, I will stay home.",
+                "If it rained, I will stay home.",
+                "If it rains, I would stay home."
+            ],
+            answer: "If it rains, I will stay home.",
+            explanation: "Jangan gunakan will di dalam if-clause."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence uses comma correctly?",
+            options: [
+                "If you study, you will pass.",
+                "If, you study you will pass.",
+                "If you, study you will pass.",
+                "If you study you, will pass."
+            ],
+            answer: "If you study, you will pass.",
+            explanation: "Jika if-clause di awal, gunakan koma."
+        },
+        {
+            type: "Order",
+            question: "Which sentence is also correct?",
+            options: [
+                "You will pass if you study.",
+                "You pass will if you study.",
+                "If you will study, you pass.",
+                "You would pass if you study."
+            ],
+            answer: "You will pass if you study.",
+            explanation: "Result clause bisa diletakkan sebelum if-clause."
+        },
+        {
+            type: "Concept",
+            question: "First Conditional is used for...",
+            options: [
+                "real future possibilities",
+                "general facts only",
+                "unreal past situations",
+                "past habits"
+            ],
+            answer: "real future possibilities",
+            explanation: "First Conditional digunakan untuk kemungkinan nyata di masa depan."
+        },
+        {
+            type: "Result",
+            question: "If they arrive early, we ___ start the meeting.",
+            options: ["will", "would", "had", "were"],
+            answer: "will",
+            explanation: "Result clause memakai will + V1."
+        },
+        {
+            type: "If Clause",
+            question: "If he ___ late, we will leave without him.",
+            options: ["is", "will be", "was", "were"],
+            answer: "is",
+            explanation: "If-clause First Conditional memakai Simple Present."
+        }
+    ]
+},
+
+"second-conditional": {
+    title: "Second Conditional",
+    description: "Second Conditional digunakan untuk situasi imajinatif, tidak nyata, atau kecil kemungkinan terjadi di masa sekarang atau masa depan.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        If + Simple Past, Subject + would + V1
+    `,
+
+    notes: [
+        "Second Conditional digunakan untuk kondisi tidak nyata atau imajinatif.",
+        "If-clause memakai Simple Past.",
+        "Result clause memakai would + V1.",
+        "Untuk semua subject, bentuk formal menggunakan were pada be verb.",
+        "Second Conditional sering digunakan untuk impian, saran, dan situasi hipotetis."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Form",
+            items: [
+                {
+                    label: "If First",
+                    formula: "If + Simple Past, would + V1",
+                    examples: [
+                        "If I had more money, I would travel.",
+                        "If she studied harder, she would pass.",
+                        "If they lived here, we would meet often."
+                    ]
+                },
+                {
+                    label: "Result First",
+                    formula: "Would + V1 + if + Simple Past",
+                    examples: [
+                        "I would travel if I had more money.",
+                        "She would pass if she studied harder.",
+                        "We would meet often if they lived here."
+                    ]
+                },
+                {
+                    label: "Were",
+                    formula: "If + Subject + were, would + V1",
+                    examples: [
+                        "If I were you, I would apologize.",
+                        "If she were here, she would help us.",
+                        "If they were ready, we would leave."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Formula",
+            question: "Second Conditional uses...",
+            options: [
+                "If + Simple Past, would + V1",
+                "If + Simple Present, will + V1",
+                "If + Past Perfect, would have + V3",
+                "If + Simple Present, Simple Present"
+            ],
+            answer: "If + Simple Past, would + V1",
+            explanation: "Second Conditional memakai If + Simple Past, would + V1."
+        },
+        {
+            type: "Hypothetical",
+            question: "If I had more money, I ___ travel.",
+            options: ["will", "would", "had", "am"],
+            answer: "would",
+            explanation: "Result clause Second Conditional memakai would + V1."
+        },
+        {
+            type: "Hypothetical",
+            question: "If she studied harder, she ___ pass.",
+            options: ["will", "would", "has", "is"],
+            answer: "would",
+            explanation: "Second Conditional menunjukkan situasi hipotetis."
+        },
+        {
+            type: "If Clause",
+            question: "If they ___ here, we would meet often.",
+            options: ["live", "lived", "will live", "living"],
+            answer: "lived",
+            explanation: "If-clause Second Conditional memakai Simple Past."
+        },
+        {
+            type: "Were",
+            question: "If I ___ you, I would apologize.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Dalam bentuk formal Second Conditional, gunakan were untuk semua subject."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If I have more money, I would travel.",
+                "If I had more money, I would travel.",
+                "If I had more money, I will travel.",
+                "If I will have more money, I would travel."
+            ],
+            answer: "If I had more money, I would travel.",
+            explanation: "Second Conditional memakai If + Simple Past, would + V1."
+        },
+        {
+            type: "Concept",
+            question: "Second Conditional is used for...",
+            options: [
+                "imaginary or unreal situations",
+                "general facts",
+                "real future possibilities",
+                "completed past events"
+            ],
+            answer: "imaginary or unreal situations",
+            explanation: "Second Conditional digunakan untuk situasi imajinatif atau tidak nyata."
+        },
+        {
+            type: "Advice",
+            question: "If I were you, I ___ accept the offer.",
+            options: ["will", "would", "had", "am"],
+            answer: "would",
+            explanation: "If I were you sering digunakan untuk memberi saran."
+        },
+        {
+            type: "Order",
+            question: "Which sentence is also correct?",
+            options: [
+                "I would travel if I had more money.",
+                "I travel would if I had more money.",
+                "I will travel if I had more money.",
+                "I would travelled if I had money."
+            ],
+            answer: "I would travel if I had more money.",
+            explanation: "Result clause boleh muncul sebelum if-clause."
+        },
+        {
+            type: "Verb Form",
+            question: "After would, use...",
+            options: ["V1", "V2", "V3", "V-ing"],
+            answer: "V1",
+            explanation: "Would selalu diikuti base verb atau V1."
+        }
+    ]
+},
+
+"third-conditional": {
+    title: "Third Conditional",
+    description: "Third Conditional digunakan untuk membicarakan situasi masa lampau yang tidak terjadi. Kalimat ini sering digunakan untuk penyesalan, kritik, atau membayangkan hasil berbeda di masa lalu.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        If + Past Perfect, Subject + would have + V3
+    `,
+
+    notes: [
+        "Third Conditional digunakan untuk situasi masa lampau yang tidak nyata.",
+        "If-clause memakai Past Perfect.",
+        "Result clause memakai would have + V3.",
+        "Third Conditional sering dipakai untuk penyesalan.",
+        "Kalimat ini membicarakan hal yang sudah tidak bisa diubah."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Form",
+            items: [
+                {
+                    label: "If First",
+                    formula: "If + had + V3, would have + V3",
+                    examples: [
+                        "If I had studied, I would have passed.",
+                        "If she had left earlier, she would have arrived on time.",
+                        "If they had invited me, I would have come."
+                    ]
+                },
+                {
+                    label: "Result First",
+                    formula: "Would have + V3 + if + had + V3",
+                    examples: [
+                        "I would have passed if I had studied.",
+                        "She would have arrived on time if she had left earlier.",
+                        "I would have come if they had invited me."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Formula",
+            question: "Third Conditional uses...",
+            options: [
+                "If + Past Perfect, would have + V3",
+                "If + Simple Present, will + V1",
+                "If + Simple Past, would + V1",
+                "If + Simple Present, Simple Present"
+            ],
+            answer: "If + Past Perfect, would have + V3",
+            explanation: "Third Conditional memakai If + Past Perfect, would have + V3."
+        },
+        {
+            type: "Past Unreal",
+            question: "If I had studied, I ___ passed.",
+            options: ["will have", "would have", "would", "had"],
+            answer: "would have",
+            explanation: "Result clause Third Conditional memakai would have + V3."
+        },
+        {
+            type: "Past Unreal",
+            question: "If she had left earlier, she would have ___.",
+            options: ["arrive", "arrives", "arrived", "arriving"],
+            answer: "arrived",
+            explanation: "Setelah would have, gunakan V3."
+        },
+        {
+            type: "If Clause",
+            question: "If they ___ me, I would have come.",
+            options: ["invite", "invited", "had invited", "will invite"],
+            answer: "had invited",
+            explanation: "If-clause Third Conditional memakai had + V3."
+        },
+        {
+            type: "Regret",
+            question: "If I had known the answer, I ___ told you.",
+            options: ["will have", "would have", "would", "had"],
+            answer: "would have",
+            explanation: "Kalimat ini membayangkan hasil berbeda di masa lalu."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If I studied, I would have passed.",
+                "If I had studied, I would have passed.",
+                "If I had studied, I would pass.",
+                "If I have studied, I would have passed."
+            ],
+            answer: "If I had studied, I would have passed.",
+            explanation: "Third Conditional memakai If + had + V3, would have + V3."
+        },
+        {
+            type: "Concept",
+            question: "Third Conditional is used for...",
+            options: [
+                "unreal past situations",
+                "general facts",
+                "real future possibilities",
+                "present habits"
+            ],
+            answer: "unreal past situations",
+            explanation: "Third Conditional digunakan untuk pengandaian masa lampau yang tidak terjadi."
+        },
+        {
+            type: "Order",
+            question: "Which sentence is also correct?",
+            options: [
+                "I would have passed if I had studied.",
+                "I would passed if I had studied.",
+                "I will have passed if I studied.",
+                "I had passed if I would study."
+            ],
+            answer: "I would have passed if I had studied.",
+            explanation: "Result clause boleh muncul sebelum if-clause."
+        },
+        {
+            type: "Verb Form",
+            question: "After would have, use...",
+            options: ["V1", "V2", "V3", "V-ing"],
+            answer: "V3",
+            explanation: "Would have selalu diikuti V3."
+        },
+        {
+            type: "Meaning",
+            question: "If she had studied, she would have passed. This means...",
+            options: [
+                "She did not study and did not pass.",
+                "She studies now.",
+                "She will pass tomorrow.",
+                "She always passes."
+            ],
+            answer: "She did not study and did not pass.",
+            explanation: "Third Conditional menunjukkan kondisi lampau yang tidak terjadi."
+        }
+    ]
+},
+
+"mixed-conditional": {
+    title: "Mixed Conditional",
+    description: "Mixed Conditional digunakan ketika waktu pada condition dan result berbeda. Biasanya kalimat ini menghubungkan kondisi masa lampau dengan hasil sekarang, atau kondisi sekarang dengan hasil masa lampau.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Past condition → Present result:<br>
+        If + Past Perfect, would + V1<br><br>
+        Present condition → Past result:<br>
+        If + Simple Past, would have + V3
+    `,
+
+    notes: [
+        "Mixed Conditional menggabungkan dua waktu berbeda.",
+        "Bentuk paling umum: kondisi masa lampau, hasil sekarang.",
+        "If + Past Perfect, would + V1 berarti masa lalu memengaruhi sekarang.",
+        "If + Simple Past, would have + V3 berarti kondisi sekarang memengaruhi kejadian masa lalu.",
+        "Materi ini lebih advanced daripada Type 0, 1, 2, dan 3."
+    ],
+
+    patterns: [
+        {
+            group: "Past Condition → Present Result",
+            items: [
+                {
+                    label: "Past to Present",
+                    formula: "If + had + V3, would + V1",
+                    examples: [
+                        "If I had studied medicine, I would be a doctor now.",
+                        "If she had saved money, she would be rich now.",
+                        "If they had left earlier, they would be here now."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Present Condition → Past Result",
+            items: [
+                {
+                    label: "Present to Past",
+                    formula: "If + Simple Past, would have + V3",
+                    examples: [
+                        "If I were more careful, I would not have made that mistake.",
+                        "If he knew English, he would have understood the movie.",
+                        "If she were braver, she would have accepted the challenge."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Past to Present",
+            question: "If I had studied medicine, I ___ a doctor now.",
+            options: ["will be", "would be", "would have been", "am"],
+            answer: "would be",
+            explanation: "Past condition dengan present result memakai would + V1."
+        },
+        {
+            type: "Past to Present",
+            question: "If she had saved money, she ___ rich now.",
+            options: ["would be", "would have been", "will be", "has been"],
+            answer: "would be",
+            explanation: "Kondisi masa lampau memengaruhi hasil sekarang."
+        },
+        {
+            type: "Past to Present",
+            question: "If they had left earlier, they ___ here now.",
+            options: ["would be", "would have been", "will be", "are"],
+            answer: "would be",
+            explanation: "Had left adalah past condition, here now adalah present result."
+        },
+        {
+            type: "Past Condition",
+            question: "If I ___ harder, I would be successful now.",
+            options: ["study", "studied", "had studied", "will study"],
+            answer: "had studied",
+            explanation: "Untuk kondisi masa lampau, gunakan had + V3."
+        },
+        {
+            type: "Present to Past",
+            question: "If I were more careful, I ___ that mistake.",
+            options: ["would not make", "would not have made", "will not make", "did not make"],
+            answer: "would not have made",
+            explanation: "Present condition dengan past result memakai would have + V3."
+        },
+        {
+            type: "Present to Past",
+            question: "If he knew English, he ___ the movie.",
+            options: ["would understand", "would have understood", "will understand", "understood"],
+            answer: "would have understood",
+            explanation: "Kondisi sekarang memengaruhi hasil masa lampau."
+        },
+        {
+            type: "Concept",
+            question: "Mixed Conditional usually combines...",
+            options: [
+                "different time references",
+                "only present time",
+                "only future time",
+                "only articles"
+            ],
+            answer: "different time references",
+            explanation: "Mixed Conditional menggabungkan condition dan result dari waktu berbeda."
+        },
+        {
+            type: "Formula",
+            question: "Past condition → Present result uses...",
+            options: [
+                "If + had + V3, would + V1",
+                "If + Simple Present, will + V1",
+                "If + Simple Past, would have + V3",
+                "If + Simple Present, Simple Present"
+            ],
+            answer: "If + had + V3, would + V1",
+            explanation: "Ini pola mixed conditional paling umum."
+        },
+        {
+            type: "Formula",
+            question: "Present condition → Past result uses...",
+            options: [
+                "If + Simple Past, would have + V3",
+                "If + Past Perfect, would + V1",
+                "If + Simple Present, will + V1",
+                "If + Simple Present, Simple Present"
+            ],
+            answer: "If + Simple Past, would have + V3",
+            explanation: "Kondisi sekarang dengan hasil lampau memakai Simple Past + would have V3."
+        },
+        {
+            type: "Meaning",
+            question: "If I had studied medicine, I would be a doctor now. This means...",
+            options: [
+                "I did not study medicine, so I am not a doctor now.",
+                "I am studying medicine now.",
+                "I will become a doctor tomorrow.",
+                "I was a doctor yesterday."
+            ],
+            answer: "I did not study medicine, so I am not a doctor now.",
+            explanation: "Kalimat ini menunjukkan penyesalan masa lampau dengan akibat sekarang."
+        }
+    ]
+},
+
+"conditional-review": {
+    title: "Conditional Review",
+    description: "Conditional Review adalah latihan akhir untuk menguji pemahaman Zero, First, Second, Third, dan Mixed Conditional.",
+
+    formula: `
+        <strong>Ringkasan BAB 7:</strong><br>
+        Zero = If + Simple Present, Simple Present<br>
+        First = If + Simple Present, will + V1<br>
+        Second = If + Simple Past, would + V1<br>
+        Third = If + Past Perfect, would have + V3<br>
+        Mixed = gabungan waktu berbeda
+    `,
+
+    notes: [
+        "Zero Conditional digunakan untuk fakta umum.",
+        "First Conditional digunakan untuk kemungkinan nyata di masa depan.",
+        "Second Conditional digunakan untuk situasi imajinatif sekarang/masa depan.",
+        "Third Conditional digunakan untuk pengandaian masa lampau yang tidak terjadi.",
+        "Mixed Conditional menggabungkan waktu berbeda antara condition dan result."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Zero / First",
+                    formula: "Present → Present / Future",
+                    examples: [
+                        "If water reaches 100°C, it boils.",
+                        "If it rains, I will stay home."
+                    ]
+                },
+                {
+                    label: "Second / Third",
+                    formula: "Past → Would / Past Perfect → Would Have",
+                    examples: [
+                        "If I had money, I would travel.",
+                        "If I had studied, I would have passed."
+                    ]
+                },
+                {
+                    label: "Mixed",
+                    formula: "Different time references",
+                    examples: [
+                        "If I had studied medicine, I would be a doctor now.",
+                        "If I were more careful, I would not have made that mistake."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Zero",
+            question: "If water reaches 100°C, it ___.",
+            options: ["boils", "will boil", "would boil", "would have boiled"],
+            answer: "boils",
+            explanation: "Zero Conditional memakai Simple Present di kedua clause."
+        },
+        {
+            type: "Zero",
+            question: "If you heat ice, it ___.",
+            options: ["melts", "will melt", "would melt", "melted"],
+            answer: "melts",
+            explanation: "Ini fakta umum, jadi gunakan Zero Conditional."
+        },
+        {
+            type: "First",
+            question: "If it rains tomorrow, I ___ stay home.",
+            options: ["will", "would", "would have", "had"],
+            answer: "will",
+            explanation: "First Conditional memakai will + V1 pada result clause."
+        },
+        {
+            type: "First",
+            question: "If she ___ hard, she will pass.",
+            options: ["studies", "studied", "had studied", "will study"],
+            answer: "studies",
+            explanation: "If-clause First Conditional memakai Simple Present."
+        },
+        {
+            type: "Second",
+            question: "If I had more money, I ___ travel.",
+            options: ["will", "would", "would have", "had"],
+            answer: "would",
+            explanation: "Second Conditional memakai would + V1."
+        },
+        {
+            type: "Second",
+            question: "If I ___ you, I would apologize.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Dalam bentuk formal, gunakan were untuk semua subject."
+        },
+        {
+            type: "Third",
+            question: "If I had studied, I ___ passed.",
+            options: ["will have", "would have", "would", "had"],
+            answer: "would have",
+            explanation: "Third Conditional memakai would have + V3."
+        },
+        {
+            type: "Third",
+            question: "If she ___ earlier, she would have arrived on time.",
+            options: ["leaves", "left", "had left", "will leave"],
+            answer: "had left",
+            explanation: "If-clause Third Conditional memakai had + V3."
+        },
+        {
+            type: "Mixed",
+            question: "If I had studied medicine, I ___ a doctor now.",
+            options: ["will be", "would be", "would have been", "am"],
+            answer: "would be",
+            explanation: "Mixed Conditional: past condition dengan present result."
+        },
+        {
+            type: "Mixed",
+            question: "If I were more careful, I ___ that mistake.",
+            options: ["would not make", "would not have made", "will not make", "did not make"],
+            answer: "would not have made",
+            explanation: "Mixed Conditional: present condition dengan past result."
+        },
+        {
+            type: "Formula",
+            question: "Which formula is First Conditional?",
+            options: [
+                "If + Simple Present, will + V1",
+                "If + Simple Past, would + V1",
+                "If + Past Perfect, would have + V3",
+                "If + Simple Present, Simple Present"
+            ],
+            answer: "If + Simple Present, will + V1",
+            explanation: "First Conditional memakai Simple Present + will."
+        },
+        {
+            type: "Formula",
+            question: "Which formula is Third Conditional?",
+            options: [
+                "If + Simple Present, will + V1",
+                "If + Simple Past, would + V1",
+                "If + Past Perfect, would have + V3",
+                "If + Simple Present, Simple Present"
+            ],
+            answer: "If + Past Perfect, would have + V3",
+            explanation: "Third Conditional memakai had + V3 dan would have + V3."
+        },
+        {
+            type: "Meaning",
+            question: "If I had studied, I would have passed. This means...",
+            options: [
+                "I did not study and I did not pass.",
+                "I study every day.",
+                "I will pass tomorrow.",
+                "I am passing now."
+            ],
+            answer: "I did not study and I did not pass.",
+            explanation: "Third Conditional menunjukkan pengandaian masa lampau yang tidak terjadi."
+        },
+        {
+            type: "Meaning",
+            question: "If I had more time, I would learn French. This is...",
+            options: [
+                "real future possibility",
+                "imaginary present/future situation",
+                "general fact",
+                "completed past event"
+            ],
+            answer: "imaginary present/future situation",
+            explanation: "Second Conditional digunakan untuk situasi imajinatif."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If it will rain, I will stay home.",
+                "If it rains, I will stay home.",
+                "If it rained, I will stay home.",
+                "If it rains, I would stay home."
+            ],
+            answer: "If it rains, I will stay home.",
+            explanation: "First Conditional tidak memakai will di if-clause."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If I have money, I would travel.",
+                "If I had money, I would travel.",
+                "If I had money, I will travel.",
+                "If I will have money, I would travel."
+            ],
+            answer: "If I had money, I would travel.",
+            explanation: "Second Conditional memakai Simple Past + would."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If she had called, I would answer.",
+                "If she called, I would have answered.",
+                "If she had called, I would have answered.",
+                "If she has called, I would have answered."
+            ],
+            answer: "If she had called, I would have answered.",
+            explanation: "Third Conditional memakai had + V3 dan would have + V3."
+        },
+        {
+            type: "Concept",
+            question: "Which conditional is used for general facts?",
+            options: ["Zero", "First", "Second", "Third"],
+            answer: "Zero",
+            explanation: "Zero Conditional digunakan untuk fakta umum."
+        },
+        {
+            type: "Concept",
+            question: "Which conditional is used for real future possibilities?",
+            options: ["Zero", "First", "Second", "Third"],
+            answer: "First",
+            explanation: "First Conditional digunakan untuk kemungkinan nyata di masa depan."
+        },
+        {
+            type: "Concept",
+            question: "Which conditional is used for unreal past situations?",
+            options: ["Zero", "First", "Second", "Third"],
+            answer: "Third",
+            explanation: "Third Conditional digunakan untuk situasi masa lampau yang tidak terjadi."
+        }
+    ]
+},
+
+"reported-speech": {
+    title: "Introduction to Reported Speech",
+    description: "Reported Speech digunakan untuk menyampaikan kembali ucapan seseorang tanpa mengutip kata-katanya secara langsung.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Direct Speech: He said, "I am tired."<br>
+        Reported Speech: He said that he was tired.
+    `,
+
+    notes: [
+        "Direct Speech mengutip ucapan asli secara langsung.",
+        "Reported Speech menyampaikan ulang ucapan tanpa tanda kutip.",
+        "Pronoun sering berubah sesuai pembicara.",
+        "Tense sering mundur satu langkah jika reporting verb berbentuk past.",
+        "That sering digunakan, tetapi dalam percakapan bisa dihilangkan."
+    ],
+
+    patterns: [
+        {
+            group: "Basic",
+            items: [
+                {
+                    label: "Direct Speech",
+                    formula: "Subject + said, \"sentence\"",
+                    examples: [
+                        "He said, \"I am tired.\"",
+                        "She said, \"I like English.\"",
+                        "They said, \"We are ready.\""
+                    ]
+                },
+                {
+                    label: "Reported Speech",
+                    formula: "Subject + said that + reported clause",
+                    examples: [
+                        "He said that he was tired.",
+                        "She said that she liked English.",
+                        "They said that they were ready."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Main Changes",
+            items: [
+                {
+                    label: "Pronoun Change",
+                    formula: "I → he/she, we → they",
+                    examples: [
+                        "Direct: She said, \"I am happy.\"",
+                        "Reported: She said that she was happy."
+                    ]
+                },
+                {
+                    label: "Tense Change",
+                    formula: "Present → Past",
+                    examples: [
+                        "Direct: He said, \"I work here.\"",
+                        "Reported: He said that he worked there."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Reported Speech is used to...",
+            options: [
+                "repeat someone's words indirectly",
+                "make passive voice",
+                "describe nouns",
+                "show quantity"
+            ],
+            answer: "repeat someone's words indirectly",
+            explanation: "Reported Speech digunakan untuk menyampaikan ulang ucapan seseorang secara tidak langsung."
+        },
+        {
+            type: "Direct vs Reported",
+            question: "Which one is Direct Speech?",
+            options: [
+                "He said that he was tired.",
+                "He said, \"I am tired.\"",
+                "He was tired.",
+                "He had been tired."
+            ],
+            answer: "He said, \"I am tired.\"",
+            explanation: "Direct Speech memakai tanda kutip dan ucapan asli."
+        },
+        {
+            type: "Direct vs Reported",
+            question: "Which one is Reported Speech?",
+            options: [
+                "She said, \"I am happy.\"",
+                "She said that she was happy.",
+                "I am happy.",
+                "\"She is happy.\""
+            ],
+            answer: "She said that she was happy.",
+            explanation: "Reported Speech menyampaikan ulang tanpa tanda kutip."
+        },
+        {
+            type: "Pronoun",
+            question: "Direct: She said, \"I am tired.\" Reported: She said that ___ was tired.",
+            options: ["I", "she", "he", "they"],
+            answer: "she",
+            explanation: "I berubah menjadi she karena pembicaranya adalah She."
+        },
+        {
+            type: "Tense",
+            question: "Direct: He said, \"I work here.\" Reported: He said that he ___ there.",
+            options: ["work", "works", "worked", "working"],
+            answer: "worked",
+            explanation: "Simple Present biasanya berubah menjadi Simple Past."
+        },
+        {
+            type: "Concept",
+            question: "Reported Speech usually removes...",
+            options: ["quotation marks", "subjects", "verbs", "nouns"],
+            answer: "quotation marks",
+            explanation: "Reported Speech tidak memakai tanda kutip langsung."
+        },
+        {
+            type: "Concept",
+            question: "The word 'that' in reported speech is...",
+            options: [
+                "often optional",
+                "always impossible",
+                "an article",
+                "a modal"
+            ],
+            answer: "often optional",
+            explanation: "That sering digunakan, tetapi dalam percakapan bisa dihilangkan."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "He said that he was tired.",
+                "He said that I was tired. (if he refers to himself)",
+                "He said he is tired yesterday.",
+                "He said, that he was tired."
+            ],
+            answer: "He said that he was tired.",
+            explanation: "Pronoun dan tense harus disesuaikan."
+        },
+        {
+            type: "Concept",
+            question: "If the reporting verb is past, tense often...",
+            options: ["moves back", "moves forward", "disappears", "becomes article"],
+            answer: "moves back",
+            explanation: "Jika reporting verb berbentuk past, tense biasanya mengalami backshift."
+        },
+        {
+            type: "Concept",
+            question: "Reported Speech is also called...",
+            options: ["Indirect Speech", "Passive Speech", "Zero Article", "Modal Passive"],
+            answer: "Indirect Speech",
+            explanation: "Reported Speech juga disebut Indirect Speech."
+        }
+    ]
+},
+
+"reported-statements": {
+    title: "Reported Statements",
+    description: "Reported Statements digunakan untuk melaporkan pernyataan seseorang. Dalam reported statement, tanda kutip dihilangkan, pronoun disesuaikan, dan tense biasanya mengalami backshift jika reporting verb berbentuk past.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Subject + said/told + that + reported clause
+    `,
+
+    notes: [
+        "Gunakan said jika tidak menyebut object orang yang diajak bicara.",
+        "Gunakan told jika menyebut object orang yang diajak bicara.",
+        "Direct statement berubah menjadi reported statement tanpa tanda kutip.",
+        "Pronoun harus disesuaikan dengan konteks.",
+        "Jika reporting verb berbentuk past, tense biasanya mundur satu langkah."
+    ],
+
+    patterns: [
+        {
+            group: "Said",
+            items: [
+                {
+                    label: "Said That",
+                    formula: "Subject + said that + clause",
+                    examples: [
+                        "Direct: He said, \"I am tired.\"",
+                        "Reported: He said that he was tired.",
+                        "Direct: She said, \"I like English.\"",
+                        "Reported: She said that she liked English."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Told",
+            items: [
+                {
+                    label: "Told Object That",
+                    formula: "Subject + told + object + that + clause",
+                    examples: [
+                        "Direct: He said to me, \"I am busy.\"",
+                        "Reported: He told me that he was busy.",
+                        "Direct: She said to him, \"I need help.\"",
+                        "Reported: She told him that she needed help."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Backshift",
+            items: [
+                {
+                    label: "Present to Past",
+                    formula: "Simple Present → Simple Past",
+                    examples: [
+                        "Direct: He said, \"I work here.\"",
+                        "Reported: He said that he worked there.",
+                        "Direct: She said, \"I live in Jakarta.\"",
+                        "Reported: She said that she lived in Jakarta."
+                    ]
+                },
+                {
+                    label: "Present Continuous to Past Continuous",
+                    formula: "am/is/are + V-ing → was/were + V-ing",
+                    examples: [
+                        "Direct: She said, \"I am studying.\"",
+                        "Reported: She said that she was studying.",
+                        "Direct: They said, \"We are waiting.\"",
+                        "Reported: They said that they were waiting."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Said",
+            question: "Direct: He said, \"I am tired.\" Reported: He said that he ___ tired.",
+            options: ["is", "was", "were", "be"],
+            answer: "was",
+            explanation: "Am berubah menjadi was karena reporting verb said berbentuk past."
+        },
+        {
+            type: "Said",
+            question: "Direct: She said, \"I like English.\" Reported: She said that she ___ English.",
+            options: ["like", "likes", "liked", "liking"],
+            answer: "liked",
+            explanation: "Simple Present berubah menjadi Simple Past."
+        },
+        {
+            type: "Told",
+            question: "He said to me, \"I am busy.\" Reported form is...",
+            options: [
+                "He told me that he was busy.",
+                "He told that he was busy.",
+                "He said me that he was busy.",
+                "He told me that I was busy."
+            ],
+            answer: "He told me that he was busy.",
+            explanation: "Told harus diikuti object, dan pronoun disesuaikan."
+        },
+        {
+            type: "Pronoun",
+            question: "Direct: Rina said, \"I am happy.\" Reported: Rina said that ___ was happy.",
+            options: ["I", "she", "he", "they"],
+            answer: "she",
+            explanation: "I berubah menjadi she karena pembicaranya Rina."
+        },
+        {
+            type: "Pronoun",
+            question: "Direct: They said, \"We are ready.\" Reported: They said that ___ were ready.",
+            options: ["we", "they", "he", "she"],
+            answer: "they",
+            explanation: "We berubah menjadi they."
+        },
+        {
+            type: "Backshift",
+            question: "Direct: She said, \"I am studying.\" Reported: She said that she ___ studying.",
+            options: ["is", "are", "was", "were"],
+            answer: "was",
+            explanation: "Present Continuous berubah menjadi Past Continuous."
+        },
+        {
+            type: "Backshift",
+            question: "Direct: They said, \"We are waiting.\" Reported: They said that they ___ waiting.",
+            options: ["are", "is", "was", "were"],
+            answer: "were",
+            explanation: "Are berubah menjadi were."
+        },
+        {
+            type: "Said/Told",
+            question: "Which sentence is correct?",
+            options: [
+                "She said me that she was tired.",
+                "She told me that she was tired.",
+                "She told that she was tired.",
+                "She said to me that I was tired."
+            ],
+            answer: "She told me that she was tired.",
+            explanation: "Gunakan told + object."
+        },
+        {
+            type: "Concept",
+            question: "Reported statements usually remove...",
+            options: ["quotation marks", "all verbs", "subjects", "nouns"],
+            answer: "quotation marks",
+            explanation: "Reported Speech tidak memakai tanda kutip langsung."
+        },
+        {
+            type: "Concept",
+            question: "When using told, we need...",
+            options: ["an object", "a modal only", "an article only", "a preposition only"],
+            answer: "an object",
+            explanation: "Told biasanya diikuti object seperti me, him, her, them."
+        }
+    ]
+},
+
+"reported-questions": {
+    title: "Reported Questions",
+    description: "Reported Questions digunakan untuk melaporkan pertanyaan seseorang. Dalam reported questions, struktur kalimat berubah menjadi urutan statement, bukan lagi bentuk pertanyaan.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Yes/No Question → asked if/whether + subject + verb<br>
+        WH Question → asked + WH word + subject + verb
+    `,
+
+    notes: [
+        "Reported questions tidak memakai tanda tanya.",
+        "Urutan kata berubah menjadi subject + verb.",
+        "Yes/No question memakai if atau whether.",
+        "WH question tetap memakai kata tanya seperti what, where, why, when, how.",
+        "Do/does/did biasanya hilang dalam reported question.",
+        "Tense biasanya mengalami backshift jika reporting verb berbentuk past."
+    ],
+
+    patterns: [
+        {
+            group: "Yes / No Questions",
+            items: [
+                {
+                    label: "If / Whether",
+                    formula: "asked + if/whether + subject + verb",
+                    examples: [
+                        "Direct: He asked, \"Are you tired?\"",
+                        "Reported: He asked if I was tired.",
+                        "Direct: She asked, \"Do you like English?\"",
+                        "Reported: She asked whether I liked English."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "WH Questions",
+            items: [
+                {
+                    label: "WH Word",
+                    formula: "asked + WH word + subject + verb",
+                    examples: [
+                        "Direct: He asked, \"Where do you live?\"",
+                        "Reported: He asked where I lived.",
+                        "Direct: She asked, \"What are you doing?\"",
+                        "Reported: She asked what I was doing."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Yes/No",
+            question: "Direct: He asked, \"Are you tired?\" Reported: He asked if I ___ tired.",
+            options: ["am", "is", "was", "were"],
+            answer: "was",
+            explanation: "Are berubah menjadi was sesuai subject I dan backshift."
+        },
+        {
+            type: "Yes/No",
+            question: "Direct: She asked, \"Do you like English?\" Reported: She asked if I ___ English.",
+            options: ["like", "likes", "liked", "liking"],
+            answer: "liked",
+            explanation: "Do hilang dan Simple Present berubah menjadi Simple Past."
+        },
+        {
+            type: "Yes/No",
+            question: "Yes/No reported questions use...",
+            options: ["if/whether", "because", "although", "the"],
+            answer: "if/whether",
+            explanation: "Yes/No question dilaporkan dengan if atau whether."
+        },
+        {
+            type: "WH",
+            question: "Direct: He asked, \"Where do you live?\" Reported: He asked where I ___.",
+            options: ["live", "lives", "lived", "living"],
+            answer: "lived",
+            explanation: "Do hilang dan verb berubah ke past."
+        },
+        {
+            type: "WH",
+            question: "Direct: She asked, \"What are you doing?\" Reported: She asked what I ___ doing.",
+            options: ["am", "is", "was", "were"],
+            answer: "was",
+            explanation: "Present Continuous berubah menjadi Past Continuous."
+        },
+        {
+            type: "Word Order",
+            question: "Which reported question has correct word order?",
+            options: [
+                "He asked where did I live.",
+                "He asked where I lived.",
+                "He asked where do I live.",
+                "He asked where lived I."
+            ],
+            answer: "He asked where I lived.",
+            explanation: "Reported question memakai urutan statement: subject + verb."
+        },
+        {
+            type: "Punctuation",
+            question: "Reported questions usually end with...",
+            options: ["period", "question mark", "exclamation mark", "comma only"],
+            answer: "period",
+            explanation: "Reported questions biasanya menjadi statement dan berakhir dengan titik."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She asked if I was ready.",
+                "She asked was I ready.",
+                "She asked if was I ready.",
+                "She asked if am I ready."
+            ],
+            answer: "She asked if I was ready.",
+            explanation: "Gunakan if + subject + verb."
+        },
+        {
+            type: "WH",
+            question: "Direct: They asked, \"Why are you late?\" Reported: They asked why I ___ late.",
+            options: ["am", "was", "were", "be"],
+            answer: "was",
+            explanation: "Are berubah menjadi was sesuai subject I."
+        },
+        {
+            type: "Concept",
+            question: "In reported questions, do/does/did usually...",
+            options: ["disappear", "stay before subject", "become articles", "become nouns"],
+            answer: "disappear",
+            explanation: "Dalam reported question, auxiliary do/does/did biasanya hilang."
+        }
+    ]
+},
+
+"reported-commands": {
+    title: "Reported Commands",
+    description: "Reported Commands digunakan untuk melaporkan perintah, instruksi, permintaan, atau larangan dari seseorang.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Positive Command = told/asked + object + to + V1<br>
+        Negative Command = told/asked + object + not to + V1
+    `,
+
+    notes: [
+        "Perintah positif memakai to + V1.",
+        "Perintah negatif memakai not to + V1.",
+        "Gunakan told untuk perintah yang lebih tegas.",
+        "Gunakan asked untuk permintaan yang lebih sopan.",
+        "Reported commands tidak memakai tanda kutip.",
+        "Subject dalam direct command biasanya tidak disebutkan, tetapi object harus muncul dalam reported command."
+    ],
+
+    patterns: [
+        {
+            group: "Positive Command",
+            items: [
+                {
+                    label: "Told",
+                    formula: "Subject + told + object + to + V1",
+                    examples: [
+                        "Direct: He said, \"Close the door.\"",
+                        "Reported: He told me to close the door.",
+                        "Direct: She said, \"Study hard.\"",
+                        "Reported: She told him to study hard."
+                    ]
+                },
+                {
+                    label: "Asked",
+                    formula: "Subject + asked + object + to + V1",
+                    examples: [
+                        "Direct: She said, \"Please help me.\"",
+                        "Reported: She asked me to help her.",
+                        "Direct: He said, \"Please wait here.\"",
+                        "Reported: He asked us to wait there."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Negative Command",
+            items: [
+                {
+                    label: "Not To",
+                    formula: "Subject + told/asked + object + not to + V1",
+                    examples: [
+                        "Direct: He said, \"Don't smoke here.\"",
+                        "Reported: He told me not to smoke there.",
+                        "Direct: She said, \"Don't be late.\"",
+                        "Reported: She told him not to be late."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Positive Command",
+            question: "Direct: He said, \"Close the door.\" Reported: He told me ___ the door.",
+            options: ["close", "closing", "to close", "closed"],
+            answer: "to close",
+            explanation: "Reported command positif memakai told + object + to + V1."
+        },
+        {
+            type: "Positive Command",
+            question: "Direct: She said, \"Study hard.\" Reported: She told him ___ hard.",
+            options: ["study", "studying", "to study", "studied"],
+            answer: "to study",
+            explanation: "Gunakan to + V1 setelah told + object."
+        },
+        {
+            type: "Request",
+            question: "Direct: She said, \"Please help me.\" Reported: She asked me ___ her.",
+            options: ["help", "helping", "to help", "helped"],
+            answer: "to help",
+            explanation: "Permintaan sopan dapat dilaporkan dengan asked + object + to + V1."
+        },
+        {
+            type: "Negative Command",
+            question: "Direct: He said, \"Don't smoke here.\" Reported: He told me ___ smoke there.",
+            options: ["not", "not to", "to not", "don't"],
+            answer: "not to",
+            explanation: "Reported command negatif memakai not to + V1."
+        },
+        {
+            type: "Negative Command",
+            question: "Direct: She said, \"Don't be late.\" Reported: She told him ___ late.",
+            options: ["not be", "not to be", "to not was", "don't be"],
+            answer: "not to be",
+            explanation: "Negative command memakai told + object + not to + V1."
+        },
+        {
+            type: "Concept",
+            question: "Reported commands use...",
+            options: [
+                "to + V1",
+                "V2",
+                "will + V1",
+                "have + V3"
+            ],
+            answer: "to + V1",
+            explanation: "Reported command positif memakai to + V1."
+        },
+        {
+            type: "Concept",
+            question: "Negative reported commands use...",
+            options: [
+                "not to + V1",
+                "do not + V1 only",
+                "did not + V1",
+                "not + V2"
+            ],
+            answer: "not to + V1",
+            explanation: "Bentuk negatifnya adalah not to + V1."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "He told me close the door.",
+                "He told me to close the door.",
+                "He told me closing the door.",
+                "He told me closed the door."
+            ],
+            answer: "He told me to close the door.",
+            explanation: "Reported command memakai told + object + to + V1."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She told him don't be late.",
+                "She told him not be late.",
+                "She told him not to be late.",
+                "She told him to not was late."
+            ],
+            answer: "She told him not to be late.",
+            explanation: "Negative command memakai not to + V1."
+        },
+        {
+            type: "Told/Asked",
+            question: "Which verb is softer and more polite?",
+            options: ["asked", "told", "ordered", "commanded"],
+            answer: "asked",
+            explanation: "Asked lebih sopan untuk permintaan."
+        }
+    ]
+},
+
+"reported-commands": {
+    title: "Reported Commands",
+    description: "Reported Commands digunakan untuk melaporkan perintah, instruksi, permintaan, atau larangan dari seseorang.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Positive Command = told/asked + object + to + V1<br>
+        Negative Command = told/asked + object + not to + V1
+    `,
+
+    notes: [
+        "Perintah positif memakai to + V1.",
+        "Perintah negatif memakai not to + V1.",
+        "Gunakan told untuk perintah yang lebih tegas.",
+        "Gunakan asked untuk permintaan yang lebih sopan.",
+        "Reported commands tidak memakai tanda kutip.",
+        "Subject dalam direct command biasanya tidak disebutkan, tetapi object harus muncul dalam reported command."
+    ],
+
+    patterns: [
+        {
+            group: "Positive Command",
+            items: [
+                {
+                    label: "Told",
+                    formula: "Subject + told + object + to + V1",
+                    examples: [
+                        "Direct: He said, \"Close the door.\"",
+                        "Reported: He told me to close the door.",
+                        "Direct: She said, \"Study hard.\"",
+                        "Reported: She told him to study hard."
+                    ]
+                },
+                {
+                    label: "Asked",
+                    formula: "Subject + asked + object + to + V1",
+                    examples: [
+                        "Direct: She said, \"Please help me.\"",
+                        "Reported: She asked me to help her.",
+                        "Direct: He said, \"Please wait here.\"",
+                        "Reported: He asked us to wait there."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Negative Command",
+            items: [
+                {
+                    label: "Not To",
+                    formula: "Subject + told/asked + object + not to + V1",
+                    examples: [
+                        "Direct: He said, \"Don't smoke here.\"",
+                        "Reported: He told me not to smoke there.",
+                        "Direct: She said, \"Don't be late.\"",
+                        "Reported: She told him not to be late."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Positive Command",
+            question: "Direct: He said, \"Close the door.\" Reported: He told me ___ the door.",
+            options: ["close", "closing", "to close", "closed"],
+            answer: "to close",
+            explanation: "Reported command positif memakai told + object + to + V1."
+        },
+        {
+            type: "Positive Command",
+            question: "Direct: She said, \"Study hard.\" Reported: She told him ___ hard.",
+            options: ["study", "studying", "to study", "studied"],
+            answer: "to study",
+            explanation: "Gunakan to + V1 setelah told + object."
+        },
+        {
+            type: "Request",
+            question: "Direct: She said, \"Please help me.\" Reported: She asked me ___ her.",
+            options: ["help", "helping", "to help", "helped"],
+            answer: "to help",
+            explanation: "Permintaan sopan dapat dilaporkan dengan asked + object + to + V1."
+        },
+        {
+            type: "Negative Command",
+            question: "Direct: He said, \"Don't smoke here.\" Reported: He told me ___ smoke there.",
+            options: ["not", "not to", "to not", "don't"],
+            answer: "not to",
+            explanation: "Reported command negatif memakai not to + V1."
+        },
+        {
+            type: "Negative Command",
+            question: "Direct: She said, \"Don't be late.\" Reported: She told him ___ late.",
+            options: ["not be", "not to be", "to not was", "don't be"],
+            answer: "not to be",
+            explanation: "Negative command memakai told + object + not to + V1."
+        },
+        {
+            type: "Concept",
+            question: "Reported commands use...",
+            options: [
+                "to + V1",
+                "V2",
+                "will + V1",
+                "have + V3"
+            ],
+            answer: "to + V1",
+            explanation: "Reported command positif memakai to + V1."
+        },
+        {
+            type: "Concept",
+            question: "Negative reported commands use...",
+            options: [
+                "not to + V1",
+                "do not + V1 only",
+                "did not + V1",
+                "not + V2"
+            ],
+            answer: "not to + V1",
+            explanation: "Bentuk negatifnya adalah not to + V1."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "He told me close the door.",
+                "He told me to close the door.",
+                "He told me closing the door.",
+                "He told me closed the door."
+            ],
+            answer: "He told me to close the door.",
+            explanation: "Reported command memakai told + object + to + V1."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She told him don't be late.",
+                "She told him not be late.",
+                "She told him not to be late.",
+                "She told him to not was late."
+            ],
+            answer: "She told him not to be late.",
+            explanation: "Negative command memakai not to + V1."
+        },
+        {
+            type: "Told/Asked",
+            question: "Which verb is softer and more polite?",
+            options: ["asked", "told", "ordered", "commanded"],
+            answer: "asked",
+            explanation: "Asked lebih sopan untuk permintaan."
+        }
+    ]
+}, 
+
+"backshift": {
+    title: "Backshift",
+    description: "Backshift adalah perubahan tense dalam reported speech. Jika reporting verb berbentuk past seperti said, told, atau asked, tense dalam ucapan asli biasanya mundur satu langkah.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Simple Present → Simple Past<br>
+        Present Continuous → Past Continuous<br>
+        Present Perfect → Past Perfect<br>
+        Simple Past → Past Perfect<br>
+        will → would<br>
+        can → could
+    `,
+
+    notes: [
+        "Backshift terjadi ketika reporting verb berbentuk past.",
+        "Simple Present biasanya berubah menjadi Simple Past.",
+        "Present Continuous berubah menjadi Past Continuous.",
+        "Present Perfect berubah menjadi Past Perfect.",
+        "Simple Past sering berubah menjadi Past Perfect.",
+        "Will berubah menjadi would.",
+        "Can berubah menjadi could.",
+        "Backshift tidak selalu wajib jika ucapan masih benar sampai sekarang."
+    ],
+
+    patterns: [
+        {
+            group: "Present to Past",
+            items: [
+                {
+                    label: "Simple Present",
+                    formula: "Simple Present → Simple Past",
+                    examples: [
+                        "Direct: He said, \"I work here.\"",
+                        "Reported: He said that he worked there.",
+                        "Direct: She said, \"I like coffee.\"",
+                        "Reported: She said that she liked coffee."
+                    ]
+                },
+                {
+                    label: "Present Continuous",
+                    formula: "am/is/are + V-ing → was/were + V-ing",
+                    examples: [
+                        "Direct: She said, \"I am studying.\"",
+                        "Reported: She said that she was studying.",
+                        "Direct: They said, \"We are waiting.\"",
+                        "Reported: They said that they were waiting."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Perfect / Past",
+            items: [
+                {
+                    label: "Present Perfect",
+                    formula: "have/has + V3 → had + V3",
+                    examples: [
+                        "Direct: He said, \"I have finished.\"",
+                        "Reported: He said that he had finished.",
+                        "Direct: She said, \"I have eaten.\"",
+                        "Reported: She said that she had eaten."
+                    ]
+                },
+                {
+                    label: "Simple Past",
+                    formula: "Simple Past → Past Perfect",
+                    examples: [
+                        "Direct: She said, \"I saw him.\"",
+                        "Reported: She said that she had seen him.",
+                        "Direct: He said, \"I bought a car.\"",
+                        "Reported: He said that he had bought a car."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Modal Backshift",
+            items: [
+                {
+                    label: "Will / Can",
+                    formula: "will → would, can → could",
+                    examples: [
+                        "Direct: He said, \"I will call you.\"",
+                        "Reported: He said that he would call me.",
+                        "Direct: She said, \"I can swim.\"",
+                        "Reported: She said that she could swim."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Simple Present",
+            question: "Direct: He said, \"I work here.\" Reported: He said that he ___ there.",
+            options: ["work", "works", "worked", "working"],
+            answer: "worked",
+            explanation: "Simple Present berubah menjadi Simple Past."
+        },
+        {
+            type: "Present Continuous",
+            question: "Direct: She said, \"I am studying.\" Reported: She said that she ___ studying.",
+            options: ["am", "is", "was", "were"],
+            answer: "was",
+            explanation: "Present Continuous berubah menjadi Past Continuous."
+        },
+        {
+            type: "Present Perfect",
+            question: "Direct: He said, \"I have finished.\" Reported: He said that he ___ finished.",
+            options: ["has", "have", "had", "was"],
+            answer: "had",
+            explanation: "Present Perfect berubah menjadi Past Perfect."
+        },
+        {
+            type: "Simple Past",
+            question: "Direct: She said, \"I saw him.\" Reported: She said that she ___ him.",
+            options: ["saw", "seen", "had seen", "has seen"],
+            answer: "had seen",
+            explanation: "Simple Past sering berubah menjadi Past Perfect."
+        },
+        {
+            type: "Will",
+            question: "Direct: He said, \"I will call you.\" Reported: He said that he ___ call me.",
+            options: ["will", "would", "can", "could"],
+            answer: "would",
+            explanation: "Will berubah menjadi would."
+        },
+        {
+            type: "Can",
+            question: "Direct: She said, \"I can swim.\" Reported: She said that she ___ swim.",
+            options: ["can", "could", "will", "would"],
+            answer: "could",
+            explanation: "Can berubah menjadi could."
+        },
+        {
+            type: "Concept",
+            question: "Backshift usually happens when the reporting verb is...",
+            options: ["past", "future", "plural", "article"],
+            answer: "past",
+            explanation: "Backshift biasanya terjadi jika reporting verb berbentuk past."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "He said that he work there.",
+                "He said that he worked there.",
+                "He said that he working there.",
+                "He said that he works there yesterday."
+            ],
+            answer: "He said that he worked there.",
+            explanation: "Simple Present dalam direct speech berubah menjadi Simple Past."
+        },
+        {
+            type: "Modal",
+            question: "Which backshift is correct?",
+            options: [
+                "will → would",
+                "will → can",
+                "can → will",
+                "would → will"
+            ],
+            answer: "will → would",
+            explanation: "Dalam reported speech, will biasanya berubah menjadi would."
+        },
+        {
+            type: "Concept",
+            question: "Backshift means...",
+            options: [
+                "moving the tense one step back",
+                "removing all verbs",
+                "changing nouns to adjectives",
+                "adding articles"
+            ],
+            answer: "moving the tense one step back",
+            explanation: "Backshift berarti tense mundur satu langkah."
+        }
+    ]
+},
+
+"reporting-verbs": {
+    title: "Reporting Verbs",
+    description: "Reporting verbs adalah kata kerja yang digunakan untuk melaporkan ucapan, perintah, saran, janji, atau permintaan seseorang. Selain said, told, dan asked, ada banyak reporting verbs lain seperti advised, promised, warned, suggested, dan ordered.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        reporting verb + object + to + V1<br>
+        reporting verb + gerund<br>
+        reporting verb + that + clause
+    `,
+
+    notes: [
+        "Said digunakan untuk melaporkan ucapan umum.",
+        "Told membutuhkan object, seperti told me, told him, told them.",
+        "Asked dapat digunakan untuk pertanyaan atau permintaan.",
+        "Advised, warned, ordered, reminded biasanya memakai object + to + V1.",
+        "Suggested dapat memakai gerund atau that-clause.",
+        "Promised biasanya memakai to + V1 atau that-clause."
+    ],
+
+    patterns: [
+        {
+            group: "Verb + Object + To",
+            items: [
+                {
+                    label: "Advise / Warn / Remind",
+                    formula: "verb + object + to + V1",
+                    examples: [
+                        "She advised me to study harder.",
+                        "He warned us not to touch the wire.",
+                        "They reminded him to bring his book."
+                    ]
+                },
+                {
+                    label: "Order / Tell / Ask",
+                    formula: "verb + object + to + V1",
+                    examples: [
+                        "The teacher told us to sit down.",
+                        "The officer ordered them to leave.",
+                        "She asked me to help her."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Verb + Gerund",
+            items: [
+                {
+                    label: "Suggest / Admit / Deny",
+                    formula: "verb + V-ing",
+                    examples: [
+                        "She suggested eating outside.",
+                        "He admitted making a mistake.",
+                        "They denied stealing the money."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Verb + That Clause",
+            items: [
+                {
+                    label: "Say / Explain / Promise",
+                    formula: "verb + that + clause",
+                    examples: [
+                        "He said that he was tired.",
+                        "She explained that she had been busy.",
+                        "They promised that they would come."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Object + To",
+            question: "She advised me ___ harder.",
+            options: ["study", "studying", "to study", "studied"],
+            answer: "to study",
+            explanation: "Advise memakai object + to + V1."
+        },
+        {
+            type: "Object + To",
+            question: "He warned us ___ the wire.",
+            options: ["not touch", "not to touch", "to not touched", "touching"],
+            answer: "not to touch",
+            explanation: "Warn memakai object + not to + V1 untuk larangan."
+        },
+        {
+            type: "Object + To",
+            question: "The teacher told us ___ quiet.",
+            options: ["be", "being", "to be", "been"],
+            answer: "to be",
+            explanation: "Tell memakai object + to + V1."
+        },
+        {
+            type: "Object + To",
+            question: "She asked me ___ her.",
+            options: ["help", "helping", "to help", "helped"],
+            answer: "to help",
+            explanation: "Ask untuk permintaan memakai object + to + V1."
+        },
+        {
+            type: "Gerund",
+            question: "She suggested ___ outside.",
+            options: ["eat", "eating", "to eat", "ate"],
+            answer: "eating",
+            explanation: "Suggest dapat diikuti gerund."
+        },
+        {
+            type: "Gerund",
+            question: "He admitted ___ a mistake.",
+            options: ["make", "making", "to make", "made"],
+            answer: "making",
+            explanation: "Admit diikuti gerund."
+        },
+        {
+            type: "Gerund",
+            question: "They denied ___ the money.",
+            options: ["steal", "stealing", "to steal", "stole"],
+            answer: "stealing",
+            explanation: "Deny diikuti gerund."
+        },
+        {
+            type: "That Clause",
+            question: "He said ___ he was tired.",
+            options: ["that", "to", "for", "with"],
+            answer: "that",
+            explanation: "Say dapat diikuti that-clause."
+        },
+        {
+            type: "Promise",
+            question: "They promised ___ come.",
+            options: ["that", "to", "for", "with"],
+            answer: "to",
+            explanation: "Promise dapat diikuti to + V1."
+        },
+        {
+            type: "Said/Told",
+            question: "Which sentence is correct?",
+            options: [
+                "She said me the truth.",
+                "She told me the truth.",
+                "She told the truth me.",
+                "She said to me the truth me."
+            ],
+            answer: "She told me the truth.",
+            explanation: "Told membutuhkan object dan dapat langsung diikuti informasi."
+        }
+    ]
+},
+
+"reported-speech-review": {
+    title: "Reported Speech Review",
+    description: "Review akhir untuk menguji pemahaman Direct Speech, Reported Statements, Questions, Commands, Backshift, dan Reporting Verbs.",
+
+    formula: `
+        <strong>Ringkasan BAB 8:</strong><br>
+        Statements → said/told + that + clause<br>
+        Questions → asked + if/whether / WH + clause<br>
+        Commands → told/asked + object + to + V1<br>
+        Backshift → tense mundur satu langkah
+    `,
+
+    notes: [
+        "Gunakan said tanpa object.",
+        "Gunakan told dengan object.",
+        "Yes/No Question memakai if atau whether.",
+        "WH Question mempertahankan kata tanya.",
+        "Command memakai to + V1.",
+        "Negative command memakai not to + V1.",
+        "Reporting verb berbentuk past biasanya menyebabkan backshift."
+    ],
+
+    patterns: [
+        {
+            group: "Summary",
+            items: [
+                {
+                    label: "Statements",
+                    formula: "said/told + that + clause",
+                    examples: [
+                        "He said that he was tired.",
+                        "She told me that she was busy."
+                    ]
+                },
+                {
+                    label: "Questions",
+                    formula: "asked + if/WH + clause",
+                    examples: [
+                        "He asked if I was ready.",
+                        "She asked where I lived."
+                    ]
+                },
+                {
+                    label: "Commands",
+                    formula: "told/asked + object + to + V1",
+                    examples: [
+                        "He told me to sit down.",
+                        "She asked me to help her."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type:"Statements",
+            question:"Direct: He said, \"I am tired.\"",
+            options:[
+                "He said that he was tired.",
+                "He said that he is tired.",
+                "He told that he was tired.",
+                "He asked if he was tired."
+            ],
+            answer:"He said that he was tired.",
+            explanation:"Simple Present berubah menjadi Simple Past."
+        },
+        {
+            type:"Statements",
+            question:"Which sentence correctly uses 'told'?",
+            options:[
+                "She told me that she was happy.",
+                "She told that she was happy.",
+                "She told happy.",
+                "She told."
+            ],
+            answer:"She told me that she was happy.",
+            explanation:"Told harus diikuti object."
+        },
+        {
+            type:"Questions",
+            question:"He asked, \"Are you ready?\"",
+            options:[
+                "He asked if I was ready.",
+                "He asked was I ready.",
+                "He asked if was I ready.",
+                "He asked am I ready."
+            ],
+            answer:"He asked if I was ready.",
+            explanation:"Yes/No Question memakai if."
+        },
+        {
+            type:"Questions",
+            question:"She asked, \"Where do you live?\"",
+            options:[
+                "She asked where I lived.",
+                "She asked where did I live.",
+                "She asked where do I live.",
+                "She asked lived I where."
+            ],
+            answer:"She asked where I lived.",
+            explanation:"Urutan berubah menjadi statement."
+        },
+        {
+            type:"Commands",
+            question:"He said, \"Open the window.\"",
+            options:[
+                "He told me to open the window.",
+                "He told me open the window.",
+                "He asked if I opened the window.",
+                "He said that open the window."
+            ],
+            answer:"He told me to open the window.",
+            explanation:"Command memakai to + V1."
+        },
+        {
+            type:"Commands",
+            question:"She said, \"Don't be late.\"",
+            options:[
+                "She told him not to be late.",
+                "She told him don't be late.",
+                "She asked if he was late.",
+                "She told him not be late."
+            ],
+            answer:"She told him not to be late.",
+            explanation:"Negative command memakai not to."
+        },
+        {
+            type:"Backshift",
+            question:"Simple Present changes into...",
+            options:[
+                "Simple Past",
+                "Future",
+                "Past Perfect",
+                "Present Perfect"
+            ],
+            answer:"Simple Past",
+            explanation:"Backshift pertama."
+        },
+        {
+            type:"Backshift",
+            question:"Will changes into...",
+            options:[
+                "would",
+                "could",
+                "had",
+                "has"
+            ],
+            answer:"would",
+            explanation:"Will berubah menjadi would."
+        },
+        {
+            type:"Backshift",
+            question:"Can changes into...",
+            options:[
+                "could",
+                "would",
+                "might",
+                "must"
+            ],
+            answer:"could",
+            explanation:"Can berubah menjadi could."
+        },
+        {
+            type:"Backshift",
+            question:"Present Perfect changes into...",
+            options:[
+                "Past Perfect",
+                "Simple Past",
+                "Past Continuous",
+                "Future Perfect"
+            ],
+            answer:"Past Perfect",
+            explanation:"Have/has + V3 berubah menjadi had + V3."
+        },
+        {
+            type:"Reporting Verb",
+            question:"Which verb needs an object?",
+            options:[
+                "told",
+                "said",
+                "explained",
+                "mentioned"
+            ],
+            answer:"told",
+            explanation:"Told hampir selalu membutuhkan object."
+        },
+        {
+            type:"Reporting Verb",
+            question:"She advised me ___ harder.",
+            options:[
+                "to study",
+                "study",
+                "studying",
+                "studied"
+            ],
+            answer:"to study",
+            explanation:"Advise + object + to + V1."
+        },
+        {
+            type:"Reporting Verb",
+            question:"She suggested ___ outside.",
+            options:[
+                "eating",
+                "eat",
+                "to eat",
+                "ate"
+            ],
+            answer:"eating",
+            explanation:"Suggest dapat diikuti gerund."
+        },
+        {
+            type:"Reporting Verb",
+            question:"He admitted ___ the mistake.",
+            options:[
+                "making",
+                "make",
+                "to make",
+                "made"
+            ],
+            answer:"making",
+            explanation:"Admit diikuti gerund."
+        },
+        {
+            type:"Concept",
+            question:"Reported Speech is also called...",
+            options:[
+                "Indirect Speech",
+                "Passive Voice",
+                "Direct Object",
+                "Nominal Sentence"
+            ],
+            answer:"Indirect Speech",
+            explanation:"Nama lainnya adalah Indirect Speech."
+        },
+        {
+            type:"Concept",
+            question:"Which reported question uses correct word order?",
+            options:[
+                "She asked where he lived.",
+                "She asked where did he live.",
+                "She asked where he did live.",
+                "She asked did he live where."
+            ],
+            answer:"She asked where he lived.",
+            explanation:"Reported question menggunakan urutan statement."
+        },
+        {
+            type:"Concept",
+            question:"Negative commands use...",
+            options:[
+                "not to + V1",
+                "don't + V1",
+                "didn't + V1",
+                "not + V2"
+            ],
+            answer:"not to + V1",
+            explanation:"Ini adalah pola standar."
+        },
+        {
+            type:"Concept",
+            question:"The word 'that' in reported statements is...",
+            options:[
+                "often optional",
+                "always required",
+                "never used",
+                "an article"
+            ],
+            answer:"often optional",
+            explanation:"Dalam percakapan sehari-hari, 'that' sering dihilangkan."
+        },
+        {
+            type:"Concept",
+            question:"Backshift usually happens when reporting verb is...",
+            options:[
+                "past",
+                "future",
+                "present continuous",
+                "modal"
+            ],
+            answer:"past",
+            explanation:"Said, told, asked menyebabkan backshift."
+        },
+        {
+            type:"Final",
+            question:"Which sentence is completely correct?",
+            options:[
+                "He told me that he would come.",
+                "He said me that he would come.",
+                "He asked me that he would come.",
+                "He told that he would come."
+            ],
+            answer:"He told me that he would come.",
+            explanation:"Told membutuhkan object dan struktur kalimat sudah benar."
+        }
+    ]
+},
+
+"relative-clauses": {
+    title: "Introduction to Relative Clauses",
+    description: "Relative Clause adalah klausa yang digunakan untuk menjelaskan noun. Relative clause biasanya diawali dengan relative pronoun seperti who, whom, which, that, whose, where, atau when.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Noun + Relative Pronoun + Clause
+    `,
+
+    notes: [
+        "Relative clause digunakan untuk memberi informasi tambahan tentang noun.",
+        "Who digunakan untuk orang sebagai subject.",
+        "Whom digunakan untuk orang sebagai object.",
+        "Which digunakan untuk benda atau hewan.",
+        "That dapat digunakan untuk orang, benda, atau hewan dalam defining clause.",
+        "Whose menunjukkan kepemilikan.",
+        "Where digunakan untuk tempat.",
+        "When digunakan untuk waktu."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Function",
+            items: [
+                {
+                    label: "Describe People",
+                    formula: "person + who/that + clause",
+                    examples: [
+                        "The man who lives next door is friendly.",
+                        "The student who won the competition is my friend.",
+                        "The teacher that teaches English is kind."
+                    ]
+                },
+                {
+                    label: "Describe Things",
+                    formula: "thing + which/that + clause",
+                    examples: [
+                        "The book which is on the table is mine.",
+                        "The car that he bought is expensive.",
+                        "The phone which I use is new."
+                    ]
+                },
+                {
+                    label: "Describe Place / Time",
+                    formula: "place/time + where/when + clause",
+                    examples: [
+                        "This is the school where I studied.",
+                        "Monday is the day when we have English class.",
+                        "Jakarta is the city where she was born."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Relative clause is used to describe...",
+            options: ["noun", "verb only", "adverb only", "article"],
+            answer: "noun",
+            explanation: "Relative clause memberi informasi tambahan tentang noun."
+        },
+        {
+            type: "People",
+            question: "The man ___ lives next door is friendly.",
+            options: ["who", "which", "where", "when"],
+            answer: "who",
+            explanation: "Who digunakan untuk orang sebagai subject."
+        },
+        {
+            type: "Things",
+            question: "The book ___ is on the table is mine.",
+            options: ["who", "which", "where", "when"],
+            answer: "which",
+            explanation: "Which digunakan untuk benda."
+        },
+        {
+            type: "Place",
+            question: "This is the school ___ I studied.",
+            options: ["who", "which", "where", "when"],
+            answer: "where",
+            explanation: "Where digunakan untuk tempat."
+        },
+        {
+            type: "Time",
+            question: "Monday is the day ___ we have English class.",
+            options: ["who", "which", "where", "when"],
+            answer: "when",
+            explanation: "When digunakan untuk waktu."
+        },
+        {
+            type: "Possession",
+            question: "The girl ___ bag was stolen is crying.",
+            options: ["who", "whose", "which", "where"],
+            answer: "whose",
+            explanation: "Whose menunjukkan kepemilikan."
+        },
+        {
+            type: "That",
+            question: "The car ___ he bought is expensive.",
+            options: ["that", "where", "when", "whose"],
+            answer: "that",
+            explanation: "That dapat digunakan untuk benda dalam defining clause."
+        },
+        {
+            type: "Concept",
+            question: "Which relative pronoun is used for possession?",
+            options: ["whose", "where", "when", "which"],
+            answer: "whose",
+            explanation: "Whose digunakan untuk menunjukkan kepemilikan."
+        },
+        {
+            type: "Concept",
+            question: "Which relative pronoun is used for place?",
+            options: ["where", "when", "who", "whose"],
+            answer: "where",
+            explanation: "Where digunakan untuk tempat."
+        },
+        {
+            type: "Concept",
+            question: "Which relative pronoun is used for time?",
+            options: ["when", "where", "who", "which"],
+            answer: "when",
+            explanation: "When digunakan untuk waktu."
+        }
+    ]
+},
+
+"who-whom": {
+    title: "Who & Whom",
+    description: "Who dan whom digunakan dalam relative clause untuk menjelaskan orang. Who digunakan ketika orang tersebut berfungsi sebagai subject, sedangkan whom digunakan ketika orang tersebut berfungsi sebagai object.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        who = subject untuk orang<br>
+        whom = object untuk orang
+    `,
+
+    notes: [
+        "Who digunakan untuk orang sebagai subject.",
+        "Whom digunakan untuk orang sebagai object.",
+        "Dalam percakapan modern, whom sering diganti dengan who.",
+        "Whom lebih formal dan sering muncul dalam tulisan akademik.",
+        "Gunakan whom setelah preposition seperti to whom, with whom, for whom."
+    ],
+
+    patterns: [
+        {
+            group: "Who",
+            items: [
+                {
+                    label: "Subject",
+                    formula: "person + who + verb",
+                    examples: [
+                        "The man who lives next door is kind.",
+                        "The student who won the prize is my friend.",
+                        "The woman who teaches English is patient."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Whom",
+            items: [
+                {
+                    label: "Object",
+                    formula: "person + whom + subject + verb",
+                    examples: [
+                        "The man whom I met yesterday is a doctor.",
+                        "The girl whom he helped was grateful.",
+                        "The teacher whom we respect is retiring."
+                    ]
+                },
+                {
+                    label: "After Preposition",
+                    formula: "preposition + whom",
+                    examples: [
+                        "The person to whom I spoke was polite.",
+                        "The friend with whom I traveled was funny.",
+                        "The student for whom I bought the book was absent."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Who",
+            question: "The woman ___ teaches English is kind.",
+            options: ["who", "whom", "where", "when"],
+            answer: "who",
+            explanation: "Who digunakan karena woman menjadi subject dari teaches."
+        },
+        {
+            type: "Who",
+            question: "The student ___ won the prize is my friend.",
+            options: ["who", "whom", "whose", "where"],
+            answer: "who",
+            explanation: "Who digunakan untuk orang sebagai subject."
+        },
+        {
+            type: "Whom",
+            question: "The man ___ I met yesterday is a doctor.",
+            options: ["who", "whom", "where", "when"],
+            answer: "whom",
+            explanation: "Whom digunakan karena man menjadi object dari met."
+        },
+        {
+            type: "Whom",
+            question: "The teacher ___ we respect is retiring.",
+            options: ["whom", "where", "when", "whose"],
+            answer: "whom",
+            explanation: "Whom digunakan untuk orang sebagai object."
+        },
+        {
+            type: "Preposition",
+            question: "The person to ___ I spoke was polite.",
+            options: ["who", "whom", "which", "where"],
+            answer: "whom",
+            explanation: "Setelah preposition to, gunakan whom."
+        },
+        {
+            type: "Concept",
+            question: "Who is used when the person is...",
+            options: ["subject", "object only", "place", "time"],
+            answer: "subject",
+            explanation: "Who digunakan untuk orang sebagai subject."
+        },
+        {
+            type: "Concept",
+            question: "Whom is used when the person is...",
+            options: ["object", "place", "time", "possession"],
+            answer: "object",
+            explanation: "Whom digunakan untuk orang sebagai object."
+        },
+        {
+            type: "Formal",
+            question: "Which phrase is more formal?",
+            options: ["to whom", "to who", "where whom", "when whom"],
+            answer: "to whom",
+            explanation: "Whom digunakan setelah preposition dalam gaya formal."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The man who lives next door is kind.",
+                "The man whom lives next door is kind.",
+                "The man where lives next door is kind.",
+                "The man when lives next door is kind."
+            ],
+            answer: "The man who lives next door is kind.",
+            explanation: "Who digunakan sebagai subject dari lives."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct in formal English?",
+            options: [
+                "The person to whom I spoke was polite.",
+                "The person to who I spoke was polite.",
+                "The person where I spoke was polite.",
+                "The person when I spoke was polite."
+            ],
+            answer: "The person to whom I spoke was polite.",
+            explanation: "Setelah preposition to, bentuk formalnya adalah whom."
+        }
+    ]
+},
+
+"which-that": {
+    title: "Which & That",
+    description: "Which dan that digunakan untuk menggantikan benda atau hewan dalam relative clause. Which dapat digunakan pada defining maupun non-defining clause, sedangkan that hanya digunakan pada defining clause.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        thing + which + clause<br>
+        thing + that + clause
+    `,
+
+    notes: [
+        "Which digunakan untuk benda atau hewan.",
+        "That juga dapat digunakan untuk benda atau hewan.",
+        "That tidak digunakan setelah koma (non-defining clause).",
+        "Which lebih umum dalam penulisan formal.",
+        "Dalam defining clause, which dan that sering dapat saling menggantikan."
+    ],
+
+    patterns: [
+        {
+            group: "Which",
+            items: [
+                {
+                    label: "Things",
+                    formula: "thing + which + clause",
+                    examples: [
+                        "The book which is on the table is mine.",
+                        "The car which I bought is expensive.",
+                        "The phone which she uses is new."
+                    ]
+                },
+                {
+                    label: "Non-Defining",
+                    formula: "noun, which + clause",
+                    examples: [
+                        "My car, which is ten years old, still runs well.",
+                        "The Eiffel Tower, which is in Paris, attracts millions of visitors.",
+                        "My laptop, which I bought last year, works perfectly."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "That",
+            items: [
+                {
+                    label: "Defining Clause",
+                    formula: "thing + that + clause",
+                    examples: [
+                        "The book that is on the table is mine.",
+                        "The house that Jack built is famous.",
+                        "The computer that I use is fast."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Which",
+            question: "The book ___ is on the table is mine.",
+            options: ["which", "who", "where", "when"],
+            answer: "which",
+            explanation: "Which digunakan untuk benda."
+        },
+        {
+            type: "That",
+            question: "The computer ___ I use is very fast.",
+            options: ["that", "who", "whose", "where"],
+            answer: "that",
+            explanation: "That dapat digunakan untuk benda dalam defining clause."
+        },
+        {
+            type: "Object",
+            question: "The car ___ he bought is expensive.",
+            options: ["which", "where", "when", "whose"],
+            answer: "which",
+            explanation: "Which digunakan sebagai object untuk benda."
+        },
+        {
+            type: "Concept",
+            question: "Which relative pronoun can introduce a non-defining clause?",
+            options: ["which", "that", "who only", "where"],
+            answer: "which",
+            explanation: "That tidak digunakan pada non-defining clause."
+        },
+        {
+            type: "Concept",
+            question: "That is commonly used in...",
+            options: [
+                "defining clauses",
+                "non-defining clauses",
+                "questions only",
+                "commands only"
+            ],
+            answer: "defining clauses",
+            explanation: "That hanya digunakan pada defining clause."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence is correct?",
+            options: [
+                "My car, which is old, still works.",
+                "My car, that is old, still works.",
+                "My car that, is old still works.",
+                "My car which is old still works."
+            ],
+            answer: "My car, which is old, still works.",
+            explanation: "Non-defining clause memakai which dan dipisahkan dengan koma."
+        },
+        {
+            type: "Defining",
+            question: "Which sentence is correct?",
+            options: [
+                "The book that I borrowed is interesting.",
+                "The book, that I borrowed, is interesting.",
+                "The book where I borrowed is interesting.",
+                "The book when I borrowed is interesting."
+            ],
+            answer: "The book that I borrowed is interesting.",
+            explanation: "That digunakan dalam defining clause tanpa koma."
+        },
+        {
+            type: "Concept",
+            question: "Which and that are mainly used for...",
+            options: [
+                "things and animals",
+                "people only",
+                "places only",
+                "time only"
+            ],
+            answer: "things and animals",
+            explanation: "Which dan that digunakan untuk benda atau hewan."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The phone which she uses is new.",
+                "The phone who she uses is new.",
+                "The phone where she uses is new.",
+                "The phone when she uses is new."
+            ],
+            answer: "The phone which she uses is new.",
+            explanation: "Which digunakan untuk benda."
+        },
+        {
+            type: "Comparison",
+            question: "Which sentence uses a non-defining relative clause?",
+            options: [
+                "My house, which was built in 1990, is still beautiful.",
+                "The house that Jack built is famous.",
+                "The book that I borrowed is interesting.",
+                "The computer that I use is fast."
+            ],
+            answer: "My house, which was built in 1990, is still beautiful.",
+            explanation: "Adanya koma menunjukkan non-defining clause sehingga menggunakan which."
+        }
+    ]
+},
+
+"whose": {
+    title: "Whose",
+    description: "Whose digunakan dalam relative clause untuk menunjukkan kepemilikan. Whose dapat digunakan untuk orang maupun benda.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        person/thing + whose + noun + clause
+    `,
+
+    notes: [
+        "Whose menunjukkan hubungan kepemilikan.",
+        "Whose dapat digunakan untuk orang.",
+        "Whose juga dapat digunakan untuk benda atau hewan.",
+        "Setelah whose selalu diikuti noun.",
+        "Whose tidak sama dengan who's. Who's adalah singkatan dari who is atau who has."
+    ],
+
+    patterns: [
+        {
+            group: "People",
+            items: [
+                {
+                    label: "Person",
+                    formula: "person + whose + noun + clause",
+                    examples: [
+                        "The girl whose bag was stolen is crying.",
+                        "The teacher whose class I joined is friendly.",
+                        "The man whose son is a doctor lives next door."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Things",
+            items: [
+                {
+                    label: "Thing",
+                    formula: "thing + whose + noun + clause",
+                    examples: [
+                        "The company whose products are popular is expanding.",
+                        "The house whose roof was damaged has been repaired.",
+                        "The car whose engine failed was towed away."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "People",
+            question: "The girl ___ bag was stolen is crying.",
+            options: ["who", "whose", "whom", "which"],
+            answer: "whose",
+            explanation: "Whose menunjukkan kepemilikan terhadap bag."
+        },
+        {
+            type: "People",
+            question: "The teacher ___ class I joined is very kind.",
+            options: ["whose", "who", "which", "where"],
+            answer: "whose",
+            explanation: "Class dimiliki oleh teacher."
+        },
+        {
+            type: "People",
+            question: "The man ___ son is a doctor lives here.",
+            options: ["whose", "who", "whom", "that"],
+            answer: "whose",
+            explanation: "Son dimiliki oleh the man."
+        },
+        {
+            type: "Things",
+            question: "The company ___ products are famous is expanding.",
+            options: ["whose", "which", "that", "where"],
+            answer: "whose",
+            explanation: "Products dimiliki oleh company."
+        },
+        {
+            type: "Things",
+            question: "The house ___ roof was damaged has been repaired.",
+            options: ["whose", "where", "which", "who"],
+            answer: "whose",
+            explanation: "Roof merupakan bagian dari house."
+        },
+        {
+            type: "Concept",
+            question: "Whose shows...",
+            options: [
+                "possession",
+                "location",
+                "time",
+                "question"
+            ],
+            answer: "possession",
+            explanation: "Whose digunakan untuk menunjukkan kepemilikan."
+        },
+        {
+            type: "Grammar",
+            question: "After 'whose' we usually use...",
+            options: [
+                "a noun",
+                "a verb",
+                "an adjective",
+                "an adverb"
+            ],
+            answer: "a noun",
+            explanation: "Whose selalu diikuti noun, misalnya whose car, whose house."
+        },
+        {
+            type: "Difference",
+            question: "Which sentence is correct?",
+            options: [
+                "The girl whose phone is ringing is my sister.",
+                "The girl who's phone is ringing is my sister.",
+                "The girl who phone is ringing is my sister.",
+                "The girl whom phone is ringing is my sister."
+            ],
+            answer: "The girl whose phone is ringing is my sister.",
+            explanation: "Whose adalah relative pronoun, sedangkan who's berarti who is/who has."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The car whose engine failed was repaired.",
+                "The car which engine failed was repaired.",
+                "The car who engine failed was repaired.",
+                "The car where engine failed was repaired."
+            ],
+            answer: "The car whose engine failed was repaired.",
+            explanation: "Whose dapat digunakan untuk menunjukkan kepemilikan pada benda."
+        },
+        {
+            type: "Concept",
+            question: "Whose can be used for...",
+            options: [
+                "people and things",
+                "people only",
+                "things only",
+                "places only"
+            ],
+            answer: "people and things",
+            explanation: "Dalam grammar modern, whose dapat digunakan baik untuk orang maupun benda."
+        }
+    ]
+}, 
+
+"where-when": {
+    title: "Where & When",
+    description: "Where dan when digunakan dalam relative clause untuk menjelaskan tempat dan waktu. Where menggantikan place (tempat), sedangkan when menggantikan time (waktu).",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Place + where + clause<br>
+        Time + when + clause
+    `,
+
+    notes: [
+        "Where digunakan untuk menjelaskan tempat.",
+        "When digunakan untuk menjelaskan waktu.",
+        "Where dapat diganti dengan in which pada bahasa formal.",
+        "When dapat diganti dengan on/in/at which pada bahasa formal.",
+        "Jika menggunakan where atau when, jangan tambahkan preposition lagi.",
+        "Gunakan which jika preposition tetap ingin ditulis."
+    ],
+
+    patterns: [
+        {
+            group: "Where",
+            items: [
+                {
+                    label: "Place",
+                    formula: "place + where + clause",
+                    examples: [
+                        "This is the school where I studied.",
+                        "The hotel where we stayed was beautiful.",
+                        "Jakarta is the city where she was born."
+                    ]
+                },
+                {
+                    label: "Formal",
+                    formula: "place + in which + clause",
+                    examples: [
+                        "This is the school in which I studied.",
+                        "The hotel in which we stayed was beautiful.",
+                        "The city in which she was born is Jakarta."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "When",
+            items: [
+                {
+                    label: "Time",
+                    formula: "time + when + clause",
+                    examples: [
+                        "Sunday is the day when we rest.",
+                        "2020 was the year when I graduated.",
+                        "That was the moment when everything changed."
+                    ]
+                },
+                {
+                    label: "Formal",
+                    formula: "time + on/in/at which + clause",
+                    examples: [
+                        "Sunday is the day on which we rest.",
+                        "2020 was the year in which I graduated.",
+                        "That was the moment at which everything changed."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Where",
+            question: "This is the school ___ I studied.",
+            options: ["where", "when", "whose", "who"],
+            answer: "where",
+            explanation: "Where digunakan untuk tempat."
+        },
+        {
+            type: "Where",
+            question: "The hotel ___ we stayed was comfortable.",
+            options: ["where", "when", "who", "whose"],
+            answer: "where",
+            explanation: "Hotel adalah tempat."
+        },
+        {
+            type: "Where",
+            question: "Jakarta is the city ___ she was born.",
+            options: ["where", "when", "which", "who"],
+            answer: "where",
+            explanation: "City adalah tempat."
+        },
+        {
+            type: "When",
+            question: "Sunday is the day ___ we usually relax.",
+            options: ["where", "when", "whose", "who"],
+            answer: "when",
+            explanation: "Day menunjukkan waktu."
+        },
+        {
+            type: "When",
+            question: "2020 was the year ___ I graduated.",
+            options: ["where", "when", "who", "whose"],
+            answer: "when",
+            explanation: "Year menunjukkan waktu."
+        },
+        {
+            type: "Formal",
+            question: "The school ___ I studied is very old. (formal)",
+            options: [
+                "in which",
+                "at when",
+                "who",
+                "whose"
+            ],
+            answer: "in which",
+            explanation: "Where dapat diganti dengan in which."
+        },
+        {
+            type: "Formal",
+            question: "Sunday is the day ___ we rest. (formal)",
+            options: [
+                "on which",
+                "in where",
+                "whose",
+                "who"
+            ],
+            answer: "on which",
+            explanation: "When dapat diganti dengan on which."
+        },
+        {
+            type: "Concept",
+            question: "Where is used for...",
+            options: [
+                "places",
+                "time",
+                "people",
+                "possession"
+            ],
+            answer: "places",
+            explanation: "Where digunakan untuk tempat."
+        },
+        {
+            type: "Concept",
+            question: "When is used for...",
+            options: [
+                "time",
+                "people",
+                "things",
+                "places"
+            ],
+            answer: "time",
+            explanation: "When digunakan untuk waktu."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "This is the school where I studied.",
+                "This is the school where in I studied.",
+                "This is the school when I studied.",
+                "This is the school who I studied."
+            ],
+            answer: "This is the school where I studied.",
+            explanation: "Jangan menggunakan preposition tambahan setelah where."
+        }
+    ]
+}, 
+
+"defining-nondefining": {
+    title: "Defining vs Non-Defining Relative Clauses",
+    description: "Relative clause dibagi menjadi dua jenis, yaitu Defining dan Non-Defining. Defining memberikan informasi yang penting untuk mengidentifikasi noun, sedangkan Non-Defining hanya memberikan informasi tambahan dan dipisahkan dengan koma.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Defining: Noun + Relative Clause<br>
+        Non-Defining: Noun, Relative Clause,
+    `,
+
+    notes: [
+        "Defining Clause memberikan informasi penting.",
+        "Tanpa defining clause, arti kalimat bisa berubah atau menjadi tidak jelas.",
+        "Non-defining clause hanya memberikan informasi tambahan.",
+        "Non-defining clause selalu dipisahkan dengan koma.",
+        "That tidak digunakan pada non-defining clause.",
+        "Who dan which dapat digunakan pada non-defining clause."
+    ],
+
+    patterns: [
+        {
+            group: "Defining Clause",
+            items: [
+                {
+                    label: "Essential Information",
+                    formula: "noun + who/which/that + clause",
+                    examples: [
+                        "The student who won the competition is my brother.",
+                        "The book that I borrowed is interesting.",
+                        "The house which Jack built is famous."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Non-Defining Clause",
+            items: [
+                {
+                    label: "Extra Information",
+                    formula: "noun, who/which + clause,",
+                    examples: [
+                        "My brother, who lives in London, is a doctor.",
+                        "My car, which is ten years old, still runs well.",
+                        "Mr. Smith, who teaches English, is very friendly."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Meaning Difference",
+            items: [
+                {
+                    label: "Compare",
+                    formula: "Defining vs Non-Defining",
+                    examples: [
+                        "The students who studied passed the exam. (Only those students)",
+                        "The students, who studied, passed the exam. (All students)"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Defining",
+            question: "Which sentence contains a defining clause?",
+            options: [
+                "The book that I borrowed is interesting.",
+                "My book, which I bought yesterday, is expensive.",
+                "My father, who is a doctor, lives in Bandung.",
+                "Jakarta, which is the capital of Indonesia, is crowded."
+            ],
+            answer: "The book that I borrowed is interesting.",
+            explanation: "Defining clause tidak memakai koma dan menentukan noun."
+        },
+        {
+            type: "Non-Defining",
+            question: "Which sentence contains a non-defining clause?",
+            options: [
+                "My brother, who lives in London, is a doctor.",
+                "The student who won the prize is happy.",
+                "The car that I bought is new.",
+                "The teacher who teaches math is absent."
+            ],
+            answer: "My brother, who lives in London, is a doctor.",
+            explanation: "Non-defining clause dipisahkan dengan koma."
+        },
+        {
+            type: "Comma",
+            question: "Non-defining clauses are separated by...",
+            options: [
+                "commas",
+                "quotation marks",
+                "semicolon only",
+                "colon"
+            ],
+            answer: "commas",
+            explanation: "Non-defining clause selalu dipisahkan dengan koma."
+        },
+        {
+            type: "That",
+            question: "Which relative pronoun should NOT be used in non-defining clauses?",
+            options: [
+                "that",
+                "which",
+                "who",
+                "whose"
+            ],
+            answer: "that",
+            explanation: "That tidak digunakan pada non-defining clause."
+        },
+        {
+            type: "Meaning",
+            question: "Which clause gives essential information?",
+            options: [
+                "Defining Clause",
+                "Non-Defining Clause",
+                "Passive Voice",
+                "Conditional Clause"
+            ],
+            answer: "Defining Clause",
+            explanation: "Defining clause menentukan noun yang dimaksud."
+        },
+        {
+            type: "Meaning",
+            question: "Which clause gives extra information only?",
+            options: [
+                "Non-Defining Clause",
+                "Defining Clause",
+                "Reported Speech",
+                "Modal Clause"
+            ],
+            answer: "Non-Defining Clause",
+            explanation: "Non-defining hanya memberikan informasi tambahan."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "My car, which is old, still works.",
+                "My car, that is old, still works.",
+                "My car that, is old still works.",
+                "My car where is old still works."
+            ],
+            answer: "My car, which is old, still works.",
+            explanation: "Non-defining clause menggunakan which, bukan that."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "The teacher who teaches English is kind.",
+                "The teacher, that teaches English, is kind.",
+                "The teacher when teaches English is kind.",
+                "The teacher where teaches English is kind."
+            ],
+            answer: "The teacher who teaches English is kind.",
+            explanation: "Defining clause dapat menggunakan who tanpa koma."
+        },
+        {
+            type: "Concept",
+            question: "Removing a defining clause usually...",
+            options: [
+                "changes the meaning",
+                "has no effect",
+                "changes it into passive voice",
+                "changes tense only"
+            ],
+            answer: "changes the meaning",
+            explanation: "Defining clause penting untuk mengidentifikasi noun."
+        },
+        {
+            type: "Concept",
+            question: "Removing a non-defining clause usually...",
+            options: [
+                "keeps the main meaning",
+                "makes the sentence impossible",
+                "changes active to passive",
+                "changes the subject"
+            ],
+            answer: "keeps the main meaning",
+            explanation: "Non-defining clause hanya informasi tambahan."
+        }
+    ]
+},
+
+"relative-clauses-review": {
+    title: "Relative Clauses Review",
+    description: "Review akhir untuk menguji seluruh materi Relative Clauses.",
+
+    formula: `
+        <strong>Ringkasan BAB 9:</strong><br>
+        who → people (subject)<br>
+        whom → people (object)<br>
+        which → things/animals<br>
+        that → people/things (defining only)<br>
+        whose → possession<br>
+        where → place<br>
+        when → time
+    `,
+
+    notes: [
+        "Who digunakan untuk subject orang.",
+        "Whom digunakan untuk object orang.",
+        "Which digunakan untuk benda.",
+        "That hanya digunakan pada defining clause.",
+        "Whose menunjukkan kepemilikan.",
+        "Where digunakan untuk tempat.",
+        "When digunakan untuk waktu.",
+        "Non-defining clause selalu memakai koma."
+    ],
+
+    patterns: [
+        {
+            group: "Summary",
+            items: [
+                {
+                    label: "Relative Pronouns",
+                    formula: "Noun + Relative Pronoun + Clause",
+                    examples: [
+                        "The man who helped me is kind.",
+                        "The book which I bought is interesting.",
+                        "The girl whose phone was stolen is crying."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type:"Who",
+            question:"The man ___ lives next door is friendly.",
+            options:["who","whom","which","where"],
+            answer:"who",
+            explanation:"Who digunakan sebagai subject."
+        },
+        {
+            type:"Whom",
+            question:"The teacher ___ we respect is retiring.",
+            options:["whom","who","where","whose"],
+            answer:"whom",
+            explanation:"Whom digunakan sebagai object."
+        },
+        {
+            type:"Which",
+            question:"The book ___ I borrowed is interesting.",
+            options:["which","who","whose","where"],
+            answer:"which",
+            explanation:"Which digunakan untuk benda."
+        },
+        {
+            type:"That",
+            question:"The car ___ he bought is expensive.",
+            options:["that","where","when","whose"],
+            answer:"that",
+            explanation:"That digunakan pada defining clause."
+        },
+        {
+            type:"Whose",
+            question:"The girl ___ bag was stolen is crying.",
+            options:["whose","who","whom","which"],
+            answer:"whose",
+            explanation:"Whose menunjukkan kepemilikan."
+        },
+        {
+            type:"Where",
+            question:"This is the city ___ I was born.",
+            options:["where","when","who","whose"],
+            answer:"where",
+            explanation:"Where digunakan untuk tempat."
+        },
+        {
+            type:"When",
+            question:"Sunday is the day ___ we rest.",
+            options:["when","where","whose","which"],
+            answer:"when",
+            explanation:"When digunakan untuk waktu."
+        },
+        {
+            type:"Defining",
+            question:"Which sentence contains a defining clause?",
+            options:[
+                "The book that I borrowed is interesting.",
+                "My car, which is old, still works.",
+                "My father, who is a doctor, lives in Bandung.",
+                "Jakarta, which is the capital, is crowded."
+            ],
+            answer:"The book that I borrowed is interesting.",
+            explanation:"Tidak memakai koma."
+        },
+        {
+            type:"Non-Defining",
+            question:"Which sentence contains a non-defining clause?",
+            options:[
+                "My brother, who lives in London, is a doctor.",
+                "The student who won is happy.",
+                "The book that I borrowed is interesting.",
+                "The teacher who teaches math is absent."
+            ],
+            answer:"My brother, who lives in London, is a doctor.",
+            explanation:"Dipisahkan dengan koma."
+        },
+        {
+            type:"Concept",
+            question:"Which pronoun shows possession?",
+            options:["whose","who","which","where"],
+            answer:"whose",
+            explanation:"Whose menunjukkan kepemilikan."
+        },
+        {
+            type:"Concept",
+            question:"Which pronoun is NOT used in non-defining clauses?",
+            options:["that","which","who","whose"],
+            answer:"that",
+            explanation:"That hanya digunakan pada defining clause."
+        },
+        {
+            type:"Concept",
+            question:"Who is used for...",
+            options:[
+                "people as subject",
+                "people as object",
+                "things",
+                "places"
+            ],
+            answer:"people as subject",
+            explanation:"Who adalah subject."
+        },
+        {
+            type:"Concept",
+            question:"Whom is used for...",
+            options:[
+                "people as object",
+                "people as subject",
+                "things",
+                "time"
+            ],
+            answer:"people as object",
+            explanation:"Whom adalah object."
+        },
+        {
+            type:"Concept",
+            question:"Which is mainly used for...",
+            options:[
+                "things",
+                "people",
+                "time",
+                "places"
+            ],
+            answer:"things",
+            explanation:"Which digunakan untuk benda."
+        },
+        {
+            type:"Grammar",
+            question:"Which sentence is correct?",
+            options:[
+                "The person to whom I spoke was helpful.",
+                "The person to who I spoke was helpful.",
+                "The person where I spoke was helpful.",
+                "The person when I spoke was helpful."
+            ],
+            answer:"The person to whom I spoke was helpful.",
+            explanation:"Setelah preposition gunakan whom."
+        },
+        {
+            type:"Grammar",
+            question:"Which sentence is correct?",
+            options:[
+                "The company whose products are famous is expanding.",
+                "The company which products are famous is expanding.",
+                "The company who products are famous is expanding.",
+                "The company where products are famous is expanding."
+            ],
+            answer:"The company whose products are famous is expanding.",
+            explanation:"Whose dapat digunakan untuk benda."
+        },
+        {
+            type:"Grammar",
+            question:"Which sentence is correct?",
+            options:[
+                "The hotel where we stayed was comfortable.",
+                "The hotel when we stayed was comfortable.",
+                "The hotel whose we stayed was comfortable.",
+                "The hotel who we stayed was comfortable."
+            ],
+            answer:"The hotel where we stayed was comfortable.",
+            explanation:"Hotel adalah tempat."
+        },
+        {
+            type:"Grammar",
+            question:"Which sentence is correct?",
+            options:[
+                "2020 was the year when I graduated.",
+                "2020 was the year where I graduated.",
+                "2020 was the year who I graduated.",
+                "2020 was the year whose I graduated."
+            ],
+            answer:"2020 was the year when I graduated.",
+            explanation:"Year menunjukkan waktu."
+        },
+        {
+            type:"Meaning",
+            question:"Removing a defining clause usually...",
+            options:[
+                "changes the meaning",
+                "has no effect",
+                "changes tense",
+                "changes voice"
+            ],
+            answer:"changes the meaning",
+            explanation:"Defining clause penting untuk identifikasi."
+        },
+        {
+            type:"Meaning",
+            question:"Removing a non-defining clause usually...",
+            options:[
+                "keeps the main meaning",
+                "makes the sentence incorrect",
+                "changes passive voice",
+                "changes subject"
+            ],
+            answer:"keeps the main meaning",
+            explanation:"Non-defining clause hanya informasi tambahan."
+        }
+    ]
 }
 
 };
@@ -5371,8 +12030,78 @@ export const MATERI_BAB_CONFIG = [
         { label: "Verb + Gerund / Infinitive", id: "verb-both" },
         { label: "Gerund & Infinitive Review", id: "gerund-review" }
     ]
+},
+
+{
+    id: "bab6",
+    icon: "fa-book-open",
+    title: "BAB 6: Articles & Determiners",
+    level: "Upper Advanced",
+    color: "#0ea5e9",
+    items: [
+        { label: "Articles", id: "articles" },
+        { label: "A vs An", id: "a-vs-an" },
+        { label: "The", id: "the-article" },
+        { label: "Zero Article", id: "zero-article" },
+        { label: "Determiners", id: "determiners" },
+        { label: "Quantifiers", id: "quantifiers" },
+        { label: "Articles Review", id: "articles-review" }
+    ]
+},
+
+{
+    id: "bab7",
+    icon: "fa-code-branch",
+    title: "BAB 7: Conditional Sentences",
+    level: "Advanced",
+    color: "#8b5cf6",
+    items: [
+        { label: "Introduction to Conditionals", id: "conditionals" },
+        { label: "Zero Conditional", id: "zero-conditional" },
+        { label: "First Conditional", id: "first-conditional" },
+        { label: "Second Conditional", id: "second-conditional" },
+        { label: "Third Conditional", id: "third-conditional" },
+        { label: "Mixed Conditional", id: "mixed-conditional" },
+        { label: "Conditional Review", id: "conditional-review" }
+    ]
+},
+
+{
+    id: "bab8",
+    icon: "fa-comments",
+    title: "BAB 8: Reported Speech",
+    level: "Advanced",
+    color: "#ec4899",
+    items: [
+        { label: "Introduction to Reported Speech", id: "reported-speech" },
+        { label: "Reported Statements", id: "reported-statements" },
+        { label: "Reported Questions", id: "reported-questions" },
+        { label: "Reported Commands", id: "reported-commands" },
+        { label: "Backshift", id: "backshift" },
+        { label: "Reporting Verbs", id: "reporting-verbs" },
+        { label: "Reported Speech Review", id: "reported-speech-review" }
+    ]
+},
+
+{
+    id: "bab9",
+    icon: "fa-link",
+    title: "BAB 9: Relative Clauses",
+    level: "Advanced",
+    color: "#14b8a6",
+    items: [
+        { label: "Introduction to Relative Clauses", id: "relative-clauses" },
+        { label: "Who & Whom", id: "who-whom" },
+        { label: "Which & That", id: "which-that" },
+        { label: "Whose", id: "whose" },
+        { label: "Where & When", id: "where-when" },
+        { label: "Defining vs Non-Defining", id: "defining-nondefining" },
+        { label: "Relative Clauses Review", id: "relative-clauses-review" }
+    ]
 }
+
 ];
+
 window.MATERI_CONTENT = MATERI_CONTENT;
 window.MATERI_BAB_CONFIG = MATERI_BAB_CONFIG;
 

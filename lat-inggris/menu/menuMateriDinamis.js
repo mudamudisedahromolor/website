@@ -22,7 +22,8 @@ export function renderMenuMateriDinamis() {
     if (!materiBody) return;
 
     const totalProgress = getTotalLearningProgress();
-    const resumeBab = getCurrentBabToResume();
+
+    const resumeBab = getCurrentBabToResume() || MATERI_BAB_CONFIG[0];
     const resumeProgress = getBabProgress(resumeBab);
     const achievements = getAchievements();
     const levelData = getUserLevel();
@@ -244,6 +245,21 @@ setTimeout(() => {
 
 
 function getBabProgress(bab) {
+
+    if (!bab || !Array.isArray(bab.items)) {
+
+        return {
+
+            total: 0,
+
+            selesai: 0,
+
+            percent: 0
+
+        };
+
+    }
+    
     const total = (bab.items || []).length;
 
     const selesai = (bab.items || []).filter(item => {
