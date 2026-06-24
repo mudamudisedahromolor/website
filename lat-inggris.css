@@ -1132,6 +1132,17 @@ body {
 }
 
 @media (max-width:480px){
+    .mms-pattern-group-row{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+    .mms-pattern-group-chip{
+        width:100%;
+        min-height:58px;
+        font-size:15px;
+    }
+
     .mms-pattern-chip-row{
         gap:8px;
     }
@@ -1140,18 +1151,14 @@ body {
         font-size:13px;
         padding:11px 6px;
     }
-    .mms-quiz-card{
 
+    .mms-quiz-card{
         padding-top:58px;
-        
     }
 
     .mms-quiz-type{
-
         top:16px;
-
         right:16px;
-
     }
 }
 
@@ -1801,41 +1808,22 @@ body {
 }
 
 .mms-pattern-group-row{
-
     display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:14px;
-
-    margin-bottom:20px;
-
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    margin-bottom:18px;
 }
 
 .mms-pattern-group-chip{
+    width:100%;
+    min-height:72px;
 
-    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
 
     border-radius:999px;
-
-    padding:15px 20px;
-
-    background:linear-gradient(180deg,#f8fbff,#eef5ff);
-
-    color:#2563eb;
-
-    font-size:18px;
-
-    font-weight:900;
-
-    cursor:pointer;
-
-    text-align:center;
-
-    transition:all .2s ease;
-
-    box-shadow:0 8px 20px rgba(37,99,235,.08);
-
 }
 
 .mms-pattern-group-active{

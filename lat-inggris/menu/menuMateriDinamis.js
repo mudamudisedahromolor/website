@@ -135,7 +135,9 @@ ${resumeCardHtml}
     const target = document.getElementById("mms-materi-dynamic-menu");
 
 
-   target.innerHTML = MATERI_BAB_CONFIG.map((bab, babIndex) => {
+    const babConfig = window.MATERI_BAB_CONFIG || MATERI_BAB_CONFIG;
+
+    target.innerHTML = babConfig.map((bab, babIndex) => {
     const babUnlocked = isBabUnlocked(babIndex);
         
     const progress = getBabProgress(bab);
@@ -819,63 +821,47 @@ tutupQuizOverlay();
 };
 
 window.bukaMateriBerikutnya = function () {
-
     const currentId = window.mmsMateriAktifId;
 
     if (!currentId) {
-
         renderMenuMateriDinamis();
-
         return;
-
     }
 
-    const allItems = MATERI_BAB_CONFIG.flatMap(bab => bab.items || []);
+    const babConfig = window.MATERI_BAB_CONFIG || MATERI_BAB_CONFIG;
+    const allItems = babConfig.flatMap(bab => bab.items || []);
 
     const currentIndex = allItems.findIndex(item => item.id === currentId);
 
     if (currentIndex === -1) {
-
         renderMenuMateriDinamis();
-
         return;
-
     }
 
     const nextItem = allItems[currentIndex + 1];
 
     if (!nextItem) {
-
         renderMenuMateriDinamis();
-
         return;
-
     }
 
     bukaDetailMateriDinamis(
-
         encodeURIComponent(nextItem.id),
-
         encodeURIComponent(nextItem.label)
-
     );
 
     setTimeout(() => {
+        const materiPage = document.querySelector(".mms-materi-page");
 
-        const materiBody = document.getElementById("materi-body");
-
-        if (materiBody) {
-
-            materiBody.scrollTo({ top: 0, behavior: "smooth" });
-
+        if (materiPage) {
+            materiPage.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
         } else {
-
             window.scrollTo({ top: 0, behavior: "smooth" });
-
         }
-
-    }, 250);
-
+    }, 350);
 };
 
 window.updateMiniQuizProgress = function () {
