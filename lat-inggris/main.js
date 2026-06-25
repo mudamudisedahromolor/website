@@ -1,5 +1,27 @@
 import { state } from './state.js';
 
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
+
+window.addEventListener("beforeunload", () => {
+    window.scrollTo(0, 0);
+});
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+        const materiBody = document.getElementById("materi-body");
+        if (materiBody) materiBody.scrollTop = 0;
+    }, 0);
+});
+
+window.state = state;
+console.log("MAIN.JS LOADED", window.state);
+
 window.state = state;
 console.log("MAIN.JS LOADED", window.state);
 
@@ -55,6 +77,7 @@ import {
     konfirmasiKeluarLatihanYa,
     lanjutSoalLatihan
 } from './menu/menuLatihan.js';
+
 
 
 export function eksekusiKlikDoubleBounce(idKotak, namaMenu) {

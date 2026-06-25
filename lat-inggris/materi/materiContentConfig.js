@@ -20242,7 +20242,5993 @@ interjection: {
             explanation: "Kalimat memakai semicolon, discourse marker, dan struktur formal yang benar."
         }
     ]
+},
+
+"advanced-review": {
+    title: "Advanced Sentence Review",
+    description: "Review akhir untuk menguji seluruh materi Advanced Sentence Patterns: cleft sentence, parallel structure, ellipsis, fronting, dan discourse markers.",
+
+    formula: `
+        <strong>Ringkasan BAB 16:</strong><br>
+        Cleft = emphasis<br>
+        Parallel = same form<br>
+        Ellipsis = remove repetition<br>
+        Fronting = move focus to beginning<br>
+        Discourse Marker = connect ideas
+    `,
+
+    notes: [
+        "Cleft sentence digunakan untuk penekanan.",
+        "Parallel structure memakai bentuk grammar yang sama untuk ide setara.",
+        "Ellipsis menghilangkan pengulangan yang tidak perlu.",
+        "Fronting memindahkan elemen penting ke awal kalimat.",
+        "Discourse markers menghubungkan ide secara logis.",
+        "Advanced sentence patterns membuat writing lebih formal, jelas, dan akademik."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Emphasis",
+                    formula: "It is/was + focus + who/that + clause",
+                    examples: [
+                        "It was John who solved the problem.",
+                        "What I need is more time."
+                    ]
+                },
+                {
+                    label: "Parallel & Ellipsis",
+                    formula: "same form / omitted repetition",
+                    examples: [
+                        "She likes reading, writing, and speaking.",
+                        "She opened the door and entered the room."
+                    ]
+                },
+                {
+                    label: "Fronting & Markers",
+                    formula: "fronted element / logical connector",
+                    examples: [
+                        "This problem, I understand.",
+                        "The task was difficult. However, we completed it."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Cleft",
+            question: "___ John who solved the problem.",
+            options: ["It was", "What was", "There was", "That was"],
+            answer: "It was",
+            explanation: "It-cleft memakai It is/was + focus + who/that."
+        },
+        {
+            type: "Cleft",
+            question: "It was Rina ___ called you yesterday.",
+            options: ["who", "where", "when", "whose"],
+            answer: "who",
+            explanation: "Who digunakan jika focus adalah orang."
+        },
+        {
+            type: "Cleft",
+            question: "___ I need is more time.",
+            options: ["What", "That", "Where", "When"],
+            answer: "What",
+            explanation: "What-cleft memakai What + clause + be + focus."
+        },
+        {
+            type: "Parallel",
+            question: "She enjoys reading, writing, and ___.",
+            options: ["speaking", "to speak", "speaks", "spoke"],
+            answer: "speaking",
+            explanation: "Semua item harus berbentuk gerund."
+        },
+        {
+            type: "Parallel",
+            question: "The policy is clear, logical, and ___.",
+            options: ["effective", "effectively", "effectiveness", "effect"],
+            answer: "effective",
+            explanation: "Clear dan logical adalah adjective, jadi gunakan effective."
+        },
+        {
+            type: "Ellipsis",
+            question: "Best ellipsis: She opened the door and she entered the room.",
+            options: [
+                "She opened the door and entered the room.",
+                "She opened and she entered the room.",
+                "She door and entered.",
+                "Opened the door and she entered."
+            ],
+            answer: "She opened the door and entered the room.",
+            explanation: "Subject she tidak perlu diulang."
+        },
+        {
+            type: "Ellipsis",
+            question: "He works harder than I ___.",
+            options: ["do", "am", "have", "was"],
+            answer: "do",
+            explanation: "Works digantikan oleh auxiliary do."
+        },
+        {
+            type: "Fronting",
+            question: "Normal: I understand this problem. Fronting:",
+            options: [
+                "This problem, I understand.",
+                "Understand this problem, I.",
+                "This problem understand I.",
+                "I this problem understand."
+            ],
+            answer: "This problem, I understand.",
+            explanation: "Object dipindahkan ke awal sebagai topik."
+        },
+        {
+            type: "Fronting",
+            question: "Normal: The children played in the garden. Fronting:",
+            options: [
+                "In the garden, the children played.",
+                "In the garden played the children always.",
+                "The garden in, the children played.",
+                "Played in the garden the children."
+            ],
+            answer: "In the garden, the children played.",
+            explanation: "Adverbial place dipindahkan ke awal."
+        },
+        {
+            type: "Discourse Marker",
+            question: "The task was difficult. ___, we completed it.",
+            options: ["However", "Therefore", "Moreover", "For example"],
+            answer: "However",
+            explanation: "However menunjukkan kontras."
+        },
+        {
+            type: "Discourse Marker",
+            question: "The data was incomplete. ___, the report was delayed.",
+            options: ["Therefore", "However", "Moreover", "For example"],
+            answer: "Therefore",
+            explanation: "Therefore menunjukkan akibat."
+        },
+        {
+            type: "Discourse Marker",
+            question: "The app is useful. ___, it is easy to use.",
+            options: ["Moreover", "However", "Although", "Unless"],
+            answer: "Moreover",
+            explanation: "Moreover menambahkan informasi."
+        },
+        {
+            type: "Concept",
+            question: "Cleft sentences are used for...",
+            options: ["emphasis", "plural nouns", "articles", "basic spelling"],
+            answer: "emphasis",
+            explanation: "Cleft sentence memberi penekanan."
+        },
+        {
+            type: "Concept",
+            question: "Parallel structure means...",
+            options: [
+                "using the same grammatical form for equal ideas",
+                "using random verb forms",
+                "removing all verbs",
+                "using only nouns"
+            ],
+            answer: "using the same grammatical form for equal ideas",
+            explanation: "Parallel structure menjaga bentuk grammar tetap seimbang."
+        },
+        {
+            type: "Concept",
+            question: "Ellipsis is used to avoid...",
+            options: ["unnecessary repetition", "all grammar rules", "all punctuation", "all subjects"],
+            answer: "unnecessary repetition",
+            explanation: "Ellipsis menghilangkan pengulangan yang tidak perlu."
+        },
+        {
+            type: "Concept",
+            question: "Fronting moves information to...",
+            options: ["the beginning of the sentence", "the end only", "the middle only", "nowhere"],
+            answer: "the beginning of the sentence",
+            explanation: "Fronting memindahkan elemen penting ke awal kalimat."
+        },
+        {
+            type: "Concept",
+            question: "Discourse markers are used to...",
+            options: [
+                "connect ideas logically",
+                "make plural nouns",
+                "replace all verbs",
+                "remove punctuation"
+            ],
+            answer: "connect ideas logically",
+            explanation: "Discourse markers menghubungkan ide secara logis."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence has correct parallel structure?",
+            options: [
+                "She likes reading, writing, and speaking.",
+                "She likes reading, writing, and to speak.",
+                "She likes read, writing, and to speak.",
+                "She likes reads, wrote, and speaking."
+            ],
+            answer: "She likes reading, writing, and speaking.",
+            explanation: "Semua item memakai bentuk V-ing."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence uses fronting naturally?",
+            options: [
+                "This issue, we must discuss today.",
+                "This issue must we discuss today.",
+                "This issue discuss we today.",
+                "This issue today discuss must we."
+            ],
+            answer: "This issue, we must discuss today.",
+            explanation: "Object fronting tidak membutuhkan inversion."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is best for academic writing?",
+            options: [
+                "The method is simple. Moreover, it is effective.",
+                "The method simple moreover effective.",
+                "Moreover the method, is simple effective.",
+                "The method is simple, moreover it effective."
+            ],
+            answer: "The method is simple. Moreover, it is effective.",
+            explanation: "Discourse marker digunakan dengan punctuation dan struktur yang tepat."
+        }
+    ]
+},
+
+"phrasal-verbs": {
+    title: "Introduction to Phrasal Verbs",
+    description: "Phrasal Verb adalah gabungan antara verb dan particle seperti up, out, off, on, in, atau over. Gabungan ini sering menghasilkan makna baru yang berbeda dari arti verb aslinya.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb + Particle<br>
+        Verb + Particle + Object
+    `,
+
+    notes: [
+        "Phrasal verb terdiri dari verb dan particle.",
+        "Particle bisa berupa adverb atau preposition seperti up, out, off, on, in, over.",
+        "Makna phrasal verb sering tidak bisa ditebak dari arti kata per kata.",
+        "Phrasal verb sangat umum dalam percakapan sehari-hari.",
+        "Beberapa phrasal verb dapat dipisah oleh object.",
+        "Beberapa phrasal verb tidak dapat dipisah.",
+        "Dalam writing formal, phrasal verb sering diganti dengan single-word verb yang lebih akademik."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Form",
+            items: [
+                {
+                    label: "Verb + Particle",
+                    formula: "Verb + particle",
+                    examples: [
+                        "wake up",
+                        "go out",
+                        "sit down",
+                        "come in"
+                    ]
+                },
+                {
+                    label: "Verb + Particle + Object",
+                    formula: "Verb + particle + object",
+                    examples: [
+                        "turn off the light",
+                        "look after the baby",
+                        "pick up the phone",
+                        "fill out the form"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Meaning",
+            items: [
+                {
+                    label: "Literal Meaning",
+                    formula: "Meaning can be physical/direct",
+                    examples: [
+                        "She sat down.",
+                        "He stood up.",
+                        "They went out."
+                    ]
+                },
+                {
+                    label: "Idiomatic Meaning",
+                    formula: "Meaning is not literal",
+                    examples: [
+                        "She gave up smoking.",
+                        "He ran out of money.",
+                        "They broke up last year."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A phrasal verb is usually formed by...",
+            options: [
+                "verb + particle",
+                "noun + article",
+                "adjective + noun",
+                "pronoun + determiner"
+            ],
+            answer: "verb + particle",
+            explanation: "Phrasal verb terbentuk dari verb dan particle."
+        },
+        {
+            type: "Particle",
+            question: "Which word can be a particle in a phrasal verb?",
+            options: ["up", "beautiful", "student", "quickly only"],
+            answer: "up",
+            explanation: "Up sering menjadi particle dalam phrasal verb."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'give up' usually mean?",
+            options: ["stop trying", "stand up", "go outside", "write down"],
+            answer: "stop trying",
+            explanation: "Give up berarti berhenti mencoba atau menyerah."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'run out of money' mean?",
+            options: [
+                "have no money left",
+                "run with money",
+                "find money",
+                "save money"
+            ],
+            answer: "have no money left",
+            explanation: "Run out of berarti kehabisan."
+        },
+        {
+            type: "Basic",
+            question: "Choose the phrasal verb.",
+            options: ["wake up", "beautiful house", "very quickly", "the student"],
+            answer: "wake up",
+            explanation: "Wake up terdiri dari verb wake dan particle up."
+        },
+        {
+            type: "Object",
+            question: "Please turn ___ the light.",
+            options: ["off", "beautiful", "student", "quick"],
+            answer: "off",
+            explanation: "Turn off berarti mematikan."
+        },
+        {
+            type: "Object",
+            question: "She looks ___ her little brother.",
+            options: ["after", "beautiful", "student", "quickly"],
+            answer: "after",
+            explanation: "Look after berarti menjaga atau merawat."
+        },
+        {
+            type: "Literal",
+            question: "Which phrasal verb has a literal physical meaning?",
+            options: ["sit down", "give up", "break up", "run out of"],
+            answer: "sit down",
+            explanation: "Sit down memiliki makna fisik langsung."
+        },
+        {
+            type: "Idiomatic",
+            question: "Which phrasal verb has an idiomatic meaning?",
+            options: ["give up", "sit down", "stand up", "come in"],
+            answer: "give up",
+            explanation: "Give up bermakna idiomatik, yaitu menyerah."
+        },
+        {
+            type: "Formal",
+            question: "In formal writing, phrasal verbs are often replaced by...",
+            options: [
+                "single-word verbs",
+                "random adjectives",
+                "articles only",
+                "plural nouns"
+            ],
+            answer: "single-word verbs",
+            explanation: "Dalam formal writing, phrasal verb sering diganti dengan verb yang lebih akademik."
+        }
+    ]
+},
+
+"separable-phrasal-verbs": {
+    title: "Separable Phrasal Verbs",
+    description: "Separable Phrasal Verbs adalah phrasal verb yang object-nya bisa diletakkan di antara verb dan particle. Jika object berupa pronoun, object harus diletakkan di tengah.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb + Particle + Object<br>
+        Verb + Object + Particle<br>
+        Pronoun Object wajib di tengah
+    `,
+
+    notes: [
+        "Separable phrasal verb dapat dipisah oleh object.",
+        "Object noun bisa diletakkan setelah particle atau di antara verb dan particle.",
+        "Object pronoun harus diletakkan di antara verb dan particle.",
+        "Contoh umum: turn off, pick up, put on, take off, write down, fill out.",
+        "Jangan letakkan pronoun setelah particle pada separable phrasal verb."
+    ],
+
+    patterns: [
+        {
+            group: "Noun Object",
+            items: [
+                {
+                    label: "Two Positions",
+                    formula: "Verb + particle + noun / Verb + noun + particle",
+                    examples: [
+                        "Turn off the light.",
+                        "Turn the light off.",
+                        "Pick up the phone.",
+                        "Pick the phone up."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Pronoun Object",
+            items: [
+                {
+                    label: "Pronoun in the Middle",
+                    formula: "Verb + pronoun + particle",
+                    examples: [
+                        "Turn it off.",
+                        "Pick it up.",
+                        "Put it on.",
+                        "Write it down."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Noun Object",
+            question: "Which sentence is correct?",
+            options: [
+                "Turn off the light.",
+                "Turn off it.",
+                "Turn the off light.",
+                "Turn light off the."
+            ],
+            answer: "Turn off the light.",
+            explanation: "Noun object boleh diletakkan setelah particle."
+        },
+        {
+            type: "Noun Object",
+            question: "Which sentence is also correct?",
+            options: [
+                "Turn the light off.",
+                "Turn it off the.",
+                "Turn off it.",
+                "Turn light the off."
+            ],
+            answer: "Turn the light off.",
+            explanation: "Noun object juga boleh diletakkan di tengah."
+        },
+        {
+            type: "Pronoun Object",
+            question: "Replace 'the light' with 'it': Turn off the light.",
+            options: [
+                "Turn it off.",
+                "Turn off it.",
+                "Turn it the off.",
+                "Turn off the it."
+            ],
+            answer: "Turn it off.",
+            explanation: "Pronoun object wajib berada di tengah."
+        },
+        {
+            type: "Pick Up",
+            question: "Pick ___ the phone.",
+            options: ["up", "after", "in", "with"],
+            answer: "up",
+            explanation: "Pick up berarti mengangkat atau mengambil."
+        },
+        {
+            type: "Pick Up Pronoun",
+            question: "Replace 'the phone' with 'it': Pick up the phone.",
+            options: [
+                "Pick it up.",
+                "Pick up it.",
+                "Pick it the up.",
+                "Pick up the it."
+            ],
+            answer: "Pick it up.",
+            explanation: "Pronoun harus di tengah."
+        },
+        {
+            type: "Put On",
+            question: "She put ___ her jacket.",
+            options: ["on", "after", "of", "with"],
+            answer: "on",
+            explanation: "Put on berarti memakai pakaian."
+        },
+        {
+            type: "Take Off",
+            question: "He took ___ his shoes.",
+            options: ["off", "after", "in", "with"],
+            answer: "off",
+            explanation: "Take off berarti melepas."
+        },
+        {
+            type: "Write Down",
+            question: "Write ___ your name.",
+            options: ["down", "after", "with", "for"],
+            answer: "down",
+            explanation: "Write down berarti menuliskan."
+        },
+        {
+            type: "Concept",
+            question: "In separable phrasal verbs, pronoun objects must go...",
+            options: [
+                "between the verb and particle",
+                "after the particle",
+                "before the subject",
+                "after the sentence"
+            ],
+            answer: "between the verb and particle",
+            explanation: "Pronoun object wajib berada di tengah."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Please fill it out.",
+                "Please fill out it.",
+                "Please fill it the out.",
+                "Please fill out the it."
+            ],
+            answer: "Please fill it out.",
+            explanation: "Fill out termasuk separable, jadi pronoun it berada di tengah."
+        }
+    ]
+},
+
+"inseparable-phrasal-verbs": {
+    title: "Inseparable Phrasal Verbs",
+    description: "Inseparable Phrasal Verbs adalah phrasal verb yang tidak dapat dipisahkan oleh object. Object selalu diletakkan setelah particle.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb + Particle + Object
+    `,
+
+    notes: [
+        "Inseparable phrasal verb tidak boleh dipisah.",
+        "Object noun diletakkan setelah particle.",
+        "Object pronoun juga tetap diletakkan setelah particle.",
+        "Contoh umum: look after, look for, run into, come across, get over, deal with.",
+        "Jangan letakkan object di antara verb dan particle."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Pattern",
+            items: [
+                {
+                    label: "Verb + Particle + Object",
+                    formula: "inseparable verb + particle + object",
+                    examples: [
+                        "She looks after her brother.",
+                        "She looks after him.",
+                        "I am looking for my keys.",
+                        "I am looking for them."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Inseparable Phrasal Verbs",
+            items: [
+                {
+                    label: "Examples",
+                    formula: "fixed position",
+                    examples: [
+                        "I ran into an old friend.",
+                        "She came across an interesting article.",
+                        "He finally got over the problem.",
+                        "We need to deal with this issue."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Look After",
+            question: "She looks ___ her little brother.",
+            options: ["after", "up", "off", "down"],
+            answer: "after",
+            explanation: "Look after berarti menjaga atau merawat."
+        },
+        {
+            type: "Look After",
+            question: "Which sentence is correct?",
+            options: [
+                "She looks after him.",
+                "She looks him after.",
+                "She after looks him.",
+                "She him looks after."
+            ],
+            answer: "She looks after him.",
+            explanation: "Look after tidak dapat dipisah."
+        },
+        {
+            type: "Look For",
+            question: "I am looking ___ my keys.",
+            options: ["for", "after", "off", "down"],
+            answer: "for",
+            explanation: "Look for berarti mencari."
+        },
+        {
+            type: "Look For Pronoun",
+            question: "Replace 'my keys' with 'them'.",
+            options: [
+                "I am looking for them.",
+                "I am looking them for.",
+                "I am them looking for.",
+                "I am looking for the them."
+            ],
+            answer: "I am looking for them.",
+            explanation: "Object pronoun tetap berada setelah particle."
+        },
+        {
+            type: "Run Into",
+            question: "I ran ___ an old friend yesterday.",
+            options: ["into", "off", "down", "after"],
+            answer: "into",
+            explanation: "Run into berarti bertemu secara tidak sengaja."
+        },
+        {
+            type: "Come Across",
+            question: "She came ___ an interesting article.",
+            options: ["across", "off", "down", "up"],
+            answer: "across",
+            explanation: "Come across berarti menemukan secara tidak sengaja."
+        },
+        {
+            type: "Get Over",
+            question: "He finally got ___ the problem.",
+            options: ["over", "off", "up", "down"],
+            answer: "over",
+            explanation: "Get over berarti pulih atau berhasil melewati masalah."
+        },
+        {
+            type: "Deal With",
+            question: "We need to deal ___ this issue.",
+            options: ["with", "off", "up", "down"],
+            answer: "with",
+            explanation: "Deal with berarti menangani."
+        },
+        {
+            type: "Concept",
+            question: "Inseparable phrasal verbs...",
+            options: [
+                "cannot be separated by an object",
+                "must always be split",
+                "never have objects",
+                "are only used in questions"
+            ],
+            answer: "cannot be separated by an object",
+            explanation: "Object selalu diletakkan setelah particle."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "We need to deal with it.",
+                "We need to deal it with.",
+                "We need with deal it.",
+                "We need to it deal with."
+            ],
+            answer: "We need to deal with it.",
+            explanation: "Deal with tidak dapat dipisah."
+        }
+    ]
+},
+
+"daily-phrasal-verbs": {
+    title: "Common Daily Phrasal Verbs",
+    description: "Common Daily Phrasal Verbs adalah phrasal verbs yang sering digunakan dalam percakapan sehari-hari, seperti wake up, get up, go out, come back, turn on, turn off, put on, take off, dan look for.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Daily Action = Common Verb + Particle
+    `,
+
+    notes: [
+        "Wake up berarti bangun dari tidur.",
+        "Get up berarti bangkit dari tempat tidur.",
+        "Go out berarti keluar.",
+        "Come back berarti kembali.",
+        "Turn on berarti menyalakan.",
+        "Turn off berarti mematikan.",
+        "Put on berarti memakai pakaian.",
+        "Take off berarti melepas pakaian.",
+        "Look for berarti mencari."
+    ],
+
+    patterns: [
+        {
+            group: "Morning Routine",
+            items: [
+                {
+                    label: "Wake Up / Get Up",
+                    formula: "wake up / get up",
+                    examples: [
+                        "I wake up at 6 a.m.",
+                        "She gets up early every day.",
+                        "He woke up late this morning."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Daily Movement",
+            items: [
+                {
+                    label: "Go Out / Come Back",
+                    formula: "go out / come back",
+                    examples: [
+                        "We went out last night.",
+                        "She came back home late.",
+                        "He usually goes out on weekends."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Devices",
+            items: [
+                {
+                    label: "Turn On / Turn Off",
+                    formula: "turn on/off + object",
+                    examples: [
+                        "Please turn on the light.",
+                        "Turn off the TV.",
+                        "I turned my phone off."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Clothes",
+            items: [
+                {
+                    label: "Put On / Take Off",
+                    formula: "put on / take off + clothes",
+                    examples: [
+                        "Put on your jacket.",
+                        "He took off his shoes.",
+                        "She put her coat on."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Searching",
+            items: [
+                {
+                    label: "Look For",
+                    formula: "look for + object",
+                    examples: [
+                        "I am looking for my keys.",
+                        "She is looking for her phone.",
+                        "They looked for a new house."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Wake Up",
+            question: "I usually ___ at 6 a.m.",
+            options: ["wake up", "turn off", "look for", "take off"],
+            answer: "wake up",
+            explanation: "Wake up berarti bangun dari tidur."
+        },
+        {
+            type: "Get Up",
+            question: "She ___ early every morning.",
+            options: ["gets up", "looks for", "turns off", "takes off"],
+            answer: "gets up",
+            explanation: "Get up berarti bangkit dari tempat tidur."
+        },
+        {
+            type: "Go Out",
+            question: "We ___ last night.",
+            options: ["went out", "looked for", "turned on", "put on"],
+            answer: "went out",
+            explanation: "Go out berarti keluar."
+        },
+        {
+            type: "Come Back",
+            question: "He ___ home late.",
+            options: ["came back", "turned off", "looked for", "put on"],
+            answer: "came back",
+            explanation: "Come back berarti kembali."
+        },
+        {
+            type: "Turn On",
+            question: "Please ___ the light.",
+            options: ["turn on", "look for", "take off", "go out"],
+            answer: "turn on",
+            explanation: "Turn on berarti menyalakan."
+        },
+        {
+            type: "Turn Off",
+            question: "Please ___ the TV.",
+            options: ["turn off", "wake up", "come back", "look for"],
+            answer: "turn off",
+            explanation: "Turn off berarti mematikan."
+        },
+        {
+            type: "Put On",
+            question: "It is cold. ___ your jacket.",
+            options: ["Put on", "Take off", "Look for", "Go out"],
+            answer: "Put on",
+            explanation: "Put on berarti memakai pakaian."
+        },
+        {
+            type: "Take Off",
+            question: "Please ___ your shoes before entering.",
+            options: ["take off", "put on", "turn on", "wake up"],
+            answer: "take off",
+            explanation: "Take off berarti melepas."
+        },
+        {
+            type: "Look For",
+            question: "I am ___ my keys.",
+            options: ["looking for", "turning off", "waking up", "going out"],
+            answer: "looking for",
+            explanation: "Look for berarti mencari."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "I am looking for my phone.",
+                "I am looking my phone for.",
+                "I am looking to my phone.",
+                "I am looking after my phone. (meaning search)"
+            ],
+            answer: "I am looking for my phone.",
+            explanation: "Look for berarti mencari dan tidak dipisah."
+        }
+    ]
+},
+
+"formal-phrasal-verbs": {
+    title: "Academic & Formal Alternatives",
+    description: "Beberapa phrasal verbs terdengar natural dalam percakapan, tetapi kurang formal dalam academic writing. Dalam tulisan formal, phrasal verbs sering diganti dengan single-word verbs yang lebih akademik.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Informal Phrasal Verb → Formal Single-Word Verb
+    `,
+
+    notes: [
+        "Phrasal verbs sangat umum dalam speaking.",
+        "Academic writing biasanya lebih memilih single-word verbs.",
+        "Find out dapat diganti dengan discover.",
+        "Look into dapat diganti dengan investigate.",
+        "Put off dapat diganti dengan postpone.",
+        "Set up dapat diganti dengan establish.",
+        "Go up dapat diganti dengan increase.",
+        "Cut down dapat diganti dengan reduce."
+    ],
+
+    patterns: [
+        {
+            group: "Common Formal Alternatives",
+            items: [
+                {
+                    label: "Research / Analysis",
+                    formula: "phrasal verb → formal verb",
+                    examples: [
+                        "find out → discover",
+                        "look into → investigate",
+                        "point out → indicate"
+                    ]
+                },
+                {
+                    label: "Action / Process",
+                    formula: "phrasal verb → formal verb",
+                    examples: [
+                        "put off → postpone",
+                        "set up → establish",
+                        "carry out → conduct"
+                    ]
+                },
+                {
+                    label: "Change",
+                    formula: "phrasal verb → formal verb",
+                    examples: [
+                        "go up → increase",
+                        "go down → decrease",
+                        "cut down → reduce"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Formal Alternative",
+            question: "Find out can be replaced by...",
+            options: ["discover", "wake up", "turn off", "sit down"],
+            answer: "discover",
+            explanation: "Discover lebih formal daripada find out."
+        },
+        {
+            type: "Formal Alternative",
+            question: "Look into can be replaced by...",
+            options: ["investigate", "sleep", "arrive", "borrow"],
+            answer: "investigate",
+            explanation: "Investigate lebih formal daripada look into."
+        },
+        {
+            type: "Formal Alternative",
+            question: "Put off can be replaced by...",
+            options: ["postpone", "increase", "reduce", "discover"],
+            answer: "postpone",
+            explanation: "Postpone berarti menunda."
+        },
+        {
+            type: "Formal Alternative",
+            question: "Set up can be replaced by...",
+            options: ["establish", "decrease", "remove", "sleep"],
+            answer: "establish",
+            explanation: "Establish lebih formal daripada set up."
+        },
+        {
+            type: "Formal Alternative",
+            question: "Carry out can be replaced by...",
+            options: ["conduct", "wake", "sit", "wear"],
+            answer: "conduct",
+            explanation: "Conduct lebih formal daripada carry out."
+        },
+        {
+            type: "Change",
+            question: "Go up can be replaced by...",
+            options: ["increase", "decrease", "reduce", "postpone"],
+            answer: "increase",
+            explanation: "Increase berarti naik atau meningkat."
+        },
+        {
+            type: "Change",
+            question: "Go down can be replaced by...",
+            options: ["decrease", "increase", "discover", "establish"],
+            answer: "decrease",
+            explanation: "Decrease berarti turun atau menurun."
+        },
+        {
+            type: "Change",
+            question: "Cut down can be replaced by...",
+            options: ["reduce", "increase", "postpone", "discover"],
+            answer: "reduce",
+            explanation: "Reduce berarti mengurangi."
+        },
+        {
+            type: "Concept",
+            question: "In academic writing, phrasal verbs are often replaced by...",
+            options: [
+                "single-word formal verbs",
+                "random nouns",
+                "articles only",
+                "pronouns only"
+            ],
+            answer: "single-word formal verbs",
+            explanation: "Formal writing biasanya memakai single-word verbs."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence sounds more academic?",
+            options: [
+                "The researchers investigated the issue.",
+                "The researchers looked into the issue.",
+                "The researchers woke up the issue.",
+                "The researchers turned off the issue."
+            ],
+            answer: "The researchers investigated the issue.",
+            explanation: "Investigated lebih formal daripada looked into."
+        }
+    ]
+},
+
+"phrasal-verbs-review": {
+    title: "Phrasal Verbs Review",
+    description: "Review akhir untuk menguji seluruh materi Phrasal Verbs, termasuk separable phrasal verbs, inseparable phrasal verbs, phrasal verbs sehari-hari, serta alternatif formal dalam academic writing.",
+
+    formula: `
+        <strong>Ringkasan BAB 17:</strong><br>
+        Phrasal Verb = Verb + Particle<br>
+        Separable → Object dapat dipisah<br>
+        Inseparable → Object tidak boleh dipisah<br>
+        Daily Usage → Percakapan sehari-hari<br>
+        Formal Alternative → Academic Writing
+    `,
+
+    notes: [
+        "Kenali apakah phrasal verb termasuk separable atau inseparable.",
+        "Pronoun pada separable phrasal verbs harus berada di tengah.",
+        "Inseparable phrasal verbs tidak boleh dipisah.",
+        "Banyak phrasal verbs memiliki makna idiomatik.",
+        "Academic writing lebih sering menggunakan single-word verbs."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Separable",
+                    formula: "Verb + Object + Particle",
+                    examples: [
+                        "Turn it off.",
+                        "Pick it up.",
+                        "Write it down."
+                    ]
+                },
+                {
+                    label: "Inseparable",
+                    formula: "Verb + Particle + Object",
+                    examples: [
+                        "Look after the baby.",
+                        "Look for your keys.",
+                        "Deal with the problem."
+                    ]
+                },
+                {
+                    label: "Formal Alternative",
+                    formula: "Phrasal Verb → Formal Verb",
+                    examples: [
+                        "find out → discover",
+                        "look into → investigate",
+                        "carry out → conduct"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A phrasal verb consists of...",
+            options: [
+                "a verb and a particle",
+                "two nouns",
+                "an adjective and a noun",
+                "an article and a verb"
+            ],
+            answer: "a verb and a particle",
+            explanation: "Phrasal verb dibentuk dari verb dan particle."
+        },
+        {
+            type: "Separable",
+            question: "Replace 'the light' with 'it': Turn off the light.",
+            options: [
+                "Turn it off.",
+                "Turn off it.",
+                "Turn off the it.",
+                "Turn it the off."
+            ],
+            answer: "Turn it off.",
+            explanation: "Pronoun harus berada di antara verb dan particle."
+        },
+        {
+            type: "Separable",
+            question: "Which sentence is correct?",
+            options: [
+                "Pick the phone up.",
+                "Pick up it.",
+                "Pick it the up.",
+                "Pick phone up the."
+            ],
+            answer: "Pick the phone up.",
+            explanation: "Noun object boleh berada di tengah."
+        },
+        {
+            type: "Inseparable",
+            question: "Which sentence is correct?",
+            options: [
+                "She looks after him.",
+                "She looks him after.",
+                "She after looks him.",
+                "She him looks after."
+            ],
+            answer: "She looks after him.",
+            explanation: "Look after tidak dapat dipisah."
+        },
+        {
+            type: "Inseparable",
+            question: "I am looking ___ my wallet.",
+            options: [
+                "for",
+                "off",
+                "up",
+                "after"
+            ],
+            answer: "for",
+            explanation: "Look for berarti mencari."
+        },
+        {
+            type: "Daily",
+            question: "It is cold. ___ your jacket.",
+            options: [
+                "Put on",
+                "Take off",
+                "Look for",
+                "Wake up"
+            ],
+            answer: "Put on",
+            explanation: "Put on berarti memakai pakaian."
+        },
+        {
+            type: "Daily",
+            question: "Please ___ the television before sleeping.",
+            options: [
+                "turn off",
+                "look after",
+                "wake up",
+                "come across"
+            ],
+            answer: "turn off",
+            explanation: "Turn off berarti mematikan."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'run out of money' mean?",
+            options: [
+                "have no money left",
+                "run with money",
+                "find money",
+                "save money"
+            ],
+            answer: "have no money left",
+            explanation: "Run out of berarti kehabisan."
+        },
+        {
+            type: "Formal",
+            question: "Which is the most academic alternative to 'look into'?",
+            options: [
+                "investigate",
+                "look after",
+                "turn on",
+                "wake up"
+            ],
+            answer: "investigate",
+            explanation: "Investigate lebih formal daripada look into."
+        },
+        {
+            type: "Formal",
+            question: "Which is the most academic alternative to 'carry out research'?",
+            options: [
+                "conduct research",
+                "look into research",
+                "wake up research",
+                "go out research"
+            ],
+            answer: "conduct research",
+            explanation: "Conduct research adalah bentuk yang umum dalam academic writing."
+        },
+        {
+            type: "Formal",
+            question: "The prices went up rapidly. The formal replacement for 'went up' is...",
+            options: [
+                "increased",
+                "looked into",
+                "turned off",
+                "came across"
+            ],
+            answer: "increased",
+            explanation: "Increase adalah padanan formal dari go up."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'come across' usually mean?",
+            options: [
+                "find by chance",
+                "come home",
+                "cross a bridge",
+                "leave early"
+            ],
+            answer: "find by chance",
+            explanation: "Come across berarti menemukan secara tidak sengaja."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'get over' usually mean?",
+            options: [
+                "recover from",
+                "jump over",
+                "climb onto",
+                "look after"
+            ],
+            answer: "recover from",
+            explanation: "Get over berarti pulih atau berhasil melewati sesuatu."
+        },
+        {
+            type: "Concept",
+            question: "In a separable phrasal verb, a pronoun object must be...",
+            options: [
+                "between the verb and the particle",
+                "after the particle",
+                "before the subject",
+                "at the end of the paragraph"
+            ],
+            answer: "between the verb and the particle",
+            explanation: "Pronoun wajib berada di tengah."
+        },
+        {
+            type: "Concept",
+            question: "Which phrasal verb is inseparable?",
+            options: [
+                "look after",
+                "turn off",
+                "pick up",
+                "write down"
+            ],
+            answer: "look after",
+            explanation: "Look after tidak dapat dipisahkan oleh object."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "Please write it down.",
+                "Please write down it.",
+                "Please write it the down.",
+                "Please down write it."
+            ],
+            answer: "Please write it down.",
+            explanation: "Write down adalah separable phrasal verb, sehingga pronoun berada di tengah."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "She is looking for her passport.",
+                "She is looking her passport for.",
+                "She is looking for it passport.",
+                "She is looking passport for."
+            ],
+            answer: "She is looking for her passport.",
+            explanation: "Look for adalah inseparable phrasal verb."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is the most appropriate for an academic report?",
+            options: [
+                "The researchers conducted the experiment.",
+                "The researchers carried out the experiment.",
+                "The researchers looked into the experiment.",
+                "The researchers set up the experiment."
+            ],
+            answer: "The researchers conducted the experiment.",
+            explanation: "Conduct merupakan pilihan yang paling formal untuk academic writing."
+        },
+        {
+            type: "Application",
+            question: "Which sentence sounds the most natural in everyday conversation?",
+            options: [
+                "Can you turn the TV off?",
+                "Can you deactivate the television?",
+                "Can you discontinue the television?",
+                "Can you terminate the television?"
+            ],
+            answer: "Can you turn the TV off?",
+            explanation: "Dalam percakapan sehari-hari, phrasal verb lebih natural dibanding padanan formalnya."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is completely correct?",
+            options: [
+                "She picked it up and looked after her little brother.",
+                "She picked up it and looked her little brother after.",
+                "She picked it up and looked her little brother after.",
+                "She picked up it and looked after him the."
+            ],
+            answer: "She picked it up and looked after her little brother.",
+            explanation: "Picked up adalah separable (pronoun di tengah), sedangkan look after adalah inseparable."
+        }
+    ]
+},
+
+"idioms": {
+    title: "Introduction to Idioms",
+    description: "Idiom adalah ekspresi yang maknanya tidak selalu bisa ditebak dari arti kata per kata. Idiom sering digunakan dalam percakapan sehari-hari, media, bisnis, dan tulisan informal maupun semi-formal.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Idiom = Expression with special meaning
+    `,
+
+    notes: [
+        "Idiom memiliki makna khusus.",
+        "Arti idiom sering berbeda dari arti literal kata-katanya.",
+        "Idiom membuat bahasa terdengar lebih natural.",
+        "Idiom banyak digunakan oleh native speakers.",
+        "Tidak semua idiom cocok untuk academic writing formal.",
+        "Memahami idiom membantu listening, reading, dan conversation."
+    ],
+
+    patterns: [
+        {
+            group: "Literal vs Idiomatic Meaning",
+            items: [
+                {
+                    label: "Literal Meaning",
+                    formula: "word-by-word meaning",
+                    examples: [
+                        "Break the ice = memecahkan es secara literal.",
+                        "Hit the books = memukul buku secara literal.",
+                        "A piece of cake = sepotong kue secara literal."
+                    ]
+                },
+                {
+                    label: "Idiomatic Meaning",
+                    formula: "special expression meaning",
+                    examples: [
+                        "Break the ice = start a friendly conversation.",
+                        "Hit the books = study hard.",
+                        "A piece of cake = very easy."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Idioms",
+            items: [
+                {
+                    label: "Daily Usage",
+                    formula: "idiom + meaning",
+                    examples: [
+                        "A piece of cake = very easy.",
+                        "Break the ice = start a conversation.",
+                        "Under the weather = feeling sick."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "An idiom is...",
+            options: [
+                "an expression with a special meaning",
+                "a normal plural noun",
+                "an article",
+                "a punctuation mark"
+            ],
+            answer: "an expression with a special meaning",
+            explanation: "Idiom adalah ekspresi dengan makna khusus."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'a piece of cake' mean?",
+            options: [
+                "very easy",
+                "very expensive",
+                "very dangerous",
+                "very cold"
+            ],
+            answer: "very easy",
+            explanation: "A piece of cake berarti sesuatu yang sangat mudah."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'break the ice' mean?",
+            options: [
+                "start a friendly conversation",
+                "destroy frozen water",
+                "stop talking",
+                "make someone angry"
+            ],
+            answer: "start a friendly conversation",
+            explanation: "Break the ice berarti memulai percakapan agar suasana lebih nyaman."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'hit the books' mean?",
+            options: [
+                "study hard",
+                "throw books",
+                "buy books",
+                "clean books"
+            ],
+            answer: "study hard",
+            explanation: "Hit the books berarti belajar dengan serius."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'under the weather' mean?",
+            options: [
+                "feeling sick",
+                "standing outside",
+                "watching the sky",
+                "enjoying the rain"
+            ],
+            answer: "feeling sick",
+            explanation: "Under the weather berarti sedang tidak enak badan."
+        },
+        {
+            type: "Concept",
+            question: "Idioms often cannot be understood by...",
+            options: [
+                "word-by-word translation",
+                "context",
+                "practice",
+                "examples"
+            ],
+            answer: "word-by-word translation",
+            explanation: "Makna idiom sering berbeda dari arti literal kata-katanya."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses an idiom correctly?",
+            options: [
+                "The exam was a piece of cake.",
+                "The exam was a piece of table.",
+                "The exam was under the chair.",
+                "The exam hit the weather."
+            ],
+            answer: "The exam was a piece of cake.",
+            explanation: "A piece of cake berarti mudah."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses an idiom correctly?",
+            options: [
+                "I need to hit the books tonight.",
+                "I need to hit the water tonight.",
+                "I need to break the weather tonight.",
+                "I need to cake the books tonight."
+            ],
+            answer: "I need to hit the books tonight.",
+            explanation: "Hit the books berarti belajar keras."
+        },
+        {
+            type: "Concept",
+            question: "Idioms make English sound more...",
+            options: [
+                "natural",
+                "mathematical",
+                "silent",
+                "plural"
+            ],
+            answer: "natural",
+            explanation: "Idiom membantu bahasa terdengar lebih natural."
+        },
+        {
+            type: "Formal Writing",
+            question: "In very formal academic writing, idioms should usually be used...",
+            options: [
+                "carefully",
+                "in every sentence",
+                "instead of all verbs",
+                "without context"
+            ],
+            answer: "carefully",
+            explanation: "Tidak semua idiom cocok untuk tulisan akademik formal."
+        }
+    ]
+},
+
+"daily-idioms": {
+    title: "Common Daily Idioms",
+    description: "Common Daily Idioms adalah idiom yang sering digunakan dalam percakapan sehari-hari. Idiom ini membantu pengguna memahami ekspresi natural dalam speaking, listening, film, lagu, dan percakapan informal.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Daily Idiom = Natural Expression for Daily Conversation
+    `,
+
+    notes: [
+        "A piece of cake berarti sangat mudah.",
+        "Break the ice berarti mencairkan suasana.",
+        "Hit the books berarti belajar serius.",
+        "Under the weather berarti sedang tidak enak badan.",
+        "Hang out berarti menghabiskan waktu santai bersama orang lain.",
+        "Call it a day berarti berhenti bekerja untuk hari itu.",
+        "Take it easy berarti santai saja.",
+        "Once in a blue moon berarti sangat jarang."
+    ],
+
+    patterns: [
+        {
+            group: "Easy / Difficult",
+            items: [
+                {
+                    label: "A Piece of Cake",
+                    formula: "a piece of cake = very easy",
+                    examples: [
+                        "The quiz was a piece of cake.",
+                        "Fixing this problem is a piece of cake.",
+                        "The task looked hard, but it was a piece of cake."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Social Situation",
+            items: [
+                {
+                    label: "Break the Ice / Hang Out",
+                    formula: "social idioms",
+                    examples: [
+                        "The teacher told a joke to break the ice.",
+                        "We usually hang out after school.",
+                        "Small talk can help break the ice."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Study / Work",
+            items: [
+                {
+                    label: "Hit the Books / Call It a Day",
+                    formula: "study and work idioms",
+                    examples: [
+                        "I need to hit the books tonight.",
+                        "Let's call it a day and continue tomorrow.",
+                        "She hit the books before the final exam."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Condition / Frequency",
+            items: [
+                {
+                    label: "Under the Weather / Once in a Blue Moon",
+                    formula: "condition and frequency idioms",
+                    examples: [
+                        "I feel under the weather today.",
+                        "He visits us once in a blue moon.",
+                        "She only eats fast food once in a blue moon."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Meaning",
+            question: "What does 'a piece of cake' mean?",
+            options: ["very easy", "very difficult", "very expensive", "very cold"],
+            answer: "very easy",
+            explanation: "A piece of cake berarti sangat mudah."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'break the ice' mean?",
+            options: [
+                "make people feel more comfortable",
+                "freeze water",
+                "stop a meeting",
+                "make someone angry"
+            ],
+            answer: "make people feel more comfortable",
+            explanation: "Break the ice berarti mencairkan suasana."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'hit the books' mean?",
+            options: ["study seriously", "throw books", "buy books", "clean books"],
+            answer: "study seriously",
+            explanation: "Hit the books berarti belajar serius."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'under the weather' mean?",
+            options: ["feeling sick", "feeling excited", "standing outside", "watching rain"],
+            answer: "feeling sick",
+            explanation: "Under the weather berarti sedang tidak enak badan."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'hang out' mean?",
+            options: [
+                "spend time socially",
+                "hang clothes outside",
+                "leave quickly",
+                "sleep early"
+            ],
+            answer: "spend time socially",
+            explanation: "Hang out berarti menghabiskan waktu santai bersama orang lain."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'call it a day' mean?",
+            options: [
+                "stop working for the day",
+                "name a day",
+                "call someone today",
+                "start a new job"
+            ],
+            answer: "stop working for the day",
+            explanation: "Call it a day berarti berhenti bekerja untuk hari itu."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'take it easy' mean?",
+            options: ["relax", "work harder", "run faster", "study all night"],
+            answer: "relax",
+            explanation: "Take it easy berarti santai saja."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'once in a blue moon' mean?",
+            options: ["very rarely", "every day", "very quickly", "very loudly"],
+            answer: "very rarely",
+            explanation: "Once in a blue moon berarti sangat jarang."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses the idiom correctly?",
+            options: [
+                "I feel under the weather, so I will rest.",
+                "I feel a piece of cake, so I will rest.",
+                "I feel hit the books, so I will rest.",
+                "I feel call it a day, so I will rest."
+            ],
+            answer: "I feel under the weather, so I will rest.",
+            explanation: "Under the weather digunakan untuk kondisi sakit atau kurang sehat."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses the idiom correctly?",
+            options: [
+                "Let's call it a day and continue tomorrow.",
+                "Let's hit the weather and continue tomorrow.",
+                "Let's piece the cake and continue tomorrow.",
+                "Let's blue moon and continue tomorrow."
+            ],
+            answer: "Let's call it a day and continue tomorrow.",
+            explanation: "Call it a day berarti berhenti bekerja untuk hari itu."
+        }
+    ]
+},
+
+"academic-idioms": {
+    title: "Business & Academic Idioms",
+    description: "Business & Academic Idioms adalah idiom yang sering digunakan dalam konteks kerja, rapat, presentasi, diskusi profesional, dan tulisan semi-formal. Idiom ini harus digunakan dengan hati-hati agar tetap sesuai konteks.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Professional Idiom = Expression used in work or academic context
+    `,
+
+    notes: [
+        "Get the ball rolling berarti memulai sesuatu.",
+        "On the same page berarti memiliki pemahaman yang sama.",
+        "Think outside the box berarti berpikir kreatif.",
+        "Back to square one berarti kembali ke titik awal.",
+        "Raise the bar berarti meningkatkan standar.",
+        "A learning curve berarti proses belajar yang membutuhkan waktu.",
+        "In a nutshell berarti secara singkat.",
+        "At the end of the day berarti pada akhirnya."
+    ],
+
+    patterns: [
+        {
+            group: "Meeting & Teamwork",
+            items: [
+                {
+                    label: "Get the Ball Rolling",
+                    formula: "get the ball rolling = start something",
+                    examples: [
+                        "Let's get the ball rolling with the first agenda.",
+                        "We need a clear plan to get the ball rolling.",
+                        "The manager started the meeting to get the ball rolling."
+                    ]
+                },
+                {
+                    label: "On the Same Page",
+                    formula: "on the same page = have the same understanding",
+                    examples: [
+                        "Before we continue, let's make sure we are on the same page.",
+                        "The team is finally on the same page.",
+                        "We need a short briefing so everyone is on the same page."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Problem Solving",
+            items: [
+                {
+                    label: "Think Outside the Box",
+                    formula: "think outside the box = think creatively",
+                    examples: [
+                        "We need to think outside the box to solve this issue.",
+                        "The project requires people who can think outside the box.",
+                        "She found a solution by thinking outside the box."
+                    ]
+                },
+                {
+                    label: "Back to Square One",
+                    formula: "back to square one = return to the beginning",
+                    examples: [
+                        "The plan failed, so we are back to square one.",
+                        "If the test does not work, we will be back to square one.",
+                        "After the mistake, the team went back to square one."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Performance & Summary",
+            items: [
+                {
+                    label: "Raise the Bar / In a Nutshell",
+                    formula: "performance and summary idioms",
+                    examples: [
+                        "This new standard will raise the bar for all teams.",
+                        "In a nutshell, the proposal is practical and affordable.",
+                        "At the end of the day, quality matters most."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Meaning",
+            question: "What does 'get the ball rolling' mean?",
+            options: ["start something", "stop a project", "make a mistake", "delay a meeting"],
+            answer: "start something",
+            explanation: "Get the ball rolling berarti memulai sesuatu."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'on the same page' mean?",
+            options: [
+                "having the same understanding",
+                "reading the same book",
+                "writing on paper",
+                "standing in line"
+            ],
+            answer: "having the same understanding",
+            explanation: "On the same page berarti memiliki pemahaman yang sama."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'think outside the box' mean?",
+            options: [
+                "think creatively",
+                "open a box",
+                "avoid thinking",
+                "copy an old idea"
+            ],
+            answer: "think creatively",
+            explanation: "Think outside the box berarti berpikir kreatif."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'back to square one' mean?",
+            options: [
+                "return to the beginning",
+                "finish successfully",
+                "move forward quickly",
+                "increase profit"
+            ],
+            answer: "return to the beginning",
+            explanation: "Back to square one berarti kembali ke titik awal."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'raise the bar' mean?",
+            options: [
+                "increase the standard",
+                "lower the quality",
+                "open a restaurant",
+                "remove a rule"
+            ],
+            answer: "increase the standard",
+            explanation: "Raise the bar berarti meningkatkan standar."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'in a nutshell' mean?",
+            options: [
+                "briefly",
+                "angrily",
+                "secretly",
+                "slowly"
+            ],
+            answer: "briefly",
+            explanation: "In a nutshell berarti secara singkat."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'at the end of the day' mean?",
+            options: [
+                "ultimately",
+                "at night only",
+                "after sleeping",
+                "before breakfast"
+            ],
+            answer: "ultimately",
+            explanation: "At the end of the day berarti pada akhirnya."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses the idiom correctly?",
+            options: [
+                "Before the meeting continues, let's make sure we are on the same page.",
+                "Before the meeting continues, let's eat the same page.",
+                "Before the meeting continues, let's write the same page.",
+                "Before the meeting continues, let's sleep on the same page."
+            ],
+            answer: "Before the meeting continues, let's make sure we are on the same page.",
+            explanation: "On the same page cocok untuk memastikan pemahaman yang sama."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses the idiom correctly?",
+            options: [
+                "We need to think outside the box to solve this problem.",
+                "We need to sleep outside the box to solve this problem.",
+                "We need to eat outside the box to solve this problem.",
+                "We need to write outside the box to solve this problem."
+            ],
+            answer: "We need to think outside the box to solve this problem.",
+            explanation: "Think outside the box digunakan untuk problem solving kreatif."
+        },
+        {
+            type: "Formal Use",
+            question: "In academic writing, idioms should be used...",
+            options: [
+                "carefully and only when appropriate",
+                "in every sentence",
+                "instead of all evidence",
+                "without context"
+            ],
+            answer: "carefully and only when appropriate",
+            explanation: "Idioms tidak selalu cocok untuk tulisan akademik formal."
+        }
+    ]
+},
+
+"body-idioms": {
+    title: "Body Idioms",
+    description: "Body Idioms adalah idiom yang menggunakan bagian tubuh manusia seperti eye, hand, head, heart, face, dan shoulder. Arti idiom ini biasanya tidak sama dengan arti literalnya dan sering digunakan dalam percakapan sehari-hari maupun bisnis.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Body Part + Figurative Meaning
+    `,
+
+    notes: [
+        "Body idioms sangat umum digunakan oleh native speakers.",
+        "Makna idiom biasanya tidak berhubungan langsung dengan bagian tubuh tersebut.",
+        "Body idioms sering muncul dalam film, berita, podcast, dan percakapan sehari-hari.",
+        "Pahami makna keseluruhan, bukan arti kata per kata.",
+        "Beberapa body idioms juga digunakan dalam konteks bisnis."
+    ],
+
+    patterns: [
+        {
+            group: "Eye Idioms",
+            items: [
+                {
+                    label: "Keep an Eye On / Catch Someone's Eye",
+                    formula: "eye idioms",
+                    examples: [
+                        "Please keep an eye on my bag.",
+                        "That colorful painting caught my eye.",
+                        "Can you keep an eye on the children?"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Hand Idioms",
+            items: [
+                {
+                    label: "Give a Hand / On the Other Hand",
+                    formula: "hand idioms",
+                    examples: [
+                        "Could you give me a hand?",
+                        "On the other hand, the second option is cheaper.",
+                        "She gave me a hand with the project."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Head Idioms",
+            items: [
+                {
+                    label: "Keep Your Head / Lose Your Head",
+                    formula: "head idioms",
+                    examples: [
+                        "Keep your head during the interview.",
+                        "He lost his head during the argument.",
+                        "She always keeps her head in difficult situations."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Heart Idioms",
+            items: [
+                {
+                    label: "Learn by Heart / Change of Heart",
+                    formula: "heart idioms",
+                    examples: [
+                        "Students should learn the poem by heart.",
+                        "He had a change of heart.",
+                        "She knows the speech by heart."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Eye",
+            question: "What does 'keep an eye on' mean?",
+            options: [
+                "watch carefully",
+                "close your eyes",
+                "wear glasses",
+                "look away"
+            ],
+            answer: "watch carefully",
+            explanation: "Keep an eye on berarti mengawasi atau memperhatikan."
+        },
+        {
+            type: "Eye",
+            question: "What does 'catch someone's eye' mean?",
+            options: [
+                "attract someone's attention",
+                "hurt someone's eye",
+                "look at someone angrily",
+                "wear sunglasses"
+            ],
+            answer: "attract someone's attention",
+            explanation: "Catch someone's eye berarti menarik perhatian."
+        },
+        {
+            type: "Hand",
+            question: "What does 'give someone a hand' mean?",
+            options: [
+                "help someone",
+                "shake hands",
+                "wave goodbye",
+                "hold hands"
+            ],
+            answer: "help someone",
+            explanation: "Give someone a hand berarti membantu seseorang."
+        },
+        {
+            type: "Hand",
+            question: "What does 'on the other hand' mean?",
+            options: [
+                "considering another point of view",
+                "using your left hand",
+                "changing hands",
+                "giving assistance"
+            ],
+            answer: "considering another point of view",
+            explanation: "On the other hand digunakan untuk memperkenalkan sudut pandang lain."
+        },
+        {
+            type: "Head",
+            question: "What does 'keep your head' mean?",
+            options: [
+                "stay calm",
+                "wear a hat",
+                "move your head",
+                "look upward"
+            ],
+            answer: "stay calm",
+            explanation: "Keep your head berarti tetap tenang."
+        },
+        {
+            type: "Head",
+            question: "What does 'lose your head' mean?",
+            options: [
+                "panic or lose self-control",
+                "forget your name",
+                "sleep deeply",
+                "become taller"
+            ],
+            answer: "panic or lose self-control",
+            explanation: "Lose your head berarti panik atau kehilangan kendali."
+        },
+        {
+            type: "Heart",
+            question: "What does 'learn by heart' mean?",
+            options: [
+                "memorize completely",
+                "study medicine",
+                "read quickly",
+                "learn emotionally"
+            ],
+            answer: "memorize completely",
+            explanation: "Learn by heart berarti menghafal."
+        },
+        {
+            type: "Heart",
+            question: "What does 'change of heart' mean?",
+            options: [
+                "change your opinion or decision",
+                "heart surgery",
+                "exercise more",
+                "become healthier"
+            ],
+            answer: "change your opinion or decision",
+            explanation: "Change of heart berarti berubah pikiran."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses an idiom correctly?",
+            options: [
+                "Can you give me a hand with this report?",
+                "Can you give me your hand forever?",
+                "Can you lose your head with this report?",
+                "Can you catch my eye on this report?"
+            ],
+            answer: "Can you give me a hand with this report?",
+            explanation: "Give me a hand berarti membantu."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses an idiom correctly?",
+            options: [
+                "Please keep an eye on my luggage while I'm away.",
+                "Please keep your eye inside your bag.",
+                "Please catch my eye in the suitcase.",
+                "Please lose your head near my luggage."
+            ],
+            answer: "Please keep an eye on my luggage while I'm away.",
+            explanation: "Keep an eye on berarti mengawasi sesuatu."
+        }
+    ]
+},
+
+"animal-idioms": {
+    title: "Animal Idioms",
+    description: "Animal Idioms adalah idiom yang menggunakan nama hewan untuk menggambarkan sifat, situasi, atau perilaku seseorang. Idiom ini sangat umum digunakan dalam percakapan sehari-hari, media, dan bahasa Inggris informal.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Animal + Figurative Meaning
+    `,
+
+    notes: [
+        "Animal idioms tidak memiliki arti literal.",
+        "Makna idiom harus dipahami sebagai satu kesatuan.",
+        "Banyak animal idioms menggambarkan karakter seseorang.",
+        "Animal idioms sering muncul dalam film, novel, podcast, dan percakapan.",
+        "Tidak semua animal idioms cocok digunakan dalam situasi formal."
+    ],
+
+    patterns: [
+        {
+            group: "Ability & Personality",
+            items: [
+                {
+                    label: "Busy Bee / Copycat / Dark Horse",
+                    formula: "personality idioms",
+                    examples: [
+                        "Sarah is a busy bee who always finishes her work early.",
+                        "Don't be a copycat. Create your own ideas.",
+                        "Nobody expected him to win. He was a dark horse."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Situation",
+            items: [
+                {
+                    label: "The Elephant in the Room / Let the Cat Out of the Bag",
+                    formula: "situation idioms",
+                    examples: [
+                        "Nobody wanted to discuss the elephant in the room.",
+                        "She accidentally let the cat out of the bag.",
+                        "Let's address the elephant in the room before continuing."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Behavior",
+            items: [
+                {
+                    label: "Kill Two Birds with One Stone / Hold Your Horses",
+                    formula: "action idioms",
+                    examples: [
+                        "Cycling to work kills two birds with one stone.",
+                        "Hold your horses! We haven't finished yet.",
+                        "Studying while commuting can kill two birds with one stone."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Risk",
+            items: [
+                {
+                    label: "A Black Sheep / Cry Wolf",
+                    formula: "behavior idioms",
+                    examples: [
+                        "He is considered the black sheep of the family.",
+                        "Don't cry wolf unless there is a real emergency.",
+                        "People stopped believing him because he cried wolf too often."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Meaning",
+            question: "What does 'busy bee' mean?",
+            options: [
+                "a hardworking person",
+                "a noisy person",
+                "a lazy person",
+                "an angry person"
+            ],
+            answer: "a hardworking person",
+            explanation: "Busy bee berarti orang yang rajin dan sibuk."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'copycat' mean?",
+            options: [
+                "someone who imitates others",
+                "someone who likes cats",
+                "someone who draws well",
+                "someone who travels often"
+            ],
+            answer: "someone who imitates others",
+            explanation: "Copycat berarti orang yang meniru orang lain."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'dark horse' mean?",
+            options: [
+                "an unexpected winner",
+                "a black horse",
+                "a slow runner",
+                "a dishonest person"
+            ],
+            answer: "an unexpected winner",
+            explanation: "Dark horse berarti seseorang yang berhasil secara tak terduga."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'the elephant in the room' mean?",
+            options: [
+                "an obvious problem that everyone avoids discussing",
+                "a large animal",
+                "a crowded meeting",
+                "a difficult journey"
+            ],
+            answer: "an obvious problem that everyone avoids discussing",
+            explanation: "Elephant in the room berarti masalah besar yang dihindari pembahasannya."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'let the cat out of the bag' mean?",
+            options: [
+                "reveal a secret",
+                "buy a pet",
+                "lose something",
+                "catch an animal"
+            ],
+            answer: "reveal a secret",
+            explanation: "Let the cat out of the bag berarti membocorkan rahasia."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'kill two birds with one stone' mean?",
+            options: [
+                "achieve two goals with one action",
+                "hunt birds",
+                "work very slowly",
+                "make two mistakes"
+            ],
+            answer: "achieve two goals with one action",
+            explanation: "Kill two birds with one stone berarti mencapai dua tujuan sekaligus."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'hold your horses' mean?",
+            options: [
+                "wait or be patient",
+                "ride a horse",
+                "run faster",
+                "keep animals safely"
+            ],
+            answer: "wait or be patient",
+            explanation: "Hold your horses berarti tunggu atau sabar."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'black sheep' mean?",
+            options: [
+                "a person who is different from the rest of the group",
+                "a black animal",
+                "a successful student",
+                "a careful driver"
+            ],
+            answer: "a person who is different from the rest of the group",
+            explanation: "Black sheep berarti seseorang yang dianggap berbeda atau tidak sesuai dengan kelompoknya."
+        },
+        {
+            type: "Meaning",
+            question: "What does 'cry wolf' mean?",
+            options: [
+                "give false warnings",
+                "shout loudly",
+                "see a wolf",
+                "protect animals"
+            ],
+            answer: "give false warnings",
+            explanation: "Cry wolf berarti memberikan peringatan palsu hingga orang lain tidak lagi percaya."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses an animal idiom correctly?",
+            options: [
+                "Please hold your horses; we need a few more minutes.",
+                "Please ride your horses; we need a few more minutes.",
+                "Please feed your horses; we need a few more minutes.",
+                "Please buy your horses; we need a few more minutes."
+            ],
+            answer: "Please hold your horses; we need a few more minutes.",
+            explanation: "Hold your horses berarti bersabar atau menunggu."
+        }
+    ]
+},
+
+"idioms-review": {
+    title: "Idioms Review",
+    description: "Review akhir untuk menguji seluruh materi Idioms, termasuk idiom sehari-hari, idiom bisnis, body idioms, animal idioms, serta penggunaan idiom dalam konteks yang tepat.",
+
+    formula: `
+        <strong>Ringkasan BAB 18:</strong><br>
+        Idiom = Expression with figurative meaning<br>
+        Daily Idioms<br>
+        Business Idioms<br>
+        Body Idioms<br>
+        Animal Idioms
+    `,
+
+    notes: [
+        "Idiom tidak dapat diterjemahkan kata per kata.",
+        "Pahami makna keseluruhan idiom.",
+        "Perhatikan konteks penggunaan.",
+        "Tidak semua idiom cocok untuk academic writing formal.",
+        "Semakin banyak idiom yang dipahami, semakin natural kemampuan listening dan speaking."
+    ],
+
+    patterns: [
+        {
+            group: "Daily Idioms",
+            items: [
+                {
+                    label: "Common Expressions",
+                    formula: "daily conversation",
+                    examples: [
+                        "A piece of cake = very easy.",
+                        "Break the ice = start a conversation.",
+                        "Call it a day = stop working."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Business Idioms",
+            items: [
+                {
+                    label: "Professional Context",
+                    formula: "meeting and teamwork",
+                    examples: [
+                        "Get the ball rolling.",
+                        "On the same page.",
+                        "Think outside the box."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Body & Animal Idioms",
+            items: [
+                {
+                    label: "Common Figurative Expressions",
+                    formula: "body and animal idioms",
+                    examples: [
+                        "Keep an eye on.",
+                        "Give me a hand.",
+                        "Busy bee.",
+                        "Hold your horses."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "An idiom is...",
+            options: [
+                "an expression with a figurative meaning",
+                "a plural noun",
+                "a verb tense",
+                "a punctuation mark"
+            ],
+            answer: "an expression with a figurative meaning",
+            explanation: "Idiom memiliki makna khusus yang berbeda dari arti literalnya."
+        },
+        {
+            type: "Daily",
+            question: "The exam was ___.",
+            options: [
+                "a piece of cake",
+                "a black sheep",
+                "under the table",
+                "a busy bee"
+            ],
+            answer: "a piece of cake",
+            explanation: "A piece of cake berarti sangat mudah."
+        },
+        {
+            type: "Daily",
+            question: "The teacher told a joke to ___.",
+            options: [
+                "break the ice",
+                "cry wolf",
+                "lose his head",
+                "call it a day"
+            ],
+            answer: "break the ice",
+            explanation: "Break the ice berarti mencairkan suasana."
+        },
+        {
+            type: "Daily",
+            question: "I need to ___ tonight because the exam is tomorrow.",
+            options: [
+                "hit the books",
+                "hold my horses",
+                "let the cat out of the bag",
+                "raise the bar"
+            ],
+            answer: "hit the books",
+            explanation: "Hit the books berarti belajar serius."
+        },
+        {
+            type: "Daily",
+            question: "I feel ___. I think I'll stay home today.",
+            options: [
+                "under the weather",
+                "a dark horse",
+                "a busy bee",
+                "on the same page"
+            ],
+            answer: "under the weather",
+            explanation: "Under the weather berarti sedang tidak enak badan."
+        },
+        {
+            type: "Business",
+            question: "Let's ___ by discussing the first agenda.",
+            options: [
+                "get the ball rolling",
+                "cry wolf",
+                "keep our head",
+                "take it easy"
+            ],
+            answer: "get the ball rolling",
+            explanation: "Get the ball rolling berarti memulai sesuatu."
+        },
+        {
+            type: "Business",
+            question: "Before starting the project, everyone should be ___.",
+            options: [
+                "on the same page",
+                "under the weather",
+                "once in a blue moon",
+                "a copycat"
+            ],
+            answer: "on the same page",
+            explanation: "On the same page berarti memiliki pemahaman yang sama."
+        },
+        {
+            type: "Business",
+            question: "We need to ___ to solve this difficult problem.",
+            options: [
+                "think outside the box",
+                "hit the books",
+                "catch someone's eye",
+                "call it a day"
+            ],
+            answer: "think outside the box",
+            explanation: "Think outside the box berarti berpikir kreatif."
+        },
+        {
+            type: "Body Idiom",
+            question: "Could you ___ with these boxes?",
+            options: [
+                "give me a hand",
+                "keep your head",
+                "lose your head",
+                "learn by heart"
+            ],
+            answer: "give me a hand",
+            explanation: "Give me a hand berarti membantu."
+        },
+        {
+            type: "Body Idiom",
+            question: "Please ___ my backpack while I buy a drink.",
+            options: [
+                "keep an eye on",
+                "lose your head",
+                "learn by heart",
+                "change of heart"
+            ],
+            answer: "keep an eye on",
+            explanation: "Keep an eye on berarti mengawasi."
+        },
+        {
+            type: "Animal Idiom",
+            question: "Don't ___. There isn't really any danger.",
+            options: [
+                "cry wolf",
+                "break the ice",
+                "call it a day",
+                "take it easy"
+            ],
+            answer: "cry wolf",
+            explanation: "Cry wolf berarti memberikan peringatan palsu."
+        },
+        {
+            type: "Animal Idiom",
+            question: "Please ___. We still need five more minutes.",
+            options: [
+                "hold your horses",
+                "raise the bar",
+                "get the ball rolling",
+                "hang out"
+            ],
+            answer: "hold your horses",
+            explanation: "Hold your horses berarti bersabar."
+        },
+        {
+            type: "Animal Idiom",
+            question: "Nobody expected the new player to win. He was a ___.",
+            options: [
+                "dark horse",
+                "busy bee",
+                "copycat",
+                "black sheep"
+            ],
+            answer: "dark horse",
+            explanation: "Dark horse berarti pemenang yang tidak diduga."
+        },
+        {
+            type: "Animal Idiom",
+            question: "She accidentally ___ about the surprise party.",
+            options: [
+                "let the cat out of the bag",
+                "kept an eye on",
+                "called it a day",
+                "took it easy"
+            ],
+            answer: "let the cat out of the bag",
+            explanation: "Let the cat out of the bag berarti membocorkan rahasia."
+        },
+        {
+            type: "Meaning",
+            question: "Which idiom means 'very rarely'?",
+            options: [
+                "once in a blue moon",
+                "busy bee",
+                "a piece of cake",
+                "break the ice"
+            ],
+            answer: "once in a blue moon",
+            explanation: "Once in a blue moon berarti sangat jarang."
+        },
+        {
+            type: "Meaning",
+            question: "Which idiom means 'stop working for today'?",
+            options: [
+                "call it a day",
+                "raise the bar",
+                "get over it",
+                "look after"
+            ],
+            answer: "call it a day",
+            explanation: "Call it a day berarti berhenti bekerja untuk hari itu."
+        },
+        {
+            type: "Meaning",
+            question: "Which idiom means 'memorize completely'?",
+            options: [
+                "learn by heart",
+                "lose your head",
+                "keep your head",
+                "catch someone's eye"
+            ],
+            answer: "learn by heart",
+            explanation: "Learn by heart berarti menghafal sepenuhnya."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence uses an idiom correctly?",
+            options: [
+                "Let's call it a day and continue tomorrow.",
+                "Let's break the weather tomorrow.",
+                "Let's cry the books tomorrow.",
+                "Let's piece the cake tomorrow."
+            ],
+            answer: "Let's call it a day and continue tomorrow.",
+            explanation: "Call it a day digunakan untuk mengakhiri pekerjaan hari itu."
+        },
+        {
+            type: "Usage",
+            question: "Which sentence sounds the most natural?",
+            options: [
+                "We need to think outside the box.",
+                "We need to think outside the room.",
+                "We need to think outside the school.",
+                "We need to think outside the chair."
+            ],
+            answer: "We need to think outside the box.",
+            explanation: "Think outside the box adalah idiom yang berarti berpikir kreatif."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is completely correct?",
+            options: [
+                "Let's get the ball rolling. At the end of the day, we all want the project to succeed.",
+                "Let's get the football rolling. At the end of the weather, we all succeed.",
+                "Let's break the ball rolling. At the end of the page, we succeed.",
+                "Let's hold the books rolling. At the end of the box, we succeed."
+            ],
+            answer: "Let's get the ball rolling. At the end of the day, we all want the project to succeed.",
+            explanation: "Kalimat menggunakan dua idiom dengan makna dan konteks yang tepat."
+        }
+    ]
+},
+
+"collocations": {
+    title: "Introduction to Collocations",
+    description: "Collocation adalah kombinasi kata yang terdengar natural karena sering digunakan bersama oleh penutur Bahasa Inggris. Collocation membantu kalimat terdengar lebih tepat, lancar, dan native-like.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Natural Word Combination = Collocation
+    `,
+
+    notes: [
+        "Collocation adalah pasangan atau kombinasi kata yang lazim digunakan bersama.",
+        "Collocation tidak selalu bisa diterjemahkan langsung dari Bahasa Indonesia.",
+        "Strong coffee lebih natural daripada powerful coffee.",
+        "Make a decision lebih natural daripada do a decision.",
+        "Heavy rain lebih natural daripada strong rain.",
+        "Collocation penting untuk speaking, writing, IELTS, TOEFL, dan academic English."
+    ],
+
+    patterns: [
+        {
+            group: "Common Types",
+            items: [
+                {
+                    label: "Verb + Noun",
+                    formula: "verb + noun",
+                    examples: [
+                        "make a decision",
+                        "take a break",
+                        "do homework"
+                    ]
+                },
+                {
+                    label: "Adjective + Noun",
+                    formula: "adjective + noun",
+                    examples: [
+                        "strong coffee",
+                        "heavy rain",
+                        "deep sleep"
+                    ]
+                },
+                {
+                    label: "Adverb + Adjective",
+                    formula: "adverb + adjective",
+                    examples: [
+                        "highly effective",
+                        "deeply concerned",
+                        "strongly recommended"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A collocation is...",
+            options: [
+                "a natural combination of words",
+                "a punctuation mark",
+                "a verb tense",
+                "a type of article"
+            ],
+            answer: "a natural combination of words",
+            explanation: "Collocation adalah kombinasi kata yang lazim digunakan bersama."
+        },
+        {
+            type: "Verb + Noun",
+            question: "Which collocation is natural?",
+            options: [
+                "make a decision",
+                "do a decision",
+                "take a decision strongly",
+                "create a decision loudly"
+            ],
+            answer: "make a decision",
+            explanation: "Collocation yang natural adalah make a decision."
+        },
+        {
+            type: "Verb + Noun",
+            question: "Which phrase is natural?",
+            options: [
+                "take a break",
+                "make a break",
+                "do a break",
+                "strong a break"
+            ],
+            answer: "take a break",
+            explanation: "Take a break berarti beristirahat sebentar."
+        },
+        {
+            type: "Adjective + Noun",
+            question: "Which collocation is natural?",
+            options: [
+                "heavy rain",
+                "strong rain",
+                "powerful rain",
+                "hard rainly"
+            ],
+            answer: "heavy rain",
+            explanation: "Heavy rain adalah collocation natural untuk hujan deras."
+        },
+        {
+            type: "Adjective + Noun",
+            question: "Which phrase sounds natural?",
+            options: [
+                "strong coffee",
+                "powerful coffee",
+                "heavy coffee",
+                "hard coffee"
+            ],
+            answer: "strong coffee",
+            explanation: "Strong coffee berarti kopi yang pekat."
+        },
+        {
+            type: "Adverb + Adjective",
+            question: "Which collocation is natural?",
+            options: [
+                "highly effective",
+                "very effectively",
+                "strong effective",
+                "heavy effective"
+            ],
+            answer: "highly effective",
+            explanation: "Highly effective adalah adverb + adjective collocation."
+        },
+        {
+            type: "Natural English",
+            question: "Which sentence sounds most natural?",
+            options: [
+                "We need to make a decision today.",
+                "We need to do a decision today.",
+                "We need to take a decision loudly today.",
+                "We need to strong a decision today."
+            ],
+            answer: "We need to make a decision today.",
+            explanation: "Make a decision adalah collocation yang tepat."
+        },
+        {
+            type: "Natural English",
+            question: "Which sentence is natural?",
+            options: [
+                "There was heavy rain last night.",
+                "There was powerful rain last night.",
+                "There was strong rainly last night.",
+                "There was hard raining noun last night."
+            ],
+            answer: "There was heavy rain last night.",
+            explanation: "Heavy rain adalah kombinasi kata yang natural."
+        },
+        {
+            type: "Concept",
+            question: "Collocations are important because they make English sound...",
+            options: [
+                "natural",
+                "random",
+                "translated word by word",
+                "less accurate"
+            ],
+            answer: "natural",
+            explanation: "Collocation membuat Bahasa Inggris terdengar lebih natural."
+        },
+        {
+            type: "Final",
+            question: "Which phrase is NOT a natural collocation?",
+            options: [
+                "do a decision",
+                "make a decision",
+                "heavy rain",
+                "strong coffee"
+            ],
+            answer: "do a decision",
+            explanation: "Yang benar adalah make a decision, bukan do a decision."
+        }
+    ]
+}, 
+
+"verb-noun-collocations": {
+    title: "Verb + Noun Collocations",
+    description: "Verb + Noun Collocations adalah kombinasi alami antara verb dan noun. Kombinasi ini penting karena tidak semua verb bisa dipasangkan secara bebas dengan noun tertentu.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb + Noun = Natural Action Phrase
+    `,
+
+    notes: [
+        "Make a decision berarti membuat keputusan.",
+        "Do homework berarti mengerjakan PR.",
+        "Take a break berarti beristirahat sebentar.",
+        "Have a conversation berarti melakukan percakapan.",
+        "Give advice berarti memberi nasihat.",
+        "Pay attention berarti memperhatikan.",
+        "Keep a promise berarti menepati janji.",
+        "Break a habit berarti menghentikan kebiasaan."
+    ],
+
+    patterns: [
+        {
+            group: "Make / Do",
+            items: [
+                {
+                    label: "Make",
+                    formula: "make + noun",
+                    examples: [
+                        "make a decision",
+                        "make a mistake",
+                        "make progress"
+                    ]
+                },
+                {
+                    label: "Do",
+                    formula: "do + noun",
+                    examples: [
+                        "do homework",
+                        "do business",
+                        "do research"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Take / Have / Give",
+            items: [
+                {
+                    label: "Common Actions",
+                    formula: "take/have/give + noun",
+                    examples: [
+                        "take a break",
+                        "have a conversation",
+                        "give advice"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Pay / Keep / Break",
+            items: [
+                {
+                    label: "Fixed Collocations",
+                    formula: "pay/keep/break + noun",
+                    examples: [
+                        "pay attention",
+                        "keep a promise",
+                        "break a habit"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Make",
+            question: "We need to ___ a decision today.",
+            options: ["make", "do", "take", "give"],
+            answer: "make",
+            explanation: "Collocation yang benar adalah make a decision."
+        },
+        {
+            type: "Make",
+            question: "She ___ a mistake in the report.",
+            options: ["made", "did", "took", "gave"],
+            answer: "made",
+            explanation: "Collocation yang benar adalah make a mistake."
+        },
+        {
+            type: "Make",
+            question: "He is making good ___ in English.",
+            options: ["progress", "homework", "attention", "advice"],
+            answer: "progress",
+            explanation: "Make progress berarti mengalami kemajuan."
+        },
+        {
+            type: "Do",
+            question: "I have to ___ my homework.",
+            options: ["do", "make", "take", "give"],
+            answer: "do",
+            explanation: "Collocation yang benar adalah do homework."
+        },
+        {
+            type: "Do",
+            question: "They ___ business with foreign companies.",
+            options: ["do", "make", "take", "keep"],
+            answer: "do",
+            explanation: "Do business adalah collocation natural."
+        },
+        {
+            type: "Take",
+            question: "Let's ___ a break.",
+            options: ["take", "make", "do", "pay"],
+            answer: "take",
+            explanation: "Take a break berarti beristirahat sebentar."
+        },
+        {
+            type: "Have",
+            question: "We had a long ___ about the project.",
+            options: ["conversation", "homework", "attention", "mistake"],
+            answer: "conversation",
+            explanation: "Have a conversation berarti melakukan percakapan."
+        },
+        {
+            type: "Give",
+            question: "Can you ___ me some advice?",
+            options: ["give", "make", "do", "break"],
+            answer: "give",
+            explanation: "Give advice berarti memberi nasihat."
+        },
+        {
+            type: "Pay",
+            question: "Please ___ attention to the instructions.",
+            options: ["pay", "make", "do", "take"],
+            answer: "pay",
+            explanation: "Pay attention berarti memperhatikan."
+        },
+        {
+            type: "Keep",
+            question: "You should ___ your promise.",
+            options: ["keep", "make", "do", "give"],
+            answer: "keep",
+            explanation: "Keep a promise berarti menepati janji."
+        },
+        {
+            type: "Break",
+            question: "He wants to ___ a bad habit.",
+            options: ["break", "make", "pay", "give"],
+            answer: "break",
+            explanation: "Break a habit berarti menghentikan kebiasaan."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is natural?",
+            options: [
+                "make a decision",
+                "do a decision",
+                "give a decision",
+                "pay a decision"
+            ],
+            answer: "make a decision",
+            explanation: "Make a decision adalah collocation yang benar."
+        }
+    ]
+},
+
+"adjective-noun-collocations": {
+    title: "Adjective + Noun Collocations",
+    description: "Adjective + Noun Collocations adalah kombinasi alami antara adjective dan noun. Kombinasi ini membuat kalimat terdengar lebih natural dan tidak seperti terjemahan langsung.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Adjective + Noun = Natural Description
+    `,
+
+    notes: [
+        "Heavy rain berarti hujan deras.",
+        "Strong coffee berarti kopi pekat.",
+        "Deep sleep berarti tidur nyenyak.",
+        "High quality berarti kualitas tinggi.",
+        "Serious problem berarti masalah serius.",
+        "Major issue berarti isu besar.",
+        "Great opportunity berarti kesempatan besar.",
+        "Common mistake berarti kesalahan umum."
+    ],
+
+    patterns: [
+        {
+            group: "Weather / Drink / Sleep",
+            items: [
+                {
+                    label: "Natural Pairs",
+                    formula: "adjective + noun",
+                    examples: [
+                        "heavy rain",
+                        "strong coffee",
+                        "deep sleep"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Quality / Problem",
+            items: [
+                {
+                    label: "Formal Collocations",
+                    formula: "adjective + noun",
+                    examples: [
+                        "high quality",
+                        "serious problem",
+                        "major issue"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Opportunity / Mistake",
+            items: [
+                {
+                    label: "Common Usage",
+                    formula: "adjective + noun",
+                    examples: [
+                        "great opportunity",
+                        "common mistake",
+                        "important decision"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Weather",
+            question: "There was ___ rain last night.",
+            options: ["heavy", "strong", "powerful", "hardly"],
+            answer: "heavy",
+            explanation: "Collocation yang natural adalah heavy rain."
+        },
+        {
+            type: "Drink",
+            question: "I need a cup of ___ coffee.",
+            options: ["strong", "heavy", "powerful", "deep"],
+            answer: "strong",
+            explanation: "Strong coffee berarti kopi pekat."
+        },
+        {
+            type: "Sleep",
+            question: "After the trip, he fell into a ___ sleep.",
+            options: ["deep", "heavy", "strong", "large"],
+            answer: "deep",
+            explanation: "Deep sleep berarti tidur nyenyak."
+        },
+        {
+            type: "Quality",
+            question: "This company produces ___ quality products.",
+            options: ["high", "tall", "deep", "heavy"],
+            answer: "high",
+            explanation: "High quality adalah collocation natural."
+        },
+        {
+            type: "Problem",
+            question: "Pollution is a ___ problem in many cities.",
+            options: ["serious", "strong", "deep", "heavy"],
+            answer: "serious",
+            explanation: "Serious problem berarti masalah serius."
+        },
+        {
+            type: "Issue",
+            question: "Climate change is a ___ issue.",
+            options: ["major", "tall", "powerful", "hardly"],
+            answer: "major",
+            explanation: "Major issue berarti isu besar."
+        },
+        {
+            type: "Opportunity",
+            question: "This scholarship is a ___ opportunity.",
+            options: ["great", "heavy", "deep", "strong"],
+            answer: "great",
+            explanation: "Great opportunity berarti kesempatan besar."
+        },
+        {
+            type: "Mistake",
+            question: "Using 'do a decision' is a ___ mistake.",
+            options: ["common", "tall", "deep", "heavy"],
+            answer: "common",
+            explanation: "Common mistake berarti kesalahan umum."
+        },
+        {
+            type: "Decision",
+            question: "Choosing a university is an ___ decision.",
+            options: ["important", "heavily", "strongly", "deeply"],
+            answer: "important",
+            explanation: "Important decision adalah adjective + noun collocation."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is natural?",
+            options: [
+                "heavy rain",
+                "powerful rain",
+                "strong rain",
+                "deep rain"
+            ],
+            answer: "heavy rain",
+            explanation: "Heavy rain adalah collocation yang benar."
+        }
+    ]
+},
+
+"adverb-adjective-collocations": {
+    title: "Adverb + Adjective Collocations",
+    description: "Adverb + Adjective Collocations adalah kombinasi alami antara adverb dan adjective. Pola ini sering digunakan untuk memperkuat makna adjective dalam speaking, writing, academic English, dan formal communication.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Adverb + Adjective = Stronger / More Precise Description
+    `,
+
+    notes: [
+        "Highly effective berarti sangat efektif.",
+        "Deeply concerned berarti sangat prihatin.",
+        "Strongly recommended berarti sangat direkomendasikan.",
+        "Fully aware berarti sepenuhnya sadar.",
+        "Completely different berarti sangat berbeda.",
+        "Widely available berarti tersedia secara luas.",
+        "Closely related berarti berhubungan erat.",
+        "Perfectly clear berarti sangat jelas."
+    ],
+
+    patterns: [
+        {
+            group: "Formal / Academic",
+            items: [
+                {
+                    label: "Highly / Strongly",
+                    formula: "highly/strongly + adjective",
+                    examples: [
+                        "highly effective",
+                        "highly significant",
+                        "strongly recommended"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Degree",
+            items: [
+                {
+                    label: "Fully / Completely / Perfectly",
+                    formula: "degree adverb + adjective",
+                    examples: [
+                        "fully aware",
+                        "completely different",
+                        "perfectly clear"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Relationship / Availability",
+            items: [
+                {
+                    label: "Closely / Widely / Deeply",
+                    formula: "adverb + adjective",
+                    examples: [
+                        "closely related",
+                        "widely available",
+                        "deeply concerned"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Highly",
+            question: "This method is ___ effective.",
+            options: ["highly", "deep", "strong", "wide"],
+            answer: "highly",
+            explanation: "Highly effective adalah collocation natural."
+        },
+        {
+            type: "Significant",
+            question: "The result is ___ significant.",
+            options: ["highly", "heavy", "deep", "strong"],
+            answer: "highly",
+            explanation: "Highly significant sering digunakan dalam academic English."
+        },
+        {
+            type: "Recommended",
+            question: "This book is ___ recommended.",
+            options: ["strongly", "deep", "wide", "heavy"],
+            answer: "strongly",
+            explanation: "Strongly recommended berarti sangat direkomendasikan."
+        },
+        {
+            type: "Aware",
+            question: "She is ___ aware of the risks.",
+            options: ["fully", "strong", "heavy", "large"],
+            answer: "fully",
+            explanation: "Fully aware berarti sepenuhnya sadar."
+        },
+        {
+            type: "Different",
+            question: "Their opinions are ___ different.",
+            options: ["completely", "heavy", "strong", "wide"],
+            answer: "completely",
+            explanation: "Completely different berarti sangat berbeda."
+        },
+        {
+            type: "Clear",
+            question: "The instructions are ___ clear.",
+            options: ["perfectly", "heavy", "deep", "large"],
+            answer: "perfectly",
+            explanation: "Perfectly clear berarti sangat jelas."
+        },
+        {
+            type: "Related",
+            question: "These two issues are ___ related.",
+            options: ["closely", "heavy", "strong", "large"],
+            answer: "closely",
+            explanation: "Closely related berarti berhubungan erat."
+        },
+        {
+            type: "Available",
+            question: "The product is ___ available.",
+            options: ["widely", "deep", "strong", "heavy"],
+            answer: "widely",
+            explanation: "Widely available berarti tersedia secara luas."
+        },
+        {
+            type: "Concerned",
+            question: "The committee is ___ concerned about the issue.",
+            options: ["deeply", "heavy", "wide", "large"],
+            answer: "deeply",
+            explanation: "Deeply concerned berarti sangat prihatin."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is natural?",
+            options: [
+                "highly effective",
+                "heavy effective",
+                "strong effective",
+                "deep effective"
+            ],
+            answer: "highly effective",
+            explanation: "Highly effective adalah adverb + adjective collocation yang benar."
+        }
+    ]
+},
+
+"business-academic-collocations": {
+    title: "Business & Academic Collocations",
+    description: "Business & Academic Collocations adalah kombinasi kata yang sering digunakan dalam dunia kerja, laporan, presentasi, academic writing, IELTS, TOEFL, dan komunikasi profesional.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Professional Context + Natural Word Combination
+    `,
+
+    notes: [
+        "Conduct research berarti melakukan penelitian.",
+        "Draw a conclusion berarti menarik kesimpulan.",
+        "Reach an agreement berarti mencapai kesepakatan.",
+        "Meet a deadline berarti memenuhi tenggat waktu.",
+        "Make a contribution berarti memberi kontribusi.",
+        "Play a role berarti berperan.",
+        "Provide evidence berarti menyediakan bukti.",
+        "Address an issue berarti menangani isu."
+    ],
+
+    patterns: [
+        {
+            group: "Academic Writing",
+            items: [
+                {
+                    label: "Research / Evidence",
+                    formula: "academic verb + noun",
+                    examples: [
+                        "conduct research",
+                        "provide evidence",
+                        "draw a conclusion"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Business Communication",
+            items: [
+                {
+                    label: "Agreement / Deadline",
+                    formula: "business verb + noun",
+                    examples: [
+                        "reach an agreement",
+                        "meet a deadline",
+                        "make a contribution"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Professional Discussion",
+            items: [
+                {
+                    label: "Role / Issue",
+                    formula: "verb + professional noun",
+                    examples: [
+                        "play a role",
+                        "address an issue",
+                        "raise a concern"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Academic",
+            question: "Researchers need to ___ research before making claims.",
+            options: ["conduct", "make", "do", "take"],
+            answer: "conduct",
+            explanation: "Conduct research adalah collocation formal dan akademik."
+        },
+        {
+            type: "Academic",
+            question: "The article provides strong ___.",
+            options: ["evidence", "decision", "deadline", "coffee"],
+            answer: "evidence",
+            explanation: "Provide evidence berarti menyediakan bukti."
+        },
+        {
+            type: "Academic",
+            question: "Based on the data, we can ___ a conclusion.",
+            options: ["draw", "make", "do", "take"],
+            answer: "draw",
+            explanation: "Draw a conclusion berarti menarik kesimpulan."
+        },
+        {
+            type: "Business",
+            question: "Both companies finally reached an ___.",
+            options: ["agreement", "homework", "rain", "sleep"],
+            answer: "agreement",
+            explanation: "Reach an agreement berarti mencapai kesepakatan."
+        },
+        {
+            type: "Business",
+            question: "We must ___ the deadline.",
+            options: ["meet", "make", "do", "give"],
+            answer: "meet",
+            explanation: "Meet a deadline berarti memenuhi tenggat waktu."
+        },
+        {
+            type: "Business",
+            question: "She made an important ___ to the project.",
+            options: ["contribution", "deadline", "rain", "mistake"],
+            answer: "contribution",
+            explanation: "Make a contribution berarti memberi kontribusi."
+        },
+        {
+            type: "Professional",
+            question: "Technology plays a major ___ in education.",
+            options: ["role", "agreement", "deadline", "coffee"],
+            answer: "role",
+            explanation: "Play a role berarti berperan."
+        },
+        {
+            type: "Professional",
+            question: "The manager addressed the ___ during the meeting.",
+            options: ["issue", "sleep", "coffee", "rain"],
+            answer: "issue",
+            explanation: "Address an issue berarti menangani isu."
+        },
+        {
+            type: "Professional",
+            question: "Several employees raised a ___ about the new policy.",
+            options: ["concern", "deadline", "research", "sleep"],
+            answer: "concern",
+            explanation: "Raise a concern berarti menyampaikan kekhawatiran."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is most appropriate for academic writing?",
+            options: [
+                "conduct research",
+                "make research",
+                "take research",
+                "give research"
+            ],
+            answer: "conduct research",
+            explanation: "Conduct research adalah collocation akademik yang tepat."
+        }
+    ]
+},
+
+"collocations-review": {
+    title: "Collocations Review",
+    description: "Review akhir untuk menguji seluruh materi Collocations, termasuk verb + noun, adjective + noun, adverb + adjective, serta business dan academic collocations.",
+
+    formula: `
+        <strong>Ringkasan BAB 19:</strong><br>
+        Collocation = Natural Word Combination<br>
+        Verb + Noun<br>
+        Adjective + Noun<br>
+        Adverb + Adjective<br>
+        Business & Academic Collocations
+    `,
+
+    notes: [
+        "Collocation membuat Bahasa Inggris terdengar lebih natural.",
+        "Make a decision lebih natural daripada do a decision.",
+        "Heavy rain lebih natural daripada strong rain.",
+        "Highly effective lebih natural daripada heavy effective.",
+        "Conduct research lebih akademik daripada make research.",
+        "Collocation penting untuk speaking, writing, IELTS, TOEFL, dan academic English."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Verb + Noun",
+                    formula: "verb + noun",
+                    examples: [
+                        "make a decision",
+                        "take a break",
+                        "pay attention"
+                    ]
+                },
+                {
+                    label: "Adjective + Noun",
+                    formula: "adjective + noun",
+                    examples: [
+                        "heavy rain",
+                        "strong coffee",
+                        "serious problem"
+                    ]
+                },
+                {
+                    label: "Academic Collocations",
+                    formula: "formal verb + noun",
+                    examples: [
+                        "conduct research",
+                        "provide evidence",
+                        "draw a conclusion"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A collocation is...",
+            options: [
+                "a natural combination of words",
+                "a punctuation mark",
+                "a tense form",
+                "a type of article"
+            ],
+            answer: "a natural combination of words",
+            explanation: "Collocation adalah kombinasi kata yang lazim digunakan bersama."
+        },
+        {
+            type: "Verb + Noun",
+            question: "We need to ___ a decision.",
+            options: ["make", "do", "take", "give"],
+            answer: "make",
+            explanation: "Collocation yang benar adalah make a decision."
+        },
+        {
+            type: "Verb + Noun",
+            question: "Please ___ attention to the instructions.",
+            options: ["pay", "make", "do", "take"],
+            answer: "pay",
+            explanation: "Pay attention berarti memperhatikan."
+        },
+        {
+            type: "Verb + Noun",
+            question: "Let's ___ a break.",
+            options: ["take", "make", "do", "pay"],
+            answer: "take",
+            explanation: "Take a break berarti beristirahat sebentar."
+        },
+        {
+            type: "Adjective + Noun",
+            question: "There was ___ rain last night.",
+            options: ["heavy", "strong", "powerful", "deep"],
+            answer: "heavy",
+            explanation: "Heavy rain adalah collocation natural."
+        },
+        {
+            type: "Adjective + Noun",
+            question: "I need ___ coffee this morning.",
+            options: ["strong", "heavy", "powerful", "deep"],
+            answer: "strong",
+            explanation: "Strong coffee berarti kopi pekat."
+        },
+        {
+            type: "Adjective + Noun",
+            question: "Pollution is a ___ problem.",
+            options: ["serious", "strong", "heavy", "deep"],
+            answer: "serious",
+            explanation: "Serious problem adalah collocation yang benar."
+        },
+        {
+            type: "Adverb + Adjective",
+            question: "This method is ___ effective.",
+            options: ["highly", "heavy", "strong", "deep"],
+            answer: "highly",
+            explanation: "Highly effective adalah collocation natural."
+        },
+        {
+            type: "Adverb + Adjective",
+            question: "The two issues are ___ related.",
+            options: ["closely", "heavy", "strong", "large"],
+            answer: "closely",
+            explanation: "Closely related berarti berhubungan erat."
+        },
+        {
+            type: "Adverb + Adjective",
+            question: "She is ___ aware of the risks.",
+            options: ["fully", "heavy", "deep", "large"],
+            answer: "fully",
+            explanation: "Fully aware berarti sepenuhnya sadar."
+        },
+        {
+            type: "Academic",
+            question: "Researchers should ___ research before making claims.",
+            options: ["conduct", "make", "take", "give"],
+            answer: "conduct",
+            explanation: "Conduct research adalah collocation akademik."
+        },
+        {
+            type: "Academic",
+            question: "The data provides strong ___.",
+            options: ["evidence", "deadline", "coffee", "sleep"],
+            answer: "evidence",
+            explanation: "Provide evidence berarti menyediakan bukti."
+        },
+        {
+            type: "Academic",
+            question: "Based on the findings, we can ___ a conclusion.",
+            options: ["draw", "make", "do", "take"],
+            answer: "draw",
+            explanation: "Draw a conclusion berarti menarik kesimpulan."
+        },
+        {
+            type: "Business",
+            question: "We must ___ the deadline.",
+            options: ["meet", "make", "do", "give"],
+            answer: "meet",
+            explanation: "Meet a deadline berarti memenuhi tenggat waktu."
+        },
+        {
+            type: "Business",
+            question: "Both sides reached an ___.",
+            options: ["agreement", "homework", "rain", "sleep"],
+            answer: "agreement",
+            explanation: "Reach an agreement berarti mencapai kesepakatan."
+        },
+        {
+            type: "Business",
+            question: "The manager addressed the ___ during the meeting.",
+            options: ["issue", "coffee", "sleep", "rain"],
+            answer: "issue",
+            explanation: "Address an issue berarti menangani isu."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is natural?",
+            options: [
+                "make a decision",
+                "do a decision",
+                "pay a decision",
+                "strong a decision"
+            ],
+            answer: "make a decision",
+            explanation: "Make a decision adalah collocation yang benar."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is natural?",
+            options: [
+                "heavy rain",
+                "powerful rain",
+                "strong rain",
+                "deep rain"
+            ],
+            answer: "heavy rain",
+            explanation: "Heavy rain adalah kombinasi kata yang natural."
+        },
+        {
+            type: "Error Check",
+            question: "Which phrase is best for academic writing?",
+            options: [
+                "conduct research",
+                "make research",
+                "take research",
+                "give research"
+            ],
+            answer: "conduct research",
+            explanation: "Conduct research adalah collocation akademik yang tepat."
+        },
+        {
+            type: "Final",
+            question: "Which sentence sounds most natural?",
+            options: [
+                "The study provides strong evidence and draws a clear conclusion.",
+                "The study gives heavy evidence and makes a strong conclusion.",
+                "The study does evidence and takes a conclusion.",
+                "The study makes evidence and gives a conclusion strongly."
+            ],
+            answer: "The study provides strong evidence and draws a clear conclusion.",
+            explanation: "Provide evidence dan draw a conclusion adalah collocations yang natural dan akademik."
+        }
+    ]
+},
+
+"academic-vocabulary": {
+    title: "Introduction to Academic Vocabulary",
+    description: "Academic Vocabulary adalah kosakata yang umum digunakan dalam tulisan formal, artikel ilmiah, laporan, esai, IELTS, TOEFL, dan komunikasi profesional. Kosakata akademik membantu tulisan terdengar lebih objektif, tepat, dan kredibel.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Academic Vocabulary = Formal + Precise + Objective Word Choice
+    `,
+
+    notes: [
+        "Academic vocabulary lebih formal daripada kosakata percakapan sehari-hari.",
+        "Academic vocabulary membantu menyampaikan ide secara objektif.",
+        "Kata seperti analyze, indicate, significant, factor, method, dan evidence sering muncul dalam academic writing.",
+        "Hindari kata yang terlalu informal seperti stuff, thing, a lot, kids, dan get.",
+        "Gunakan kata yang lebih spesifik agar makna kalimat lebih jelas.",
+        "Pemilihan kata yang tepat meningkatkan kualitas writing."
+    ],
+
+    patterns: [
+        {
+            group: "Formal Academic Words",
+            items: [
+                {
+                    label: "Common Academic Verbs",
+                    formula: "formal verb",
+                    examples: [
+                        "analyze",
+                        "indicate",
+                        "demonstrate",
+                        "evaluate"
+                    ]
+                },
+                {
+                    label: "Common Academic Nouns",
+                    formula: "formal noun",
+                    examples: [
+                        "factor",
+                        "method",
+                        "evidence",
+                        "research"
+                    ]
+                },
+                {
+                    label: "Common Academic Adjectives",
+                    formula: "formal adjective",
+                    examples: [
+                        "significant",
+                        "relevant",
+                        "effective",
+                        "consistent"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Informal to Academic",
+            items: [
+                {
+                    label: "Word Choice",
+                    formula: "informal word → academic word",
+                    examples: [
+                        "a lot of → numerous / many",
+                        "kids → children",
+                        "get → obtain / receive",
+                        "show → indicate / demonstrate"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Academic vocabulary is mainly used in...",
+            options: [
+                "formal and academic writing",
+                "slang conversation only",
+                "emoji messages",
+                "children's games only"
+            ],
+            answer: "formal and academic writing",
+            explanation: "Academic vocabulary umum digunakan dalam esai, laporan, artikel ilmiah, IELTS, TOEFL, dan tulisan formal."
+        },
+        {
+            type: "Concept",
+            question: "Academic vocabulary helps writing sound more...",
+            options: [
+                "objective and precise",
+                "random and informal",
+                "childish",
+                "unclear"
+            ],
+            answer: "objective and precise",
+            explanation: "Kosakata akademik membuat tulisan lebih objektif, tepat, dan kredibel."
+        },
+        {
+            type: "Verb",
+            question: "Which word is more academic?",
+            options: ["analyze", "look at", "check out", "mess around"],
+            answer: "analyze",
+            explanation: "Analyze lebih formal dan akademik daripada look at atau check out."
+        },
+        {
+            type: "Verb",
+            question: "Which word is more academic?",
+            options: ["indicate", "show", "tell", "say"],
+            answer: "indicate",
+            explanation: "Indicate lebih formal daripada show/tell/say dalam academic writing."
+        },
+        {
+            type: "Noun",
+            question: "Which word is common in academic writing?",
+            options: ["evidence", "stuff", "thingy", "buddy"],
+            answer: "evidence",
+            explanation: "Evidence adalah noun akademik yang sering digunakan."
+        },
+        {
+            type: "Noun",
+            question: "Which word is more formal?",
+            options: ["children", "kids", "guys", "dudes"],
+            answer: "children",
+            explanation: "Children lebih formal daripada kids."
+        },
+        {
+            type: "Adjective",
+            question: "Which adjective is academic?",
+            options: ["significant", "cool", "awesome", "super"],
+            answer: "significant",
+            explanation: "Significant sering digunakan dalam tulisan akademik."
+        },
+        {
+            type: "Word Choice",
+            question: "A more academic replacement for 'a lot of' is...",
+            options: ["numerous", "cool", "stuff", "kinda"],
+            answer: "numerous",
+            explanation: "Numerous lebih formal daripada a lot of."
+        },
+        {
+            type: "Word Choice",
+            question: "A more academic replacement for 'get data' is...",
+            options: [
+                "obtain data",
+                "grab data",
+                "get stuff",
+                "take thing"
+            ],
+            answer: "obtain data",
+            explanation: "Obtain data lebih formal dan akademik."
+        },
+        {
+            type: "Final",
+            question: "Which sentence sounds most academic?",
+            options: [
+                "The results indicate a significant improvement.",
+                "The results show a cool improvement.",
+                "The results tell a lot of good stuff.",
+                "The results are kinda nice."
+            ],
+            answer: "The results indicate a significant improvement.",
+            explanation: "Indicate dan significant adalah pilihan kata akademik yang tepat."
+        }
+    ]
+},
+
+"formal-informal-words": {
+    title: "Formal vs Informal Words",
+    description: "Formal vs Informal Words membahas perbedaan kosakata yang digunakan dalam percakapan sehari-hari dan dalam penulisan akademik atau profesional. Memilih tingkat formalitas yang tepat akan membuat komunikasi lebih efektif sesuai konteks.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Informal Word → Formal Word
+    `,
+
+    notes: [
+        "Gunakan formal words untuk academic writing, laporan, email profesional, dan penelitian.",
+        "Informal words lebih cocok untuk percakapan sehari-hari.",
+        "Hindari slang dalam tulisan akademik.",
+        "Pilih kata yang lebih spesifik daripada kata umum.",
+        "Formal English terdengar lebih objektif dan profesional."
+    ],
+
+    patterns: [
+        {
+            group: "Common Replacements",
+            items: [
+                {
+                    label: "Daily → Academic",
+                    formula: "informal → formal",
+                    examples: [
+                        "get → obtain",
+                        "buy → purchase",
+                        "help → assist",
+                        "need → require"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Communication",
+            items: [
+                {
+                    label: "Speaking vs Writing",
+                    formula: "informal → formal",
+                    examples: [
+                        "show → demonstrate",
+                        "tell → inform",
+                        "find out → discover",
+                        "leave out → omit"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Quantity & Quality",
+            items: [
+                {
+                    label: "More Precise Words",
+                    formula: "informal → formal",
+                    examples: [
+                        "a lot of → numerous",
+                        "good → beneficial",
+                        "bad → detrimental",
+                        "big → substantial"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "People",
+            items: [
+                {
+                    label: "Formal References",
+                    formula: "informal → formal",
+                    examples: [
+                        "kids → children",
+                        "guys → people",
+                        "boss → supervisor",
+                        "old people → elderly people"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Verb",
+            question: "Which is the most formal replacement for 'get'?",
+            options: [
+                "obtain",
+                "grab",
+                "pick up",
+                "take"
+            ],
+            answer: "obtain",
+            explanation: "Obtain adalah padanan formal dari get."
+        },
+        {
+            type: "Verb",
+            question: "Which word is more formal than 'help'?",
+            options: [
+                "assist",
+                "aiding",
+                "fix",
+                "join"
+            ],
+            answer: "assist",
+            explanation: "Assist sering digunakan dalam academic dan professional English."
+        },
+        {
+            type: "Verb",
+            question: "Which is the best academic replacement for 'show'?",
+            options: [
+                "demonstrate",
+                "look",
+                "watch",
+                "displaying"
+            ],
+            answer: "demonstrate",
+            explanation: "Demonstrate lebih formal daripada show."
+        },
+        {
+            type: "Verb",
+            question: "Which word is the most formal replacement for 'tell'?",
+            options: [
+                "inform",
+                "talk",
+                "say",
+                "speak"
+            ],
+            answer: "inform",
+            explanation: "Inform adalah pilihan formal."
+        },
+        {
+            type: "Noun",
+            question: "Which word is more formal?",
+            options: [
+                "children",
+                "kids",
+                "guys",
+                "folks"
+            ],
+            answer: "children",
+            explanation: "Children lebih formal daripada kids."
+        },
+        {
+            type: "Quantity",
+            question: "Which phrase is the most academic?",
+            options: [
+                "numerous studies",
+                "a lot of studies",
+                "lots of studies",
+                "tons of studies"
+            ],
+            answer: "numerous studies",
+            explanation: "Numerous studies sangat umum dalam academic writing."
+        },
+        {
+            type: "Adjective",
+            question: "Which adjective is more formal than 'good'?",
+            options: [
+                "beneficial",
+                "nice",
+                "cool",
+                "awesome"
+            ],
+            answer: "beneficial",
+            explanation: "Beneficial lebih akademik daripada good."
+        },
+        {
+            type: "Adjective",
+            question: "Which adjective is more formal than 'bad'?",
+            options: [
+                "detrimental",
+                "terrible",
+                "awful",
+                "ugly"
+            ],
+            answer: "detrimental",
+            explanation: "Detrimental sering digunakan dalam academic writing."
+        },
+        {
+            type: "Sentence",
+            question: "Which sentence is the most academic?",
+            options: [
+                "The researchers obtained sufficient evidence.",
+                "The researchers got lots of stuff.",
+                "The researchers grabbed many things.",
+                "The researchers picked up some data."
+            ],
+            answer: "The researchers obtained sufficient evidence.",
+            explanation: "Obtained dan evidence merupakan pilihan kata akademik."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is the most appropriate for a research paper?",
+            options: [
+                "Numerous studies demonstrate significant improvements.",
+                "Lots of studies show cool improvements.",
+                "Many guys found awesome results.",
+                "People got good stuff from the experiment."
+            ],
+            answer: "Numerous studies demonstrate significant improvements.",
+            explanation: "Kalimat tersebut menggunakan kosakata formal dan akademik secara konsisten."
+        }
+    ]
+},
+
+"word-precision": {
+    title: "Word Precision",
+    description: "Word Precision adalah kemampuan memilih kata yang paling tepat untuk menyampaikan makna. Dalam academic writing dan komunikasi profesional, kata yang spesifik lebih baik daripada kata yang terlalu umum.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        General Word → Specific Word
+    `,
+
+    notes: [
+        "Gunakan kata yang spesifik daripada kata umum.",
+        "Kata yang presisi membuat tulisan lebih jelas.",
+        "Hindari penggunaan thing, stuff, nice, good, bad jika ada pilihan yang lebih tepat.",
+        "Word precision meningkatkan kualitas academic writing.",
+        "Pilih kata sesuai konteks, bukan hanya sinonim."
+    ],
+
+    patterns: [
+        {
+            group: "General → Specific Verbs",
+            items: [
+                {
+                    label: "Precise Verbs",
+                    formula: "general → specific",
+                    examples: [
+                        "do → perform",
+                        "make → produce",
+                        "go → travel",
+                        "use → utilize"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "General → Specific Nouns",
+            items: [
+                {
+                    label: "Precise Nouns",
+                    formula: "general → specific",
+                    examples: [
+                        "thing → object",
+                        "thing → factor",
+                        "thing → issue",
+                        "stuff → materials"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "General → Specific Adjectives",
+            items: [
+                {
+                    label: "Precise Adjectives",
+                    formula: "general → specific",
+                    examples: [
+                        "good → effective",
+                        "good → beneficial",
+                        "bad → harmful",
+                        "big → substantial"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Academic Examples",
+            items: [
+                {
+                    label: "Better Academic Writing",
+                    formula: "general sentence → precise sentence",
+                    examples: [
+                        "The results were good. → The results were significant.",
+                        "There were many things. → Several factors were identified.",
+                        "They used many things. → They utilized various methods."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Word precision means...",
+            options: [
+                "choosing the most accurate word",
+                "using the longest word",
+                "using difficult vocabulary only",
+                "using informal expressions"
+            ],
+            answer: "choosing the most accurate word",
+            explanation: "Word precision berarti memilih kata yang paling tepat sesuai konteks."
+        },
+        {
+            type: "Verb",
+            question: "Which word is more precise than 'do' in an academic report?",
+            options: [
+                "perform",
+                "make",
+                "go",
+                "put"
+            ],
+            answer: "perform",
+            explanation: "Perform lebih spesifik daripada do."
+        },
+        {
+            type: "Verb",
+            question: "Which word is more academic than 'use'?",
+            options: [
+                "utilize",
+                "take",
+                "keep",
+                "hold"
+            ],
+            answer: "utilize",
+            explanation: "Utilize sering digunakan dalam konteks akademik."
+        },
+        {
+            type: "Noun",
+            question: "Instead of 'thing', which word is more precise in a research paper?",
+            options: [
+                "factor",
+                "item",
+                "piece",
+                "part"
+            ],
+            answer: "factor",
+            explanation: "Factor lebih spesifik daripada thing dalam konteks penelitian."
+        },
+        {
+            type: "Noun",
+            question: "A more precise replacement for 'stuff' is...",
+            options: [
+                "materials",
+                "things",
+                "objects",
+                "goods"
+            ],
+            answer: "materials",
+            explanation: "Materials lebih tepat daripada stuff dalam konteks formal."
+        },
+        {
+            type: "Adjective",
+            question: "Which adjective is more precise than 'good' when describing a method?",
+            options: [
+                "effective",
+                "nice",
+                "cool",
+                "great"
+            ],
+            answer: "effective",
+            explanation: "Effective lebih tepat untuk menggambarkan metode."
+        },
+        {
+            type: "Adjective",
+            question: "Which adjective is more precise than 'bad'?",
+            options: [
+                "harmful",
+                "ugly",
+                "poor",
+                "terrible"
+            ],
+            answer: "harmful",
+            explanation: "Harmful menjelaskan dampak negatif dengan lebih spesifik."
+        },
+        {
+            type: "Sentence",
+            question: "Which sentence is more precise?",
+            options: [
+                "Several factors influenced the results.",
+                "Several things influenced the results.",
+                "Some stuff influenced the results.",
+                "Many items influenced the results."
+            ],
+            answer: "Several factors influenced the results.",
+            explanation: "Factors lebih spesifik daripada things."
+        },
+        {
+            type: "Sentence",
+            question: "Which sentence is more academic?",
+            options: [
+                "The researchers utilized various methods.",
+                "The researchers used many things.",
+                "The researchers did some stuff.",
+                "The researchers got many tools."
+            ],
+            answer: "The researchers utilized various methods.",
+            explanation: "Utilized dan methods merupakan pilihan kata yang lebih presisi."
+        },
+        {
+            type: "Final",
+            question: "Why is word precision important in academic writing?",
+            options: [
+                "It makes ideas clearer and more accurate.",
+                "It always makes sentences longer.",
+                "It replaces all simple words.",
+                "It avoids using verbs."
+            ],
+            answer: "It makes ideas clearer and more accurate.",
+            explanation: "Pemilihan kata yang tepat meningkatkan kejelasan dan akurasi tulisan."
+        }
+    ]
+},
+
+"avoiding-repetition": {
+    title: "Avoiding Repetition",
+    description: "Avoiding Repetition adalah teknik menghindari pengulangan kata yang berlebihan dalam sebuah tulisan. Penulis dapat menggunakan sinonim, pronoun, parafrasa, atau variasi struktur kalimat agar tulisan lebih alami dan mudah dibaca.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Repetition → Synonym / Pronoun / Paraphrase
+    `,
+
+    notes: [
+        "Jangan mengulang kata yang sama terlalu sering dalam satu paragraf.",
+        "Gunakan sinonim jika maknanya tetap sesuai konteks.",
+        "Gunakan pronoun seperti it, they, this, these jika referensinya jelas.",
+        "Parafrase membantu membuat tulisan lebih bervariasi.",
+        "Variasi struktur kalimat juga dapat mengurangi repetisi.",
+        "Academic writing menghargai variasi kosakata yang tetap konsisten maknanya."
+    ],
+
+    patterns: [
+        {
+            group: "Using Synonyms",
+            items: [
+                {
+                    label: "Vocabulary Variation",
+                    formula: "word → synonym",
+                    examples: [
+                        "important → significant",
+                        "show → demonstrate",
+                        "help → assist",
+                        "improve → enhance"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Using Pronouns",
+            items: [
+                {
+                    label: "Replace Repeated Nouns",
+                    formula: "noun → pronoun",
+                    examples: [
+                        "The experiment was successful. It produced useful data.",
+                        "The students completed the task. They submitted it on time.",
+                        "The company launched a product. It became popular."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Paraphrasing",
+            items: [
+                {
+                    label: "Different Wording",
+                    formula: "same meaning, different expression",
+                    examples: [
+                        "The results show... → The findings indicate...",
+                        "Many people think... → It is widely believed...",
+                        "This study shows... → This research demonstrates..."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Sentence Variety",
+            items: [
+                {
+                    label: "Structure Variation",
+                    formula: "vary sentence openings",
+                    examples: [
+                        "The experiment produced positive results.",
+                        "Positive results were produced by the experiment.",
+                        "Overall, the experiment produced positive results."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "The main purpose of avoiding repetition is to...",
+            options: [
+                "make writing more natural and readable",
+                "make writing longer",
+                "use difficult words only",
+                "avoid using verbs"
+            ],
+            answer: "make writing more natural and readable",
+            explanation: "Menghindari repetisi membuat tulisan lebih nyaman dibaca."
+        },
+        {
+            type: "Synonym",
+            question: "Which word is a better synonym for 'important' in academic writing?",
+            options: [
+                "significant",
+                "cool",
+                "nice",
+                "great"
+            ],
+            answer: "significant",
+            explanation: "Significant adalah sinonim formal untuk important."
+        },
+        {
+            type: "Synonym",
+            question: "Which word can replace 'show' in academic writing?",
+            options: [
+                "demonstrate",
+                "watch",
+                "look",
+                "tell"
+            ],
+            answer: "demonstrate",
+            explanation: "Demonstrate adalah pilihan yang lebih akademik."
+        },
+        {
+            type: "Pronoun",
+            question: "The company launched a new product. ___ became very popular.",
+            options: [
+                "It",
+                "They",
+                "He",
+                "We"
+            ],
+            answer: "It",
+            explanation: "It menggantikan 'the product'."
+        },
+        {
+            type: "Pronoun",
+            question: "The students finished the project. ___ presented it confidently.",
+            options: [
+                "They",
+                "It",
+                "She",
+                "He"
+            ],
+            answer: "They",
+            explanation: "They menggantikan 'the students'."
+        },
+        {
+            type: "Paraphrase",
+            question: "Which sentence avoids repetition best?",
+            options: [
+                "The findings indicate that the treatment was effective.",
+                "The results show that the results show improvement.",
+                "The results show that the results show success.",
+                "The results show results."
+            ],
+            answer: "The findings indicate that the treatment was effective.",
+            explanation: "Findings dan indicate mengurangi repetisi."
+        },
+        {
+            type: "Sentence Variety",
+            question: "Which sentence shows better variety?",
+            options: [
+                "Overall, the experiment produced positive results.",
+                "The experiment produced positive results. The experiment produced positive results.",
+                "The experiment produced results. The experiment produced results.",
+                "The experiment. The experiment."
+            ],
+            answer: "Overall, the experiment produced positive results.",
+            explanation: "Variasi struktur membuat tulisan lebih alami."
+        },
+        {
+            type: "Academic",
+            question: "Which sentence is more academic?",
+            options: [
+                "This research demonstrates significant improvements.",
+                "This study shows good stuff.",
+                "This thing shows nice results.",
+                "This paper is really cool."
+            ],
+            answer: "This research demonstrates significant improvements.",
+            explanation: "Research, demonstrates, dan significant adalah pilihan akademik."
+        },
+        {
+            type: "Word Choice",
+            question: "A good way to avoid repetition is to use...",
+            options: [
+                "synonyms and pronouns",
+                "random slang",
+                "emoji",
+                "capital letters"
+            ],
+            answer: "synonyms and pronouns",
+            explanation: "Sinonim dan pronoun membantu mengurangi pengulangan."
+        },
+        {
+            type: "Final",
+            question: "Which paragraph is better?",
+            options: [
+                "The study investigated the problem. The findings indicate a significant improvement. These results support the hypothesis.",
+                "The study studied the study. The study showed the study. The study was good.",
+                "The thing showed many things. Those things were good things.",
+                "The research was research and showed research."
+            ],
+            answer: "The study investigated the problem. The findings indicate a significant improvement. These results support the hypothesis.",
+            explanation: "Paragraf pertama menggunakan variasi kosakata dan struktur sehingga lebih natural dan akademik."
+        }
+    ]
+},
+
+"academic-word-list": {
+    title: "Academic Word List (AWL)",
+    description: "Academic Word List (AWL) adalah kumpulan kosakata akademik yang paling sering muncul dalam jurnal ilmiah, buku akademik, esai, IELTS, TOEFL, dan penelitian. Menguasai AWL akan meningkatkan kemampuan membaca, menulis, dan memahami teks akademik.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Academic Word = High-Frequency Academic Vocabulary
+    `,
+
+    notes: [
+        "AWL dikembangkan oleh Averil Coxhead.",
+        "Kata-kata AWL muncul di berbagai disiplin ilmu.",
+        "AWL tidak termasuk kosakata dasar yang sangat umum.",
+        "Menguasai AWL membantu meningkatkan skor IELTS dan TOEFL.",
+        "Satu kata AWL sering memiliki beberapa bentuk (noun, verb, adjective, adverb).",
+        "Fokuslah pada penggunaan kata dalam konteks, bukan sekadar menghafal."
+    ],
+
+    patterns: [
+        {
+            group: "Common Academic Verbs",
+            items: [
+                {
+                    label: "Academic Verbs",
+                    formula: "verb",
+                    examples: [
+                        "analyze",
+                        "assess",
+                        "establish",
+                        "identify"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Academic Nouns",
+            items: [
+                {
+                    label: "Academic Nouns",
+                    formula: "noun",
+                    examples: [
+                        "approach",
+                        "concept",
+                        "context",
+                        "factor"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Academic Adjectives",
+            items: [
+                {
+                    label: "Academic Adjectives",
+                    formula: "adjective",
+                    examples: [
+                        "significant",
+                        "relevant",
+                        "consistent",
+                        "appropriate"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Word Families",
+            items: [
+                {
+                    label: "Same Root",
+                    formula: "noun / verb / adjective",
+                    examples: [
+                        "analyze → analysis → analytical",
+                        "identify → identification → identifiable",
+                        "signify → significance → significant"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "The Academic Word List (AWL) contains...",
+            options: [
+                "high-frequency academic vocabulary",
+                "only slang words",
+                "only phrasal verbs",
+                "children's vocabulary"
+            ],
+            answer: "high-frequency academic vocabulary",
+            explanation: "AWL berisi kosakata akademik yang sering muncul dalam berbagai bidang ilmu."
+        },
+        {
+            type: "Concept",
+            question: "AWL is especially useful for...",
+            options: [
+                "academic reading and writing",
+                "comic books only",
+                "video game dialogue",
+                "emoji messages"
+            ],
+            answer: "academic reading and writing",
+            explanation: "AWL membantu memahami dan menulis teks akademik."
+        },
+        {
+            type: "Verb",
+            question: "Which word is an academic verb?",
+            options: [
+                "analyze",
+                "grab",
+                "hang",
+                "chill"
+            ],
+            answer: "analyze",
+            explanation: "Analyze adalah salah satu kata penting dalam AWL."
+        },
+        {
+            type: "Verb",
+            question: "Which word is commonly used to evaluate information?",
+            options: [
+                "assess",
+                "play",
+                "carry",
+                "bring"
+            ],
+            answer: "assess",
+            explanation: "Assess berarti menilai atau mengevaluasi."
+        },
+        {
+            type: "Noun",
+            question: "Which is an academic noun?",
+            options: [
+                "concept",
+                "stuff",
+                "thing",
+                "kid"
+            ],
+            answer: "concept",
+            explanation: "Concept adalah noun yang sering muncul dalam tulisan akademik."
+        },
+        {
+            type: "Noun",
+            question: "Which word refers to something that influences a result?",
+            options: [
+                "factor",
+                "guy",
+                "thing",
+                "item"
+            ],
+            answer: "factor",
+            explanation: "Factor adalah istilah akademik yang umum."
+        },
+        {
+            type: "Adjective",
+            question: "Which adjective is commonly used in research papers?",
+            options: [
+                "significant",
+                "awesome",
+                "cool",
+                "fun"
+            ],
+            answer: "significant",
+            explanation: "Significant digunakan untuk menunjukkan hasil yang penting secara statistik atau praktis."
+        },
+        {
+            type: "Word Family",
+            question: "Which word belongs to the same family as 'analyze'?",
+            options: [
+                "analysis",
+                "playing",
+                "runner",
+                "teacher"
+            ],
+            answer: "analysis",
+            explanation: "Analysis adalah bentuk noun dari analyze."
+        },
+        {
+            type: "Academic Usage",
+            question: "Which sentence is the most academic?",
+            options: [
+                "The researchers analyzed the data and identified several significant factors.",
+                "The researchers looked at the stuff and found cool things.",
+                "The guys checked everything and got nice results.",
+                "The team saw many things and said they were good."
+            ],
+            answer: "The researchers analyzed the data and identified several significant factors.",
+            explanation: "Kalimat menggunakan beberapa kosakata inti dari AWL."
+        },
+        {
+            type: "Final",
+            question: "Why should students learn the Academic Word List?",
+            options: [
+                "It improves academic reading, writing, and vocabulary.",
+                "It replaces all grammar rules.",
+                "It is only useful for casual conversation.",
+                "It removes the need to learn verbs."
+            ],
+            answer: "It improves academic reading, writing, and vocabulary.",
+            explanation: "AWL membantu memahami dan menghasilkan teks akademik yang lebih baik."
+        }
+    ]
+},
+
+"academic-vocabulary-review": {
+    title: "Academic Vocabulary Review",
+    description: "Review akhir untuk menguji seluruh materi Academic Vocabulary & Word Choice, termasuk formal vs informal words, word precision, avoiding repetition, serta Academic Word List (AWL).",
+
+    formula: `
+        <strong>Ringkasan BAB 20:</strong><br>
+        Academic Vocabulary = Formal + Precise + Objective<br>
+        Formal vs Informal Words<br>
+        Word Precision<br>
+        Avoiding Repetition<br>
+        Academic Word List (AWL)
+    `,
+
+    notes: [
+        "Gunakan kosakata formal dalam academic writing.",
+        "Pilih kata yang paling tepat sesuai konteks.",
+        "Hindari pengulangan kata secara berlebihan.",
+        "Gunakan sinonim, pronoun, dan parafrasa untuk variasi.",
+        "Kuasai kosakata AWL untuk meningkatkan kemampuan membaca dan menulis akademik."
+    ],
+
+    patterns: [
+        {
+            group: "Academic Vocabulary",
+            items: [
+                {
+                    label: "Formal Writing",
+                    formula: "formal word choice",
+                    examples: [
+                        "obtain data",
+                        "conduct research",
+                        "significant findings"
+                    ]
+                },
+                {
+                    label: "Word Precision",
+                    formula: "general → specific",
+                    examples: [
+                        "thing → factor",
+                        "good → effective",
+                        "show → demonstrate"
+                    ]
+                },
+                {
+                    label: "Avoid Repetition",
+                    formula: "synonym / pronoun / paraphrase",
+                    examples: [
+                        "The findings indicate...",
+                        "These results suggest...",
+                        "It demonstrates..."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Academic vocabulary is mainly used in...",
+            options: [
+                "formal and academic writing",
+                "text messages only",
+                "slang conversations",
+                "comic books"
+            ],
+            answer: "formal and academic writing",
+            explanation: "Academic vocabulary digunakan dalam tulisan formal dan ilmiah."
+        },
+        {
+            type: "Formal Word",
+            question: "Which word is the most formal replacement for 'get'?",
+            options: [
+                "obtain",
+                "grab",
+                "pick up",
+                "take"
+            ],
+            answer: "obtain",
+            explanation: "Obtain lebih formal daripada get."
+        },
+        {
+            type: "Formal Word",
+            question: "Which word is more academic than 'show'?",
+            options: [
+                "demonstrate",
+                "look",
+                "watch",
+                "see"
+            ],
+            answer: "demonstrate",
+            explanation: "Demonstrate lebih formal dan umum dalam academic writing."
+        },
+        {
+            type: "Precision",
+            question: "Which noun is more precise than 'thing' in research writing?",
+            options: [
+                "factor",
+                "item",
+                "piece",
+                "stuff"
+            ],
+            answer: "factor",
+            explanation: "Factor lebih spesifik daripada thing."
+        },
+        {
+            type: "Precision",
+            question: "Which adjective is the best replacement for 'good' when describing a method?",
+            options: [
+                "effective",
+                "nice",
+                "cool",
+                "great"
+            ],
+            answer: "effective",
+            explanation: "Effective lebih tepat untuk menjelaskan kualitas suatu metode."
+        },
+        {
+            type: "Repetition",
+            question: "A good way to avoid repetition is to use...",
+            options: [
+                "synonyms and pronouns",
+                "slang",
+                "capital letters",
+                "emoji"
+            ],
+            answer: "synonyms and pronouns",
+            explanation: "Sinonim dan pronoun membantu membuat tulisan lebih bervariasi."
+        },
+        {
+            type: "AWL",
+            question: "Which word belongs to the Academic Word List?",
+            options: [
+                "analyze",
+                "awesome",
+                "cool",
+                "buddy"
+            ],
+            answer: "analyze",
+            explanation: "Analyze merupakan salah satu kosakata akademik yang umum."
+        },
+        {
+            type: "AWL",
+            question: "Which word is an academic adjective?",
+            options: [
+                "significant",
+                "fun",
+                "cool",
+                "nice"
+            ],
+            answer: "significant",
+            explanation: "Significant sering digunakan dalam penelitian dan artikel ilmiah."
+        },
+        {
+            type: "Sentence",
+            question: "Which sentence is the most academic?",
+            options: [
+                "The researchers conducted research and obtained sufficient evidence.",
+                "The researchers did some stuff and got good things.",
+                "The guys checked everything and found cool results.",
+                "The team got lots of data and it was nice."
+            ],
+            answer: "The researchers conducted research and obtained sufficient evidence.",
+            explanation: "Conducted, obtained, dan evidence merupakan pilihan kata akademik."
+        },
+        {
+            type: "Sentence",
+            question: "Which sentence demonstrates better word precision?",
+            options: [
+                "Several factors influenced the outcome.",
+                "Several things influenced the outcome.",
+                "Some stuff influenced the outcome.",
+                "Many items influenced the outcome."
+            ],
+            answer: "Several factors influenced the outcome.",
+            explanation: "Factors lebih presisi daripada things."
+        },
+        {
+            type: "Sentence",
+            question: "Which sentence avoids repetition best?",
+            options: [
+                "The study investigated the issue. The findings indicate significant improvements.",
+                "The study studied the study. The study showed the study.",
+                "The thing showed many things about the thing.",
+                "The research research research research."
+            ],
+            answer: "The study investigated the issue. The findings indicate significant improvements.",
+            explanation: "Menggunakan variasi kosakata dan struktur kalimat."
+        },
+        {
+            type: "Formal Choice",
+            question: "Which phrase is most appropriate in an academic report?",
+            options: [
+                "provide evidence",
+                "show stuff",
+                "get proof",
+                "bring things"
+            ],
+            answer: "provide evidence",
+            explanation: "Provide evidence adalah collocation akademik yang umum."
+        },
+        {
+            type: "Vocabulary",
+            question: "Which word is more formal than 'help'?",
+            options: [
+                "assist",
+                "join",
+                "fix",
+                "save"
+            ],
+            answer: "assist",
+            explanation: "Assist lebih formal daripada help."
+        },
+        {
+            type: "Vocabulary",
+            question: "Which phrase is more academic?",
+            options: [
+                "numerous studies",
+                "lots of studies",
+                "a bunch of studies",
+                "many cool studies"
+            ],
+            answer: "numerous studies",
+            explanation: "Numerous studies merupakan ekspresi yang umum dalam tulisan akademik."
+        },
+        {
+            type: "Final",
+            question: "Which paragraph is the most suitable for an academic journal?",
+            options: [
+                "The researchers analyzed the data, identified significant factors, and concluded that the proposed method was highly effective.",
+                "The researchers looked at the stuff and found lots of good things.",
+                "The guys checked everything and got awesome results.",
+                "The team found cool information and said it was nice."
+            ],
+            answer: "The researchers analyzed the data, identified significant factors, and concluded that the proposed method was highly effective.",
+            explanation: "Paragraf menggunakan kosakata formal, presisi, dan akademik secara konsisten."
+        }
+    ]
+},
+
+"writing-style": {
+    title: "Introduction to Writing Style",
+    description: "Writing Style adalah cara penulis menyusun kata, kalimat, dan paragraf agar ide tersampaikan dengan jelas, logis, dan sesuai konteks. Dalam academic writing, gaya bahasa harus objektif, formal, ringkas, dan terhubung dengan baik.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Good Writing Style = Clarity + Cohesion + Formality + Precision
+    `,
+
+    notes: [
+        "Writing style menentukan bagaimana ide dibaca dan dipahami.",
+        "Academic writing harus jelas, objektif, dan formal.",
+        "Cohesion membantu kalimat dan paragraf saling terhubung.",
+        "Coherence membuat alur ide mudah diikuti.",
+        "Conciseness membuat tulisan lebih ringkas tanpa mengurangi makna.",
+        "Hedging membuat klaim akademik terdengar lebih hati-hati dan objektif."
+    ],
+
+    patterns: [
+        {
+            group: "Core Elements",
+            items: [
+                {
+                    label: "Clarity",
+                    formula: "clear subject + clear verb + clear idea",
+                    examples: [
+                        "The study examines student motivation.",
+                        "The results indicate a significant improvement.",
+                        "The method provides reliable data."
+                    ]
+                },
+                {
+                    label: "Cohesion",
+                    formula: "idea + connector + idea",
+                    examples: [
+                        "The task was difficult. However, the team completed it.",
+                        "The data was incomplete. Therefore, further research is needed.",
+                        "This method is simple. Moreover, it is effective."
+                    ]
+                },
+                {
+                    label: "Formal Tone",
+                    formula: "informal word → formal word",
+                    examples: [
+                        "get → obtain",
+                        "show → demonstrate",
+                        "a lot of → numerous"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Good writing style mainly requires...",
+            options: ["clarity and logical connection", "long sentences only", "slang words", "random vocabulary"],
+            answer: "clarity and logical connection",
+            explanation: "Writing style yang baik harus jelas dan logis."
+        },
+        {
+            type: "Academic Style",
+            question: "Academic writing should usually be...",
+            options: ["formal and objective", "very casual", "full of slang", "emotional only"],
+            answer: "formal and objective",
+            explanation: "Tulisan akademik biasanya formal, objektif, dan berbasis bukti."
+        },
+        {
+            type: "Clarity",
+            question: "Which sentence is clearer?",
+            options: [
+                "The study examines student motivation.",
+                "The thing looks at student stuff.",
+                "It does something about students.",
+                "Student motivation thing is done."
+            ],
+            answer: "The study examines student motivation.",
+            explanation: "Kalimat ini memiliki subject, verb, dan object yang jelas."
+        },
+        {
+            type: "Cohesion",
+            question: "Which word connects contrast?",
+            options: ["However", "Therefore", "Moreover", "For example"],
+            answer: "However",
+            explanation: "However digunakan untuk menunjukkan kontras."
+        },
+        {
+            type: "Cohesion",
+            question: "Which word connects result?",
+            options: ["Therefore", "However", "Moreover", "Although"],
+            answer: "Therefore",
+            explanation: "Therefore menunjukkan hasil atau akibat."
+        },
+        {
+            type: "Formal Tone",
+            question: "Which word is more formal than 'get'?",
+            options: ["obtain", "grab", "pick up", "take"],
+            answer: "obtain",
+            explanation: "Obtain lebih formal daripada get."
+        },
+        {
+            type: "Formal Tone",
+            question: "Which word is more academic than 'show'?",
+            options: ["demonstrate", "look", "watch", "say"],
+            answer: "demonstrate",
+            explanation: "Demonstrate lebih formal dan akademik."
+        },
+        {
+            type: "Conciseness",
+            question: "Conciseness means writing...",
+            options: [
+                "briefly without losing meaning",
+                "as long as possible",
+                "without grammar",
+                "with repeated words"
+            ],
+            answer: "briefly without losing meaning",
+            explanation: "Conciseness berarti ringkas tetapi tetap bermakna."
+        },
+        {
+            type: "Hedging",
+            question: "Hedging helps academic claims sound...",
+            options: ["careful and objective", "angry", "too casual", "absolute without evidence"],
+            answer: "careful and objective",
+            explanation: "Hedging membuat klaim lebih hati-hati dan akademik."
+        },
+        {
+            type: "Final",
+            question: "Which sentence sounds most academic?",
+            options: [
+                "The findings suggest that the method may improve learning outcomes.",
+                "This method is totally awesome and fixes everything.",
+                "The thing is really good for students.",
+                "Everyone must agree this is perfect."
+            ],
+            answer: "The findings suggest that the method may improve learning outcomes.",
+            explanation: "Kalimat ini formal, objektif, dan memakai hedging."
+        }
+    ]
+},
+
+"cohesion-coherence": {
+    title: "Cohesion vs Coherence",
+    description: "Cohesion dan Coherence adalah dua konsep utama dalam penulisan yang baik. Cohesion berfokus pada bagaimana kalimat saling terhubung, sedangkan coherence berfokus pada bagaimana ide berkembang secara logis sehingga mudah dipahami pembaca.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Cohesion = Sentence Connection<br>
+        Coherence = Logical Flow of Ideas
+    `,
+
+    notes: [
+        "Cohesion menghubungkan kalimat menggunakan transition signals, pronouns, dan repeated keywords.",
+        "Coherence memastikan setiap ide berkembang secara logis.",
+        "Tulisan yang cohesive belum tentu coherent.",
+        "Tulisan yang coherent membuat pembaca mudah mengikuti alur berpikir penulis.",
+        "Academic writing membutuhkan cohesion dan coherence secara bersamaan.",
+        "Setiap paragraf sebaiknya hanya memiliki satu ide utama."
+    ],
+
+    patterns: [
+        {
+            group: "Cohesion",
+            items: [
+                {
+                    label: "Connecting Sentences",
+                    formula: "Sentence + Connector + Sentence",
+                    examples: [
+                        "The experiment failed. Therefore, it was repeated.",
+                        "The sample size was small. However, the results were reliable.",
+                        "The method is simple. Moreover, it is inexpensive."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Coherence",
+            items: [
+                {
+                    label: "Logical Development",
+                    formula: "Topic → Explanation → Evidence → Conclusion",
+                    examples: [
+                        "Introduce the problem.",
+                        "Explain the cause.",
+                        "Present evidence.",
+                        "Draw a conclusion."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Poor vs Good Organization",
+            items: [
+                {
+                    label: "Paragraph Flow",
+                    formula: "random ideas → organized ideas",
+                    examples: [
+                        "Poor: The weather is hot. I like pizza. Education is important.",
+                        "Good: Education is important because it improves knowledge. Furthermore, it increases employment opportunities."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Cohesion mainly refers to...",
+            options: [
+                "how sentences are connected",
+                "grammar only",
+                "vocabulary size",
+                "paragraph length"
+            ],
+            answer: "how sentences are connected",
+            explanation: "Cohesion adalah hubungan antar kalimat."
+        },
+        {
+            type: "Concept",
+            question: "Coherence mainly refers to...",
+            options: [
+                "logical flow of ideas",
+                "spelling accuracy",
+                "pronunciation",
+                "word order only"
+            ],
+            answer: "logical flow of ideas",
+            explanation: "Coherence berkaitan dengan alur logis antar ide."
+        },
+        {
+            type: "Cohesion",
+            question: "Which word improves cohesion by showing contrast?",
+            options: [
+                "However",
+                "Therefore",
+                "Furthermore",
+                "For example"
+            ],
+            answer: "However",
+            explanation: "However menghubungkan dua ide yang bertentangan."
+        },
+        {
+            type: "Cohesion",
+            question: "Which word improves cohesion by showing addition?",
+            options: [
+                "Furthermore",
+                "However",
+                "Although",
+                "Instead"
+            ],
+            answer: "Furthermore",
+            explanation: "Furthermore digunakan untuk menambahkan informasi."
+        },
+        {
+            type: "Coherence",
+            question: "Which paragraph is coherent?",
+            options: [
+                "The study explains the problem, presents evidence, and concludes with recommendations.",
+                "The study discusses education. I like coffee. The weather is sunny.",
+                "Technology is useful. Cats sleep a lot. Research is important.",
+                "The data is complete. My favorite movie is interesting."
+            ],
+            answer: "The study explains the problem, presents evidence, and concludes with recommendations.",
+            explanation: "Semua kalimat membahas satu topik secara logis."
+        },
+        {
+            type: "Organization",
+            question: "A coherent paragraph should usually have...",
+            options: [
+                "one main idea",
+                "many unrelated topics",
+                "random examples",
+                "no conclusion"
+            ],
+            answer: "one main idea",
+            explanation: "Satu paragraf idealnya memiliki satu ide utama."
+        },
+        {
+            type: "Academic Writing",
+            question: "Which structure is most coherent?",
+            options: [
+                "Topic → Explanation → Evidence → Conclusion",
+                "Evidence → Weather → Story → Topic",
+                "Random Facts → Joke → Topic",
+                "Conclusion → Movie → Evidence"
+            ],
+            answer: "Topic → Explanation → Evidence → Conclusion",
+            explanation: "Ini adalah struktur umum paragraf akademik."
+        },
+        {
+            type: "Sentence Link",
+            question: "Which sentence pair has better cohesion?",
+            options: [
+                "The results were incomplete. Therefore, another experiment was conducted.",
+                "The results were incomplete. My friend likes football.",
+                "The results were incomplete. The weather was sunny.",
+                "The results were incomplete. Pizza is delicious."
+            ],
+            answer: "The results were incomplete. Therefore, another experiment was conducted.",
+            explanation: "Kalimat kedua berhubungan langsung dengan kalimat pertama."
+        },
+        {
+            type: "Revision",
+            question: "Which revision improves coherence?",
+            options: [
+                "Arrange ideas from introduction to conclusion.",
+                "Add unrelated examples.",
+                "Use random transitions.",
+                "Change the topic every sentence."
+            ],
+            answer: "Arrange ideas from introduction to conclusion.",
+            explanation: "Urutan ide yang logis meningkatkan coherence."
+        },
+        {
+            type: "Final",
+            question: "Which statement is correct?",
+            options: [
+                "Good academic writing requires both cohesion and coherence.",
+                "Only grammar is important.",
+                "Vocabulary alone creates coherence.",
+                "Paragraphs should discuss many unrelated topics."
+            ],
+            answer: "Good academic writing requires both cohesion and coherence.",
+            explanation: "Keduanya diperlukan agar tulisan mudah dipahami dan mengalir secara logis."
+        }
+    ]
+},
+
+"transition-signals": {
+    title: "Transition Signals",
+    description: "Transition Signals adalah kata atau frasa yang menghubungkan ide, kalimat, dan paragraf agar tulisan mengalir secara logis. Penggunaan transition signals yang tepat meningkatkan cohesion dan memudahkan pembaca mengikuti alur pembahasan.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Idea + Transition Signal + Idea
+    `,
+
+    notes: [
+        "Transition signals menghubungkan hubungan antar ide.",
+        "Gunakan transition sesuai hubungan logis yang ingin ditunjukkan.",
+        "Jangan menggunakan transition secara berlebihan.",
+        "Academic writing sangat bergantung pada transition signals.",
+        "Transition dapat berada di awal, tengah, atau akhir kalimat tergantung strukturnya.",
+        "Pilih transition yang sesuai dengan konteks, bukan hanya yang terdengar formal."
+    ],
+
+    patterns: [
+        {
+            group: "Addition",
+            items: [
+                {
+                    label: "Adding Information",
+                    formula: "Idea + addition",
+                    examples: [
+                        "Furthermore, the method is inexpensive.",
+                        "Moreover, the findings support previous studies.",
+                        "In addition, students received extra training."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Contrast",
+            items: [
+                {
+                    label: "Showing Difference",
+                    formula: "Idea + contrast",
+                    examples: [
+                        "However, the sample size was small.",
+                        "Nevertheless, the results remained reliable.",
+                        "On the other hand, another approach was considered."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Cause & Effect",
+            items: [
+                {
+                    label: "Showing Result",
+                    formula: "Cause → Effect",
+                    examples: [
+                        "Therefore, further research is needed.",
+                        "As a result, productivity increased.",
+                        "Consequently, the policy was revised."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Example",
+            items: [
+                {
+                    label: "Giving Examples",
+                    formula: "Statement → Example",
+                    examples: [
+                        "For example, online learning offers flexibility.",
+                        "For instance, smartphones are widely used in education.",
+                        "Such as renewable energy sources."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Sequence",
+            items: [
+                {
+                    label: "Ordering Ideas",
+                    formula: "Step 1 → Step 2 → Step 3",
+                    examples: [
+                        "First, collect the data.",
+                        "Next, analyze the results.",
+                        "Finally, draw a conclusion."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Conclusion",
+            items: [
+                {
+                    label: "Ending Ideas",
+                    formula: "Summary",
+                    examples: [
+                        "In conclusion, the hypothesis was supported.",
+                        "Overall, the results were encouraging.",
+                        "To summarize, regular practice improves performance."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Addition",
+            question: "Which transition signal shows addition?",
+            options: [
+                "Furthermore",
+                "However",
+                "Therefore",
+                "Although"
+            ],
+            answer: "Furthermore",
+            explanation: "Furthermore digunakan untuk menambahkan informasi."
+        },
+        {
+            type: "Contrast",
+            question: "Which transition signal shows contrast?",
+            options: [
+                "However",
+                "Moreover",
+                "Therefore",
+                "Finally"
+            ],
+            answer: "However",
+            explanation: "However menunjukkan pertentangan antara dua ide."
+        },
+        {
+            type: "Cause & Effect",
+            question: "Which transition signal introduces a result?",
+            options: [
+                "Therefore",
+                "For example",
+                "Meanwhile",
+                "Likewise"
+            ],
+            answer: "Therefore",
+            explanation: "Therefore menunjukkan hasil atau akibat."
+        },
+        {
+            type: "Example",
+            question: "Which transition signal introduces an example?",
+            options: [
+                "For example",
+                "Nevertheless",
+                "Consequently",
+                "Overall"
+            ],
+            answer: "For example",
+            explanation: "For example digunakan untuk memberikan contoh."
+        },
+        {
+            type: "Sequence",
+            question: "Which transition signal is commonly used to begin a sequence?",
+            options: [
+                "First",
+                "However",
+                "Instead",
+                "Although"
+            ],
+            answer: "First",
+            explanation: "First digunakan untuk memulai urutan langkah."
+        },
+        {
+            type: "Sequence",
+            question: "Which transition signal is commonly used to end a sequence?",
+            options: [
+                "Finally",
+                "Furthermore",
+                "However",
+                "Instead"
+            ],
+            answer: "Finally",
+            explanation: "Finally digunakan untuk langkah terakhir."
+        },
+        {
+            type: "Conclusion",
+            question: "Which transition signal introduces a conclusion?",
+            options: [
+                "In conclusion",
+                "For instance",
+                "Meanwhile",
+                "Similarly"
+            ],
+            answer: "In conclusion",
+            explanation: "In conclusion digunakan untuk mengakhiri pembahasan."
+        },
+        {
+            type: "Usage",
+            question: "The experiment failed. ___, a different method was tested.",
+            options: [
+                "Therefore",
+                "For example",
+                "Likewise",
+                "First"
+            ],
+            answer: "Therefore",
+            explanation: "Therefore menunjukkan akibat dari kegagalan eksperimen."
+        },
+        {
+            type: "Usage",
+            question: "The first method was effective. ___, it required less time.",
+            options: [
+                "Moreover",
+                "However",
+                "Instead",
+                "Finally"
+            ],
+            answer: "Moreover",
+            explanation: "Moreover menambahkan informasi pendukung."
+        },
+        {
+            type: "Final",
+            question: "Why are transition signals important in academic writing?",
+            options: [
+                "They improve cohesion and make ideas easier to follow.",
+                "They replace grammar rules.",
+                "They make every sentence longer.",
+                "They eliminate the need for paragraphs."
+            ],
+            answer: "They improve cohesion and make ideas easier to follow.",
+            explanation: "Transition signals membantu menghubungkan ide sehingga tulisan mengalir dengan baik."
+        }
+    ]
+},
+
+"conciseness": {
+    title: "Conciseness",
+    description: "Conciseness adalah kemampuan menyampaikan informasi secara singkat, jelas, dan langsung tanpa menghilangkan makna penting. Tulisan yang ringkas lebih mudah dipahami dan merupakan salah satu ciri utama academic writing yang baik.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Clear + Direct + Necessary Information Only
+    `,
+
+    notes: [
+        "Hapus kata atau frasa yang tidak diperlukan.",
+        "Gunakan kata yang tepat daripada kalimat yang bertele-tele.",
+        "Hindari pengulangan informasi yang sama.",
+        "Gunakan active voice jika memungkinkan agar kalimat lebih ringkas.",
+        "Setiap kata dalam kalimat sebaiknya memiliki fungsi yang jelas.",
+        "Conciseness bukan berarti membuat kalimat terlalu pendek, tetapi menghilangkan bagian yang tidak perlu."
+    ],
+
+    patterns: [
+        {
+            group: "Remove Wordiness",
+            items: [
+                {
+                    label: "Wordy → Concise",
+                    formula: "long expression → concise expression",
+                    examples: [
+                        "due to the fact that → because",
+                        "at this point in time → now",
+                        "in order to → to"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Avoid Redundancy",
+            items: [
+                {
+                    label: "Repeated Meaning",
+                    formula: "redundant → concise",
+                    examples: [
+                        "each and every → each",
+                        "basic fundamentals → fundamentals",
+                        "future plans → plans"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Active Voice",
+            items: [
+                {
+                    label: "More Direct",
+                    formula: "passive → active",
+                    examples: [
+                        "The report was written by Sarah. → Sarah wrote the report.",
+                        "The experiment was conducted by the researchers. → The researchers conducted the experiment.",
+                        "The decision was made by the committee. → The committee made the decision."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Sentence Revision",
+            items: [
+                {
+                    label: "Shorter but Clear",
+                    formula: "wordy sentence → concise sentence",
+                    examples: [
+                        "There are many students who study online. → Many students study online.",
+                        "It is important to note that... → Notably,...",
+                        "The reason is because... → The reason is that..."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Conciseness means...",
+            options: [
+                "expressing ideas clearly with unnecessary words removed",
+                "writing the longest possible sentences",
+                "using difficult vocabulary only",
+                "avoiding punctuation"
+            ],
+            answer: "expressing ideas clearly with unnecessary words removed",
+            explanation: "Conciseness berarti menyampaikan ide secara jelas dan ringkas."
+        },
+        {
+            type: "Wordiness",
+            question: "Which phrase is more concise?",
+            options: [
+                "because",
+                "due to the fact that",
+                "owing to the fact that",
+                "as a consequence of the fact that"
+            ],
+            answer: "because",
+            explanation: "Because lebih singkat dengan makna yang sama."
+        },
+        {
+            type: "Wordiness",
+            question: "Which phrase is more concise?",
+            options: [
+                "to",
+                "in order to",
+                "for the purpose of",
+                "with the intention of"
+            ],
+            answer: "to",
+            explanation: "To biasanya cukup tanpa mengubah makna."
+        },
+        {
+            type: "Redundancy",
+            question: "Which expression is NOT redundant?",
+            options: [
+                "fundamentals",
+                "basic fundamentals",
+                "past history",
+                "future plans"
+            ],
+            answer: "fundamentals",
+            explanation: "Fundamentals sudah mengandung makna 'basic'."
+        },
+        {
+            type: "Active Voice",
+            question: "Which sentence is more concise?",
+            options: [
+                "Sarah wrote the report.",
+                "The report was written by Sarah.",
+                "The report had been written by Sarah.",
+                "It was the report that Sarah wrote."
+            ],
+            answer: "Sarah wrote the report.",
+            explanation: "Active voice biasanya lebih ringkas."
+        },
+        {
+            type: "Revision",
+            question: "Which sentence is more concise?",
+            options: [
+                "Many students study online.",
+                "There are many students who study online.",
+                "It can be seen that many students study online.",
+                "There happen to be many students who study online."
+            ],
+            answer: "Many students study online.",
+            explanation: "Kalimat langsung ke inti informasi."
+        },
+        {
+            type: "Revision",
+            question: "Choose the most concise replacement for 'at this point in time'.",
+            options: [
+                "now",
+                "currently at this point in time",
+                "during this point in time",
+                "at this particular moment in time"
+            ],
+            answer: "now",
+            explanation: "Now menyampaikan makna yang sama dengan lebih ringkas."
+        },
+        {
+            type: "Academic Writing",
+            question: "Why is conciseness important in academic writing?",
+            options: [
+                "It improves clarity and readability.",
+                "It makes every sentence shorter regardless of meaning.",
+                "It replaces grammar rules.",
+                "It removes supporting evidence."
+            ],
+            answer: "It improves clarity and readability.",
+            explanation: "Tulisan yang ringkas lebih mudah dipahami tanpa kehilangan informasi penting."
+        },
+        {
+            type: "Editing",
+            question: "Which sentence is the best revision?",
+            options: [
+                "The committee approved the proposal.",
+                "The proposal was approved by the committee.",
+                "It was the proposal that was approved by the committee.",
+                "The proposal received approval from the committee."
+            ],
+            answer: "The committee approved the proposal.",
+            explanation: "Versi active voice lebih langsung dan ringkas."
+        },
+        {
+            type: "Final",
+            question: "Which sentence demonstrates good conciseness?",
+            options: [
+                "The researchers analyzed the data and reported the results.",
+                "The researchers were able to analyze the data in order to report the results.",
+                "The researchers conducted an analysis of the data for the purpose of reporting the results.",
+                "It is important to note that the researchers analyzed the data and then proceeded to report the results."
+            ],
+            answer: "The researchers analyzed the data and reported the results.",
+            explanation: "Kalimat pertama menyampaikan informasi secara jelas tanpa kata-kata yang tidak diperlukan."
+        }
+    ]
+},
+
+"hedging-academic-tone": {
+    title: "Hedging & Academic Tone",
+    description: "Hedging adalah penggunaan kata atau frasa yang membuat suatu pernyataan terdengar lebih hati-hati dan objektif. Dalam academic writing, penulis jarang membuat klaim yang mutlak tanpa bukti. Hedging membantu menunjukkan bahwa suatu kesimpulan didasarkan pada data dan masih terbuka terhadap interpretasi lain.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Strong Claim → Hedged Claim
+    `,
+
+    notes: [
+        "Academic writing menghindari klaim yang terlalu mutlak.",
+        "Gunakan modal verbs seperti may, might, could untuk menunjukkan kemungkinan.",
+        "Gunakan verbs seperti suggest, indicate, appear, seem daripada prove jika bukti belum mutlak.",
+        "Gunakan adverbs seperti probably, generally, likely, possibly bila sesuai konteks.",
+        "Hedging meningkatkan objektivitas dan kredibilitas tulisan.",
+        "Gunakan hedging hanya jika memang diperlukan; jangan membuat tulisan menjadi terlalu ragu-ragu."
+    ],
+
+    patterns: [
+        {
+            group: "Modal Verbs",
+            items: [
+                {
+                    label: "Expressing Possibility",
+                    formula: "modal verb + base verb",
+                    examples: [
+                        "The treatment may improve recovery.",
+                        "The findings might explain the difference.",
+                        "This method could reduce costs."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Academic Verbs",
+            items: [
+                {
+                    label: "Less Absolute Verbs",
+                    formula: "hedging verb",
+                    examples: [
+                        "The findings suggest that...",
+                        "The results indicate that...",
+                        "The evidence appears to support..."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Academic Adverbs",
+            items: [
+                {
+                    label: "Softening Statements",
+                    formula: "adverb + statement",
+                    examples: [
+                        "The policy will probably improve efficiency.",
+                        "This is likely to occur.",
+                        "The effect is generally consistent."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Strong vs Hedged Claims",
+            items: [
+                {
+                    label: "Revision",
+                    formula: "absolute → academic",
+                    examples: [
+                        "This method proves the theory. → This method suggests support for the theory.",
+                        "This treatment always works. → This treatment appears to be effective.",
+                        "The policy will solve the problem. → The policy may help address the problem."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Hedging is mainly used to...",
+            options: [
+                "make claims more cautious and objective",
+                "make writing emotional",
+                "avoid grammar",
+                "make every sentence passive"
+            ],
+            answer: "make claims more cautious and objective",
+            explanation: "Hedging membuat klaim terdengar lebih hati-hati dan sesuai dengan bukti yang tersedia."
+        },
+        {
+            type: "Modal Verb",
+            question: "Which modal verb expresses possibility?",
+            options: [
+                "may",
+                "must",
+                "will",
+                "shall"
+            ],
+            answer: "may",
+            explanation: "May menunjukkan kemungkinan, bukan kepastian."
+        },
+        {
+            type: "Modal Verb",
+            question: "Which sentence is better for academic writing?",
+            options: [
+                "The treatment may improve patient outcomes.",
+                "The treatment always improves patient outcomes.",
+                "The treatment definitely fixes every problem.",
+                "The treatment never fails."
+            ],
+            answer: "The treatment may improve patient outcomes.",
+            explanation: "Kalimat menggunakan hedging yang sesuai untuk klaim ilmiah."
+        },
+        {
+            type: "Academic Verb",
+            question: "Which verb is commonly used for hedging?",
+            options: [
+                "suggest",
+                "prove",
+                "guarantee",
+                "confirm absolutely"
+            ],
+            answer: "suggest",
+            explanation: "Suggest adalah salah satu hedging verb yang paling umum."
+        },
+        {
+            type: "Academic Verb",
+            question: "Which sentence sounds more academic?",
+            options: [
+                "The findings indicate a positive relationship.",
+                "The findings prove everything.",
+                "The findings completely settle the issue.",
+                "The findings make the debate impossible."
+            ],
+            answer: "The findings indicate a positive relationship.",
+            explanation: "Indicate lebih objektif daripada prove."
+        },
+        {
+            type: "Adverb",
+            question: "Which adverb is commonly used for hedging?",
+            options: [
+                "probably",
+                "definitely",
+                "absolutely",
+                "certainly"
+            ],
+            answer: "probably",
+            explanation: "Probably menyatakan kemungkinan, bukan kepastian."
+        },
+        {
+            type: "Academic Tone",
+            question: "Which sentence has a better academic tone?",
+            options: [
+                "The evidence appears to support the hypothesis.",
+                "The evidence proves everything.",
+                "The evidence is obviously correct.",
+                "The evidence cannot possibly be wrong."
+            ],
+            answer: "The evidence appears to support the hypothesis.",
+            explanation: "Appears to support menunjukkan sikap ilmiah yang hati-hati."
+        },
+        {
+            type: "Revision",
+            question: "Which revision is more appropriate?",
+            options: [
+                "The policy may reduce unemployment.",
+                "The policy will eliminate unemployment forever.",
+                "The policy definitely solves unemployment.",
+                "The policy guarantees success."
+            ],
+            answer: "The policy may reduce unemployment.",
+            explanation: "May reduce adalah klaim yang lebih realistis dan akademik."
+        },
+        {
+            type: "Revision",
+            question: "Which sentence demonstrates proper hedging?",
+            options: [
+                "The results suggest that further research is needed.",
+                "The results completely answer every question.",
+                "The results absolutely prove the theory.",
+                "The results leave no possible doubt."
+            ],
+            answer: "The results suggest that further research is needed.",
+            explanation: "Suggest dan further research adalah ciri khas academic writing."
+        },
+        {
+            type: "Final",
+            question: "Why is hedging important in academic writing?",
+            options: [
+                "It reflects evidence-based and objective reasoning.",
+                "It makes writing sound uncertain all the time.",
+                "It replaces supporting evidence.",
+                "It avoids giving conclusions."
+            ],
+            answer: "It reflects evidence-based and objective reasoning.",
+            explanation: "Hedging menunjukkan bahwa kesimpulan didasarkan pada bukti dan tidak mengklaim kepastian tanpa dasar."
+        }
+    ]
+},
+
+"writing-style-review": {
+    title: "Writing Style Review",
+    description: "Review akhir untuk menguji seluruh materi Writing Style & Cohesion, termasuk writing style, cohesion vs coherence, transition signals, conciseness, serta hedging dan academic tone.",
+
+    formula: `
+        <strong>Ringkasan BAB 21:</strong><br>
+        Good Writing = Clear + Cohesive + Coherent + Concise + Objective
+    `,
+
+    notes: [
+        "Writing yang baik mudah dipahami pembaca.",
+        "Gunakan cohesion agar kalimat saling terhubung.",
+        "Gunakan coherence agar ide berkembang secara logis.",
+        "Gunakan transition signals sesuai hubungan antar ide.",
+        "Hindari kalimat yang bertele-tele.",
+        "Gunakan hedging untuk membuat klaim akademik lebih objektif."
+    ],
+
+    patterns: [
+        {
+            group: "Writing Principles",
+            items: [
+                {
+                    label: "Complete Review",
+                    formula: "Clear → Cohesive → Coherent → Concise → Objective",
+                    examples: [
+                        "Use clear sentence structure.",
+                        "Connect ideas with transitions.",
+                        "Develop one main idea per paragraph.",
+                        "Avoid unnecessary words.",
+                        "Support claims with evidence and appropriate hedging."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Good academic writing should be...",
+            options: [
+                "clear, logical, and objective",
+                "long and complicated",
+                "informal and emotional",
+                "full of slang"
+            ],
+            answer: "clear, logical, and objective",
+            explanation: "Academic writing harus jelas, logis, dan objektif."
+        },
+        {
+            type: "Cohesion",
+            question: "Cohesion refers to...",
+            options: [
+                "how sentences are connected",
+                "grammar only",
+                "spelling accuracy",
+                "vocabulary size"
+            ],
+            answer: "how sentences are connected",
+            explanation: "Cohesion adalah hubungan antar kalimat."
+        },
+        {
+            type: "Coherence",
+            question: "Coherence refers to...",
+            options: [
+                "the logical flow of ideas",
+                "pronunciation",
+                "punctuation",
+                "sentence length"
+            ],
+            answer: "the logical flow of ideas",
+            explanation: "Coherence berkaitan dengan perkembangan ide yang logis."
+        },
+        {
+            type: "Transition",
+            question: "Which transition signal shows contrast?",
+            options: [
+                "However",
+                "Furthermore",
+                "Therefore",
+                "For example"
+            ],
+            answer: "However",
+            explanation: "However digunakan untuk menunjukkan pertentangan."
+        },
+        {
+            type: "Transition",
+            question: "Which transition signal introduces a result?",
+            options: [
+                "Therefore",
+                "Meanwhile",
+                "Similarly",
+                "For instance"
+            ],
+            answer: "Therefore",
+            explanation: "Therefore menunjukkan akibat atau hasil."
+        },
+        {
+            type: "Conciseness",
+            question: "Which sentence is more concise?",
+            options: [
+                "Many students study online.",
+                "There are many students who study online.",
+                "It can clearly be seen that many students study online.",
+                "There happen to be many students studying online nowadays."
+            ],
+            answer: "Many students study online.",
+            explanation: "Kalimat pertama menyampaikan informasi secara langsung."
+        },
+        {
+            type: "Conciseness",
+            question: "Which phrase is the most concise?",
+            options: [
+                "because",
+                "due to the fact that",
+                "owing to the fact that",
+                "as a consequence of the fact that"
+            ],
+            answer: "because",
+            explanation: "Because menyampaikan makna yang sama dengan lebih ringkas."
+        },
+        {
+            type: "Academic Tone",
+            question: "Which sentence uses appropriate hedging?",
+            options: [
+                "The findings suggest that the treatment may improve outcomes.",
+                "The findings prove that the treatment always works.",
+                "The findings guarantee success.",
+                "The findings completely settle the debate."
+            ],
+            answer: "The findings suggest that the treatment may improve outcomes.",
+            explanation: "Suggest dan may menunjukkan hedging yang sesuai."
+        },
+        {
+            type: "Academic Tone",
+            question: "Which verb is most suitable for academic writing?",
+            options: [
+                "indicate",
+                "prove absolutely",
+                "guarantee",
+                "confirm everything"
+            ],
+            answer: "indicate",
+            explanation: "Indicate lebih objektif daripada kata-kata yang bersifat absolut."
+        },
+        {
+            type: "Organization",
+            question: "A well-written paragraph should generally contain...",
+            options: [
+                "one main idea with supporting details",
+                "many unrelated topics",
+                "random examples only",
+                "multiple conclusions"
+            ],
+            answer: "one main idea with supporting details",
+            explanation: "Satu paragraf idealnya mengembangkan satu ide utama."
+        },
+        {
+            type: "Editing",
+            question: "Which revision improves writing style?",
+            options: [
+                "The researchers analyzed the data and reported the findings.",
+                "The researchers did the data and got some results.",
+                "The researchers looked at stuff and said it was good.",
+                "The researchers checked everything and it was awesome."
+            ],
+            answer: "The researchers analyzed the data and reported the findings.",
+            explanation: "Kalimat pertama menggunakan kosakata formal dan presisi."
+        },
+        {
+            type: "Editing",
+            question: "Which sentence demonstrates both cohesion and coherence?",
+            options: [
+                "The experiment failed. Therefore, the researchers revised the method and repeated the test.",
+                "The experiment failed. Pizza is delicious. Students study online.",
+                "The experiment failed. My favorite sport is football.",
+                "The experiment failed. The weather was sunny."
+            ],
+            answer: "The experiment failed. Therefore, the researchers revised the method and repeated the test.",
+            explanation: "Kalimat kedua mengikuti akibat dari kalimat pertama sehingga kohesif dan koheren."
+        },
+        {
+            type: "Revision",
+            question: "Which sentence has the best academic tone?",
+            options: [
+                "The evidence appears to support the proposed hypothesis.",
+                "The evidence proves everything beyond doubt.",
+                "The evidence is obviously perfect.",
+                "The evidence completely settles every question."
+            ],
+            answer: "The evidence appears to support the proposed hypothesis.",
+            explanation: "Appears to support menunjukkan sikap ilmiah yang objektif."
+        },
+        {
+            type: "Writing Quality",
+            question: "Which characteristic is NOT part of good academic writing?",
+            options: [
+                "using unnecessary repetition",
+                "logical organization",
+                "clear language",
+                "appropriate transitions"
+            ],
+            answer: "using unnecessary repetition",
+            explanation: "Pengulangan yang tidak perlu justru mengurangi kualitas tulisan."
+        },
+        {
+            type: "Final",
+            question: "Which paragraph demonstrates the best writing style?",
+            options: [
+                "The study investigated the problem. Furthermore, the findings indicate a significant relationship. Therefore, additional research may improve current understanding.",
+                "The study looked at stuff. It was really good. Everyone knows it is correct.",
+                "The research was awesome. It totally proved everything forever.",
+                "The study happened. Things happened. It was nice."
+            ],
+            answer: "The study investigated the problem. Furthermore, the findings indicate a significant relationship. Therefore, additional research may improve current understanding.",
+            explanation: "Paragraf pertama memadukan cohesion, coherence, transition signals, conciseness, dan hedging dengan baik."
+        }
+    ]
 }
+
 
 };
 
@@ -20261,17 +26247,72 @@ export const MATERI_BAB_CONFIG = [
         level: "Beginner",
         color: "#ef4444",
         items: [
-                { label: "Parts of Speech", id: "pos" },
-                { label: "Noun", id: "noun" },
-                { label: "Pronoun", id: "pronoun" },
-                { label: "Verb", id: "verb" },
-                { label: "Adjective", id: "adjective" },
-                { label: "Adverb", id: "adverb" },
-                { label: "Preposition", id: "preposition" },
-                { label: "Conjunction", id: "conjunction" },
-                { label: "Interjection", id: "interjection" }
+                { label: "Parts of Speech", 
+                    id: "pos",
+                 video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/pos.mp4",
+                        title: "Parts of Speech"}
+                },
+                { label: "Noun", 
+                    id: "noun", 
+                video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/noun.mp4",
+                        title: "Noun"}
+                },
+                { label: "Pronoun", 
+                    id: "pronoun", 
+                video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/pronoun.mp4",
+                        title: "Pronoun"}
+                },
+                { label: "Verb", 
+                    id: "verb",
+                    video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/verb.mp4",
+                        title: "Verb"} 
+                },
+                { label: "Adjective", 
+                    id: "adjective", 
+                video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/adjective.mp4",
+                        title: "Adjective"}
+                },
+                { label: "Adverb", 
+                    id: "adverb", 
+                video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/adverb.mp4",
+                        title: "Adverb"}
+                },
+                { label: "Preposition", 
+                    id: "preposition", 
+                video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/preposition.mp4",
+                        title: "Preposition"}
+                },
+                { label: "Conjunction", 
+                    id: "conjunction", 
+                video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/conjunction.mp4",
+                        title: "Conjunction"}
+                },
+                { label: "Interjection", 
+                    id: "interjection", 
+                video: {
+                        type: "youtube",
+                        url: "lat-inggris/assets/videos/interjection.mp4",
+                        title: "Interjection"}
+                }
                 ]
     },
+
     {
     id: "bab2",
     icon: "fa-clock",
@@ -20514,7 +26555,89 @@ export const MATERI_BAB_CONFIG = [
         { label: "Discourse Markers", id: "discourse-markers" },
         { label: "Advanced Sentence Review", id: "advanced-review" }
     ]
+},
+
+{
+    id: "bab17",
+    icon: "fa-puzzle-piece",
+    title: "BAB 17: Phrasal Verbs",
+    level: "Master",
+    color: "#16a34a",
+    items: [
+        { label: "Introduction to Phrasal Verbs", id: "phrasal-verbs" },
+        { label: "Separable Phrasal Verbs", id: "separable-phrasal-verbs" },
+        { label: "Inseparable Phrasal Verbs", id: "inseparable-phrasal-verbs" },
+        { label: "Common Daily Phrasal Verbs", id: "daily-phrasal-verbs" },
+        { label: "Academic & Formal Alternatives", id: "formal-phrasal-verbs" },
+        { label: "Phrasal Verbs Review", id: "phrasal-verbs-review" }
+    ]
+},
+
+{
+    id: "bab18",
+    icon: "fa-comments",
+    title: "BAB 18: Idioms",
+    level: "Master",
+    color: "#9333ea",
+    items: [
+        { label: "Introduction to Idioms", id: "idioms" },
+        { label: "Common Daily Idioms", id: "daily-idioms" },
+        { label: "Business & Academic Idioms", id: "academic-idioms" },
+        { label: "Body Idioms", id: "body-idioms" },
+        { label: "Animal Idioms", id: "animal-idioms" },
+        { label: "Idioms Review", id: "idioms-review" }
+    ]
+},
+
+{
+    id: "bab19",
+    icon: "fa-link",
+    title: "BAB 19: Collocations",
+    level: "Master",
+    color: "#0f766e",
+    items: [
+        { label: "Introduction to Collocations", id: "collocations" },
+        { label: "Verb + Noun Collocations", id: "verb-noun-collocations" },
+        { label: "Adjective + Noun Collocations", id: "adjective-noun-collocations" },
+        { label: "Adverb + Adjective Collocations", id: "adverb-adjective-collocations" },
+        { label: "Business & Academic Collocations", id: "business-academic-collocations" },
+        { label: "Collocations Review", id: "collocations-review" }
+    ]
+},
+
+{
+    id: "bab20",
+    icon: "fa-book-open",
+    title: "BAB 20: Academic Vocabulary & Word Choice",
+    level: "Master",
+    color: "#2563eb",
+    items: [
+        { label: "Introduction to Academic Vocabulary", id: "academic-vocabulary" },
+        { label: "Formal vs Informal Words", id: "formal-informal-words" },
+        { label: "Word Precision", id: "word-precision" },
+        { label: "Avoiding Repetition", id: "avoiding-repetition" },
+        { label: "Academic Word List (AWL)", id: "academic-word-list" },
+        { label: "Academic Vocabulary Review", id: "academic-vocabulary-review" }
+    ]
+},
+
+{
+    id: "bab21",
+    icon: "fa-feather-pointed",
+    title: "BAB 21: Writing Style & Cohesion",
+    level: "Master",
+    color: "#be123c",
+    items: [
+        { label: "Introduction to Writing Style", id: "writing-style" },
+        { label: "Cohesion vs Coherence", id: "cohesion-coherence" },
+        { label: "Transition Signals", id: "transition-signals" },
+        { label: "Conciseness", id: "conciseness" },
+        { label: "Hedging & Academic Tone", id: "hedging-academic-tone" },
+        { label: "Writing Style Review", id: "writing-style-review" }
+    ]
 }
+
+
 
 ];
 

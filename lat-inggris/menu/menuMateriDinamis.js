@@ -2,7 +2,9 @@ import { MATERI_BAB_CONFIG } from "./materiBabConfig.js";
 import { MATERI_CONTENT } from "../materi/materiContentConfig.js";
 
 function getTotalLearningProgress() {
-    const allItems = MATERI_BAB_CONFIG.flatMap(bab => bab.items || []);
+    const babConfig = window.MATERI_BAB_CONFIG || MATERI_BAB_CONFIG || [];
+
+    const allItems = babConfig.flatMap(bab => bab.items || []);
     const total = allItems.length;
 
     const selesai = allItems.filter(item => {
@@ -11,10 +13,27 @@ function getTotalLearningProgress() {
     }).length;
 
     return {
+        totalBab: babConfig.length,
         total,
         selesai,
         percent: total ? Math.round((selesai / total) * 100) : 0
     };
+}
+
+function scrollPageToAbsoluteTop() {
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+    });
+
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    const materiBody = document.getElementById("materi-body");
+    if (materiBody) {
+        materiBody.scrollTop = 0;
+    }
 }
 
 export function renderMenuMateriDinamis() {
@@ -61,7 +80,7 @@ ${resumeCardHtml}
 
 <div class="mms-learning-flow">
 
-    <div class="mms-learning-summary-card">
+    <div id="mms-learning-hud" class="mms-learning-summary-card">
     <div class="mms-summary-top">
 
     <div>
@@ -105,7 +124,7 @@ ${resumeCardHtml}
 
         <div>
             <h3>Progress Belajar</h3>
-            <p>${totalProgress.selesai}/${totalProgress.total} materi selesai</p>
+           <p>${totalProgress.selesai}/${totalProgress.total} materi selesai • ${totalProgress.totalBab} BAB</p>
         </div>
     </div>
 
@@ -239,6 +258,7 @@ return `
 
 setTimeout(() => {
     autoOpenActiveBab();
+    scrollPageToAbsoluteTop();
 }, 80);
 
 }
@@ -281,10 +301,18 @@ window.bukaMateriMenu = function () {
     const dashboard = document.getElementById("dashboard-menu");
     const materiBody = document.getElementById("materi-body");
 
+    localStorage.setItem("mms_last_menu", "materi");
+
     if (dashboard) dashboard.style.display = "none";
     if (materiBody) materiBody.style.display = "block";
 
     renderMenuMateriDinamis();
+
+    setTimeout(() => {
+        if (typeof window.forceScrollTop === "function") {
+            window.forceScrollTop();
+        }
+    }, 150);
 };
 
 window.togglePatternGroup = function (groupIndex) {
@@ -350,7 +378,9 @@ window.bukaDetailMateriDinamis = function (idMateri, judulMateri) {
     if (!materiBody) return;
 
     const materi = MATERI_CONTENT[idMateri];
+    const materiItem = getMateriItemById(idMateri);
 
+    const materiVideo = materi?.video || materiItem?.video || null;
 
     const materiProgress = JSON.parse(
     localStorage.getItem(`mms_materi_quiz_${idMateri}`) || "null"
@@ -366,6 +396,7 @@ materiBody.innerHTML = `
 `;
 
 setTimeout(() => {
+    
     materiBody.innerHTML = `
         <div class="mms-materi-page">
             <div class="mms-materi-header">
@@ -390,15 +421,20 @@ setTimeout(() => {
     <p>${materi?.description || "Konten materi belum tersedia."}</p>
 </div>
 
-                ${materi?.video?.url ? `
-                    <div class="mms-video-trigger" onclick="bukaVideoMateri('${encodeURIComponent(materi.video.url)}', '${materi.video.type}')">
-                        <i class="fa-solid fa-circle-play"></i>
-                        <div class="mms-video-trigger-text">
-                            <strong>Video Penjelasan</strong>
-                            <span>Klik untuk membuka video materi</span>
-                        </div>
-                    </div>
-                ` : ""}
+                ${materiVideo?.url ? `
+    <div class="mms-video-trigger" onclick="bukaVideoMateri('${encodeURIComponent(materiVideo.url)}', '${materiVideo.type || "youtube"}')">
+        <i class="fa-solid fa-circle-play"></i>
+        <div class="mms-video-trigger-text">
+            <strong>${materiVideo.title || "Video Penjelasan"}</strong>
+            <span>Klik untuk membuka video materi</span>
+        </div>
+    </div>
+` : `
+    <div class="mms-video-empty">
+        <i class="fa-solid fa-video-slash"></i>
+        Video materi belum tersedia.
+    </div>
+`}
 
                 ${materi?.formula ? `
                     <div class="mms-formula-box">
@@ -1168,12 +1204,22 @@ function hasStartedLearning() {
 
 
 function isBabUnlocked(babIndex) {
+    const babConfig = window.MATERI_BAB_CONFIG || MATERI_BAB_CONFIG || [];
+
+    const currentBab = babConfig[babIndex];
+
+    // BAB 1 selalu terbuka
     if (babIndex === 0) return true;
 
-    const prevBab = MATERI_BAB_CONFIG[babIndex - 1];
+    // Kalau BAB ini sudah punya progress, tetap terbuka
+    const currentProgress = getBabProgress(currentBab);
+    if (currentProgress.selesai > 0 || currentProgress.percent > 0) return true;
+
+    // Kalau BAB sebelumnya selesai minimal 70%, BAB ini terbuka
+    const prevBab = babConfig[babIndex - 1];
     const prevProgress = getBabProgress(prevBab);
 
-    return prevProgress.percent === 100;
+    return prevProgress.percent >= 70;
 }
 
 window.showLockedBabNotice = function () {
@@ -1698,3 +1744,117 @@ window.simpanBestScoreQuiz = function (correct, total, percent) {
         }));
     }
 };
+
+
+function getMateriItemById(id) {
+    const babConfig = window.MATERI_BAB_CONFIG || MATERI_BAB_CONFIG || [];
+
+    for (const bab of babConfig) {
+        const found = (bab.items || []).find(item => {
+            const itemId = typeof item === "string" ? item : item.id;
+            return itemId === id;
+        });
+
+        if (found) return found;
+    }
+
+    return null;
+}
+
+
+window.bukaVideoMateri = function (encodedUrl, type = "youtube") {
+    try {
+        const url = decodeURIComponent(encodedUrl || "");
+        const videoType = (type || "youtube").toLowerCase();
+
+        if (!url) {
+            alert("Video URL kosong atau belum tersedia.");
+            console.error("Video URL kosong:", { encodedUrl, type });
+            return;
+        }
+
+        let overlay = document.getElementById("mms-video-overlay");
+
+        if (!overlay) {
+            overlay = document.createElement("div");
+            overlay.id = "mms-video-overlay";
+            overlay.className = "mms-video-overlay";
+            document.body.appendChild(overlay);
+        }
+
+        const videoContent = videoType === "mp4" ? `
+            <video
+                class="mms-video-player"
+                controls
+                controlsList="nodownload"
+                playsinline
+                preload="metadata"
+            >
+                <source src="${url}" type="video/mp4">
+                Browser Anda tidak mendukung video.
+            </video>
+        ` : `
+            <iframe
+                src="${url}"
+                title="Video Materi"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+            ></iframe>
+        `;
+
+        overlay.innerHTML = `
+            <div class="mms-video-modal">
+                <button class="mms-video-close" onclick="tutupVideoMateri()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="mms-video-modal-frame">
+                    ${videoContent}
+                </div>
+            </div>
+        `;
+
+        overlay.style.display = "flex";
+        document.body.classList.add("mms-video-open");
+
+    } catch (err) {
+        alert("Gagal membuka video materi. Cek console.");
+        console.error("bukaVideoMateri error:", err);
+    }
+};
+
+window.tutupVideoMateri = function () {
+    const overlay = document.getElementById("mms-video-overlay");
+
+    if (overlay) {
+        overlay.style.display = "none";
+        overlay.innerHTML = "";
+    }
+
+    document.body.classList.remove("mms-video-open");
+};
+
+function mmsCompleteAllMateriForTest() {
+    const babConfig = window.MATERI_BAB_CONFIG || MATERI_BAB_CONFIG || [];
+
+    const allItems = babConfig.flatMap(bab => bab.items || []);
+
+    allItems.forEach(item => {
+        const id = typeof item === "string" ? item : item.id;
+
+        localStorage.setItem(`mms_materi_quiz_${id}`, JSON.stringify({
+            percent: 100,
+            completed: true,
+            score: 100,
+            testMode: true,
+            completedAt: new Date().toISOString()
+        }));
+    });
+
+    console.log(`DONE: ${allItems.length} materi ditandai selesai.`);
+    location.reload();
+}
+
+window.mmsCompleteAllMateriForTest = mmsCompleteAllMateriForTest;
