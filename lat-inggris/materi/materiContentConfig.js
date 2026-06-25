@@ -1222,7 +1222,7 @@ conjunction: {
     quiz: [
         {
             type: "Identify",
-            question: "Which word is a conjunction?",
+            question: "Kata mana yang merupakan conjunction?",
             options: ["And", "Quickly", "School", "Beautiful"],
             answer: "And",
             explanation: "And adalah conjunction karena menghubungkan kata atau ide."
@@ -1264,19 +1264,19 @@ conjunction: {
         },
         {
             type: "Concept",
-            question: "What is the function of a conjunction?",
+            question: "Apa fungsi dari conjunction?",
             options: [
-                "Connect words or ideas",
-                "Describe a noun",
-                "Show emotion",
-                "Replace a noun"
+                "Menghubungkan kata atau ide",
+                "Menjelaskan kata benda (noun)",
+                "Menunjukkan emosi",
+                "Menggantikan kata benda (noun)"
             ],
-            answer: "Connect words or ideas",
+            answer: "CMenghubungkan kata atau ide",
             explanation: "Conjunction menghubungkan kata, frasa, atau klausa."
         },
         {
             type: "Identify",
-            question: "Which sentence uses a conjunction?",
+            question: "Kalimat mana yang menggunakan conjunction?",
             options: [
                 "She is smart.",
                 "I like apples and oranges.",
@@ -1288,14 +1288,14 @@ conjunction: {
         },
         {
             type: "Contrast",
-            question: "Choose the best conjunction: 'I am hungry ___ I have no food.'",
+            question: "Pilih conjunction yang paling tepat: 'I am hungry ___ I have no food.'",
             options: ["but", "and", "so", "because"],
             answer: "but",
             explanation: "But menunjukkan pertentangan antara hungry dan no food."
         },
         {
             type: "Reason",
-            question: "Which word shows reason?",
+            question: "Kata mana yang menunjukkan alasan?",
             options: ["Because", "And", "Or", "Wow"],
             answer: "Because",
             explanation: "Because digunakan untuk menyatakan alasan."
@@ -2399,7 +2399,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which tense uses Subject + will be + V-ing?",
+            question: "Tenses mana yang menggunakan Subject + will be + V-ing?",
             options: ["Simple Future", "Future Continuous", "Future Perfect", "Simple Present"],
             answer: "Future Continuous",
             explanation: "Future Continuous memakai will be + V-ing."
@@ -2716,7 +2716,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which tense uses Subject + would be + V-ing?",
+            question: "Tenses mana yang menggunakan Subject + would be + V-ing?",
             options: [
                 "Simple Past Future",
                 "Past Future Continuous",
@@ -2903,7 +2903,7 @@ interjection: {
         },
         {
             type: "Simple Passive",
-            question: "Which sentence is Simple Present Passive?",
+            question: "Kalimat mana yang merupakan Simple Present Passive?",
             options: [
                 "She writes a letter.",
                 "A letter is written by her.",
@@ -2941,7 +2941,7 @@ interjection: {
         },
         {
             type: "Continuous Passive",
-            question: "Which sentence is Present Continuous Passive?",
+            question: "Kalimat mana yang menggunakan Present Continuous Passive?",
             options: [
                 "The food is being prepared.",
                 "The food is prepared.",
@@ -2986,7 +2986,7 @@ interjection: {
         },
         {
             type: "Perfect Passive",
-            question: "Which sentence is Present Perfect Passive?",
+            question: "Kalimat mana yang merupakan Present Perfect Passive?",
             options: [
                 "The report is submitted.",
                 "The report is being submitted.",
@@ -2998,7 +2998,7 @@ interjection: {
         },
         {
             type: "Perfect Passive",
-            question: "Active: She has written a letter. Passive form is...",
+            question: "Active: She has written a letter. bentuk Passive nya adalah ...",
             options: [
                 "A letter is written by her.",
                 "A letter is being written by her.",
@@ -3017,33 +3017,33 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Passive voice focuses on...",
+            question: "Passive voice berfokus pada...",
             options: [
-                "The receiver of the action",
-                "The action only",
-                "The adjective",
-                "The conjunction"
+                "Penerima aksi",
+                "Hanya aksi yang dilakukan",
+                "Kata sifat (adjective)",
+                "Kata hubung (conjunction)"
             ],
-            answer: "The receiver of the action",
+            answer: "Penerima aksi",
             explanation: "Passive voice menekankan penerima aksi."
         },
         {
             type: "Concept",
-            question: "Passive voice always uses...",
+            question: "Passive voice selalu menggunakan...",
             options: ["V1", "V2", "V3", "V-ing"],
             answer: "V3",
             explanation: "Passive voice selalu memakai past participle atau V3."
         },
         {
             type: "Concept",
-            question: "The word 'by' is used to show...",
-            options: ["The doer of the action", "The place", "The time", "The adjective"],
-            answer: "The doer of the action",
+            question: "Kata 'by' digunakan untuk menunjukkan...",
+            options: ["Pelaku aksi", "Tempat", "Waktu", "Kata sifat"],
+            answer: "Pelaku aksi",
             explanation: "By digunakan untuk menunjukkan pelaku aksi dalam passive voice."
         },
         {
             type: "Transform",
-            question: "Active: They prepare the food. Passive form is...",
+            question: "Active: They prepare the food. Bentuk pasif nya adalah...",
             options: [
                 "The food is prepared by them.",
                 "The food are prepared by them.",
@@ -3055,7 +3055,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: They are cleaning the rooms. Passive form is...",
+            question: "Active: They are cleaning the rooms. Bentuk pasifnya adalah...",
             options: [
                 "The rooms are cleaned by them.",
                 "The rooms are being cleaned by them.",
@@ -3241,7 +3241,7 @@ interjection: {
         },
         {
             type: "Simple Passive",
-            question: "Which sentence is Simple Past Passive?",
+            question: "Kalimat mana yang merupakan Simple Past Passive?",
             options: [
                 "She wrote a letter.",
                 "A letter was written by her.",
@@ -3253,7 +3253,7 @@ interjection: {
         },
         {
             type: "Simple Passive",
-            question: "Active: They cleaned the room. Passive form is...",
+            question: "Active: They cleaned the room. Bentuk pasifnya adalah...",
             options: [
                 "The room is cleaned by them.",
                 "The room was cleaned by them.",
@@ -3279,7 +3279,7 @@ interjection: {
         },
         {
             type: "Continuous Passive",
-            question: "Which sentence is Past Continuous Passive?",
+            question: "Kalimat mana yang merupakan Past Continuous Passive?",
             options: [
                 "The food was being prepared.",
                 "The food was prepared.",
@@ -3291,7 +3291,7 @@ interjection: {
         },
         {
             type: "Continuous Passive",
-            question: "Active: She was writing a letter. Passive form is...",
+            question: "Active: She was writing a letter. Bentuk pasifnya adalah...",
             options: [
                 "A letter was written by her.",
                 "A letter was being written by her.",
@@ -3324,7 +3324,7 @@ interjection: {
         },
         {
             type: "Perfect Passive",
-            question: "Which sentence is Past Perfect Passive?",
+            question: "Kalimat mana yang merupakan Past Perfect Passive?",
             options: [
                 "The report was submitted.",
                 "The report was being submitted.",
@@ -3336,7 +3336,7 @@ interjection: {
         },
         {
             type: "Perfect Passive",
-            question: "Active: She had written a letter. Passive form is...",
+            question: "Active: She had written a letter. Bentuk pasifnya adalah...",
             options: [
                 "A letter was written by her.",
                 "A letter was being written by her.",
@@ -3355,21 +3355,21 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Past Passive still uses...",
-            options: ["V1", "V2", "V3", "V-ing only"],
+            question: "Past Passive memakai ...",
+            options: ["V1", "V2", "V3", "Hanya V-ing"],
             answer: "V3",
             explanation: "Semua passive voice memakai V3."
         },
         {
             type: "Concept",
-            question: "In passive voice, the object of active voice becomes...",
+            question: "Di passive voice, object dari kalimat aktif menjadi...",
             options: ["Subject", "Adverb", "Conjunction", "Article"],
             answer: "Subject",
             explanation: "Object pada active voice berubah menjadi subject pada passive voice."
         },
         {
             type: "Transform",
-            question: "Active: They were cleaning the rooms. Passive form is...",
+            question: "Active: They were cleaning the rooms. Bentuk pasifnya adalah...",
             options: [
                 "The rooms were cleaned by them.",
                 "The rooms were being cleaned by them.",
@@ -3381,7 +3381,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: They had sent the letters. Passive form is...",
+            question: "Active: They had sent the letters. Bentuk pasifnya adalah...",
             options: [
                 "The letters were sent by them.",
                 "The letters were being sent by them.",
@@ -3393,7 +3393,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which tense uses Subject + had been + V3?",
+            question: "Tenses ana yang menggunakan Subject + had been + V3?",
             options: [
                 "Simple Past Passive",
                 "Past Continuous Passive",
@@ -3581,7 +3581,7 @@ interjection: {
         },
         {
             type: "Simple Passive",
-            question: "Which sentence is Simple Future Passive?",
+            question: "Kalimat mana yang merupakan Simple Future Passive?",
             options: [
                 "She will submit the report.",
                 "The report will be submitted.",
@@ -3593,7 +3593,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: They will clean the room. Passive form is...",
+            question: "Active: They will clean the room. Bentuk pasifnya adalah...",
             options: [
                 "The room will clean by them.",
                 "The room will be cleaned by them.",
@@ -3605,7 +3605,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: She will write a letter. Passive form is...",
+            question: "Active: She will write a letter. Bentuk pasifnya adalah..",
             options: [
                 "A letter will be written by her.",
                 "A letter will written by her.",
@@ -3659,7 +3659,7 @@ interjection: {
         },
         {
             type: "Perfect Passive",
-            question: "Which sentence is Future Perfect Passive?",
+            question: "Kalimat mana yang merupakan Future Perfect Passive?",
             options: [
                 "The project will be completed.",
                 "The project will have been completed.",
@@ -3671,7 +3671,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: They will have completed the project. Passive form is...",
+            question: "Active: They will have completed the project. Bentuk pasifnya adalah...",
             options: [
                 "The project will be completed by them.",
                 "The project will have been completed by them.",
@@ -3683,7 +3683,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: She will have submitted the report. Passive form is...",
+            question: "Active: She will have submitted the report. Bentuk pasifnya adalah...",
             options: [
                 "The report will be submitted by her.",
                 "The report will have been submitted by her.",
@@ -3707,7 +3707,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which form is more natural than 'will be being cleaned'?",
+            question: "Dibawah ini, manakah yang lebih terlihat natural dari 'will be being cleaned'?",
             options: [
                 "will be cleaned",
                 "will clean",
@@ -3919,7 +3919,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Modal Passive uses...",
+            question: "Modal Passive menggunakan...",
             options: [
                 "modal + V1",
                 "modal + be + V3",
@@ -3931,7 +3931,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which sentence is Modal Passive?",
+            question: "Kalimat mana yang merupakan Modal Passive?",
             options: [
                 "She can solve the problem.",
                 "The problem can be solved.",
@@ -3943,7 +3943,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: She can solve the problem. Passive form is...",
+            question: "Active: She can solve the problem. Bentuk pasifnya adalah...",
             options: [
                 "The problem can solve by her.",
                 "The problem can be solved by her.",
@@ -3967,7 +3967,7 @@ interjection: {
         },
         {
             type: "Transform",
-            question: "Active: You should finish the homework. Passive form is...",
+            question: "Active: You should finish the homework. Bentuk pasifnya adalah...",
             options: [
                 "The homework should finish by you.",
                 "The homework should be finished by you.",
@@ -3979,7 +3979,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "In 'The report must be submitted', the main passive structure is...",
+            question: "Dalam 'The report must be submitted', Struktur utama pasifnya adalah...",
             options: [
                 "must + V1",
                 "must be + V3",
@@ -3991,12 +3991,12 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Passive voice focuses on...",
+            question: "Passive voice berfokus pada...",
             options: [
-                "The receiver of the action",
-                "The conjunction",
-                "The adjective",
-                "The adverb"
+                "Penerima aksi",
+                "Kata hubung (conjunction)",
+                "Kata sifat (adjective)",
+                "Kata keterangan verb (adverb)"
             ],
             answer: "The receiver of the action",
             explanation: "Passive voice berfokus pada penerima aksi."
@@ -4100,14 +4100,14 @@ interjection: {
         },
         {
             type: "Can",
-            question: "After can, we use...",
+            question: "Setelah can, kita gunakan ...",
             options: ["V1", "V2", "V-ing", "to + V1"],
             answer: "V1",
             explanation: "Modal verb can selalu diikuti base verb atau V1."
         },
         {
             type: "Can",
-            question: "Which sentence is correct?",
+            question: "Kalimat manakah yang tepat?",
             options: [
                 "She can speaks English.",
                 "She can speak English.",
@@ -4126,7 +4126,7 @@ interjection: {
         },
         {
             type: "Could",
-            question: "Which sentence is a polite request?",
+            question: "Kalimat mana yang merupakan polite request?",
             options: [
                 "Could you help me?",
                 "You could helped me.",
@@ -4152,9 +4152,9 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Could is often more...",
-            options: ["polite", "plural", "past participle", "continuous"],
-            answer: "polite",
+            question: "Could terdengar lebih .... daripada can",
+            options: ["Sopan", "jamak", "past participle", "continuous"],
+            answer: "Sopan",
             explanation: "Could sering terdengar lebih sopan daripada can."
         },
         {
@@ -4166,7 +4166,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Can and could are...",
+            question: "Can and could adalah...",
             options: ["modal verbs", "nouns", "adjectives", "articles"],
             answer: "modal verbs",
             explanation: "Can dan could termasuk modal verbs."
@@ -4277,7 +4277,7 @@ interjection: {
         },
         {
             type: "May",
-            question: "Which sentence is correct?",
+            question: "Kalimat mana yang tepat?",
             options: [
                 "She may comes late.",
                 "She may come late.",
@@ -4289,7 +4289,7 @@ interjection: {
         },
         {
             type: "Permission",
-            question: "Which modal is more formal for asking permission?",
+            question: "Modal mana yang lebih formal untuk meminta izin?",
             options: ["May", "Do", "Did", "Have"],
             answer: "May",
             explanation: "May sering digunakan untuk meminta izin secara formal."
@@ -4310,21 +4310,21 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Might usually shows...",
+            question: "Might biasanya menunjukkan...",
             options: ["weak possibility", "strong command", "past tense only", "plural noun"],
             answer: "weak possibility",
             explanation: "Might biasanya menunjukkan kemungkinan yang lebih lemah."
         },
         {
             type: "Concept",
-            question: "After may or might, we use...",
+            question: "Setelah may atau might, kita gunakan...",
             options: ["V1", "V2", "V-ing", "to + V1"],
             answer: "V1",
             explanation: "May dan might selalu diikuti base verb atau V1."
         },
         {
             type: "Request",
-            question: "Which sentence is a formal request?",
+            question: "Kalimat mana yang merupakan permintaan formal?",
             options: [
                 "May I ask a question?",
                 "I may asks a question.",
@@ -4336,7 +4336,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "May and might are...",
+            question: "May and might merupakan...",
             options: ["modal verbs", "articles", "nouns", "prepositions"],
             answer: "modal verbs",
             explanation: "May dan might termasuk modal verbs."
@@ -4440,14 +4440,14 @@ interjection: {
         },
         {
             type: "Should",
-            question: "After should, we use...",
+            question: "Setelah should, kita gunakan...",
             options: ["V1", "V2", "V-ing", "to + V1"],
             answer: "V1",
             explanation: "Should adalah modal verb dan selalu diikuti base verb atau V1."
         },
         {
             type: "Should",
-            question: "Which sentence is correct?",
+            question: "Kalimat mana yang tepat?",
             options: [
                 "You should to study.",
                 "You should studies.",
@@ -4487,14 +4487,14 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Should and ought to are mainly used for...",
-            options: ["advice", "place", "color", "ownership"],
+            question: "Should dan ought to digunakan untuk...",
+            options: ["Saran", "tempat", "warna", "kepemilikkan"],
             answer: "advice",
             explanation: "Should dan ought to digunakan untuk memberi saran atau nasihat."
         },
         {
             type: "Meaning",
-            question: "Which has similar meaning to 'You should rest'?",
+            question: "Manakah yang memiliki arti yang sama dengan 'You should rest'?",
             options: [
                 "You ought to rest.",
                 "You are rest.",
@@ -4506,7 +4506,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Should and ought to are...",
+            question: "Should and ought to merupakan...",
             options: ["modal verbs", "articles", "prepositions", "nouns"],
             answer: "modal verbs",
             explanation: "Should dan ought to termasuk modal verbs."
@@ -4635,7 +4635,7 @@ interjection: {
         },
         {
             type: "Must",
-            question: "After must we use...",
+            question: "Setelah must kita gunakan...",
             options: ["V1", "V2", "V3", "V-ing"],
             answer: "V1",
             explanation: "Must adalah modal verb sehingga diikuti V1."
@@ -4649,7 +4649,7 @@ interjection: {
         },
         {
             type: "Difference",
-            question: "'I must study tonight' shows...",
+            question: "'I must study tonight' menunjukkan...",
             options: [
                 "Personal obligation",
                 "Past obligation",
@@ -4661,7 +4661,7 @@ interjection: {
         },
         {
             type: "Difference",
-            question: "'Employees have to wear uniforms' means...",
+            question: "'Employees have to wear uniforms' berarti...",
             options: [
                 "Company rule",
                 "Personal wish",
@@ -4673,7 +4673,7 @@ interjection: {
         },
         {
             type: "Negative",
-            question: "'You mustn't smoke here' means...",
+            question: "'You mustn't smoke here' berarti...",
             options: [
                 "It is forbidden",
                 "It isn't necessary",
@@ -4685,7 +4685,7 @@ interjection: {
         },
         {
             type: "Negative",
-            question: "'You don't have to come tomorrow' means...",
+            question: "'You don't have to come tomorrow' berarti...",
             options: [
                 "It is not necessary",
                 "It is forbidden",
@@ -4711,7 +4711,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which sentence expresses prohibition?",
+            question: "kalimat mana yang menunjukkan larangan?",
             options: [
                 "You mustn't park here.",
                 "You don't have to park here.",
@@ -4846,14 +4846,14 @@ interjection: {
         },
         {
             type: "Future",
-            question: "After will, we use...",
+            question: "Setelah will, kita gunakan...",
             options: ["V1", "V2", "V3", "V-ing"],
             answer: "V1",
             explanation: "Will selalu diikuti base verb."
         },
         {
             type: "Future",
-            question: "Which sentence is correct?",
+            question: "Kalimat mana yang tepat?",
             options: [
                 "She will comes tomorrow.",
                 "She will come tomorrow.",
@@ -4886,26 +4886,26 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which modal is more polite?",
+            question: "modal manakah yang sopan?",
             options: ["Would", "Will", "Can", "Must"],
             answer: "Would",
             explanation: "Would terdengar lebih sopan daripada will."
         },
         {
             type: "Concept",
-            question: "Will is mainly used for...",
+            question: "Will digunakan untuk...",
             options: [
-                "Future actions",
-                "Past actions",
-                "Past habits",
+                "Aksi masa depan",
+                "Aksi masa lampau",
+                "Kebiasaan masa lampau",
                 "Present perfect"
             ],
-            answer: "Future actions",
+            answer: "Aksi masa depan",
             explanation: "Will digunakan untuk masa depan."
         },
         {
             type: "Concept",
-            question: "Would is commonly used in...",
+            question: "Would digunakan dalam...",
             options: [
                 "Conditional Sentence",
                 "Passive Voice only",
@@ -4917,7 +4917,7 @@ interjection: {
         },
         {
             type: "Difference",
-            question: "Which sentence expresses a future plan?",
+            question: "Kalimat manakah yang menunjukkan future plan?",
             options: [
                 "I will call you tonight.",
                 "I would call you if I had your number.",
@@ -5091,7 +5091,7 @@ interjection: {
         },
         {
             type: "Meaning",
-            question: "'You don't have to come tomorrow' means...",
+            question: "'You don't have to come tomorrow' berarti...",
             options: [
                 "It is not necessary",
                 "It is forbidden",
@@ -5103,7 +5103,7 @@ interjection: {
         },
         {
             type: "Meaning",
-            question: "'You mustn't park here' means...",
+            question: "'You mustn't park here' berarti...",
             options: [
                 "It is forbidden",
                 "It is optional",
@@ -5143,49 +5143,49 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "After most modal verbs, we use...",
+            question: "Setelah modal verbs, kita gunakan...",
             options: ["V1", "V2", "V3", "V-ing"],
             answer: "V1",
             explanation: "Sebagian besar modal diikuti base verb atau V1."
         },
         {
             type: "Concept",
-            question: "Which one is a semi-modal?",
+            question: "Manakah yang merupakan semi-modal?",
             options: ["have to", "can", "may", "will"],
             answer: "have to",
             explanation: "Have to disebut semi-modal karena polanya berbeda dan berubah mengikuti subject."
         },
         {
             type: "Concept",
-            question: "Which modal gives advice?",
+            question: "Modal manakah yang memberikan saran (advice)?",
             options: ["should", "mustn't", "will", "may"],
             answer: "should",
             explanation: "Should digunakan untuk memberi saran."
         },
         {
             type: "Concept",
-            question: "Which modal shows strong obligation?",
+            question: "Modal manakah yang menunjukkan kewajiban kuat?",
             options: ["must", "might", "could", "would"],
             answer: "must",
             explanation: "Must menunjukkan kewajiban kuat."
         },
         {
             type: "Concept",
-            question: "Which modal shows weak possibility?",
+            question: "Modal manakah yang menunjukkam kemungkinan yang lemah?",
             options: ["might", "must", "should", "have to"],
             answer: "might",
             explanation: "Might menunjukkan kemungkinan yang lemah."
         },
         {
             type: "Concept",
-            question: "Which modal is used for polite request?",
+            question: "Modal manakah yang digunakan untuk permintaan yang sopan?",
             options: ["would", "must", "has to", "mustn't"],
             answer: "would",
             explanation: "Would sering digunakan untuk permintaan yang sopan."
         },
         {
             type: "Error Check",
-            question: "Which sentence is correct?",
+            question: "Kalimat manakah yang tepat?",
             options: [
                 "She can speaks English.",
                 "She can speak English.",
@@ -5197,7 +5197,7 @@ interjection: {
         },
         {
             type: "Error Check",
-            question: "Which sentence is correct?",
+            question: "Kalimat manakah yang tepat?",
             options: [
                 "You should to rest.",
                 "You should rests.",
@@ -5209,7 +5209,7 @@ interjection: {
         },
         {
             type: "Error Check",
-            question: "Which sentence is correct?",
+            question: "Kalimat manakah yang tepat?",
             options: [
                 "She has to wear a uniform.",
                 "She have to wears a uniform.",
@@ -5221,7 +5221,7 @@ interjection: {
         },
         {
             type: "Meaning",
-            question: "Which sentence means 'not necessary'?",
+            question: "Kalimat manakah yang berarti 'not necessary' (tidak perlu)?",
             options: [
                 "You don't have to pay now.",
                 "You mustn't pay now.",
@@ -5233,7 +5233,7 @@ interjection: {
         },
         {
             type: "Meaning",
-            question: "Which sentence means 'forbidden'?",
+            question: "Kalimat mana yang berarti dilarang 'forbidden'?",
             options: [
                 "You mustn't enter this room.",
                 "You don't have to enter this room.",
@@ -5245,7 +5245,7 @@ interjection: {
         },
         {
             type: "Review",
-            question: "Which pair is closest in meaning?",
+            question: "Manakah pasangan yang sama/mendekati artinya?",
             options: [
                 "should / ought to",
                 "mustn't / don't have to",
@@ -5257,28 +5257,28 @@ interjection: {
         },
         {
             type: "Review",
-            question: "Which modal is best for formal permission?",
+            question: "Modal mana yang dipakai untuk izin formal?",
             options: ["may", "must", "would", "has to"],
             answer: "may",
             explanation: "May sering dipakai untuk izin formal."
         },
         {
             type: "Review",
-            question: "Which modal is best for past ability?",
+            question: "Modal mana yang digunakan untuk kemampuan di masa lampau (past ability)?",
             options: ["could", "can", "must", "will"],
             answer: "could",
             explanation: "Could dapat digunakan untuk kemampuan di masa lampau."
         },
         {
             type: "Review",
-            question: "Which modal is best for future prediction?",
+            question: "Modal mana yang digunakan untuk prediksi masa depan?",
             options: ["will", "could", "mustn't", "ought to"],
             answer: "will",
             explanation: "Will digunakan untuk prediksi masa depan."
         },
         {
             type: "Review",
-            question: "Which modal is best for strong obligation?",
+            question: "Modal mana yang digunakan untuk kewajiban kuat",
             options: ["must", "might", "would", "may"],
             answer: "must",
             explanation: "Must menunjukkan kewajiban kuat."
@@ -5366,21 +5366,21 @@ interjection: {
     quiz: [
         {
             type: "Concept",
-            question: "Gerund is formed by...",
+            question: "Gerund berbentuk...",
             options: ["V1", "V2", "V3", "Verb + ing"],
             answer: "Verb + ing",
             explanation: "Gerund berbentuk verb + ing dan berfungsi sebagai noun."
         },
         {
             type: "Function",
-            question: "In 'Swimming is fun', 'Swimming' is...",
+            question: "Di 'Swimming is fun', 'Swimming' adalah...",
             options: ["Gerund", "Adjective", "Conjunction", "Preposition"],
             answer: "Gerund",
             explanation: "Swimming berbentuk V-ing dan berfungsi sebagai subject."
         },
         {
             type: "Subject",
-            question: "Which sentence uses a gerund as subject?",
+            question: "WKalimat mana yang menggunakan gerund sebagai subject?",
             options: [
                 "Reading is useful.",
                 "She is reading.",
@@ -5420,7 +5420,7 @@ interjection: {
         },
         {
             type: "Compare",
-            question: "Which sentence contains a gerund, not Present Continuous?",
+            question: "Kalimat mana yang mengandung gerund?",
             options: [
                 "She is studying.",
                 "Studying is important.",
@@ -5527,7 +5527,7 @@ interjection: {
     quiz: [
         {
             type: "Concept",
-            question: "What is an infinitive?",
+            question: "Apa bentuk infinitive?",
             options: [
                 "Verb + ing",
                 "to + V1",
@@ -5539,7 +5539,7 @@ interjection: {
         },
         {
             type: "Subject",
-            question: "Which sentence uses an infinitive as the subject?",
+            question: "Kalimat mana yang menggunakan infinitive sebagai subject?",
             options: [
                 "To travel is exciting.",
                 "She is traveling.",
@@ -5611,7 +5611,7 @@ interjection: {
         },
         {
             type: "Compare",
-            question: "Which sentence contains an infinitive?",
+            question: "Kalimat mana yang mengandung infinitive?",
             options: [
                 "She enjoys reading.",
                 "To learn English is useful.",
@@ -5623,7 +5623,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "After 'want', we usually use...",
+            question: "Setelah 'want', kita biasanya menggunakan...",
             options: [
                 "Gerund",
                 "Infinitive",
@@ -5635,7 +5635,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Which verb below is commonly followed by an infinitive?",
+            question: "Dibawah ini, verb mana yang diikuti infinitive?",
             options: [
                 "Enjoy",
                 "Avoid",
@@ -5770,7 +5770,7 @@ interjection: {
         },
         {
             type: "Both",
-            question: "Which verb can be followed by both gerund and infinitive?",
+            question: "Verb yang bisa diikuti oleh gerund maupun infinitive?",
             options: ["Like", "Enjoy", "Avoid", "Finish"],
             answer: "Like",
             explanation: "Like dapat diikuti gerund maupun infinitive."
@@ -5784,7 +5784,7 @@ interjection: {
         },
         {
             type: "Concept",
-            question: "Gerund is...",
+            question: "Gerund adalah...",
             options: [
                 "Verb + ing",
                 "to + V1",
@@ -5808,7 +5808,7 @@ interjection: {
         },
         {
             type: "Comparison",
-            question: "Which sentence is correct?",
+            question: "Kalimat mana yang tepat?",
             options: [
                 "I enjoy to swim.",
                 "I enjoy swimming.",
@@ -5820,7 +5820,7 @@ interjection: {
         },
         {
             type: "Comparison",
-            question: "Which sentence is correct?",
+            question: "Kalimat mana yang tepat?",
             options: [
                 "She wants going home.",
                 "She wants to go home.",
@@ -6022,7 +6022,7 @@ interjection: {
         },
         {
             type:"Concept",
-            question:"Which verb below is always followed by a gerund?",
+            question:"Verb mana dibawah ini yang selalu diikuti oleh gerund?",
             options:["Enjoy","Want","Decide","Hope"],
             answer:"Enjoy",
             explanation:"Enjoy termasuk verb yang wajib diikuti gerund."
@@ -11943,6 +11943,7906 @@ interjection: {
             explanation:"Non-defining clause hanya informasi tambahan."
         }
     ]
+},
+
+"noun-clauses": {
+    title: "Introduction to Noun Clauses",
+    description: "Noun Clause adalah sebuah clause (subject + verb) yang berfungsi sebagai noun. Noun Clause dapat menjadi subject, object, atau complement dalam sebuah kalimat.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Noun Clause = Connector + Subject + Verb
+    `,
+
+    notes: [
+        "Noun Clause selalu memiliki subject dan verb.",
+        "Noun Clause berfungsi seperti noun.",
+        "Noun Clause dapat menjadi subject.",
+        "Noun Clause dapat menjadi object.",
+        "Noun Clause dapat menjadi subject complement.",
+        "Connector yang umum adalah that, whether, if, what, who, whom, whose, which, where, when, why, dan how."
+    ],
+
+    patterns: [
+        {
+            group: "As Subject",
+            items: [
+                {
+                    label: "Subject",
+                    formula: "Noun Clause + Verb",
+                    examples: [
+                        "What he said surprised everyone.",
+                        "Where she lives is unknown.",
+                        "Why he left remains a mystery."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "As Object",
+            items: [
+                {
+                    label: "Object",
+                    formula: "Verb + Noun Clause",
+                    examples: [
+                        "I know what he wants.",
+                        "She believes that he is honest.",
+                        "They don't know where she went."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "As Complement",
+            items: [
+                {
+                    label: "Subject Complement",
+                    formula: "Subject + be + Noun Clause",
+                    examples: [
+                        "The problem is that we are late.",
+                        "The question is whether he will come.",
+                        "The fact is that nobody knows."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A noun clause functions as...",
+            options: [
+                "a noun",
+                "an adjective",
+                "an adverb",
+                "a preposition"
+            ],
+            answer: "a noun",
+            explanation: "Noun Clause berfungsi seperti noun."
+        },
+        {
+            type: "Concept",
+            question: "A noun clause always contains...",
+            options: [
+                "a subject and a verb",
+                "an adjective only",
+                "a preposition only",
+                "an article"
+            ],
+            answer: "a subject and a verb",
+            explanation: "Clause harus memiliki subject dan verb."
+        },
+        {
+            type: "Subject",
+            question: "___ surprised everyone.",
+            options: [
+                "What he said",
+                "What said",
+                "He said",
+                "What saying"
+            ],
+            answer: "What he said",
+            explanation: "Noun clause dapat menjadi subject."
+        },
+        {
+            type: "Object",
+            question: "I know ___",
+            options: [
+                "what he wants",
+                "what wants he",
+                "he wants what",
+                "what wanting"
+            ],
+            answer: "what he wants",
+            explanation: "Urutan noun clause adalah connector + subject + verb."
+        },
+        {
+            type: "Complement",
+            question: "The problem is ___",
+            options: [
+                "that we are late",
+                "that are we late",
+                "we are that late",
+                "late that we are"
+            ],
+            answer: "that we are late",
+            explanation: "Noun clause dapat menjadi complement."
+        },
+        {
+            type: "Connector",
+            question: "Which word can introduce a noun clause?",
+            options: [
+                "that",
+                "because only",
+                "although only",
+                "despite"
+            ],
+            answer: "that",
+            explanation: "That merupakan connector noun clause yang paling umum."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence contains a noun clause?",
+            options: [
+                "I know where he lives.",
+                "The man who lives there is kind.",
+                "The book on the table is mine.",
+                "She quickly finished."
+            ],
+            answer: "I know where he lives.",
+            explanation: "'Where he lives' berfungsi sebagai object."
+        },
+        {
+            type: "Concept",
+            question: "A noun clause can be used as...",
+            options: [
+                "subject, object, or complement",
+                "verb only",
+                "adjective only",
+                "adverb only"
+            ],
+            answer: "subject, object, or complement",
+            explanation: "Itulah tiga fungsi utama noun clause."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "What she said made me happy.",
+                "What said she made me happy.",
+                "She what said made me happy.",
+                "What saying she made me happy."
+            ],
+            answer: "What she said made me happy.",
+            explanation: "Connector + subject + verb."
+        },
+        {
+            type: "Concept",
+            question: "Relative clauses describe nouns, while noun clauses...",
+            options: [
+                "act as nouns",
+                "describe verbs",
+                "modify adjectives",
+                "show time"
+            ],
+            answer: "act as nouns",
+            explanation: "Ini perbedaan utama antara Relative Clause dan Noun Clause."
+        }
+    ]
+},
+
+"that-clauses": {
+    title: "That Clauses",
+    description: "That Clause adalah jenis noun clause yang diawali dengan 'that'. Clause ini digunakan untuk melaporkan fakta, pendapat, keyakinan, atau informasi. Dalam percakapan sehari-hari, kata 'that' sering dihilangkan setelah beberapa reporting verbs.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb + (that) + Subject + Verb
+    `,
+
+    notes: [
+        "That Clause berfungsi sebagai noun.",
+        "Paling sering menjadi object setelah reporting verbs.",
+        "Kata 'that' sering boleh dihilangkan dalam percakapan.",
+        "That tidak memiliki arti khusus, hanya sebagai connector.",
+        "Verb yang sering diikuti that clause antara lain: think, know, believe, say, hope, hear, realize, explain, admit."
+    ],
+
+    patterns: [
+        {
+            group: "Object of Verb",
+            items: [
+                {
+                    label: "Verb + That Clause",
+                    formula: "Verb + (that) + Subject + Verb",
+                    examples: [
+                        "I think that she is honest.",
+                        "She believes that he is innocent.",
+                        "They know that the test is difficult."
+                    ]
+                },
+                {
+                    label: "Without That",
+                    formula: "Verb + Subject + Verb",
+                    examples: [
+                        "I think she is honest.",
+                        "We know he is busy.",
+                        "She said she would come."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Subject Complement",
+            items: [
+                {
+                    label: "Be + That Clause",
+                    formula: "Subject + be + that clause",
+                    examples: [
+                        "The fact is that he lied.",
+                        "The truth is that nobody knows.",
+                        "The problem is that we are late."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A that clause usually functions as...",
+            options: [
+                "a noun clause",
+                "an adjective",
+                "an adverb",
+                "a preposition"
+            ],
+            answer: "a noun clause",
+            explanation: "That clause adalah salah satu jenis noun clause."
+        },
+        {
+            type: "Grammar",
+            question: "I think ___ she is right.",
+            options: [
+                "that",
+                "who",
+                "where",
+                "whose"
+            ],
+            answer: "that",
+            explanation: "That adalah connector yang paling umum."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "I think that she is right.",
+                "I think that is she right.",
+                "I think she that is right.",
+                "I think right she is."
+            ],
+            answer: "I think that she is right.",
+            explanation: "Urutan: connector + subject + verb."
+        },
+        {
+            type: "Concept",
+            question: "In everyday conversation, 'that' is often...",
+            options: [
+                "omitted",
+                "replaced by who",
+                "required twice",
+                "changed to whose"
+            ],
+            answer: "omitted",
+            explanation: "That sering dihilangkan setelah reporting verbs."
+        },
+        {
+            type: "Grammar",
+            question: "She believes ___ he is innocent.",
+            options: [
+                "that",
+                "where",
+                "whose",
+                "when"
+            ],
+            answer: "that",
+            explanation: "Believe biasanya diikuti that clause."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence sounds natural?",
+            options: [
+                "I know he is busy.",
+                "I know who he is busy.",
+                "I know where he is busy.",
+                "I know whose he is busy."
+            ],
+            answer: "I know he is busy.",
+            explanation: "That dapat dihilangkan."
+        },
+        {
+            type: "Complement",
+            question: "The truth is ___ nobody knows.",
+            options: [
+                "that",
+                "where",
+                "when",
+                "who"
+            ],
+            answer: "that",
+            explanation: "Be + that clause membentuk subject complement."
+        },
+        {
+            type: "Concept",
+            question: "Which verb commonly introduces a that clause?",
+            options: [
+                "believe",
+                "run",
+                "sleep",
+                "jump"
+            ],
+            answer: "believe",
+            explanation: "Believe sering diikuti that clause."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence contains a that clause?",
+            options: [
+                "She explained that the meeting was canceled.",
+                "The man who helped me is kind.",
+                "This is the school where I studied.",
+                "If it rains, we will stay home."
+            ],
+            answer: "She explained that the meeting was canceled.",
+            explanation: "That the meeting was canceled adalah noun clause."
+        },
+        {
+            type: "Concept",
+            question: "The word 'that' in a that clause mainly functions as...",
+            options: [
+                "a connector",
+                "the subject",
+                "the verb",
+                "an adjective"
+            ],
+            answer: "a connector",
+            explanation: "That hanya menghubungkan main clause dengan noun clause."
+        }
+    ]
+},
+
+"wh-clauses": {
+    title: "WH Clauses",
+    description: "WH Clause adalah noun clause yang diawali kata tanya seperti what, who, whom, whose, which, where, when, why, dan how. Dalam noun clause, urutan katanya harus berbentuk statement, bukan question.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        WH Word + Subject + Verb
+    `,
+
+    notes: [
+        "WH Clause berfungsi sebagai noun.",
+        "WH Clause dapat menjadi object setelah verb.",
+        "Urutan kata dalam WH Clause adalah statement order.",
+        "Jangan gunakan pola question seperti do you, did he, atau is she setelah WH word.",
+        "What digunakan untuk benda/informasi.",
+        "Where digunakan untuk tempat.",
+        "When digunakan untuk waktu.",
+        "Why digunakan untuk alasan.",
+        "How digunakan untuk cara."
+    ],
+
+    patterns: [
+        {
+            group: "Object",
+            items: [
+                {
+                    label: "WH Clause as Object",
+                    formula: "Subject + Verb + WH word + Subject + Verb",
+                    examples: [
+                        "I know what he wants.",
+                        "She understands why he left.",
+                        "They don't know where she lives."
+                    ]
+                },
+                {
+                    label: "Statement Order",
+                    formula: "WH + Subject + Verb",
+                    examples: [
+                        "Correct: I know where he lives.",
+                        "Wrong: I know where does he live.",
+                        "Correct: She asked what I wanted."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common WH Words",
+            items: [
+                {
+                    label: "What / Who / Whom",
+                    formula: "WH word + subject + verb",
+                    examples: [
+                        "I know what she needs.",
+                        "Do you know who called me?",
+                        "I don't know whom they invited."
+                    ]
+                },
+                {
+                    label: "Where / When / Why / How",
+                    formula: "WH word + subject + verb",
+                    examples: [
+                        "Tell me where you live.",
+                        "I remember when we met.",
+                        "She explained why she was late.",
+                        "I don't know how he solved it."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "What",
+            question: "I know ___ he wants.",
+            options: ["what", "where", "when", "whose"],
+            answer: "what",
+            explanation: "What digunakan untuk benda atau informasi."
+        },
+        {
+            type: "Where",
+            question: "They don't know ___ she lives.",
+            options: ["where", "when", "why", "whose"],
+            answer: "where",
+            explanation: "Where digunakan untuk tempat."
+        },
+        {
+            type: "When",
+            question: "I remember ___ we met.",
+            options: ["when", "where", "whose", "whom"],
+            answer: "when",
+            explanation: "When digunakan untuk waktu."
+        },
+        {
+            type: "Why",
+            question: "She explained ___ she was late.",
+            options: ["why", "where", "who", "whose"],
+            answer: "why",
+            explanation: "Why digunakan untuk alasan."
+        },
+        {
+            type: "How",
+            question: "I don't know ___ he solved it.",
+            options: ["how", "what", "whose", "whom"],
+            answer: "how",
+            explanation: "How digunakan untuk cara."
+        },
+        {
+            type: "Word Order",
+            question: "Which sentence is correct?",
+            options: [
+                "I know where he lives.",
+                "I know where does he live.",
+                "I know where he does live.",
+                "I know where lives he."
+            ],
+            answer: "I know where he lives.",
+            explanation: "Noun clause memakai statement order: subject + verb."
+        },
+        {
+            type: "Word Order",
+            question: "Choose the correct noun clause.",
+            options: [
+                "what she wants",
+                "what does she want",
+                "what wants she",
+                "what she does wants"
+            ],
+            answer: "what she wants",
+            explanation: "Urutan benar adalah WH word + subject + verb."
+        },
+        {
+            type: "Who",
+            question: "Do you know ___ called me?",
+            options: ["who", "whom", "where", "when"],
+            answer: "who",
+            explanation: "Who digunakan sebagai subject dari called."
+        },
+        {
+            type: "Whom",
+            question: "I don't know ___ they invited.",
+            options: ["whom", "where", "when", "why"],
+            answer: "whom",
+            explanation: "Whom digunakan sebagai object dari invited."
+        },
+        {
+            type: "Concept",
+            question: "WH Clauses in noun clauses use...",
+            options: [
+                "statement word order",
+                "question word order",
+                "passive voice only",
+                "article order"
+            ],
+            answer: "statement word order",
+            explanation: "Noun clause tidak memakai susunan pertanyaan."
+        }
+    ]
+},
+
+"whether-if-clauses": {
+    title: "Whether & If Clauses",
+    description: "Whether Clause dan If Clause adalah noun clause yang digunakan untuk menyatakan dua kemungkinan (ya atau tidak). Keduanya sering digunakan setelah verb seperti know, ask, wonder, dan remember.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb + whether/if + Subject + Verb
+    `,
+
+    notes: [
+        "Whether dan if sama-sama berarti 'apakah'.",
+        "Keduanya digunakan untuk pertanyaan Yes/No.",
+        "Urutan kata tetap menggunakan statement order.",
+        "Whether lebih formal daripada if.",
+        "Setelah preposition gunakan whether, bukan if.",
+        "Sebelum infinitive (to + V1), gunakan whether.",
+        "Whether dapat digunakan sebelum 'or not'."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Usage",
+            items: [
+                {
+                    label: "If Clause",
+                    formula: "Verb + if + Subject + Verb",
+                    examples: [
+                        "I don't know if he is coming.",
+                        "She asked if I was busy.",
+                        "We wonder if they will arrive."
+                    ]
+                },
+                {
+                    label: "Whether Clause",
+                    formula: "Verb + whether + Subject + Verb",
+                    examples: [
+                        "I don't know whether he is coming.",
+                        "She wondered whether I was busy.",
+                        "We haven't decided whether we should go."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Special Usage",
+            items: [
+                {
+                    label: "Whether + Or Not",
+                    formula: "whether + clause + or not",
+                    examples: [
+                        "I don't know whether he will come or not.",
+                        "She asked whether I agreed or not.",
+                        "We must decide whether to stay or not."
+                    ]
+                },
+                {
+                    label: "Whether + To Infinitive",
+                    formula: "whether + to + V1",
+                    examples: [
+                        "I don't know whether to laugh or cry.",
+                        "She couldn't decide whether to stay.",
+                        "They discussed whether to continue."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Whether and if are mainly used for...",
+            options: [
+                "Yes/No questions",
+                "WH questions",
+                "Relative clauses",
+                "Passive voice"
+            ],
+            answer: "Yes/No questions",
+            explanation: "Whether dan if digunakan untuk pertanyaan ya/tidak."
+        },
+        {
+            type: "Grammar",
+            question: "I don't know ___ he is coming.",
+            options: [
+                "whether",
+                "who",
+                "where",
+                "whose"
+            ],
+            answer: "whether",
+            explanation: "Whether dapat memperkenalkan noun clause."
+        },
+        {
+            type: "Grammar",
+            question: "She asked ___ I was busy.",
+            options: [
+                "if",
+                "which",
+                "when",
+                "whose"
+            ],
+            answer: "if",
+            explanation: "If dapat digunakan setelah ask."
+        },
+        {
+            type: "Word Order",
+            question: "Which sentence is correct?",
+            options: [
+                "I wonder if he is ready.",
+                "I wonder if is he ready.",
+                "I wonder if does he ready.",
+                "I wonder if ready he is."
+            ],
+            answer: "I wonder if he is ready.",
+            explanation: "Gunakan statement order."
+        },
+        {
+            type: "Formal",
+            question: "Which word is more formal?",
+            options: [
+                "whether",
+                "if",
+                "who",
+                "that"
+            ],
+            answer: "whether",
+            explanation: "Whether lebih formal daripada if."
+        },
+        {
+            type: "Or Not",
+            question: "Which sentence is correct?",
+            options: [
+                "I don't know whether he will come or not.",
+                "I don't know if he will come or not always.",
+                "I don't know whether will he come.",
+                "I don't know if comes he."
+            ],
+            answer: "I don't know whether he will come or not.",
+            explanation: "Whether sering dipakai bersama 'or not'."
+        },
+        {
+            type: "Infinitive",
+            question: "I can't decide ___ buy the blue shirt.",
+            options: [
+                "whether to",
+                "if to",
+                "whether",
+                "if"
+            ],
+            answer: "whether to",
+            explanation: "Gunakan whether sebelum to + V1."
+        },
+        {
+            type: "Concept",
+            question: "After a preposition, we usually use...",
+            options: [
+                "whether",
+                "if",
+                "that",
+                "who"
+            ],
+            answer: "whether",
+            explanation: "If tidak digunakan setelah preposition."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "We discussed whether to continue.",
+                "We discussed if to continue.",
+                "We discussed whether continue.",
+                "We discussed if continue."
+            ],
+            answer: "We discussed whether to continue.",
+            explanation: "Whether dapat diikuti to + V1."
+        },
+        {
+            type: "Concept",
+            question: "Whether clauses are classified as...",
+            options: [
+                "noun clauses",
+                "relative clauses",
+                "adverb clauses",
+                "adjective clauses"
+            ],
+            answer: "noun clauses",
+            explanation: "Whether clause merupakan salah satu jenis noun clause."
+        }
+    ]
+}, 
+
+"noun-clause-subject": {
+    title: "Noun Clauses as Subject",
+    description: "Noun Clause dapat berfungsi sebagai subject (subjek) dalam sebuah kalimat. Seluruh clause dianggap sebagai satu kesatuan yang menjadi pelaku atau topik utama kalimat.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Noun Clause + Main Verb
+    `,
+
+    notes: [
+        "Noun clause dapat menjadi subject kalimat.",
+        "Main verb mengikuti noun clause sebagai satu subject tunggal.",
+        "Connector yang sering digunakan adalah what, who, where, when, why, how, whether, dan that.",
+        "Noun clause sebagai subject sering muncul pada tulisan akademik.",
+        "Jika noun clause panjang, kadang digunakan dummy subject 'it' agar kalimat lebih natural."
+    ],
+
+    patterns: [
+        {
+            group: "WH Clause as Subject",
+            items: [
+                {
+                    label: "What",
+                    formula: "What + Subject + Verb + Main Verb",
+                    examples: [
+                        "What he said surprised everyone.",
+                        "What you did made me happy.",
+                        "What she wants is impossible."
+                    ]
+                },
+                {
+                    label: "Where / Why",
+                    formula: "Where/Why + Subject + Verb + Main Verb",
+                    examples: [
+                        "Where she lives is unknown.",
+                        "Why he left remains a mystery.",
+                        "How they escaped is unbelievable."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "That / Whether Clause",
+            items: [
+                {
+                    label: "That Clause",
+                    formula: "That + Subject + Verb + Main Verb",
+                    examples: [
+                        "That he passed the exam surprised everyone.",
+                        "That she resigned shocked the company.",
+                        "That they arrived early helped us."
+                    ]
+                },
+                {
+                    label: "Whether Clause",
+                    formula: "Whether + Subject + Verb + Main Verb",
+                    examples: [
+                        "Whether he comes is not important.",
+                        "Whether we win depends on teamwork.",
+                        "Whether she agrees remains uncertain."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Subject",
+            question: "___ surprised everyone.",
+            options: [
+                "What he said",
+                "What said he",
+                "He said what",
+                "What saying"
+            ],
+            answer: "What he said",
+            explanation: "Noun clause berfungsi sebagai subject."
+        },
+        {
+            type: "Subject",
+            question: "___ is unknown.",
+            options: [
+                "Where she lives",
+                "Where lives she",
+                "She lives where",
+                "Where living"
+            ],
+            answer: "Where she lives",
+            explanation: "Where clause menjadi subject."
+        },
+        {
+            type: "Subject",
+            question: "___ remains a mystery.",
+            options: [
+                "Why he left",
+                "Why left he",
+                "He left why",
+                "Why leaving"
+            ],
+            answer: "Why he left",
+            explanation: "Why clause berfungsi sebagai subject."
+        },
+        {
+            type: "That Clause",
+            question: "___ surprised everyone.",
+            options: [
+                "That he passed the exam",
+                "That passed he the exam",
+                "He passed that exam",
+                "That passing the exam"
+            ],
+            answer: "That he passed the exam",
+            explanation: "That clause dapat menjadi subject."
+        },
+        {
+            type: "Whether Clause",
+            question: "___ is not important.",
+            options: [
+                "Whether he comes",
+                "Whether comes he",
+                "He comes whether",
+                "Whether coming"
+            ],
+            answer: "Whether he comes",
+            explanation: "Whether clause dapat menjadi subject."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "What she wants is expensive.",
+                "What wants she is expensive.",
+                "She wants what is expensive.",
+                "What wanting she is expensive."
+            ],
+            answer: "What she wants is expensive.",
+            explanation: "Gunakan statement order."
+        },
+        {
+            type: "Concept",
+            question: "A noun clause as subject is treated as...",
+            options: [
+                "one subject",
+                "two subjects",
+                "an adjective",
+                "an adverb"
+            ],
+            answer: "one subject",
+            explanation: "Seluruh noun clause dianggap satu subject."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence contains a noun clause as the subject?",
+            options: [
+                "How they escaped is unbelievable.",
+                "I know how they escaped.",
+                "She explained how they escaped.",
+                "They escaped quickly."
+            ],
+            answer: "How they escaped is unbelievable.",
+            explanation: "How they escaped adalah subject."
+        },
+        {
+            type: "Concept",
+            question: "Noun clauses as subjects are common in...",
+            options: [
+                "formal and academic writing",
+                "imperative sentences only",
+                "phrasal verbs",
+                "articles"
+            ],
+            answer: "formal and academic writing",
+            explanation: "Bentuk ini banyak ditemukan pada tulisan formal."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "Whether she agrees remains uncertain.",
+                "Whether agrees she remains uncertain.",
+                "She agrees whether remains uncertain.",
+                "Whether agreeing she remains uncertain."
+            ],
+            answer: "Whether she agrees remains uncertain.",
+            explanation: "Urutan noun clause adalah connector + subject + verb."
+        }
+    ]
+}, 
+
+"noun-clause-object": {
+    title: "Noun Clauses as Object",
+    description: "Noun Clause paling sering berfungsi sebagai object dari sebuah verb. Clause tersebut menerima aksi dari verb utama dan menjawab pertanyaan 'what?' atau 'what information?'.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Subject + Verb + Noun Clause
+    `,
+
+    notes: [
+        "Ini adalah penggunaan noun clause yang paling umum.",
+        "Noun clause menjadi object setelah main verb.",
+        "Verb yang sering diikuti noun clause antara lain know, think, believe, understand, explain, realize, remember, forget, wonder, ask, tell, say, hear, see, hope, decide.",
+        "Connector dapat berupa that, whether, if, what, who, whom, whose, which, where, when, why, atau how.",
+        "Urutan dalam noun clause tetap menggunakan statement order."
+    ],
+
+    patterns: [
+        {
+            group: "That Clause",
+            items: [
+                {
+                    label: "Object",
+                    formula: "Subject + Verb + that + Subject + Verb",
+                    examples: [
+                        "I know that she is honest.",
+                        "She believes that he is innocent.",
+                        "We hope that everything will be fine."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "WH Clause",
+            items: [
+                {
+                    label: "WH Object",
+                    formula: "Subject + Verb + WH Clause",
+                    examples: [
+                        "I know what he wants.",
+                        "She understands why he left.",
+                        "They remember where we met."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Whether / If Clause",
+            items: [
+                {
+                    label: "Yes / No Object",
+                    formula: "Subject + Verb + whether/if + Subject + Verb",
+                    examples: [
+                        "I don't know whether he is coming.",
+                        "She asked if I was busy.",
+                        "We wonder whether they will agree."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A noun clause as an object comes after...",
+            options: [
+                "a verb",
+                "an article",
+                "an adjective only",
+                "a preposition only"
+            ],
+            answer: "a verb",
+            explanation: "Object menerima aksi dari verb utama."
+        },
+        {
+            type: "That Clause",
+            question: "I know ___ she is honest.",
+            options: [
+                "that",
+                "who",
+                "where",
+                "when"
+            ],
+            answer: "that",
+            explanation: "Know sering diikuti that clause."
+        },
+        {
+            type: "WH Clause",
+            question: "She knows ___ he lives.",
+            options: [
+                "where",
+                "when",
+                "whose",
+                "that"
+            ],
+            answer: "where",
+            explanation: "Where clause menjadi object dari knows."
+        },
+        {
+            type: "WH Clause",
+            question: "I remember ___ we met.",
+            options: [
+                "when",
+                "whose",
+                "which",
+                "who"
+            ],
+            answer: "when",
+            explanation: "When clause menjadi object dari remember."
+        },
+        {
+            type: "Whether",
+            question: "We don't know ___ they will come.",
+            options: [
+                "whether",
+                "whose",
+                "who",
+                "what"
+            ],
+            answer: "whether",
+            explanation: "Whether digunakan untuk pertanyaan Yes/No."
+        },
+        {
+            type: "Word Order",
+            question: "Which sentence is correct?",
+            options: [
+                "I know what she wants.",
+                "I know what does she want.",
+                "I know what wants she.",
+                "I know does she want what."
+            ],
+            answer: "I know what she wants.",
+            explanation: "Noun clause memakai statement order."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence contains a noun clause as the object?",
+            options: [
+                "She believes that he is innocent.",
+                "What he said surprised everyone.",
+                "The man who helped me is kind.",
+                "If it rains, we will stay home."
+            ],
+            answer: "She believes that he is innocent.",
+            explanation: "'That he is innocent' adalah object dari believes."
+        },
+        {
+            type: "Grammar",
+            question: "They understand ___ he was angry.",
+            options: [
+                "why",
+                "whose",
+                "wherever",
+                "whoever"
+            ],
+            answer: "why",
+            explanation: "Why clause menjadi object dari understand."
+        },
+        {
+            type: "Concept",
+            question: "Which verb commonly takes a noun clause as its object?",
+            options: [
+                "know",
+                "sleep",
+                "arrive",
+                "swim"
+            ],
+            answer: "know",
+            explanation: "Know adalah salah satu reporting/cognitive verb yang sering diikuti noun clause."
+        },
+        {
+            type: "Grammar",
+            question: "Choose the correct sentence.",
+            options: [
+                "She asked if I was ready.",
+                "She asked if was I ready.",
+                "She asked was I ready.",
+                "She asked if ready I was."
+            ],
+            answer: "She asked if I was ready.",
+            explanation: "If clause menggunakan urutan statement."
+        }
+    ]
+}, 
+
+"noun-clauses-review": {
+    title: "Noun Clauses Review",
+    description: "Review akhir untuk menguji pemahaman seluruh materi Noun Clauses: that clauses, WH clauses, whether/if clauses, noun clause as subject, dan noun clause as object.",
+
+    formula: `
+        <strong>Ringkasan BAB 10:</strong><br>
+        Noun Clause = Connector + Subject + Verb<br>
+        Fungsi = Subject / Object / Complement
+    `,
+
+    notes: [
+        "Noun clause berfungsi sebagai noun.",
+        "Noun clause selalu memiliki subject dan verb.",
+        "That clause sering digunakan setelah verb seperti think, believe, know, say.",
+        "WH clause memakai statement order.",
+        "Whether dan if digunakan untuk pertanyaan yes/no.",
+        "Noun clause dapat menjadi subject.",
+        "Noun clause paling sering menjadi object setelah verb."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "That Clause",
+                    formula: "that + subject + verb",
+                    examples: [
+                        "I believe that he is honest.",
+                        "The truth is that nobody knows."
+                    ]
+                },
+                {
+                    label: "WH Clause",
+                    formula: "WH word + subject + verb",
+                    examples: [
+                        "I know where she lives.",
+                        "What he said surprised me."
+                    ]
+                },
+                {
+                    label: "Whether / If",
+                    formula: "whether/if + subject + verb",
+                    examples: [
+                        "I don't know whether he will come.",
+                        "She asked if I was ready."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "A noun clause functions as...",
+            options: ["a noun", "an adjective", "an adverb", "a preposition"],
+            answer: "a noun",
+            explanation: "Noun clause berfungsi seperti noun."
+        },
+        {
+            type: "Concept",
+            question: "A noun clause must contain...",
+            options: ["subject and verb", "article only", "adjective only", "preposition only"],
+            answer: "subject and verb",
+            explanation: "Clause wajib memiliki subject dan verb."
+        },
+        {
+            type: "That Clause",
+            question: "I believe ___ he is honest.",
+            options: ["that", "where", "when", "whose"],
+            answer: "that",
+            explanation: "Believe sering diikuti that clause."
+        },
+        {
+            type: "That Clause",
+            question: "The truth is ___ nobody knows.",
+            options: ["that", "where", "who", "whose"],
+            answer: "that",
+            explanation: "That clause dapat menjadi complement."
+        },
+        {
+            type: "WH Clause",
+            question: "I know ___ she lives.",
+            options: ["where", "when", "whose", "that"],
+            answer: "where",
+            explanation: "Where digunakan untuk tempat."
+        },
+        {
+            type: "WH Clause",
+            question: "She explained ___ she was late.",
+            options: ["why", "whose", "whom", "which"],
+            answer: "why",
+            explanation: "Why digunakan untuk alasan."
+        },
+        {
+            type: "WH Clause",
+            question: "I don't know ___ he solved it.",
+            options: ["how", "whose", "whom", "which"],
+            answer: "how",
+            explanation: "How digunakan untuk cara."
+        },
+        {
+            type: "Whether/If",
+            question: "I don't know ___ he will come.",
+            options: ["whether", "whose", "who", "what"],
+            answer: "whether",
+            explanation: "Whether digunakan untuk kemungkinan yes/no."
+        },
+        {
+            type: "Whether/If",
+            question: "She asked ___ I was ready.",
+            options: ["if", "whose", "which", "where"],
+            answer: "if",
+            explanation: "If digunakan untuk pertanyaan yes/no tidak langsung."
+        },
+        {
+            type: "Word Order",
+            question: "Which sentence is correct?",
+            options: [
+                "I know where he lives.",
+                "I know where does he live.",
+                "I know where lives he.",
+                "I know where he does lives."
+            ],
+            answer: "I know where he lives.",
+            explanation: "Noun clause memakai statement order."
+        },
+        {
+            type: "Word Order",
+            question: "Choose the correct noun clause.",
+            options: [
+                "what she wants",
+                "what does she want",
+                "what wants she",
+                "what she does wants"
+            ],
+            answer: "what she wants",
+            explanation: "Urutan benar: connector + subject + verb."
+        },
+        {
+            type: "Subject",
+            question: "___ surprised everyone.",
+            options: [
+                "What he said",
+                "What said he",
+                "He said what",
+                "What saying"
+            ],
+            answer: "What he said",
+            explanation: "Noun clause dapat menjadi subject."
+        },
+        {
+            type: "Subject",
+            question: "___ remains uncertain.",
+            options: [
+                "Whether she agrees",
+                "Whether agrees she",
+                "She agrees whether",
+                "Whether agreeing"
+            ],
+            answer: "Whether she agrees",
+            explanation: "Whether clause dapat menjadi subject."
+        },
+        {
+            type: "Object",
+            question: "She believes ___.",
+            options: [
+                "that he is innocent",
+                "that is he innocent",
+                "he is that innocent",
+                "that innocent he"
+            ],
+            answer: "that he is innocent",
+            explanation: "That clause menjadi object dari believes."
+        },
+        {
+            type: "Object",
+            question: "They understand ___ he was angry.",
+            options: ["why", "whose", "wherever", "whoever"],
+            answer: "why",
+            explanation: "Why clause menjadi object dari understand."
+        },
+        {
+            type: "Whether",
+            question: "I can't decide ___ buy the blue shirt.",
+            options: ["whether to", "if to", "whether", "if"],
+            answer: "whether to",
+            explanation: "Gunakan whether sebelum to + V1."
+        },
+        {
+            type: "Concept",
+            question: "Whether is usually more...",
+            options: ["formal", "plural", "passive", "countable"],
+            answer: "formal",
+            explanation: "Whether lebih formal daripada if."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "What she said made me happy.",
+                "What said she made me happy.",
+                "She what said made me happy.",
+                "What saying she made me happy."
+            ],
+            answer: "What she said made me happy.",
+            explanation: "Noun clause sebagai subject memakai statement order."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She asked if I was ready.",
+                "She asked if was I ready.",
+                "She asked was I ready.",
+                "She asked if ready I was."
+            ],
+            answer: "She asked if I was ready.",
+            explanation: "If clause memakai statement order."
+        },
+        {
+            type: "Final",
+            question: "Which sentence contains a noun clause?",
+            options: [
+                "I know what he wants.",
+                "The man who lives there is kind.",
+                "The book on the table is mine.",
+                "She quickly finished."
+            ],
+            answer: "I know what he wants.",
+            explanation: "'What he wants' berfungsi sebagai object, jadi itu noun clause."
+        }
+    ]
+},
+
+"adverb-clauses": {
+    title: "Introduction to Adverb Clauses",
+    description: "Adverb Clause adalah dependent clause yang berfungsi seperti adverb. Adverb clause menjelaskan verb, adjective, atau seluruh kalimat dengan memberikan informasi seperti waktu, alasan, tujuan, syarat, kontras, hasil, atau cara.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Subordinating Conjunction + Subject + Verb
+    `,
+
+    notes: [
+        "Adverb clause selalu diawali subordinating conjunction.",
+        "Adverb clause adalah dependent clause sehingga tidak dapat berdiri sendiri.",
+        "Adverb clause menerangkan verb, adjective, atau seluruh main clause.",
+        "Jika adverb clause berada di awal kalimat, gunakan koma.",
+        "Jika adverb clause berada di akhir kalimat, biasanya tidak memakai koma.",
+        "Connector yang umum antara lain: when, while, before, after, because, since, although, if, unless, so that, as soon as, until."
+    ],
+
+    patterns: [
+        {
+            group: "Beginning of Sentence",
+            items: [
+                {
+                    label: "Clause First",
+                    formula: "Adverb Clause, Main Clause",
+                    examples: [
+                        "When I arrived, she was sleeping.",
+                        "Because it was raining, we stayed home.",
+                        "Although he was tired, he kept working."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "End of Sentence",
+            items: [
+                {
+                    label: "Main Clause First",
+                    formula: "Main Clause + Adverb Clause",
+                    examples: [
+                        "She was sleeping when I arrived.",
+                        "We stayed home because it was raining.",
+                        "He kept working although he was tired."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Conjunctions",
+            items: [
+                {
+                    label: "Types",
+                    formula: "Subordinating Conjunction",
+                    examples: [
+                        "Time: when, before, after, while, until",
+                        "Reason: because, since, as",
+                        "Condition: if, unless",
+                        "Contrast: although, though, even though",
+                        "Purpose: so that, in order that"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "An adverb clause mainly functions as...",
+            options: [
+                "an adverb",
+                "a noun",
+                "an adjective",
+                "a pronoun"
+            ],
+            answer: "an adverb",
+            explanation: "Adverb clause berfungsi seperti adverb."
+        },
+        {
+            type: "Concept",
+            question: "An adverb clause usually begins with...",
+            options: [
+                "a subordinating conjunction",
+                "an article",
+                "a modal verb",
+                "a preposition"
+            ],
+            answer: "a subordinating conjunction",
+            explanation: "Adverb clause diawali subordinating conjunction."
+        },
+        {
+            type: "Grammar",
+            question: "___ I arrived, she was sleeping.",
+            options: [
+                "When",
+                "Who",
+                "Which",
+                "Whose"
+            ],
+            answer: "When",
+            explanation: "When memperkenalkan adverb clause of time."
+        },
+        {
+            type: "Grammar",
+            question: "We stayed home ___ it was raining.",
+            options: [
+                "because",
+                "where",
+                "whose",
+                "who"
+            ],
+            answer: "because",
+            explanation: "Because memperkenalkan adverb clause of reason."
+        },
+        {
+            type: "Grammar",
+            question: "___ he was tired, he continued working.",
+            options: [
+                "Although",
+                "Whether",
+                "That",
+                "What"
+            ],
+            answer: "Although",
+            explanation: "Although menunjukkan kontras."
+        },
+        {
+            type: "Comma",
+            question: "jika anak kalimat (adverb clause) berada di depan, kita biasanya menggunakan...",
+            options: [
+                "comma (koma)",
+                "Titik koma (;)",
+                "Tanda petik ('..')",
+                "no punctuation"
+            ],
+            answer: "a comma",
+            explanation: "Gunakan koma jika adverb clause berada di awal."
+        },
+        {
+            type: "Grammar",
+            question: "Which sentence is correct?",
+            options: [
+                "When I arrived, she smiled.",
+                "When I arrived she smiled,",
+                "When arrived I, she smiled.",
+                "When I arrived she, smiled."
+            ],
+            answer: "When I arrived, she smiled.",
+            explanation: "Adverb clause di awal diikuti koma."
+        },
+        {
+            type: "Concept",
+            question: "adverb clause tidak bisa berdiri sendiri karena adverb clause adalah...",
+            options: [
+                "klausa terikat (dependent) ",
+                "klausa bebas (independent)",
+                "frasa",
+                "hanya sebuah fragment kalimat"
+            ],
+            answer: "a dependent clause",
+            explanation: "Adverb clause membutuhkan main clause."
+        },
+        {
+            type: "Comparison",
+            question: "Klausa mana yang memodifikasi kata kerja (verb)?",
+            options: [
+                "Adverb Clause",
+                "Noun Clause",
+                "Relative Clause",
+                "Passive Clause"
+            ],
+            answer: "Adverb Clause",
+            explanation: "Adverb clause menerangkan verb, adjective, atau seluruh kalimat."
+        },
+        {
+            type: "Concept",
+            question: "Manakah yang TIDAK biasa digunakan untuk memperkenalkan klausa kata keterangan (adverb clause)?",
+            options: [
+                "the",
+                "because",
+                "if",
+                "although"
+            ],
+            answer: "the",
+            explanation: "'The' adalah article, bukan subordinating conjunction."
+        }
+    ]
+},
+
+"time-clauses": {
+    title: "Time Clauses",
+    description: "Time Clause adalah adverb clause yang menunjukkan waktu terjadinya suatu aksi. Clause ini biasanya diawali conjunction seperti when, while, before, after, until, since, dan as soon as.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Time Conjunction + Subject + Verb
+    `,
+
+    notes: [
+        "When berarti ketika.",
+        "While berarti saat dua aksi berlangsung bersamaan.",
+        "Before berarti sebelum.",
+        "After berarti setelah.",
+        "Until berarti sampai.",
+        "Since berarti sejak.",
+        "As soon as berarti segera setelah.",
+        "Dalam time clause untuk masa depan, gunakan Simple Present, bukan will."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Time",
+            items: [
+                {
+                    label: "When",
+                    formula: "when + subject + verb",
+                    examples: [
+                        "When I arrived, she was sleeping.",
+                        "Call me when you get home.",
+                        "I smiled when I saw her."
+                    ]
+                },
+                {
+                    label: "While",
+                    formula: "while + subject + verb",
+                    examples: [
+                        "While I was studying, my phone rang.",
+                        "She cooked while I cleaned the room.",
+                        "They talked while they were waiting."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Sequence",
+            items: [
+                {
+                    label: "Before / After",
+                    formula: "before/after + subject + verb",
+                    examples: [
+                        "Before I sleep, I read a book.",
+                        "After she finished work, she went home.",
+                        "Wash your hands before you eat."
+                    ]
+                },
+                {
+                    label: "Until / Since",
+                    formula: "until/since + subject + verb",
+                    examples: [
+                        "Wait here until I come back.",
+                        "I have lived here since I was a child.",
+                        "She stayed until the meeting ended."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Future Time Clause",
+            items: [
+                {
+                    label: "No Will",
+                    formula: "Time Clause + Simple Present, Main Clause + will",
+                    examples: [
+                        "I will call you when I arrive.",
+                        "She will start after he comes.",
+                        "We will leave as soon as the rain stops."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "When",
+            question: "___ I arrived, she was sleeping.",
+            options: ["When", "Because", "Although", "If"],
+            answer: "When",
+            explanation: "When digunakan untuk menunjukkan waktu."
+        },
+        {
+            type: "While",
+            question: "___ I was studying, my phone rang.",
+            options: ["While", "Because", "Unless", "So that"],
+            answer: "While",
+            explanation: "While digunakan untuk dua aksi yang berlangsung bersamaan."
+        },
+        {
+            type: "Before",
+            question: "Wash your hands ___ you eat.",
+            options: ["before", "because", "although", "unless"],
+            answer: "before",
+            explanation: "Before berarti sebelum."
+        },
+        {
+            type: "After",
+            question: "___ she finished work, she went home.",
+            options: ["After", "Unless", "Although", "So"],
+            answer: "After",
+            explanation: "After berarti setelah."
+        },
+        {
+            type: "Until",
+            question: "Wait here ___ I come back.",
+            options: ["until", "because", "although", "whether"],
+            answer: "until",
+            explanation: "Until berarti sampai."
+        },
+        {
+            type: "Since",
+            question: "I have lived here ___ I was a child.",
+            options: ["since", "until", "when", "before"],
+            answer: "since",
+            explanation: "Since berarti sejak."
+        },
+        {
+            type: "As Soon As",
+            question: "We will leave ___ the rain stops.",
+            options: ["as soon as", "although", "because", "unless"],
+            answer: "as soon as",
+            explanation: "As soon as berarti segera setelah."
+        },
+        {
+            type: "Future Time",
+            question: "I will call you when I ___.",
+            options: ["arrive", "will arrive", "arrived", "arriving"],
+            answer: "arrive",
+            explanation: "Dalam future time clause, gunakan Simple Present, bukan will."
+        },
+        {
+            type: "Error Check",
+            question: "Kalimat mana yang tepat?",
+            options: [
+                "I will call you when I arrive.",
+                "I will call you when I will arrive.",
+                "I call you when I will arrive.",
+                "I will call you when arriving I."
+            ],
+            answer: "I will call you when I arrive.",
+            explanation: "Time clause masa depan memakai Simple Present."
+        },
+        {
+            type: "Concept",
+            question: "Time clauses menjelaskan...",
+            options: ["ketika sesuatu terjadi", "siapa yang memiliki sesuatu", "berapa banyak noun", "article mana yang dipakai"],
+            answer: "ketika sesuatu terjadi",
+            explanation: "Time clause menjelaskan waktu terjadinya aksi."
+        }
+    ]
+},
+
+"reason-clauses": {
+    title: "Reason Clauses",
+    description: "Reason Clause adalah adverb clause yang menjelaskan alasan suatu aksi terjadi. Clause ini biasanya diawali conjunction seperti because, since, dan as.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Reason Conjunction + Subject + Verb
+    `,
+
+    notes: [
+        "Because digunakan untuk alasan yang jelas dan langsung.",
+        "Since digunakan untuk alasan yang sudah diketahui atau dianggap jelas.",
+        "As juga dapat digunakan untuk alasan, biasanya lebih formal.",
+        "Reason clause dapat berada di awal atau akhir kalimat.",
+        "Jika reason clause berada di awal kalimat, gunakan koma.",
+        "Because of berbeda dari because. Because of diikuti noun atau gerund, bukan clause."
+    ],
+
+    patterns: [
+        {
+            group: "Because",
+            items: [
+                {
+                    label: "Direct Reason",
+                    formula: "because + subject + verb",
+                    examples: [
+                        "We stayed home because it was raining.",
+                        "She was absent because she was sick.",
+                        "I studied hard because I wanted to pass."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Since / As",
+            items: [
+                {
+                    label: "Known Reason",
+                    formula: "since/as + subject + verb",
+                    examples: [
+                        "Since it was late, we went home.",
+                        "As she was tired, she took a rest.",
+                        "Since he knew the answer, he raised his hand."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Because vs Because Of",
+            items: [
+                {
+                    label: "Clause vs Noun",
+                    formula: "because + clause / because of + noun",
+                    examples: [
+                        "Because it rained, we stayed home.",
+                        "Because of the rain, we stayed home.",
+                        "She was late because the traffic was heavy.",
+                        "She was late because of the traffic."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Because",
+            question: "We stayed home ___ it was raining.",
+            options: ["because", "although", "unless", "when"],
+            answer: "because",
+            explanation: "Because digunakan untuk menunjukkan alasan."
+        },
+        {
+            type: "Because",
+            question: "She was absent ___ she was sick.",
+            options: ["because", "where", "when", "whose"],
+            answer: "because",
+            explanation: "Because + subject + verb."
+        },
+        {
+            type: "Since",
+            question: "___ it was late, we went home.",
+            options: ["Since", "Although", "Unless", "Where"],
+            answer: "Since",
+            explanation: "Since dapat digunakan untuk alasan yang jelas."
+        },
+        {
+            type: "As",
+            question: "___ she was tired, she took a rest.",
+            options: ["As", "When", "Where", "Whose"],
+            answer: "As",
+            explanation: "As dapat berarti karena dalam reason clause."
+        },
+        {
+            type: "Because Of",
+            question: "We stayed home because of ___.",
+            options: ["the rain", "it was raining", "it rains", "raining it"],
+            answer: "the rain",
+            explanation: "Because of diikuti noun phrase."
+        },
+        {
+            type: "Because",
+            question: "We stayed home because ___.",
+            options: ["it was raining", "the rain", "the weather", "heavy traffic"],
+            answer: "it was raining",
+            explanation: "Because diikuti clause: subject + verb."
+        },
+        {
+            type: "Comma",
+            question: "Kaliamt mana yang menggunakan comma dengan benar?",
+            options: [
+                "Because it was raining, we stayed home.",
+                "Because, it was raining we stayed home.",
+                "Because it was raining we, stayed home.",
+                "Because it, was raining we stayed home."
+            ],
+            answer: "Because it was raining, we stayed home.",
+            explanation: "Jika reason clause di awal, gunakan koma."
+        },
+        {
+            type: "Concept",
+            question: "Reason clauses menjelaskan...",
+            options: [
+                "kenapa sesuatu terjadi",
+                "dimana sesuatu tejadi",
+                "siapa yang memiliki sesuatu",
+                "berapa banyak noun"
+            ],
+            answer: "kenapa sesuatu terjadi",
+            explanation: "Reason clause menjelaskan alasan."
+        },
+        {
+            type: "Error Check",
+            question: "Kalimat mana yang tepat?",
+            options: [
+                "Because he was sick, he stayed home.",
+                "Because of he was sick, he stayed home.",
+                "Because sick, he stayed home.",
+                "Because of was sick, he stayed home."
+            ],
+            answer: "Because he was sick, he stayed home.",
+            explanation: "Because diikuti clause."
+        },
+        {
+            type: "Error Check",
+            question: "Kalimat mana yang tepat?",
+            options: [
+                "Because of the traffic, she was late.",
+                "Because the traffic, she was late.",
+                "Because of the traffic was heavy, she was late.",
+                "Because of she was late, the traffic."
+            ],
+            answer: "Because of the traffic, she was late.",
+            explanation: "Because of diikuti noun phrase."
+        }
+    ]
+},
+
+"contrast-clauses": {
+    title: "Contrast Clauses",
+    description: "Contrast Clause adalah adverb clause yang menunjukkan pertentangan antara dua ide. Clause ini biasanya diawali conjunction seperti although, though, even though, while, dan whereas.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Contrast Conjunction + Subject + Verb
+    `,
+
+    notes: [
+        "Although berarti meskipun.",
+        "Though memiliki makna mirip dengan although dan lebih umum dalam percakapan.",
+        "Even though lebih kuat daripada although.",
+        "While dan whereas digunakan untuk membandingkan dua hal yang berbeda.",
+        "Jika contrast clause berada di awal kalimat, gunakan koma.",
+        "Although/though/even though harus diikuti clause, bukan noun phrase.",
+        "Despite dan in spite of bukan conjunction, tetapi preposition phrase dan diikuti noun/gerund."
+    ],
+
+    patterns: [
+        {
+            group: "Although / Though",
+            items: [
+                {
+                    label: "Contrast",
+                    formula: "although/though + subject + verb",
+                    examples: [
+                        "Although he was tired, he kept working.",
+                        "Though it was raining, we went outside.",
+                        "She smiled although she was sad."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Even Though",
+            items: [
+                {
+                    label: "Strong Contrast",
+                    formula: "even though + subject + verb",
+                    examples: [
+                        "Even though the test was difficult, she passed.",
+                        "Even though he was sick, he came to class.",
+                        "They continued even though they were exhausted."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "While / Whereas",
+            items: [
+                {
+                    label: "Comparison",
+                    formula: "while/whereas + subject + verb",
+                    examples: [
+                        "While I like coffee, my brother prefers tea.",
+                        "Whereas Jakarta is crowded, this village is quiet.",
+                        "She enjoys grammar, while he prefers vocabulary."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Although vs Despite",
+            items: [
+                {
+                    label: "Clause vs Noun",
+                    formula: "although + clause / despite + noun or gerund",
+                    examples: [
+                        "Although it was raining, we went out.",
+                        "Despite the rain, we went out.",
+                        "Although he was tired, he worked.",
+                        "Despite being tired, he worked."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Although",
+            question: "___ he was tired, he kept working.",
+            options: ["Although", "Because", "If", "When"],
+            answer: "Although",
+            explanation: "Although menunjukkan kontras."
+        },
+        {
+            type: "Though",
+            question: "___ it was raining, we went outside.",
+            options: ["Though", "Because", "Since", "Where"],
+            answer: "Though",
+            explanation: "Though berarti meskipun."
+        },
+        {
+            type: "Even Though",
+            question: "___ the test was difficult, she passed.",
+            options: ["Even though", "Because", "Since", "When"],
+            answer: "Even though",
+            explanation: "Even though menunjukkan kontras yang kuat."
+        },
+        {
+            type: "While",
+            question: "___ I like coffee, my brother prefers tea.",
+            options: ["While", "Because", "If", "Until"],
+            answer: "While",
+            explanation: "While dapat digunakan untuk membandingkan dua hal."
+        },
+        {
+            type: "Whereas",
+            question: "___ Jakarta is crowded, this village is quiet.",
+            options: ["Whereas", "Because", "Since", "When"],
+            answer: "Whereas",
+            explanation: "Whereas digunakan untuk menunjukkan perbedaan."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence uses comma correctly?",
+            options: [
+                "Although he was tired, he kept working.",
+                "Although, he was tired he kept working.",
+                "Although he, was tired he kept working.",
+                "Although he was tired he, kept working."
+            ],
+            answer: "Although he was tired, he kept working.",
+            explanation: "Jika contrast clause berada di awal, gunakan koma."
+        },
+        {
+            type: "Despite",
+            question: "Despite ___, we went outside.",
+            options: ["the rain", "it was raining", "it rains", "rain was"],
+            answer: "the rain",
+            explanation: "Despite diikuti noun phrase, bukan clause."
+        },
+        {
+            type: "Although",
+            question: "Although ___, we went outside.",
+            options: ["it was raining", "the rain", "rain", "raining"],
+            answer: "it was raining",
+            explanation: "Although diikuti clause: subject + verb."
+        },
+        {
+            type: "Concept",
+            question: "Contrast clauses show...",
+            options: [
+                "opposition between ideas",
+                "time only",
+                "ownership",
+                "quantity"
+            ],
+            answer: "opposition between ideas",
+            explanation: "Contrast clause menunjukkan pertentangan antara dua ide."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Although she was sick, she attended the class.",
+                "Despite she was sick, she attended the class.",
+                "Although her sickness, she attended the class.",
+                "Even though her sickness, she attended the class."
+            ],
+            answer: "Although she was sick, she attended the class.",
+            explanation: "Although diikuti clause lengkap."
+        }
+    ]
+},
+"purpose-result-clauses": {
+    title: "Purpose & Result Clauses",
+    description: "Purpose Clause menjelaskan tujuan suatu aksi, sedangkan Result Clause menjelaskan hasil atau akibat dari suatu kondisi.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Purpose = so that / in order that + Subject + Verb<br>
+        Result = so + adjective/adverb + that + clause<br>
+        Result = such + noun phrase + that + clause
+    `,
+
+    notes: [
+        "Purpose clause menjawab pertanyaan: untuk apa?",
+        "Result clause menjawab pertanyaan: apa akibatnya?",
+        "So that digunakan untuk tujuan.",
+        "In order that lebih formal daripada so that.",
+        "So...that digunakan dengan adjective atau adverb.",
+        "Such...that digunakan dengan noun phrase.",
+        "Can/could/will/would sering muncul dalam purpose clause."
+    ],
+
+    patterns: [
+        {
+            group: "Purpose",
+            items: [
+                {
+                    label: "So That",
+                    formula: "so that + subject + can/will + V1",
+                    examples: [
+                        "I study hard so that I can pass the exam.",
+                        "She speaks slowly so that everyone can understand.",
+                        "He saved money so that he could buy a car."
+                    ]
+                },
+                {
+                    label: "In Order That",
+                    formula: "in order that + subject + can/may/will + V1",
+                    examples: [
+                        "They left early in order that they could arrive on time.",
+                        "We practice daily in order that we may improve.",
+                        "She wrote clearly in order that people could read it."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Result",
+            items: [
+                {
+                    label: "So...That",
+                    formula: "so + adjective/adverb + that + clause",
+                    examples: [
+                        "The test was so difficult that many students failed.",
+                        "She spoke so quietly that nobody heard her.",
+                        "He was so tired that he fell asleep."
+                    ]
+                },
+                {
+                    label: "Such...That",
+                    formula: "such + noun phrase + that + clause",
+                    examples: [
+                        "It was such a difficult test that many students failed.",
+                        "She is such a kind person that everyone likes her.",
+                        "It was such bad weather that we stayed home."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Purpose",
+            question: "I study hard ___ I can pass the exam.",
+            options: ["so that", "because", "although", "unless"],
+            answer: "so that",
+            explanation: "So that digunakan untuk menunjukkan tujuan."
+        },
+        {
+            type: "Purpose",
+            question: "She speaks slowly so that everyone ___ understand.",
+            options: ["can", "because", "although", "unless"],
+            answer: "can",
+            explanation: "Purpose clause sering memakai can/could."
+        },
+        {
+            type: "Purpose",
+            question: "They left early ___ they could arrive on time.",
+            options: ["in order that", "although", "because of", "despite"],
+            answer: "in order that",
+            explanation: "In order that digunakan untuk tujuan dan lebih formal."
+        },
+        {
+            type: "Result",
+            question: "The test was ___ difficult that many students failed.",
+            options: ["so", "such", "because", "although"],
+            answer: "so",
+            explanation: "So digunakan sebelum adjective/adverb."
+        },
+        {
+            type: "Result",
+            question: "It was ___ a difficult test that many students failed.",
+            options: ["such", "so", "because", "although"],
+            answer: "such",
+            explanation: "Such digunakan sebelum noun phrase."
+        },
+        {
+            type: "Result",
+            question: "She is ___ a kind person that everyone likes her.",
+            options: ["such", "so", "because", "unless"],
+            answer: "such",
+            explanation: "A kind person adalah noun phrase, jadi gunakan such."
+        },
+        {
+            type: "Result",
+            question: "He was ___ tired that he fell asleep.",
+            options: ["so", "such", "because", "while"],
+            answer: "so",
+            explanation: "Tired adalah adjective, jadi gunakan so."
+        },
+        {
+            type: "Concept",
+            question: "Purpose clauses explain...",
+            options: ["why someone does something", "who owns something", "where someone lives", "which article to use"],
+            answer: "why someone does something",
+            explanation: "Purpose clause menjelaskan tujuan."
+        },
+        {
+            type: "Concept",
+            question: "Result clauses explain...",
+            options: ["the effect or consequence", "possession", "direct speech", "noun function"],
+            answer: "the effect or consequence",
+            explanation: "Result clause menjelaskan akibat."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The movie was so interesting that I watched it twice.",
+                "The movie was such interesting that I watched it twice.",
+                "The movie was because interesting that I watched it twice.",
+                "The movie was although interesting that I watched it twice."
+            ],
+            answer: "The movie was so interesting that I watched it twice.",
+            explanation: "So + adjective + that + clause."
+        }
+    ]
+},
+
+"condition-clauses": {
+    title: "Condition Clauses",
+    description: "Condition Clause adalah adverb clause yang menunjukkan syarat agar suatu hasil dapat terjadi. Clause ini biasanya diawali conjunction seperti if, unless, as long as, provided that, dan in case.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Condition Conjunction + Subject + Verb
+    `,
+
+    notes: [
+        "If berarti jika.",
+        "Unless berarti jika tidak / kecuali jika.",
+        "As long as berarti selama syarat terpenuhi.",
+        "Provided that berarti asalkan.",
+        "In case berarti untuk berjaga-jaga jika.",
+        "Condition clause dapat berada di awal atau akhir kalimat.",
+        "Jika condition clause berada di awal, gunakan koma."
+    ],
+
+    patterns: [
+        {
+            group: "If / Unless",
+            items: [
+                {
+                    label: "If",
+                    formula: "if + subject + verb",
+                    examples: [
+                        "If it rains, we will stay home.",
+                        "If you study, you will pass.",
+                        "I will help you if I have time."
+                    ]
+                },
+                {
+                    label: "Unless",
+                    formula: "unless + subject + verb",
+                    examples: [
+                        "Unless you study, you will fail.",
+                        "We will go out unless it rains.",
+                        "You cannot enter unless you have a ticket."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "As Long As / Provided That",
+            items: [
+                {
+                    label: "As Long As",
+                    formula: "as long as + subject + verb",
+                    examples: [
+                        "You can borrow my car as long as you drive carefully.",
+                        "I will help you as long as you are honest.",
+                        "She can join us as long as she arrives on time."
+                    ]
+                },
+                {
+                    label: "Provided That",
+                    formula: "provided that + subject + verb",
+                    examples: [
+                        "You may leave early provided that you finish your work.",
+                        "The trip will continue provided that the weather is good.",
+                        "We will approve it provided that all documents are complete."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "In Case",
+            items: [
+                {
+                    label: "Precaution",
+                    formula: "in case + subject + verb",
+                    examples: [
+                        "Take an umbrella in case it rains.",
+                        "Save your work in case the computer crashes.",
+                        "Bring extra money in case you need it."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "If",
+            question: "___ it rains, we will stay home.",
+            options: ["If", "Because", "Although", "When"],
+            answer: "If",
+            explanation: "If digunakan untuk menunjukkan syarat."
+        },
+        {
+            type: "Unless",
+            question: "___ you study, you will fail.",
+            options: ["Unless", "Because", "Although", "When"],
+            answer: "Unless",
+            explanation: "Unless berarti jika tidak."
+        },
+        {
+            type: "Unless",
+            question: "We will go out ___ it rains.",
+            options: ["unless", "because", "although", "since"],
+            answer: "unless",
+            explanation: "Unless berarti kecuali jika."
+        },
+        {
+            type: "As Long As",
+            question: "You can borrow my car ___ you drive carefully.",
+            options: ["as long as", "because", "although", "when"],
+            answer: "as long as",
+            explanation: "As long as berarti selama syarat terpenuhi."
+        },
+        {
+            type: "Provided That",
+            question: "You may leave early ___ you finish your work.",
+            options: ["provided that", "although", "because of", "despite"],
+            answer: "provided that",
+            explanation: "Provided that berarti asalkan."
+        },
+        {
+            type: "In Case",
+            question: "Take an umbrella ___ it rains.",
+            options: ["in case", "although", "because", "unless"],
+            answer: "in case",
+            explanation: "In case berarti untuk berjaga-jaga jika."
+        },
+        {
+            type: "Concept",
+            question: "Condition clauses explain...",
+            options: [
+                "the requirement for something to happen",
+                "the owner of something",
+                "the amount of a noun",
+                "the direct quotation"
+            ],
+            answer: "the requirement for something to happen",
+            explanation: "Condition clause menjelaskan syarat."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence uses comma correctly?",
+            options: [
+                "If you study, you will pass.",
+                "If, you study you will pass.",
+                "If you, study you will pass.",
+                "If you study you, will pass."
+            ],
+            answer: "If you study, you will pass.",
+            explanation: "Jika condition clause berada di awal, gunakan koma."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Unless you study, you will fail.",
+                "Unless you don't study, you will fail.",
+                "Unless studying, you will fail.",
+                "Unless you will study, you will fail."
+            ],
+            answer: "Unless you study, you will fail.",
+            explanation: "Unless sudah bermakna negatif, jadi biasanya tidak perlu don't."
+        },
+        {
+            type: "Meaning",
+            question: "'Unless you study, you will fail' means...",
+            options: [
+                "If you do not study, you will fail.",
+                "If you study, you will fail.",
+                "Because you study, you will fail.",
+                "Although you study, you will fail."
+            ],
+            answer: "If you do not study, you will fail.",
+            explanation: "Unless berarti if not."
+        }
+    ]
+},
+
+"adverb-clauses-review": {
+    title: "Adverb Clauses Review",
+    description: "Review akhir untuk menguji seluruh materi Adverb Clauses: time, reason, contrast, purpose, result, dan condition clauses.",
+
+    formula: `
+        <strong>Ringkasan BAB 11:</strong><br>
+        Adverb Clause = Subordinating Conjunction + Subject + Verb<br>
+        Fungsi = menjelaskan waktu, alasan, kontras, tujuan, hasil, atau syarat
+    `,
+
+    notes: [
+        "Time clause menjelaskan waktu.",
+        "Reason clause menjelaskan alasan.",
+        "Contrast clause menunjukkan pertentangan.",
+        "Purpose clause menjelaskan tujuan.",
+        "Result clause menjelaskan akibat.",
+        "Condition clause menjelaskan syarat.",
+        "Jika adverb clause berada di awal kalimat, gunakan koma."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Time / Reason",
+                    formula: "when, while, before, after / because, since, as",
+                    examples: [
+                        "When I arrived, she was sleeping.",
+                        "Because it was raining, we stayed home."
+                    ]
+                },
+                {
+                    label: "Contrast / Purpose",
+                    formula: "although, even though / so that, in order that",
+                    examples: [
+                        "Although he was tired, he kept working.",
+                        "I study hard so that I can pass."
+                    ]
+                },
+                {
+                    label: "Result / Condition",
+                    formula: "so...that, such...that / if, unless, as long as",
+                    examples: [
+                        "He was so tired that he fell asleep.",
+                        "If you study, you will pass."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Time",
+            question: "___ I arrived, she was sleeping.",
+            options: ["When", "Because", "Although", "Unless"],
+            answer: "When",
+            explanation: "When digunakan untuk time clause."
+        },
+        {
+            type: "Time",
+            question: "I will call you when I ___.",
+            options: ["arrive", "will arrive", "arrived", "arriving"],
+            answer: "arrive",
+            explanation: "Future time clause memakai Simple Present, bukan will."
+        },
+        {
+            type: "Reason",
+            question: "We stayed home ___ it was raining.",
+            options: ["because", "although", "unless", "when"],
+            answer: "because",
+            explanation: "Because menunjukkan alasan."
+        },
+        {
+            type: "Reason",
+            question: "Because of ___, we stayed home.",
+            options: ["the rain", "it was raining", "it rains", "rain was"],
+            answer: "the rain",
+            explanation: "Because of diikuti noun phrase."
+        },
+        {
+            type: "Contrast",
+            question: "___ he was tired, he kept working.",
+            options: ["Although", "Because", "If", "When"],
+            answer: "Although",
+            explanation: "Although menunjukkan kontras."
+        },
+        {
+            type: "Contrast",
+            question: "___ city life is noisy, village life is peaceful.",
+            options: ["Whereas", "Because", "Since", "Until"],
+            answer: "Whereas",
+            explanation: "Whereas menunjukkan perbandingan kontras."
+        },
+        {
+            type: "Purpose",
+            question: "I study hard ___ I can pass the exam.",
+            options: ["so that", "because", "although", "unless"],
+            answer: "so that",
+            explanation: "So that menunjukkan tujuan."
+        },
+        {
+            type: "Purpose",
+            question: "They left early ___ they could arrive on time.",
+            options: ["in order that", "although", "because of", "despite"],
+            answer: "in order that",
+            explanation: "In order that digunakan untuk tujuan secara formal."
+        },
+        {
+            type: "Result",
+            question: "The test was ___ difficult that many students failed.",
+            options: ["so", "such", "because", "although"],
+            answer: "so",
+            explanation: "So digunakan sebelum adjective/adverb."
+        },
+        {
+            type: "Result",
+            question: "It was ___ a difficult test that many students failed.",
+            options: ["such", "so", "because", "although"],
+            answer: "such",
+            explanation: "Such digunakan sebelum noun phrase."
+        },
+        {
+            type: "Condition",
+            question: "___ it rains, we will stay home.",
+            options: ["If", "Because", "Although", "When"],
+            answer: "If",
+            explanation: "If menunjukkan syarat."
+        },
+        {
+            type: "Condition",
+            question: "___ you study, you will fail.",
+            options: ["Unless", "Because", "Although", "When"],
+            answer: "Unless",
+            explanation: "Unless berarti if not."
+        },
+        {
+            type: "Condition",
+            question: "You can join us ___ you arrive on time.",
+            options: ["as long as", "although", "because", "when"],
+            answer: "as long as",
+            explanation: "As long as berarti selama syarat terpenuhi."
+        },
+        {
+            type: "Condition",
+            question: "Take an umbrella ___ it rains.",
+            options: ["in case", "although", "because", "unless"],
+            answer: "in case",
+            explanation: "In case berarti untuk berjaga-jaga."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence uses comma correctly?",
+            options: [
+                "Because it was raining, we stayed home.",
+                "Because, it was raining we stayed home.",
+                "Because it was raining we, stayed home.",
+                "Because it, was raining we stayed home."
+            ],
+            answer: "Because it was raining, we stayed home.",
+            explanation: "Jika adverb clause berada di awal, gunakan koma."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Although he was tired, he kept working.",
+                "Although he was tired, but he kept working.",
+                "Although tired he, kept working.",
+                "Although he tired, he kept working."
+            ],
+            answer: "Although he was tired, he kept working.",
+            explanation: "Jangan gunakan although dan but bersamaan."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Unless you study, you will fail.",
+                "Unless you don't study, you will fail.",
+                "Unless studying, you will fail.",
+                "Unless you will study, you will fail."
+            ],
+            answer: "Unless you study, you will fail.",
+            explanation: "Unless sudah bermakna negatif."
+        },
+        {
+            type: "Concept",
+            question: "Adverb clauses are introduced by...",
+            options: [
+                "subordinating conjunctions",
+                "articles only",
+                "relative pronouns only",
+                "possessive determiners"
+            ],
+            answer: "subordinating conjunctions",
+            explanation: "Adverb clause diawali subordinating conjunction."
+        },
+        {
+            type: "Concept",
+            question: "An adverb clause is...",
+            options: [
+                "a dependent clause",
+                "an independent sentence only",
+                "a noun phrase",
+                "an article phrase"
+            ],
+            answer: "a dependent clause",
+            explanation: "Adverb clause tidak dapat berdiri sendiri."
+        },
+        {
+            type: "Final",
+            question: "Which sentence contains an adverb clause?",
+            options: [
+                "When I arrived, she smiled.",
+                "The man who helped me is kind.",
+                "What he said surprised me.",
+                "The book on the table is mine."
+            ],
+            answer: "When I arrived, she smiled.",
+            explanation: "When I arrived adalah adverb clause of time."
+        }
+    ]
+},
+
+"inversion": {
+    title: "Introduction to Inversion",
+    description: "Inversion adalah struktur grammar ketika auxiliary verb diletakkan sebelum subject. Inversion sering digunakan dalam tulisan formal, akademik, sastra, dan soal grammar tingkat lanjut.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Normal: Subject + Auxiliary + Verb<br>
+        Inversion: Auxiliary + Subject + Verb
+    `,
+
+    notes: [
+        "Inversion berarti posisi auxiliary verb berpindah ke depan subject.",
+        "Struktur inversion mirip dengan bentuk pertanyaan, tetapi maknanya bukan selalu pertanyaan.",
+        "Inversion sering muncul setelah negative adverbial seperti never, rarely, seldom, hardly, no sooner.",
+        "Inversion juga muncul setelah only, so, such, dan conditional inversion.",
+        "Jika tidak ada auxiliary verb, gunakan do/does/did.",
+        "Inversion umum dalam tulisan formal dan soal grammar advanced."
+    ],
+
+    patterns: [
+        {
+            group: "Basic Inversion",
+            items: [
+                {
+                    label: "With Auxiliary",
+                    formula: "Auxiliary + Subject + Verb",
+                    examples: [
+                        "Normal: She has never seen such a view.",
+                        "Inversion: Never has she seen such a view.",
+                        "Normal: He can rarely finish the task.",
+                        "Inversion: Rarely can he finish the task."
+                    ]
+                },
+                {
+                    label: "With Do/Does/Did",
+                    formula: "Negative Adverbial + do/does/did + Subject + V1",
+                    examples: [
+                        "Normal: She rarely visits us.",
+                        "Inversion: Rarely does she visit us.",
+                        "Normal: He never understood the problem.",
+                        "Inversion: Never did he understand the problem."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Common Triggers",
+            items: [
+                {
+                    label: "Negative / Restrictive Words",
+                    formula: "Trigger + Auxiliary + Subject + Verb",
+                    examples: [
+                        "Never have I heard such news.",
+                        "Rarely do we see such kindness.",
+                        "Only then did I understand the truth.",
+                        "So beautiful was the view that we stopped walking."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Inversion means...",
+            options: [
+                "auxiliary verb comes before subject",
+                "subject disappears",
+                "verb becomes noun",
+                "article comes after noun"
+            ],
+            answer: "auxiliary verb comes before subject",
+            explanation: "Inversion terjadi ketika auxiliary verb diletakkan sebelum subject."
+        },
+        {
+            type: "Structure",
+            question: "Which sentence uses inversion?",
+            options: [
+                "Never have I seen such a view.",
+                "I have never seen such a view.",
+                "I never have seen such a view.",
+                "Such a view I have never seen."
+            ],
+            answer: "Never have I seen such a view.",
+            explanation: "Have muncul sebelum subject I."
+        },
+        {
+            type: "Auxiliary",
+            question: "Normal: She rarely visits us. Inversion: Rarely ___ she visit us.",
+            options: ["does", "do", "did", "has"],
+            answer: "does",
+            explanation: "Jika tidak ada auxiliary, gunakan do/does/did. Subject she memakai does."
+        },
+        {
+            type: "Auxiliary",
+            question: "Normal: He never understood the problem. Inversion: Never ___ he understand the problem.",
+            options: ["does", "do", "did", "has"],
+            answer: "did",
+            explanation: "Simple Past memakai did + V1 dalam inversion."
+        },
+        {
+            type: "Word Order",
+            question: "Which word order is correct for inversion?",
+            options: [
+                "Never have I heard this story.",
+                "Never I have heard this story.",
+                "Never heard I have this story.",
+                "Never this story I have heard."
+            ],
+            answer: "Never have I heard this story.",
+            explanation: "Pola inversion: trigger + auxiliary + subject + verb."
+        },
+        {
+            type: "Trigger",
+            question: "Which word commonly triggers inversion?",
+            options: ["Never", "Beautiful", "Book", "Quickly"],
+            answer: "Never",
+            explanation: "Never adalah negative adverbial yang sering memicu inversion."
+        },
+        {
+            type: "Trigger",
+            question: "Which phrase commonly triggers inversion?",
+            options: ["Only then", "Very happy", "A book", "Many students"],
+            answer: "Only then",
+            explanation: "Only then dapat memicu inversion."
+        },
+        {
+            type: "Concept",
+            question: "Inversion is common in...",
+            options: [
+                "formal and advanced English",
+                "articles only",
+                "plural noun formation",
+                "basic spelling only"
+            ],
+            answer: "formal and advanced English",
+            explanation: "Inversion sering muncul dalam bahasa formal, akademik, dan grammar advanced."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Rarely does she speak in public.",
+                "Rarely she does speak in public.",
+                "Rarely she speaks in public.",
+                "Rarely speaks she in public."
+            ],
+            answer: "Rarely does she speak in public.",
+            explanation: "Rarely + does + subject + V1."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Only then did I realize the mistake.",
+                "Only then I did realize the mistake.",
+                "Only then I realized the mistake.",
+                "Only then realized I the mistake."
+            ],
+            answer: "Only then did I realize the mistake.",
+            explanation: "Only then memicu inversion: did + subject + V1."
+        }
+    ]
+},
+
+"negative-adverbial-inversion": {
+    title: "Negative Adverbial Inversion",
+    description: "Negative Adverbial Inversion terjadi ketika kata atau frasa negatif diletakkan di awal kalimat, lalu auxiliary verb berpindah ke depan subject. Struktur ini umum digunakan dalam tulisan formal dan grammar tingkat lanjut.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Negative Adverbial + Auxiliary + Subject + Main Verb
+    `,
+
+    notes: [
+        "Negative adverbial seperti never, rarely, seldom, hardly, scarcely, little, dan under no circumstances dapat memicu inversion.",
+        "Jika kalimat sudah memiliki auxiliary, pindahkan auxiliary ke depan subject.",
+        "Jika tidak ada auxiliary, gunakan do/does/did.",
+        "Setelah do/does/did, main verb kembali ke V1.",
+        "Struktur ini bersifat formal dan sering muncul di soal grammar advanced.",
+        "Makna kalimat tetap sama, tetapi penekanan menjadi lebih kuat."
+    ],
+
+    patterns: [
+        {
+            group: "Never / Rarely / Seldom",
+            items: [
+                {
+                    label: "Frequency",
+                    formula: "Never/Rarely/Seldom + auxiliary + subject + verb",
+                    examples: [
+                        "Never have I seen such beauty.",
+                        "Rarely does she speak in public.",
+                        "Seldom do we receive such good news."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Hardly / Scarcely",
+            items: [
+                {
+                    label: "Almost Never",
+                    formula: "Hardly/Scarcely + auxiliary + subject + verb",
+                    examples: [
+                        "Hardly had I arrived when it started raining.",
+                        "Scarcely had she entered the room when the phone rang.",
+                        "Hardly does he ever complain."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Little / Under No Circumstances",
+            items: [
+                {
+                    label: "Strong Negative",
+                    formula: "Negative phrase + auxiliary + subject + verb",
+                    examples: [
+                        "Little did I know about the danger.",
+                        "Under no circumstances should you open this door.",
+                        "At no time did he admit his mistake."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Never",
+            question: "___ have I seen such a beautiful place.",
+            options: ["Never", "Always", "Often", "Usually"],
+            answer: "Never",
+            explanation: "Never di awal kalimat memicu inversion."
+        },
+        {
+            type: "Rarely",
+            question: "Rarely ___ she speak in public.",
+            options: ["does", "do", "did", "has"],
+            answer: "does",
+            explanation: "Simple Present dengan subject she memakai does + V1."
+        },
+        {
+            type: "Seldom",
+            question: "Seldom ___ we receive such good news.",
+            options: ["do", "does", "did", "has"],
+            answer: "do",
+            explanation: "Subject we memakai do."
+        },
+        {
+            type: "Hardly",
+            question: "Hardly ___ I arrived when it started raining.",
+            options: ["had", "has", "do", "does"],
+            answer: "had",
+            explanation: "Hardly had + subject + V3 sering dipakai dengan when."
+        },
+        {
+            type: "Scarcely",
+            question: "Scarcely ___ she entered the room when the phone rang.",
+            options: ["had", "has", "does", "do"],
+            answer: "had",
+            explanation: "Scarcely had + subject + V3."
+        },
+        {
+            type: "Little",
+            question: "Little ___ I know about the danger.",
+            options: ["did", "do", "does", "has"],
+            answer: "did",
+            explanation: "Little di awal memicu inversion. Simple Past memakai did + V1."
+        },
+        {
+            type: "Negative Phrase",
+            question: "Under no circumstances ___ you open this door.",
+            options: ["should", "do", "does", "had"],
+            answer: "should",
+            explanation: "Under no circumstances memicu inversion dengan auxiliary should."
+        },
+        {
+            type: "Word Order",
+            question: "Which sentence is correct?",
+            options: [
+                "Never have I heard such news.",
+                "Never I have heard such news.",
+                "Never heard I have such news.",
+                "Never such news I have heard."
+            ],
+            answer: "Never have I heard such news.",
+            explanation: "Pola benar: negative adverbial + auxiliary + subject + verb."
+        },
+        {
+            type: "Do Support",
+            question: "Normal: She rarely visits us. Inversion:",
+            options: [
+                "Rarely does she visit us.",
+                "Rarely she visits us.",
+                "Rarely she does visit us.",
+                "Rarely visits she us."
+            ],
+            answer: "Rarely does she visit us.",
+            explanation: "Jika tidak ada auxiliary, gunakan does dan verb kembali ke V1."
+        },
+        {
+            type: "Concept",
+            question: "Negative adverbial inversion is mostly used in...",
+            options: [
+                "formal English",
+                "article usage",
+                "plural noun formation",
+                "basic spelling"
+            ],
+            answer: "formal English",
+            explanation: "Struktur ini umum pada formal/advanced English."
+        }
+    ]
+},
+
+"only-inversion": {
+    title: "Only Inversion",
+    description: "Only Inversion terjadi ketika frasa yang diawali only diletakkan di awal kalimat, lalu auxiliary verb berpindah ke depan subject. Struktur ini sering digunakan untuk memberi penekanan dalam bahasa formal.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Only + Adverbial Expression + Auxiliary + Subject + Verb
+    `,
+
+    notes: [
+        "Only inversion terjadi jika frasa only berada di awal kalimat.",
+        "Only then berarti hanya setelah itu.",
+        "Only after berarti hanya setelah.",
+        "Only when berarti hanya ketika.",
+        "Only if berarti hanya jika.",
+        "Only by berarti hanya dengan cara.",
+        "Jika tidak ada auxiliary, gunakan do/does/did.",
+        "Inversion terjadi pada main clause, bukan pada clause setelah only."
+    ],
+
+    patterns: [
+        {
+            group: "Only Then / Only Later",
+            items: [
+                {
+                    label: "Time Point",
+                    formula: "Only then/later + auxiliary + subject + verb",
+                    examples: [
+                        "Only then did I understand the truth.",
+                        "Only later did she realize her mistake.",
+                        "Only then did they accept the result."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Only After / Only When",
+            items: [
+                {
+                    label: "Time Clause",
+                    formula: "Only after/when + clause + auxiliary + subject + verb",
+                    examples: [
+                        "Only after I arrived did I realize the problem.",
+                        "Only when she explained it did I understand.",
+                        "Only after the meeting ended did they leave."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Only If / Only By",
+            items: [
+                {
+                    label: "Condition / Method",
+                    formula: "Only if/by + phrase/clause + auxiliary + subject + verb",
+                    examples: [
+                        "Only if you study will you pass the exam.",
+                        "Only by practicing every day can you improve.",
+                        "Only by working together did they finish the project."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Only Then",
+            question: "Only then ___ I understand the truth.",
+            options: ["did", "do", "does", "had"],
+            answer: "did",
+            explanation: "Only then memicu inversion. Simple Past memakai did + V1."
+        },
+        {
+            type: "Only Later",
+            question: "Only later ___ she realize her mistake.",
+            options: ["did", "does", "do", "has"],
+            answer: "did",
+            explanation: "Only later + did + subject + V1."
+        },
+        {
+            type: "Only After",
+            question: "Only after I arrived ___ I realize the problem.",
+            options: ["did", "do", "does", "am"],
+            answer: "did",
+            explanation: "Inversion terjadi pada main clause: did I realize."
+        },
+        {
+            type: "Only When",
+            question: "Only when she explained it ___ I understand.",
+            options: ["did", "do", "does", "had"],
+            answer: "did",
+            explanation: "Only when + clause + did + subject + V1."
+        },
+        {
+            type: "Only If",
+            question: "Only if you study ___ you pass the exam.",
+            options: ["will", "would", "did", "do"],
+            answer: "will",
+            explanation: "Only if memicu inversion pada main clause: will you pass."
+        },
+        {
+            type: "Only By",
+            question: "Only by practicing every day ___ you improve.",
+            options: ["can", "do", "does", "did"],
+            answer: "can",
+            explanation: "Only by + gerund phrase + can + subject + V1."
+        },
+        {
+            type: "Word Order",
+            question: "Which sentence is correct?",
+            options: [
+                "Only then did I understand.",
+                "Only then I did understand.",
+                "Only then I understood.",
+                "Only then understood I."
+            ],
+            answer: "Only then did I understand.",
+            explanation: "Pola benar: only phrase + auxiliary + subject + verb."
+        },
+        {
+            type: "Main Clause",
+            question: "In 'Only after I arrived did I realize the problem', inversion happens in...",
+            options: ["the main clause", "the after-clause", "both clauses", "no clause"],
+            answer: "the main clause",
+            explanation: "Inversion terjadi pada main clause: did I realize."
+        },
+        {
+            type: "Concept",
+            question: "Only inversion is common in...",
+            options: ["formal English", "article formation", "plural noun spelling", "basic pronunciation"],
+            answer: "formal English",
+            explanation: "Only inversion sering digunakan dalam gaya formal dan tulisan akademik."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Only by working hard can you succeed.",
+                "Only by working hard you can succeed.",
+                "Only by work hard can you succeed.",
+                "Only by working hard succeed you can."
+            ],
+            answer: "Only by working hard can you succeed.",
+            explanation: "Only by + gerund phrase + auxiliary + subject + verb."
+        }
+    ]
+},
+
+"so-such-inversion": {
+    title: "So & Such Inversion",
+    description: "So & Such Inversion digunakan untuk memberi penekanan pada tingkat atau intensitas sesuatu. Struktur ini biasanya muncul dalam bahasa formal, sastra, dan soal grammar tingkat lanjut.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        So + adjective/adverb + auxiliary + subject + verb + that + clause<br>
+        Such + be + noun phrase + that + clause
+    `,
+
+    notes: [
+        "So inversion digunakan dengan adjective atau adverb.",
+        "Such inversion digunakan dengan noun phrase.",
+        "Struktur ini memberikan penekanan kuat.",
+        "So inversion memakai pola auxiliary + subject.",
+        "Such inversion sering memakai be + noun phrase.",
+        "Maknanya mirip dengan so...that dan such...that biasa, tetapi lebih formal."
+    ],
+
+    patterns: [
+        {
+            group: "So Inversion",
+            items: [
+                {
+                    label: "So + Adjective",
+                    formula: "So + adjective + be + subject + that + clause",
+                    examples: [
+                        "So beautiful was the view that we stopped walking.",
+                        "So difficult was the test that many students failed.",
+                        "So tired was he that he fell asleep immediately."
+                    ]
+                },
+                {
+                    label: "So + Adverb",
+                    formula: "So + adverb + auxiliary + subject + verb + that + clause",
+                    examples: [
+                        "So quickly did she run that nobody could catch her.",
+                        "So loudly did he speak that everyone heard him.",
+                        "So well did they perform that the audience applauded."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Such Inversion",
+            items: [
+                {
+                    label: "Such + Noun Phrase",
+                    formula: "Such + be + noun phrase + that + clause",
+                    examples: [
+                        "Such was the noise that we could not sleep.",
+                        "Such was his anger that nobody dared to speak.",
+                        "Such was the impact that the policy changed immediately."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "So Adjective",
+            question: "So beautiful ___ the view that we stopped walking.",
+            options: ["was", "were", "did", "has"],
+            answer: "was",
+            explanation: "So + adjective + be + subject + that clause."
+        },
+        {
+            type: "So Adjective",
+            question: "So difficult ___ the test that many students failed.",
+            options: ["was", "were", "did", "do"],
+            answer: "was",
+            explanation: "The test adalah singular, jadi gunakan was."
+        },
+        {
+            type: "So Adverb",
+            question: "So quickly ___ she run that nobody could catch her.",
+            options: ["did", "does", "do", "was"],
+            answer: "did",
+            explanation: "So + adverb memakai auxiliary + subject + V1."
+        },
+        {
+            type: "So Adverb",
+            question: "So loudly ___ he speak that everyone heard him.",
+            options: ["did", "does", "do", "was"],
+            answer: "did",
+            explanation: "Simple Past memakai did + V1."
+        },
+        {
+            type: "Such",
+            question: "Such ___ the noise that we could not sleep.",
+            options: ["was", "were", "did", "has"],
+            answer: "was",
+            explanation: "Such inversion sering memakai Such + was/were + noun phrase."
+        },
+        {
+            type: "Such",
+            question: "Such ___ his anger that nobody dared to speak.",
+            options: ["was", "were", "did", "do"],
+            answer: "was",
+            explanation: "His anger adalah singular uncountable concept, jadi gunakan was."
+        },
+        {
+            type: "Concept",
+            question: "So inversion is mainly used with...",
+            options: [
+                "adjectives or adverbs",
+                "articles only",
+                "possessive nouns only",
+                "plural markers only"
+            ],
+            answer: "adjectives or adverbs",
+            explanation: "So inversion menekankan adjective atau adverb."
+        },
+        {
+            type: "Concept",
+            question: "Such inversion is mainly used with...",
+            options: [
+                "noun phrases",
+                "adverbs only",
+                "modal verbs only",
+                "prepositions only"
+            ],
+            answer: "noun phrases",
+            explanation: "Such inversion menekankan noun phrase."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "So beautiful was the view that we stopped.",
+                "So beautiful the view was that we stopped.",
+                "So was beautiful the view that we stopped.",
+                "So beautiful did the view that we stopped."
+            ],
+            answer: "So beautiful was the view that we stopped.",
+            explanation: "Pola benar: So + adjective + be + subject."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "So quickly did she run that nobody caught her.",
+                "So quickly she did run that nobody caught her.",
+                "So quickly she ran did that nobody caught her.",
+                "So quickly was she run that nobody caught her."
+            ],
+            answer: "So quickly did she run that nobody caught her.",
+            explanation: "So + adverb + did + subject + V1."
+        }
+    ]
+},
+
+"conditional-inversion": {
+    title: "Conditional Inversion",
+    description: "Conditional Inversion adalah bentuk formal dari conditional sentence dengan menghilangkan if dan membalik posisi auxiliary verb ke depan subject.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        If + Subject + Auxiliary → Auxiliary + Subject<br><br>
+        If I were you → Were I you<br>
+        If he had known → Had he known<br>
+        If you should need help → Should you need help
+    `,
+
+    notes: [
+        "Conditional inversion digunakan dalam bahasa formal dan tulisan akademik.",
+        "If dihilangkan dalam conditional inversion.",
+        "Auxiliary verb dipindahkan ke depan subject.",
+        "Were digunakan untuk Second Conditional.",
+        "Had digunakan untuk Third Conditional.",
+        "Should digunakan untuk kemungkinan formal di masa depan.",
+        "Conditional inversion tidak umum dalam percakapan sehari-hari."
+    ],
+
+    patterns: [
+        {
+            group: "Were Inversion",
+            items: [
+                {
+                    label: "Second Conditional",
+                    formula: "Were + Subject + Complement, Subject + would + V1",
+                    examples: [
+                        "If I were you, I would apologize.",
+                        "Were I you, I would apologize.",
+                        "Were she here, she would help us."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Had Inversion",
+            items: [
+                {
+                    label: "Third Conditional",
+                    formula: "Had + Subject + V3, Subject + would have + V3",
+                    examples: [
+                        "If I had known, I would have helped.",
+                        "Had I known, I would have helped.",
+                        "Had she studied, she would have passed."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Should Inversion",
+            items: [
+                {
+                    label: "Formal Future Condition",
+                    formula: "Should + Subject + V1, Subject + will/would/can + V1",
+                    examples: [
+                        "If you should need help, call me.",
+                        "Should you need help, call me.",
+                        "Should they arrive early, we will start the meeting."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Were",
+            question: "___ I you, I would apologize.",
+            options: ["Were", "Had", "Should", "Did"],
+            answer: "Were",
+            explanation: "Were I you adalah inversion dari If I were you."
+        },
+        {
+            type: "Were",
+            question: "Were she here, she ___ help us.",
+            options: ["would", "will", "had", "has"],
+            answer: "would",
+            explanation: "Were inversion mengikuti pola Second Conditional."
+        },
+        {
+            type: "Had",
+            question: "___ I known, I would have helped.",
+            options: ["Had", "Were", "Should", "Did"],
+            answer: "Had",
+            explanation: "Had I known adalah inversion dari If I had known."
+        },
+        {
+            type: "Had",
+            question: "Had she studied, she ___ passed.",
+            options: ["would have", "would", "will", "had"],
+            answer: "would have",
+            explanation: "Had inversion mengikuti pola Third Conditional."
+        },
+        {
+            type: "Should",
+            question: "___ you need help, call me.",
+            options: ["Should", "Had", "Were", "Did"],
+            answer: "Should",
+            explanation: "Should inversion digunakan untuk kondisi formal di masa depan."
+        },
+        {
+            type: "Transform",
+            question: "If I were you, I would accept the offer. Inversion form is...",
+            options: [
+                "Were I you, I would accept the offer.",
+                "Had I you, I would accept the offer.",
+                "Should I you, I would accept the offer.",
+                "Did I you, I would accept the offer."
+            ],
+            answer: "Were I you, I would accept the offer.",
+            explanation: "If I were you berubah menjadi Were I you."
+        },
+        {
+            type: "Transform",
+            question: "If she had known, she would have come. Inversion form is...",
+            options: [
+                "Had she known, she would have come.",
+                "Were she known, she would have come.",
+                "Should she known, she would have come.",
+                "Did she had known, she would have come."
+            ],
+            answer: "Had she known, she would have come.",
+            explanation: "If she had known berubah menjadi Had she known."
+        },
+        {
+            type: "Concept",
+            question: "In conditional inversion, the word 'if' is usually...",
+            options: ["removed", "repeated", "changed to because", "changed to although"],
+            answer: "removed",
+            explanation: "Conditional inversion menghilangkan if."
+        },
+        {
+            type: "Concept",
+            question: "Conditional inversion is mostly used in...",
+            options: ["formal English", "basic spelling", "articles only", "plural nouns only"],
+            answer: "formal English",
+            explanation: "Conditional inversion bersifat formal."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Had I known, I would have helped.",
+                "Had I knew, I would have helped.",
+                "If had I known, I would have helped.",
+                "Did I had known, I would have helped."
+            ],
+            answer: "Had I known, I would have helped.",
+            explanation: "Had + subject + V3 adalah pola conditional inversion yang benar."
+        }
+    ]
+},
+
+"inversion-review": {
+    title: "Inversion Review",
+    description: "Review akhir untuk menguji seluruh materi Inversion: basic inversion, negative adverbial inversion, only inversion, so/such inversion, dan conditional inversion.",
+
+    formula: `
+        <strong>Ringkasan BAB 12:</strong><br>
+        Inversion = Auxiliary + Subject + Verb<br>
+        Negative Adverbial + Auxiliary + Subject + Verb<br>
+        Only Phrase + Auxiliary + Subject + Verb<br>
+        So/Such + Inversion + That Clause<br>
+        Were/Had/Should + Subject = Conditional Inversion
+    `,
+
+    notes: [
+        "Inversion memindahkan auxiliary ke depan subject.",
+        "Negative adverbial seperti never, rarely, seldom, hardly, dan little dapat memicu inversion.",
+        "Only phrase seperti only then, only after, only when, dan only by dapat memicu inversion.",
+        "So inversion digunakan dengan adjective atau adverb.",
+        "Such inversion digunakan dengan noun phrase.",
+        "Conditional inversion menghilangkan if dan memindahkan were, had, atau should ke depan subject."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Negative",
+                    formula: "Never/Rarely/Seldom + auxiliary + subject + verb",
+                    examples: [
+                        "Never have I seen such beauty.",
+                        "Rarely does she speak in public.",
+                        "Little did I know about the danger."
+                    ]
+                },
+                {
+                    label: "Only",
+                    formula: "Only + phrase/clause + auxiliary + subject + verb",
+                    examples: [
+                        "Only then did I understand.",
+                        "Only after I arrived did I realize the problem.",
+                        "Only by practicing can you improve."
+                    ]
+                },
+                {
+                    label: "Conditional",
+                    formula: "Were/Had/Should + subject + verb",
+                    examples: [
+                        "Were I you, I would apologize.",
+                        "Had I known, I would have helped.",
+                        "Should you need help, call me."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Basic",
+            question: "Inversion means...",
+            options: [
+                "auxiliary before subject",
+                "subject before auxiliary only",
+                "noun before article",
+                "adjective before verb"
+            ],
+            answer: "auxiliary before subject",
+            explanation: "Inversion memindahkan auxiliary ke depan subject."
+        },
+        {
+            type: "Negative",
+            question: "Never ___ I seen such beauty.",
+            options: ["have", "has", "do", "does"],
+            answer: "have",
+            explanation: "Never + have + subject + V3."
+        },
+        {
+            type: "Negative",
+            question: "Rarely ___ she speak in public.",
+            options: ["does", "do", "did", "has"],
+            answer: "does",
+            explanation: "Rarely + does + she + V1."
+        },
+        {
+            type: "Negative",
+            question: "Little ___ I know about the danger.",
+            options: ["did", "do", "does", "has"],
+            answer: "did",
+            explanation: "Little + did + subject + V1."
+        },
+        {
+            type: "Hardly",
+            question: "Hardly ___ I arrived when it started raining.",
+            options: ["had", "has", "do", "does"],
+            answer: "had",
+            explanation: "Hardly had + subject + V3."
+        },
+        {
+            type: "Only",
+            question: "Only then ___ I understand the truth.",
+            options: ["did", "do", "does", "had"],
+            answer: "did",
+            explanation: "Only then + did + subject + V1."
+        },
+        {
+            type: "Only",
+            question: "Only by practicing every day ___ you improve.",
+            options: ["can", "do", "does", "did"],
+            answer: "can",
+            explanation: "Only by + gerund phrase + can + subject + V1."
+        },
+        {
+            type: "Only",
+            question: "Only if you study ___ you pass the exam.",
+            options: ["will", "did", "do", "does"],
+            answer: "will",
+            explanation: "Only if memicu inversion pada main clause."
+        },
+        {
+            type: "So",
+            question: "So beautiful ___ the view that we stopped walking.",
+            options: ["was", "were", "did", "has"],
+            answer: "was",
+            explanation: "So + adjective + be + subject + that clause."
+        },
+        {
+            type: "So",
+            question: "So quickly ___ she run that nobody could catch her.",
+            options: ["did", "does", "do", "was"],
+            answer: "did",
+            explanation: "So + adverb + did + subject + V1."
+        },
+        {
+            type: "Such",
+            question: "Such ___ the noise that we could not sleep.",
+            options: ["was", "were", "did", "has"],
+            answer: "was",
+            explanation: "Such inversion memakai be + noun phrase."
+        },
+        {
+            type: "Conditional",
+            question: "___ I you, I would apologize.",
+            options: ["Were", "Had", "Should", "Did"],
+            answer: "Were",
+            explanation: "Were I you = If I were you."
+        },
+        {
+            type: "Conditional",
+            question: "___ I known, I would have helped.",
+            options: ["Had", "Were", "Should", "Did"],
+            answer: "Had",
+            explanation: "Had I known = If I had known."
+        },
+        {
+            type: "Conditional",
+            question: "___ you need help, call me.",
+            options: ["Should", "Had", "Were", "Did"],
+            answer: "Should",
+            explanation: "Should you need help = If you should need help."
+        },
+        {
+            type: "Transform",
+            question: "Normal: She rarely visits us. Inversion:",
+            options: [
+                "Rarely does she visit us.",
+                "Rarely she visits us.",
+                "Rarely she does visit us.",
+                "Rarely visits she us."
+            ],
+            answer: "Rarely does she visit us.",
+            explanation: "Jika tidak ada auxiliary, gunakan does + V1."
+        },
+        {
+            type: "Transform",
+            question: "If she had known, she would have come. Inversion:",
+            options: [
+                "Had she known, she would have come.",
+                "Had she knew, she would have come.",
+                "Were she known, she would have come.",
+                "Should she known, she would have come."
+            ],
+            answer: "Had she known, she would have come.",
+            explanation: "If she had known berubah menjadi Had she known."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Only then did I realize the mistake.",
+                "Only then I did realize the mistake.",
+                "Only then I realized the mistake.",
+                "Only then realized I the mistake."
+            ],
+            answer: "Only then did I realize the mistake.",
+            explanation: "Only then + did + subject + V1."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "Never have I heard such news.",
+                "Never I have heard such news.",
+                "Never heard I have such news.",
+                "Never such news I have heard."
+            ],
+            answer: "Never have I heard such news.",
+            explanation: "Never + auxiliary + subject + verb."
+        },
+        {
+            type: "Concept",
+            question: "Conditional inversion usually removes...",
+            options: ["if", "subject", "verb", "object"],
+            answer: "if",
+            explanation: "Conditional inversion menghilangkan if."
+        },
+        {
+            type: "Final",
+            question: "Inversion is most common in...",
+            options: [
+                "formal and advanced English",
+                "basic article usage",
+                "plural noun spelling",
+                "simple vocabulary lists"
+            ],
+            answer: "formal and advanced English",
+            explanation: "Inversion sering digunakan dalam tulisan formal, akademik, dan grammar advanced."
+        }
+    ]
+},
+
+"subjunctive": {
+    title: "Introduction to Subjunctive",
+    description: "Subjunctive Mood adalah bentuk grammar yang digunakan untuk menyatakan saran, tuntutan, keinginan, kebutuhan, situasi imajinatif, atau kondisi yang bertentangan dengan kenyataan.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Subjunctive = verb bentuk dasar untuk semua subject<br>
+        Were Subjunctive = were untuk semua subject dalam situasi imajinatif
+    `,
+
+    notes: [
+        "Subjunctive sering digunakan dalam bahasa formal.",
+        "Subjunctive muncul setelah verb seperti suggest, recommend, demand, insist, request, propose.",
+        "Dalam mandative subjunctive, verb menggunakan bentuk dasar/V1 untuk semua subject.",
+        "Be tidak berubah menjadi is/am/are dalam mandative subjunctive.",
+        "Were digunakan untuk semua subject dalam situasi imajinatif.",
+        "Subjunctive sering muncul dalam struktur wish, if only, dan it is important that."
+    ],
+
+    patterns: [
+        {
+            group: "Mandative Subjunctive",
+            items: [
+                {
+                    label: "Verb + That",
+                    formula: "Subject + suggest/recommend/demand + that + Subject + V1",
+                    examples: [
+                        "The teacher suggested that he study harder.",
+                        "They demanded that she be present.",
+                        "I recommend that he take the test."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Were Subjunctive",
+            items: [
+                {
+                    label: "Imaginary Situation",
+                    formula: "If/Wish + Subject + were",
+                    examples: [
+                        "If I were you, I would apologize.",
+                        "I wish I were taller.",
+                        "If she were here, she would help us."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Subjunctive Mood is commonly used for...",
+            options: ["suggestions and unreal situations", "articles only", "plural nouns", "countable nouns"],
+            answer: "suggestions and unreal situations",
+            explanation: "Subjunctive digunakan untuk saran, tuntutan, keinginan, dan situasi imajinatif."
+        },
+        {
+            type: "Mandative",
+            question: "The teacher suggested that he ___ harder.",
+            options: ["study", "studies", "studied", "studying"],
+            answer: "study",
+            explanation: "Mandative subjunctive memakai V1 untuk semua subject."
+        },
+        {
+            type: "Mandative",
+            question: "They demanded that she ___ present.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Dalam mandative subjunctive, gunakan be, bukan is/am/are."
+        },
+        {
+            type: "Mandative",
+            question: "I recommend that he ___ the test.",
+            options: ["take", "takes", "took", "taking"],
+            answer: "take",
+            explanation: "Setelah recommend that, gunakan V1."
+        },
+        {
+            type: "Were",
+            question: "If I ___ you, I would apologize.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Were subjunctive memakai were untuk semua subject."
+        },
+        {
+            type: "Were",
+            question: "I wish I ___ taller.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Wish untuk situasi sekarang yang tidak nyata memakai were."
+        },
+        {
+            type: "Concept",
+            question: "In mandative subjunctive, the verb form is...",
+            options: ["base form / V1", "V2", "V3", "V-ing"],
+            answer: "base form / V1",
+            explanation: "Mandative subjunctive memakai verb bentuk dasar."
+        },
+        {
+            type: "Concept",
+            question: "Which sentence uses subjunctive correctly?",
+            options: [
+                "I suggest that she study harder.",
+                "I suggest that she studies harder.",
+                "I suggest that she studied harder.",
+                "I suggest that she studying harder."
+            ],
+            answer: "I suggest that she study harder.",
+            explanation: "Subjunctive memakai V1 tanpa -s."
+        },
+        {
+            type: "Concept",
+            question: "Were subjunctive is used for...",
+            options: ["imaginary situations", "countable nouns", "articles", "quantity"],
+            answer: "imaginary situations",
+            explanation: "Were subjunctive digunakan untuk situasi tidak nyata atau imajinatif."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "If she were here, she would help us.",
+                "If she is here, she would help us.",
+                "If she be here, she would help us.",
+                "If she are here, she would help us."
+            ],
+            answer: "If she were here, she would help us.",
+            explanation: "Untuk situasi imajinatif, gunakan were."
+        }
+    ]
+},
+
+"mandative-subjunctive": {
+    title: "Mandative Subjunctive",
+    description: "Mandative Subjunctive digunakan setelah verb atau expression yang menyatakan saran, tuntutan, permintaan, keputusan, atau kebutuhan. Dalam struktur ini, verb selalu memakai bentuk dasar/V1 untuk semua subject.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Subject + suggest/recommend/demand/insist/request + that + Subject + V1
+    `,
+
+    notes: [
+        "Mandative subjunctive banyak digunakan dalam bahasa formal.",
+        "Verb setelah that memakai bentuk dasar/V1 untuk semua subject.",
+        "He, she, dan it tidak memakai -s.",
+        "Be tetap berbentuk be, bukan is/am/are.",
+        "Verb umum: suggest, recommend, demand, insist, request, propose, require, order.",
+        "Struktur ini sering muncul dalam academic writing dan formal English."
+    ],
+
+    patterns: [
+        {
+            group: "Suggestion / Recommendation",
+            items: [
+                {
+                    label: "Suggest / Recommend",
+                    formula: "suggest/recommend + that + subject + V1",
+                    examples: [
+                        "I suggest that he study harder.",
+                        "The doctor recommended that she rest.",
+                        "They suggested that we be careful."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Demand / Request",
+            items: [
+                {
+                    label: "Demand / Request",
+                    formula: "demand/request + that + subject + V1",
+                    examples: [
+                        "They demanded that he leave immediately.",
+                        "She requested that the report be submitted today.",
+                        "The manager demanded that everyone attend the meeting."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Requirement",
+            items: [
+                {
+                    label: "Require / Insist / Order",
+                    formula: "require/insist/order + that + subject + V1",
+                    examples: [
+                        "The school requires that every student wear a uniform.",
+                        "He insisted that she be present.",
+                        "The judge ordered that the evidence be reviewed."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Suggest",
+            question: "I suggest that he ___ harder.",
+            options: ["study", "studies", "studied", "studying"],
+            answer: "study",
+            explanation: "Mandative subjunctive memakai V1 untuk semua subject."
+        },
+        {
+            type: "Recommend",
+            question: "The doctor recommended that she ___.",
+            options: ["rest", "rests", "rested", "resting"],
+            answer: "rest",
+            explanation: "Setelah recommended that, gunakan V1."
+        },
+        {
+            type: "Be",
+            question: "They suggested that we ___ careful.",
+            options: ["be", "are", "were", "being"],
+            answer: "be",
+            explanation: "Dalam mandative subjunctive, gunakan be."
+        },
+        {
+            type: "Demand",
+            question: "They demanded that he ___ immediately.",
+            options: ["leave", "leaves", "left", "leaving"],
+            answer: "leave",
+            explanation: "Demand that + subject + V1."
+        },
+        {
+            type: "Request",
+            question: "She requested that the report ___ submitted today.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Passive mandative subjunctive memakai be + V3."
+        },
+        {
+            type: "Require",
+            question: "The school requires that every student ___ a uniform.",
+            options: ["wear", "wears", "wore", "wearing"],
+            answer: "wear",
+            explanation: "Every student tetap memakai V1 dalam subjunctive."
+        },
+        {
+            type: "Insist",
+            question: "He insisted that she ___ present.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Insist that + subject + be."
+        },
+        {
+            type: "Order",
+            question: "The judge ordered that the evidence ___ reviewed.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Passive subjunctive memakai be + V3."
+        },
+        {
+            type: "Concept",
+            question: "Mandative subjunctive uses...",
+            options: ["base verb / V1", "V2", "V3 only", "V-ing only"],
+            answer: "base verb / V1",
+            explanation: "Verb selalu memakai bentuk dasar."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "I suggest that she study harder.",
+                "I suggest that she studies harder.",
+                "I suggest that she studied harder.",
+                "I suggest that she studying harder."
+            ],
+            answer: "I suggest that she study harder.",
+            explanation: "Subjunctive memakai V1 tanpa -s."
+        }
+    ]
+},
+
+"were-subjunctive": {
+    title: "Were Subjunctive",
+    description: "Were Subjunctive digunakan untuk situasi yang tidak nyata, imajinatif, atau bertentangan dengan fakta sekarang. Dalam struktur ini, were digunakan untuk semua subject, termasuk I, he, she, dan it.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        If + Subject + were, Subject + would + V1<br>
+        Subject + wish + Subject + were
+    `,
+
+    notes: [
+        "Were subjunctive digunakan untuk situasi imajinatif.",
+        "Were digunakan untuk semua subject.",
+        "If I were you adalah bentuk tetap yang sangat umum.",
+        "Were subjunctive sering muncul dalam Second Conditional.",
+        "Were juga digunakan setelah wish untuk keadaan sekarang yang tidak nyata.",
+        "Dalam percakapan informal, was kadang dipakai, tetapi were lebih formal dan lebih tepat secara grammar."
+    ],
+
+    patterns: [
+        {
+            group: "If Clause",
+            items: [
+                {
+                    label: "Imaginary Condition",
+                    formula: "If + Subject + were, Subject + would + V1",
+                    examples: [
+                        "If I were you, I would apologize.",
+                        "If she were here, she would help us.",
+                        "If he were rich, he would travel around the world."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Wish",
+            items: [
+                {
+                    label: "Unreal Present Wish",
+                    formula: "Subject + wish + Subject + were",
+                    examples: [
+                        "I wish I were taller.",
+                        "She wishes she were younger.",
+                        "They wish they were at home."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "If Clause",
+            question: "If I ___ you, I would apologize.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Were subjunctive memakai were untuk semua subject."
+        },
+        {
+            type: "If Clause",
+            question: "If she ___ here, she would help us.",
+            options: ["is", "was", "were", "be"],
+            answer: "were",
+            explanation: "Untuk situasi imajinatif, gunakan were."
+        },
+        {
+            type: "If Clause",
+            question: "If he ___ rich, he would travel.",
+            options: ["is", "was", "were", "be"],
+            answer: "were",
+            explanation: "Were digunakan untuk semua subject dalam subjunctive."
+        },
+        {
+            type: "Wish",
+            question: "I wish I ___ taller.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Wish untuk keadaan sekarang yang tidak nyata memakai were."
+        },
+        {
+            type: "Wish",
+            question: "She wishes she ___ younger.",
+            options: ["is", "was", "were", "be"],
+            answer: "were",
+            explanation: "Were adalah bentuk formal untuk unreal wish."
+        },
+        {
+            type: "Concept",
+            question: "Were subjunctive is used for...",
+            options: [
+                "unreal or imaginary situations",
+                "plural nouns only",
+                "articles",
+                "countable nouns"
+            ],
+            answer: "unreal or imaginary situations",
+            explanation: "Were subjunctive digunakan untuk situasi tidak nyata."
+        },
+        {
+            type: "Concept",
+            question: "In were subjunctive, which subject can use were?",
+            options: [
+                "all subjects",
+                "only they",
+                "only we",
+                "only plural nouns"
+            ],
+            answer: "all subjects",
+            explanation: "Were dapat digunakan untuk I, he, she, it, we, they."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is formally correct?",
+            options: [
+                "If I were you, I would accept it.",
+                "If I am you, I would accept it.",
+                "If I be you, I would accept it.",
+                "If I is you, I would accept it."
+            ],
+            answer: "If I were you, I would accept it.",
+            explanation: "If I were you adalah bentuk subjunctive yang benar."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "I wish she were here.",
+                "I wish she is here.",
+                "I wish she be here.",
+                "I wish she are here."
+            ],
+            answer: "I wish she were here.",
+            explanation: "Wish untuk situasi sekarang yang tidak nyata memakai were."
+        },
+        {
+            type: "Meaning",
+            question: "If she were here, she would help us. This means...",
+            options: [
+                "She is not here now.",
+                "She is here now.",
+                "She was here yesterday.",
+                "She will definitely be here."
+            ],
+            answer: "She is not here now.",
+            explanation: "Were subjunctive menunjukkan situasi yang tidak nyata sekarang."
+        }
+    ]
+},
+
+"wish-if-only": {
+    title: "Wish & If Only",
+    description: "Wish dan if only digunakan untuk menyatakan harapan, penyesalan, atau keinginan yang bertentangan dengan kenyataan. If only biasanya lebih kuat dan lebih emosional daripada wish.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Wish/If only + Simple Past = unreal present<br>
+        Wish/If only + Past Perfect = regret about the past<br>
+        Wish/If only + would + V1 = desire for change
+    `,
+
+    notes: [
+        "Wish + Simple Past digunakan untuk keadaan sekarang yang tidak nyata.",
+        "Wish + Past Perfect digunakan untuk penyesalan masa lampau.",
+        "Wish + would digunakan ketika ingin seseorang/sesuatu berubah.",
+        "If only memiliki makna lebih kuat daripada wish.",
+        "Untuk be verb dalam unreal present, were lebih formal daripada was.",
+        "Wish tidak sama dengan hope. Hope digunakan untuk kemungkinan nyata."
+    ],
+
+    patterns: [
+        {
+            group: "Unreal Present",
+            items: [
+                {
+                    label: "Wish + Simple Past",
+                    formula: "Subject + wish + Subject + Simple Past",
+                    examples: [
+                        "I wish I had more time.",
+                        "She wishes she lived near the beach.",
+                        "I wish I were taller."
+                    ]
+                },
+                {
+                    label: "If Only + Simple Past",
+                    formula: "If only + Subject + Simple Past",
+                    examples: [
+                        "If only I had more money.",
+                        "If only he understood me.",
+                        "If only she were here."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Past Regret",
+            items: [
+                {
+                    label: "Wish + Past Perfect",
+                    formula: "Subject + wish + Subject + had + V3",
+                    examples: [
+                        "I wish I had studied harder.",
+                        "She wishes she had taken the job.",
+                        "They wish they had arrived earlier."
+                    ]
+                },
+                {
+                    label: "If Only + Past Perfect",
+                    formula: "If only + Subject + had + V3",
+                    examples: [
+                        "If only I had listened to you.",
+                        "If only he had told the truth.",
+                        "If only we had left earlier."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Desire for Change",
+            items: [
+                {
+                    label: "Wish + Would",
+                    formula: "Subject + wish + Subject + would + V1",
+                    examples: [
+                        "I wish he would stop talking.",
+                        "She wishes it would stop raining.",
+                        "They wish the neighbors would be quieter."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Unreal Present",
+            question: "I wish I ___ more time.",
+            options: ["have", "had", "will have", "have had"],
+            answer: "had",
+            explanation: "Wish untuk keadaan sekarang yang tidak nyata memakai Simple Past."
+        },
+        {
+            type: "Unreal Present",
+            question: "She wishes she ___ near the beach.",
+            options: ["lives", "lived", "will live", "has lived"],
+            answer: "lived",
+            explanation: "Wish + Simple Past menunjukkan keadaan sekarang yang tidak nyata."
+        },
+        {
+            type: "Were",
+            question: "I wish I ___ taller.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Untuk be verb dalam unreal present, were lebih formal."
+        },
+        {
+            type: "If Only",
+            question: "If only she ___ here.",
+            options: ["is", "was", "were", "be"],
+            answer: "were",
+            explanation: "If only + Simple Past/Were menunjukkan harapan yang tidak nyata."
+        },
+        {
+            type: "Past Regret",
+            question: "I wish I ___ harder.",
+            options: ["study", "studied", "had studied", "will study"],
+            answer: "had studied",
+            explanation: "Wish untuk penyesalan masa lampau memakai Past Perfect."
+        },
+        {
+            type: "Past Regret",
+            question: "She wishes she ___ the job.",
+            options: ["takes", "took", "had taken", "will take"],
+            answer: "had taken",
+            explanation: "Had taken menunjukkan penyesalan terhadap masa lampau."
+        },
+        {
+            type: "Would",
+            question: "I wish he ___ stop talking.",
+            options: ["will", "would", "had", "was"],
+            answer: "would",
+            explanation: "Wish + would digunakan untuk keinginan agar sesuatu berubah."
+        },
+        {
+            type: "Would",
+            question: "She wishes it ___ stop raining.",
+            options: ["would", "will", "had", "were"],
+            answer: "would",
+            explanation: "Wish + would menunjukkan harapan terhadap perubahan situasi."
+        },
+        {
+            type: "Concept",
+            question: "If only is usually...",
+            options: [
+                "stronger than wish",
+                "weaker than articles",
+                "only used for nouns",
+                "only used for passive voice"
+            ],
+            answer: "stronger than wish",
+            explanation: "If only lebih emosional dan kuat daripada wish."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "I wish I had studied harder.",
+                "I wish I have studied harder.",
+                "I wish I will study harder.",
+                "I wish I study harder yesterday."
+            ],
+            answer: "I wish I had studied harder.",
+            explanation: "Penyesalan masa lampau memakai wish + Past Perfect."
+        }
+    ]
+},
+
+"important-that": {
+    title: "It Is Important That",
+    description: "Struktur 'It is important that' digunakan untuk menyatakan kebutuhan, saran, urgensi, atau kewajiban secara formal. Setelah adjective tertentu, verb dalam that-clause memakai bentuk dasar/V1 untuk semua subject.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        It is + adjective + that + Subject + V1
+    `,
+
+    notes: [
+        "Struktur ini termasuk subjunctive.",
+        "Verb dalam that-clause memakai bentuk dasar/V1.",
+        "He, she, dan it tidak memakai -s.",
+        "Be tetap berbentuk be, bukan is/am/are.",
+        "Adjective umum: important, essential, necessary, vital, crucial, urgent, advisable.",
+        "Struktur ini sering digunakan dalam formal English dan academic writing."
+    ],
+
+    patterns: [
+        {
+            group: "Importance",
+            items: [
+                {
+                    label: "Important / Essential",
+                    formula: "It is important/essential that + subject + V1",
+                    examples: [
+                        "It is important that he study harder.",
+                        "It is essential that she be present.",
+                        "It is important that every student follow the rules."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Necessity",
+            items: [
+                {
+                    label: "Necessary / Vital",
+                    formula: "It is necessary/vital that + subject + V1",
+                    examples: [
+                        "It is necessary that he arrive on time.",
+                        "It is vital that the report be completed today.",
+                        "It is necessary that everyone understand the instructions."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Advice / Urgency",
+            items: [
+                {
+                    label: "Advisable / Urgent",
+                    formula: "It is advisable/urgent that + subject + V1",
+                    examples: [
+                        "It is advisable that she consult a doctor.",
+                        "It is urgent that the documents be submitted.",
+                        "It is advisable that he take a short break."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Important",
+            question: "It is important that he ___ harder.",
+            options: ["study", "studies", "studied", "studying"],
+            answer: "study",
+            explanation: "Setelah It is important that, gunakan V1."
+        },
+        {
+            type: "Essential",
+            question: "It is essential that she ___ present.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Subjunctive memakai be, bukan is/am/are."
+        },
+        {
+            type: "Necessary",
+            question: "It is necessary that he ___ on time.",
+            options: ["arrive", "arrives", "arrived", "arriving"],
+            answer: "arrive",
+            explanation: "He tidak memakai -s dalam subjunctive."
+        },
+        {
+            type: "Vital",
+            question: "It is vital that the report ___ completed today.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Passive subjunctive memakai be + V3."
+        },
+        {
+            type: "Advisable",
+            question: "It is advisable that she ___ a doctor.",
+            options: ["consult", "consults", "consulted", "consulting"],
+            answer: "consult",
+            explanation: "Gunakan V1 untuk semua subject."
+        },
+        {
+            type: "Urgent",
+            question: "It is urgent that the documents ___ submitted.",
+            options: ["be", "are", "were", "being"],
+            answer: "be",
+            explanation: "Passive form dalam subjunctive adalah be + V3."
+        },
+        {
+            type: "Concept",
+            question: "After 'It is important that', the verb usually uses...",
+            options: ["base form / V1", "V2", "V3 only", "V-ing"],
+            answer: "base form / V1",
+            explanation: "Struktur ini memakai subjunctive verb."
+        },
+        {
+            type: "Concept",
+            question: "Which adjective commonly triggers subjunctive?",
+            options: ["essential", "blue", "quickly", "under"],
+            answer: "essential",
+            explanation: "Essential termasuk adjective yang sering memicu subjunctive."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "It is important that she be present.",
+                "It is important that she is present.",
+                "It is important that she was present.",
+                "It is important that she being present."
+            ],
+            answer: "It is important that she be present.",
+            explanation: "Subjunctive memakai be."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "It is necessary that every student follow the rules.",
+                "It is necessary that every student follows the rules.",
+                "It is necessary that every student followed the rules.",
+                "It is necessary that every student following the rules."
+            ],
+            answer: "It is necessary that every student follow the rules.",
+            explanation: "Every student tetap memakai V1 dalam subjunctive."
+        }
+    ]
+},
+
+"subjunctive-review": {
+    title: "Subjunctive Review",
+    description: "Review akhir untuk menguji seluruh materi Subjunctive Mood: mandative subjunctive, were subjunctive, wish, if only, dan struktur it is important that.",
+
+    formula: `
+        <strong>Ringkasan BAB 13:</strong><br>
+        Mandative = suggest/recommend/demand + that + Subject + V1<br>
+        Were Subjunctive = If/Wish + Subject + were<br>
+        Wish Present = wish + Simple Past<br>
+        Wish Past Regret = wish + Past Perfect<br>
+        Important That = It is important that + Subject + V1
+    `,
+
+    notes: [
+        "Mandative subjunctive memakai V1 untuk semua subject.",
+        "Be tetap berbentuk be, bukan is/am/are.",
+        "Were digunakan untuk semua subject dalam situasi imajinatif.",
+        "Wish + Simple Past digunakan untuk keadaan sekarang yang tidak nyata.",
+        "Wish + Past Perfect digunakan untuk penyesalan masa lampau.",
+        "Wish + would digunakan untuk keinginan agar situasi berubah.",
+        "It is important/essential/necessary that memakai subjunctive V1."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Mandative",
+                    formula: "verb + that + subject + V1",
+                    examples: [
+                        "I suggest that he study harder.",
+                        "They demanded that she be present.",
+                        "The doctor recommended that he rest."
+                    ]
+                },
+                {
+                    label: "Were / Wish",
+                    formula: "If/Wish + subject + were",
+                    examples: [
+                        "If I were you, I would apologize.",
+                        "I wish I were taller.",
+                        "If she were here, she would help us."
+                    ]
+                },
+                {
+                    label: "Important That",
+                    formula: "It is + adjective + that + subject + V1",
+                    examples: [
+                        "It is important that he study.",
+                        "It is essential that she be present.",
+                        "It is necessary that every student follow the rules."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Mandative",
+            question: "I suggest that he ___ harder.",
+            options: ["study", "studies", "studied", "studying"],
+            answer: "study",
+            explanation: "Mandative subjunctive memakai V1 untuk semua subject."
+        },
+        {
+            type: "Mandative",
+            question: "The doctor recommended that she ___.",
+            options: ["rest", "rests", "rested", "resting"],
+            answer: "rest",
+            explanation: "Recommended that + subject + V1."
+        },
+        {
+            type: "Mandative Be",
+            question: "They demanded that she ___ present.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Subjunctive memakai be, bukan is."
+        },
+        {
+            type: "Passive Subjunctive",
+            question: "She requested that the report ___ submitted today.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Passive subjunctive memakai be + V3."
+        },
+        {
+            type: "Were",
+            question: "If I ___ you, I would accept it.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Were digunakan untuk semua subject dalam situasi imajinatif."
+        },
+        {
+            type: "Were",
+            question: "If she ___ here, she would help us.",
+            options: ["is", "was", "were", "be"],
+            answer: "were",
+            explanation: "Were subjunctive menunjukkan situasi tidak nyata."
+        },
+        {
+            type: "Wish Present",
+            question: "I wish I ___ more time.",
+            options: ["have", "had", "will have", "have had"],
+            answer: "had",
+            explanation: "Wish untuk keadaan sekarang yang tidak nyata memakai Simple Past."
+        },
+        {
+            type: "Wish Present",
+            question: "I wish I ___ taller.",
+            options: ["am", "was", "were", "be"],
+            answer: "were",
+            explanation: "Untuk be verb, were lebih formal dan tepat."
+        },
+        {
+            type: "Wish Past",
+            question: "I wish I ___ harder.",
+            options: ["study", "studied", "had studied", "will study"],
+            answer: "had studied",
+            explanation: "Penyesalan masa lampau memakai wish + Past Perfect."
+        },
+        {
+            type: "Wish Past",
+            question: "She wishes she ___ the job.",
+            options: ["takes", "took", "had taken", "will take"],
+            answer: "had taken",
+            explanation: "Had taken menunjukkan penyesalan terhadap masa lampau."
+        },
+        {
+            type: "Wish Would",
+            question: "I wish he ___ stop talking.",
+            options: ["will", "would", "had", "was"],
+            answer: "would",
+            explanation: "Wish + would digunakan untuk keinginan agar situasi berubah."
+        },
+        {
+            type: "If Only",
+            question: "If only she ___ here.",
+            options: ["is", "was", "were", "be"],
+            answer: "were",
+            explanation: "If only + were menunjukkan harapan yang tidak nyata."
+        },
+        {
+            type: "Important",
+            question: "It is important that he ___ harder.",
+            options: ["study", "studies", "studied", "studying"],
+            answer: "study",
+            explanation: "It is important that memakai subjunctive V1."
+        },
+        {
+            type: "Essential",
+            question: "It is essential that she ___ present.",
+            options: ["be", "is", "was", "being"],
+            answer: "be",
+            explanation: "Subjunctive memakai be."
+        },
+        {
+            type: "Necessary",
+            question: "It is necessary that every student ___ the rules.",
+            options: ["follow", "follows", "followed", "following"],
+            answer: "follow",
+            explanation: "Every student tetap memakai V1 dalam subjunctive."
+        },
+        {
+            type: "Concept",
+            question: "Mandative subjunctive uses...",
+            options: ["base verb / V1", "V2", "V3 only", "V-ing"],
+            answer: "base verb / V1",
+            explanation: "Mandative subjunctive selalu memakai verb bentuk dasar."
+        },
+        {
+            type: "Concept",
+            question: "Were subjunctive is used for...",
+            options: ["unreal situations", "articles", "plural nouns only", "countable nouns"],
+            answer: "unreal situations",
+            explanation: "Were subjunctive digunakan untuk situasi imajinatif atau tidak nyata."
+        },
+        {
+            type: "Concept",
+            question: "Wish + Past Perfect expresses...",
+            options: ["past regret", "future certainty", "present habit", "article usage"],
+            answer: "past regret",
+            explanation: "Wish + Past Perfect menunjukkan penyesalan masa lampau."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "I suggest that she study harder.",
+                "I suggest that she studies harder.",
+                "I suggest that she studied harder.",
+                "I suggest that she studying harder."
+            ],
+            answer: "I suggest that she study harder.",
+            explanation: "Subjunctive memakai V1 tanpa -s."
+        },
+        {
+            type: "Final",
+            question: "Which sentence uses subjunctive correctly?",
+            options: [
+                "It is vital that the report be completed today.",
+                "It is vital that the report is completed today.",
+                "It is vital that the report was completed today.",
+                "It is vital that the report being completed today."
+            ],
+            answer: "It is vital that the report be completed today.",
+            explanation: "Passive subjunctive memakai be + V3."
+        }
+    ]
+},
+
+"punctuation": {
+    title: "Introduction to Punctuation",
+    description: "Punctuation adalah tanda baca yang membantu pembaca memahami struktur, jeda, hubungan ide, dan emosi dalam kalimat. Tanda baca yang tepat membuat tulisan lebih jelas, rapi, dan profesional.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Punctuation = tanda baca untuk mengatur makna dan struktur kalimat
+    `,
+
+    notes: [
+        "Period digunakan untuk mengakhiri statement.",
+        "Question mark digunakan untuk pertanyaan langsung.",
+        "Exclamation mark digunakan untuk emosi kuat.",
+        "Comma digunakan untuk jeda, daftar, clause awal, dan tambahan informasi.",
+        "Colon digunakan untuk memperkenalkan daftar atau penjelasan.",
+        "Semicolon menghubungkan dua independent clauses yang berkaitan.",
+        "Apostrophe digunakan untuk kepemilikan atau contraction.",
+        "Quotation marks digunakan untuk kutipan langsung."
+    ],
+
+    patterns: [
+        {
+            group: "End Punctuation",
+            items: [
+                {
+                    label: "Period / Question / Exclamation",
+                    formula: "Sentence + . / ? / !",
+                    examples: [
+                        "She is a student.",
+                        "Are you ready?",
+                        "What a beautiful day!"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Internal Punctuation",
+            items: [
+                {
+                    label: "Comma / Colon / Semicolon",
+                    formula: "Punctuation inside a sentence",
+                    examples: [
+                        "After class, we went home.",
+                        "I need three things: time, money, and support.",
+                        "She studied hard; she passed the exam."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Special Marks",
+            items: [
+                {
+                    label: "Apostrophe / Quotation Marks",
+                    formula: "Possession, contraction, and direct speech",
+                    examples: [
+                        "Rina's book is on the table.",
+                        "I don't know the answer.",
+                        "He said, \"I am ready.\""
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Period",
+            question: "Which punctuation ends a normal statement?",
+            options: ["Period", "Question mark", "Exclamation mark", "Comma"],
+            answer: "Period",
+            explanation: "Statement biasa diakhiri dengan period."
+        },
+        {
+            type: "Question",
+            question: "Which punctuation ends a direct question?",
+            options: ["Question mark", "Period", "Comma", "Colon"],
+            answer: "Question mark",
+            explanation: "Pertanyaan langsung memakai question mark."
+        },
+        {
+            type: "Exclamation",
+            question: "Which punctuation shows strong emotion?",
+            options: ["Exclamation mark", "Period", "Semicolon", "Apostrophe"],
+            answer: "Exclamation mark",
+            explanation: "Exclamation mark menunjukkan emosi kuat."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence uses comma correctly?",
+            options: [
+                "After class, we went home.",
+                "After, class we went home.",
+                "After class we, went home.",
+                "After class we went, home."
+            ],
+            answer: "After class, we went home.",
+            explanation: "Introductory phrase di awal biasanya diikuti comma."
+        },
+        {
+            type: "Colon",
+            question: "Which punctuation introduces a list?",
+            options: ["Colon", "Question mark", "Apostrophe", "Period"],
+            answer: "Colon",
+            explanation: "Colon dapat digunakan untuk memperkenalkan daftar."
+        },
+        {
+            type: "Semicolon",
+            question: "Which punctuation can connect two related independent clauses?",
+            options: ["Semicolon", "Apostrophe", "Question mark", "Quotation marks"],
+            answer: "Semicolon",
+            explanation: "Semicolon dapat menghubungkan dua independent clauses yang berkaitan."
+        },
+        {
+            type: "Apostrophe",
+            question: "Which punctuation shows possession?",
+            options: ["Apostrophe", "Comma", "Colon", "Period"],
+            answer: "Apostrophe",
+            explanation: "Apostrophe digunakan untuk kepemilikan, seperti Rina's book."
+        },
+        {
+            type: "Quotation",
+            question: "Which punctuation is used for direct speech?",
+            options: ["Quotation marks", "Colon only", "Semicolon", "Apostrophe only"],
+            answer: "Quotation marks",
+            explanation: "Direct speech memakai quotation marks."
+        },
+        {
+            type: "Concept",
+            question: "Punctuation helps readers understand...",
+            options: ["sentence structure and meaning", "noun gender only", "plural spelling only", "verb color"],
+            answer: "sentence structure and meaning",
+            explanation: "Tanda baca membantu struktur dan makna kalimat."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correctly punctuated?",
+            options: [
+                "He said, \"I am ready.\"",
+                "He said \"I am ready.",
+                "He said, I am ready.\"",
+                "He said \"I am ready"
+            ],
+            answer: "He said, \"I am ready.\"",
+            explanation: "Kutipan langsung memakai comma dan quotation marks."
+        }
+    ]
+},
+
+"comma-rules": {
+    title: "Comma Rules",
+    description: "Comma digunakan untuk memberi jeda, memisahkan elemen dalam daftar, memisahkan introductory phrase, menghubungkan independent clauses dengan conjunction, dan menandai informasi tambahan.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Comma = tanda baca untuk jeda dan pemisahan struktur kalimat
+    `,
+
+    notes: [
+        "Gunakan comma setelah introductory phrase atau clause.",
+        "Gunakan comma untuk memisahkan item dalam daftar.",
+        "Gunakan comma sebelum coordinating conjunction yang menghubungkan dua independent clauses.",
+        "Gunakan comma untuk non-defining clause.",
+        "Gunakan comma setelah direct address.",
+        "Jangan gunakan comma untuk memisahkan subject dan verb."
+    ],
+
+    patterns: [
+        {
+            group: "Introductory Element",
+            items: [
+                {
+                    label: "After Intro",
+                    formula: "Introductory phrase/clause, main clause",
+                    examples: [
+                        "After school, we went home.",
+                        "When I arrived, she was sleeping.",
+                        "Because it was raining, we stayed inside."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "List",
+            items: [
+                {
+                    label: "Series",
+                    formula: "item 1, item 2, and item 3",
+                    examples: [
+                        "I bought apples, oranges, and bananas.",
+                        "She likes reading, writing, and drawing.",
+                        "We need time, money, and support."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Compound Sentence",
+            items: [
+                {
+                    label: "Before FANBOYS",
+                    formula: "Independent clause, FANBOYS independent clause",
+                    examples: [
+                        "I wanted to go, but I was tired.",
+                        "She studied hard, so she passed.",
+                        "He called me, and I answered."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Extra Information",
+            items: [
+                {
+                    label: "Non-Defining",
+                    formula: "noun, extra information, main clause",
+                    examples: [
+                        "My brother, who lives in London, is a doctor.",
+                        "Jakarta, the capital of Indonesia, is crowded.",
+                        "My car, which is old, still works."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Intro",
+            question: "Which sentence uses comma correctly?",
+            options: [
+                "After school, we went home.",
+                "After, school we went home.",
+                "After school we, went home.",
+                "After school we went, home."
+            ],
+            answer: "After school, we went home.",
+            explanation: "Introductory phrase di awal diikuti comma."
+        },
+        {
+            type: "Adverb Clause",
+            question: "Which sentence is correct?",
+            options: [
+                "When I arrived, she was sleeping.",
+                "When, I arrived she was sleeping.",
+                "When I, arrived she was sleeping.",
+                "When I arrived she, was sleeping."
+            ],
+            answer: "When I arrived, she was sleeping.",
+            explanation: "Adverb clause di awal diikuti comma."
+        },
+        {
+            type: "List",
+            question: "Which sentence uses commas correctly?",
+            options: [
+                "I bought apples, oranges, and bananas.",
+                "I bought apples oranges, and bananas.",
+                "I bought apples, oranges and, bananas.",
+                "I bought, apples oranges and bananas."
+            ],
+            answer: "I bought apples, oranges, and bananas.",
+            explanation: "Comma digunakan untuk memisahkan item dalam daftar."
+        },
+        {
+            type: "FANBOYS",
+            question: "Which sentence is correct?",
+            options: [
+                "I wanted to go, but I was tired.",
+                "I wanted, to go but I was tired.",
+                "I wanted to go but, I was tired.",
+                "I, wanted to go but I was tired."
+            ],
+            answer: "I wanted to go, but I was tired.",
+            explanation: "Gunakan comma sebelum but jika menghubungkan dua independent clauses."
+        },
+        {
+            type: "Result",
+            question: "She studied hard, ___ she passed.",
+            options: ["so", "because", "although", "unless"],
+            answer: "so",
+            explanation: "Comma + so dapat menghubungkan dua independent clauses."
+        },
+        {
+            type: "Non-Defining",
+            question: "Which sentence uses commas correctly?",
+            options: [
+                "My brother, who lives in London, is a doctor.",
+                "My brother who, lives in London is a doctor.",
+                "My brother who lives, in London is a doctor.",
+                "My brother who lives in London, is a doctor."
+            ],
+            answer: "My brother, who lives in London, is a doctor.",
+            explanation: "Non-defining clause dipisahkan dengan commas."
+        },
+        {
+            type: "Direct Address",
+            question: "Which sentence is correct?",
+            options: [
+                "Rina, please close the door.",
+                "Rina please, close the door.",
+                "Rina please close, the door.",
+                "Rina please close the, door."
+            ],
+            answer: "Rina, please close the door.",
+            explanation: "Direct address dipisahkan dengan comma."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is incorrect?",
+            options: [
+                "The student, passed the exam.",
+                "After class, we went home.",
+                "I like tea, coffee, and milk.",
+                "She studied hard, so she passed."
+            ],
+            answer: "The student, passed the exam.",
+            explanation: "Jangan pisahkan subject dan verb dengan comma."
+        },
+        {
+            type: "Concept",
+            question: "Comma should NOT separate...",
+            options: [
+                "subject and verb",
+                "items in a list",
+                "introductory phrase and main clause",
+                "non-defining clause"
+            ],
+            answer: "subject and verb",
+            explanation: "Subject dan verb tidak boleh dipisahkan comma."
+        },
+        {
+            type: "Concept",
+            question: "FANBOYS includes...",
+            options: [
+                "for, and, nor, but, or, yet, so",
+                "because, although, when",
+                "who, which, that",
+                "a, an, the"
+            ],
+            answer: "for, and, nor, but, or, yet, so",
+            explanation: "FANBOYS adalah coordinating conjunctions."
+        }
+    ]
+},
+
+"end-punctuation": {
+    title: "Period, Question Mark & Exclamation",
+    description: "End punctuation adalah tanda baca yang digunakan untuk mengakhiri kalimat. Tiga tanda utama adalah period, question mark, dan exclamation mark.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Statement → Period (.)<br>
+        Direct Question → Question Mark (?)<br>
+        Strong Emotion → Exclamation Mark (!)
+    `,
+
+    notes: [
+        "Period digunakan untuk statement atau kalimat berita.",
+        "Question mark digunakan untuk direct question.",
+        "Exclamation mark digunakan untuk emosi kuat, perintah kuat, atau ekspresi terkejut.",
+        "Indirect question biasanya memakai period, bukan question mark.",
+        "Jangan terlalu sering memakai exclamation mark dalam tulisan formal.",
+        "Satu kalimat hanya membutuhkan satu end punctuation."
+    ],
+
+    patterns: [
+        {
+            group: "Period",
+            items: [
+                {
+                    label: "Statement",
+                    formula: "Sentence + .",
+                    examples: [
+                        "She is a student.",
+                        "I live in Indonesia.",
+                        "The meeting starts at 9 a.m."
+                    ]
+                },
+                {
+                    label: "Indirect Question",
+                    formula: "Statement with question meaning + .",
+                    examples: [
+                        "I wonder where he lives.",
+                        "She asked if I was ready.",
+                        "He wanted to know what happened."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Question Mark",
+            items: [
+                {
+                    label: "Direct Question",
+                    formula: "Question + ?",
+                    examples: [
+                        "Are you ready?",
+                        "Where do you live?",
+                        "Did she call you?"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Exclamation Mark",
+            items: [
+                {
+                    label: "Strong Emotion",
+                    formula: "Expression + !",
+                    examples: [
+                        "What a beautiful day!",
+                        "Watch out!",
+                        "That is amazing!"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Period",
+            question: "Choose the correct punctuation: She is a student___",
+            options: [".", "?", "!", ","],
+            answer: ".",
+            explanation: "Statement biasa diakhiri period."
+        },
+        {
+            type: "Question",
+            question: "Choose the correct punctuation: Are you ready___",
+            options: ["?", ".", "!", ","],
+            answer: "?",
+            explanation: "Direct question diakhiri question mark."
+        },
+        {
+            type: "Exclamation",
+            question: "Choose the correct punctuation: Watch out___",
+            options: ["!", ".", "?", ","],
+            answer: "!",
+            explanation: "Watch out menunjukkan peringatan kuat."
+        },
+        {
+            type: "Question",
+            question: "Which sentence is a direct question?",
+            options: [
+                "Where do you live?",
+                "I know where you live.",
+                "She asked where I lived.",
+                "He knows the answer."
+            ],
+            answer: "Where do you live?",
+            explanation: "Direct question memakai question mark."
+        },
+        {
+            type: "Indirect Question",
+            question: "Which sentence is punctuated correctly?",
+            options: [
+                "I wonder where he lives.",
+                "I wonder where he lives?",
+                "I wonder where does he live?",
+                "I wonder where does he live."
+            ],
+            answer: "I wonder where he lives.",
+            explanation: "Indirect question berbentuk statement, jadi memakai period."
+        },
+        {
+            type: "Reported Question",
+            question: "Which sentence is correct?",
+            options: [
+                "She asked if I was ready.",
+                "She asked if I was ready?",
+                "She asked was I ready?",
+                "She asked if was I ready?"
+            ],
+            answer: "She asked if I was ready.",
+            explanation: "Reported question memakai statement order dan period."
+        },
+        {
+            type: "Formal Writing",
+            question: "In formal writing, exclamation marks should be used...",
+            options: [
+                "sparingly",
+                "after every sentence",
+                "instead of commas",
+                "before every noun"
+            ],
+            answer: "sparingly",
+            explanation: "Exclamation mark sebaiknya tidak berlebihan dalam tulisan formal."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "What a beautiful day!",
+                "What a beautiful day?.",
+                "What a beautiful day,",
+                "What a beautiful day??"
+            ],
+            answer: "What a beautiful day!",
+            explanation: "Ekspresi kuat memakai exclamation mark."
+        },
+        {
+            type: "Concept",
+            question: "Question mark is used for...",
+            options: [
+                "direct questions",
+                "normal statements",
+                "noun phrases",
+                "possessive nouns"
+            ],
+            answer: "direct questions",
+            explanation: "Question mark digunakan untuk direct question."
+        },
+        {
+            type: "Concept",
+            question: "Period is used for...",
+            options: [
+                "statements",
+                "direct questions only",
+                "strong emotions only",
+                "lists only"
+            ],
+            answer: "statements",
+            explanation: "Period digunakan untuk mengakhiri statement."
+        }
+    ]
+},
+
+"colon-semicolon": {
+    title: "Colon & Semicolon",
+    description: "Colon dan semicolon digunakan untuk menghubungkan ide dalam kalimat. Colon biasanya memperkenalkan daftar, penjelasan, atau contoh. Semicolon menghubungkan dua independent clauses yang sangat berkaitan.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Colon = introduce list / explanation / example<br>
+        Semicolon = connect related independent clauses
+    `,
+
+    notes: [
+        "Colon digunakan sebelum daftar.",
+        "Colon digunakan sebelum penjelasan atau contoh.",
+        "Semicolon digunakan untuk menghubungkan dua independent clauses yang berhubungan erat.",
+        "Semicolon lebih kuat daripada comma tetapi lebih lemah daripada period.",
+        "Jangan gunakan colon setelah verb langsung jika list menjadi object verb.",
+        "Jangan gunakan semicolon untuk menghubungkan dependent clause."
+    ],
+
+    patterns: [
+        {
+            group: "Colon",
+            items: [
+                {
+                    label: "List",
+                    formula: "Complete sentence + : + list",
+                    examples: [
+                        "I need three things: time, money, and support.",
+                        "She bought several items: books, pens, and paper.",
+                        "We visited three cities: London, Paris, and Rome."
+                    ]
+                },
+                {
+                    label: "Explanation",
+                    formula: "Complete sentence + : + explanation",
+                    examples: [
+                        "He had one goal: to win the competition.",
+                        "The reason is simple: we were not ready.",
+                        "She made one mistake: she trusted the wrong person."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Semicolon",
+            items: [
+                {
+                    label: "Related Independent Clauses",
+                    formula: "Independent clause ; independent clause",
+                    examples: [
+                        "She studied hard; she passed the exam.",
+                        "The rain was heavy; the match was canceled.",
+                        "He was tired; he continued working."
+                    ]
+                },
+                {
+                    label: "With Transition",
+                    formula: "Independent clause ; however/therefore/moreover, independent clause",
+                    examples: [
+                        "She was tired; however, she kept studying.",
+                        "The data was incomplete; therefore, the report was delayed.",
+                        "He is very talented; moreover, he works hard."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Colon",
+            question: "I need three things___ time, money, and support.",
+            options: [":", ";", ".", "?"],
+            answer: ":",
+            explanation: "Colon digunakan untuk memperkenalkan daftar."
+        },
+        {
+            type: "Colon",
+            question: "He had one goal___ to win the competition.",
+            options: [":", ";", ",", "?"],
+            answer: ":",
+            explanation: "Colon dapat memperkenalkan penjelasan."
+        },
+        {
+            type: "Semicolon",
+            question: "She studied hard___ she passed the exam.",
+            options: [";", ":", "?", "!"],
+            answer: ";",
+            explanation: "Semicolon menghubungkan dua independent clauses yang berkaitan."
+        },
+        {
+            type: "Semicolon",
+            question: "The rain was heavy___ the match was canceled.",
+            options: [";", ":", "?", "!"],
+            answer: ";",
+            explanation: "Kedua clause adalah independent dan berhubungan erat."
+        },
+        {
+            type: "Transition",
+            question: "She was tired___ however, she kept studying.",
+            options: [";", ":", "?", "!"],
+            answer: ";",
+            explanation: "Gunakan semicolon sebelum transition seperti however."
+        },
+        {
+            type: "Transition",
+            question: "The data was incomplete___ therefore, the report was delayed.",
+            options: [";", ":", ",", "?"],
+            answer: ";",
+            explanation: "Semicolon dapat digunakan sebelum therefore ketika menghubungkan dua independent clauses."
+        },
+        {
+            type: "Concept",
+            question: "Colon is commonly used to introduce...",
+            options: ["a list or explanation", "a direct question", "a possessive noun", "a plural noun"],
+            answer: "a list or explanation",
+            explanation: "Colon memperkenalkan daftar, penjelasan, atau contoh."
+        },
+        {
+            type: "Concept",
+            question: "Semicolon connects...",
+            options: [
+                "two related independent clauses",
+                "subject and verb only",
+                "article and noun",
+                "adjective and adverb only"
+            ],
+            answer: "two related independent clauses",
+            explanation: "Semicolon menghubungkan dua independent clauses."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "I need three things: time, money, and support.",
+                "I need: time, money, and support.",
+                "I need three things; time, money, and support.",
+                "I need three things? time, money, and support."
+            ],
+            answer: "I need three things: time, money, and support.",
+            explanation: "Colon digunakan setelah complete sentence sebelum list."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She studied hard; she passed the exam.",
+                "She studied hard; because she passed the exam.",
+                "She studied hard: she passed the exam?",
+                "She studied hard, she passed the exam."
+            ],
+            answer: "She studied hard; she passed the exam.",
+            explanation: "Semicolon benar karena kedua bagian adalah independent clauses."
+        }
+    ]
+},
+
+"apostrophe-quotation": {
+    title: "Apostrophe & Quotation Marks",
+    description: "Apostrophe digunakan untuk menunjukkan kepemilikan atau contraction. Quotation marks digunakan untuk menandai kutipan langsung atau judul pendek seperti artikel, lagu, dan cerita pendek.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Possession = noun + 's<br>
+        Contraction = shortened form<br>
+        Direct Speech = "quoted words"
+    `,
+
+    notes: [
+        "Apostrophe + s digunakan untuk kepemilikan singular.",
+        "Untuk plural noun berakhiran -s, apostrophe diletakkan setelah s.",
+        "Contraction menggabungkan dua kata, seperti do not menjadi don't.",
+        "Its tanpa apostrophe menunjukkan kepemilikan.",
+        "It's dengan apostrophe berarti it is atau it has.",
+        "Quotation marks digunakan untuk direct speech.",
+        "Comma biasanya diletakkan sebelum quotation marks dalam direct speech."
+    ],
+
+    patterns: [
+        {
+            group: "Apostrophe",
+            items: [
+                {
+                    label: "Possession",
+                    formula: "noun + 's / plural noun + '",
+                    examples: [
+                        "Rina's book is on the table.",
+                        "The teacher's bag is black.",
+                        "The students' classroom is clean."
+                    ]
+                },
+                {
+                    label: "Contraction",
+                    formula: "shortened form",
+                    examples: [
+                        "do not → don't",
+                        "it is → it's",
+                        "they are → they're"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Quotation Marks",
+            items: [
+                {
+                    label: "Direct Speech",
+                    formula: "Subject + said, \"sentence\"",
+                    examples: [
+                        "He said, \"I am ready.\"",
+                        "She asked, \"Are you okay?\"",
+                        "They shouted, \"We won!\""
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Possession",
+            question: "Choose the correct phrase.",
+            options: ["Rina's book", "Rinas book", "Rina book's", "Rinas' book"],
+            answer: "Rina's book",
+            explanation: "Singular possession memakai noun + 's."
+        },
+        {
+            type: "Plural Possession",
+            question: "Choose the correct phrase.",
+            options: ["the students' classroom", "the student's classroom", "the students classroom", "the student classroom's"],
+            answer: "the students' classroom",
+            explanation: "Plural noun berakhiran -s memakai apostrophe setelah s."
+        },
+        {
+            type: "Contraction",
+            question: "Don't means...",
+            options: ["do not", "does not", "did not", "do it"],
+            answer: "do not",
+            explanation: "Don't adalah contraction dari do not."
+        },
+        {
+            type: "Its/It's",
+            question: "___ raining outside.",
+            options: ["It's", "Its", "Its'", "It"],
+            answer: "It's",
+            explanation: "It's berarti it is."
+        },
+        {
+            type: "Its/It's",
+            question: "The cat licked ___ paw.",
+            options: ["its", "it's", "its'", "it"],
+            answer: "its",
+            explanation: "Its tanpa apostrophe menunjukkan kepemilikan."
+        },
+        {
+            type: "Quotation",
+            question: "Which sentence uses quotation marks correctly?",
+            options: [
+                "He said, \"I am ready.\"",
+                "He said, I am ready.\"",
+                "He said \"I am ready.",
+                "\"He said, I am ready."
+            ],
+            answer: "He said, \"I am ready.\"",
+            explanation: "Direct speech memakai comma dan quotation marks."
+        },
+        {
+            type: "Question Quote",
+            question: "Which sentence is correct?",
+            options: [
+                "She asked, \"Are you okay?\"",
+                "She asked, \"Are you okay.\"",
+                "She asked \"Are you okay\"?",
+                "She asked, Are you okay?"
+            ],
+            answer: "She asked, \"Are you okay?\"",
+            explanation: "Question mark berada di dalam quotation marks jika bagian kutipan adalah pertanyaan."
+        },
+        {
+            type: "Concept",
+            question: "Apostrophe is used for...",
+            options: ["possession and contraction", "direct questions only", "lists only", "adverb clauses"],
+            answer: "possession and contraction",
+            explanation: "Apostrophe digunakan untuk kepemilikan dan contraction."
+        },
+        {
+            type: "Concept",
+            question: "Quotation marks are used for...",
+            options: ["direct speech", "plural nouns", "uncountable nouns", "condition clauses"],
+            answer: "direct speech",
+            explanation: "Quotation marks menandai kutipan langsung."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The teachers' room is clean.",
+                "The teachers room is clean.",
+                "The teacher's room's is clean.",
+                "The teachers's room is clean."
+            ],
+            answer: "The teachers' room is clean.",
+            explanation: "Plural possession memakai apostrophe setelah s."
+        }
+    ]
+},
+
+"capitalization": {
+    title: "Capitalization Rules",
+    description: "Capitalization adalah aturan penggunaan huruf kapital dalam Bahasa Inggris. Huruf kapital digunakan pada awal kalimat, nama orang, tempat, hari, bulan, bahasa, kebangsaan, judul, dan kata I.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Capital Letter = huruf besar pada posisi atau kata tertentu
+    `,
+
+    notes: [
+        "Gunakan huruf kapital pada awal kalimat.",
+        "Gunakan huruf kapital untuk nama orang.",
+        "Gunakan huruf kapital untuk nama tempat, kota, negara, dan benua.",
+        "Gunakan huruf kapital untuk hari dan bulan.",
+        "Gunakan huruf kapital untuk bahasa dan kebangsaan.",
+        "Pronoun I selalu ditulis kapital.",
+        "Dalam title, kata utama biasanya diawali huruf kapital."
+    ],
+
+    patterns: [
+        {
+            group: "Beginning & Pronoun",
+            items: [
+                {
+                    label: "Sentence / I",
+                    formula: "Capital letter at sentence beginning and pronoun I",
+                    examples: [
+                        "She is my friend.",
+                        "I live in Indonesia.",
+                        "Yesterday, I met Rina."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Proper Nouns",
+            items: [
+                {
+                    label: "Names / Places",
+                    formula: "Proper noun = capitalized",
+                    examples: [
+                        "Rina lives in Jakarta.",
+                        "Indonesia is in Asia.",
+                        "Mr. Smith teaches English."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Time / Language / Nationality",
+            items: [
+                {
+                    label: "Days / Months / Languages",
+                    formula: "Capitalize days, months, languages, nationalities",
+                    examples: [
+                        "We meet every Monday.",
+                        "My birthday is in August.",
+                        "She speaks English and Indonesian."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Beginning",
+            question: "Which sentence is correctly capitalized?",
+            options: [
+                "She is my friend.",
+                "she is my friend.",
+                "she Is my friend.",
+                "She is My friend."
+            ],
+            answer: "She is my friend.",
+            explanation: "Awal kalimat harus menggunakan huruf kapital."
+        },
+        {
+            type: "Pronoun I",
+            question: "Which sentence is correct?",
+            options: [
+                "I like English.",
+                "i like English.",
+                "I like english.",
+                "i like english."
+            ],
+            answer: "I like English.",
+            explanation: "Pronoun I selalu kapital, dan English juga kapital."
+        },
+        {
+            type: "Name",
+            question: "Which sentence is correct?",
+            options: [
+                "Rina lives in Jakarta.",
+                "rina lives in Jakarta.",
+                "Rina lives in jakarta.",
+                "rina lives in jakarta."
+            ],
+            answer: "Rina lives in Jakarta.",
+            explanation: "Nama orang dan kota memakai huruf kapital."
+        },
+        {
+            type: "Country",
+            question: "Which word should be capitalized?",
+            options: ["indonesia", "book", "water", "school"],
+            answer: "indonesia",
+            explanation: "Nama negara harus kapital: Indonesia."
+        },
+        {
+            type: "Day",
+            question: "Which sentence is correct?",
+            options: [
+                "We meet every Monday.",
+                "We meet every monday.",
+                "we meet every Monday.",
+                "We Meet Every monday."
+            ],
+            answer: "We meet every Monday.",
+            explanation: "Hari memakai huruf kapital."
+        },
+        {
+            type: "Month",
+            question: "Which sentence is correct?",
+            options: [
+                "My birthday is in August.",
+                "My birthday is in august.",
+                "my birthday is in August.",
+                "My Birthday Is In august."
+            ],
+            answer: "My birthday is in August.",
+            explanation: "Bulan memakai huruf kapital."
+        },
+        {
+            type: "Language",
+            question: "Which word should be capitalized?",
+            options: ["english", "book", "table", "city"],
+            answer: "english",
+            explanation: "Nama bahasa harus kapital: English."
+        },
+        {
+            type: "Nationality",
+            question: "Which sentence is correct?",
+            options: [
+                "She is Indonesian.",
+                "She is indonesian.",
+                "she is Indonesian.",
+                "She Is indonesian."
+            ],
+            answer: "She is Indonesian.",
+            explanation: "Kebangsaan memakai huruf kapital."
+        },
+        {
+            type: "Title",
+            question: "Which title capitalization is better?",
+            options: [
+                "The Power of English Grammar",
+                "the power of english grammar",
+                "The power Of english Grammar",
+                "the Power of English grammar"
+            ],
+            answer: "The Power of English Grammar",
+            explanation: "Dalam title, kata utama biasanya diawali huruf kapital."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correctly capitalized?",
+            options: [
+                "On Friday, I will visit London.",
+                "on Friday, i will visit London.",
+                "On friday, I will visit london.",
+                "on friday, i will visit london."
+            ],
+            answer: "On Friday, I will visit London.",
+            explanation: "Awal kalimat, hari, pronoun I, dan nama kota harus kapital."
+        }
+    ]
+},
+
+"punctuation-review": {
+    title: "Punctuation Review",
+    description: "Review akhir untuk menguji seluruh materi punctuation dan capitalization, termasuk comma, period, question mark, exclamation mark, colon, semicolon, apostrophe, quotation marks, dan capitalization.",
+
+    formula: `
+        <strong>Ringkasan BAB 14:</strong><br>
+        . = Statement<br>
+        ? = Direct Question<br>
+        ! = Strong Emotion<br>
+        , = Separation / Pause<br>
+        : = List / Explanation<br>
+        ; = Related Independent Clauses<br>
+        ' = Possession / Contraction<br>
+        " " = Direct Speech<br>
+        Capital Letters = Proper Usage
+    `,
+
+    notes: [
+        "Gunakan period untuk statement.",
+        "Gunakan question mark untuk pertanyaan langsung.",
+        "Gunakan exclamation mark untuk emosi kuat.",
+        "Comma digunakan untuk introductory phrases, daftar, dan compound sentence.",
+        "Colon digunakan sebelum daftar atau penjelasan.",
+        "Semicolon menghubungkan dua independent clauses yang berkaitan.",
+        "Apostrophe digunakan untuk possession dan contraction.",
+        "Quotation marks digunakan untuk direct speech.",
+        "Capitalization berlaku pada awal kalimat, proper noun, hari, bulan, bahasa, kebangsaan, dan pronoun I."
+    ],
+
+    patterns: [
+        {
+            group: "Sentence End",
+            items: [
+                {
+                    label: "End Marks",
+                    formula: ". / ? / !",
+                    examples: [
+                        "She is a teacher.",
+                        "Where do you live?",
+                        "What a wonderful surprise!"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Sentence Structure",
+            items: [
+                {
+                    label: "Comma / Colon / Semicolon",
+                    formula: "Correct internal punctuation",
+                    examples: [
+                        "After class, we went home.",
+                        "I need three things: food, water, and shelter.",
+                        "She studied hard; she passed the exam."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Writing Rules",
+            items: [
+                {
+                    label: "Apostrophe / Quotes / Capitals",
+                    formula: "Possession, direct speech, capitalization",
+                    examples: [
+                        "Rina's book is new.",
+                        "He said, \"I'm ready.\"",
+                        "I will visit London on Monday."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Period",
+            question: "Which punctuation ends a statement?",
+            options: [".", "?", "!", ":"],
+            answer: ".",
+            explanation: "Statement diakhiri dengan period."
+        },
+        {
+            type: "Question",
+            question: "Which punctuation ends a direct question?",
+            options: ["?", ".", "!", ";"],
+            answer: "?",
+            explanation: "Pertanyaan langsung memakai question mark."
+        },
+        {
+            type: "Exclamation",
+            question: "Which punctuation shows strong emotion?",
+            options: ["!", ".", "?", ","],
+            answer: "!",
+            explanation: "Exclamation mark menunjukkan emosi kuat."
+        },
+        {
+            type: "Comma",
+            question: "Which sentence is correct?",
+            options: [
+                "After class, we went home.",
+                "After, class we went home.",
+                "After class we, went home.",
+                "After class we went, home."
+            ],
+            answer: "After class, we went home.",
+            explanation: "Introductory phrase diikuti comma."
+        },
+        {
+            type: "List",
+            question: "Which sentence uses commas correctly?",
+            options: [
+                "I bought apples, oranges, and bananas.",
+                "I bought apples oranges, and bananas.",
+                "I bought apples, oranges and, bananas.",
+                "I bought, apples oranges and bananas."
+            ],
+            answer: "I bought apples, oranges, and bananas.",
+            explanation: "Comma memisahkan item dalam daftar."
+        },
+        {
+            type: "Colon",
+            question: "I need three things___ time, money, and support.",
+            options: [":", ";", ".", ","],
+            answer: ":",
+            explanation: "Colon memperkenalkan daftar."
+        },
+        {
+            type: "Semicolon",
+            question: "She studied hard___ she passed the exam.",
+            options: [";", ":", ".", ","],
+            answer: ";",
+            explanation: "Semicolon menghubungkan dua independent clauses."
+        },
+        {
+            type: "Apostrophe",
+            question: "Choose the correct possessive form.",
+            options: [
+                "Rina's book",
+                "Rinas book",
+                "Rina book's",
+                "Rinas' book"
+            ],
+            answer: "Rina's book",
+            explanation: "Singular possession memakai 's."
+        },
+        {
+            type: "Its",
+            question: "The dog wagged ___ tail.",
+            options: ["its", "it's", "its'", "it"],
+            answer: "its",
+            explanation: "Its tanpa apostrophe menunjukkan kepemilikan."
+        },
+        {
+            type: "Quotation",
+            question: "Which sentence is punctuated correctly?",
+            options: [
+                "She said, \"I am ready.\"",
+                "She said \"I am ready.",
+                "She said, I am ready.\"",
+                "\"She said I am ready.\""
+            ],
+            answer: "She said, \"I am ready.\"",
+            explanation: "Direct speech memakai comma dan quotation marks."
+        },
+        {
+            type: "Capitalization",
+            question: "Which sentence is correctly capitalized?",
+            options: [
+                "I will visit London on Monday.",
+                "i will visit london on monday.",
+                "I will visit london on Monday.",
+                "I Will Visit London On monday."
+            ],
+            answer: "I will visit London on Monday.",
+            explanation: "Pronoun I, nama kota, dan hari memakai huruf kapital."
+        },
+        {
+            type: "Language",
+            question: "Which word should be capitalized?",
+            options: [
+                "english",
+                "table",
+                "window",
+                "computer"
+            ],
+            answer: "english",
+            explanation: "Nama bahasa harus ditulis English."
+        },
+        {
+            type: "Indirect Question",
+            question: "Which sentence is correct?",
+            options: [
+                "I wonder where he lives.",
+                "I wonder where he lives?",
+                "I wonder where does he live?",
+                "I wonder where does he live."
+            ],
+            answer: "I wonder where he lives.",
+            explanation: "Indirect question memakai statement order dan period."
+        },
+        {
+            type: "Subject-Verb",
+            question: "Which sentence is incorrect?",
+            options: [
+                "The student, passed the exam.",
+                "After school, we went home.",
+                "She studied hard, so she passed.",
+                "My brother, who lives in Bali, is a doctor."
+            ],
+            answer: "The student, passed the exam.",
+            explanation: "Jangan pisahkan subject dan verb dengan comma."
+        },
+        {
+            type: "Concept",
+            question: "Semicolon connects...",
+            options: [
+                "two related independent clauses",
+                "a noun and adjective",
+                "a subject and verb",
+                "an article and noun"
+            ],
+            answer: "two related independent clauses",
+            explanation: "Semicolon menghubungkan dua independent clauses yang saling berkaitan."
+        },
+        {
+            type: "Concept",
+            question: "Colon is mainly used to introduce...",
+            options: [
+                "a list or explanation",
+                "a direct question",
+                "a quotation only",
+                "a subject"
+            ],
+            answer: "a list or explanation",
+            explanation: "Colon memperkenalkan daftar, penjelasan, atau contoh."
+        },
+        {
+            type: "Concept",
+            question: "Apostrophe is used for...",
+            options: [
+                "possession and contractions",
+                "questions",
+                "lists",
+                "indirect speech"
+            ],
+            answer: "possession and contractions",
+            explanation: "Apostrophe menunjukkan kepemilikan dan contraction."
+        },
+        {
+            type: "Concept",
+            question: "Quotation marks are mainly used for...",
+            options: [
+                "direct speech",
+                "plural nouns",
+                "articles",
+                "passive voice"
+            ],
+            answer: "direct speech",
+            explanation: "Quotation marks menandai kutipan langsung."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is fully correct?",
+            options: [
+                "On Friday, I said, \"I'm ready.\"",
+                "on Friday, i said \"I'm ready.\"",
+                "On friday I said, \"I'm ready\".",
+                "On Friday I said \"I'm ready.\""
+            ],
+            answer: "On Friday, I said, \"I'm ready.\"",
+            explanation: "Huruf kapital, comma, apostrophe, dan quotation marks semuanya digunakan dengan benar."
+        }
+    ]
+},
+
+"common-mistakes": {
+    title: "Introduction to Common Grammar Mistakes",
+    description: "Common Grammar Mistakes adalah kesalahan grammar yang sering muncul dalam writing dan speaking. Materi ini membantu pengguna mengenali pola kesalahan umum agar kalimat menjadi lebih akurat, natural, dan profesional.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Error → Correction → Reason
+    `,
+
+    notes: [
+        "Kesalahan grammar biasanya terjadi karena subject-verb agreement, tense, word form, preposition, atau sentence structure.",
+        "Belajar dari error membuat pengguna lebih cepat memahami grammar secara praktis.",
+        "Common mistakes sering muncul dalam writing test, TOEFL, IELTS, TOEIC, dan academic writing.",
+        "Setiap kesalahan harus dianalisis berdasarkan pola, bukan hanya dihafal.",
+        "Tujuan materi ini adalah meningkatkan akurasi kalimat."
+    ],
+
+    patterns: [
+        {
+            group: "Error Awareness",
+            items: [
+                {
+                    label: "Incorrect vs Correct",
+                    formula: "Wrong Sentence → Correct Sentence",
+                    examples: [
+                        "Wrong: She go to school every day.",
+                        "Correct: She goes to school every day.",
+                        "Reason: Subject she memakai verb + s/es dalam Simple Present."
+                    ]
+                },
+                {
+                    label: "Error Categories",
+                    formula: "Grammar Error Types",
+                    examples: [
+                        "Subject-Verb Agreement: He play → He plays",
+                        "Tense: Yesterday I go → Yesterday I went",
+                        "Word Form: She is beauty → She is beautiful"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Common Grammar Mistakes are useful to study because they help improve...",
+            options: ["accuracy", "color", "font size", "image quality"],
+            answer: "accuracy",
+            explanation: "Mempelajari common mistakes membantu meningkatkan akurasi grammar."
+        },
+        {
+            type: "SVA",
+            question: "Which sentence is correct?",
+            options: [
+                "She go to school.",
+                "She goes to school.",
+                "She going to school.",
+                "She gone to school."
+            ],
+            answer: "She goes to school.",
+            explanation: "Subject she memakai verb + s/es dalam Simple Present."
+        },
+        {
+            type: "Tense",
+            question: "Which sentence is correct?",
+            options: [
+                "Yesterday I go to school.",
+                "Yesterday I went to school.",
+                "Yesterday I goes to school.",
+                "Yesterday I going to school."
+            ],
+            answer: "Yesterday I went to school.",
+            explanation: "Yesterday menunjukkan past time, jadi gunakan V2."
+        },
+        {
+            type: "Word Form",
+            question: "Which sentence is correct?",
+            options: [
+                "She is beauty.",
+                "She is beautiful.",
+                "She is beautifully.",
+                "She is beautify."
+            ],
+            answer: "She is beautiful.",
+            explanation: "Setelah be untuk menjelaskan subject, gunakan adjective."
+        },
+        {
+            type: "Preposition",
+            question: "Which sentence is correct?",
+            options: [
+                "I am interested in English.",
+                "I am interested on English.",
+                "I am interested at English.",
+                "I am interested for English."
+            ],
+            answer: "I am interested in English.",
+            explanation: "Collocation yang benar adalah interested in."
+        },
+        {
+            type: "Sentence Structure",
+            question: "Which sentence is complete?",
+            options: [
+                "Because I was tired.",
+                "Because I was tired, I went home.",
+                "Although raining.",
+                "When arrived."
+            ],
+            answer: "Because I was tired, I went home.",
+            explanation: "Dependent clause membutuhkan main clause."
+        },
+        {
+            type: "Concept",
+            question: "Error correction should focus on...",
+            options: ["pattern and reason", "guessing only", "memorizing colors", "removing all verbs"],
+            answer: "pattern and reason",
+            explanation: "Kesalahan harus dipahami berdasarkan pola dan alasan grammar."
+        },
+        {
+            type: "Category",
+            question: "'He play football every day' is mainly a...",
+            options: [
+                "subject-verb agreement error",
+                "capitalization rule",
+                "quotation error",
+                "article only"
+            ],
+            answer: "subject-verb agreement error",
+            explanation: "Subject he membutuhkan plays dalam Simple Present."
+        },
+        {
+            type: "Category",
+            question: "'She is beauty' is mainly a...",
+            options: [
+                "word form error",
+                "tense error",
+                "punctuation error",
+                "relative clause"
+            ],
+            answer: "word form error",
+            explanation: "Beauty adalah noun, sedangkan beautiful adalah adjective."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "He don't like coffee.",
+                "He doesn't like coffee.",
+                "He doesn't likes coffee.",
+                "He not like coffee."
+            ],
+            answer: "He doesn't like coffee.",
+            explanation: "Negative Simple Present untuk he memakai doesn't + V1."
+        }
+    ]
+},
+
+"sva-errors": {
+    title: "Subject-Verb Agreement Errors",
+    description: "Subject-Verb Agreement Errors adalah kesalahan ketika subject dan verb tidak sesuai. Dalam Bahasa Inggris, verb harus menyesuaikan subject, terutama pada Simple Present dan kalimat dengan be verb.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Singular Subject + Singular Verb<br>
+        Plural Subject + Plural Verb
+    `,
+
+    notes: [
+        "He, she, it memakai verb + s/es dalam Simple Present.",
+        "I, you, we, they memakai V1 biasa dalam Simple Present.",
+        "Singular subject memakai is/was/has.",
+        "Plural subject memakai are/were/have.",
+        "Subject yang panjang tetap ditentukan oleh head noun.",
+        "Prepositional phrase tidak mengubah subject utama."
+    ],
+
+    patterns: [
+        {
+            group: "Simple Present",
+            items: [
+                {
+                    label: "He / She / It",
+                    formula: "He/She/It + V1(s/es)",
+                    examples: [
+                        "Wrong: She go to school.",
+                        "Correct: She goes to school.",
+                        "Wrong: He play football.",
+                        "Correct: He plays football."
+                    ]
+                },
+                {
+                    label: "I / You / We / They",
+                    formula: "I/You/We/They + V1",
+                    examples: [
+                        "Wrong: They plays football.",
+                        "Correct: They play football.",
+                        "Wrong: We studies English.",
+                        "Correct: We study English."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Be Verb",
+            items: [
+                {
+                    label: "Is / Are",
+                    formula: "Singular + is / Plural + are",
+                    examples: [
+                        "Wrong: She are happy.",
+                        "Correct: She is happy.",
+                        "Wrong: They is students.",
+                        "Correct: They are students."
+                    ]
+                },
+                {
+                    label: "Was / Were",
+                    formula: "Singular + was / Plural + were",
+                    examples: [
+                        "Wrong: He were tired.",
+                        "Correct: He was tired.",
+                        "Wrong: They was late.",
+                        "Correct: They were late."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Tricky Subjects",
+            items: [
+                {
+                    label: "Prepositional Phrase",
+                    formula: "Subject + prepositional phrase + verb",
+                    examples: [
+                        "Wrong: The book on the tables are mine.",
+                        "Correct: The book on the tables is mine.",
+                        "Wrong: The students in the class is noisy.",
+                        "Correct: The students in the class are noisy."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Simple Present",
+            question: "She ___ to school every day.",
+            options: ["go", "goes", "going", "gone"],
+            answer: "goes",
+            explanation: "Subject she memakai verb + s/es."
+        },
+        {
+            type: "Simple Present",
+            question: "They ___ football every Sunday.",
+            options: ["play", "plays", "playing", "played"],
+            answer: "play",
+            explanation: "Subject they memakai V1 biasa."
+        },
+        {
+            type: "Simple Present",
+            question: "He ___ English well.",
+            options: ["speak", "speaks", "speaking", "spoken"],
+            answer: "speaks",
+            explanation: "Subject he memakai verb + s/es."
+        },
+        {
+            type: "Be Verb",
+            question: "She ___ happy.",
+            options: ["is", "are", "were", "be"],
+            answer: "is",
+            explanation: "She adalah singular subject, jadi gunakan is."
+        },
+        {
+            type: "Be Verb",
+            question: "They ___ students.",
+            options: ["is", "are", "am", "be"],
+            answer: "are",
+            explanation: "They adalah plural subject, jadi gunakan are."
+        },
+        {
+            type: "Past Be",
+            question: "He ___ tired yesterday.",
+            options: ["was", "were", "are", "be"],
+            answer: "was",
+            explanation: "He memakai was untuk past be."
+        },
+        {
+            type: "Past Be",
+            question: "We ___ late yesterday.",
+            options: ["was", "were", "is", "am"],
+            answer: "were",
+            explanation: "We memakai were untuk past be."
+        },
+        {
+            type: "Tricky Subject",
+            question: "The book on the tables ___ mine.",
+            options: ["is", "are", "were", "be"],
+            answer: "is",
+            explanation: "Subject utama adalah book, bukan tables."
+        },
+        {
+            type: "Tricky Subject",
+            question: "The students in the class ___ noisy.",
+            options: ["is", "are", "was", "be"],
+            answer: "are",
+            explanation: "Subject utama adalah students."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "He play football every day.",
+                "He plays football every day.",
+                "He playing football every day.",
+                "He played football every day."
+            ],
+            answer: "He plays football every day.",
+            explanation: "Simple Present dengan he memakai plays."
+        }
+    ]
+},
+
+"tense-consistency-errors": {
+    title: "Tense Consistency Errors",
+    description: "Tense Consistency Errors terjadi ketika sebuah kalimat atau paragraf berpindah tense tanpa alasan yang jelas. Dalam writing, tense harus tetap konsisten kecuali memang ada perubahan waktu kejadian.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Same Time → Same Tense<br>
+        Different Time → Different Tense
+    `,
+
+    notes: [
+        "Gunakan tense yang sama jika semua kejadian terjadi pada waktu yang sama.",
+        "Ubah tense hanya jika waktu kejadian memang berubah.",
+        "Simple Present digunakan untuk fakta dan kebiasaan.",
+        "Simple Past digunakan untuk kejadian yang selesai di masa lampau.",
+        "Narrative writing biasanya mempertahankan satu tense utama.",
+        "Time expressions seperti yesterday, now, tomorrow membantu menentukan tense."
+    ],
+
+    patterns: [
+        {
+            group: "Present Consistency",
+            items: [
+                {
+                    label: "Simple Present",
+                    formula: "Present + Present",
+                    examples: [
+                        "Wrong: She goes to school and studied English every day.",
+                        "Correct: She goes to school and studies English every day.",
+                        "Correct: He works in Jakarta and lives with his family."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Past Consistency",
+            items: [
+                {
+                    label: "Simple Past",
+                    formula: "Past + Past",
+                    examples: [
+                        "Wrong: Yesterday I went home and watch TV.",
+                        "Correct: Yesterday I went home and watched TV.",
+                        "Correct: She arrived, sat down, and opened her book."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Time Shift",
+            items: [
+                {
+                    label: "Correct Tense Change",
+                    formula: "Past event → Present fact",
+                    examples: [
+                        "I studied hard because the exam was difficult.",
+                        "I studied hard because English is important.",
+                        "She moved to London, and now she works there."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Present",
+            question: "She ___ to school and ___ English every day.",
+            options: [
+                "goes / studies",
+                "goes / studied",
+                "went / studies",
+                "go / study"
+            ],
+            answer: "goes / studies",
+            explanation: "Dua aktivitas rutin memakai Simple Present."
+        },
+        {
+            type: "Past",
+            question: "Yesterday I ___ home and ___ TV.",
+            options: [
+                "went / watched",
+                "went / watch",
+                "go / watched",
+                "go / watch"
+            ],
+            answer: "went / watched",
+            explanation: "Yesterday menunjukkan Simple Past."
+        },
+        {
+            type: "Past",
+            question: "She ___, sat down, and opened her book.",
+            options: [
+                "arrived",
+                "arrives",
+                "arrive",
+                "arriving"
+            ],
+            answer: "arrived",
+            explanation: "Semua aksi terjadi di masa lampau."
+        },
+        {
+            type: "Present",
+            question: "He ___ in Jakarta and ___ with his family.",
+            options: [
+                "works / lives",
+                "worked / lives",
+                "works / lived",
+                "worked / lived"
+            ],
+            answer: "works / lives",
+            explanation: "Dua fakta sekarang memakai Simple Present."
+        },
+        {
+            type: "Time Shift",
+            question: "Which sentence uses tense correctly?",
+            options: [
+                "I studied hard because English is important.",
+                "I studied hard because English was important yesterday only.",
+                "I study hard because English was important now.",
+                "I studied hard because English will important."
+            ],
+            answer: "I studied hard because English is important.",
+            explanation: "Peristiwa lampau dapat diikuti fakta umum dalam Simple Present."
+        },
+        {
+            type: "Consistency",
+            question: "Which sentence is consistent?",
+            options: [
+                "She cooked dinner and washed the dishes.",
+                "She cooked dinner and washes the dishes.",
+                "She cooks dinner and washed the dishes.",
+                "She cooking dinner and washed the dishes."
+            ],
+            answer: "She cooked dinner and washed the dishes.",
+            explanation: "Kedua aksi terjadi pada waktu yang sama di masa lampau."
+        },
+        {
+            type: "Time Expression",
+            question: "Which word usually signals Simple Past?",
+            options: [
+                "yesterday",
+                "every day",
+                "always",
+                "usually"
+            ],
+            answer: "yesterday",
+            explanation: "Yesterday menunjukkan waktu lampau."
+        },
+        {
+            type: "Concept",
+            question: "A tense should normally change only when...",
+            options: [
+                "the time reference changes",
+                "the subject changes",
+                "the sentence becomes longer",
+                "an adjective appears"
+            ],
+            answer: "the time reference changes",
+            explanation: "Perubahan tense mengikuti perubahan waktu."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "He finished his homework and went to bed.",
+                "He finished his homework and goes to bed.",
+                "He finishes his homework and went to bed.",
+                "He finishing his homework and went to bed."
+            ],
+            answer: "He finished his homework and went to bed.",
+            explanation: "Dua aksi lampau memakai Simple Past."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She studies English because she wants to work abroad.",
+                "She studies English because she wanted to work abroad every day.",
+                "She studied English because she wants worked abroad.",
+                "She study English because she wanted abroad."
+            ],
+            answer: "She studies English because she wants to work abroad.",
+            explanation: "Kebiasaan dan tujuan saat ini memakai Simple Present."
+        }
+    ]
+},
+
+"word-form-errors": {
+    title: "Word Form Errors",
+    description: "Word Form Errors terjadi ketika bentuk kata yang digunakan tidak sesuai dengan fungsi grammar dalam kalimat. Kesalahan ini sering melibatkan noun, verb, adjective, dan adverb.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Noun = person/thing<br>
+        Verb = action/state<br>
+        Adjective = describes noun<br>
+        Adverb = describes verb/adjective/adverb
+    `,
+
+    notes: [
+        "Setelah be verb biasanya digunakan adjective, bukan noun atau adverb.",
+        "Setelah article (a, an, the) biasanya digunakan noun atau adjective + noun.",
+        "Setelah modal verb gunakan V1.",
+        "Setelah very gunakan adjective atau adverb, bukan noun.",
+        "Adverb biasanya berakhiran -ly, tetapi tidak selalu.",
+        "Kenali fungsi kata sebelum memilih bentuk yang benar."
+    ],
+
+    patterns: [
+        {
+            group: "Noun vs Adjective",
+            items: [
+                {
+                    label: "After Be Verb",
+                    formula: "Subject + be + adjective",
+                    examples: [
+                        "Wrong: She is beauty.",
+                        "Correct: She is beautiful.",
+                        "Wrong: The movie was excitement.",
+                        "Correct: The movie was exciting."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Adjective vs Adverb",
+            items: [
+                {
+                    label: "Modify Verb",
+                    formula: "Verb + adverb",
+                    examples: [
+                        "Wrong: She sings beautiful.",
+                        "Correct: She sings beautifully.",
+                        "Wrong: He drives careful.",
+                        "Correct: He drives carefully."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Verb Form",
+            items: [
+                {
+                    label: "After Modal",
+                    formula: "Modal + V1",
+                    examples: [
+                        "Wrong: She can sings.",
+                        "Correct: She can sing.",
+                        "Wrong: They must finished.",
+                        "Correct: They must finish."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Adjective",
+            question: "She is ___.",
+            options: ["beauty", "beautiful", "beautifully", "beautify"],
+            answer: "beautiful",
+            explanation: "Setelah be verb gunakan adjective."
+        },
+        {
+            type: "Adverb",
+            question: "She sings ___.",
+            options: ["beautiful", "beauty", "beautifully", "beautify"],
+            answer: "beautifully",
+            explanation: "Verb sings dimodifikasi oleh adverb."
+        },
+        {
+            type: "Adverb",
+            question: "He drives ___.",
+            options: ["careful", "carefully", "care", "carefulness"],
+            answer: "carefully",
+            explanation: "Verb drives membutuhkan adverb."
+        },
+        {
+            type: "Modal",
+            question: "She can ___.",
+            options: ["sing", "sings", "sang", "singing"],
+            answer: "sing",
+            explanation: "Modal selalu diikuti V1."
+        },
+        {
+            type: "Modal",
+            question: "They must ___ the report today.",
+            options: ["finish", "finishes", "finished", "finishing"],
+            answer: "finish",
+            explanation: "Must diikuti bentuk dasar verb."
+        },
+        {
+            type: "Article",
+            question: "He is a good ___.",
+            options: ["teacher", "teach", "teaches", "teaching"],
+            answer: "teacher",
+            explanation: "Setelah article dan adjective gunakan noun."
+        },
+        {
+            type: "Very",
+            question: "The exam was very ___.",
+            options: ["difficulty", "difficult", "difficultly", "difficultness"],
+            answer: "difficult",
+            explanation: "Very diikuti adjective."
+        },
+        {
+            type: "Concept",
+            question: "Which word modifies a verb?",
+            options: ["Adverb", "Noun", "Article", "Pronoun"],
+            answer: "Adverb",
+            explanation: "Adverb menjelaskan verb."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She speaks English fluently.",
+                "She speaks English fluent.",
+                "She speaks English fluency.",
+                "She speaks English influence."
+            ],
+            answer: "She speaks English fluently.",
+            explanation: "Verb speaks dimodifikasi oleh adverb fluently."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The movie was exciting.",
+                "The movie was excitement.",
+                "The movie was excitedly.",
+                "The movie was excite."
+            ],
+            answer: "The movie was exciting.",
+            explanation: "Setelah be verb gunakan adjective."
+        }
+    ]
+},
+
+"preposition-errors": {
+    title: "Preposition Errors",
+    description: "Preposition Errors adalah kesalahan dalam memilih preposition yang tepat. Banyak verb, adjective, dan noun dalam Bahasa Inggris memiliki pasangan preposition (collocation) yang harus dihafal.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Verb/Adjective/Noun + Correct Preposition
+    `,
+
+    notes: [
+        "Banyak preposition tidak dapat diterjemahkan secara harfiah dari Bahasa Indonesia.",
+        "Verb tertentu memiliki pasangan preposition tetap (depend on, belong to).",
+        "Adjective tertentu juga memiliki pasangan tetap (interested in, afraid of).",
+        "Gunakan at, on, dan in sesuai aturan waktu dan tempat.",
+        "Kesalahan preposition merupakan salah satu kesalahan paling umum dalam writing."
+    ],
+
+    patterns: [
+        {
+            group: "Verb + Preposition",
+            items: [
+                {
+                    label: "Common Collocations",
+                    formula: "Verb + Preposition",
+                    examples: [
+                        "Wrong: depend of",
+                        "Correct: depend on",
+                        "Wrong: belong with me",
+                        "Correct: belong to me",
+                        "Wrong: listen music",
+                        "Correct: listen to music"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Adjective + Preposition",
+            items: [
+                {
+                    label: "Common Adjective Collocations",
+                    formula: "Adjective + Preposition",
+                    examples: [
+                        "interested in English",
+                        "afraid of spiders",
+                        "good at mathematics",
+                        "famous for its beaches"
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Time & Place",
+            items: [
+                {
+                    label: "At / On / In",
+                    formula: "Time & Place Prepositions",
+                    examples: [
+                        "at 7 o'clock",
+                        "on Monday",
+                        "in July",
+                        "at the station",
+                        "on the table",
+                        "in the room"
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Verb",
+            question: "You can always depend ___ me.",
+            options: ["on", "of", "at", "for"],
+            answer: "on",
+            explanation: "Collocation yang benar adalah depend on."
+        },
+        {
+            type: "Verb",
+            question: "This bag belongs ___ my sister.",
+            options: ["to", "with", "for", "at"],
+            answer: "to",
+            explanation: "Belong selalu diikuti to."
+        },
+        {
+            type: "Verb",
+            question: "She likes listening ___ music.",
+            options: ["to", "on", "at", "for"],
+            answer: "to",
+            explanation: "Listen selalu diikuti preposition to."
+        },
+        {
+            type: "Adjective",
+            question: "I am interested ___ English.",
+            options: ["in", "on", "at", "to"],
+            answer: "in",
+            explanation: "Interested selalu diikuti in."
+        },
+        {
+            type: "Adjective",
+            question: "He is good ___ mathematics.",
+            options: ["at", "on", "for", "in"],
+            answer: "at",
+            explanation: "Good at adalah collocation yang benar."
+        },
+        {
+            type: "Adjective",
+            question: "She is afraid ___ spiders.",
+            options: ["of", "with", "to", "on"],
+            answer: "of",
+            explanation: "Afraid of adalah pasangan yang benar."
+        },
+        {
+            type: "Time",
+            question: "The meeting starts ___ Monday.",
+            options: ["on", "at", "in", "to"],
+            answer: "on",
+            explanation: "Hari menggunakan on."
+        },
+        {
+            type: "Time",
+            question: "My birthday is ___ July.",
+            options: ["in", "on", "at", "to"],
+            answer: "in",
+            explanation: "Bulan menggunakan in."
+        },
+        {
+            type: "Place",
+            question: "The keys are ___ the table.",
+            options: ["on", "in", "at", "to"],
+            answer: "on",
+            explanation: "Permukaan menggunakan on."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "She is famous for her singing.",
+                "She is famous of her singing.",
+                "She is famous at her singing.",
+                "She is famous on her singing."
+            ],
+            answer: "She is famous for her singing.",
+            explanation: "Famous for adalah collocation yang benar."
+        }
+    ]
+},
+
+"sentence-structure-errors": {
+    title: "Sentence Structure Errors",
+    description: "Sentence Structure Errors terjadi ketika susunan kalimat tidak lengkap atau tidak mengikuti aturan grammar. Kesalahan yang paling umum adalah sentence fragment, run-on sentence, comma splice, double subject, dan double negative.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Complete Sentence = Subject + Verb + Complete Thought
+    `,
+
+    notes: [
+        "Kalimat lengkap harus memiliki minimal subject dan verb serta menyampaikan ide yang utuh.",
+        "Sentence fragment adalah kalimat yang belum lengkap.",
+        "Run-on sentence terjadi ketika dua independent clauses digabung tanpa tanda baca atau conjunction yang benar.",
+        "Comma splice adalah dua independent clauses yang hanya dipisahkan comma.",
+        "Hindari double subject dan double negative dalam Standard English.",
+        "Setiap independent clause harus dipisahkan dengan benar menggunakan period, semicolon, atau conjunction."
+    ],
+
+    patterns: [
+        {
+            group: "Sentence Fragment",
+            items: [
+                {
+                    label: "Incomplete Sentence",
+                    formula: "Dependent Clause ≠ Complete Sentence",
+                    examples: [
+                        "Wrong: Because I was tired.",
+                        "Correct: Because I was tired, I went home.",
+                        "Wrong: When she arrived.",
+                        "Correct: When she arrived, we started the meeting."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Run-on Sentence",
+            items: [
+                {
+                    label: "Two Independent Clauses",
+                    formula: "Clause + conjunction/comma/semicolon + Clause",
+                    examples: [
+                        "Wrong: I was tired I went home.",
+                        "Correct: I was tired, so I went home.",
+                        "Correct: I was tired. I went home."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Comma Splice",
+            items: [
+                {
+                    label: "Comma Only",
+                    formula: "Clause, Clause ❌",
+                    examples: [
+                        "Wrong: She studied hard, she passed.",
+                        "Correct: She studied hard, so she passed.",
+                        "Correct: She studied hard; she passed."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Double Subject & Double Negative",
+            items: [
+                {
+                    label: "Common Errors",
+                    formula: "Avoid unnecessary repetition",
+                    examples: [
+                        "Wrong: My brother he is a doctor.",
+                        "Correct: My brother is a doctor.",
+                        "Wrong: I don't know nothing.",
+                        "Correct: I don't know anything."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Fragment",
+            question: "Which sentence is complete?",
+            options: [
+                "Because I was tired, I went home.",
+                "Because I was tired.",
+                "When she arrived.",
+                "Although raining."
+            ],
+            answer: "Because I was tired, I went home.",
+            explanation: "Dependent clause membutuhkan main clause."
+        },
+        {
+            type: "Fragment",
+            question: "Which sentence is a fragment?",
+            options: [
+                "When she arrived.",
+                "She arrived on time.",
+                "They finished the project.",
+                "He plays football."
+            ],
+            answer: "When she arrived.",
+            explanation: "Kalimat belum memiliki main clause."
+        },
+        {
+            type: "Run-on",
+            question: "Which sentence fixes the run-on correctly?",
+            options: [
+                "I was tired, so I went home.",
+                "I was tired I went home.",
+                "I was tired, I went home.",
+                "I was tired because."
+            ],
+            answer: "I was tired, so I went home.",
+            explanation: "Gunakan conjunction untuk menghubungkan dua independent clauses."
+        },
+        {
+            type: "Comma Splice",
+            question: "Which sentence is correct?",
+            options: [
+                "She studied hard; she passed.",
+                "She studied hard, she passed.",
+                "She studied hard she passed.",
+                "She studied hard because."
+            ],
+            answer: "She studied hard; she passed.",
+            explanation: "Semicolon dapat menghubungkan dua independent clauses."
+        },
+        {
+            type: "Double Subject",
+            question: "Which sentence is correct?",
+            options: [
+                "My brother is a doctor.",
+                "My brother he is a doctor.",
+                "My brother he doctor.",
+                "Brother my he is doctor."
+            ],
+            answer: "My brother is a doctor.",
+            explanation: "Jangan gunakan double subject."
+        },
+        {
+            type: "Double Negative",
+            question: "Which sentence is correct?",
+            options: [
+                "I don't know anything.",
+                "I don't know nothing.",
+                "I not know nothing.",
+                "I don't nothing know."
+            ],
+            answer: "I don't know anything.",
+            explanation: "Standard English menghindari double negative."
+        },
+        {
+            type: "Complete Sentence",
+            question: "A complete sentence must have...",
+            options: [
+                "a subject and a verb",
+                "an adjective only",
+                "a preposition only",
+                "a comma only"
+            ],
+            answer: "a subject and a verb",
+            explanation: "Kalimat lengkap minimal memiliki subject dan verb."
+        },
+        {
+            type: "Concept",
+            question: "A run-on sentence is...",
+            options: [
+                "two independent clauses joined incorrectly",
+                "a sentence with many adjectives",
+                "a sentence without nouns",
+                "a sentence with quotation marks"
+            ],
+            answer: "two independent clauses joined incorrectly",
+            explanation: "Run-on terjadi ketika dua independent clauses tidak dipisahkan dengan benar."
+        },
+        {
+            type: "Concept",
+            question: "A comma splice happens when...",
+            options: [
+                "two independent clauses are joined only by a comma",
+                "a comma follows an introductory phrase",
+                "a comma separates items in a list",
+                "a comma follows a direct address"
+            ],
+            answer: "two independent clauses are joined only by a comma",
+            explanation: "Comma splice adalah penggunaan comma tanpa conjunction atau semicolon."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "Although it was raining, we continued the game.",
+                "Although it was raining.",
+                "Although raining we continued.",
+                "Although, it was raining."
+            ],
+            answer: "Although it was raining, we continued the game.",
+            explanation: "Dependent clause harus diikuti main clause agar menjadi kalimat lengkap."
+        }
+    ]
+},
+
+"common-mistakes-review": {
+    title: "Common Mistakes Review",
+    description: "Review akhir untuk menguji seluruh materi Common Grammar Mistakes, termasuk subject-verb agreement, tense consistency, word form, preposition, dan sentence structure.",
+
+    formula: `
+        <strong>Ringkasan BAB 15:</strong><br>
+        Subject ↔ Verb Agreement<br>
+        Consistent Tense<br>
+        Correct Word Form<br>
+        Correct Preposition<br>
+        Complete Sentence Structure
+    `,
+
+    notes: [
+        "Pastikan subject dan verb selalu sesuai.",
+        "Gunakan tense yang konsisten sesuai waktu kejadian.",
+        "Pilih bentuk kata sesuai fungsinya (noun, verb, adjective, adverb).",
+        "Gunakan preposition sesuai collocation yang benar.",
+        "Hindari sentence fragment, run-on sentence, comma splice, double subject, dan double negative.",
+        "Perbaiki kesalahan berdasarkan pola grammar, bukan hanya menghafal."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Subject-Verb Agreement",
+                    formula: "Singular ↔ Singular Verb | Plural ↔ Plural Verb",
+                    examples: [
+                        "She goes to school.",
+                        "They play football.",
+                        "The book on the table is mine."
+                    ]
+                },
+                {
+                    label: "Tense & Word Form",
+                    formula: "Consistent Tense + Correct Word Form",
+                    examples: [
+                        "Yesterday I went home and watched TV.",
+                        "She is beautiful.",
+                        "He drives carefully."
+                    ]
+                },
+                {
+                    label: "Preposition & Structure",
+                    formula: "Correct Preposition + Complete Sentence",
+                    examples: [
+                        "I am interested in English.",
+                        "Because I was tired, I went home.",
+                        "She studied hard, so she passed."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Subject-Verb Agreement",
+            question: "She ___ to school every day.",
+            options: ["go", "goes", "going", "gone"],
+            answer: "goes",
+            explanation: "Subject she memakai verb + s/es."
+        },
+        {
+            type: "Subject-Verb Agreement",
+            question: "The students in the class ___ ready.",
+            options: ["is", "are", "was", "be"],
+            answer: "are",
+            explanation: "Subject utama adalah students."
+        },
+        {
+            type: "Tense",
+            question: "Yesterday I ___ home and ___ TV.",
+            options: [
+                "went / watched",
+                "went / watch",
+                "go / watched",
+                "go / watch"
+            ],
+            answer: "went / watched",
+            explanation: "Yesterday menunjukkan Simple Past."
+        },
+        {
+            type: "Word Form",
+            question: "She sings ___.",
+            options: ["beautiful", "beauty", "beautifully", "beautify"],
+            answer: "beautifully",
+            explanation: "Verb dimodifikasi oleh adverb."
+        },
+        {
+            type: "Word Form",
+            question: "The movie was ___.",
+            options: ["exciting", "excitement", "excitedly", "excite"],
+            answer: "exciting",
+            explanation: "Setelah be verb gunakan adjective."
+        },
+        {
+            type: "Preposition",
+            question: "I am interested ___ English.",
+            options: ["in", "on", "at", "to"],
+            answer: "in",
+            explanation: "Interested in adalah collocation yang benar."
+        },
+        {
+            type: "Preposition",
+            question: "The meeting starts ___ Monday.",
+            options: ["on", "at", "in", "for"],
+            answer: "on",
+            explanation: "Hari menggunakan on."
+        },
+        {
+            type: "Sentence Structure",
+            question: "Which sentence is complete?",
+            options: [
+                "Because I was tired, I went home.",
+                "Because I was tired.",
+                "When she arrived.",
+                "Although raining."
+            ],
+            answer: "Because I was tired, I went home.",
+            explanation: "Dependent clause membutuhkan main clause."
+        },
+        {
+            type: "Run-on Sentence",
+            question: "Which sentence is correct?",
+            options: [
+                "I was tired, so I went home.",
+                "I was tired I went home.",
+                "I was tired, I went home.",
+                "I was tired because."
+            ],
+            answer: "I was tired, so I went home.",
+            explanation: "Gunakan conjunction untuk menghubungkan dua independent clauses."
+        },
+        {
+            type: "Comma Splice",
+            question: "Which sentence is correct?",
+            options: [
+                "She studied hard; she passed.",
+                "She studied hard, she passed.",
+                "She studied hard she passed.",
+                "She studied hard because."
+            ],
+            answer: "She studied hard; she passed.",
+            explanation: "Semicolon dapat menghubungkan dua independent clauses."
+        },
+        {
+            type: "Double Subject",
+            question: "Which sentence is correct?",
+            options: [
+                "My brother is a doctor.",
+                "My brother he is a doctor.",
+                "My brother he doctor.",
+                "Brother my he is doctor."
+            ],
+            answer: "My brother is a doctor.",
+            explanation: "Hindari double subject."
+        },
+        {
+            type: "Double Negative",
+            question: "Which sentence is correct?",
+            options: [
+                "I don't know anything.",
+                "I don't know nothing.",
+                "I not know nothing.",
+                "I don't nothing know."
+            ],
+            answer: "I don't know anything.",
+            explanation: "Standard English menghindari double negative."
+        },
+        {
+            type: "Concept",
+            question: "Which part of speech usually modifies a verb?",
+            options: [
+                "Adverb",
+                "Noun",
+                "Pronoun",
+                "Article"
+            ],
+            answer: "Adverb",
+            explanation: "Adverb menjelaskan verb."
+        },
+        {
+            type: "Concept",
+            question: "Tense should normally change only when...",
+            options: [
+                "the time reference changes",
+                "the subject changes",
+                "the sentence becomes longer",
+                "an adjective appears"
+            ],
+            answer: "the time reference changes",
+            explanation: "Perubahan tense mengikuti perubahan waktu."
+        },
+        {
+            type: "Concept",
+            question: "A complete sentence must contain...",
+            options: [
+                "a subject and a verb",
+                "an article and a noun",
+                "a comma and a conjunction",
+                "an adjective and an adverb"
+            ],
+            answer: "a subject and a verb",
+            explanation: "Kalimat lengkap minimal memiliki subject dan verb."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "He doesn't like coffee.",
+                "He don't like coffee.",
+                "He doesn't likes coffee.",
+                "He not like coffee."
+            ],
+            answer: "He doesn't like coffee.",
+            explanation: "Negative Simple Present untuk he memakai doesn't + V1."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "She is good at mathematics.",
+                "She is good in mathematics.",
+                "She is good on mathematics.",
+                "She is good to mathematics."
+            ],
+            answer: "She is good at mathematics.",
+            explanation: "Good at adalah collocation yang benar."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "The book on the shelves is expensive.",
+                "The book on the shelves are expensive.",
+                "The book on the shelves were expensive.",
+                "The book on the shelves be expensive."
+            ],
+            answer: "The book on the shelves is expensive.",
+            explanation: "Subject utama adalah book, sehingga verb harus singular."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is grammatically correct?",
+            options: [
+                "She can speak English fluently.",
+                "She can speaks English fluently.",
+                "She can speaking English fluently.",
+                "She can spoke English fluently."
+            ],
+            answer: "She can speak English fluently.",
+            explanation: "Modal verb selalu diikuti V1."
+        },
+        {
+            type: "Final",
+            question: "Which sentence contains no grammar mistakes?",
+            options: [
+                "Although it was raining, we continued the match.",
+                "Although it was raining.",
+                "Although raining we continued.",
+                "Although, it was raining."
+            ],
+            answer: "Although it was raining, we continued the match.",
+            explanation: "Kalimat memiliki dependent clause, main clause, dan struktur grammar yang lengkap."
+        }
+    ]
+},
+
+"advanced-sentences": {
+    title: "Introduction to Advanced Sentences",
+    description: "Advanced Sentence Patterns adalah pola kalimat tingkat lanjut yang digunakan untuk membuat tulisan lebih jelas, kuat, formal, dan variatif. Pola ini sering muncul dalam academic writing, IELTS, TOEFL, dan formal English.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Advanced Sentence = Clear Structure + Emphasis + Logical Connection
+    `,
+
+    notes: [
+        "Advanced sentence tidak berarti kalimat harus panjang.",
+        "Kalimat advanced harus jelas, terstruktur, dan efektif.",
+        "Cleft sentence digunakan untuk memberi penekanan.",
+        "Parallel structure membuat kalimat seimbang.",
+        "Ellipsis menghindari pengulangan yang tidak perlu.",
+        "Fronting memindahkan bagian penting ke awal kalimat.",
+        "Discourse markers menghubungkan ide secara logis."
+    ],
+
+    patterns: [
+        {
+            group: "Core Patterns",
+            items: [
+                {
+                    label: "Emphasis",
+                    formula: "It is/was + focus + that/who + clause",
+                    examples: [
+                        "It was John who solved the problem.",
+                        "It is discipline that makes progress possible.",
+                        "What I need is more time."
+                    ]
+                },
+                {
+                    label: "Parallel Structure",
+                    formula: "same grammatical form + same grammatical form",
+                    examples: [
+                        "She likes reading, writing, and speaking.",
+                        "The course is useful, practical, and affordable.",
+                        "He came, saw, and won."
+                    ]
+                },
+                {
+                    label: "Logical Connection",
+                    formula: "idea + discourse marker + idea",
+                    examples: [
+                        "The task was difficult; however, we completed it.",
+                        "The evidence is limited. Therefore, more research is needed.",
+                        "English is important. Moreover, it opens global opportunities."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Advanced sentence patterns are mainly used to make writing...",
+            options: ["clearer and more effective", "longer only", "more confusing", "less formal"],
+            answer: "clearer and more effective",
+            explanation: "Advanced patterns membuat kalimat lebih jelas, kuat, dan variatif."
+        },
+        {
+            type: "Concept",
+            question: "A good advanced sentence should be...",
+            options: ["clear and structured", "always very long", "without verbs", "without punctuation"],
+            answer: "clear and structured",
+            explanation: "Kalimat advanced tidak harus panjang; yang penting jelas dan terstruktur."
+        },
+        {
+            type: "Emphasis",
+            question: "Which pattern is used for emphasis?",
+            options: ["Cleft sentence", "Plural noun", "Article", "Basic adjective"],
+            answer: "Cleft sentence",
+            explanation: "Cleft sentence digunakan untuk memberi penekanan."
+        },
+        {
+            type: "Parallel",
+            question: "Parallel structure means using...",
+            options: [
+                "the same grammatical form",
+                "random verb forms",
+                "only nouns",
+                "only adjectives"
+            ],
+            answer: "the same grammatical form",
+            explanation: "Parallel structure menjaga bentuk grammar tetap seimbang."
+        },
+        {
+            type: "Ellipsis",
+            question: "Ellipsis helps avoid...",
+            options: ["unnecessary repetition", "all verbs", "all subjects", "all punctuation"],
+            answer: "unnecessary repetition",
+            explanation: "Ellipsis menghilangkan bagian yang sudah jelas agar kalimat lebih ringkas."
+        },
+        {
+            type: "Fronting",
+            question: "Fronting moves an important element to...",
+            options: ["the beginning of the sentence", "the end only", "the middle only", "nowhere"],
+            answer: "the beginning of the sentence",
+            explanation: "Fronting memindahkan elemen penting ke awal kalimat."
+        },
+        {
+            type: "Discourse Marker",
+            question: "Which word is a discourse marker?",
+            options: ["however", "book", "beautiful", "quickly"],
+            answer: "however",
+            explanation: "However menghubungkan dua ide yang kontras."
+        },
+        {
+            type: "Example",
+            question: "Which sentence uses parallel structure?",
+            options: [
+                "She likes reading, writing, and speaking.",
+                "She likes reading, to write, and speaks.",
+                "She likes read, writing, and to speak.",
+                "She likes reads, wrote, and speaking."
+            ],
+            answer: "She likes reading, writing, and speaking.",
+            explanation: "Semua item memakai bentuk V-ing."
+        },
+        {
+            type: "Example",
+            question: "Which sentence uses emphasis?",
+            options: [
+                "It was John who solved the problem.",
+                "John solved the problem.",
+                "The problem was difficult.",
+                "John is a student."
+            ],
+            answer: "It was John who solved the problem.",
+            explanation: "It was John who... adalah cleft sentence."
+        },
+        {
+            type: "Final",
+            question: "Advanced sentence patterns are especially useful in...",
+            options: ["academic and formal writing", "spelling only", "alphabet practice", "basic counting"],
+            answer: "academic and formal writing",
+            explanation: "Pola ini banyak digunakan dalam academic writing, formal English, dan ujian bahasa Inggris."
+        }
+    ]
+},
+
+"cleft-sentences": {
+    title: "Emphasis (Cleft Sentences)",
+    description: "Cleft Sentence adalah pola kalimat yang digunakan untuk memberi penekanan pada bagian tertentu, seperti subject, object, time, place, atau reason. Pola ini sering digunakan dalam formal writing dan speaking tingkat lanjut.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        It is/was + Focus + who/that + clause<br>
+        What + clause + be + focus
+    `,
+
+    notes: [
+        "Cleft sentence digunakan untuk menekankan informasi penting.",
+        "It-cleft memakai pola it is/was + focus + who/that.",
+        "Who digunakan jika focus adalah orang.",
+        "That digunakan untuk benda, waktu, tempat, alasan, atau informasi umum.",
+        "What-cleft memakai pola what + clause + be + focus.",
+        "Cleft sentence membuat kalimat lebih kuat dan formal."
+    ],
+
+    patterns: [
+        {
+            group: "It-Cleft",
+            items: [
+                {
+                    label: "Emphasize Subject",
+                    formula: "It is/was + person + who + clause",
+                    examples: [
+                        "It was John who solved the problem.",
+                        "It is my teacher who inspired me.",
+                        "It was Rina who called you yesterday."
+                    ]
+                },
+                {
+                    label: "Emphasize Object / Time / Place",
+                    formula: "It is/was + focus + that + clause",
+                    examples: [
+                        "It was the red bag that she bought.",
+                        "It was yesterday that I met him.",
+                        "It was in London that they got married."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "What-Cleft",
+            items: [
+                {
+                    label: "Emphasize Information",
+                    formula: "What + subject + verb + be + focus",
+                    examples: [
+                        "What I need is more time.",
+                        "What she wants is a new laptop.",
+                        "What they discussed was the budget."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "It-Cleft",
+            question: "___ John who solved the problem.",
+            options: ["It was", "What was", "There was", "That was"],
+            answer: "It was",
+            explanation: "It-cleft memakai It is/was + focus + who/that."
+        },
+        {
+            type: "It-Cleft",
+            question: "It was Rina ___ called you yesterday.",
+            options: ["who", "where", "when", "whose"],
+            answer: "who",
+            explanation: "Gunakan who ketika focus adalah orang."
+        },
+        {
+            type: "That",
+            question: "It was the red bag ___ she bought.",
+            options: ["that", "who", "where", "when"],
+            answer: "that",
+            explanation: "That digunakan untuk object atau benda."
+        },
+        {
+            type: "Time",
+            question: "It was yesterday ___ I met him.",
+            options: ["that", "who", "whose", "where"],
+            answer: "that",
+            explanation: "That digunakan untuk menekankan waktu."
+        },
+        {
+            type: "Place",
+            question: "It was in London ___ they got married.",
+            options: ["that", "who", "whose", "whom"],
+            answer: "that",
+            explanation: "That digunakan untuk menekankan tempat."
+        },
+        {
+            type: "What-Cleft",
+            question: "___ I need is more time.",
+            options: ["What", "That", "Where", "When"],
+            answer: "What",
+            explanation: "What-cleft memakai What + clause + be + focus."
+        },
+        {
+            type: "What-Cleft",
+            question: "What she wants ___ a new laptop.",
+            options: ["is", "are", "be", "were"],
+            answer: "is",
+            explanation: "Focus-nya singular, jadi gunakan is."
+        },
+        {
+            type: "Concept",
+            question: "Cleft sentences are used for...",
+            options: ["emphasis", "plural nouns", "articles only", "basic spelling"],
+            answer: "emphasis",
+            explanation: "Cleft sentence memberi penekanan pada bagian tertentu."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "It was John who solved the problem.",
+                "It John was who solved the problem.",
+                "What was John who solved the problem.",
+                "It was John where solved the problem."
+            ],
+            answer: "It was John who solved the problem.",
+            explanation: "Pola benar: It was + person + who + clause."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "What I need is more time.",
+                "What need I is more time.",
+                "What I need are more time.",
+                "That I need is more time."
+            ],
+            answer: "What I need is more time.",
+            explanation: "What-cleft memakai statement order dan be verb yang sesuai."
+        }
+    ]
+},
+
+"parallel-structure": {
+    title: "Parallel Structure",
+    description: "Parallel Structure adalah pola kalimat yang menggunakan bentuk grammar yang sama untuk elemen-elemen yang setara. Struktur ini membuat kalimat lebih rapi, seimbang, dan mudah dipahami.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Same Function = Same Form
+    `,
+
+    notes: [
+        "Gunakan bentuk grammar yang sama untuk item dalam daftar.",
+        "Parallel structure sering muncul dalam list, comparison, dan paired conjunction.",
+        "Jika item pertama berbentuk gerund, item berikutnya sebaiknya juga gerund.",
+        "Jika item pertama berbentuk infinitive, item berikutnya sebaiknya juga infinitive.",
+        "Parallel structure penting dalam academic writing dan formal English.",
+        "Kesalahan parallel structure sering muncul dalam TOEFL dan IELTS writing."
+    ],
+
+    patterns: [
+        {
+            group: "List Parallelism",
+            items: [
+                {
+                    label: "Gerund List",
+                    formula: "V-ing, V-ing, and V-ing",
+                    examples: [
+                        "She enjoys reading, writing, and speaking.",
+                        "Learning, practicing, and reviewing are important.",
+                        "He likes swimming, cycling, and running."
+                    ]
+                },
+                {
+                    label: "Adjective List",
+                    formula: "adjective, adjective, and adjective",
+                    examples: [
+                        "The course is useful, practical, and affordable.",
+                        "She is smart, diligent, and creative.",
+                        "The room was clean, bright, and comfortable."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Infinitive Parallelism",
+            items: [
+                {
+                    label: "To + V1",
+                    formula: "to + V1, to + V1, and to + V1",
+                    examples: [
+                        "I want to learn, to practice, and to improve.",
+                        "The goal is to read, to write, and to speak fluently.",
+                        "She plans to study, to work, and to travel."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Paired Conjunctions",
+            items: [
+                {
+                    label: "Both / Not Only",
+                    formula: "both X and Y / not only X but also Y",
+                    examples: [
+                        "She is both intelligent and hardworking.",
+                        "He not only speaks English but also writes it well.",
+                        "The app is not only useful but also easy to use."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Gerund",
+            question: "She enjoys reading, writing, and ___.",
+            options: ["speaking", "to speak", "speaks", "spoke"],
+            answer: "speaking",
+            explanation: "Reading dan writing berbentuk gerund, jadi item berikutnya juga gerund."
+        },
+        {
+            type: "Gerund",
+            question: "He likes swimming, cycling, and ___.",
+            options: ["running", "to run", "runs", "ran"],
+            answer: "running",
+            explanation: "Semua item harus memakai bentuk V-ing."
+        },
+        {
+            type: "Adjective",
+            question: "The course is useful, practical, and ___.",
+            options: ["affordable", "afford", "affording", "to afford"],
+            answer: "affordable",
+            explanation: "Useful dan practical adalah adjective, jadi gunakan adjective affordable."
+        },
+        {
+            type: "Infinitive",
+            question: "She plans to study, to work, and ___.",
+            options: ["to travel", "traveling", "travels", "traveled"],
+            answer: "to travel",
+            explanation: "Pola paralelnya adalah to + V1."
+        },
+        {
+            type: "Both And",
+            question: "She is both intelligent and ___.",
+            options: ["hardworking", "works hard", "to work hard", "worked hard"],
+            answer: "hardworking",
+            explanation: "Both X and Y harus memakai bentuk yang setara."
+        },
+        {
+            type: "Not Only",
+            question: "The app is not only useful but also ___.",
+            options: ["easy to use", "using easily", "use it easy", "to use easily it"],
+            answer: "easy to use",
+            explanation: "Useful dan easy to use sama-sama adjective phrase."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence has correct parallel structure?",
+            options: [
+                "She likes reading, writing, and speaking.",
+                "She likes reading, writing, and to speak.",
+                "She likes to read, writing, and speaks.",
+                "She likes reads, writing, and speaking."
+            ],
+            answer: "She likes reading, writing, and speaking.",
+            explanation: "Semua item memakai gerund."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence is correct?",
+            options: [
+                "The room was clean, bright, and comfortable.",
+                "The room was clean, brightly, and comfort.",
+                "The room was cleaning, bright, and to comfort.",
+                "The room was clean, brightness, and comfortable."
+            ],
+            answer: "The room was clean, bright, and comfortable.",
+            explanation: "Semua item adalah adjective."
+        },
+        {
+            type: "Concept",
+            question: "Parallel structure means...",
+            options: [
+                "using the same grammatical form for equal ideas",
+                "using random verb forms",
+                "using only long sentences",
+                "removing all conjunctions"
+            ],
+            answer: "using the same grammatical form for equal ideas",
+            explanation: "Parallel structure menjaga elemen setara dalam bentuk grammar yang sama."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is best for formal writing?",
+            options: [
+                "The policy is clear, logical, and effective.",
+                "The policy is clear, logically, and effectiveness.",
+                "The policy is clearly, logic, and effective.",
+                "The policy is clarity, logical, and effect."
+            ],
+            answer: "The policy is clear, logical, and effective.",
+            explanation: "Clear, logical, dan effective semuanya adjective."
+        }
+    ]
+},
+
+"ellipsis": {
+    title: "Ellipsis",
+    description: "Ellipsis adalah penghilangan kata yang sudah jelas dari konteks agar kalimat menjadi lebih ringkas, natural, dan tidak repetitif. Ellipsis sering digunakan dalam comparison, coordination, response pendek, dan formal writing.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Full Form → Shortened Form<br>
+        Repeated words can be omitted when the meaning is clear.
+    `,
+
+    notes: [
+        "Ellipsis menghilangkan kata yang tidak perlu diulang.",
+        "Makna kalimat tetap harus jelas.",
+        "Ellipsis sering muncul dalam kalimat dengan and, but, or.",
+        "Ellipsis juga umum dalam comparison menggunakan than atau as.",
+        "Dalam response pendek, auxiliary sering dipertahankan.",
+        "Ellipsis membuat tulisan lebih ringkas dan natural."
+    ],
+
+    patterns: [
+        {
+            group: "Coordinate Ellipsis",
+            items: [
+                {
+                    label: "Same Subject",
+                    formula: "Subject + Verb + Object and + Verb + Object",
+                    examples: [
+                        "Full: She opened the door and she entered the room.",
+                        "Ellipsis: She opened the door and entered the room.",
+                        "Full: He bought a book and he read it.",
+                        "Ellipsis: He bought a book and read it."
+                    ]
+                },
+                {
+                    label: "Same Verb",
+                    formula: "Subject + Verb + Object and Subject + Object",
+                    examples: [
+                        "Full: Rina likes tea and Budi likes coffee.",
+                        "Ellipsis: Rina likes tea and Budi coffee.",
+                        "Full: She chose the red dress and I chose the blue one.",
+                        "Ellipsis: She chose the red dress and I the blue one."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Comparison Ellipsis",
+            items: [
+                {
+                    label: "Than / As",
+                    formula: "Comparison + omitted repeated words",
+                    examples: [
+                        "Full: She is taller than I am tall.",
+                        "Ellipsis: She is taller than I am.",
+                        "Full: He works harder than I work.",
+                        "Ellipsis: He works harder than I do."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Short Responses",
+            items: [
+                {
+                    label: "Auxiliary Response",
+                    formula: "Subject + auxiliary",
+                    examples: [
+                        "A: Can you swim? B: Yes, I can.",
+                        "A: Did she call? B: No, she didn't.",
+                        "A: Are they ready? B: Yes, they are."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Coordinate",
+            question: "Choose the best ellipsis: She opened the door and she entered the room.",
+            options: [
+                "She opened the door and entered the room.",
+                "She opened and she entered the room.",
+                "She door and entered.",
+                "Opened the door and she entered."
+            ],
+            answer: "She opened the door and entered the room.",
+            explanation: "Subject she tidak perlu diulang karena subject-nya sama."
+        },
+        {
+            type: "Coordinate",
+            question: "He bought a book and he read it.",
+            options: [
+                "He bought a book and read it.",
+                "He bought and he read it.",
+                "He bought a book and he.",
+                "Bought a book and read it he."
+            ],
+            answer: "He bought a book and read it.",
+            explanation: "Subject he di clause kedua dapat dihilangkan."
+        },
+        {
+            type: "Comparison",
+            question: "She is taller than I ___.",
+            options: ["am", "do", "was", "have"],
+            answer: "am",
+            explanation: "Dalam comparison dengan be, auxiliary be dipertahankan."
+        },
+        {
+            type: "Comparison",
+            question: "He works harder than I ___.",
+            options: ["do", "am", "have", "was"],
+            answer: "do",
+            explanation: "Works digantikan oleh auxiliary do."
+        },
+        {
+            type: "Short Response",
+            question: "A: Can you swim? B: Yes, I ___.",
+            options: ["can", "do", "am", "have"],
+            answer: "can",
+            explanation: "Gunakan auxiliary yang sama dengan pertanyaan."
+        },
+        {
+            type: "Short Response",
+            question: "A: Did she call? B: No, she ___.",
+            options: ["didn't", "doesn't", "isn't", "hasn't"],
+            answer: "didn't",
+            explanation: "Pertanyaan memakai did, jadi jawabannya memakai did/didn't."
+        },
+        {
+            type: "Short Response",
+            question: "A: Are they ready? B: Yes, they ___.",
+            options: ["are", "do", "did", "have"],
+            answer: "are",
+            explanation: "Pertanyaan memakai are, jadi response pendek memakai are."
+        },
+        {
+            type: "Concept",
+            question: "Ellipsis is used to avoid...",
+            options: [
+                "unnecessary repetition",
+                "all grammar rules",
+                "all punctuation",
+                "all subjects"
+            ],
+            answer: "unnecessary repetition",
+            explanation: "Ellipsis menghilangkan pengulangan yang tidak perlu."
+        },
+        {
+            type: "Concept",
+            question: "Ellipsis is correct only when...",
+            options: [
+                "the meaning remains clear",
+                "all verbs are removed",
+                "the sentence becomes confusing",
+                "there is no subject"
+            ],
+            answer: "the meaning remains clear",
+            explanation: "Kata boleh dihilangkan hanya jika makna tetap jelas."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence uses ellipsis naturally?",
+            options: [
+                "She likes coffee, and I tea.",
+                "She likes coffee, and I likes tea.",
+                "She likes coffee, and tea I.",
+                "She coffee, and I tea likes."
+            ],
+            answer: "She likes coffee, and I tea.",
+            explanation: "Verb likes dapat dihilangkan pada clause kedua karena sudah jelas dari konteks."
+        }
+    ]
+},
+
+"fronting": {
+    title: "Fronting & Topicalization",
+    description: "Fronting adalah pola kalimat ketika bagian tertentu dipindahkan ke awal kalimat untuk memberi penekanan, variasi gaya, atau menghubungkan ide dengan kalimat sebelumnya. Topicalization adalah bentuk fronting yang menjadikan suatu informasi sebagai topik utama kalimat.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Normal: Subject + Verb + Object/Adverbial<br>
+        Fronting: Object/Adverbial + Subject + Verb
+    `,
+
+    notes: [
+        "Fronting digunakan untuk memberi penekanan pada informasi tertentu.",
+        "Bagian yang dipindahkan ke awal bisa berupa object, adverbial phrase, complement, atau negative expression.",
+        "Fronting sering digunakan dalam writing agar kalimat tidak monoton.",
+        "Tidak semua fronting membutuhkan inversion.",
+        "Jika fronting memakai negative adverbial, biasanya terjadi inversion.",
+        "Topicalization membantu pembaca melihat topik utama kalimat sejak awal."
+    ],
+
+    patterns: [
+        {
+            group: "Object Fronting",
+            items: [
+                {
+                    label: "Object as Topic",
+                    formula: "Object + Subject + Verb",
+                    examples: [
+                        "Normal: I understand this problem.",
+                        "Fronting: This problem, I understand.",
+                        "Normal: She can solve difficult questions.",
+                        "Fronting: Difficult questions, she can solve."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Adverbial Fronting",
+            items: [
+                {
+                    label: "Place / Time First",
+                    formula: "Adverbial + Subject + Verb",
+                    examples: [
+                        "Normal: The children played in the garden.",
+                        "Fronting: In the garden, the children played.",
+                        "Normal: We met after the meeting.",
+                        "Fronting: After the meeting, we met."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Negative Fronting",
+            items: [
+                {
+                    label: "With Inversion",
+                    formula: "Negative Expression + Auxiliary + Subject + Verb",
+                    examples: [
+                        "Normal: I had never seen such beauty.",
+                        "Fronting: Never had I seen such beauty.",
+                        "Normal: She rarely speaks in public.",
+                        "Fronting: Rarely does she speak in public."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Concept",
+            question: "Fronting means moving an element to...",
+            options: [
+                "the beginning of the sentence",
+                "the end of the sentence only",
+                "the middle of a word",
+                "after every verb"
+            ],
+            answer: "the beginning of the sentence",
+            explanation: "Fronting memindahkan bagian tertentu ke awal kalimat."
+        },
+        {
+            type: "Object Fronting",
+            question: "Normal: I understand this problem. Fronting:",
+            options: [
+                "This problem, I understand.",
+                "Understand this problem, I.",
+                "This problem understand I.",
+                "I this problem understand."
+            ],
+            answer: "This problem, I understand.",
+            explanation: "Object this problem dipindahkan ke awal sebagai topik."
+        },
+        {
+            type: "Object Fronting",
+            question: "Normal: She can solve difficult questions. Fronting:",
+            options: [
+                "Difficult questions, she can solve.",
+                "Difficult questions can she solve.",
+                "She difficult questions can solve.",
+                "Can solve difficult questions she."
+            ],
+            answer: "Difficult questions, she can solve.",
+            explanation: "Object dipindahkan ke awal tanpa inversion."
+        },
+        {
+            type: "Adverbial",
+            question: "Normal: The children played in the garden. Fronting:",
+            options: [
+                "In the garden, the children played.",
+                "In the garden played the children always.",
+                "The garden in, the children played.",
+                "Played in the garden the children."
+            ],
+            answer: "In the garden, the children played.",
+            explanation: "Adverbial place dipindahkan ke awal."
+        },
+        {
+            type: "Adverbial",
+            question: "Normal: We met after the meeting. Fronting:",
+            options: [
+                "After the meeting, we met.",
+                "After the meeting met we.",
+                "We after the meeting met.",
+                "Meeting after, we met."
+            ],
+            answer: "After the meeting, we met.",
+            explanation: "Adverbial time dipindahkan ke awal."
+        },
+        {
+            type: "Negative Fronting",
+            question: "Never ___ I seen such beauty.",
+            options: ["had", "have", "do", "does"],
+            answer: "had",
+            explanation: "Negative fronting memicu inversion."
+        },
+        {
+            type: "Negative Fronting",
+            question: "Rarely ___ she speak in public.",
+            options: ["does", "do", "did", "has"],
+            answer: "does",
+            explanation: "Rarely di awal memicu inversion dengan does."
+        },
+        {
+            type: "Concept",
+            question: "Does every type of fronting require inversion?",
+            options: [
+                "No",
+                "Yes",
+                "Only with nouns",
+                "Only with articles"
+            ],
+            answer: "No",
+            explanation: "Object/adverbial fronting biasanya tidak butuh inversion, tetapi negative fronting membutuhkan inversion."
+        },
+        {
+            type: "Concept",
+            question: "Topicalization helps make information become...",
+            options: [
+                "the topic of the sentence",
+                "a plural noun",
+                "an article",
+                "a contraction"
+            ],
+            answer: "the topic of the sentence",
+            explanation: "Topicalization menempatkan informasi sebagai topik utama."
+        },
+        {
+            type: "Error Check",
+            question: "Which sentence uses fronting naturally?",
+            options: [
+                "This issue, we must discuss today.",
+                "This issue must we discuss today.",
+                "This issue discuss we today.",
+                "This issue today discuss must we."
+            ],
+            answer: "This issue, we must discuss today.",
+            explanation: "Object fronting tidak membutuhkan inversion."
+        }
+    ]
 }
 
 };
@@ -12097,6 +19997,123 @@ export const MATERI_BAB_CONFIG = [
         { label: "Where & When", id: "where-when" },
         { label: "Defining vs Non-Defining", id: "defining-nondefining" },
         { label: "Relative Clauses Review", id: "relative-clauses-review" }
+    ]
+},
+
+{
+    id: "bab10",
+    icon: "fa-cubes",
+    title: "BAB 10: Noun Clauses",
+    level: "Expert",
+    color: "#f97316",
+    items: [
+        { label: "Introduction to Noun Clauses", id: "noun-clauses" },
+        { label: "That Clauses", id: "that-clauses" },
+        { label: "WH Clauses", id: "wh-clauses" },
+        { label: "Whether & If Clauses", id: "whether-if-clauses" },
+        { label: "Noun Clauses as Subject", id: "noun-clause-subject" },
+        { label: "Noun Clauses as Object", id: "noun-clause-object" },
+        { label: "Noun Clauses Review", id: "noun-clauses-review" }
+    ]
+},
+
+{
+    id: "bab11",
+    icon: "fa-layer-group",
+    title: "BAB 11: Adverb Clauses",
+    level: "Expert",
+    color: "#6366f1",
+    items: [
+        { label: "Introduction to Adverb Clauses", id: "adverb-clauses" },
+        { label: "Time Clauses", id: "time-clauses" },
+        { label: "Reason Clauses", id: "reason-clauses" },
+        { label: "Contrast Clauses", id: "contrast-clauses" },
+        { label: "Purpose & Result Clauses", id: "purpose-result-clauses" },
+        { label: "Condition Clauses", id: "condition-clauses" },
+        { label: "Adverb Clauses Review", id: "adverb-clauses-review" }
+    ]
+}, 
+
+{
+    id: "bab12",
+    icon: "fa-arrows-rotate",
+    title: "BAB 12: Inversion",
+    level: "Expert",
+    color: "#dc2626",
+    items: [
+        { label: "Introduction to Inversion", id: "inversion" },
+        { label: "Negative Adverbial Inversion", id: "negative-adverbial-inversion" },
+        { label: "Only Inversion", id: "only-inversion" },
+        { label: "So & Such Inversion", id: "so-such-inversion" },
+        { label: "Conditional Inversion", id: "conditional-inversion" },
+        { label: "Inversion Review", id: "inversion-review" }
+    ]
+},
+
+{
+    id: "bab13",
+    icon: "fa-scale-balanced",
+    title: "BAB 13: Subjunctive Mood",
+    level: "Expert",
+    color: "#7c3aed",
+    items: [
+        { label: "Introduction to Subjunctive", id: "subjunctive" },
+        { label: "Mandative Subjunctive", id: "mandative-subjunctive" },
+        { label: "Were Subjunctive", id: "were-subjunctive" },
+        { label: "Wish & If Only", id: "wish-if-only" },
+        { label: "It Is Important That", id: "important-that" },
+        { label: "Subjunctive Review", id: "subjunctive-review" }
+    ]
+},
+
+{
+    id: "bab14",
+    icon: "fa-pen-nib",
+    title: "BAB 14: Punctuation & Capitalization",
+    level: "Expert",
+    color: "#0891b2",
+    items: [
+        { label: "Introduction to Punctuation", id: "punctuation" },
+        { label: "Comma Rules", id: "comma-rules" },
+        { label: "Period, Question Mark & Exclamation", id: "end-punctuation" },
+        { label: "Colon & Semicolon", id: "colon-semicolon" },
+        { label: "Apostrophe & Quotation Marks", id: "apostrophe-quotation" },
+        { label: "Capitalization Rules", id: "capitalization" },
+        { label: "Punctuation Review", id: "punctuation-review" }
+    ]
+},
+
+{
+    id: "bab15",
+    icon: "fa-triangle-exclamation",
+    title: "BAB 15: Common Grammar Mistakes",
+    level: "Expert",
+    color: "#ea580c",
+    items: [
+        { label: "Introduction to Common Mistakes", id: "common-mistakes" },
+        { label: "Subject-Verb Agreement Errors", id: "sva-errors" },
+        { label: "Tense Consistency Errors", id: "tense-consistency-errors" },
+        { label: "Word Form Errors", id: "word-form-errors" },
+        { label: "Preposition Errors", id: "preposition-errors" },
+        { label: "Sentence Structure Errors", id: "sentence-structure-errors" },
+        { label: "Common Mistakes Review", id: "common-mistakes-review" }
+    ]
+},
+
+{
+    id: "bab16",
+    icon: "fa-diagram-project",
+    title: "BAB 16: Advanced Sentence Patterns",
+    level: "Master",
+    color: "#7c2d12",
+    items: [
+        { label: "Introduction to Advanced Sentences", id: "advanced-sentences" },
+        { label: "Emphasis (Cleft Sentences)", id: "cleft-sentences" },
+        { label: "Parallel Structure", id: "parallel-structure" },
+        { label: "Ellipsis", id: "ellipsis" },
+        { label: "Fronting & Topicalization", id: "fronting" },
+        { label: "Discourse Markers", id: "discourse-markers" },
+        { label: "Advanced Sentence Review", id: "advanced-review" }
     ]
 }
 
