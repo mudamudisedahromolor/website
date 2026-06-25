@@ -19843,6 +19843,169 @@ interjection: {
             explanation: "Object fronting tidak membutuhkan inversion."
         }
     ]
+},
+
+"discourse-markers": {
+    title: "Discourse Markers",
+    description: "Discourse Markers adalah kata atau frasa penghubung yang digunakan untuk mengatur hubungan antaride dalam kalimat atau paragraf. Discourse markers membantu tulisan menjadi lebih logis, runtut, dan akademik.",
+
+    formula: `
+        <strong>Inti Materi:</strong><br>
+        Idea 1 + Discourse Marker + Idea 2
+    `,
+
+    notes: [
+        "Discourse markers digunakan untuk menghubungkan ide.",
+        "However digunakan untuk kontras.",
+        "Therefore digunakan untuk hasil atau kesimpulan.",
+        "Moreover digunakan untuk menambahkan informasi.",
+        "For example digunakan untuk memberi contoh.",
+        "In contrast digunakan untuk menunjukkan perbedaan.",
+        "In conclusion digunakan untuk menutup pembahasan.",
+        "Discourse markers sangat penting dalam academic writing."
+    ],
+
+    patterns: [
+        {
+            group: "Addition",
+            items: [
+                {
+                    label: "Moreover / Furthermore",
+                    formula: "Idea 1. Moreover/Furthermore, Idea 2.",
+                    examples: [
+                        "The method is simple. Moreover, it is effective.",
+                        "The app is useful. Furthermore, it is easy to use.",
+                        "English improves communication. Moreover, it opens career opportunities."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Contrast",
+            items: [
+                {
+                    label: "However / In Contrast",
+                    formula: "Idea 1. However/In contrast, Idea 2.",
+                    examples: [
+                        "The task was difficult. However, we completed it.",
+                        "City life is convenient. In contrast, village life is peaceful.",
+                        "The product is expensive. However, its quality is excellent."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Result",
+            items: [
+                {
+                    label: "Therefore / As a Result",
+                    formula: "Idea 1. Therefore/As a result, Idea 2.",
+                    examples: [
+                        "The data was incomplete. Therefore, the report was delayed.",
+                        "He practiced every day. As a result, he improved quickly.",
+                        "The demand increased. Therefore, the company expanded production."
+                    ]
+                }
+            ]
+        },
+        {
+            group: "Example / Conclusion",
+            items: [
+                {
+                    label: "For Example / In Conclusion",
+                    formula: "Marker + explanation",
+                    examples: [
+                        "Many skills are useful. For example, communication is essential.",
+                        "In conclusion, grammar accuracy improves writing quality.",
+                        "Several factors affect learning. For example, motivation plays a major role."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Addition",
+            question: "The app is useful. ___, it is easy to use.",
+            options: ["Moreover", "However", "Although", "Unless"],
+            answer: "Moreover",
+            explanation: "Moreover digunakan untuk menambahkan informasi."
+        },
+        {
+            type: "Addition",
+            question: "English improves communication. ___, it opens career opportunities.",
+            options: ["Furthermore", "In contrast", "Because", "Unless"],
+            answer: "Furthermore",
+            explanation: "Furthermore digunakan untuk tambahan ide."
+        },
+        {
+            type: "Contrast",
+            question: "The task was difficult. ___, we completed it.",
+            options: ["However", "Therefore", "Moreover", "For example"],
+            answer: "However",
+            explanation: "However menunjukkan kontras."
+        },
+        {
+            type: "Contrast",
+            question: "City life is convenient. ___, village life is peaceful.",
+            options: ["In contrast", "Therefore", "Moreover", "As a result"],
+            answer: "In contrast",
+            explanation: "In contrast menunjukkan perbedaan."
+        },
+        {
+            type: "Result",
+            question: "The data was incomplete. ___, the report was delayed.",
+            options: ["Therefore", "However", "Moreover", "For example"],
+            answer: "Therefore",
+            explanation: "Therefore menunjukkan hasil atau akibat."
+        },
+        {
+            type: "Result",
+            question: "He practiced every day. ___, he improved quickly.",
+            options: ["As a result", "However", "In contrast", "Although"],
+            answer: "As a result",
+            explanation: "As a result menunjukkan akibat."
+        },
+        {
+            type: "Example",
+            question: "Many skills are useful. ___, communication is essential.",
+            options: ["For example", "However", "Therefore", "In conclusion"],
+            answer: "For example",
+            explanation: "For example digunakan untuk memberi contoh."
+        },
+        {
+            type: "Conclusion",
+            question: "___, grammar accuracy improves writing quality.",
+            options: ["In conclusion", "However", "For example", "Moreover"],
+            answer: "In conclusion",
+            explanation: "In conclusion digunakan untuk menutup pembahasan."
+        },
+        {
+            type: "Concept",
+            question: "Discourse markers are used to...",
+            options: [
+                "connect ideas logically",
+                "make plural nouns",
+                "replace all verbs",
+                "remove punctuation"
+            ],
+            answer: "connect ideas logically",
+            explanation: "Discourse markers menghubungkan ide secara logis."
+        },
+        {
+            type: "Error Check",
+            question: "Which marker shows contrast?",
+            options: [
+                "However",
+                "Moreover",
+                "Therefore",
+                "For example"
+            ],
+            answer: "However",
+            explanation: "However digunakan untuk menunjukkan pertentangan atau kontras."
+        }
+    ]
 }
 
 };
