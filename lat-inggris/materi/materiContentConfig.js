@@ -20006,6 +20006,242 @@ interjection: {
             explanation: "However digunakan untuk menunjukkan pertentangan atau kontras."
         }
     ]
+},
+
+"advanced-review": {
+    title: "Advanced Sentence Review",
+    description: "Review akhir untuk menguji seluruh materi Advanced Sentence Patterns: cleft sentences, parallel structure, ellipsis, fronting, topicalization, dan discourse markers.",
+
+    formula: `
+        <strong>Ringkasan BAB 16:</strong><br>
+        Cleft Sentence = emphasis<br>
+        Parallel Structure = same form<br>
+        Ellipsis = omit repeated words<br>
+        Fronting = move important element to the beginning<br>
+        Discourse Markers = logical connection
+    `,
+
+    notes: [
+        "Cleft sentence digunakan untuk memberi penekanan.",
+        "Parallel structure menjaga bentuk grammar tetap sejajar.",
+        "Ellipsis menghilangkan pengulangan yang tidak perlu.",
+        "Fronting memindahkan informasi penting ke awal kalimat.",
+        "Discourse markers menghubungkan ide secara logis.",
+        "Pola advanced sentence sangat penting untuk academic writing dan formal English."
+    ],
+
+    patterns: [
+        {
+            group: "Review",
+            items: [
+                {
+                    label: "Emphasis",
+                    formula: "It is/was + focus + who/that + clause",
+                    examples: [
+                        "It was John who solved the problem.",
+                        "What I need is more time.",
+                        "It was yesterday that I met him."
+                    ]
+                },
+                {
+                    label: "Parallel / Ellipsis",
+                    formula: "same form / omitted repeated words",
+                    examples: [
+                        "She likes reading, writing, and speaking.",
+                        "He bought a book and read it.",
+                        "She is taller than I am."
+                    ]
+                },
+                {
+                    label: "Fronting / Discourse",
+                    formula: "fronted element + clause / marker + idea",
+                    examples: [
+                        "This problem, I understand.",
+                        "After the meeting, we discussed the issue.",
+                        "The task was difficult. However, we completed it."
+                    ]
+                }
+            ]
+        }
+    ],
+
+    quiz: [
+        {
+            type: "Cleft",
+            question: "___ John who solved the problem.",
+            options: ["It was", "What was", "There was", "That was"],
+            answer: "It was",
+            explanation: "It-cleft memakai It is/was + focus + who/that."
+        },
+        {
+            type: "Cleft",
+            question: "What I need ___ more time.",
+            options: ["is", "are", "be", "were"],
+            answer: "is",
+            explanation: "What-cleft memakai what + clause + be + focus."
+        },
+        {
+            type: "Parallel",
+            question: "She likes reading, writing, and ___.",
+            options: ["speaking", "to speak", "speaks", "spoke"],
+            answer: "speaking",
+            explanation: "Semua item harus berbentuk gerund."
+        },
+        {
+            type: "Parallel",
+            question: "The policy is clear, logical, and ___.",
+            options: ["effective", "effectively", "effect", "to effect"],
+            answer: "effective",
+            explanation: "Clear dan logical adalah adjective, jadi gunakan effective."
+        },
+        {
+            type: "Ellipsis",
+            question: "He bought a book and ___ it.",
+            options: ["read", "reads", "reading", "to read"],
+            answer: "read",
+            explanation: "Subject he tidak perlu diulang: He bought a book and read it."
+        },
+        {
+            type: "Ellipsis",
+            question: "She is taller than I ___.",
+            options: ["am", "do", "have", "was"],
+            answer: "am",
+            explanation: "Dalam comparison dengan be, gunakan auxiliary be."
+        },
+        {
+            type: "Short Response",
+            question: "A: Can you swim? B: Yes, I ___.",
+            options: ["can", "do", "am", "have"],
+            answer: "can",
+            explanation: "Short response memakai auxiliary yang sama."
+        },
+        {
+            type: "Fronting",
+            question: "Normal: I understand this problem. Fronting:",
+            options: [
+                "This problem, I understand.",
+                "This problem understand I.",
+                "Understand this problem, I.",
+                "I this problem understand."
+            ],
+            answer: "This problem, I understand.",
+            explanation: "Object dipindahkan ke awal sebagai topik."
+        },
+        {
+            type: "Fronting",
+            question: "Normal: The children played in the garden. Fronting:",
+            options: [
+                "In the garden, the children played.",
+                "In the garden played the children always.",
+                "The garden in, the children played.",
+                "Played in the garden the children."
+            ],
+            answer: "In the garden, the children played.",
+            explanation: "Adverbial place dipindahkan ke awal."
+        },
+        {
+            type: "Negative Fronting",
+            question: "Never ___ I seen such beauty.",
+            options: ["had", "have", "do", "does"],
+            answer: "had",
+            explanation: "Negative fronting memicu inversion."
+        },
+        {
+            type: "Discourse",
+            question: "The task was difficult. ___, we completed it.",
+            options: ["However", "Therefore", "Moreover", "For example"],
+            answer: "However",
+            explanation: "However menunjukkan kontras."
+        },
+        {
+            type: "Discourse",
+            question: "The data was incomplete. ___, the report was delayed.",
+            options: ["Therefore", "However", "Moreover", "For example"],
+            answer: "Therefore",
+            explanation: "Therefore menunjukkan akibat."
+        },
+        {
+            type: "Discourse",
+            question: "The app is useful. ___, it is easy to use.",
+            options: ["Moreover", "However", "Although", "Unless"],
+            answer: "Moreover",
+            explanation: "Moreover menambahkan informasi."
+        },
+        {
+            type: "Discourse",
+            question: "Many skills are useful. ___, communication is essential.",
+            options: ["For example", "However", "Therefore", "In conclusion"],
+            answer: "For example",
+            explanation: "For example digunakan untuk memberi contoh."
+        },
+        {
+            type: "Concept",
+            question: "Cleft sentences are used for...",
+            options: ["emphasis", "plural nouns", "articles", "prepositions only"],
+            answer: "emphasis",
+            explanation: "Cleft sentence memberi penekanan."
+        },
+        {
+            type: "Concept",
+            question: "Parallel structure means...",
+            options: [
+                "using the same grammatical form for equal ideas",
+                "using random verb forms",
+                "using only nouns",
+                "removing all conjunctions"
+            ],
+            answer: "using the same grammatical form for equal ideas",
+            explanation: "Parallel structure menjaga elemen setara tetap seimbang."
+        },
+        {
+            type: "Concept",
+            question: "Ellipsis removes...",
+            options: [
+                "unnecessary repetition",
+                "all verbs",
+                "all punctuation",
+                "all grammar rules"
+            ],
+            answer: "unnecessary repetition",
+            explanation: "Ellipsis menghilangkan bagian yang sudah jelas dari konteks."
+        },
+        {
+            type: "Concept",
+            question: "Fronting moves information to...",
+            options: [
+                "the beginning of the sentence",
+                "the end only",
+                "the middle of a word",
+                "after every noun"
+            ],
+            answer: "the beginning of the sentence",
+            explanation: "Fronting memindahkan elemen penting ke awal kalimat."
+        },
+        {
+            type: "Concept",
+            question: "Discourse markers are used to...",
+            options: [
+                "connect ideas logically",
+                "make plural nouns",
+                "replace all verbs",
+                "remove subjects"
+            ],
+            answer: "connect ideas logically",
+            explanation: "Discourse markers menghubungkan ide secara logis."
+        },
+        {
+            type: "Final",
+            question: "Which sentence is best for formal writing?",
+            options: [
+                "The method is simple; however, it is effective.",
+                "The method is simple however it effective.",
+                "The method simple, however, effective.",
+                "Method is simple however effective it."
+            ],
+            answer: "The method is simple; however, it is effective.",
+            explanation: "Kalimat memakai semicolon, discourse marker, dan struktur formal yang benar."
+        }
+    ]
 }
 
 };
