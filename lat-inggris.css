@@ -3378,3 +3378,65 @@ body.mms-video-open {
     background: #000;
     display: block;
 }
+
+@media (max-width: 480px) {
+    .mms-materi-page {
+        padding: 14px;
+    }
+
+    .mms-materi-detail-card {
+        padding: 18px 14px;
+        border-radius: 22px;
+    }
+
+    .mms-pattern-section h4,
+    .mms-quiz-card h3,
+    .mms-mini-quiz-title {
+        font-size: 28px;
+        line-height: 1.15;
+    }
+
+    .mms-quiz-question-card,
+    .mms-quiz-item {
+        padding: 18px 14px;
+        border-radius: 22px;
+    }
+
+    .mms-quiz-question-row,
+    .mms-quiz-question-box {
+        display: block;
+    }
+
+    .mms-quiz-number {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .mms-quiz-question {
+        font-size: 22px;
+        line-height: 1.25;
+        margin-bottom: 16px;
+        text-align: left;
+    }
+
+    .mms-quiz-options,
+    .mms-option-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .mms-quiz-option,
+    .mms-option-btn {
+        width: 100%;
+        min-height: 48px;
+        font-size: 17px;
+        border-radius: 999px;
+        padding: 12px 16px;
+        white-space: normal;
+    }
+}

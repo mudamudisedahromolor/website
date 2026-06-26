@@ -26251,7 +26251,7 @@ export const MATERI_BAB_CONFIG = [
                     id: "pos",
                  video: {
                         type: "youtube",
-                        url: "lat-inggris/assets/videos/pos.mp4",
+                        url: "lat-inggris/assets/videos/part-of-sentence.mp4",
                         title: "Parts of Speech"}
                 },
                 { label: "Noun", 

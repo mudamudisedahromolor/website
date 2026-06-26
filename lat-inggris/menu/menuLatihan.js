@@ -603,22 +603,30 @@ export function cekJawabanLatihan(button) {
     }
 
     const feedback = document.getElementById("mms-latihan-feedback");
+
     if (feedback) {
-     feedback.innerHTML = `
-    <div style="border-radius:16px; padding:16px; background:${benar ? "#dcfce7" : "#fee2e2"}; border:2px solid ${benar ? "#22c55e" : "#ef4444"};">
-        <div style="font-size:18px; font-weight:900; color:${benar ? "#166534" : "#991b1b"}; margin-bottom:8px;">
-            ${benar ? "✅ Benar!" : "❌ Salah Blok!"}
-        </div>
+        feedback.innerHTML = `
+            <div style="border-radius:16px; padding:16px; background:${benar ? "#dcfce7" : "#fee2e2"}; border:2px solid ${benar ? "#22c55e" : "#ef4444"};">
+                <div style="font-size:18px; font-weight:900; color:${benar ? "#166534" : "#991b1b"}; margin-bottom:8px;">
+                    ${benar ? "✅ Benar!" : "❌ Salah Blok!"}
+                </div>
 
-        <div style="font-size:13px; font-weight:700; color:#334155; line-height:1.45;">
-            ${escapeHTML(pembahasan)}
-        </div>
+                <div style="font-size:13px; font-weight:700; color:#334155; line-height:1.45;">
+                    ${escapeHTML(pembahasan)}
+                </div>
 
-        <button onclick="lanjutSoalLatihan()" style="width:100%; margin-top:12px; border:none; border-radius:14px; padding:13px; background:${benar ? "#22c55e" : "#ef4444"}; color:white; font-weight:900; cursor:pointer;">
-            Lanjut
-        </button>
-    </div>
-`;
+                <button onclick="lanjutSoalLatihan()" style="width:100%; margin-top:12px; border:none; border-radius:14px; padding:13px; background:${benar ? "#22c55e" : "#ef4444"}; color:white; font-weight:900; cursor:pointer;">
+                    Lanjut
+                </button>
+            </div>
+        `;
+
+        setTimeout(() => {
+            feedback.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }, 80);
     }
 }
 
