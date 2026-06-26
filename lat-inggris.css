@@ -3077,11 +3077,88 @@ body {
 }
 
 .mms-quiz-question span{
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
     line-height: 1.4;
     color: #0f172a;
+    
 }
+
+   .mms-quiz-progress-wrap {
+
+        padding: 12px !important;
+
+    }
+
+    .mms-quiz-progress-info span,
+
+    .mms-quiz-progress-info strong {
+
+        font-size: 14px !important;
+
+    }
+
+    .mms-quiz-card {
+
+        padding: 14px !important;
+
+        border-radius: 22px !important;
+
+    }
+
+    .mms-quiz-question {
+
+        display: grid !important;
+
+        grid-template-columns: 44px 1fr !important;
+
+        align-items: center !important;
+
+        column-gap: 14px !important;
+
+    }
+
+    .mms-quiz-question span {
+
+        font-size: 16px !important;
+
+        line-height: 1.15 !important;
+
+        font-weight: 900 !important;
+
+     
+
+    }
+mms-quiz-number {
+
+        font-size: 0.8rem;
+
+}
+.mms-quiz-options {
+
+        display: grid !important;
+
+        grid-template-columns: 1fr 1fr !important;
+
+        gap: 8px !important;
+
+    }
+
+    .mms-quiz-options button {
+
+        font-size: 14px !important;
+
+        padding: 9px 10px !important;
+
+        min-height: 38px !important;
+
+        border-radius: 18px !important;
+
+        line-height: 1.15 !important;
+
+        white-space: normal !important;
+
+    }
 
 
 .mms-lesson-intro{
@@ -3380,63 +3457,71 @@ body.mms-video-open {
 }
 
 @media (max-width: 480px) {
-    .mms-materi-page {
-        padding: 14px;
+    .mms-mini-quiz {
+        padding: 14px !important;
+        border-radius: 22px !important;
     }
 
-    .mms-materi-detail-card {
-        padding: 18px 14px;
-        border-radius: 22px;
+    .mms-mini-quiz-head h4 {
+        font-size: 28px !important;
+        line-height: 1.1 !important;
     }
 
-    .mms-pattern-section h4,
-    .mms-quiz-card h3,
-    .mms-mini-quiz-title {
-        font-size: 28px;
-        line-height: 1.15;
+    .mms-mini-quiz-head p {
+        font-size: 15px !important;
+        line-height: 1.25 !important;
     }
 
-    .mms-quiz-question-card,
-    .mms-quiz-item {
-        padding: 18px 14px;
-        border-radius: 22px;
+    .mms-quiz-progress-wrap {
+        padding: 12px !important;
     }
 
-    .mms-quiz-question-row,
-    .mms-quiz-question-box {
-        display: block;
+    .mms-quiz-progress-info span,
+    .mms-quiz-progress-info strong {
+        font-size: 12px !important;
     }
 
-    .mms-quiz-number {
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
-        font-size: 22px;
-        margin-bottom: 12px;
+    .mms-quiz-card {
+        padding: 12px !important;
+        border-radius: 18px !important;
     }
 
     .mms-quiz-question {
-        font-size: 22px;
-        line-height: 1.25;
-        margin-bottom: 16px;
-        text-align: left;
+        gap: 10px !important;
+        align-items: flex-start !important;
     }
 
-    .mms-quiz-options,
-    .mms-option-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
-        width: 100%;
+    .mms-quiz-question span {
+        font-size: 12px !important;
+        line-height: 1.25 !important;
+        font-weight: 800 !important;
     }
 
-    .mms-quiz-option,
-    .mms-option-btn {
-        width: 100%;
-        min-height: 48px;
-        font-size: 17px;
-        border-radius: 999px;
-        padding: 12px 16px;
-        white-space: normal;
+    .mms-quiz-number {
+        width: 20px !important;
+        height: 20px !important;
+        min-width: 20px !important;
+        font-size: 20px !important;
+    }
+
+    .mms-quiz-options {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+    }
+
+    .mms-quiz-options button {
+        font-size: 12px !important;
+        padding: 9px 10px !important;
+        min-height: 28px !important;
+        border-radius: 14px !important;
+        line-height: 1.15 !important;
+        white-space: normal !important;
+    }
+
+    .mms-quiz-explanation {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
     }
 }
+
